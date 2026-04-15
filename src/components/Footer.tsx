@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-stone-100 dark:bg-stone-950 w-full py-12 border-t border-stone-200 dark:border-stone-800">
       <div className="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-4">
-        <div className="font-headline text-xl font-semibold text-[#8B0000]">
+        <div className="font-headline text-xl font-semibold text-primary">
           Rahul Bali Astrology
         </div>
         <div className="flex flex-wrap justify-center gap-6 font-body text-sm tracking-wide">
