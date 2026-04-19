@@ -3,43 +3,40 @@ import Image from 'next/image';
 
 const Hero = () => {
   return (
-    <header className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-[850px] flex items-center justify-center overflow-hidden bg-[#020617]">
+      <div className="absolute inset-0 z-0 spiritual-star-bg flex items-center justify-center">
+        <div className="absolute w-[600px] h-[600px] bg-white/20 blur-[120px] rounded-full"></div>
+        <div className="absolute w-[200px] h-[200px] bg-white/40 blur-[40px] rounded-full"></div>
         <Image
-          className="w-full h-full object-cover filter brightness-[0.4] contrast-[1.1]"
-          alt="Cinematic close-up of planet Jupiter"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfnPnNYYXdzyxzmEHNoEnnuVm1zzfUuwf8wNWsHDTJRWgTV0fIkvWYFUl02cQATsYXS2-8TIZ7sy1oUAwmNC6FZlOAc8rLnKmnSvLslvPI_0gTyXHI7Vkovi5MpBZlFbJRZ4G9WAXjIOBZ4QmS1tDIO2NKOCh5XqNTaGTfbnC9ruJOy_r4aiDg17ByTMhV_eiN7Dja5xVqlcxyZ5rKXyTqTllpaDhH8Y5_-UqU_ZGmr_3kffpRup7jt38iDcWaUhMOw_2DSG--HIvJ"
+          alt="radiant spiritual star symbolizing divine energy glowing with golden-white light and subtle cosmic patterns"
+          className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-40"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhkK9ZtJbUpp2SyOB88kHinLt_VS-N443u4TEqFovuNKEZZoJwpEpVjg7yZRa3Ptt54_C3y2oHPHm_vuHD7KwN4rWTf5na5LwT54BDTkAy9zohzuDgQfTVzxlloCBqeZptxCDfmYLC6wWR0hNyAtW3y-qtzowNBKHlvO9G7rDeujCA9VdKceeUAY5yEk3VOP1-e98j0CKjw226-yJu4yzbtD4Ro8p7nGIdaKzy5lBsuux9m6CjBO6SBH0jksx5W9Ts_0grONbbnQ"
           fill
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
       </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-8 w-full">
-        <div className="max-w-2xl">
-          <span className="inline-block px-4 py-1 mb-6 rounded-full bg-secondary-container text-on-secondary-container font-label text-xs tracking-[0.2em] uppercase">
-            Authentic Vedic Insights
-          </span>
-          <h1 className="font-headline text-7xl md:text-8xl text-white mb-8 leading-[0.9] tracking-tighter">
-            Unveiling <br/><span className="italic text-secondary-fixed">Cosmic</span> <br/>Destinies
-          </h1>
-          <p className="font-headline italic text-2xl text-white/80 mb-12 max-w-lg leading-relaxed">
-            A scholarly approach to the celestial dance, mapping your journey through the lens of ancient wisdom and mathematical precision.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a className="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-md font-label font-bold text-center hover:shadow-lg transition-all" href="#consultation">
-              Begin Your Session
-            </a>
-            <a className="border border-white/30 text-white backdrop-blur-md px-10 py-4 rounded-md font-label text-center hover:bg-white/10 transition-all" href="#mystical-arts">
-              Explore Mystical Arts
-            </a>
-          </div>
+      <div className="relative z-10 max-w-5xl mx-auto px-8 text-center">
+        <span className="inline-block px-4 py-1.5 text-[10px] font-semibold tracking-[0.3em] uppercase bg-white/10 backdrop-blur-md rounded-full text-white border border-white/20 mb-4 font-label">
+          Ancient intelligence meets modern precision
+        </span>
+        <h1 className="text-5xl md:text-6xl font-normal tracking-tight text-white leading-[1.2] mb-14 font-headline">
+          Ancient Wisdom <br/>
+          <span className="text-white/80 italic">for the Modern Soul</span>
+        </h1>
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed font-light font-body">
+          Navigate the cosmic currents with expert astrological guidance tailored to your soul’s journey.
+        </p>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+          <button className="px-10 py-4 bg-[#0071E3] text-white rounded-full font-medium text-xs tracking-widest uppercase shadow-xl shadow-primary/20 hover:bg-[#0077ED] transition-all font-label">
+            Get Your Birth Chart
+          </button>
+          <button className="px-10 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full font-medium text-xs tracking-widest uppercase hover:bg-white/20 transition-all font-label">
+            Talk to Astrologer
+          </button>
         </div>
       </div>
-      <div className="absolute bottom-12 right-8 hidden lg:flex items-center gap-6 text-white/40 font-label text-xs tracking-widest">
-        <span className="w-12 h-[1px] bg-white/20"></span>
-        SCROLL TO EXPLORE THE VEDIC TRADITION
-      </div>
-    </header>
+    </section>
   );
 };
 

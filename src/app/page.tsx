@@ -1,9 +1,10 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Consultation from '@/components/Consultation';
-import MysticalArts from '@/components/MysticalArts';
-import Resources from '@/components/Resources';
-import Testimonials from '@/components/Testimonials';
+import ChartGeneration from '@/components/ChartGeneration';
+import CelestialForecasts from '@/components/CelestialForecasts';
+import ExpertConsultations from '@/components/ExpertConsultations';
+import VoicesOfInsight from '@/components/VoicesOfInsight';
+import LatestInsights from '@/components/LatestInsights';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -11,10 +12,11 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <Consultation />
-      <MysticalArts />
-      <Resources />
-      <Testimonials />
+      <ChartGeneration />
+      <CelestialForecasts />
+      <ExpertConsultations />
+      <VoicesOfInsight />
+      <LatestInsights />
       <Footer />
     </main>
   );
