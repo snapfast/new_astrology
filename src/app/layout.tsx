@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
-import { Manrope, Newsreader } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const newsreader = Newsreader({
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-newsreader",
+  variable: "--font-lora",
   display: "swap",
   style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Rahul Bali Astrology | Unveiling Cosmic Destinies",
-  description: "Authentic Vedic Astrology insights and consultations by Rahul Bali.",
+  title: "Rahul Bali Astrology | Vedic Wisdom for Modern Life",
+  description: "Ancient wisdom for the modern soul. Expert astrological guidance tailored to your soul’s journey.",
 };
 
 export default function RootLayout({
@@ -26,12 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="scroll-smooth">
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body
-        className={`${manrope.variable} ${newsreader.variable} bg-surface font-body text-tertiary selection:bg-secondary-container selection:text-on-secondary-container antialiased`}
+        className={`${inter.variable} ${lora.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         {children}
       </body>
