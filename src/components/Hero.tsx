@@ -28,7 +28,7 @@ const Hero = () => {
           Navigate the cosmic currents with expert astrological guidance tailored to your soul’s journey.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-          <button className="px-10 py-4 bg-[#0071E3] text-white rounded-full font-medium text-xs tracking-widest uppercase shadow-xl shadow-primary/20 hover:bg-[#0077ED] transition-all font-label">
+          <button className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-widest uppercase shadow-xl shadow-primary/20 hover:bg-primary/90 transition-all font-label">
             Get Your Birth Chart
           </button>
           <button className="px-10 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full font-medium text-xs tracking-widest uppercase hover:bg-white/20 transition-all font-label">
