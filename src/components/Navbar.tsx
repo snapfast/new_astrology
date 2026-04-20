@@ -19,7 +19,7 @@ const Navbar = () => {
           <button className="material-symbols-outlined text-slate-600 hover:bg-slate-50/50 p-2 rounded-lg transition-all">
             search
           </button>
-          <button className="bg-[#0071E3] text-white px-6 py-2.5 rounded-full font-semibold hover:opacity-90 active:scale-95 transition-all text-[11px] tracking-wider uppercase font-label">
+          <button className="bg-primary text-white px-6 py-2.5 rounded-full font-semibold hover:opacity-90 active:scale-95 transition-all text-[11px] tracking-wider uppercase font-label">
             Consult Now
           </button>
         </div>
