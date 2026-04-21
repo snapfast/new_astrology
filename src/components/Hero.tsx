@@ -53,7 +53,7 @@ const Hero = () => {
           </a>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low"
+            className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low font-label"
           >
             Learn More
           </button>

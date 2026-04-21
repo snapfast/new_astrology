@@ -12,10 +12,10 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
+      <VoicesOfInsight />
       <ChartGeneration />
       <CelestialForecasts />
       <ExpertConsultations />
-      <VoicesOfInsight />
       <LatestInsights />
       <Footer />
     </main>
