@@ -18,21 +18,21 @@ const Hero = () => {
       </div>
       <div className="relative z-10 max-w-5xl mx-auto px-8 text-center">
         <span className="inline-block px-4 py-1.5 text-[10px] font-semibold tracking-[0.3em] uppercase bg-white/10 backdrop-blur-md rounded-full text-white border border-white/20 mb-4 font-label">
-          Ancient intelligence meets modern precision
+          ।। ॐ नमो भगवते वासुदेवाय नम: ।।
         </span>
         <h1 className="text-5xl md:text-6xl font-normal tracking-tight text-white leading-[1.2] mb-14 font-headline">
-          Ancient Wisdom <br/>
-          <span className="text-white/80 italic">for the Modern Soul</span>
+          Align with <br/>
+          <span className="text-white/80 italic">fortune and truth</span>
         </h1>
         <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed font-light font-body">
-          Navigate the cosmic currents with expert astrological guidance tailored to your soul’s journey.
+          Jyotish guidance of Pandit Rahul Bali Ji, providing personalized horoscopes, astrology readings, and spiritual consultations.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
           <button className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-widest uppercase shadow-xl shadow-primary/20 hover:bg-primary/90 transition-all font-label">
-            Get Your Birth Chart
+            Book Appointment
           </button>
           <button className="px-10 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full font-medium text-xs tracking-widest uppercase hover:bg-white/20 transition-all font-label">
-            Talk to Astrologer
+            View Services
           </button>
         </div>
       </div>

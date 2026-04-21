@@ -4,31 +4,22 @@ import Image from 'next/image';
 const LatestInsights = () => {
   const articles = [
     {
-      category: "Astronomy",
-      title: "The Mercury Retrograde: Navigating the Chaos",
-      desc: "Learn how to use this period of technological and communication friction for deep internal reflection.",
-      date: "Mar 12, 2024",
-      readTime: "8 min read",
+      category: "Sun",
+      title: "Sun in Vedic Astrology (Jyotish Shastra)",
+      desc: "Explores the Sun's significance in Vedic astrology across multiple life domains including soul, health and family.",
+      date: "Oct 29, 2024",
+      readTime: "Tumblr",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuASQp-u9jVv5jz0BN5Od-AQN6sLup3o3DyxHkHLGLB8t1TWinXedGPH-TPliyo1-yrOexa_cBMHpU9SXymxFk0rE_l3uzBXOULd5Ux_UrSMHf5FIJCmfUxue_tZhCDElEZ2sqqdxC2d7f6dsRMo8d2JxmfJGm-4Z5G6ezGWfCBcHQe8nN2Wnzt25FQHpw4TQyE7qb9uc_dRFpgN-dSShKJSvnR3cHxYAbVfqZo35SnItxEWrpKN6ij7QbeBHWM-a893BDd4Z8SZTw",
-      alt: "macro photography of a citrine gemstone associated with mental clarity and mercury"
+      alt: "Sun symbolism in Vedic astrology"
     },
     {
-      category: "Ancient Wisdom",
-      title: "Decoding Your Rising Sign: The Soul's Mask",
-      desc: "Your Ascendant governs your physical appearance and first impressions. Discover its hidden power.",
-      date: "Mar 08, 2024",
-      readTime: "12 min read",
+      category: "Venus",
+      title: "Venus and Rahu (Shukra + Ascending Node)",
+      desc: "Describes the Venus-Rahu planetary combination and its intense effects on relationships and desire.",
+      date: "Oct 13, 2024",
+      readTime: "Tumblr",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAmimnd4kR4HN9KkQOY76ov5uq_52HlBu1baByS3mc4iQCBckWC3uCz3HmkqgFPG-OsiIZ_iQ2_6in39ZgKF3Dv2xHvBgpy7SJi68CVez7KyODxm4XBVjSxSimyVNeYeOGc8qOFWJi2oSmrQxAY977wELQSFoC64-8nDRhHfvWJwnVvzwVp5lzggv6_ddsjTRP8vRkKOzlCoju9bxSRPfPItTdzps2wagNdq0iMRZws7-gQMGaNkjIoZyh8Wm6KcVKz3MJIkT6Mzg",
-      alt: "macro photography of an amethyst gemstone associated with spiritual insight and the rising sun"
-    },
-    {
-      category: "Healing",
-      title: "Gemstones for Saturn: Balancing Energy",
-      desc: "How Neelam and Blue Sapphire can help stabilize your career path during Shani transitions.",
-      date: "Mar 01, 2024",
-      readTime: "5 min read",
-      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA1yZjYaM37iXRFmQBJ9_4P_8XDJKK3hkQGO5tIeC6wHxLWdQfQPV80g4ozsKi-ymtI7KUyuuCXebOAz6ptd6XoA8g4aqPkgXh0mqH1bHjnSXZoYq5cPC8Bec0yNWq4Gm68Y8GmJyzFxnYgGIgcVLMcImxyZInQv3gbdSMS11mIhXmwlnP7j6qud1Bf2ew5SxSogxr3xl834btP0h2AZk5nkfP1EHQFX-CJmVEWy33MjoXuZJ8pHGuRudyiDpRJ-khehfasxsDOmA",
-      alt: "macro photography of a black tourmaline gemstone used as a remedy for saturn influences"
+      alt: "Venus and Rahu combination"
     }
   ];
 
@@ -53,10 +44,10 @@ const LatestInsights = () => {
                   fill
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary font-label">{article.category}</span>
+                  <span className="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-on-surface font-label">{article.category}</span>
                 </div>
               </div>
-              <h3 className="text-2xl font-normal mb-3 group-hover:text-primary transition-colors tracking-tight font-headline">{article.title}</h3>
+              <h3 className="text-2xl font-normal mb-3 group-hover:text-secondary transition-colors tracking-tight font-headline">{article.title}</h3>
               <p className="text-secondary text-xs mb-4 line-clamp-2 leading-relaxed font-body">{article.desc}</p>
               <div className="flex items-center gap-2 text-[10px] font-semibold text-outline tracking-widest uppercase font-label">
                 <span>{article.date}</span>
