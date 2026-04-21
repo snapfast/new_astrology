@@ -38,9 +38,14 @@ const Hero = () => {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          <button className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90">
+          <a
+            href="https://calendly.com/rahulbaliastrology/kundli/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90"
+          >
             Book a Consultation
-          </button>
+          </a>
           <button className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low">
             Learn More
           </button>

@@ -16,12 +16,26 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
             <h3 className="text-2xl font-normal mb-4 font-headline">Standard Consultation</h3>
             <p className="text-secondary text-sm mb-6 font-body">General birth chart reading and life guidance.</p>
-            <button className="text-primary font-bold text-[10px] tracking-widest uppercase font-label">Learn More</button>
+            <a
+              href="https://calendly.com/rahulbaliastrology/kundli/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-bold text-[10px] tracking-widest uppercase font-label"
+            >
+              Learn More
+            </a>
           </div>
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
             <h3 className="text-2xl font-normal mb-4 font-headline">Specific Research</h3>
             <p className="text-secondary text-sm mb-6 font-body">Deep dive into specific life areas or planetary combinations.</p>
-            <button className="text-primary font-bold text-[10px] tracking-widest uppercase font-label">Learn More</button>
+            <a
+              href="https://calendly.com/rahulbaliastrology/kundli/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-bold text-[10px] tracking-widest uppercase font-label"
+            >
+              Learn More
+            </a>
           </div>
         </div>
       </div>
