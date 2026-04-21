@@ -47,7 +47,7 @@ const Hero = () => {
             href="https://calendly.com/rahulbaliastrology/kundli/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90"
+            className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90 text-center"
           >
             Book a Consultation
           </a>
