@@ -1,0 +1,98 @@
+'use client';
+
+import React from 'react';
+
+interface LearnMoreModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-on-surface/40 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal Content */}
+      <div className="relative w-full max-w-lg bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+        <div className="p-8 md:p-10">
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Connect with Us</h2>
+              <p className="text-secondary font-body text-sm">Choose your preferred channel for consultation and queries.</p>
+            </div>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-surface-container-low rounded-full transition-colors"
+            >
+              <span className="material-symbols-outlined text-on-surface">close</span>
+            </button>
+          </div>
+
+          <div className="space-y-6">
+            {/* Calendly */}
+            <div className="group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
+                  <span className="material-symbols-outlined">calendar_today</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-on-surface font-body">Schedule a Meeting</h3>
+                  <p className="text-xs text-secondary/70">Book a 1:1 session directly via Calendly</p>
+                </div>
+                <span className="material-symbols-outlined ml-auto text-secondary/30 group-hover:text-accent transition-colors">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </div>
+
+            {/* Instagram */}
+            <div className="group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
+                  <span className="material-symbols-outlined">chat</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-on-surface font-body">Instagram Direct</h3>
+                  <p className="text-xs text-secondary/70">Message us directly @rahulbalijyotish</p>
+                </div>
+                <span className="material-symbols-outlined ml-auto text-secondary/30 group-hover:text-accent transition-colors">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
+                  <span className="material-symbols-outlined">mail</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-on-surface font-body">Email Inquiry</h3>
+                  <p className="text-xs text-secondary/70">Drop us an email for detailed spiritual queries</p>
+                </div>
+                <span className="material-symbols-outlined ml-auto text-secondary/30 group-hover:text-accent transition-colors">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-outline/10 text-center">
+            <p className="text-xs text-secondary/50 font-body">
+              Response time: Usually within 24 hours
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LearnMoreModal;

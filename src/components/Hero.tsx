@@ -1,6 +1,11 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import LearnMoreModal from './LearnMoreModal';
 
 const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
@@ -41,11 +46,19 @@ const Hero = () => {
           <button className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90">
             Book a Consultation
           </button>
-          <button className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low"
+          >
             Learn More
           </button>
         </div>
       </div>
+
+      <LearnMoreModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
 
       {/* Scroll Down Arrow */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce-slow">
