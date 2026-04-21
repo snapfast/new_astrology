@@ -21,7 +21,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20">
         <div className="flex flex-col items-center mb-10">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
-            VEDIC ASTROLOGY · JYOTISHI SHASTRA
+            VEDIC ASTROLOGY · JYOTISH SHASTRA
           </span>
           <span className="text-xs text-secondary/60 italic font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
@@ -50,13 +50,11 @@ const Hero = () => {
             className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90"
           >
             Book a Consultation
-          </button>
+          </a>
           <button
             onClick={() => setIsModalOpen(true)}
             className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low"
           >
-          </a>
-          <button className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low">
             Learn More
           </button>
         </div>
