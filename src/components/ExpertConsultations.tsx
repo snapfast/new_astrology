@@ -30,25 +30,26 @@ const ExpertConsultations = () => {
   ];
 
   return (
-    <section className="py-32 bg-surface">
+    <section className="py-40 bg-white">
       <div className="max-w-7xl mx-auto px-8">
         <div className="text-center mb-24">
-          <h2 className="text-4xl font-normal mb-6 font-headline">Expert Consultations</h2>
-          <p className="text-secondary max-w-2xl mx-auto text-sm font-light font-body">Bespoke services merging ancient Vedic scriptures with precision analysis.</p>
+          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Services</span>
+          <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Expert Consultations</h2>
+          <p className="text-secondary max-w-2xl mx-auto text-base font-body leading-relaxed">Bespoke services merging ancient Vedic scriptures with precision analysis.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {consultations.map((item, index) => (
-            <div key={index} className="group bg-transparent overflow-hidden transition-all duration-500">
-              <div className="h-64 overflow-hidden rounded-3xl mb-8 shadow-sm group-hover:shadow-xl transition-all duration-500 relative">
+            <div key={index} className="group bg-transparent transition-all duration-500">
+              <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] mb-10 border border-outline/30 group-hover:border-accent/30 transition-colors duration-500 relative bg-surface-bright">
                 <Image
                   alt={item.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000"
                   src={item.img}
                   fill
                 />
               </div>
-              <div className="px-2">
-                <h4 className="text-xl font-normal mb-3 tracking-tight font-headline">{item.title}</h4>
+              <div className="px-1">
+                <h4 className="text-2xl font-normal mb-4 tracking-tight font-headline text-on-surface">{item.title}</h4>
                 <p className="text-secondary text-sm leading-relaxed font-body">{item.desc}</p>
               </div>
             </div>

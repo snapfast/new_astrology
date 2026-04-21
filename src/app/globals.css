@@ -19,4 +19,30 @@
   .spiritual-star-bg {
     background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,245,210,0.4) 30%, rgba(2,6,23,0.8) 70%, #020617 100%);
   }
+
+  .concentric-circles {
+    @apply absolute inset-0 flex items-center justify-center pointer-events-none;
+  }
+
+  .circle-dashed {
+    @apply absolute rounded-full border border-dashed border-black/10;
+  }
+
+  .animate-slow-spin {
+    animation: spin 60s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
 }
