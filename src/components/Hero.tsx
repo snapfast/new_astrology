@@ -21,7 +21,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20">
         <div className="flex flex-col items-center mb-10">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
-            VEDIC ASTROLOGY · JYOTISH SHASTRA
+            VEDIC ASTROLOGY · JYOTISHI SHASTRA
           </span>
           <span className="text-xs text-secondary/60 italic font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
@@ -35,7 +35,7 @@ const Hero = () => {
 
         <div className="max-w-md mx-auto mb-12">
           <p className="text-base text-secondary font-body leading-relaxed mb-1">
-            Personalized Vedic astrology readings and spiritual consultations rooted in classical Jyotish tradition.
+            Personalized Vedic astrology readings and spiritual consultations rooted in classical Jyotishi tradition.
           </p>
           <p className="text-sm text-secondary/70 font-body">
             Gurugram, India.
@@ -43,13 +43,20 @@ const Hero = () => {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          <button className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90">
+          <a
+            href="https://calendly.com/rahulbaliastrology/kundli/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90"
+          >
             Book a Consultation
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
             className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low"
           >
+          </a>
+          <button className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low">
             Learn More
           </button>
         </div>

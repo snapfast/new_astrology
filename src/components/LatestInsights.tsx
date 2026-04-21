@@ -5,7 +5,7 @@ const LatestInsights = () => {
   const articles = [
     {
       category: "Sun",
-      title: "Sun in Vedic Astrology (Jyotish Shastra)",
+      title: "Sun in Vedic Astrology (Jyotishi Shastra)",
       desc: "Explores the Sun's significance in Vedic astrology across multiple life domains including soul, health and family.",
       date: "Oct 29, 2024",
       readTime: "Tumblr",

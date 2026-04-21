@@ -17,7 +17,7 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: "Rahul Bali Astrology | ।। ॐ नमो भगवते वासुदेवाय नम: ।।",
-  description: "Jyotish guidance of Pandit Rahul Bali Ji, providing personalized horoscopes, astrology readings, and spiritual consultations. Align with fortune and truth.",
+  description: "Jyotishi guidance of Pandit Rahul Bali Ji, providing personalized horoscopes, astrology readings, and spiritual consultations. Align with fortune and truth.",
 };
 
 export default function RootLayout({

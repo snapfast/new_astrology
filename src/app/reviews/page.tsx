@@ -42,7 +42,7 @@ export default function ReviewsPage() {
       <div className="pt-32 pb-24 max-w-5xl mx-auto px-8">
         <h1 className="text-5xl font-normal mb-6 font-headline text-on-surface">Client Reviews</h1>
         <p className="text-secondary text-lg mb-16 font-body max-w-2xl">
-          Hear from those who have found clarity and guidance through Jyotish consultations with Pandit Rahul Bali Ji.
+          Hear from those who have found clarity and guidance through Jyotishi consultations with Pandit Rahul Bali Ji.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {reviews.map((item) => (

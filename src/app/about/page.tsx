@@ -11,7 +11,7 @@ export default function AboutPage() {
         <div className="prose prose-lg max-w-none font-body text-secondary leading-relaxed space-y-6">
           <p>
             Pandit Rahul Bali Ji is a renowned Jyotishi (Vedic Astrologer) based in Gurugram, Haryana.
-            He specializes in Jyotish (Vedic / Sidereal Astrology), providing deep spiritual insights and practical life remedies.
+            He specializes in Jyotishi (Vedic / Sidereal Astrology), providing deep spiritual insights and practical life remedies.
           </p>
           <p>
             His approach combines ancient Vedic wisdom with a compassionate understanding of modern challenges.
