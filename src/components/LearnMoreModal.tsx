@@ -36,7 +36,12 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
 
           <div className="space-y-6">
             {/* Calendly */}
-            <div className="group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer">
+            <a
+              href="https://calendly.com/rahulbaliastrology/kundli/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+            >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                   <span className="material-symbols-outlined">calendar_today</span>
@@ -49,26 +54,34 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   arrow_forward_ios
                 </span>
               </div>
-            </div>
+            </a>
 
             {/* Instagram */}
-            <div className="group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer">
+            <a
+              href="https://www.instagram.com/RahulBaliAstro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+            >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                   <span className="material-symbols-outlined">chat</span>
                 </div>
                 <div>
                   <h3 className="font-medium text-on-surface font-body">Instagram Direct</h3>
-                  <p className="text-xs text-secondary/70">Message us directly @rahulbalijyotish</p>
+                  <p className="text-xs text-secondary/70">Message us directly @RahulBaliAstro</p>
                 </div>
                 <span className="material-symbols-outlined ml-auto text-secondary/30 group-hover:text-accent transition-colors">
                   arrow_forward_ios
                 </span>
               </div>
-            </div>
+            </a>
 
             {/* Email */}
-            <div className="group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer">
+            <a
+              href="/contact"
+              className="block group p-5 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+            >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                   <span className="material-symbols-outlined">mail</span>
@@ -81,7 +94,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   arrow_forward_ios
                 </span>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="mt-10 pt-6 border-t border-outline/10 text-center">
