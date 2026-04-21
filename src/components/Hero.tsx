@@ -21,7 +21,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20">
         <div className="flex flex-col items-center mb-10">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
-            VEDIC ASTROLOGY · JYOTISHI SHASTRA
+            VEDIC ASTROLOGY · JYOTISH SHASTRA
           </span>
           <span className="text-xs text-secondary/60 italic font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
@@ -47,7 +47,7 @@ const Hero = () => {
             href="https://calendly.com/rahulbaliastrology/kundli/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90 font-label flex items-center justify-center"
+            className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90 text-center"
           >
             Book a Consultation
           </a>
