@@ -16,9 +16,9 @@ const Footer = () => {
         <div>
           <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Services</h6>
           <ul className="space-y-5 text-sm">
-            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="/consultation">Consultation</a></li>
-            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="/premium">Premium Appointment</a></li>
-            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="/research">Research</a></li>
+            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="https://calendly.com/rahulbaliastrology/kundli/" target="_blank" rel="noopener noreferrer">Consultation</a></li>
+            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="https://calendly.com/rahulbaliastrology/kundli/" target="_blank" rel="noopener noreferrer">Premium Appointment</a></li>
+            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="https://calendly.com/rahulbaliastrology/kundli/" target="_blank" rel="noopener noreferrer">Research</a></li>
           </ul>
         </div>
         <div>

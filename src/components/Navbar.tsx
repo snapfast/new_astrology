@@ -19,12 +19,14 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center">
-          <Link
-            href="/book"
+          <a
+            href="https://calendly.com/rahulbaliastrology/kundli/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-primary text-white px-8 py-2.5 rounded-full font-medium text-xs tracking-wider transition-all hover:bg-primary/90"
           >
             Book Now
-          </Link>
+          </a>
         </div>
       </div>
     </nav>
