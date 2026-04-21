@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Navbar = () => {
   return (
@@ -8,12 +9,10 @@ const Navbar = () => {
           Rahul Bali Astrology
         </div>
         <div className="hidden md:flex items-center gap-8 font-medium text-[11px] uppercase tracking-[0.15em] font-label">
-          <a className="text-slate-600 hover:text-slate-900 transition-colors" href="#">Horoscopes</a>
-          <a className="text-slate-600 hover:text-slate-900 transition-colors" href="#">Kundli</a>
-          <a className="text-slate-600 hover:text-slate-900 transition-colors" href="#">Compatibility</a>
-          <a className="text-slate-600 hover:text-slate-900 transition-colors" href="#">Numerology</a>
-          <a className="text-slate-600 hover:text-slate-900 transition-colors" href="#">Remedies</a>
-          <a className="text-slate-600 hover:text-slate-900 transition-colors" href="#">Insights</a>
+          <Link className="text-slate-600 hover:text-slate-900 transition-colors" href="/">Home</Link>
+          <Link className="text-slate-600 hover:text-slate-900 transition-colors" href="/reviews">Reviews</Link>
+          <Link className="text-slate-600 hover:text-slate-900 transition-colors" href="/donate">Donate</Link>
+          <Link className="text-slate-600 hover:text-slate-900 transition-colors" href="/about">About</Link>
         </div>
         <div className="flex items-center gap-4">
           <button className="material-symbols-outlined text-slate-600 hover:bg-slate-50/50 p-2 rounded-lg transition-all">

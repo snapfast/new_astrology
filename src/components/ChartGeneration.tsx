@@ -28,7 +28,7 @@ const ChartGeneration = () => {
                 <input className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/20 placeholder:text-outline text-on-surface text-sm" placeholder="City, Country" type="text"/>
               </div>
               <div className="md:col-span-2 pt-4">
-                <button className="w-full py-5 bg-primary text-white rounded-xl font-medium text-xs tracking-widest uppercase hover:bg-primary/90 transition-all font-label" type="submit">
+                <button className="w-full py-5 bg-on-surface text-white rounded-xl font-medium text-xs tracking-widest uppercase hover:opacity-90 transition-all font-label" type="submit">
                   Generate Horoscope Chart
                 </button>
               </div>
