@@ -32,7 +32,7 @@ const Hero = () => {
             Book Appointment
           </button>
           <button className="px-10 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full font-medium text-xs tracking-widest uppercase hover:bg-white/20 transition-all font-label">
-            View Services
+            Talk to Astrologer-Rahul Bali
           </button>
         </div>
       </div>
