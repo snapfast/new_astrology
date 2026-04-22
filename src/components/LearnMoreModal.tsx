@@ -24,7 +24,10 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
           <div className="flex justify-between items-start mb-8">
             <div>
               <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Connect with Us</h2>
-              <p className="text-secondary font-body text-sm">Choose your preferred channel for consultation and queries.</p>
+              <p className="text-accent font-medium font-body text-sm mb-1 italic">
+                Complete chart reading (₹701): includes all questions, remedies, and lifestyle guidance.
+              </p>
+              <p className="text-secondary font-body text-xs">Choose your preferred channel for consultation and queries.</p>
             </div>
             <button
               onClick={onClose}
