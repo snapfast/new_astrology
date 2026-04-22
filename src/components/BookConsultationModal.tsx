@@ -36,6 +36,17 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
 
           <div className="space-y-6">
             <div className="flex flex-col gap-5">
+              {/* Session Overview */}
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-xl">auto_awesome</span>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium text-on-surface font-body">Session Overview</h4>
+                  <p className="text-sm text-secondary font-body">A complete 1:1 session—clarity on your situation, all questions answered, plus practical remedies and life guidance.</p>
+                </div>
+              </div>
+
               {/* Duration */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
