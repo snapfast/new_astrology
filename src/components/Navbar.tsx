@@ -1,7 +1,12 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import BookConsultationModal from './BookConsultationModal';
 
 const Navbar = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-md antialiased">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-8 py-6 w-full">
@@ -19,16 +24,19 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center">
-          <a
-            href="https://calendly.com/rahulbaliastrology/kundli/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setIsBookingModalOpen(true)}
             className="bg-primary text-white px-8 py-2.5 rounded-full font-medium text-xs tracking-wider transition-all hover:bg-primary/90"
           >
             Book Now
-          </a>
+          </button>
         </div>
       </div>
+
+      <BookConsultationModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </nav>
   );
 };

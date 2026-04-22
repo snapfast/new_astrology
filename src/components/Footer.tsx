@@ -1,7 +1,12 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import BookConsultationModal from './BookConsultationModal';
 
 const Footer = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <footer className="w-full pt-32 pb-20 bg-background border-t border-outline/50 font-body">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
@@ -17,9 +22,9 @@ const Footer = () => {
         <div>
           <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Services</h6>
           <ul className="space-y-5 text-sm">
-            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="https://calendly.com/rahulbaliastrology/kundli/" target="_blank" rel="noopener noreferrer">Consultation</a></li>
-            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="https://calendly.com/rahulbaliastrology/kundli/" target="_blank" rel="noopener noreferrer">Premium Appointment</a></li>
-            <li><a className="text-secondary hover:text-accent transition-colors font-light" href="https://calendly.com/rahulbaliastrology/kundli/" target="_blank" rel="noopener noreferrer">Research</a></li>
+            <li><button onClick={() => setIsBookingModalOpen(true)} className="text-secondary hover:text-accent transition-colors font-light text-left">Consultation</button></li>
+            <li><button onClick={() => setIsBookingModalOpen(true)} className="text-secondary hover:text-accent transition-colors font-light text-left">Premium Appointment</button></li>
+            <li><button onClick={() => setIsBookingModalOpen(true)} className="text-secondary hover:text-accent transition-colors font-light text-left">Research</button></li>
           </ul>
         </div>
         <div>
@@ -46,6 +51,11 @@ const Footer = () => {
           <a className="hover:text-accent transition-colors" href="#">Terms</a>
         </div>
       </div>
+
+      <BookConsultationModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </footer>
   );
 };
