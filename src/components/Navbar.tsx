@@ -5,10 +5,10 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-md antialiased">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-8 py-6 w-full">
-        <div className="text-xl font-normal tracking-tight font-headline flex items-center gap-1">
+        <Link href="/" className="text-xl font-normal tracking-tight font-headline flex items-center gap-1">
           <span className="text-on-surface">Rahul Bali</span>
           <span className="text-accent italic">Jyotishi</span>
-        </div>
+        </Link>
 
         <div className="hidden md:flex items-center gap-10 font-normal text-xs text-secondary font-body">
           <Link className="hover:text-on-surface transition-colors" href="/about">About</Link>

@@ -1,14 +1,15 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
     <footer className="w-full pt-32 pb-20 bg-background border-t border-outline/50 font-body">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
         <div className="col-span-1 lg:col-span-1">
-          <div className="text-2xl font-normal tracking-tight text-on-surface mb-8 font-headline flex items-center gap-1">
+          <Link href="/" className="text-2xl font-normal tracking-tight text-on-surface mb-8 font-headline flex items-center gap-1">
             <span>Rahul Bali</span>
             <span className="text-accent italic">Jyotishi</span>
-          </div>
+          </Link>
           <p className="text-secondary text-sm leading-relaxed mb-10 max-w-xs font-light">
             Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.
           </p>
@@ -39,7 +40,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-8 mt-32 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-secondary/40 font-label">
-        <div>Rahul Bali Jyotishi Services © 2025. All rights reserved.</div>
+        <Link href="/" className="hover:text-accent transition-colors">Rahul Bali Jyotishi Services © 2025. All rights reserved.</Link>
         <div className="flex gap-10">
           <a className="hover:text-accent transition-colors" href="#">Privacy</a>
           <a className="hover:text-accent transition-colors" href="#">Terms</a>
