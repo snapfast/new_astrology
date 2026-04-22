@@ -66,11 +66,6 @@ const VoicesOfInsight = () => {
             </p>
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-0.5 mr-2">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="material-symbols-outlined text-accent text-lg" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>star</span>
-                  ))}
-                </div>
                 <span className="font-semibold text-[11px] tracking-[0.15em] text-secondary uppercase font-label">4.9/5 RATING</span>
               </div>
 
