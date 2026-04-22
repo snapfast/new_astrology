@@ -6,36 +6,64 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <div className="pt-32 pb-24 max-w-4xl mx-auto px-8">
-        <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface text-center">Contact Us</h1>
-        <div className="bg-white p-12 rounded-[3rem] shadow-sm border border-surface-container-high grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="pt-32 pb-24 max-w-6xl mx-auto px-8">
+        <h1 className="text-5xl font-normal mb-16 font-headline text-on-surface text-center">Contact Us</h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h3 className="text-2xl font-normal mb-6 font-headline">Location</h3>
-            <p className="text-secondary font-body mb-8">
-              Gurugram, Haryana, India
-            </p>
-            <h3 className="text-2xl font-normal mb-6 font-headline">Online Presence</h3>
-            <div className="space-y-4 font-label text-[11px] tracking-widest uppercase font-bold">
-              <a href="https://www.instagram.com/RahulBaliAstro" className="block text-primary">Instagram</a>
-              <a href="https://www.youtube.com/@RahulBaliAstrology" className="block text-primary">YouTube</a>
-              <a href="https://www.linkedin.com/in/rahulbaliastrology/" className="block text-primary">LinkedIn</a>
+            <div className="mb-12">
+              <h2 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Location</h2>
+              <p className="text-xl font-body text-on-surface">Gurugram, Haryana, India</p>
+            </div>
+
+            <div>
+              <h2 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Online Presence</h2>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://www.instagram.com/RahulBaliAstro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary hover:border-accent hover:text-accent transition-all text-sm font-label uppercase tracking-widest"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.youtube.com/@RahulBaliAstrology"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary hover:border-accent hover:text-accent transition-all text-sm font-label uppercase tracking-widest"
+                >
+                  YouTube
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/rahulbaliastrology/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary hover:border-accent hover:text-accent transition-all text-sm font-label uppercase tracking-widest"
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </div>
-          <div>
-            <form className="space-y-6">
-              <div>
-                <label className="block text-[10px] font-semibold text-secondary uppercase tracking-widest mb-2 font-label">Name</label>
-                <input type="text" className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl text-sm font-body" />
+
+          <div className="bg-white p-10 md:p-12 rounded-[3rem] border border-outline/50 shadow-sm">
+            <form className="space-y-8">
+              <div className="space-y-2">
+                <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Name</label>
+                <input type="text" className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body" />
               </div>
-              <div>
-                <label className="block text-[10px] font-semibold text-secondary uppercase tracking-widest mb-2 font-label">Email</label>
-                <input type="email" className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl text-sm font-body" />
+              <div className="space-y-2">
+                <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Email</label>
+                <input type="email" className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body" />
               </div>
-              <div>
-                <label className="block text-[10px] font-semibold text-secondary uppercase tracking-widest mb-2 font-label">Message</label>
-                <textarea className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl text-sm font-body h-32"></textarea>
+              <div className="space-y-2">
+                <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Message</label>
+                <textarea rows={4} className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body resize-none"></textarea>
               </div>
-              <button className="w-full py-4 bg-primary text-white rounded-xl font-medium text-xs tracking-widest uppercase font-label">Send Message</button>
+              <button className="w-full bg-on-surface text-surface py-5 rounded-full font-medium text-sm tracking-widest uppercase transition-all hover:opacity-90">
+                Send Message
+              </button>
             </form>
           </div>
         </div>
