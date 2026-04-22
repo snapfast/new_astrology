@@ -50,7 +50,10 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   <span className="material-symbols-outlined text-3xl">calendar_today</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-on-surface font-body">Schedule a Meeting</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-semibold text-on-surface font-body">Schedule a Meeting</h3>
+                    <span className="text-[10px] bg-accent/10 text-accent px-3 py-1 rounded-full uppercase tracking-widest font-label font-bold">Preferred</span>
+                  </div>
                   <p className="text-sm text-secondary/80 mt-2">Book a personalized 1:1 session conducted via Google Meet for in-depth chart analysis and life guidance.</p>
                 </div>
                 <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors">
@@ -69,10 +72,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   <span className="material-symbols-outlined text-3xl">mail</span>
                 </div>
                 <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-semibold text-on-surface font-body">Email Inquiry</h3>
-                    <span className="text-[10px] bg-accent/10 text-accent px-3 py-1 rounded-full uppercase tracking-widest font-label font-bold">Preferred</span>
-                  </div>
+                  <h3 className="text-xl font-semibold text-on-surface font-body">Email Inquiry</h3>
                   <p className="text-sm text-secondary/80 mt-2">Submit your specific questions via email for a detailed written analysis. Ideal for focused spiritual and astrological queries.</p>
                 </div>
                 <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors">
