@@ -22,8 +22,8 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
       ></div>
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
-        <div className="p-8 md:p-10">
+      <div className="relative w-full max-w-lg bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
+        <div className="p-6 md:p-10">
           <div className="flex justify-between items-start mb-8">
             <div>
               <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Book Consultation</h2>
