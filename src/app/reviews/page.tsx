@@ -50,11 +50,6 @@ export default function ReviewsPage() {
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {reviews.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline/50 flex flex-col shadow-sm">
-              <div className="flex items-center gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="material-symbols-outlined text-accent text-lg" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}>star</span>
-                ))}
-              </div>
               <p className="text-sm text-on-surface mb-6 italic leading-relaxed font-body font-light flex-grow">
                 &quot;{item.review}&quot;
               </p>
