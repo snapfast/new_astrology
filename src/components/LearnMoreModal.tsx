@@ -19,21 +19,21 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
       ></div>
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg md:max-w-3xl bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
-        <div className="p-6 md:p-10">
+      <div className="relative w-full max-w-lg md:max-w-3xl bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto overflow-x-hidden max-h-[calc(100vh-8rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
+        <div className="p-5 md:p-10">
           <div className="flex justify-between items-start mb-8">
             <div>
-              <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Connect with Us</h2>
-              <p className="text-accent font-medium font-body text-sm mb-1 italic">
+              <h2 className="text-lg md:text-3xl font-normal text-on-surface font-headline mb-2">Connect with Us</h2>
+              <p className="text-accent font-medium font-body text-[9px] md:text-sm mb-1 italic">
                 Complete chart reading (₹701): includes all questions, remedies, and lifestyle guidance.
               </p>
-              <p className="text-secondary font-body text-xs">Choose your preferred channel for consultation and queries.</p>
+              <p className="text-secondary font-body text-[7px] md:text-xs">Choose your preferred channel for consultation and queries.</p>
             </div>
             <button
               onClick={onClose}
               className="p-2 hover:bg-surface-container-low rounded-full transition-colors"
             >
-              <span className="material-symbols-outlined text-on-surface">close</span>
+              <span className="material-symbols-outlined text-on-surface text-lg md:text-2xl">close</span>
             </button>
           </div>
 
@@ -43,20 +43,20 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               href="https://calendly.com/rahulbaliastrology/kundli/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block group p-6 md:p-8 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+              className="block group p-4 md:p-8 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
             >
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-3xl">calendar_today</span>
+              <div className="flex items-center gap-4 md:gap-6">
+                <div className="w-9 h-9 md:w-14 md:h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-xl md:text-3xl">calendar_today</span>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-semibold text-on-surface font-body">Schedule a Meeting</h3>
-                    <span className="text-[10px] bg-accent/10 text-accent px-3 py-1 rounded-full uppercase tracking-widest font-label font-bold">Preferred</span>
+                    <h3 className="text-xs md:text-xl font-semibold text-on-surface font-body">Schedule a Meeting</h3>
+                    <span className="text-[6px] md:text-[10px] bg-accent/10 text-accent px-2 md:px-3 py-0.5 md:py-1 rounded-full uppercase tracking-widest font-label font-bold">Preferred</span>
                   </div>
-                  <p className="text-sm text-secondary/80 mt-2">Book a personalized 1:1 session conducted via Google Meet for in-depth chart analysis and life guidance.</p>
+                  <p className="text-[9px] md:text-sm text-secondary/80 mt-1 md:mt-2">Book a personalized 1:1 session conducted via Google Meet for in-depth chart analysis and life guidance.</p>
                 </div>
-                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors">
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm md:text-base">
                   arrow_forward_ios
                 </span>
               </div>
@@ -65,23 +65,23 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             {/* Email - Preferred */}
             <a
               href="/contact"
-              className="block group p-6 md:p-8 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+              className="block group p-4 md:p-8 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
             >
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-3xl">mail</span>
+              <div className="flex items-center gap-4 md:gap-6">
+                <div className="w-9 h-9 md:w-14 md:h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-xl md:text-3xl">mail</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-on-surface font-body">Email Inquiry</h3>
-                  <p className="text-sm text-secondary/80 mt-2">Submit your specific questions via email for a detailed written analysis. Ideal for focused spiritual and astrological queries.</p>
+                  <h3 className="text-xs md:text-xl font-semibold text-on-surface font-body">Email Inquiry</h3>
+                  <p className="text-[9px] md:text-sm text-secondary/80 mt-1 md:mt-2">Submit your specific questions via email for a detailed written analysis. Ideal for focused spiritual and astrological queries.</p>
                 </div>
-                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors">
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm md:text-base">
                   arrow_forward_ios
                 </span>
               </div>
             </a>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
               {/* Threads - Most Active */}
               <a
                 href="https://www.threads.com/@rahulbaliastro"
@@ -149,7 +149,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="mt-10 pt-6 border-t border-outline/10 text-center">
-            <p className="text-xs text-secondary/50 font-body">
+            <p className="text-[7px] md:text-xs text-secondary/50 font-body">
               Response time: Usually within 24 hours
             </p>
           </div>

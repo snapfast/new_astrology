@@ -22,70 +22,70 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
       ></div>
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
-        <div className="p-6 md:p-10">
+      <div className="relative w-full max-w-lg bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto overflow-x-hidden max-h-[calc(100vh-8rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
+        <div className="p-5 md:p-10">
           <div className="flex justify-between items-start mb-8">
             <div>
-              <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Book Consultation</h2>
-              <p className="text-secondary font-body text-sm">Review the session details before proceeding.</p>
+              <h2 className="text-lg md:text-3xl font-normal text-on-surface font-headline mb-2">Book Consultation</h2>
+              <p className="text-secondary font-body text-[9px] md:text-sm">Review the session details before proceeding.</p>
             </div>
             <button
               onClick={onClose}
               className="p-2 hover:bg-surface-container-low rounded-full transition-colors"
             >
-              <span className="material-symbols-outlined text-on-surface">close</span>
+              <span className="material-symbols-outlined text-on-surface text-lg md:text-2xl">close</span>
             </button>
           </div>
 
           <div className="space-y-6">
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-6">
               {/* Session Overview */}
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">auto_awesome</span>
+                <div className="w-7 h-7 md:w-10 md:h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg md:text-xl">auto_awesome</span>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Session Overview</h4>
-                  <p className="text-sm text-secondary font-body">A complete 1:1 session—clarity on your situation, all questions answered, plus practical remedies and life guidance.</p>
+                  <h4 className="text-[9px] md:text-sm font-medium text-on-surface font-body">Session Overview</h4>
+                  <p className="text-[9px] md:text-sm text-secondary font-body">A complete 1:1 session—clarity on your situation, all questions answered, plus practical remedies and life guidance.</p>
                 </div>
               </div>
 
               {/* Duration */}
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">schedule</span>
+                <div className="w-7 h-7 md:w-10 md:h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg md:text-xl">schedule</span>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Session Duration</h4>
-                  <p className="text-sm text-secondary font-body">30 minutes of personalized guidance.</p>
+                  <h4 className="text-[9px] md:text-sm font-medium text-on-surface font-body">Session Duration</h4>
+                  <p className="text-[9px] md:text-sm text-secondary font-body">30 minutes of personalized guidance.</p>
                 </div>
               </div>
 
               {/* Mode */}
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">video_chat</span>
+                <div className="w-7 h-7 md:w-10 md:h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg md:text-xl">video_chat</span>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Meeting Mode</h4>
-                  <p className="text-sm text-secondary font-body">Conducted via Google Meet. You will receive a Google Calendar invite upon booking.</p>
+                  <h4 className="text-[9px] md:text-sm font-medium text-on-surface font-body">Meeting Mode</h4>
+                  <p className="text-[9px] md:text-sm text-secondary font-body">Conducted via Google Meet. You will receive a Google Calendar invite upon booking.</p>
                 </div>
               </div>
 
               {/* Payment */}
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">payments</span>
+                <div className="w-7 h-7 md:w-10 md:h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg md:text-xl">payments</span>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Payment Flexibility</h4>
-                  <p className="text-sm text-secondary font-body">Payments can be made securely before the session or during the meeting.</p>
+                  <h4 className="text-[9px] md:text-sm font-medium text-on-surface font-body">Payment Flexibility</h4>
+                  <p className="text-[9px] md:text-sm text-secondary font-body">Payments can be made securely before the session or during the meeting.</p>
                 </div>
               </div>
 
               {/* Redirection Notice */}
               <div className="mt-4 p-4 bg-surface-container-low rounded-2xl border border-outline/10">
-                <p className="text-xs text-secondary/80 font-body leading-relaxed">
+                <p className="text-[7px] md:text-xs text-secondary/80 font-body leading-relaxed">
                   Note: You will be redirected to our <span className="font-semibold">Calendly</span> page to choose your preferred time slot and finalize the booking.
                 </p>
               </div>
@@ -93,14 +93,14 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
 
             <button
               onClick={() => setShowQR(!showQR)}
-              className="flex items-center justify-center gap-2 w-full py-3 border border-outline/30 rounded-full text-secondary font-medium text-sm hover:bg-surface-container-low transition-all"
+              className="flex items-center justify-center gap-2 w-full py-3 border border-outline/30 rounded-full text-secondary font-medium text-[9px] md:text-sm hover:bg-surface-container-low transition-all"
             >
-              <span className="material-symbols-outlined text-xl">qr_code</span>
+              <span className="material-symbols-outlined text-lg md:text-xl">qr_code</span>
               {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
             </button>
 
             {showQR && (
-              <div className="relative w-full max-w-[240px] aspect-[495/640] mx-auto bg-white rounded-xl shadow-lg border border-outline/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+              <div className="relative w-full max-w-[200px] md:max-w-[240px] aspect-[495/640] mx-auto bg-white rounded-xl shadow-lg border border-outline/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
                 <Image
                   src="/donate-qr.png"
                   alt="Payment QR Code"
@@ -115,14 +115,14 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               href="https://calendly.com/rahulbaliastrology/kundli/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full py-4 bg-primary text-white text-center rounded-full font-medium text-sm tracking-wider transition-all hover:opacity-95"
+              className="block w-full py-3 md:py-4 bg-primary text-white text-center rounded-full font-medium text-[9px] md:text-sm tracking-wider transition-all hover:opacity-95"
             >
               Proceed to Calendly
             </a>
           </div>
 
           <div className="mt-8 pt-6 border-t border-outline/10 text-center">
-            <p className="text-[10px] text-secondary/50 font-label uppercase tracking-widest">
+            <p className="text-[6px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>
