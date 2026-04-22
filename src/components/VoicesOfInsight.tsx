@@ -3,13 +3,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 const reviews = [
-  { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "There were so many things going on in life. I wanted to share with someone trustworthy fortunately I got answers today, I hope this person helps others too... thank youuu so much for answering about everything and advising me. Can't thank you enough!!!" },
-  { id: 2, name: "Ishwar Goswami", date: "Oct 25, 2025", review: "Panditji provided a very good experience. The response was quick, the guidance was clear, and everything went smoothly. Highly recommend." },
-  { id: 3, name: "Saurav Thapa", date: "Sep 14, 2025", review: "The consultation is really nice. Rahul sir provides astrology+practical life remedies for the client. He is really skilled in astrology and he is a really good person too. I would suggest everyone to take his consultation." },
-  { id: 4, name: "Ansh", date: "Mar 16, 2025", review: "It was a wonderful session. Rahul-ji took immense care to make me understand what I was going through. Rahul-ji was patient, accurate in his readings, most considerate while giving suggestions & advice." },
-  { id: 5, name: "Sanaa", date: "Jan 17, 2025", review: "I consulted Rahul Bali Ji for a birth chart reading, and I was pleasantly surprised by how empathetic and understanding he was. He provided an honest reading while patiently listening to my concerns." },
-  { id: 6, name: "Luis", date: "Jan 26, 2025", review: "He's so accurate it's wild. It felt like he knew me and lived my events. Very insightful and explained things to the depth." },
-  { id: 7, name: "Gomathi", date: "Nov 11, 2024", review: "My first time consulting an astrologer, and you made me feel extremely comfortable. I am extremely grateful that I got to consult you and got my doubts cleared. Thank you so much!" },
+  { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "I wanted to share with someone trustworthy and fortunately got the answers I needed. Thank you for the guidance and advice. Can't thank you enough!" },
+  { id: 2, name: "Ishwar Goswami", date: "Oct 25, 2025", review: "A very good experience with quick responses and clear guidance. Highly recommend." },
+  { id: 3, name: "Saurav Thapa", date: "Sep 14, 2025", review: "Rahul sir provides skilled astrology with practical remedies. A wonderful experience; I highly suggest his consultation to everyone." },
+  { id: 4, name: "Ansh", date: "Mar 16, 2025", review: "A wonderful session. Rahul-ji was patient, accurate, and took great care to explain everything clearly with considerate advice." },
+  { id: 5, name: "Sanaa", date: "Jan 17, 2025", review: "Rahul Bali Ji is empathetic and understanding. He provided an honest reading while patiently addressing all my concerns." },
+  { id: 6, name: "Luis", date: "Jan 26, 2025", review: "Wildly accurate. It felt like he lived my events. Very insightful and explained everything in depth." },
+  { id: 7, name: "Gomathi", date: "Nov 11, 2024", review: "My first consultation, and I felt extremely comfortable. Grateful for the clarity and cleared doubts. Thank you!" },
 ];
 
 const VoicesOfInsight = () => {
@@ -101,8 +101,8 @@ const VoicesOfInsight = () => {
               >
                 {reviews.map((item) => (
                   <div key={item.id} className={`${itemsPerView === 2 ? 'min-w-[50%]' : 'min-w-full'} px-2`}>
-                    <div className="bg-surface p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-outline/50 h-full flex flex-col">
-                      <p className="text-lg md:text-xl text-on-surface mb-8 italic leading-relaxed font-body font-light">
+                    <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline/50 h-full flex flex-col">
+                      <p className="text-sm md:text-base text-on-surface mb-6 italic leading-relaxed font-body font-light">
                         &quot;{item.review}&quot;
                       </p>
                       <div className="flex items-center gap-4 mt-auto">
