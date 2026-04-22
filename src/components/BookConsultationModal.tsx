@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface BookConsultationModalProps {
   isOpen: boolean;
@@ -8,6 +9,8 @@ interface BookConsultationModalProps {
 }
 
 const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
+  const [showQR, setShowQR] = useState(false);
+
   if (!isOpen) return null;
 
   return (
@@ -76,6 +79,26 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                 </p>
               </div>
             </div>
+
+            <button
+              onClick={() => setShowQR(!showQR)}
+              className="flex items-center justify-center gap-2 w-full py-3 border border-outline/30 rounded-full text-secondary font-medium text-sm hover:bg-surface-container-low transition-all"
+            >
+              <span className="material-symbols-outlined text-xl">qr_code</span>
+              {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
+            </button>
+
+            {showQR && (
+              <div className="relative w-full max-w-[240px] aspect-[495/640] mx-auto bg-white rounded-xl shadow-lg border border-outline/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+                <Image
+                  src="/donate-qr.png"
+                  alt="Payment QR Code"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            )}
 
             <a
               href="https://calendly.com/rahulbaliastrology/kundli/"
