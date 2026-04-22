@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -20,11 +21,14 @@ export default function DonatePage() {
             <p className="text-secondary font-body">Scan or use details for contribution.</p>
           </div>
 
-          <div className="w-64 h-64 bg-surface-container-low border-2 border-dashed border-outline/30 mx-auto mb-10 flex items-center justify-center rounded-2xl">
-            <div className="text-center px-6">
-              <span className="material-symbols-outlined text-4xl text-outline/50 mb-4 block">qr_code_2</span>
-              <p className="text-[10px] text-secondary/40 font-label uppercase tracking-widest">QR Code Placeholder</p>
-            </div>
+          <div className="relative w-full max-w-[320px] aspect-[495/640] mx-auto mb-10 overflow-hidden rounded-2xl shadow-sm border border-outline/10 bg-white">
+            <Image
+              src="/donate-qr.png"
+              alt="UPI QR Code for Donation"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
 
           <button className="bg-primary text-white px-12 py-4 rounded-full font-medium text-sm tracking-wider transition-all hover:bg-primary/90">
