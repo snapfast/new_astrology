@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import LearnMoreModal from './LearnMoreModal';
+import BookConsultationModal from './BookConsultationModal';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
@@ -43,14 +45,12 @@ const Hero = () => {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          <a
-            href="https://calendly.com/rahulbaliastrology/kundli/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setIsBookingModalOpen(true)}
             className="px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:opacity-90 text-center"
           >
             Book a Consultation
-          </a>
+          </button>
           <button
             onClick={() => setIsModalOpen(true)}
             className="px-10 py-4 bg-transparent text-on-surface border border-outline rounded-full font-medium text-xs tracking-wider transition-all hover:bg-surface-container-low font-label"
@@ -63,6 +63,11 @@ const Hero = () => {
       <LearnMoreModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+
+      <BookConsultationModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
       />
 
       {/* Scroll Down Arrow */}

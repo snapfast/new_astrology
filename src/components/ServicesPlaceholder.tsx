@@ -1,8 +1,13 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BookConsultationModal from './BookConsultationModal';
 
 export default function ServicesPlaceholder({ title }: { title: string }) {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
@@ -16,30 +21,30 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
             <h3 className="text-2xl font-normal mb-4 font-headline">Standard Consultation</h3>
             <p className="text-secondary text-sm mb-6 font-body">General birth chart reading and life guidance.</p>
-            <a
-              href="https://calendly.com/rahulbaliastrology/kundli/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setIsBookingModalOpen(true)}
               className="text-primary font-bold text-[10px] tracking-widest uppercase font-label"
             >
               Learn More
-            </a>
+            </button>
           </div>
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
             <h3 className="text-2xl font-normal mb-4 font-headline">Specific Research</h3>
             <p className="text-secondary text-sm mb-6 font-body">Deep dive into specific life areas or planetary combinations.</p>
-            <a
-              href="https://calendly.com/rahulbaliastrology/kundli/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setIsBookingModalOpen(true)}
               className="text-primary font-bold text-[10px] tracking-widest uppercase font-label"
             >
               Learn More
-            </a>
+            </button>
           </div>
         </div>
       </div>
       <Footer />
+      <BookConsultationModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </main>
   );
 }
