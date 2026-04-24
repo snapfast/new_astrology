@@ -49,7 +49,12 @@ const ExpertConsultations = () => {
                 />
               </div>
               <div className="px-1">
-                <h4 className="text-2xl font-normal mb-4 tracking-tight font-headline text-on-surface">{item.title}</h4>
+                <div className="flex justify-between items-start mb-4">
+                  <h4 className="text-2xl font-normal tracking-tight font-headline text-on-surface">{item.title}</h4>
+                  <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-[9px] font-bold tracking-widest uppercase font-label">
+                    ₹701
+                  </span>
+                </div>
                 <p className="text-secondary text-sm leading-relaxed font-body">{item.desc}</p>
               </div>
             </div>

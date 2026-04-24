@@ -106,14 +106,19 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   </div>
                 )}
 
-                <a
-                  href="https://calendly.com/rahulbaliastrology/kundli/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  Proceed to Calendly
-                </a>
+                <div className="space-y-3">
+                  <a
+                    href="https://calendly.com/rahulbaliastrology/kundli/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    Proceed to Calendly
+                  </a>
+                  <p className="text-[9px] text-secondary/40 font-label uppercase tracking-widest text-center">
+                    Standard Consultation Fee: ₹701
+                  </p>
+                </div>
               </div>
             </div>
           </div>

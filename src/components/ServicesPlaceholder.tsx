@@ -19,7 +19,12 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
-            <h3 className="text-2xl font-normal mb-4 font-headline">Standard Consultation</h3>
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-2xl font-normal font-headline">Standard Consultation</h3>
+              <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-[9px] font-bold tracking-widest uppercase font-label">
+                ₹701
+              </span>
+            </div>
             <p className="text-secondary text-sm mb-6 font-body">General birth chart reading and life guidance.</p>
             <button
               onClick={() => setIsBookingModalOpen(true)}
@@ -29,7 +34,12 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
             </button>
           </div>
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
-            <h3 className="text-2xl font-normal mb-4 font-headline">Specific Research</h3>
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-2xl font-normal font-headline">Specific Research</h3>
+              <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-[9px] font-bold tracking-widest uppercase font-label">
+                ₹701
+              </span>
+            </div>
             <p className="text-secondary text-sm mb-6 font-body">Deep dive into specific life areas or planetary combinations.</p>
             <button
               onClick={() => setIsBookingModalOpen(true)}
