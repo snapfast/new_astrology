@@ -23,7 +23,7 @@ export default function ContactPage() {
                   href="https://www.instagram.com/RahulBaliAstro"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary hover:border-accent hover:text-accent transition-all text-sm font-label uppercase tracking-widest"
+                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary text-sm font-label uppercase tracking-widest"
                 >
                   Instagram
                 </a>
@@ -31,7 +31,7 @@ export default function ContactPage() {
                   href="https://www.youtube.com/@RahulBaliAstrology"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary hover:border-accent hover:text-accent transition-all text-sm font-label uppercase tracking-widest"
+                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary text-sm font-label uppercase tracking-widest"
                 >
                   YouTube
                 </a>
@@ -39,7 +39,7 @@ export default function ContactPage() {
                   href="https://www.linkedin.com/in/rahulbaliastrology/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary hover:border-accent hover:text-accent transition-all text-sm font-label uppercase tracking-widest"
+                  className="px-6 py-3 rounded-full border border-outline/30 text-secondary text-sm font-label uppercase tracking-widest"
                 >
                   LinkedIn
                 </a>
@@ -61,7 +61,7 @@ export default function ContactPage() {
                 <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Message</label>
                 <textarea rows={4} className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body resize-none"></textarea>
               </div>
-              <button className="w-full bg-on-surface text-surface py-5 rounded-full font-medium text-sm tracking-widest uppercase transition-all hover:opacity-90">
+              <button className="w-full bg-on-surface text-surface py-5 rounded-full font-medium text-sm tracking-widest uppercase">
                 Send Message
               </button>
             </form>

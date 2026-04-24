@@ -44,7 +44,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-low rounded-full transition-colors border border-outline/30 shrink-0"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/30 shrink-0"
               aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
@@ -55,11 +55,11 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Calendly */}
             <button
               onClick={onBookNow}
-              className="group p-4 md:p-6 bg-white border border-outline/40 rounded-[2rem] hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 text-left"
+              className="group p-4 md:p-6 bg-white border border-outline/40 rounded-[2rem] text-left"
             >
               <div className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent">
                     <span className="material-symbols-outlined text-xl md:text-2xl font-variation-fill">calendar_today</span>
                   </div>
                   <span className="text-[7px] md:text-[9px] bg-accent text-white px-2 md:px-3 py-1 rounded-full uppercase tracking-[0.2em] font-label font-bold">Preferred</span>
@@ -77,11 +77,11 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Email */}
             <a
               href="/contact"
-              className="group p-4 md:p-6 bg-white border border-outline/40 rounded-[2rem] hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500"
+              className="group p-4 md:p-6 bg-white border border-outline/40 rounded-[2rem]"
             >
               <div className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent">
                     <span className="material-symbols-outlined text-xl md:text-2xl font-variation-fill">mail</span>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
               href="https://www.threads.com/@rahulbaliastro"
               target="_blank"
               rel="noopener noreferrer"
-              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
+              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
@@ -119,7 +119,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
               href="https://www.instagram.com/RahulBaliAstro"
               target="_blank"
               rel="noopener noreferrer"
-              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
+              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
@@ -131,7 +131,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Donation */}
             <a
               href="/donate"
-              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
+              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">

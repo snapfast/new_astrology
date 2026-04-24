@@ -32,7 +32,7 @@ const LatestInsights = () => {
             <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface tracking-tight">Latest Insights</h2>
             <p className="text-secondary text-base font-body leading-relaxed max-w-sm">Wisdom from the stars for your modern lifestyle.</p>
           </div>
-          <a className="px-10 py-3.5 border border-outline rounded-full text-[10px] font-medium tracking-widest uppercase hover:bg-surface-container-low transition-all font-label text-on-surface" href="#">View All</a>
+          <a className="px-10 py-3.5 border border-outline rounded-full text-[10px] font-medium tracking-widest uppercase font-label text-on-surface" href="#">View All</a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {articles.map((article, index) => (
@@ -40,7 +40,7 @@ const LatestInsights = () => {
               <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] mb-8 border border-outline/30">
                 <Image
                   alt={article.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.2] group-hover:grayscale-0"
+                  className="w-full h-full object-cover grayscale-[0.2]"
                   src={article.img}
                   fill
                 />
@@ -48,7 +48,7 @@ const LatestInsights = () => {
                   <span className="bg-white/95 backdrop-blur-sm border border-outline/50 px-4 py-1.5 rounded-full text-[8px] font-semibold uppercase tracking-widest text-on-surface font-label">{article.category}</span>
                 </div>
               </div>
-              <h3 className="text-2xl font-normal mb-5 group-hover:text-accent transition-colors tracking-tight font-headline text-on-surface leading-snug">{article.title}</h3>
+              <h3 className="text-2xl font-normal mb-5 tracking-tight font-headline text-on-surface leading-snug">{article.title}</h3>
               <p className="text-secondary text-sm mb-6 line-clamp-2 leading-relaxed font-body">{article.desc}</p>
               <div className="flex items-center gap-3 text-[10px] font-medium text-secondary/60 tracking-[0.15em] uppercase font-label">
                 <span>{article.date}</span>

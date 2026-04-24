@@ -72,14 +72,14 @@ const VoicesOfInsight = () => {
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => { prevSlide(); setIsAutoPlaying(false); }}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface"
                   aria-label="Previous review"
                 >
                   <span className="material-symbols-outlined">chevron_left</span>
                 </button>
                 <button
                   onClick={() => { nextSlide(); setIsAutoPlaying(false); }}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface"
                   aria-label="Next review"
                 >
                   <span className="material-symbols-outlined">chevron_right</span>
@@ -120,7 +120,7 @@ const VoicesOfInsight = () => {
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-accent w-6' : 'bg-outline/30 hover:bg-outline/50'}`}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-accent w-6' : 'bg-outline/30'}`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}

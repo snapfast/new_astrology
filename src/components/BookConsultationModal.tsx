@@ -47,7 +47,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-low rounded-full transition-colors border border-outline/30 shrink-0"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/30 shrink-0"
               aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
@@ -87,7 +87,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               <div className="flex flex-col gap-3">
                 <button
                   onClick={() => setShowQR(!showQR)}
-                  className="w-full py-4 border border-outline/30 rounded-full text-accent font-label text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-accent/5 transition-all"
+                  className="w-full py-4 border border-outline/30 rounded-full text-accent font-label text-[10px] font-bold tracking-[0.2em] uppercase"
                 >
                   {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
                 </button>
@@ -110,7 +110,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   href="https://calendly.com/rahulbaliastrology/kundli/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
+                  className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all active:translate-y-0"
                 >
                   Proceed to Calendly
                 </a>

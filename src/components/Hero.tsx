@@ -47,13 +47,13 @@ const Hero = () => {
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
           <button
             onClick={() => setIsBookingModalOpen(true)}
-            className="group flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 text-center"
+            className="group flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider active:translate-y-0 text-center"
           >
             Book a Consultation
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-xs tracking-wider transition-all hover:bg-white hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 font-label"
+            className="px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-xs tracking-wider font-label"
           >
             Learn More
           </button>

@@ -39,11 +39,11 @@ const ExpertConsultations = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {consultations.map((item, index) => (
-            <div key={index} className="group bg-transparent transition-all duration-500">
-              <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] mb-10 border border-outline/30 group-hover:border-accent/30 transition-colors duration-500 relative bg-surface-bright">
+            <div key={index} className="group bg-transparent">
+              <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] mb-10 border border-outline/30 relative bg-surface-bright">
                 <Image
                   alt={item.alt}
-                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000"
+                  className="w-full h-full object-cover opacity-90"
                   src={item.img}
                   fill
                 />
