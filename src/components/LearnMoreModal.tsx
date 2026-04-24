@@ -35,12 +35,11 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
         <div className="p-5 md:p-12">
           <div className="flex justify-between items-start mb-6 md:mb-10">
             <div>
-              <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline mb-2 md:mb-3">Connect with Us</h2>
-              <div className="flex flex-col gap-1">
-                <p className="text-accent font-medium font-body text-xs md:text-sm italic">
-                  Complete chart reading (₹701): all questions & remedies.
-                </p>
-                <p className="text-secondary font-body text-[10px] md:text-xs opacity-70">Select a channel to begin your journey.</p>
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline">Connect with Us</h2>
+                <span className="px-2 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[9px] md:text-[10px] font-bold tracking-widest uppercase font-label">
+                  ₹701 Fee
+                </span>
               </div>
             </div>
             <button
@@ -97,7 +96,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mt-6 md:mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mt-6 md:mt-8">
             {/* Threads - Most Active */}
             <a
               href="https://www.threads.com/@rahulbaliastro"
@@ -108,10 +107,9 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <h3 className="text-sm font-medium text-on-surface font-body">Threads App</h3>
+                    <h3 className="text-sm font-medium text-on-surface font-body">Threads</h3>
                     <span className="text-[7px] bg-accent/10 text-accent px-1.5 py-0.5 rounded-full uppercase tracking-widest font-label font-bold shrink-0">Active</span>
                   </div>
-                  <p className="text-[9px] md:text-[10px] text-secondary/60 mt-0.5 truncate">Most active platform</p>
                 </div>
               </div>
             </a>
@@ -126,7 +124,6 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <h3 className="text-sm font-medium text-on-surface font-body">Instagram</h3>
-                  <p className="text-[9px] md:text-[10px] text-secondary/60 mt-0.5 truncate">Direct Message</p>
                 </div>
               </div>
             </a>
@@ -134,12 +131,11 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Donation */}
             <a
               href="/donate"
-              className="block group p-3 md:p-4 bg-primary text-white rounded-[1.5rem] hover:opacity-90 transition-all md:col-span-2 shadow-lg shadow-primary/10 mt-1"
+              className="block group p-3 md:p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
             >
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-medium font-body">Donation Program</h3>
-                  <p className="text-[9px] md:text-[10px] text-white/60 mt-0.5">Support our spiritual research and community services.</p>
+                  <h3 className="text-sm font-medium text-on-surface font-body">Donation</h3>
                 </div>
               </div>
             </a>
