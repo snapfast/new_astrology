@@ -23,7 +23,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
             <p className="text-secondary text-sm mb-6 font-body">General birth chart reading and life guidance.</p>
             <button
               onClick={() => setIsBookingModalOpen(true)}
-              className="text-primary font-bold text-[10px] tracking-widest uppercase font-label"
+              className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label transition-all hover:bg-primary hover:text-white hover:border-primary"
             >
               Learn More
             </button>
@@ -33,7 +33,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
             <p className="text-secondary text-sm mb-6 font-body">Deep dive into specific life areas or planetary combinations.</p>
             <button
               onClick={() => setIsBookingModalOpen(true)}
-              className="text-primary font-bold text-[10px] tracking-widest uppercase font-label"
+              className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label transition-all hover:bg-primary hover:text-white hover:border-primary"
             >
               Learn More
             </button>

@@ -22,103 +22,107 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
       ></div>
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
-        <div className="p-6 md:p-10">
-          <div className="flex justify-between items-start mb-8">
+      <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[3rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300 border border-outline/20">
+        <div className="p-6 md:p-12">
+          <div className="flex justify-between items-start mb-10">
             <div>
-              <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Book Consultation</h2>
-              <p className="text-secondary font-body text-sm">Review the session details before proceeding.</p>
+              <div className="flex items-center gap-3 mb-2">
+                <h2 className="text-3xl md:text-4xl font-normal text-on-surface font-headline">Book Consultation</h2>
+                <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-[10px] font-bold tracking-widest uppercase font-label">
+                  ₹701 Fee
+                </span>
+              </div>
+              <p className="text-secondary font-body text-xs opacity-70">Review session details before proceeding.</p>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-surface-container-low rounded-full transition-colors"
+              className="p-3 hover:bg-surface-container-low rounded-full transition-colors border border-outline/30"
             >
-              <span className="material-symbols-outlined text-on-surface">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
           </div>
 
-          <div className="space-y-6">
-            <div className="flex flex-col gap-5">
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Session Overview */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">auto_awesome</span>
+              <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
+                <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">auto_awesome</span>
                 </div>
-                <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Session Overview</h4>
-                  <p className="text-sm text-secondary font-body">A complete 1:1 session—clarity on your situation, all questions answered, plus practical remedies and life guidance.</p>
-                </div>
+                <h4 className="text-sm font-medium text-on-surface font-body mb-2">Overview</h4>
+                <p className="text-[11px] text-secondary/70 font-body leading-relaxed">Complete 1:1 session with clarity, remedies, and guidance.</p>
               </div>
 
               {/* Duration */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">schedule</span>
+              <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
+                <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">schedule</span>
                 </div>
-                <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Session Duration</h4>
-                  <p className="text-sm text-secondary font-body">30 minutes of personalized guidance.</p>
-                </div>
+                <h4 className="text-sm font-medium text-on-surface font-body mb-2">Duration</h4>
+                <p className="text-[11px] text-secondary/70 font-body leading-relaxed">30 minutes of personalized consultation.</p>
               </div>
 
               {/* Mode */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">video_chat</span>
+              <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
+                <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">videocam</span>
                 </div>
-                <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Meeting Mode</h4>
-                  <p className="text-sm text-secondary font-body">Conducted via Google Meet. You will receive a Google Calendar invite upon booking.</p>
-                </div>
+                <h4 className="text-sm font-medium text-on-surface font-body mb-2">Meeting Mode</h4>
+                <p className="text-[11px] text-secondary/70 font-body leading-relaxed">Conducted via Google Meet with a calendar invite.</p>
               </div>
 
               {/* Payment */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-xl">payments</span>
+              <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
+                <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">payments</span>
                 </div>
-                <div>
-                  <h4 className="text-sm font-medium text-on-surface font-body">Payment Flexibility</h4>
-                  <p className="text-sm text-secondary font-body">Payments can be made securely before the session or during the meeting.</p>
-                </div>
-              </div>
-
-              {/* Redirection Notice */}
-              <div className="mt-4 p-4 bg-surface-container-low rounded-2xl border border-outline/10">
-                <p className="text-xs text-secondary/80 font-body leading-relaxed">
-                  Note: You will be redirected to our <span className="font-semibold">Calendly</span> page to choose your preferred time slot and finalize the booking.
-                </p>
+                <h4 className="text-sm font-medium text-on-surface font-body mb-2">Payment</h4>
+                <p className="text-[11px] text-secondary/70 font-body leading-relaxed">Secure payments before or during the session.</p>
               </div>
             </div>
 
-            <button
-              onClick={() => setShowQR(!showQR)}
-              className="flex items-center justify-center gap-2 w-full py-3 border border-outline/30 rounded-full text-secondary font-medium text-sm hover:bg-surface-container-low transition-all"
-            >
-              <span className="material-symbols-outlined text-xl">qr_code</span>
-              {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
-            </button>
+            {/* Redirection Notice */}
+            <div className="p-4 bg-surface-container-low/50 rounded-2xl border border-outline/10 text-center">
+              <p className="text-[10px] text-secondary/60 font-body">
+                Note: You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot and finalize.
+              </p>
+            </div>
 
-            {showQR && (
-              <div className="relative w-full max-w-[240px] aspect-[495/640] mx-auto bg-white rounded-xl shadow-lg border border-outline/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
-                <Image
-                  src="/donate-qr.png"
-                  alt="Payment QR Code"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            )}
+            <div className="space-y-4">
+              <button
+                onClick={() => setShowQR(!showQR)}
+                className="flex items-center justify-center gap-2 w-full py-4 border border-outline/30 rounded-full text-accent font-label text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-accent/5 transition-all"
+              >
+                <span className="material-symbols-outlined text-lg">qr_code_2</span>
+                {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
+              </button>
 
-            <a
-              href="https://calendly.com/rahulbaliastrology/kundli/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full py-4 bg-primary text-white text-center rounded-full font-medium text-sm tracking-wider transition-all hover:opacity-95"
-            >
-              Proceed to Calendly
-            </a>
+              {showQR && (
+                <div className="relative w-full max-w-[200px] aspect-[495/640] mx-auto bg-white rounded-2xl shadow-xl border border-outline/10 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-500 p-2">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="/donate-qr.png"
+                      alt="Payment QR Code"
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+                </div>
+              )}
+
+              <a
+                href="https://calendly.com/rahulbaliastrology/kundli/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
+              >
+                Proceed to Calendly
+                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
+                  arrow_forward
+                </span>
+              </a>
+            </div>
           </div>
 
           <div className="mt-8 pt-6 border-t border-outline/10 text-center">

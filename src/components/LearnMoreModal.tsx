@@ -19,133 +19,139 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
       ></div>
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg md:max-w-3xl bg-surface-bright rounded-[2.5rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300">
-        <div className="p-6 md:p-10">
-          <div className="flex justify-between items-start mb-8">
+      <div className="relative w-full max-w-lg md:max-w-3xl bg-white/80 backdrop-blur-md rounded-[3rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300 border border-white/20">
+        <div className="p-6 md:p-12">
+          <div className="flex justify-between items-start mb-10">
             <div>
-              <h2 className="text-3xl font-normal text-on-surface font-headline mb-2">Connect with Us</h2>
-              <p className="text-accent font-medium font-body text-sm mb-1 italic">
-                Complete chart reading (₹701): includes all questions, remedies, and lifestyle guidance.
-              </p>
-              <p className="text-secondary font-body text-xs">Choose your preferred channel for consultation and queries.</p>
+              <h2 className="text-3xl md:text-4xl font-normal text-on-surface font-headline mb-3">Connect with Us</h2>
+              <div className="flex flex-col gap-1">
+                <p className="text-accent font-medium font-body text-sm italic">
+                  Complete chart reading (₹701): all questions & remedies.
+                </p>
+                <p className="text-secondary font-body text-xs opacity-70">Select a channel to begin your journey.</p>
+              </div>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-surface-container-low rounded-full transition-colors"
+              className="p-3 hover:bg-surface-container-low rounded-full transition-colors border border-outline/30"
             >
-              <span className="material-symbols-outlined text-on-surface">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Calendly */}
             <a
               href="https://calendly.com/rahulbaliastrology/kundli/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block group p-6 md:p-8 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+              className="group p-6 bg-white border border-outline/40 rounded-[2rem] hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500"
             >
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-3xl">calendar_today</span>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-semibold text-on-surface font-body">Schedule a Meeting</h3>
-                    <span className="text-[10px] bg-accent/10 text-accent px-3 py-1 rounded-full uppercase tracking-widest font-label font-bold">Preferred</span>
+              <div className="flex flex-col h-full">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-500">
+                    <span className="material-symbols-outlined text-2xl font-variation-fill">calendar_today</span>
                   </div>
-                  <p className="text-sm text-secondary/80 mt-2">Book a personalized 1:1 session conducted via Google Meet for in-depth chart analysis and life guidance.</p>
+                  <span className="text-[9px] bg-accent text-white px-3 py-1 rounded-full uppercase tracking-[0.2em] font-label font-bold">Preferred</span>
                 </div>
-                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors">
-                  arrow_forward_ios
-                </span>
+                <h3 className="text-xl font-medium text-on-surface font-headline mb-2">Schedule Meeting</h3>
+                <p className="text-xs text-secondary/70 font-body leading-relaxed mb-6 flex-1">
+                  1:1 session via Google Meet for in-depth analysis.
+                </p>
+                <div className="flex items-center text-accent font-label text-[10px] font-bold tracking-widest uppercase gap-2">
+                  Book Now
+                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </div>
               </div>
             </a>
 
-            {/* Email - Preferred */}
+            {/* Email */}
             <a
               href="/contact"
-              className="block group p-6 md:p-8 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+              className="group p-6 bg-white border border-outline/40 rounded-[2rem] hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500"
             >
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-3xl">mail</span>
+              <div className="flex flex-col h-full">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-500">
+                    <span className="material-symbols-outlined text-2xl font-variation-fill">mail</span>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-on-surface font-body">Email Inquiry</h3>
-                  <p className="text-sm text-secondary/80 mt-2">Submit your specific questions via email for a detailed written analysis. Ideal for focused spiritual and astrological queries.</p>
+                <h3 className="text-xl font-medium text-on-surface font-headline mb-2">Email Inquiry</h3>
+                <p className="text-xs text-secondary/70 font-body leading-relaxed mb-6 flex-1">
+                  Detailed written analysis for specific questions.
+                </p>
+                <div className="flex items-center text-accent font-label text-[10px] font-bold tracking-widest uppercase gap-2">
+                  Send Mail
+                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </div>
-                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors">
+              </div>
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            {/* Threads - Most Active */}
+            <a
+              href="https://www.threads.com/@rahulbaliastro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-accent shrink-0 shadow-sm">
+                  <span className="material-symbols-outlined text-xl">alternate_email</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="text-sm font-medium text-on-surface font-body">Threads App</h3>
+                    <span className="text-[7px] bg-accent/10 text-accent px-1.5 py-0.5 rounded-full uppercase tracking-widest font-label font-bold shrink-0">Active</span>
+                  </div>
+                  <p className="text-[10px] text-secondary/60 mt-0.5 truncate">Most active platform</p>
+                </div>
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
                   arrow_forward_ios
                 </span>
               </div>
             </a>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-              {/* Threads - Most Active */}
-              <a
-                href="https://www.threads.com/@rahulbaliastro"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                    <span className="material-symbols-outlined text-xl">alternate_email</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <h3 className="text-sm font-medium text-on-surface font-body truncate">Threads App</h3>
-                      <span className="text-[7px] bg-accent/10 text-accent px-1.5 py-0.5 rounded-full uppercase tracking-widest font-label font-bold shrink-0">Active</span>
-                    </div>
-                    <p className="text-[11px] text-secondary/60 mt-0.5 truncate">Most active social platform</p>
-                  </div>
-                  <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
-                    arrow_forward_ios
-                  </span>
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/RahulBaliAstro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-accent shrink-0 shadow-sm">
+                  <span className="material-symbols-outlined text-xl">chat</span>
                 </div>
-              </a>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-medium text-on-surface font-body">Instagram</h3>
+                  <p className="text-[10px] text-secondary/60 mt-0.5 truncate">Direct Message</p>
+                </div>
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </a>
 
-              {/* Instagram */}
-              <a
-                href="https://www.instagram.com/RahulBaliAstro"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                    <span className="material-symbols-outlined text-xl">chat</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-on-surface font-body truncate">Instagram Direct</h3>
-                    <p className="text-[11px] text-secondary/60 mt-0.5 truncate">Message us @RahulBaliAstro</p>
-                  </div>
-                  <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
-                    arrow_forward_ios
-                  </span>
+            {/* Donation */}
+            <a
+              href="/donate"
+              className="block group p-4 bg-primary text-white rounded-[1.5rem] hover:opacity-90 transition-all md:col-span-2 shadow-lg shadow-primary/10 mt-1"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">volunteer_activism</span>
                 </div>
-              </a>
-
-              {/* Donation */}
-              <a
-                href="/donate"
-                className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-primary/30 transition-all cursor-pointer md:col-span-2"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    <span className="material-symbols-outlined text-xl font-variation-fill">volunteer_activism</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-on-surface font-body truncate">Donation Program</h3>
-                    <p className="text-[11px] text-secondary/60 mt-0.5 truncate">Support our spiritual research and community services.</p>
-                  </div>
-                  <span className="material-symbols-outlined text-secondary/30 group-hover:text-primary transition-colors text-sm">
-                    arrow_forward_ios
-                  </span>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-medium font-body">Donation Program</h3>
+                  <p className="text-[10px] text-white/60 mt-0.5">Support our spiritual research and community services.</p>
                 </div>
-              </a>
-            </div>
+                <span className="material-symbols-outlined text-white/30 group-hover:text-white transition-colors text-sm">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </a>
           </div>
 
           <div className="mt-10 pt-6 border-t border-outline/10 text-center">
