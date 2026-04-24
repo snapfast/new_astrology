@@ -27,7 +27,6 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               <p className="text-accent font-medium font-body text-[10px] md:text-sm mb-1 italic">
                 Complete chart reading (₹701): includes all questions, remedies, and lifestyle guidance.
               </p>
-              <p className="text-secondary font-body text-[9px] md:text-xs">Choose your preferred channel for consultation and queries.</p>
             </div>
             <button
               onClick={onClose}
