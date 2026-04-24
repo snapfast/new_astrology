@@ -28,6 +28,9 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 Complete chart reading (₹701): includes all questions, remedies, and lifestyle guidance.
               </p>
               <p className="text-secondary font-body text-[7px] md:text-xs">Choose your preferred channel for consultation and queries.</p>
+              <p className="text-accent font-medium font-body text-[10px] md:text-sm mb-1 italic">
+                Complete chart reading (₹701): includes all questions, remedies, and lifestyle guidance.
+              </p>
             </div>
             <button
               onClick={onClose}
@@ -37,7 +40,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Calendly */}
             <a
               href="https://calendly.com/rahulbaliastrology/kundli/"
@@ -100,52 +103,53 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                     </div>
                     <p className="text-[11px] text-secondary/60 mt-0.5 truncate">Most active social platform</p>
                   </div>
-                  <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
-                    arrow_forward_ios
-                  </span>
+                  <p className="text-[11px] text-secondary/60 mt-0.5 truncate hidden md:block">Most active social platform</p>
                 </div>
-              </a>
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </a>
 
-              {/* Instagram */}
-              <a
-                href="https://www.instagram.com/RahulBaliAstro"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                    <span className="material-symbols-outlined text-xl">chat</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-on-surface font-body truncate">Instagram Direct</h3>
-                    <p className="text-[11px] text-secondary/60 mt-0.5 truncate">Message us @RahulBaliAstro</p>
-                  </div>
-                  <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
-                    arrow_forward_ios
-                  </span>
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/RahulBaliAstro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-accent/30 transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-xl">chat</span>
                 </div>
-              </a>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-medium text-on-surface font-body">Instagram Direct</h3>
+                  <p className="text-[11px] text-secondary/60 mt-0.5 truncate hidden md:block">Message us @RahulBaliAstro</p>
+                </div>
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </a>
 
-              {/* Donation */}
-              <a
-                href="/donate"
-                className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-primary/30 transition-all cursor-pointer md:col-span-2"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    <span className="material-symbols-outlined text-xl font-variation-fill">volunteer_activism</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-on-surface font-body truncate">Donation Program</h3>
-                    <p className="text-[11px] text-secondary/60 mt-0.5 truncate">Support our spiritual research and community services.</p>
-                  </div>
-                  <span className="material-symbols-outlined text-secondary/30 group-hover:text-primary transition-colors text-sm">
-                    arrow_forward_ios
-                  </span>
+            {/* Donation */}
+            <a
+              href="/donate"
+              className="block group p-3 md:p-4 bg-white border border-outline/10 rounded-3xl hover:border-primary/30 transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">volunteer_activism</span>
                 </div>
-              </a>
-            </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-medium text-on-surface font-body">Donation Program</h3>
+                  <p className="text-[11px] text-secondary/60 mt-0.5 truncate hidden md:block">Support our spiritual research and services.</p>
+                </div>
+                <span className="material-symbols-outlined text-secondary/30 group-hover:text-primary transition-colors text-sm">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </a>
           </div>
 
           <div className="mt-10 pt-6 border-t border-outline/10 text-center">
