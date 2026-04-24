@@ -25,15 +25,15 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex justify-center p-4 overflow-y-auto custom-scrollbar">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-on-surface/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-on-surface/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       ></div>
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-y-auto max-h-[calc(100vh-2rem)] custom-scrollbar animate-in fade-in zoom-in duration-300 border border-outline/20">
+      <div className="relative my-auto w-full max-w-lg md:max-w-2xl bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl animate-in fade-in zoom-in duration-300 border border-outline/20">
         <div className="p-5 md:p-12">
           <div className="flex justify-between items-start mb-8 md:mb-12">
             <div>

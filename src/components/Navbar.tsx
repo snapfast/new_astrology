@@ -8,6 +8,7 @@ const Navbar = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
+    <>
     <nav className="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-md antialiased">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-8 py-6 w-full">
         <Link href="/" className="text-xl font-normal tracking-tight font-headline flex items-center gap-1">
@@ -33,11 +34,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-      />
     </nav>
+    <BookConsultationModal
+      isOpen={isBookingModalOpen}
+      onClose={() => setIsBookingModalOpen(false)}
+    />
+  </>
   );
 };
 
