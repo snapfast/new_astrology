@@ -5,9 +5,10 @@ import React from 'react';
 interface LearnMoreModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onBookNow: () => void;
 }
 
-const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
+const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBookNow }) => {
   if (!isOpen) return null;
 
   return (
@@ -41,11 +42,9 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Calendly */}
-            <a
-              href="https://calendly.com/rahulbaliastrology/kundli/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-6 bg-white border border-outline/40 rounded-[2rem] hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500"
+            <button
+              onClick={onBookNow}
+              className="group p-6 bg-white border border-outline/40 rounded-[2rem] hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 text-left"
             >
               <div className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-6">
@@ -60,10 +59,9 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 </p>
                 <div className="flex items-center text-accent font-label text-[10px] font-bold tracking-widest uppercase gap-2">
                   Book Now
-                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </div>
               </div>
-            </a>
+            </button>
 
             {/* Email */}
             <a
@@ -82,7 +80,6 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 </p>
                 <div className="flex items-center text-accent font-label text-[10px] font-bold tracking-widest uppercase gap-2">
                   Send Mail
-                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </div>
               </div>
             </a>
@@ -97,9 +94,6 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               className="block group p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-accent shrink-0 shadow-sm">
-                  <span className="material-symbols-outlined text-xl">alternate_email</span>
-                </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
                     <h3 className="text-sm font-medium text-on-surface font-body">Threads App</h3>
@@ -107,9 +101,6 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <p className="text-[10px] text-secondary/60 mt-0.5 truncate">Most active platform</p>
                 </div>
-                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
-                  arrow_forward_ios
-                </span>
               </div>
             </a>
 
@@ -121,16 +112,10 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               className="block group p-4 bg-surface-container-low/50 border border-outline/20 rounded-[1.5rem] hover:bg-white hover:border-accent/30 transition-all"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-accent shrink-0 shadow-sm">
-                  <span className="material-symbols-outlined text-xl">chat</span>
-                </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-sm font-medium text-on-surface font-body">Instagram</h3>
                   <p className="text-[10px] text-secondary/60 mt-0.5 truncate">Direct Message</p>
                 </div>
-                <span className="material-symbols-outlined text-secondary/30 group-hover:text-accent transition-colors text-sm">
-                  arrow_forward_ios
-                </span>
               </div>
             </a>
 
@@ -140,16 +125,10 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               className="block group p-4 bg-primary text-white rounded-[1.5rem] hover:opacity-90 transition-all md:col-span-2 shadow-lg shadow-primary/10 mt-1"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">volunteer_activism</span>
-                </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-sm font-medium font-body">Donation Program</h3>
                   <p className="text-[10px] text-white/60 mt-0.5">Support our spiritual research and community services.</p>
                 </div>
-                <span className="material-symbols-outlined text-white/30 group-hover:text-white transition-colors text-sm">
-                  arrow_forward_ios
-                </span>
               </div>
             </a>
           </div>

@@ -25,7 +25,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
               onClick={() => setIsBookingModalOpen(true)}
               className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label transition-all hover:bg-primary hover:text-white hover:border-primary"
             >
-              Learn More
+              Book Now
             </button>
           </div>
           <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
@@ -35,7 +35,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
               onClick={() => setIsBookingModalOpen(true)}
               className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label transition-all hover:bg-primary hover:text-white hover:border-primary"
             >
-              Learn More
+              Book Now
             </button>
           </div>
         </div>
