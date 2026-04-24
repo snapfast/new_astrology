@@ -47,7 +47,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               {/* Session Overview */}
               <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
                 <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">auto_awesome</span>
+                  <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}>insights</span>
                 </div>
                 <h4 className="text-sm font-medium text-on-surface font-body mb-2">Overview</h4>
                 <p className="text-[11px] text-secondary/70 font-body leading-relaxed">Complete 1:1 session with clarity, remedies, and guidance.</p>
@@ -56,7 +56,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               {/* Duration */}
               <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
                 <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">schedule</span>
+                  <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}>timer</span>
                 </div>
                 <h4 className="text-sm font-medium text-on-surface font-body mb-2">Duration</h4>
                 <p className="text-[11px] text-secondary/70 font-body leading-relaxed">30 minutes of personalized consultation.</p>
@@ -65,7 +65,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               {/* Mode */}
               <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
                 <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">videocam</span>
+                  <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}>video_call</span>
                 </div>
                 <h4 className="text-sm font-medium text-on-surface font-body mb-2">Meeting Mode</h4>
                 <p className="text-[11px] text-secondary/70 font-body leading-relaxed">Conducted via Google Meet with a calendar invite.</p>
@@ -74,7 +74,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               {/* Payment */}
               <div className="p-5 rounded-3xl bg-surface-container-low/30 border border-outline/10">
                 <div className="w-10 h-10 rounded-xl bg-accent/5 flex items-center justify-center text-accent mb-4">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">payments</span>
+                  <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}>currency_rupee</span>
                 </div>
                 <h4 className="text-sm font-medium text-on-surface font-body mb-2">Payment</h4>
                 <p className="text-[11px] text-secondary/70 font-body leading-relaxed">Secure payments before or during the session.</p>
@@ -93,7 +93,6 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                 onClick={() => setShowQR(!showQR)}
                 className="flex items-center justify-center gap-2 w-full py-4 border border-outline/30 rounded-full text-accent font-label text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-accent/5 transition-all"
               >
-                <span className="material-symbols-outlined text-lg">qr_code_2</span>
                 {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
               </button>
 
@@ -118,9 +117,6 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                 className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
               >
                 Proceed to Calendly
-                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
-                  arrow_forward
-                </span>
               </a>
             </div>
           </div>

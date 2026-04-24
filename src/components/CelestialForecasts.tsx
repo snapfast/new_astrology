@@ -27,7 +27,7 @@ const CelestialForecasts = () => {
             <h3 className="text-2xl font-normal mb-5 tracking-tight font-headline text-on-surface">Daily Preview</h3>
             <p className="text-secondary text-sm leading-relaxed mb-10 font-body">Quick insights for your immediate journey. Focus on communication and inner clarity as Mercury transitions.</p>
             <a className="text-on-surface text-[10px] font-medium tracking-[0.2em] uppercase flex items-center gap-3 group-hover:gap-5 transition-all font-label" href="#">
-              Read Daily <span className="material-symbols-outlined text-base">arrow_forward</span>
+              Read Daily
             </a>
           </div>
           <div className="bg-surface p-12 rounded-[3rem] group hover:shadow-xl hover:shadow-black/[0.02] transition-all duration-500 border border-outline/50">
@@ -37,7 +37,7 @@ const CelestialForecasts = () => {
             <h3 className="text-2xl font-normal mb-5 tracking-tight font-headline text-on-surface">Weekly Cycles</h3>
             <p className="text-secondary text-sm leading-relaxed mb-10 font-body">The lunar phase suggests a period of intense creative output. Align your goals with the energy.</p>
             <a className="text-on-surface text-[10px] font-medium tracking-[0.2em] uppercase flex items-center gap-3 group-hover:gap-5 transition-all font-label" href="#">
-              Explore Weekly <span className="material-symbols-outlined text-base">arrow_forward</span>
+              Explore Weekly
             </a>
           </div>
           <div className="bg-surface p-12 rounded-[3rem] group hover:shadow-xl hover:shadow-black/[0.02] transition-all duration-500 border border-outline/50">
@@ -47,7 +47,7 @@ const CelestialForecasts = () => {
             <h3 className="text-2xl font-normal mb-5 tracking-tight font-headline text-on-surface">Yearly Manifest</h3>
             <p className="text-secondary text-sm leading-relaxed mb-10 font-body">A comprehensive 2024 overview of your spiritual growth and significant karmic shifts.</p>
             <a className="text-on-surface text-[10px] font-medium tracking-[0.2em] uppercase flex items-center gap-3 group-hover:gap-5 transition-all font-label" href="#">
-              Unlock Full Year <span className="material-symbols-outlined text-base">arrow_forward</span>
+              Unlock Full Year
             </a>
           </div>
         </div>

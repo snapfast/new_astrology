@@ -50,9 +50,6 @@ const Hero = () => {
             className="group flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider transition-all hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 text-center"
           >
             Book a Consultation
-            <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">
-              chevron_right
-            </span>
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -66,19 +63,16 @@ const Hero = () => {
       <LearnMoreModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onBookNow={() => {
+          setIsModalOpen(false);
+          setIsBookingModalOpen(true);
+        }}
       />
 
       <BookConsultationModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
       />
-
-      {/* Scroll Down Arrow */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce-slow">
-        <span className="material-symbols-outlined text-secondary/40 text-3xl font-light">
-          keyboard_arrow_down
-        </span>
-      </div>
     </section>
   );
 };
