@@ -155,7 +155,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="mt-10 pt-6 border-t border-outline/10 text-center">
-            <p className="text-xs text-secondary/50 font-body">
+            <p className="text-[7px] md:text-xs text-secondary/50 font-body">
               Response time: Usually within 24 hours
             </p>
           </div>

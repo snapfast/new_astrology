@@ -126,7 +126,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
           </div>
 
           <div className="mt-8 pt-6 border-t border-outline/10 text-center">
-            <p className="text-[10px] text-secondary/50 font-label uppercase tracking-widest">
+            <p className="text-[6px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>
