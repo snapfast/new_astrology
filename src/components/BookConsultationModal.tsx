@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useEffect } from 'react';
 
 interface BookConsultationModalProps {
   isOpen: boolean;
@@ -9,8 +8,6 @@ interface BookConsultationModalProps {
 }
 
 const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
-  const [showQR, setShowQR] = useState(false);
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -33,30 +30,22 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
       ></div>
 
       {/* Modal Content */}
-      <div className="relative my-auto w-full max-w-lg md:max-w-2xl bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl animate-in fade-in zoom-in duration-300 border border-outline/20">
-        <div className="p-5 md:p-12">
-          <div className="flex justify-between items-start mb-8 md:mb-12">
-            <div>
-              <div className="flex items-center gap-2 md:gap-3 mb-2">
-                <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline">Book Consultation</h2>
-                <span className="px-2 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[9px] md:text-[10px] font-bold tracking-widest uppercase font-label">
-                  ₹701 Fee
-                </span>
-              </div>
-              <p className="text-secondary font-body text-[10px] md:text-xs opacity-70">Follow the steps to secure your session.</p>
-            </div>
+      <div className="relative my-auto w-full max-w-lg md:max-w-2xl bg-white/90 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20">
+        <div className="p-6 md:p-14">
+          <div className="flex justify-center items-center mb-10 md:mb-16 relative">
+            <h2 className="text-2xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-low rounded-full transition-colors border border-outline/30 shrink-0"
+              className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full transition-colors border border-outline/20 shrink-0"
               aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
           </div>
 
-          <div className="space-y-8 md:space-y-12">
+          <div className="space-y-10 md:space-y-16">
             <div className="flex flex-col items-center text-center">
-              <div className="mb-6 md:mb-8 p-6 md:p-8 bg-surface-container-low/30 rounded-[2.5rem] border border-outline/10">
+              <div className="mb-8 md:mb-10 p-7 md:p-10 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
                 <svg viewBox="0 0 122.88 101.11" className="w-12 h-12 md:w-16 md:h-16">
                   <g>
                     <polygon fill="#188038" points="69.51,50.56 81.49,64.25 97.6,74.54 100.41,50.65 97.6,27.28 81.18,36.32 69.51,50.56"/>
@@ -68,49 +57,43 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                 </svg>
               </div>
 
-              <h3 className="text-xl md:text-2xl font-normal text-on-surface font-headline mb-4">1:1 Personal Consultation</h3>
+              <div className="mb-4">
+                <span className="px-3 md:px-4 py-1 md:py-1.5 bg-accent/10 text-accent rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase font-label">
+                  ₹701 Fee
+                </span>
+              </div>
+
+              <h3 className="text-xl md:text-3xl font-normal text-on-surface font-headline mb-4">Personal Consultation</h3>
               <div className="space-y-2 md:space-y-3">
-                <p className="text-xs md:text-base text-secondary font-body">30-minute session via Google Meet</p>
+                <p className="text-sm md:text-lg text-secondary font-body">30-minute session via Google Meet</p>
                 <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
                   Detailed analysis including remedies, lifestyle guidance, and answers to your questions.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="p-4 bg-surface-container-low/50 rounded-2xl border border-outline/10 text-center">
-                <p className="text-[10px] text-secondary/60 font-body leading-relaxed">
-                  You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. Please ensure payment is completed via the QR code below.
+            <div className="space-y-6 md:space-y-8">
+              <div className="p-5 bg-surface-container-low/40 rounded-3xl border border-outline/5 text-center">
+                <p className="text-[11px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
+                  You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. Please ensure payment is completed via the QR code.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3">
-                <button
-                  onClick={() => setShowQR(!showQR)}
-                  className="w-full py-4 border border-outline/30 rounded-full text-accent font-label text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-accent/5 transition-all"
+              <div className="flex flex-col gap-4">
+                <a
+                  href="/donate-qr.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-5 border border-accent/30 rounded-full text-accent font-label text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-center transition-all bg-accent/5"
                 >
-                  {showQR ? 'Hide Payment QR' : 'Show Payment QR'}
-                </button>
-
-                {showQR && (
-                  <div className="relative w-full max-w-[200px] aspect-[495/640] mx-auto bg-white rounded-2xl shadow-xl border border-outline/10 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-500 p-2">
-                    <div className="relative w-full h-full">
-                      <Image
-                        src="/donate-qr.png"
-                        alt="Payment QR Code"
-                        fill
-                        className="object-contain"
-                        priority
-                      />
-                    </div>
-                  </div>
-                )}
+                  View Payment QR
+                </a>
 
                 <a
                   href="https://calendly.com/rahulbaliastrology/kundli/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-center gap-3 w-full py-5 bg-primary text-white text-center rounded-full font-medium text-xs tracking-[0.15em] uppercase transition-all hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
+                  className="group flex items-center justify-center gap-3 w-full py-6 bg-primary text-white text-center rounded-full font-medium text-xs md:text-sm tracking-[0.15em] uppercase transition-all shadow-xl shadow-primary/10"
                 >
                   Proceed to Calendly
                 </a>
