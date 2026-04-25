@@ -23,16 +23,17 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex justify-center p-4 overflow-y-auto custom-scrollbar">
+    <div className="fixed inset-0 z-[100] overflow-y-auto custom-scrollbar">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-on-surface/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       ></div>
 
-      {/* Modal Content */}
-      <div className="relative my-auto w-full max-w-lg md:max-w-3xl bg-white/90 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20">
-        <div className="p-6 md:p-14">
+      {/* Modal Content Wrapper */}
+      <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
+        <div className="relative w-full max-w-lg md:max-w-3xl bg-white/90 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
+          <div className="p-6 md:p-14">
           <div className="flex justify-center items-center mb-10 md:mb-16 relative">
             <h2 className="text-2xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Connect with Us</h2>
             <button
@@ -148,6 +149,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
