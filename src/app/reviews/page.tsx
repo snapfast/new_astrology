@@ -71,7 +71,7 @@ export default function ReviewsPage() {
             href="https://g.page/r/CXBUAJqKmqoBEB0/review"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-sm tracking-wider transition-all hover:opacity-90"
+            className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-sm tracking-wider"
           >
             Write a Review on Google
             <span className="material-symbols-outlined text-base">open_in_new</span>
