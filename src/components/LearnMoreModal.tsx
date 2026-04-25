@@ -26,14 +26,14 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
     <div className="fixed inset-0 z-[100] overflow-y-auto custom-scrollbar">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-on-surface/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-on-surface/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       ></div>
 
       {/* Modal Content Wrapper */}
       <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
-        <div className="relative w-full max-w-lg md:max-w-3xl bg-white/90 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
-          <div className="p-6 md:p-14">
+        <div className="relative w-full max-w-lg md:max-w-3xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto max-h-[90vh] flex flex-col">
+          <div className="p-5 md:p-12 overflow-y-auto custom-scrollbar flex-1">
           <div className="flex justify-center items-center mb-10 md:mb-16 relative">
             <h2 className="text-2xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Connect with Us</h2>
             <button
