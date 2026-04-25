@@ -14,7 +14,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
       <div className="pt-32 pb-24 max-w-4xl mx-auto px-8 text-center">
         <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface">{title}</h1>
         <p className="text-secondary text-lg mb-12 font-body max-w-2xl mx-auto">
-          Expert Jyotishi guidance tailored to your soul&apos;s journey.
+          Expert Astrology guidance tailored to your soul&apos;s journey.
           Book an appointment for personalized analysis and practical remedies.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">

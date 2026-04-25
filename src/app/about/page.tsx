@@ -10,8 +10,8 @@ export default function AboutPage() {
         <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface text-center">About Pandit Rahul Bali Ji</h1>
         <div className="prose prose-lg max-w-none font-body text-secondary leading-relaxed space-y-6">
           <p>
-            Pandit Rahul Bali Ji is a renowned Jyotishi (Vedic Astrologer) based in Gurugram, Haryana.
-            He specializes in Jyotishi (Vedic / Sidereal Astrology), providing deep spiritual insights and practical life remedies.
+            Pandit Rahul Bali Ji is a renowned expert in Astrology (Vedic Astrology) based in Gurugram, Haryana.
+            He specializes in Astrology (Vedic / Sidereal Astrology), providing deep spiritual insights and practical life remedies.
           </p>
           <p>
             His approach combines ancient Vedic wisdom with a compassionate understanding of modern challenges.
