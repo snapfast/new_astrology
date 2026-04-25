@@ -56,9 +56,6 @@
     background: #B69A47;
     border-radius: 10px;
   }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #a1863a;
-  }
 
   .font-variation-fill {
     font-variation-settings: 'FILL' 1;

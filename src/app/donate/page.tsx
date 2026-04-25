@@ -31,7 +31,7 @@ export default function DonatePage() {
             />
           </div>
 
-          <button className="bg-primary text-white px-12 py-4 rounded-full font-medium text-sm tracking-wider transition-all hover:bg-primary/90">
+          <button className="bg-primary text-white px-12 py-4 rounded-full font-medium text-sm tracking-wider">
             Donate Now
           </button>
         </div>

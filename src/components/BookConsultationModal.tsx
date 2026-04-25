@@ -36,7 +36,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             <h2 className="text-2xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
               onClick={onClose}
-              className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full transition-colors border border-outline/20 shrink-0"
+              className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 shrink-0"
               aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
@@ -84,7 +84,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   href="/donate-qr.png"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-5 border border-accent/30 rounded-full text-accent font-label text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-center transition-all bg-accent/5"
+                  className="w-full py-5 border border-accent/30 rounded-full text-accent font-label text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-center bg-accent/5"
                 >
                   View Payment QR
                 </a>
@@ -93,7 +93,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   href="https://calendly.com/rahulbaliastrology/kundli/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-center gap-3 w-full py-6 bg-primary text-white text-center rounded-full font-medium text-xs md:text-sm tracking-[0.15em] uppercase transition-all shadow-xl shadow-primary/10"
+                  className="flex items-center justify-center gap-3 w-full py-6 bg-primary text-white text-center rounded-full font-medium text-xs md:text-sm tracking-[0.15em] uppercase shadow-xl shadow-primary/10"
                 >
                   Proceed to Calendly
                 </a>
