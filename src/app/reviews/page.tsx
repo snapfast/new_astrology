@@ -43,7 +43,7 @@ export default function ReviewsPage() {
         <div className="max-w-4xl mx-auto px-8 mb-16 text-center">
           <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface tracking-tight">Client Reviews</h1>
           <p className="text-lg font-body text-secondary leading-relaxed">
-            Hear from those who have found clarity and guidance through Jyotishi consultations with Pandit Rahul Bali Ji.
+            Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji.
           </p>
         </div>
 

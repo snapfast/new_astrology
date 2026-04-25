@@ -37,7 +37,7 @@ const Hero = () => {
 
         <div className="max-w-md mx-auto mb-12">
           <p className="text-base text-secondary font-body leading-relaxed mb-1">
-            Personalized Vedic astrology readings and spiritual consultations rooted in classical Jyotishi tradition.
+            Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.
           </p>
           <p className="text-sm text-secondary/70 font-body">
             Gurugram, India.
