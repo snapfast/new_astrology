@@ -33,7 +33,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
       <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
         <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto max-h-[90vh] flex flex-col">
           <div className="p-5 md:p-12 overflow-y-auto custom-scrollbar flex-1">
-          <div className="flex justify-center items-center mb-10 md:mb-16 relative">
+          <div className="flex justify-center items-center mb-8 md:mb-12 relative">
             <h2 className="text-2xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
               onClick={onClose}
@@ -44,9 +44,9 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             </button>
           </div>
 
-          <div className="space-y-10 md:space-y-16">
+          <div className="space-y-8 md:space-y-12">
             <div className="flex flex-col items-center text-center">
-              <div className="mb-8 md:mb-10 p-7 md:p-10 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
+              <div className="mb-6 md:mb-8 p-5 md:p-8 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
                 <svg viewBox="0 0 122.88 101.11" className="w-12 h-12 md:w-16 md:h-16">
                   <g>
                     <polygon fill="#188038" points="69.51,50.56 81.49,64.25 97.6,74.54 100.41,50.65 97.6,27.28 81.18,36.32 69.51,50.56"/>
@@ -73,7 +73,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               </div>
             </div>
 
-            <div className="space-y-6 md:space-y-8">
+            <div className="space-y-4 md:space-y-6">
               <div className="p-5 bg-surface-container-low/40 rounded-3xl border border-outline/5 text-center">
                 <p className="text-[11px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
                   You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. Please ensure payment is completed via the QR code.
@@ -102,7 +102,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             </div>
           </div>
 
-          <div className="mt-8 md:mt-12 pt-6 border-t border-outline/10 text-center">
+          <div className="mt-6 md:mt-10 pt-6 border-t border-outline/10 text-center">
             <p className="text-[6px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
