@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookConsultationModal from './BookConsultationModal';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export default function ServicesPlaceholder({ title }: { title: string }) {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -22,7 +23,10 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
             <h3 className="text-2xl font-normal mb-4 font-headline">Standard Consultation</h3>
             <p className="text-secondary text-sm mb-6 font-body">General birth chart reading and life guidance.</p>
             <button
-              onClick={() => setIsBookingModalOpen(true)}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'services_standard_book_now' });
+                setIsBookingModalOpen(true);
+              }}
               className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label"
             >
               Book Now
@@ -32,7 +36,10 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
             <h3 className="text-2xl font-normal mb-4 font-headline">Specific Research</h3>
             <p className="text-secondary text-sm mb-6 font-body">Deep dive into specific life areas or planetary combinations.</p>
             <button
-              onClick={() => setIsBookingModalOpen(true)}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'services_research_book_now' });
+                setIsBookingModalOpen(true);
+              }}
               className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label"
             >
               Book Now
