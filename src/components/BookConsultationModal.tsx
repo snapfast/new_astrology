@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { sendGAEvent } from '@next/third-parties/google';
 
 interface BookConsultationModalProps {
   isOpen: boolean;
@@ -36,7 +37,10 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
           <div className="flex justify-center items-center mb-6 md:mb-8 relative">
             <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
-              onClick={onClose}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
+                onClose();
+              }}
               className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 shrink-0"
               aria-label="Close modal"
             >
@@ -85,6 +89,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   href="/donate-qr.png"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_qr' })}
                   className="w-full py-4 md:py-5 border border-accent/30 rounded-full text-accent font-label text-[9px] md:text-xs font-bold tracking-[0.2em] uppercase text-center bg-accent/5"
                 >
                   View Payment QR
@@ -94,6 +99,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   href="https://calendly.com/rahulbaliastrology/kundli/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
                   className="flex items-center justify-center gap-3 w-full py-5 md:py-6 bg-primary text-white text-center rounded-full font-medium text-[10px] md:text-sm tracking-[0.15em] uppercase shadow-xl shadow-primary/10"
                 >
                   Book My Session

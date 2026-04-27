@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { sendGAEvent } from '@next/third-parties/google';
 
 interface LearnMoreModalProps {
   isOpen: boolean;
@@ -37,7 +38,10 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
           <div className="flex justify-center items-center mb-4 md:mb-6 relative">
             <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Connect with Us</h2>
             <button
-              onClick={onClose}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'learn_modal_close' });
+                onClose();
+              }}
               className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 shrink-0"
               aria-label="Close modal"
             >
@@ -54,7 +58,10 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
             {/* Calendly */}
             <button
-              onClick={onBookNow}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'modal_schedule' });
+                onBookNow();
+              }}
               className="p-3 md:p-4 bg-surface-bright border border-outline/10 rounded-[2rem] md:rounded-[2.5rem] text-left"
             >
               <div className="flex flex-col h-full">
@@ -74,6 +81,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Email */}
             <a
               href="mailto:rahulbaliastrology@gmail.com"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_email' })}
               className="p-3 md:p-4 bg-surface-bright border border-outline/10 rounded-[2rem] md:rounded-[2.5rem]"
             >
               <div className="flex flex-col h-full">
@@ -96,6 +104,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
               href="https://www.threads.com/@rahulbaliastro"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads' })}
               className="block p-3 md:p-4 bg-surface-container-low/30 border border-outline/5 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">
@@ -113,6 +122,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
               href="https://www.instagram.com/RahulBaliAstro"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_instagram' })}
               className="block p-3 md:p-4 bg-surface-container-low/30 border border-outline/5 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">
@@ -125,6 +135,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Donation */}
             <a
               href="/donate"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_donation' })}
               className="block p-3 md:p-4 bg-surface-container-low/30 border border-outline/5 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">

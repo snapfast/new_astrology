@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import LearnMoreModal from './LearnMoreModal';
 import BookConsultationModal from './BookConsultationModal';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,13 +47,19 @@ const Hero = () => {
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
           <button
-            onClick={() => setIsBookingModalOpen(true)}
+            onClick={() => {
+              sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
+              setIsBookingModalOpen(true);
+            }}
             className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider active:translate-y-0 text-center"
           >
             Book a Consultation
           </button>
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
+              setIsModalOpen(true);
+            }}
             className="px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-xs tracking-wider font-label"
           >
             Learn More
