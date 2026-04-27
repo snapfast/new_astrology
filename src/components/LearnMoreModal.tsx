@@ -76,7 +76,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
 
             {/* Email */}
             <a
-              href="/contact"
+              href="mailto:rahulbaliastrology@gmail.com"
               className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-[2.5rem]"
             >
               <div className="flex flex-col h-full">
