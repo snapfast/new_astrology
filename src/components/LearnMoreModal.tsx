@@ -34,7 +34,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
       <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
         <div className="relative w-full max-w-lg md:max-w-3xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
           <div className="p-4 md:p-8">
-          <div className="flex justify-center items-center mb-6 md:mb-8 relative">
+          <div className="flex justify-center items-center mb-4 md:mb-6 relative">
             <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Connect with Us</h2>
             <button
               onClick={onClose}
@@ -45,30 +45,27 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             </button>
           </div>
 
-          <div className="flex justify-center mb-4 md:mb-6">
+          <div className="flex justify-center mb-2 md:mb-3">
             <span className="px-2 md:px-4 py-0.5 md:py-1.5 bg-accent/10 text-accent rounded-full text-[8px] md:text-xs font-bold tracking-widest uppercase font-label">
               ₹701 Fee
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
             {/* Calendly */}
             <button
               onClick={onBookNow}
-              className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-[2.5rem] text-left"
+              className="p-3 md:p-4 bg-surface-bright border border-outline/10 rounded-[2rem] md:rounded-[2.5rem] text-left"
             >
               <div className="flex flex-col h-full">
-                <div className="flex justify-between items-start mb-3 md:mb-6">
-                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent">
-                    <span className="material-symbols-outlined text-lg md:text-2xl font-variation-fill">calendar_today</span>
+                <div className="flex justify-between items-start mb-2 md:mb-3">
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
+                    <span className="material-symbols-outlined text-base md:text-lg font-variation-fill">calendar_today</span>
                   </div>
-                  <span className="text-[6px] md:text-[9px] bg-accent text-white px-1.5 md:px-3 py-0.5 md:py-1 rounded-full uppercase tracking-[0.2em] font-label font-bold">Preferred</span>
+                  <span className="text-[6px] md:text-[7px] bg-accent text-white px-1.5 md:px-2 py-0.5 md:py-0.5 rounded-full uppercase tracking-[0.2em] font-label font-bold">Preferred</span>
                 </div>
-                <h3 className="text-base md:text-2xl font-medium text-on-surface font-headline mb-1 md:mb-2">Schedule Meeting</h3>
-                <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed mb-3 md:mb-6">
-                  Personal session via Google Meet for in-depth analysis.
-                </p>
-                <div className="flex items-center text-accent font-label text-[9px] font-bold tracking-widest uppercase gap-2">
+                <h3 className="text-sm md:text-lg font-medium text-on-surface font-headline mb-1">Schedule Meeting</h3>
+                <div className="flex items-center text-accent font-label text-[7px] md:text-[9px] font-bold tracking-widest uppercase gap-2">
                   Book Now
                 </div>
               </div>
@@ -77,26 +74,23 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             {/* Email */}
             <a
               href="mailto:rahulbaliastrology@gmail.com"
-              className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-[2.5rem]"
+              className="p-3 md:p-4 bg-surface-bright border border-outline/10 rounded-[2rem] md:rounded-[2.5rem]"
             >
               <div className="flex flex-col h-full">
-                <div className="flex justify-between items-start mb-3 md:mb-6">
-                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-2xl bg-accent/5 flex items-center justify-center text-accent">
-                    <span className="material-symbols-outlined text-lg md:text-2xl font-variation-fill">mail</span>
+                <div className="flex justify-between items-start mb-2 md:mb-3">
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
+                    <span className="material-symbols-outlined text-base md:text-lg font-variation-fill">mail</span>
                   </div>
                 </div>
-                <h3 className="text-base md:text-2xl font-medium text-on-surface font-headline mb-1 md:mb-2">Email Inquiry</h3>
-                <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed mb-3 md:mb-6">
-                  Detailed written analysis for specific questions.
-                </p>
-                <div className="flex items-center text-accent font-label text-[9px] font-bold tracking-widest uppercase gap-2">
+                <h3 className="text-sm md:text-lg font-medium text-on-surface font-headline mb-1">Email Inquiry</h3>
+                <div className="flex items-center text-accent font-label text-[7px] md:text-[9px] font-bold tracking-widest uppercase gap-2">
                   Send Mail
                 </div>
               </div>
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 mt-4 md:mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-3 md:mt-4">
             {/* Threads - Most Active */}
             <a
               href="https://www.threads.com/@rahulbaliastro"
@@ -141,8 +135,8 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             </a>
           </div>
 
-          <div className="mt-4 md:mt-8 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[6px] md:text-xs text-secondary/50 font-body">
+          <div className="mt-3 md:mt-6 pt-3 md:pt-4 border-t border-outline/10 text-center">
+            <p className="text-[6px] md:text-[10px] text-secondary/50 font-body">
               Response time: Usually within 24 hours
             </p>
           </div>
