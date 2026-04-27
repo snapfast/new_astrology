@@ -22,7 +22,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] overflow-y-auto custom-scrollbar">
+    <div className="fixed inset-0 z-[100]">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-on-surface/60 backdrop-blur-sm transition-opacity"
@@ -31,10 +31,10 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
 
       {/* Modal Content Wrapper */}
       <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
-        <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto max-h-[90vh] flex flex-col">
-          <div className="p-5 md:p-12 overflow-y-auto custom-scrollbar flex-1">
-          <div className="flex justify-center items-center mb-8 md:mb-12 relative">
-            <h2 className="text-2xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
+        <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
+          <div className="p-4 md:p-8">
+          <div className="flex justify-center items-center mb-6 md:mb-8 relative">
+            <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
               onClick={onClose}
               className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 shrink-0"
@@ -44,10 +44,10 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             </button>
           </div>
 
-          <div className="space-y-8 md:space-y-12">
+          <div className="space-y-6 md:space-y-10">
             <div className="flex flex-col items-center text-center">
-              <div className="mb-6 md:mb-8 p-5 md:p-8 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
-                <svg viewBox="0 0 122.88 101.11" className="w-12 h-12 md:w-16 md:h-16">
+              <div className="mb-4 md:mb-6 p-4 md:p-8 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
+                <svg viewBox="0 0 122.88 101.11" className="w-10 h-10 md:w-16 md:h-16">
                   <g>
                     <polygon fill="#188038" points="69.51,50.56 81.49,64.25 97.6,74.54 100.41,50.65 97.6,27.28 81.18,36.32 69.51,50.56"/>
                     <path fill="#1967D2" d="M0,72.32v20.36c0,4.66,3.77,8.43,8.43,8.43h20.36L33,85.72l-4.21-13.4l-13.97-4.21L0,72.32L0,72.32z"/>
@@ -58,34 +58,34 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                 </svg>
               </div>
 
-              <div className="mb-4">
-                <span className="px-3 md:px-4 py-1 md:py-1.5 bg-accent/10 text-accent rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase font-label">
+              <div className="mb-2 md:mb-4">
+                <span className="px-2 md:px-4 py-0.5 md:py-1.5 bg-accent/10 text-accent rounded-full text-[8px] md:text-xs font-bold tracking-widest uppercase font-label">
                   ₹701 Fee
                 </span>
               </div>
 
-              <h3 className="text-xl md:text-3xl font-normal text-on-surface font-headline mb-4">Personal Consultation</h3>
-              <div className="space-y-2 md:space-y-3">
-                <p className="text-sm md:text-lg text-secondary font-body">30-minute session via Google Meet</p>
-                <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
+              <h3 className="text-lg md:text-3xl font-normal text-on-surface font-headline mb-2 md:mb-4">Personal Consultation</h3>
+              <div className="space-y-1 md:space-y-3">
+                <p className="text-xs md:text-lg text-secondary font-body">30-minute session via Google Meet</p>
+                <p className="text-[9px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
                   Detailed analysis including remedies, lifestyle guidance, and answers to your questions.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4 md:space-y-6">
-              <div className="p-5 bg-surface-container-low/40 rounded-3xl border border-outline/5 text-center">
-                <p className="text-[11px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
+            <div className="space-y-3 md:space-y-6">
+              <div className="p-4 md:p-5 bg-surface-container-low/40 rounded-3xl border border-outline/5 text-center">
+                <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
                   You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. Please ensure payment is completed via the QR code.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2 md:gap-4">
                 <a
                   href="/donate-qr.png"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-5 border border-accent/30 rounded-full text-accent font-label text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-center bg-accent/5"
+                  className="w-full py-4 md:py-5 border border-accent/30 rounded-full text-accent font-label text-[9px] md:text-xs font-bold tracking-[0.2em] uppercase text-center bg-accent/5"
                 >
                   View Payment QR
                 </a>
@@ -94,7 +94,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   href="https://calendly.com/rahulbaliastrology/kundli/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 w-full py-6 bg-primary text-white text-center rounded-full font-medium text-xs md:text-sm tracking-[0.15em] uppercase shadow-xl shadow-primary/10"
+                  className="flex items-center justify-center gap-3 w-full py-5 md:py-6 bg-primary text-white text-center rounded-full font-medium text-[10px] md:text-sm tracking-[0.15em] uppercase shadow-xl shadow-primary/10"
                 >
                   Proceed to Calendly
                 </a>
@@ -102,7 +102,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             </div>
           </div>
 
-          <div className="mt-6 md:mt-10 pt-6 border-t border-outline/10 text-center">
+          <div className="mt-4 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
             <p className="text-[6px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
