@@ -96,7 +96,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-5 md:py-6 bg-primary text-white text-center rounded-full font-medium text-[10px] md:text-sm tracking-[0.15em] uppercase shadow-xl shadow-primary/10"
                 >
-                  Proceed to Calendly
+                  Schedule My Session
                 </a>
               </div>
             </div>
