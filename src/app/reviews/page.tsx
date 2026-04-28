@@ -45,6 +45,17 @@ export default function ReviewsPage() {
           <p className="text-lg font-body text-secondary leading-relaxed">
             Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji.
           </p>
+          <div className="mt-10 text-center">
+            <a
+              href="https://g.page/r/CXBUAJqKmqoBEB0/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-sm tracking-wider"
+            >
+              Write a Review on Google
+              <span className="material-symbols-outlined text-base">open_in_new</span>
+            </a>
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -66,17 +77,6 @@ export default function ReviewsPage() {
           ))}
         </div>
 
-        <div className="mt-20 text-center">
-          <a
-            href="https://g.page/r/CXBUAJqKmqoBEB0/review"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-sm tracking-wider"
-          >
-            Write a Review on Google
-            <span className="material-symbols-outlined text-base">open_in_new</span>
-          </a>
-        </div>
       </div>
       <Footer />
     </main>
