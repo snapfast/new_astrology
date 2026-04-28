@@ -19,7 +19,12 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
           Book an appointment for personalized analysis and practical remedies.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-          <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
+          <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high relative overflow-hidden">
+            <div className="absolute top-6 right-6">
+              <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
+                ₹701 Fee
+              </span>
+            </div>
             <h3 className="text-2xl font-normal mb-4 font-headline">Standard Consultation</h3>
             <p className="text-secondary text-sm mb-6 font-body">General birth chart reading and life guidance.</p>
             <button
@@ -32,7 +37,12 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
               Book Now
             </button>
           </div>
-          <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high">
+          <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-surface-container-high relative overflow-hidden">
+            <div className="absolute top-6 right-6">
+              <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
+                ₹701 Fee
+              </span>
+            </div>
             <h3 className="text-2xl font-normal mb-4 font-headline">Specific Research</h3>
             <p className="text-secondary text-sm mb-6 font-body">Deep dive into specific life areas or planetary combinations.</p>
             <button

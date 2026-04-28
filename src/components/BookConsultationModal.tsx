@@ -50,7 +50,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
 
           <div className="space-y-6 md:space-y-10">
             <div className="flex flex-col items-center text-center">
-              <div className="mb-4 md:mb-6 p-4 md:p-8 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
+              <div className="mb-4 md:mb-6 p-4 md:p-8 bg-surface-container-low/20 rounded-[2rem] md:rounded-[3rem] border border-outline/5">
                 <svg viewBox="0 0 122.88 101.11" className="w-10 h-10 md:w-16 md:h-16">
                   <g>
                     <polygon fill="#188038" points="69.51,50.56 81.49,64.25 97.6,74.54 100.41,50.65 97.6,27.28 81.18,36.32 69.51,50.56"/>
@@ -70,7 +70,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
 
               <h3 className="text-lg md:text-3xl font-normal text-on-surface font-headline mb-2 md:mb-4">Personal Consultation</h3>
               <div className="space-y-1 md:space-y-3">
-                <p className="text-xs md:text-lg text-secondary font-body">30-minute session via Google Meet</p>
+                <p className="text-[10px] md:text-lg text-secondary font-body">30-minute session via Google Meet</p>
                 <p className="text-[9px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
                   Detailed analysis including remedies, lifestyle guidance, and answers to your questions.
                 </p>

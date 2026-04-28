@@ -47,6 +47,11 @@ const ExpertConsultations = () => {
                   src={item.img}
                   fill
                 />
+                <div className="absolute top-6 right-6">
+                  <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
+                    ₹701 Fee
+                  </span>
+                </div>
               </div>
               <div className="px-1">
                 <h4 className="text-2xl font-normal mb-4 tracking-tight font-headline text-on-surface">{item.title}</h4>
