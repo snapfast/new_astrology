@@ -33,8 +33,8 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
       {/* Modal Content Wrapper */}
       <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
         <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
-          <div className="p-4 md:p-8">
-          <div className="flex justify-center items-center mb-6 md:mb-8 relative">
+          <div className="p-3 md:p-6">
+          <div className="flex justify-center items-center mb-4 md:mb-6 relative">
             <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
               onClick={() => {
@@ -63,7 +63,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
               </div>
 
               <div className="mb-2 md:mb-4">
-                <span className="px-2 md:px-4 py-0.5 md:py-1.5 bg-accent/10 text-accent rounded-full text-[8px] md:text-xs font-bold tracking-widest uppercase font-label">
+                <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
                   ₹701 Fee
                 </span>
               </div>
@@ -90,7 +90,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_qr' })}
-                  className="w-full py-4 md:py-5 border border-accent/30 rounded-full text-accent font-label text-[9px] md:text-xs font-bold tracking-[0.2em] uppercase text-center bg-accent/5"
+                  className="w-full py-4 md:py-5 border border-outline/60 rounded-full text-on-surface font-label text-[9px] md:text-xs font-medium tracking-[0.1em] uppercase text-center bg-transparent"
                 >
                   View Payment QR
                 </a>
@@ -100,7 +100,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                  className="flex items-center justify-center gap-3 w-full py-5 md:py-6 bg-primary text-white text-center rounded-full font-medium text-[10px] md:text-sm tracking-[0.15em] uppercase shadow-xl shadow-primary/10"
+                  className="flex items-center justify-center gap-3 w-full py-5 md:py-6 bg-primary text-white text-center rounded-full font-medium text-[10px] md:text-sm tracking-[0.1em] uppercase shadow-xl shadow-primary/10"
                 >
                   Book My Session
                 </a>

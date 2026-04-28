@@ -27,7 +27,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
                 sendGAEvent({ event: 'action_click', action_name: 'services_standard_book_now' });
                 setIsBookingModalOpen(true);
               }}
-              className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label"
+              className="px-6 py-2.5 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
             >
               Book Now
             </button>
@@ -40,7 +40,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
                 sendGAEvent({ event: 'action_click', action_name: 'services_research_book_now' });
                 setIsBookingModalOpen(true);
               }}
-              className="px-6 py-2.5 bg-transparent text-primary border border-primary/20 rounded-full font-bold text-[10px] tracking-widest uppercase font-label"
+              className="px-6 py-2.5 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
             >
               Book Now
             </button>
