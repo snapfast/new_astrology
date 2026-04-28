@@ -28,6 +28,7 @@ export default function DonatePage() {
               fill
               className="object-contain"
               priority
+              sizes="(max-width: 768px) 320px, 320px"
             />
           </div>
 
