@@ -51,7 +51,7 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
               setIsBookingModalOpen(true);
             }}
-            className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-xs tracking-wider active:translate-y-0 text-center"
+            className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase active:translate-y-0 text-center"
           >
             Book a Consultation
           </button>
@@ -60,7 +60,7 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
               setIsModalOpen(true);
             }}
-            className="px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-xs tracking-wider font-label"
+            className="px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
           >
             Learn More
           </button>

@@ -34,7 +34,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
       {/* Modal Content Wrapper */}
       <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
         <div className="relative w-full max-w-lg md:max-w-3xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
-          <div className="p-4 md:p-8">
+          <div className="p-3 md:p-6">
           <div className="flex justify-center items-center mb-4 md:mb-6 relative">
             <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Connect with Us</h2>
             <button
@@ -50,7 +50,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
           </div>
 
           <div className="flex justify-center mb-2 md:mb-3">
-            <span className="px-2 md:px-4 py-0.5 md:py-1.5 bg-accent/10 text-accent rounded-full text-[8px] md:text-xs font-bold tracking-widest uppercase font-label">
+            <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
               ₹701 Fee
             </span>
           </div>
@@ -69,7 +69,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
                   <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
                     <span className="material-symbols-outlined text-base md:text-lg font-variation-fill">calendar_today</span>
                   </div>
-                  <span className="text-[6px] md:text-[7px] bg-accent text-white px-1.5 md:px-2 py-0.5 md:py-0.5 rounded-full uppercase tracking-[0.2em] font-label font-bold">Preferred</span>
+                  <span className="text-[7px] md:text-[10px] px-1.5 md:px-3 py-0.5 md:py-1 bg-accent text-white rounded-full uppercase tracking-widest font-label font-bold shrink-0">Preferred</span>
                 </div>
                 <h3 className="text-sm md:text-lg font-medium text-on-surface font-headline mb-1">Schedule Meeting</h3>
                 <div className="flex items-center text-accent font-label text-[7px] md:text-[9px] font-bold tracking-widest uppercase gap-2">
@@ -111,7 +111,7 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
                     <h3 className="text-xs md:text-base font-medium text-on-surface font-body">Threads</h3>
-                    <span className="text-[6px] md:text-[7px] bg-accent/10 text-accent px-1 md:px-1.5 py-0.5 rounded-full uppercase tracking-widest font-label font-bold shrink-0">Active</span>
+                    <span className="text-[7px] md:text-[10px] px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full uppercase tracking-widest font-label font-bold shrink-0">Active</span>
                   </div>
                 </div>
               </div>
