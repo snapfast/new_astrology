@@ -33,7 +33,12 @@ const ChartGeneration = () => {
               <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">Generate Your Chart</h2>
               <p className="text-xs md:text-sm text-secondary font-body max-w-sm mx-auto">Enter your details to unlock a precise map of the stars at the moment of your birth.</p>
             </div>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+            <form
+              onSubmit={handleSubmit}
+              action="/horoscope"
+              method="GET"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
+            >
               <div className="space-y-2">
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
                 <input
