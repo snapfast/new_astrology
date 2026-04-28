@@ -46,6 +46,7 @@ const ExpertConsultations = () => {
                   className="w-full h-full object-cover opacity-90"
                   src={item.img}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
                 />
               </div>
               <div className="px-1">

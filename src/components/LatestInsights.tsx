@@ -43,6 +43,7 @@ const LatestInsights = () => {
                   className="w-full h-full object-cover grayscale-[0.2]"
                   src={article.img}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 400px"
                 />
                 <div className="absolute top-6 left-6">
                   <span className="bg-white/95 backdrop-blur-sm border border-outline/50 px-4 py-1.5 rounded-full text-[8px] font-semibold uppercase tracking-widest text-on-surface font-label">{article.category}</span>
