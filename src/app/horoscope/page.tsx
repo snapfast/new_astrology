@@ -17,7 +17,7 @@ const HoroscopeContent = () => {
   const tob = searchParams.get('tob') || '';
   const pob = searchParams.get('pob') || '';
 
-  const chartData = generateAstrologyData(dob, tob);
+  const chartData = generateAstrologyData(dob, tob, pob);
 
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_book_now' });

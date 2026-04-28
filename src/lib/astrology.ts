@@ -59,9 +59,9 @@ function getSiderealSunRasi(dob: string): number {
   return 11; // Pisces (Mar 15 - Apr 13)
 }
 
-export function generateAstrologyData(dob: string, tob: string): ChartData {
-  // Use dob and tob to create a seed for "deterministic" but realistic-looking data
-  const seedStr = dob + tob;
+export function generateAstrologyData(dob: string, tob: string, pob: string = ''): ChartData {
+  // Use dob, tob and pob to create a seed for "deterministic" but realistic-looking data
+  const seedStr = dob + tob + pob;
   let seed = 0;
   for (let i = 0; i < seedStr.length; i++) {
     seed = ((seed << 5) - seed) + seedStr.charCodeAt(i);
