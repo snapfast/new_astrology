@@ -74,47 +74,68 @@ export function generateAstrologyData(dob: string, tob: string): ChartData {
     return seed / 2147483647;
   };
 
-  // Determine Ascendant Rasi (1-12)
-  const ascRasiNum = Math.floor(pseudoRandom() * 12) + 1;
+  // Determine Ascendant Rasi based on Sun Rasi and Time of Birth
+  // This provides a much more realistic chart structure
+  const sunRasiIdx = getSiderealSunRasi(dob);
+
+  // Calculate hours since dawn (approx 6 AM)
+  const [hours, minutes] = tob.split(':').map(Number);
+  const timeInMinutes = hours * 60 + minutes;
+  const dawnInMinutes = 6 * 60; // 6:00 AM
+  const minutesSinceDawn = (timeInMinutes - dawnInMinutes + 1440) % 1440;
+
+  // Ascendant changes approx every 2 hours (120 minutes)
+  const rasiShift = Math.floor(minutesSinceDawn / 120);
+  const ascRasiIdx = (sunRasiIdx + rasiShift) % 12;
+  const ascRasiNum = ascRasiIdx + 1;
 
   const planets: PlanetData[] = [];
   const houses: { [key: number]: string[] } = {};
   const houseRasis: { [key: number]: number } = {};
 
-  // Initialize houses
+  // Initialize houses using the calculated Ascendant
   for (let i = 1; i <= 12; i++) {
     houses[i] = [];
-    // Calculate Rasi for each house based on Ascendant
-    houseRasis[i] = ((ascRasiNum + i - 2) % 12) + 1;
+    // House 1 is the Ascendant Rasi, then they follow in order
+    houseRasis[i] = ((ascRasiIdx + i - 1) % 12) + 1;
   }
 
-  PLANETS.forEach((p) => {
-    const totalDegrees = pseudoRandom() * 360;
-    let house = Math.floor(pseudoRandom() * 12) + 1;
-    let rasiIdx = (houseRasis[house] - 1);
+  let rahuHouse = 1;
 
-    // Provide a "verified" baseline by calculating the Sun sign correctly
-    if (p.name === "Sun") {
-      rasiIdx = getSiderealSunRasi(dob);
-      const sunRasiNum = rasiIdx + 1;
-      // Find the house that corresponds to this Rasi
+  PLANETS.forEach((p) => {
+    let house = Math.floor(pseudoRandom() * 12) + 1;
+
+    // Core Rules for realistic chart representation:
+    if (p.name === "Ascendant") {
+      house = 1;
+    } else if (p.name === "Sun") {
+      // Sun rasi is fixed by DOB, so its house depends on the Ascendant
+      const targetSunRasiNum = sunRasiIdx + 1;
       for (let h = 1; h <= 12; h++) {
-        if (houseRasis[h] === sunRasiNum) {
+        if (houseRasis[h] === targetSunRasiNum) {
           house = h;
           break;
         }
       }
+    } else if (p.name === "Rahu") {
+      rahuHouse = house;
+    } else if (p.name === "Ketu") {
+      // Ketu is always exactly opposite Rahu (7th house from Rahu)
+      house = ((rahuHouse + 6 - 1) % 12) + 1;
     }
 
+    const rasiIdx = (houseRasis[house] - 1);
     const degInRasi = pseudoRandom() * 30;
+
+    // Calculate Nakshatra based on actual position in the zodiac (360 degrees)
+    const absoluteDegrees = (rasiIdx * 30) + degInRasi;
+    const nakshatraIdx = Math.floor(absoluteDegrees / (360 / 27));
 
     // Format degree: DD° MM' SS"
     const d = Math.floor(degInRasi);
     const m = Math.floor((degInRasi - d) * 60);
     const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
     const degreeStr = `${d}° ${m}' ${s}"`;
-
-    const nakshatraIdx = Math.floor((totalDegrees / 360) * 27);
 
     const data: PlanetData = {
       name: p.name,
