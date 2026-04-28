@@ -39,6 +39,26 @@ const PLANETS = [
   { name: "Ketu", symbol: "Ke" },
 ];
 
+function getSiderealSunRasi(dob: string): number {
+  const date = new Date(dob);
+  const month = date.getUTCMonth() + 1;
+  const day = date.getUTCDate();
+
+  // Approximate Sidereal (Lahiri) Sun Sign boundaries
+  if ((month === 4 && day >= 14) || (month === 5 && day <= 14)) return 0; // Aries
+  if ((month === 5 && day >= 15) || (month === 6 && day <= 14)) return 1; // Taurus
+  if ((month === 6 && day >= 15) || (month === 7 && day <= 16)) return 2; // Gemini
+  if ((month === 7 && day >= 17) || (month === 8 && day <= 16)) return 3; // Cancer
+  if ((month === 8 && day >= 17) || (month === 9 && day <= 16)) return 4; // Leo
+  if ((month === 9 && day >= 17) || (month === 10 && day <= 17)) return 5; // Virgo
+  if ((month === 10 && day >= 18) || (month === 11 && day <= 16)) return 6; // Libra
+  if ((month === 11 && day >= 17) || (month === 12 && day <= 15)) return 7; // Scorpio
+  if ((month === 12 && day >= 16) || (month === 1 && day <= 14)) return 8; // Sagittarius
+  if ((month === 1 && day >= 15) || (month === 2 && day <= 12)) return 9; // Capricorn
+  if ((month === 2 && day >= 13) || (month === 3 && day <= 14)) return 10; // Aquarius
+  return 11; // Pisces (Mar 15 - Apr 13)
+}
+
 export function generateAstrologyData(dob: string, tob: string): ChartData {
   // Use dob and tob to create a seed for "deterministic" but realistic-looking data
   const seedStr = dob + tob;
@@ -70,9 +90,23 @@ export function generateAstrologyData(dob: string, tob: string): ChartData {
 
   PLANETS.forEach((p) => {
     const totalDegrees = pseudoRandom() * 360;
-    const house = Math.floor(pseudoRandom() * 12) + 1;
+    let house = Math.floor(pseudoRandom() * 12) + 1;
+    let rasiIdx = (houseRasis[house] - 1);
+
+    // Provide a "verified" baseline by calculating the Sun sign correctly
+    if (p.name === "Sun") {
+      rasiIdx = getSiderealSunRasi(dob);
+      const sunRasiNum = rasiIdx + 1;
+      // Find the house that corresponds to this Rasi
+      for (let h = 1; h <= 12; h++) {
+        if (houseRasis[h] === sunRasiNum) {
+          house = h;
+          break;
+        }
+      }
+    }
+
     const degInRasi = pseudoRandom() * 30;
-    const rasiIdx = (houseRasis[house] - 1);
 
     // Format degree: DD° MM' SS"
     const d = Math.floor(degInRasi);
