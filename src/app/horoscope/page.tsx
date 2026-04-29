@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useMemo, memo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -17,7 +17,7 @@ const HoroscopeContent = () => {
   const tob = searchParams.get('tob') || '';
   const pob = searchParams.get('pob') || '';
 
-  const chartData = generateAstrologyData(dob, tob);
+  const chartData = useMemo(() => generateAstrologyData(dob, tob), [dob, tob]);
 
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_book_now' });
@@ -106,12 +106,13 @@ const HoroscopeContent = () => {
   );
 };
 
-const DetailCard = ({ label, value }: { label: string; value: string }) => (
+const DetailCard = memo(({ label, value }: { label: string; value: string }) => (
   <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
     <p className="text-[10px] font-medium text-secondary uppercase tracking-widest mb-1 font-label">{label}</p>
     <p className="text-sm font-medium text-on-surface truncate">{value}</p>
   </div>
-);
+));
+DetailCard.displayName = 'DetailCard';
 
 export default function HoroscopePage() {
   return (
