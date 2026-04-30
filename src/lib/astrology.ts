@@ -1,5 +1,19 @@
 import * as Ast from 'astronomy-engine';
-import { ChartData, PlanetData } from './astrology';
+
+export interface PlanetData {
+    name: string;
+    symbol: string;
+    degree: string;
+    rasi: string;
+    nakshatra: string;
+    house: number;
+}
+
+export interface ChartData {
+    planets: PlanetData[];
+    houses: { [key: number]: string[] };
+    houseRasis: { [key: number]: number };
+}
 
 const RASIS = [
     "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",

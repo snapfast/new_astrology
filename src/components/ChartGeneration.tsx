@@ -47,6 +47,8 @@ const ChartGeneration = () => {
         interface NominatimItem {
           address: NominatimAddress;
           display_name: string;
+          lat: string;
+          lon: string;
         }
         const cityData = data.map((item: NominatimItem) => {
           const address = item.address;
