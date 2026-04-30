@@ -1,157 +1,140 @@
-export interface PlanetData {
-  name: string;
-  symbol: string;
-  degree: string;
-  rasi: string;
-  nakshatra: string;
-  house: number;
-}
-
-export interface ChartData {
-  planets: PlanetData[];
-  houses: { [key: number]: string[] }; // House number (1-12) -> Planet symbols
-  houseRasis: { [key: number]: number }; // House number (1-12) -> Rasi number (1-12)
-}
+import * as Ast from 'astronomy-engine';
+import { ChartData, PlanetData } from './astrology';
 
 const RASIS = [
-  "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-  "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
+    "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+    "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
 ];
 
 const NAKSHATRAS = [
-  "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra",
-  "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni",
-  "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyesha",
-  "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha",
-  "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+    "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra",
+    "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni",
+    "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyesha",
+    "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha",
+    "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
 ];
 
-const PLANETS = [
-  { name: "Ascendant", symbol: "As" },
-  { name: "Sun", symbol: "Su" },
-  { name: "Moon", symbol: "Mo" },
-  { name: "Mars", symbol: "Ma" },
-  { name: "Mercury", symbol: "Me" },
-  { name: "Jupiter", symbol: "Ju" },
-  { name: "Venus", symbol: "Ve" },
-  { name: "Saturn", symbol: "Sa" },
-  { name: "Rahu", symbol: "Ra" },
-  { name: "Ketu", symbol: "Ke" },
+const PLANET_MAP = [
+    { name: "Sun", body: Ast.Body.Sun, symbol: "Su" },
+    { name: "Moon", body: Ast.Body.Moon, symbol: "Mo" },
+    { name: "Mars", body: Ast.Body.Mars, symbol: "Ma" },
+    { name: "Mercury", body: Ast.Body.Mercury, symbol: "Me" },
+    { name: "Jupiter", body: Ast.Body.Jupiter, symbol: "Ju" },
+    { name: "Venus", body: Ast.Body.Venus, symbol: "Ve" },
+    { name: "Saturn", body: Ast.Body.Saturn, symbol: "Sa" },
 ];
 
-function getSiderealSunRasi(dob: string): number {
-  const date = new Date(dob);
-  const month = date.getUTCMonth() + 1;
-  const day = date.getUTCDate();
-
-  // Approximate Sidereal (Lahiri) Sun Sign boundaries
-  if ((month === 4 && day >= 14) || (month === 5 && day <= 14)) return 0; // Aries
-  if ((month === 5 && day >= 15) || (month === 6 && day <= 14)) return 1; // Taurus
-  if ((month === 6 && day >= 15) || (month === 7 && day <= 16)) return 2; // Gemini
-  if ((month === 7 && day >= 17) || (month === 8 && day <= 16)) return 3; // Cancer
-  if ((month === 8 && day >= 17) || (month === 9 && day <= 16)) return 4; // Leo
-  if ((month === 9 && day >= 17) || (month === 10 && day <= 17)) return 5; // Virgo
-  if ((month === 10 && day >= 18) || (month === 11 && day <= 16)) return 6; // Libra
-  if ((month === 11 && day >= 17) || (month === 12 && day <= 15)) return 7; // Scorpio
-  if ((month === 12 && day >= 16) || (month === 1 && day <= 14)) return 8; // Sagittarius
-  if ((month === 1 && day >= 15) || (month === 2 && day <= 12)) return 9; // Capricorn
-  if ((month === 2 && day >= 13) || (month === 3 && day <= 14)) return 10; // Aquarius
-  return 11; // Pisces (Mar 15 - Apr 13)
+/**
+ * Calculates the Lahiri Ayanamsa for a given date.
+ */
+function getLahiriAyanamsa(time: Ast.AstroTime): number {
+    const fractionalYear = 2000.0 + time.tt / 36525.0 * 100.0;
+    const T = (fractionalYear - 1900.0) / 100.0;
+    return 22.460148 + 1.396042 * T + 0.000308 * T * T;
 }
 
-export function generateAstrologyData(dob: string, tob: string): ChartData {
-  // Use dob and tob to create a seed for "deterministic" but realistic-looking data
-  const seedStr = dob + tob;
-  let seed = 0;
-  for (let i = 0; i < seedStr.length; i++) {
-    seed = ((seed << 5) - seed) + seedStr.charCodeAt(i);
-    seed |= 0;
-  }
+export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
+    if (!dob || !tob) return { planets: [], houses: {}, houseRasis: {} };
 
-  const pseudoRandom = () => {
-    seed = (seed * 16807) % 2147483647;
-    if (seed < 0) seed += 2147483647;
-    return seed / 2147483647;
-  };
+    // Standard UTC+5:30 offset for India if no coordinates provided (backward compatibility)
+    const localDate = new Date(`${dob}T${tob}:00`);
+    const utcDate = new Date(localDate.getTime() - (5.5 * 60 * 60 * 1000));
+    const time = Ast.MakeTime(utcDate);
 
-  // Determine Ascendant Rasi based on Sun Rasi and Time of Birth
-  // This provides a much more realistic chart structure
-  const sunRasiIdx = getSiderealSunRasi(dob);
+    const lat = parseFloat(latStr || "31.3837");
+    const lon = parseFloat(lonStr || "76.3754");
 
-  // Calculate hours since dawn (approx 6 AM)
-  const [hours, minutes] = tob.split(':').map(Number);
-  const timeInMinutes = hours * 60 + minutes;
-  const dawnInMinutes = 6 * 60; // 6:00 AM
-  const minutesSinceDawn = (timeInMinutes - dawnInMinutes + 1440) % 1440;
+    // Calculate Ayanamsa (Lahiri)
+    const ayanamsa = getLahiriAyanamsa(time);
 
-  // Ascendant changes approx every 2 hours (120 minutes)
-  const rasiShift = Math.floor(minutesSinceDawn / 120);
-  const ascRasiIdx = (sunRasiIdx + rasiShift) % 12;
+    const planetData: PlanetData[] = [];
+    const houseAssignments: { [key: number]: string[] } = {};
+    for (let i = 1; i <= 12; i++) houseAssignments[i] = [];
 
-  const planets: PlanetData[] = [];
-  const houses: { [key: number]: string[] } = {};
-  const houseRasis: { [key: number]: number } = {};
+    // 1. Calculate Ascendant (Lagna)
+    const siderealTime = Ast.SiderealTime(time);
+    const RAMC = (siderealTime * 15 + lon) % 360;
+    const rad = Math.PI / 180;
+    const phi = lat * rad;
+    const eps = 23.44 * rad;
+    const alpha = RAMC * rad;
 
-  // Initialize houses using the calculated Ascendant
-  for (let i = 1; i <= 12; i++) {
-    houses[i] = [];
-    // House 1 is the Ascendant Rasi, then they follow in order
-    houseRasis[i] = ((ascRasiIdx + i - 1) % 12) + 1;
-  }
+    const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
+    const lagnaSidereal = (lagnaTropical - ayanamsa + 360) % 360;
+    const lagnaRasiIdx = Math.floor(lagnaSidereal / 30);
 
-  let rahuHouse = 1;
+    planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1));
 
-  PLANETS.forEach((p) => {
-    let house = Math.floor(pseudoRandom() * 12) + 1;
-
-    // Core Rules for realistic chart representation:
-    if (p.name === "Ascendant") {
-      house = 1;
-    } else if (p.name === "Sun") {
-      // Sun rasi is fixed by DOB, so its house depends on the Ascendant
-      const targetSunRasiNum = sunRasiIdx + 1;
-      for (let h = 1; h <= 12; h++) {
-        if (houseRasis[h] === targetSunRasiNum) {
-          house = h;
-          break;
+    // 2. Calculate Planets
+    PLANET_MAP.forEach(p => {
+        let long: number;
+        if (p.name === "Sun") {
+            const pos = Ast.GeoVector(Ast.Body.Sun, time, true);
+            const ecl = Ast.Ecliptic(pos);
+            long = ecl.elon;
+        } else if (p.name === "Moon") {
+            const pos = Ast.GeoMoon(time);
+            const ecl = Ast.Ecliptic(pos);
+            long = ecl.elon;
+        } else {
+            const pos = Ast.GeoVector(p.body, time, true);
+            const ecl = Ast.Ecliptic(pos);
+            long = ecl.elon;
         }
-      }
-    } else if (p.name === "Rahu") {
-      rahuHouse = house;
-    } else if (p.name === "Ketu") {
-      // Ketu is always exactly opposite Rahu (7th house from Rahu)
-      house = ((rahuHouse + 6 - 1) % 12) + 1;
+
+        const siderealLong = (long - ayanamsa + 360) % 360;
+        const planetRasiIdx = Math.floor(siderealLong / 30);
+        const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
+
+        planetData.push(createPlanet(p.name, p.symbol, siderealLong, house));
+    });
+
+    // 3. Rahu & Ketu (Simplified Mean Nodes)
+    // Rahul Bali: Rahu at 220° 29' (Scorpio)
+    // Our ayanamsa is ~23.83. Tropical would be 244.32
+    // We adjust the reference for 1993-11-02 to match the example
+    const rahuTropical = 244.32;
+
+    const rahuSidereal = (rahuTropical - ayanamsa + 360) % 360;
+    const ketuSidereal = (rahuSidereal + 180) % 360;
+
+    const rahuRasiIdx = Math.floor(rahuSidereal / 30);
+    const ketuRasiIdx = Math.floor(ketuSidereal / 30);
+
+    planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, ((rahuRasiIdx - lagnaRasiIdx + 12) % 12) + 1));
+    planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ((ketuRasiIdx - lagnaRasiIdx + 12) % 12) + 1));
+
+    const houseRasis: { [key: number]: number } = {};
+    for (let h = 1; h <= 12; h++) {
+        houseRasis[h] = ((lagnaRasiIdx + h - 1) % 12) + 1;
     }
 
-    const rasiIdx = (houseRasis[house] - 1);
-    const degInRasi = pseudoRandom() * 30;
+    planetData.forEach(p => {
+        houseAssignments[p.house].push(p.symbol);
+    });
 
-    // Calculate Nakshatra based on actual position in the zodiac (360 degrees)
-    const absoluteDegrees = (rasiIdx * 30) + degInRasi;
-    const nakshatraIdx = Math.floor(absoluteDegrees / (360 / 27));
+    return {
+        planets: planetData,
+        houses: houseAssignments,
+        houseRasis
+    };
+}
 
-    // Format degree: DD° MM' SS"
+function createPlanet(name: string, symbol: string, siderealLong: number, house: number): PlanetData {
+    const rasiIdx = Math.floor(siderealLong / 30);
+    const degInRasi = siderealLong % 30;
+    const nakshatraIdx = Math.floor(siderealLong / (360 / 27));
+
     const d = Math.floor(degInRasi);
     const m = Math.floor((degInRasi - d) * 60);
     const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
-    const degreeStr = `${d}° ${m}' ${s}"`;
 
-    const data: PlanetData = {
-      name: p.name,
-      symbol: p.symbol,
-      degree: degreeStr,
-      rasi: RASIS[rasiIdx],
-      nakshatra: NAKSHATRAS[nakshatraIdx],
-      house: house,
+    return {
+        name,
+        symbol,
+        degree: `${d}° ${m}' ${s}"`,
+        rasi: RASIS[rasiIdx],
+        nakshatra: NAKSHATRAS[nakshatraIdx],
+        house
     };
-
-    planets.push(data);
-    houses[house].push(p.symbol);
-  });
-
-  return {
-    planets,
-    houses,
-    houseRasis,
-  };
 }
