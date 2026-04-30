@@ -12,7 +12,7 @@ const reviews = [
   { id: 7, name: "Gomathi", date: "Nov 11, 2024", review: "My first consultation, and I felt extremely comfortable. Grateful for the clarity and cleared doubts. Thank you!" },
 ];
 
-const VoicesOfInsight = () => {
+const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -60,7 +60,7 @@ const VoicesOfInsight = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-1 lg:sticky lg:top-24">
             <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Reviews</span>
-            <h2 className="text-4xl md:text-5xl font-normal mb-6 font-headline text-on-surface tracking-tight">Voices of Insight</h2>
+            <h2 className="text-4xl md:text-5xl font-normal mb-6 font-headline text-on-surface tracking-tight">Testimonials</h2>
             <p className="text-secondary text-base mb-10 font-body leading-relaxed max-w-xs">
               Hear from those who have transformed their lives through celestial alignment and expert guidance.
             </p>
@@ -132,4 +132,4 @@ const VoicesOfInsight = () => {
   );
 };
 
-export default VoicesOfInsight;
+export default Testimonials;

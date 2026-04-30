@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ChartGeneration from '@/components/ChartGeneration';
 import ExpertConsultations from '@/components/ExpertConsultations';
-import VoicesOfInsight from '@/components/VoicesOfInsight';
+import Testimonials from '@/components/Testimonials';
 import LatestInsights from '@/components/LatestInsights';
 import Footer from '@/components/Footer';
 
@@ -11,7 +11,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <VoicesOfInsight />
+      <Testimonials />
       <ChartGeneration />
       <ExpertConsultations />
       <LatestInsights />
