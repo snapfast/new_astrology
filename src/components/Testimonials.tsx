@@ -17,22 +17,27 @@ const Testimonials = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [itemsPerView, setItemsPerView] = useState(1);
 
-  // Responsive items per view
+  // Responsive items per view - Optimized using matchMedia to reduce event overhead
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setItemsPerView(2);
-      } else {
-        setItemsPerView(1);
-      }
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+
+    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setItemsPerView(e.matches ? 2 : 1);
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    handleMediaChange(mediaQuery);
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
   }, []);
 
   const maxIndex = reviews.length - itemsPerView;
+
+  // Ensure currentIndex is valid when itemsPerView changes
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(Math.max(0, maxIndex));
+    }
+  }, [itemsPerView, currentIndex, maxIndex]);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => {
