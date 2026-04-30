@@ -87,7 +87,6 @@ export function generateAstrologyData(dob: string, tob: string): ChartData {
   // Ascendant changes approx every 2 hours (120 minutes)
   const rasiShift = Math.floor(minutesSinceDawn / 120);
   const ascRasiIdx = (sunRasiIdx + rasiShift) % 12;
-  const ascRasiNum = ascRasiIdx + 1;
 
   const planets: PlanetData[] = [];
   const houses: { [key: number]: string[] } = {};

@@ -1,10 +1,75 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 const ChartGeneration = () => {
   const router = useRouter();
+  const [pob, setPob] = useState('');
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionRef.current && !suggestionRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (pob.length < 3) {
+      setSuggestions([]);
+      return;
+    }
+
+    const fetchCities = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(pob)}&format=json&addressdetails=1&limit=5&featuretype=city`
+        );
+        const data = await response.json();
+        interface NominatimAddress {
+          city?: string;
+          town?: string;
+          village?: string;
+          suburb?: string;
+          hamlet?: string;
+          state?: string;
+          country?: string;
+        }
+        interface NominatimItem {
+          address: NominatimAddress;
+          display_name: string;
+        }
+        const cityNames = data.map((item: NominatimItem) => {
+          const address = item.address;
+          const city = address.city || address.town || address.village || address.suburb || address.hamlet;
+          const state = address.state;
+          const country = address.country;
+
+          if (city) {
+            return `${city}${state ? `, ${state}` : ''}, ${country}`;
+          }
+          return item.display_name;
+        });
+        // Filter unique names
+        setSuggestions([...new Set(cityNames)] as string[]);
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchCities, 500);
+    return () => clearTimeout(debounceTimer);
+  }, [pob]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -12,13 +77,13 @@ const ChartGeneration = () => {
     const name = formData.get('name');
     const dob = formData.get('dob');
     const tob = formData.get('tob');
-    const pob = formData.get('pob');
+    const finalPob = pob;
 
     const params = new URLSearchParams({
       name: name as string,
       dob: dob as string,
       tob: tob as string,
-      pob: pob as string,
+      pob: finalPob,
     });
 
     router.push(`/horoscope?${params.toString()}`);
@@ -67,15 +132,47 @@ const ChartGeneration = () => {
                   required
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 relative" ref={suggestionRef}>
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Place of Birth</label>
                 <input
                   name="pob"
+                  value={pob}
+                  onChange={(e) => {
+                    setPob(e.target.value);
+                    setShowSuggestions(true);
+                  }}
+                  onFocus={() => setShowSuggestions(true)}
                   className="w-full px-6 py-3 md:py-4 bg-surface-container-low border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary/30 text-on-surface text-xs md:text-sm font-body"
                   placeholder="City, Country"
                   type="text"
+                  autoComplete="off"
                   required
                 />
+
+                {showSuggestions && (suggestions.length > 0 || isLoading) && (
+                  <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    {isLoading ? (
+                      <div className="px-6 py-4 text-xs text-secondary/50 font-body italic">Searching cities...</div>
+                    ) : (
+                      <ul className="max-h-60 overflow-y-auto">
+                        {suggestions.map((suggestion, index) => (
+                          <li key={index}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setPob(suggestion);
+                                setShowSuggestions(false);
+                              }}
+                              className="w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body active:bg-accent/5 transition-colors"
+                            >
+                              {suggestion}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="md:col-span-2 pt-2 md:pt-4">
                 <button className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label" type="submit">
