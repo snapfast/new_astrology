@@ -50,9 +50,14 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     if (!dob || !tob) return { planets: [], houses: {}, houseRasis: {} };
 
-    // Standard UTC+5:30 offset for India if no coordinates provided (backward compatibility)
-    const localDate = new Date(`${dob}T${tob}:00`);
-    const utcDate = new Date(localDate.getTime() - (5.5 * 60 * 60 * 1000));
+    // Parse Date and Time in UTC to avoid environment-dependent timezone issues
+    const [year, month, day] = dob.split('-').map(Number);
+    const [hour, minute] = tob.split(':').map(Number);
+
+    // Create Date object interpreted as UTC, then subtract 5.5 hours to get the actual UTC time
+    // since the input is local IST (UTC+5:30)
+    const istDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
+    const utcDate = new Date(istDate.getTime() - (5.5 * 60 * 60 * 1000));
     const time = Ast.MakeTime(utcDate);
 
     const lat = parseFloat(latStr || "31.3837");
@@ -70,7 +75,11 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const RAMC = (siderealTime * 15 + lon) % 360;
     const rad = Math.PI / 180;
     const phi = lat * rad;
-    const eps = 23.44 * rad;
+
+    // Calculate Obliquity of the Ecliptic (eps) for the given time
+    const rot = Ast.Rotation_ECL_EQD(time);
+    const eps = Math.acos(rot.rot[2][2]);
+
     const alpha = RAMC * rad;
 
     const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
