@@ -49,11 +49,6 @@ const LearnMoreModal: React.FC<LearnMoreModalProps> = ({ isOpen, onClose, onBook
             </button>
           </div>
 
-          <div className="flex justify-center mb-2 md:mb-3">
-            <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
-              ₹701 Fee
-            </span>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
             {/* Calendly */}

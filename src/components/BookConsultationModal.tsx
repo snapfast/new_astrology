@@ -62,11 +62,6 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                 </svg>
               </div>
 
-              <div className="mb-2 md:mb-4">
-                <span className="px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full text-[7px] md:text-[10px] font-bold tracking-widest uppercase font-label">
-                  ₹701 Fee
-                </span>
-              </div>
 
               <h3 className="text-lg md:text-3xl font-normal text-on-surface font-headline mb-2 md:mb-4">Personal Consultation</h3>
               <div className="space-y-1 md:space-y-3">
@@ -80,7 +75,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
             <div className="space-y-3 md:space-y-6">
               <div className="p-4 md:p-5 bg-surface-container-low/40 rounded-3xl border border-outline/5 text-center">
                 <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
-                  You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. Please ensure payment is completed via the QR code.
+                  You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. This is a donation-based service; contributions are welcome after the session.
                 </p>
               </div>
 
@@ -92,7 +87,7 @@ const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, o
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_qr' })}
                   className="w-full py-4 md:py-5 border border-outline/60 rounded-full text-on-surface font-label text-[9px] md:text-xs font-medium tracking-[0.1em] uppercase text-center bg-transparent"
                 >
-                  View Payment QR
+                  View Donation QR
                 </a>
 
                 <a
