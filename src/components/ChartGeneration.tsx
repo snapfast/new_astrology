@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 const ChartGeneration = () => {
   const router = useRouter();
   const [pob, setPob] = useState('');
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [coords, setCoords] = useState<{ lat: string; lon: string } | null>(null);
+  const [suggestions, setSuggestions] = useState<{ name: string; lat: string; lon: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionRef = useRef<HTMLDivElement>(null);
@@ -47,19 +48,22 @@ const ChartGeneration = () => {
           address: NominatimAddress;
           display_name: string;
         }
-        const cityNames = data.map((item: NominatimItem) => {
+        const cityData = data.map((item: NominatimItem) => {
           const address = item.address;
           const city = address.city || address.town || address.village || address.suburb || address.hamlet;
           const state = address.state;
           const country = address.country;
+          const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : item.display_name;
 
-          if (city) {
-            return `${city}${state ? `, ${state}` : ''}, ${country}`;
-          }
-          return item.display_name;
+          return {
+            name,
+            lat: item.lat,
+            lon: item.lon
+          };
         });
-        // Filter unique names
-        setSuggestions([...new Set(cityNames)] as string[]);
+        // Filter unique names by display name
+        const uniqueCities = Array.from(new Map(cityData.map((item: { name: string; lat: string; lon: string }) => [item.name, item])).values());
+        setSuggestions(uniqueCities as { name: string; lat: string; lon: string }[]);
       } catch (error) {
         console.error('Error fetching cities:', error);
       } finally {
@@ -84,6 +88,8 @@ const ChartGeneration = () => {
       dob: dob as string,
       tob: tob as string,
       pob: finalPob,
+      lat: coords?.lat || '',
+      lon: coords?.lon || '',
     });
 
     router.push(`/horoscope?${params.toString()}`);
@@ -160,12 +166,13 @@ const ChartGeneration = () => {
                             <button
                               type="button"
                               onClick={() => {
-                                setPob(suggestion);
+                                setPob(suggestion.name);
+                                setCoords({ lat: suggestion.lat, lon: suggestion.lon });
                                 setShowSuggestions(false);
                               }}
                               className="w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body active:bg-accent/5 transition-colors"
                             >
-                              {suggestion}
+                              {suggestion.name}
                             </button>
                           </li>
                         ))}

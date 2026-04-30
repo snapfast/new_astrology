@@ -16,8 +16,10 @@ const HoroscopeContent = () => {
   const dob = searchParams.get('dob') || '';
   const tob = searchParams.get('tob') || '';
   const pob = searchParams.get('pob') || '';
+  const lat = searchParams.get('lat') || '';
+  const lon = searchParams.get('lon') || '';
 
-  const chartData = useMemo(() => generateAstrologyData(dob, tob), [dob, tob]);
+  const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_book_now' });
