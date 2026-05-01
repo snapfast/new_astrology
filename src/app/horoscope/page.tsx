@@ -45,12 +45,12 @@ const HoroscopeContent = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        {/* Kundli Chart */}
+      {/* Main Charts & Data Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+        {/* Lagna Chart (D1) */}
         <div className="space-y-6">
           <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Lagna Chart (D1)</h2>
-          <KundliChart data={chartData} />
-          <p className="text-xs text-secondary text-center italic mt-4">Traditional North Indian Style Representation</p>
+          <KundliChart data={chartData.d1} />
         </div>
 
         {/* Planet Table */}
@@ -80,25 +80,40 @@ const HoroscopeContent = () => {
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
 
-          {/* Verification CTA Section */}
-          <div className="bg-surface-container-low rounded-[2.5rem] border border-outline/50 p-8 md:p-12 text-center mt-12 relative overflow-hidden">
-            <div className="relative z-10">
-              <h3 className="text-2xl font-normal mb-4 font-headline text-on-surface">Seeking Verified Information?</h3>
-              <p className="text-sm text-secondary font-body mb-8 max-w-xl mx-auto leading-relaxed">
-                This digital chart provides a representative visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.
-              </p>
-              <button
-                onClick={handleBookNow}
-                className="inline-block bg-primary text-white px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
-              >
-                Book Verified Personal Consultation
-              </button>
-            </div>
-            {/* Subtle Decorative Element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/5 rounded-full blur-3xl -z-0"></div>
+      {/* Divisional Charts Section */}
+      <div className="mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-8">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Navamsha Chart (D9)</h2>
+            <KundliChart data={chartData.d9} />
+          </div>
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Drekkana Chart (D3)</h2>
+            <KundliChart data={chartData.d3} />
           </div>
         </div>
+        <p className="text-xs text-secondary text-center italic">Traditional North Indian Style Representation of Divisional Charts</p>
+      </div>
+
+      {/* Verification CTA Section */}
+      <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto">
+        <div className="relative z-10">
+          <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Seeking Verified Information?</h3>
+          <p className="text-sm md:text-base text-secondary font-body mb-10 max-w-2xl mx-auto leading-relaxed">
+            This digital chart provides a representative visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.
+          </p>
+          <button
+            onClick={handleBookNow}
+            className="inline-block bg-primary text-white px-12 py-5 rounded-full font-medium text-xs md:text-sm tracking-[0.1em] uppercase font-label"
+          >
+            Book Verified Personal Consultation
+          </button>
+        </div>
+        {/* Subtle Decorative Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-[100px] -z-0"></div>
       </div>
       <BookConsultationModal
         isOpen={isBookingModalOpen}
