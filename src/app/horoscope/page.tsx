@@ -60,21 +60,21 @@ const HoroscopeContent = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-surface-container-low border-b border-outline">
-                  <th className="px-6 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Planet</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Rasi</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Degree</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Nakshatra</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label text-center">Pada</th>
+                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Planet</th>
+                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Rasi</th>
+                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Degree</th>
+                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Nakshatra</th>
+                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label text-center">Pada</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline">
                 {chartData.planets.map((p, idx) => (
                   <tr key={idx}>
-                    <td className="px-6 py-4 text-sm font-medium text-on-surface">{p.name}</td>
-                    <td className="px-6 py-4 text-sm text-secondary">{p.rasi}</td>
-                    <td className="px-6 py-4 text-sm text-secondary font-mono">{p.degree}</td>
-                    <td className="px-6 py-4 text-sm text-secondary">{p.nakshatra}</td>
-                    <td className="px-6 py-4 text-sm text-on-surface text-center font-bold">{p.pada}</td>
+                    <td className="px-4 py-2 text-xs font-medium text-on-surface">{p.name}</td>
+                    <td className="px-4 py-2 text-xs text-secondary">{p.rasi}</td>
+                    <td className="px-4 py-2 text-xs text-secondary font-mono">{p.degree}</td>
+                    <td className="px-4 py-2 text-xs text-secondary">{p.nakshatra}</td>
+                    <td className="px-4 py-2 text-xs text-on-surface text-center font-bold">{p.pada}</td>
                   </tr>
                 ))}
               </tbody>
