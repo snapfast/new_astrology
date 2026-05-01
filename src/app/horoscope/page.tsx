@@ -38,6 +38,15 @@ const HoroscopeContent = () => {
 
   return (
     <div ref={contentRef} data-pdf-content="true" className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* PDF-only Branding Header */}
+      <div className="hidden pdf-only flex-col items-center mb-12 w-full text-center">
+        <div className="text-3xl font-normal tracking-tight font-headline flex items-center justify-center gap-1">
+          <span className="text-on-surface whitespace-nowrap">Rahul Bali</span>
+          <span className="text-accent italic whitespace-nowrap">Astrology</span>
+        </div>
+        <p className="text-[10px] text-secondary tracking-widest uppercase font-label mt-2">www.rahulbaliastrology.com</p>
+      </div>
+
       {/* Header & User Details */}
       <div className="mb-16 text-center">
         <div className="flex justify-center items-center gap-4 mb-6">
@@ -136,6 +145,14 @@ const HoroscopeContent = () => {
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
       />
+
+      {/* PDF-only Branding Footer */}
+      <div className="hidden pdf-only flex-col items-center mt-20 pt-10 border-t border-outline/30 w-full text-center">
+        <p className="text-[10px] tracking-widest uppercase font-medium text-secondary/60 font-label">
+          Rahul Bali Astrology Services © 2025. All rights reserved.
+        </p>
+        <p className="text-[9px] text-secondary/40 mt-2 font-label tracking-wider uppercase">Professional Jyotish Shastra Consultations</p>
+      </div>
     </div>
   );
 };
