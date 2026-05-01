@@ -40,18 +40,18 @@ const HoroscopeContent = () => {
     <div ref={contentRef} data-pdf-content="true" className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header & User Details */}
       <div className="mb-16 text-center">
-        <button
-          onClick={handleDownloadPDF}
-          className="mb-8 mx-auto flex items-center gap-2 px-4 py-2 rounded-full border border-outline/60 text-on-surface font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase hover:bg-surface-container-low transition-colors print:hidden pdf-hide"
-        >
-          <span className="material-symbols-outlined text-base">download</span>
-          Download PDF
-        </button>
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center items-center gap-4 mb-6">
           <span className="bg-surface-container-high border border-outline/30 px-4 py-1.5 rounded-full text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-secondary font-label flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
             Representative Digital Map
           </span>
+          <button
+            onClick={handleDownloadPDF}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline/30 text-on-surface font-medium text-[7px] md:text-[9px] tracking-[0.1em] uppercase hover:bg-surface-container-low transition-colors print:hidden pdf-hide"
+          >
+            <span className="material-symbols-outlined text-[12px] md:text-sm">download</span>
+            Download PDF
+          </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-normal mb-8 font-headline text-on-surface">Your Birth Chart</h1>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
