@@ -67,7 +67,6 @@ export default function ReviewsPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase"
             >
-              <GoogleIcon />
               Write a Review on Google
               <span className="material-symbols-outlined text-base">open_in_new</span>
             </a>
