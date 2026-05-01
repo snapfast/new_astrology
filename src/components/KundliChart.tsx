@@ -1,8 +1,8 @@
 import React from 'react';
-import { ChartData } from '@/lib/astrology';
+import { DivisionalChartData } from '@/lib/astrology';
 
 interface KundliChartProps {
-  data: ChartData;
+  data: DivisionalChartData;
 }
 
 const KundliChart: React.FC<KundliChartProps> = ({ data }) => {

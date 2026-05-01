@@ -10,10 +10,16 @@ export interface PlanetData {
     house: number;
 }
 
-export interface ChartData {
-    planets: PlanetData[];
+export interface DivisionalChartData {
     houses: { [key: number]: string[] };
     houseRasis: { [key: number]: number };
+}
+
+export interface ChartData {
+    planets: PlanetData[];
+    d1: DivisionalChartData;
+    d3: DivisionalChartData;
+    d9: DivisionalChartData;
 }
 
 const RASIS = [
@@ -49,7 +55,8 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
 }
 
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
-    if (!dob || !tob) return { planets: [], houses: {}, houseRasis: {} };
+    const emptyChart = { houses: {}, houseRasis: {} } as DivisionalChartData;
+    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart };
 
     // Parse Date and Time in UTC to avoid environment-dependent timezone issues
     const [year, month, day] = dob.split('-').map(Number);
@@ -68,8 +75,14 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const ayanamsa = getLahiriAyanamsa(time);
 
     const planetData: PlanetData[] = [];
-    const houseAssignments: { [key: number]: string[] } = {};
-    for (let i = 1; i <= 12; i++) houseAssignments[i] = [];
+    const d1Assignments: { [key: number]: string[] } = {};
+    const d3Assignments: { [key: number]: string[] } = {};
+    const d9Assignments: { [key: number]: string[] } = {};
+    for (let i = 1; i <= 12; i++) {
+        d1Assignments[i] = [];
+        d3Assignments[i] = [];
+        d9Assignments[i] = [];
+    }
 
     // 1. Calculate Ascendant (Lagna)
     const siderealTime = Ast.SiderealTime(time);
@@ -86,6 +99,8 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
     const lagnaSidereal = (lagnaTropical - ayanamsa + 360) % 360;
     const lagnaRasiIdx = Math.floor(lagnaSidereal / 30);
+    const d3LagnaRasiIdx = getD3Rasi(lagnaSidereal);
+    const d9LagnaRasiIdx = getD9Rasi(lagnaSidereal);
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1));
 
@@ -110,7 +125,16 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         const planetRasiIdx = Math.floor(siderealLong / 30);
         const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
-        planetData.push(createPlanet(p.name, p.symbol, siderealLong, house));
+        const planet = createPlanet(p.name, p.symbol, siderealLong, house);
+        planetData.push(planet);
+
+        // Divisional Assignments
+        const d3RasiIdx = getD3Rasi(siderealLong);
+        const d9RasiIdx = getD9Rasi(siderealLong);
+
+        d1Assignments[house].push(p.symbol);
+        d3Assignments[((d3RasiIdx - d3LagnaRasiIdx + 12) % 12) + 1].push(p.symbol);
+        d9Assignments[((d9RasiIdx - d9LagnaRasiIdx + 12) % 12) + 1].push(p.symbol);
     });
 
     // 3. Rahu & Ketu (Simplified Mean Nodes)
@@ -125,23 +149,69 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const rahuRasiIdx = Math.floor(rahuSidereal / 30);
     const ketuRasiIdx = Math.floor(ketuSidereal / 30);
 
-    planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, ((rahuRasiIdx - lagnaRasiIdx + 12) % 12) + 1));
-    planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ((ketuRasiIdx - lagnaRasiIdx + 12) % 12) + 1));
+    const rahuHouse = ((rahuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
+    const ketuHouse = ((ketuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
-    const houseRasis: { [key: number]: number } = {};
+    planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, rahuHouse));
+    planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ketuHouse));
+
+    // Assign Rahu/Ketu to divisions
+    const d3RahuIdx = getD3Rasi(rahuSidereal);
+    const d3KetuIdx = getD3Rasi(ketuSidereal);
+    const d9RahuIdx = getD9Rasi(rahuSidereal);
+    const d9KetuIdx = getD9Rasi(ketuSidereal);
+
+    d1Assignments[rahuHouse].push("Ra");
+    d1Assignments[ketuHouse].push("Ke");
+    d3Assignments[((d3RahuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push("Ra");
+    d3Assignments[((d3KetuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push("Ke");
+    d9Assignments[((d9RahuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push("Ra");
+    d9Assignments[((d9KetuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push("Ke");
+
+    // Lagna assignments
+    d1Assignments[1].push("As");
+    d3Assignments[1].push("As");
+    d9Assignments[1].push("As");
+
+    const d1HouseRasis: { [key: number]: number } = {};
+    const d3HouseRasis: { [key: number]: number } = {};
+    const d9HouseRasis: { [key: number]: number } = {};
+
     for (let h = 1; h <= 12; h++) {
-        houseRasis[h] = ((lagnaRasiIdx + h - 1) % 12) + 1;
+        d1HouseRasis[h] = ((lagnaRasiIdx + h - 1) % 12) + 1;
+        d3HouseRasis[h] = ((d3LagnaRasiIdx + h - 1) % 12) + 1;
+        d9HouseRasis[h] = ((d9LagnaRasiIdx + h - 1) % 12) + 1;
     }
-
-    planetData.forEach(p => {
-        houseAssignments[p.house].push(p.symbol);
-    });
 
     return {
         planets: planetData,
-        houses: houseAssignments,
-        houseRasis
+        d1: { houses: d1Assignments, houseRasis: d1HouseRasis },
+        d3: { houses: d3Assignments, houseRasis: d3HouseRasis },
+        d9: { houses: d9Assignments, houseRasis: d9HouseRasis }
     };
+}
+
+function getD3Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const drekkanaIdx = Math.floor(degInRasi / 10); // 0, 1, 2
+    return (rasiIdx + drekkanaIdx * 4) % 12;
+}
+
+function getD9Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const navamshaIdx = Math.floor(degInRasi / (30 / 9)); // 0 to 8
+
+    // Elements: 0: Fire, 1: Earth, 2: Air, 3: Water
+    const element = rasiIdx % 4;
+    let startSign = 0;
+    if (element === 0) startSign = 0; // Aries
+    else if (element === 1) startSign = 9; // Capricorn
+    else if (element === 2) startSign = 6; // Libra
+    else if (element === 3) startSign = 3; // Cancer
+
+    return (startSign + navamshaIdx) % 12;
 }
 
 function createPlanet(name: string, symbol: string, siderealLong: number, house: number): PlanetData {
