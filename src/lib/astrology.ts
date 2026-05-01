@@ -6,6 +6,7 @@ export interface PlanetData {
     degree: string;
     rasi: string;
     nakshatra: string;
+    pada: number;
     house: number;
 }
 
@@ -147,6 +148,7 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
     const rasiIdx = Math.floor(siderealLong / 30);
     const degInRasi = siderealLong % 30;
     const nakshatraIdx = Math.floor(siderealLong / (360 / 27));
+    const pada = Math.floor((siderealLong % (360 / 27)) / (360 / 108)) + 1;
 
     const d = Math.floor(degInRasi);
     const m = Math.floor((degInRasi - d) * 60);
@@ -158,6 +160,7 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
         degree: `${d}° ${m}' ${s}"`,
         rasi: RASIS[rasiIdx],
         nakshatra: NAKSHATRAS[nakshatraIdx],
+        pada,
         house
     };
 }
