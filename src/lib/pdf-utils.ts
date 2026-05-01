@@ -20,8 +20,20 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           (el as HTMLElement).style.display = 'none';
         });
 
+        // Show elements that should only be in the PDF
+        const elementsToShow = clonedDoc.querySelectorAll('.pdf-only');
+        elementsToShow.forEach((el) => {
+          (el as HTMLElement).style.display = 'flex';
+        });
+
         // Add some padding to the cloned element for better layout in PDF
-        const clonedElement = clonedDoc.querySelector(`[data-pdf-content="true"]`);
+        // Since clonedDoc is a clone of the specific element if we pass contentRef.current,
+        // we check both the document body's first child (the cloned element) and querySelector.
+        const clonedElement = clonedDoc.querySelector(`[data-pdf-content="true"]`) ||
+                             (clonedDoc.body.firstElementChild?.getAttribute('data-pdf-content') === 'true'
+                              ? clonedDoc.body.firstElementChild
+                              : null);
+
         if (clonedElement) {
           (clonedElement as HTMLElement).style.padding = '40px';
         }
