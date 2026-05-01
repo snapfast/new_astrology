@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-md antialiased">
+    <nav className="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-md antialiased print:hidden">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 py-4 md:px-8 md:py-6 w-full">
         <Link href="/" className="text-base sm:text-lg md:text-xl font-normal tracking-tight font-headline flex items-center gap-1">
           <span className="text-on-surface whitespace-nowrap">Rahul Bali</span>
