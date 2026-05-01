@@ -24,7 +24,15 @@ const ChartGeneration = () => {
   }, []);
 
   useEffect(() => {
-    if (pob.length < 3) {
+    if (pob.length < 3 || pob.length > 100) {
+      setSuggestions([]);
+      return;
+    }
+
+    // Basic sanitization: allow letters (including Unicode), numbers, spaces, and common address punctuation.
+    // This protects against malicious scripts while supporting international city names.
+    const isValidInput = /^[ \p{L}\p{N},.\-'()]*$/u.test(pob);
+    if (!isValidInput) {
       setSuggestions([]);
       return;
     }
@@ -118,6 +126,7 @@ const ChartGeneration = () => {
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
                 <input
                   name="name"
+                  maxLength={100}
                   className="w-full px-6 py-3 md:py-4 bg-surface-container-low border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary/30 text-on-surface text-xs md:text-sm font-body"
                   placeholder="John Doe"
                   type="text"
@@ -147,6 +156,7 @@ const ChartGeneration = () => {
                 <input
                   name="pob"
                   value={pob}
+                  maxLength={100}
                   onChange={(e) => {
                     setPob(e.target.value);
                     setShowSuggestions(true);
