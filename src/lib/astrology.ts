@@ -46,12 +46,13 @@ const PLANET_MAP = [
 ];
 
 /**
- * Calculates the Lahiri Ayanamsa for a given date.
+ * Calculates the Chitra Paksha Lahiri Ayanamsa for a given date.
+ * Based on the J2000.0 epoch with a base value of 23.85°.
  */
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
-    const fractionalYear = 2000.0 + time.tt / 36525.0 * 100.0;
-    const T = (fractionalYear - 1900.0) / 100.0;
-    return 22.460148 + 1.396042 * T + 0.000308 * T * T;
+    // T is centuries from J2000.0
+    const T = time.tt / 36525.0;
+    return 23.85 + 1.39638 * T + 0.000308 * T * T;
 }
 
 /**
@@ -80,9 +81,9 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const utcDate = new Date(istDate.getTime() - (5.5 * 60 * 60 * 1000));
     const time = Ast.MakeTime(utcDate);
 
-    // Using refined defaults for Nangal to match expected precision
-    const lat = parseFloat(latStr || "31.39");
-    const lon = parseFloat(lonStr || "76.368");
+    // Default coordinates: New Delhi, India
+    const lat = parseFloat(latStr || "28.6139");
+    const lon = parseFloat(lonStr || "77.2090");
 
     // Calculate Ayanamsa (Lahiri)
     const ayanamsa = getLahiriAyanamsa(time);
