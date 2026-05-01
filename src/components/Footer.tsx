@@ -23,6 +23,7 @@ const Footer = () => {
         <div>
           <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Services</h6>
           <ul className="space-y-5 text-sm">
+            <li><Link href="/free-horoscope" className="text-accent font-medium text-left">Free Kundli</Link></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-secondary font-light text-left">Consultation</button></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-secondary font-light text-left">Premium Appointment</button></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_research' }); setIsBookingModalOpen(true); }} className="text-secondary font-light text-left">Research</button></li>
