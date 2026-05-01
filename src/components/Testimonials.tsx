@@ -17,17 +17,15 @@ const Testimonials = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [itemsPerView, setItemsPerView] = useState(1);
 
-  // Responsive items per view - Optimized using matchMedia to reduce event overhead
+  // Responsive items per view - Streamlined resize logic for better maintainability
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 1024px)');
-
-    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setItemsPerView(e.matches ? 2 : 1);
+    const handleResize = () => {
+      setItemsPerView(window.innerWidth >= 1024 ? 2 : 1);
     };
 
-    handleMediaChange(mediaQuery);
-    mediaQuery.addEventListener('change', handleMediaChange);
-    return () => mediaQuery.removeEventListener('change', handleMediaChange);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const maxIndex = reviews.length - itemsPerView;
