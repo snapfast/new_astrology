@@ -9,7 +9,7 @@ const Footer = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
-    <footer className="w-full pt-32 pb-20 bg-background border-t border-outline/50 font-body">
+    <footer className="w-full pt-32 pb-20 bg-background border-t border-outline/50 font-body print:hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
         <div className="col-span-1 lg:col-span-1">
           <Link href="/" className="text-2xl font-normal tracking-tight text-on-surface mb-8 font-headline flex items-center gap-1">

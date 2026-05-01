@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState, useMemo, memo } from 'react';
+import React, { Suspense, useState, useMemo, memo, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,8 +8,10 @@ import KundliChart from '@/components/KundliChart';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
+import { downloadHoroscopePDF } from '@/lib/pdf-utils';
 
 const HoroscopeContent = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const searchParams = useSearchParams();
   const name = searchParams.get('name') || 'Guest';
@@ -26,10 +28,25 @@ const HoroscopeContent = () => {
     setIsBookingModalOpen(true);
   };
 
+  const handleDownloadPDF = async () => {
+    if (contentRef.current) {
+      sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_download_pdf' });
+      const safeName = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      await downloadHoroscopePDF(contentRef.current, `horoscope_${safeName}`);
+    }
+  };
+
   return (
-    <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div ref={contentRef} data-pdf-content="true" className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header & User Details */}
       <div className="mb-16 text-center">
+        <button
+          onClick={handleDownloadPDF}
+          className="mb-8 mx-auto flex items-center gap-2 px-4 py-2 rounded-full border border-outline/60 text-on-surface font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase hover:bg-surface-container-low transition-colors print:hidden pdf-hide"
+        >
+          <span className="material-symbols-outlined text-base">download</span>
+          Download PDF
+        </button>
         <div className="flex justify-center mb-6">
           <span className="bg-surface-container-high border border-outline/30 px-4 py-1.5 rounded-full text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-secondary font-label flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
@@ -99,7 +116,7 @@ const HoroscopeContent = () => {
       </div>
 
       {/* Verification CTA Section */}
-      <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto">
+      <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden pdf-hide">
         <div className="relative z-10">
           <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Seeking Verified Information?</h3>
           <p className="text-sm md:text-base text-secondary font-body mb-10 max-w-2xl mx-auto leading-relaxed">
