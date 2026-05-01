@@ -1,6 +1,12 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+export const metadata: Metadata = {
+  title: "Client Reviews & Testimonials",
+  description: "Read what our clients have to say about their experiences with Pandit Rahul Bali Ji's Vedic astrology readings and spiritual guidance.",
+};
 
 const reviews = [
   { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "I wanted to share with someone trustworthy and fortunately got the answers I needed. Thank you for the guidance and advice. Can't thank you enough!" },

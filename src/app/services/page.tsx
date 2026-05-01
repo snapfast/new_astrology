@@ -1,7 +1,13 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ExpertConsultations from '@/components/ExpertConsultations';
+
+export const metadata: Metadata = {
+  title: "Vedic Astrology Services",
+  description: "Explore spiritual and astrological services by Pandit Rahul Bali Ji, including birth chart readings, personal consultations, and life guidance.",
+};
 
 export default function ServicesPage() {
   return (

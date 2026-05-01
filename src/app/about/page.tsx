@@ -1,6 +1,12 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+export const metadata: Metadata = {
+  title: "About Pandit Rahul Bali Ji",
+  description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram, specializing in spiritual insights and practical life remedies.",
+};
 
 export default function AboutPage() {
   return (

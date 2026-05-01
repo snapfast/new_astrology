@@ -1,6 +1,12 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with Pandit Rahul Bali Ji for personalized astrology consultations and spiritual guidance. Reach out via email or social media.",
+};
 
 export default function ContactPage() {
   return (

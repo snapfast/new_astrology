@@ -1,7 +1,13 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LatestInsights from '@/components/LatestInsights';
+
+export const metadata: Metadata = {
+  title: "Astrology Insights & Spiritual Wisdom",
+  description: "Explore deep dives into Vedic astrology, planetary transits, and spiritual wisdom for a conscious life with Pandit Rahul Bali Ji.",
+};
 
 export default function InsightsPage() {
   return (

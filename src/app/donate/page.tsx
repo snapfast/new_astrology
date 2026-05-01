@@ -1,7 +1,13 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+export const metadata: Metadata = {
+  title: "Support Our Work",
+  description: "Contribute to the research and spiritual services of Pandit Rahul Bali Ji. Your support helps us provide guidance to more people globally.",
+};
 
 export default function DonatePage() {
   return (
