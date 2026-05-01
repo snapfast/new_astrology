@@ -131,7 +131,7 @@ const ChartGeneration = () => {
         <div className="bg-surface p-10 md:p-16 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
           <div className="relative z-10">
             <div className="mb-8 md:mb-12 text-center">
-              <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">Generate Your Chart</h2>
+              <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">Generate Your Free Chart</h2>
               <p className="text-xs md:text-sm text-secondary font-body max-w-sm mx-auto">Enter your details to unlock a precise map of the stars at the moment of your birth.</p>
             </div>
             <form
@@ -218,13 +218,22 @@ const ChartGeneration = () => {
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <div className="flex items-center gap-2">
-                      <svg className="animate-spin h-4 w-4 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      <span>Generating...</span>
-                    </div>
+                    <svg className="animate-spin h-5 w-5 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path
+                        className="opacity-25"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        d="M12 2.5L19.8 7V17L12 21.5L4.2 17V7L12 2.5Z"
+                      />
+                      <path
+                        className="opacity-75"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeDasharray="20 40"
+                        d="M12 2.5L19.8 7V17L12 21.5L4.2 17V7L12 2.5Z"
+                      />
+                    </svg>
                   ) : (
                     "Generate Horoscope Chart"
                   )}
