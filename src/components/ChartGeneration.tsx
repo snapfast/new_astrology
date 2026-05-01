@@ -3,6 +3,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
+interface Suggestion {
+  name: string;
+  lat: string;
+  lon: string;
+}
+
+const SUGGESTIONS_CACHE: Record<string, Suggestion[]> = {};
+
 const ChartGeneration = () => {
   const router = useRouter();
   const [pob, setPob] = useState('');
@@ -24,16 +32,26 @@ const ChartGeneration = () => {
   }, []);
 
   useEffect(() => {
-    if (pob.length < 3) {
+    const query = pob.trim();
+    if (query.length < 3) {
       setSuggestions([]);
       return;
     }
+
+    // Performance Optimization: Check in-memory cache before initiating request
+    if (SUGGESTIONS_CACHE[query]) {
+      setSuggestions(SUGGESTIONS_CACHE[query]);
+      return;
+    }
+
+    const controller = new AbortController();
 
     const fetchCities = async () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(pob)}&format=json&addressdetails=1&limit=5&featuretype=city`
+          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5&featuretype=city`,
+          { signal: controller.signal }
         );
         const data = await response.json();
         interface NominatimAddress {
@@ -65,17 +83,25 @@ const ChartGeneration = () => {
           };
         });
         // Filter unique names by display name
-        const uniqueCities = Array.from(new Map(cityData.map((item: { name: string; lat: string; lon: string }) => [item.name, item])).values());
-        setSuggestions(uniqueCities as { name: string; lat: string; lon: string }[]);
+        const uniqueCities = Array.from(new Map(cityData.map((item: Suggestion) => [item.name, item])).values()) as Suggestion[];
+
+        // Cache the result to prevent redundant network calls for the same query
+        SUGGESTIONS_CACHE[query] = uniqueCities;
+        setSuggestions(uniqueCities);
       } catch (error) {
-        console.error('Error fetching cities:', error);
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.error('Error fetching cities:', error);
+        }
       } finally {
         setIsLoading(false);
       }
     };
 
     const debounceTimer = setTimeout(fetchCities, 500);
-    return () => clearTimeout(debounceTimer);
+    return () => {
+      clearTimeout(debounceTimer);
+      controller.abort(); // Cancel pending request if component re-renders or unmounts
+    };
   }, [pob]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
