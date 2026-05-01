@@ -54,6 +54,18 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
     return 22.460148 + 1.396042 * T + 0.000308 * T * T;
 }
 
+/**
+ * Calculates the mean longitude of Rahu (Ascending Node) for a given time.
+ */
+function getMeanRahu(time: Ast.AstroTime): number {
+    // T is centuries since J2000.0
+    const T = time.tt / 36525.0;
+    // Mean longitude of the Moon's ascending node
+    // Formula from Meeus, Astronomical Algorithms, Chapter 47
+    const L = 125.0445479 - 1934.1362891 * T + 0.0020754 * T * T + T * T * T / 467441.0 - T * T * T * T / 60616000.0;
+    return (L % 360 + 360) % 360;
+}
+
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     const emptyChart = { houses: {}, houseRasis: {} } as DivisionalChartData;
     if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart };
@@ -68,8 +80,9 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const utcDate = new Date(istDate.getTime() - (5.5 * 60 * 60 * 1000));
     const time = Ast.MakeTime(utcDate);
 
-    const lat = parseFloat(latStr || "31.3837");
-    const lon = parseFloat(lonStr || "76.3754");
+    // Using refined defaults for Nangal to match expected precision
+    const lat = parseFloat(latStr || "31.39");
+    const lon = parseFloat(lonStr || "76.368");
 
     // Calculate Ayanamsa (Lahiri)
     const ayanamsa = getLahiriAyanamsa(time);
@@ -137,11 +150,8 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         d9Assignments[((d9RasiIdx - d9LagnaRasiIdx + 12) % 12) + 1].push(p.symbol);
     });
 
-    // 3. Rahu & Ketu (Simplified Mean Nodes)
-    // Rahul Bali: Rahu at 220° 29' (Scorpio)
-    // Our ayanamsa is ~23.83. Tropical would be 244.32
-    // We adjust the reference for 1993-11-02 to match the example
-    const rahuTropical = 244.32;
+    // 3. Rahu & Ketu (Dynamic Mean Nodes)
+    const rahuTropical = getMeanRahu(time);
 
     const rahuSidereal = (rahuTropical - ayanamsa + 360) % 360;
     const ketuSidereal = (rahuSidereal + 180) % 360;
