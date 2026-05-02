@@ -35,7 +35,10 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
                               : null);
 
         if (clonedElement) {
-          (clonedElement as HTMLElement).style.padding = '40px';
+          const el = clonedElement as HTMLElement;
+          el.style.padding = '40px';
+          // Increase line height to prevent vertical text clipping in PDF
+          el.style.lineHeight = '1.6';
         }
       }
     });
