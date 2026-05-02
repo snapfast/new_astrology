@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const reviews = [
   { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "I wanted to share with someone trustworthy and fortunately got the answers I needed. Thank you for the guidance and advice. Can't thank you enough!" },
