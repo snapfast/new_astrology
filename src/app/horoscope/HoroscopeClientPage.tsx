@@ -49,7 +49,7 @@ const HoroscopeContent = () => {
           <span className="text-on-surface whitespace-nowrap">Rahul Bali</span>
           <span className="text-accent italic whitespace-nowrap">Astrology</span>
         </div>
-        <p className="text-[10px] text-secondary tracking-widest uppercase font-label mt-2">www.rahulbaliastrology.com</p>
+        <p className="text-[10px] text-secondary tracking-widest uppercase font-label mt-2">rahulbaliastrology@gmail.com</p>
       </div>
 
       {/* Header & User Details */}
@@ -157,6 +157,7 @@ const HoroscopeContent = () => {
           Rahul Bali Astrology Services © 2025. All rights reserved.
         </p>
         <p className="text-[9px] text-secondary/40 mt-2 font-label tracking-wider uppercase">Professional Jyotish Shastra Consultations</p>
+        <p className="text-[9px] text-accent mt-4 font-label tracking-widest uppercase font-bold">Contact: rahulbaliastrology@gmail.com</p>
       </div>
     </div>
   );
