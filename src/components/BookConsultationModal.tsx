@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 
 interface BookConsultationModalProps {
@@ -8,7 +8,7 @@ interface BookConsultationModalProps {
   onClose: () => void;
 }
 
-const BookConsultationModal: React.FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
+const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
