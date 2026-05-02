@@ -45,6 +45,12 @@ const PLANET_MAP = [
     { name: "Saturn", body: Ast.Body.Saturn, symbol: "Sa" },
 ];
 
+const DREKKANA_WIDTH = 10;
+const NAVAMSHA_WIDTH = 30 / 9;
+const NAKSHATRA_WIDTH = 360 / 27;
+const PADA_WIDTH = 360 / 108;
+const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
+
 /**
  * Calculates the Chitra Paksha Lahiri Ayanamsa for a given date.
  * Based on the J2000.0 epoch with a base value of 23.85°.
@@ -205,22 +211,17 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 function getD3Rasi(long: number): number {
     const rasiIdx = Math.floor(long / 30);
     const degInRasi = long % 30;
-    const drekkanaIdx = Math.floor(degInRasi / 10); // 0, 1, 2
+    const drekkanaIdx = Math.floor(degInRasi / DREKKANA_WIDTH); // 0, 1, 2
     return (rasiIdx + drekkanaIdx * 4) % 12;
 }
 
 function getD9Rasi(long: number): number {
     const rasiIdx = Math.floor(long / 30);
     const degInRasi = long % 30;
-    const navamshaIdx = Math.floor(degInRasi / (30 / 9)); // 0 to 8
+    const navamshaIdx = Math.floor(degInRasi / NAVAMSHA_WIDTH); // 0 to 8
 
     // Elements: 0: Fire, 1: Earth, 2: Air, 3: Water
-    const element = rasiIdx % 4;
-    let startSign = 0;
-    if (element === 0) startSign = 0; // Aries
-    else if (element === 1) startSign = 9; // Capricorn
-    else if (element === 2) startSign = 6; // Libra
-    else if (element === 3) startSign = 3; // Cancer
+    const startSign = D9_START_SIGNS[rasiIdx % 4];
 
     return (startSign + navamshaIdx) % 12;
 }
@@ -228,8 +229,8 @@ function getD9Rasi(long: number): number {
 function createPlanet(name: string, symbol: string, siderealLong: number, house: number): PlanetData {
     const rasiIdx = Math.floor(siderealLong / 30);
     const degInRasi = siderealLong % 30;
-    const nakshatraIdx = Math.floor(siderealLong / (360 / 27));
-    const pada = Math.floor((siderealLong % (360 / 27)) / (360 / 108)) + 1;
+    const nakshatraIdx = Math.floor(siderealLong / NAKSHATRA_WIDTH);
+    const pada = Math.floor((siderealLong % NAKSHATRA_WIDTH) / PADA_WIDTH) + 1;
 
     const d = Math.floor(degInRasi);
     const m = Math.floor((degInRasi - d) * 60);
