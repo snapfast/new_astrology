@@ -16,6 +16,11 @@ const HoroscopeContent = () => {
   const searchParams = useSearchParams();
   const name = searchParams.get('name') || 'Guest';
   const dob = searchParams.get('dob') || '';
+  const formattedDob = useMemo(() => {
+    if (!dob) return '';
+    const [year, month, day] = dob.split('-');
+    return `${day}-${month}-${year}`;
+  }, [dob]);
   const tob = searchParams.get('tob') || '';
   const pob = searchParams.get('pob') || '';
   const lat = searchParams.get('lat') || '';
@@ -65,7 +70,7 @@ const HoroscopeContent = () => {
         <h1 className="text-4xl md:text-5xl font-normal mb-8 font-headline text-on-surface">Your Birth Chart</h1>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <DetailCard label="Name" value={name} />
-          <DetailCard label="Date" value={dob} />
+          <DetailCard label="Date" value={formattedDob} />
           <DetailCard label="Time" value={tob} />
           <DetailCard label="Place" value={pob} />
         </div>
