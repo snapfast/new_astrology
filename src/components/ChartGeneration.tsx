@@ -9,7 +9,23 @@ interface Suggestion {
   lon: string;
 }
 
-const SUGGESTIONS_CACHE: Record<string, Suggestion[]> = {};
+const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
+const MAX_CACHE_SIZE = 100;
+
+// Initialize cache from sessionStorage for persistence across page refreshes
+if (typeof window !== 'undefined') {
+  try {
+    const stored = sessionStorage.getItem('NOMINATIM_CACHE');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      Object.entries(parsed).forEach(([key, value]) => {
+        SUGGESTIONS_CACHE.set(key, value as Suggestion[]);
+      });
+    }
+  } catch (error) {
+    console.error('Error loading Nominatim cache:', error);
+  }
+}
 
 const ChartGeneration = () => {
   const router = useRouter();
@@ -33,14 +49,17 @@ const ChartGeneration = () => {
 
   useEffect(() => {
     const query = pob.trim();
+    const cacheKey = query.toLowerCase();
+
     if (query.length < 3) {
       setSuggestions([]);
       return;
     }
 
     // Performance Optimization: Check in-memory cache before initiating request
-    if (SUGGESTIONS_CACHE[query]) {
-      setSuggestions(SUGGESTIONS_CACHE[query]);
+    const cached = SUGGESTIONS_CACHE.get(cacheKey);
+    if (cached) {
+      setSuggestions(cached);
       return;
     }
 
@@ -86,7 +105,22 @@ const ChartGeneration = () => {
         const uniqueCities = Array.from(new Map(cityData.map((item: Suggestion) => [item.name, item])).values()) as Suggestion[];
 
         // Cache the result to prevent redundant network calls for the same query
-        SUGGESTIONS_CACHE[query] = uniqueCities;
+        if (SUGGESTIONS_CACHE.size >= MAX_CACHE_SIZE) {
+          const firstKey = SUGGESTIONS_CACHE.keys().next().value;
+          if (firstKey !== undefined) SUGGESTIONS_CACHE.delete(firstKey);
+        }
+        SUGGESTIONS_CACHE.set(cacheKey, uniqueCities);
+
+        // Persist to sessionStorage
+        if (typeof window !== 'undefined') {
+          try {
+            const cacheObj = Object.fromEntries(SUGGESTIONS_CACHE.entries());
+            sessionStorage.setItem('NOMINATIM_CACHE', JSON.stringify(cacheObj));
+          } catch {
+            // Silently fail on quota errors
+          }
+        }
+
         setSuggestions(uniqueCities);
       } catch (error) {
         if (error instanceof Error && error.name !== 'AbortError') {
