@@ -61,3 +61,76 @@
     font-variation-settings: 'FILL' 1;
   }
 }
+
+/* React Datepicker Custom Styles */
+.react-datepicker {
+  @apply bg-surface border border-outline rounded-3xl shadow-xl font-body overflow-hidden;
+}
+
+.react-datepicker__header {
+  @apply bg-surface-bright border-b border-outline pt-4 rounded-t-3xl;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker__day-name {
+  @apply text-on-surface font-medium;
+}
+
+.react-datepicker__day {
+  @apply text-on-surface hover:bg-accent/10 rounded-full transition-colors;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  @apply bg-accent text-white hover:bg-accent/90 !important;
+}
+
+.react-datepicker__day--outside-month {
+  @apply text-secondary/30;
+}
+
+.react-datepicker__time-container {
+  @apply border-l border-outline w-32;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+  @apply h-10 flex items-center justify-center hover:bg-accent/10 transition-colors text-xs;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+  @apply bg-accent text-white hover:bg-accent/90 !important;
+}
+
+.react-datepicker__navigation--next {
+  @apply border-l-secondary;
+}
+
+.react-datepicker__navigation--previous {
+  @apply border-r-secondary;
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
+  @apply border-secondary;
+}
+
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown,
+.react-datepicker__month-year-dropdown {
+  @apply bg-surface border border-outline rounded-xl shadow-lg;
+}
+
+.react-datepicker__year-option:hover,
+.react-datepicker__month-option:hover,
+.react-datepicker__month-year-option:hover {
+  @apply bg-accent/10;
+}
+
+.react-datepicker__year-option--selected,
+.react-datepicker__month-option--selected,
+.react-datepicker__month-year-option--selected {
+  @apply text-accent font-bold;
+}
