@@ -125,26 +125,26 @@ const HoroscopeContent = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container-low border-b border-outline">
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label">Planet</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label text-center">House</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label">Rasi</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label">Rasi Lord</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label">Degree</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label">Nakshatra</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label">Nak Lord</th>
-                <th className="px-4 py-4 text-[11px] font-bold text-secondary uppercase tracking-widest font-label text-center">Pada</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Planet</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-center">House</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Rasi</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Rasi Lord</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Degree</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Nakshatra</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Nak Lord</th>
+                <th className="px-4 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-center">Pada</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline">
               {chartData.planets.map((p, idx) => (
                 <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
                   <td className="px-4 py-4 text-sm font-medium text-on-surface">{p.name}</td>
-                  <td className="px-4 py-4 text-sm text-secondary text-center">{p.house}</td>
-                  <td className="px-4 py-4 text-sm text-secondary">{p.rasi}</td>
-                  <td className="px-4 py-4 text-sm text-secondary">{p.rasiLord}</td>
-                  <td className="px-4 py-4 text-sm text-secondary font-mono whitespace-nowrap">{p.degree}</td>
-                  <td className="px-4 py-4 text-sm text-secondary">{p.nakshatra}</td>
-                  <td className="px-4 py-4 text-sm text-secondary">{p.nakshatraLord}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface text-center">{p.house}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.rasi}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.rasiLord}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface font-mono whitespace-nowrap">{p.degree}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.nakshatra}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.nakshatraLord}</td>
                   <td className="px-4 py-4 text-sm text-on-surface text-center font-bold">{p.pada}</td>
                 </tr>
               ))}
