@@ -8,6 +8,8 @@ export interface PlanetData {
     nakshatra: string;
     pada: number;
     house: number;
+    rasiLord: string;
+    nakshatraLord: string;
 }
 
 export interface DivisionalChartData {
@@ -34,6 +36,15 @@ const NAKSHATRAS = [
     "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyesha",
     "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha",
     "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+];
+
+const RASI_LORDS = [
+    "Mars", "Venus", "Mercury", "Moon", "Sun", "Mercury",
+    "Venus", "Mars", "Jupiter", "Saturn", "Saturn", "Jupiter"
+];
+
+const NAKSHATRA_LORDS = [
+    "Ketu", "Venus", "Sun", "Moon", "Mars", "Rahu", "Jupiter", "Saturn", "Mercury"
 ];
 
 const PLANET_MAP = [
@@ -273,6 +284,8 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
         rasi: RASIS[rasiIdx],
         nakshatra: NAKSHATRAS[nakshatraIdx],
         pada,
-        house
+        house,
+        rasiLord: RASI_LORDS[rasiIdx],
+        nakshatraLord: NAKSHATRA_LORDS[nakshatraIdx % 9]
     };
 }
