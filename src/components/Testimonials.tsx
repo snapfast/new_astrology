@@ -1,7 +1,18 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { REVIEWS } from '@/lib/reviews';
+import { useState, useEffect, useCallback } from 'react';
+import { Review } from '@/lib/types';
+
+const reviews: Review[] = [
+  { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "I wanted to share with someone trustworthy and fortunately got the answers I needed. Thank you for the guidance and advice. Can't thank you enough!" },
+  { id: 2, name: "Ishwar Goswami", date: "Oct 25, 2025", review: "A very good experience with quick responses and clear guidance. Highly recommend." },
+  { id: 3, name: "Saurav Thapa", date: "Sep 14, 2025", review: "Rahul sir provides skilled astrology with practical remedies. A wonderful experience; I highly suggest his consultation to everyone." },
+  { id: 4, name: "Ansh", date: "Mar 16, 2025", review: "A wonderful session. Rahul-ji was patient, accurate, and took great care to explain everything clearly with considerate advice." },
+  { id: 5, name: "Sanaa", date: "Jan 17, 2025", review: "Rahul Bali Ji is empathetic and understanding. He provided an honest reading while patiently addressing all my concerns." },
+  { id: 6, name: "Luis", date: "Jan 26, 2025", review: "Wildly accurate. It felt like he lived my events. Very insightful and explained everything in depth." },
+  { id: 7, name: "Gomathi", date: "Nov 11, 2024", review: "My first consultation, and I felt extremely comfortable. Grateful for the clarity and cleared doubts. Thank you!" },
+];
 
 const Testimonials = () => {
   // Use a curated subset of reviews for the home page testimonials
@@ -53,6 +64,11 @@ const Testimonials = () => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
+
+  const paginationDots = useMemo(() =>
+    Array.from({ length: reviews.length - itemsPerView + 1 }),
+    [itemsPerView]
+  );
 
   return (
     <section className="py-20 md:py-32 bg-background relative overflow-hidden">
@@ -116,7 +132,7 @@ const Testimonials = () => {
             </div>
 
             <div className="flex justify-center mt-8 gap-2">
-              {Array.from({ length: featuredReviews.length - itemsPerView + 1 }).map((_, i) => (
+              {paginationDots.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
