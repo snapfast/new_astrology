@@ -64,7 +64,7 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
 /**
  * Calculates the mean longitude of Rahu (Ascending Node) for a given time.
  */
-function getMeanRahu(time: Ast.AstroTime): number {
+export function getMeanRahu(time: Ast.AstroTime): number {
     // T is centuries since J2000.0
     const T = time.tt / 36525.0;
     // Mean longitude of the Moon's ascending node
