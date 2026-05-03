@@ -9,6 +9,33 @@ interface Suggestion {
   lon: string;
 }
 
+interface StoredChartData {
+  name: string;
+  dob: string;
+  tob: string;
+  pob: string;
+  coords: { lat: string; lon: string } | null;
+}
+
+const HOROSCOPE_HISTORY_KEY = 'HOROSCOPE_FORM_HISTORY';
+
+const isValidHistoryItem = (item: unknown): item is StoredChartData => {
+  if (!item || typeof item !== 'object') return false;
+  const candidate = item as Record<string, unknown>;
+  return (
+    typeof candidate.name === 'string' &&
+    typeof candidate.dob === 'string' &&
+    typeof candidate.tob === 'string' &&
+    typeof candidate.pob === 'string' &&
+    (candidate.coords === null || (
+      typeof candidate.coords === 'object' &&
+      candidate.coords !== null &&
+      typeof (candidate.coords as Record<string, unknown>).lat === 'string' &&
+      typeof (candidate.coords as Record<string, unknown>).lon === 'string'
+    ))
+  );
+};
+
 const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
 const MAX_CACHE_SIZE = 100;
 
@@ -93,10 +120,29 @@ const ChartGeneration = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [history, setHistory] = useState<StoredChartData[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const suggestionRef = useRef<HTMLDivElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
   const timeInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(HOROSCOPE_HISTORY_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            const validHistory = parsed.filter(isValidHistoryItem);
+            setHistory(validHistory);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading horoscope history:', error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const now = new Date();
@@ -225,11 +271,34 @@ const ChartGeneration = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleSelectHistory = (item: StoredChartData) => {
+    setName(item.name);
+    setDob(item.dob);
+    setTob(item.tob);
+    setPob(item.pob);
+    setCoords(item.coords);
+    setShowHistory(false);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+
+    // Save to history
+    const newData: StoredChartData = { name, dob, tob, pob, coords };
+    const updatedHistory = [
+      newData,
+      ...history.filter(item =>
+        item.name !== name || item.dob !== dob || item.pob !== pob
+      )
+    ].slice(0, 5);
+
+    setHistory(updatedHistory);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(HOROSCOPE_HISTORY_KEY, JSON.stringify(updatedHistory));
+    }
 
     const [day, month, year] = dob.split('-');
     const isoDob = `${year}-${month}-${day}`;
@@ -261,7 +330,11 @@ const ChartGeneration = () => {
               method="GET"
               className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
             >
-              <div className="space-y-2">
+              <div
+                className="space-y-2 relative"
+                onMouseEnter={() => setShowHistory(true)}
+                onMouseLeave={() => setShowHistory(false)}
+              >
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
                 <input
                   name="name"
@@ -270,9 +343,38 @@ const ChartGeneration = () => {
                   className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary/30 text-on-surface text-xs md:text-sm font-body`}
                   placeholder="John Doe"
                   type="text"
+                  autoComplete="off"
                   required
                 />
                 {errors.name && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.name}</p>}
+
+                {showHistory && history.length > 0 && (
+                  <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-6 py-3 bg-surface-bright border-b border-outline/10">
+                      <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Recent Profiles</span>
+                    </div>
+                    <ul className="max-h-60 overflow-y-auto">
+                      {history.map((item, index) => (
+                        <li key={index}>
+                          <button
+                            type="button"
+                            onClick={() => handleSelectHistory(item)}
+                            className="w-full text-left px-6 py-4 transition-colors hover:bg-accent/5 group"
+                          >
+                            <div className="flex flex-col gap-0.5">
+                              <span className="text-xs md:text-sm text-on-surface font-body font-medium group-hover:text-accent transition-colors">{item.name}</span>
+                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-secondary font-body">
+                                <span>{item.dob}</span>
+                                <span className="opacity-30">•</span>
+                                <span className="truncate">{item.pob}</span>
+                              </div>
+                            </div>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
               <div className="space-y-2">
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Date of Birth (DD-MM-YYYY)</label>
