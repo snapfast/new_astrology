@@ -1,18 +1,15 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-
-const reviews = [
-  { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "I wanted to share with someone trustworthy and fortunately got the answers I needed. Thank you for the guidance and advice. Can't thank you enough!" },
-  { id: 2, name: "Ishwar Goswami", date: "Oct 25, 2025", review: "A very good experience with quick responses and clear guidance. Highly recommend." },
-  { id: 3, name: "Saurav Thapa", date: "Sep 14, 2025", review: "Rahul sir provides skilled astrology with practical remedies. A wonderful experience; I highly suggest his consultation to everyone." },
-  { id: 4, name: "Ansh", date: "Mar 16, 2025", review: "A wonderful session. Rahul-ji was patient, accurate, and took great care to explain everything clearly with considerate advice." },
-  { id: 5, name: "Sanaa", date: "Jan 17, 2025", review: "Rahul Bali Ji is empathetic and understanding. He provided an honest reading while patiently addressing all my concerns." },
-  { id: 6, name: "Luis", date: "Jan 26, 2025", review: "Wildly accurate. It felt like he lived my events. Very insightful and explained everything in depth." },
-  { id: 7, name: "Gomathi", date: "Nov 11, 2024", review: "My first consultation, and I felt extremely comfortable. Grateful for the clarity and cleared doubts. Thank you!" },
-];
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { REVIEWS } from '@/lib/reviews';
 
 const Testimonials = () => {
+  // Use a curated subset of reviews for the home page testimonials
+  const featuredReviews = useMemo(() => {
+    const featuredIds = [1, 2, 3, 4, 10, 8, 14]; // Aditi, Ishwar Goswami, Saurav Thapa, Ansh, Sanaa, Luis, Gomathi
+    return REVIEWS.filter(r => featuredIds.includes(r.id));
+  }, []);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -28,7 +25,7 @@ const Testimonials = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxIndex = reviews.length - itemsPerView;
+  const maxIndex = featuredReviews.length - itemsPerView;
 
   // Ensure currentIndex is valid when itemsPerView changes
   useEffect(() => {
@@ -97,7 +94,7 @@ const Testimonials = () => {
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
               >
-                {reviews.map((item) => (
+                {featuredReviews.map((item) => (
                   <div key={item.id} className={`${itemsPerView === 2 ? 'min-w-[50%]' : 'min-w-full'} px-2`}>
                     <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline/50 h-full flex flex-col">
                       <p className="text-sm md:text-base text-on-surface mb-6 italic leading-relaxed font-body font-light">
@@ -119,7 +116,7 @@ const Testimonials = () => {
             </div>
 
             <div className="flex justify-center mt-8 gap-2">
-              {Array.from({ length: reviews.length - itemsPerView + 1 }).map((_, i) => (
+              {Array.from({ length: featuredReviews.length - itemsPerView + 1 }).map((_, i) => (
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
