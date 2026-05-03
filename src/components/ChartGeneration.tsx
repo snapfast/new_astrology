@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
 
 interface Suggestion {
   name: string;
@@ -59,8 +57,8 @@ if (typeof window !== 'undefined') {
 const ChartGeneration = () => {
   const router = useRouter();
   const [name, setName] = useState('');
-  const [dob, setDob] = useState<Date | null>(null);
-  const [tob, setTob] = useState<Date | null>(null);
+  const [dob, setDob] = useState('');
+  const [tob, setTob] = useState('');
   const [pob, setPob] = useState('New Delhi, Delhi, India');
   const [coords, setCoords] = useState<{ lat: string; lon: string } | null>({ lat: '28.6139', lon: '77.2090' });
   const [suggestions, setSuggestions] = useState<{ name: string; lat: string; lon: string }[]>([]);
@@ -91,8 +89,14 @@ const ChartGeneration = () => {
 
   useEffect(() => {
     const now = new Date();
-    setDob(now);
-    setTob(now);
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    setDob(`${year}-${month}-${day}`);
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    setTob(`${hours}:${minutes}`);
   }, []);
 
   useEffect(() => {
@@ -210,18 +214,15 @@ const ChartGeneration = () => {
   const handleSelectHistory = (item: StoredChartData) => {
     setName(item.name);
 
-    // Parse DD-MM-YYYY to Date
+    // History stores DD-MM-YYYY, native input needs YYYY-MM-DD
     if (item.dob) {
-      const [d, m, y] = item.dob.split('-').map(Number);
-      setDob(new Date(y, m - 1, d));
+      const [d, m, y] = item.dob.split('-');
+      setDob(`${y}-${m}-${d}`);
     }
 
-    // Parse HH:mm to Date
+    // History stores HH:mm, which native time input also uses
     if (item.tob) {
-      const [h, min] = item.tob.split(':').map(Number);
-      const t = new Date();
-      t.setHours(h, min, 0, 0);
-      setTob(t);
+      setTob(item.tob);
     }
 
     setPob(item.pob);
@@ -231,18 +232,14 @@ const ChartGeneration = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateForm() || !dob || !tob) return;
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    const day = String(dob.getDate()).padStart(2, '0');
-    const month = String(dob.getMonth() + 1).padStart(2, '0');
-    const year = dob.getFullYear();
-    const dobString = `${day}-${month}-${year}`;
-
-    const hours = String(tob.getHours()).padStart(2, '0');
-    const minutes = String(tob.getMinutes()).padStart(2, '0');
-    const tobString = `${hours}:${minutes}`;
+    // dob is YYYY-MM-DD, tob is HH:mm
+    const [year, month, day] = dob.split('-');
+    const dobString = `${day}-${month}-${year}`; // For history display (DD-MM-YYYY)
+    const tobString = tob;
 
     // Save to history
     const newData: StoredChartData = { name, dob: dobString, tob: tobString, pob, coords };
@@ -335,45 +332,24 @@ const ChartGeneration = () => {
               </div>
               <div className="space-y-2">
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Date of Birth</label>
-                <div className="relative group">
-                  <DatePicker
-                    selected={dob}
-                    onChange={(date: Date | null) => setDob(date)}
-                    dateFormat="dd / MM / yyyy"
-                    placeholderText="DD / MM / YYYY"
-                    showYearDropdown
-                    scrollableYearDropdown
-                    yearDropdownItemNumber={100}
-                    className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
-                    wrapperClassName="w-full"
-                    required
-                  />
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2 text-secondary/50 group-hover:text-accent transition-colors pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  </div>
-                </div>
+                <input
+                  type="date"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                  required
+                />
                 {errors.dob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Time of Birth</label>
-                <div className="relative group">
-                  <DatePicker
-                    selected={tob}
-                    onChange={(date: Date | null) => setTob(date)}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={1}
-                    timeCaption="Time"
-                    dateFormat="hh:mm aa"
-                    placeholderText="HH:mm AM/PM"
-                    className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
-                    wrapperClassName="w-full"
-                    required
-                  />
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2 text-secondary/50 group-hover:text-accent transition-colors pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  </div>
-                </div>
+                <input
+                  type="time"
+                  value={tob}
+                  onChange={(e) => setTob(e.target.value)}
+                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                  required
+                />
                 {errors.tob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
