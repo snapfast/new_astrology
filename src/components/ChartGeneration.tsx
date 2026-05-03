@@ -211,14 +211,10 @@ const ChartGeneration = () => {
     if (!trimmedName || trimmedName.length < 2) {
       newErrors.name = 'Please enter a valid name (min 2 characters)';
     } else if (dob && tob) {
-      const day = String(dob.getDate()).padStart(2, '0');
-      const month = String(dob.getMonth() + 1).padStart(2, '0');
-      const year = dob.getFullYear();
+      // dob is YYYY-MM-DD, tob is HH:mm
+      const [year, month, day] = dob.split('-');
       const dobString = `${day}-${month}-${year}`;
-
-      const hours = String(tob.getHours()).padStart(2, '0');
-      const minutes = String(tob.getMinutes()).padStart(2, '0');
-      const tobString = `${hours}:${minutes}`;
+      const tobString = tob;
 
       const duplicateName = history.find(item => item.name.toLowerCase() === trimmedName.toLowerCase());
       if (duplicateName) {
