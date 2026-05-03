@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { Review } from '@/lib/types';
 
@@ -57,6 +58,11 @@ const Testimonials = () => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
+
+  const paginationDots = useMemo(() =>
+    Array.from({ length: reviews.length - itemsPerView + 1 }),
+    [itemsPerView]
+  );
 
   return (
     <section className="py-20 md:py-32 bg-background relative overflow-hidden">
@@ -120,7 +126,7 @@ const Testimonials = () => {
             </div>
 
             <div className="flex justify-center mt-8 gap-2">
-              {Array.from({ length: reviews.length - itemsPerView + 1 }).map((_, i) => (
+              {paginationDots.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
