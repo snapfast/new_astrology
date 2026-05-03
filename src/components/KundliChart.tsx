@@ -15,17 +15,17 @@ const KundliChart: FC<KundliChartProps> = ({ data }) => {
     <div className="w-full aspect-square max-w-[500px] mx-auto relative bg-white border border-outline rounded-[2rem] overflow-hidden p-4">
       <svg viewBox="0 0 400 400" className="w-full h-full">
         {/* Main Outer Square */}
-        <rect x="0" y="0" width="400" height="400" fill="none" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
+        <rect x="0" y="0" width="400" height="400" fill="none" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
 
         {/* Diamond lines */}
-        <line x1="0" y1="0" x2="400" y2="400" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
-        <line x1="400" y1="0" x2="0" y2="400" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
+        <line x1="0" y1="0" x2="400" y2="400" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
+        <line x1="400" y1="0" x2="0" y2="400" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
 
         {/* Inner Diamond */}
-        <line x1="200" y1="0" x2="400" y2="200" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
-        <line x1="400" y1="200" x2="200" y2="400" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
-        <line x1="200" y1="400" x2="0" y2="200" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
-        <line x1="0" y1="200" x2="200" y2="0" stroke="#991B1B" strokeWidth="1" strokeOpacity="0.4" />
+        <line x1="200" y1="0" x2="400" y2="200" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
+        <line x1="400" y1="200" x2="200" y2="400" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
+        <line x1="200" y1="400" x2="0" y2="200" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
+        <line x1="0" y1="200" x2="200" y2="0" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
 
         {/* House Labels and Planets */}
         {/* 1st House */}
