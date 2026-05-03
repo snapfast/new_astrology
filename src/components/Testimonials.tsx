@@ -54,6 +54,11 @@ const Testimonials = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
+  const paginationDots = useMemo(() =>
+    Array.from({ length: featuredReviews.length - itemsPerView + 1 }),
+    [featuredReviews.length, itemsPerView]
+  );
+
   return (
     <section className="py-20 md:py-32 bg-background relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
@@ -116,7 +121,7 @@ const Testimonials = () => {
             </div>
 
             <div className="flex justify-center mt-8 gap-2">
-              {Array.from({ length: featuredReviews.length - itemsPerView + 1 }).map((_, i) => (
+              {paginationDots.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
