@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState, useMemo, memo, useRef } from 'react';
+import React, { Suspense, useState, useMemo, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -68,11 +68,28 @@ const HoroscopeContent = () => {
           </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-normal mb-8 font-headline text-on-surface">Your Birth Chart</h1>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <DetailCard label="Name" value={name} />
-          <DetailCard label="Date" value={formattedDob} />
-          <DetailCard label="Time" value={tob} />
-          <DetailCard label="Place" value={pob} />
+        <div className="max-w-4xl mx-auto bg-surface-container-low rounded-3xl border border-outline/50 overflow-hidden text-left">
+          <div className="px-6 py-4 border-b border-outline/30 bg-surface-container-high/50">
+            <h2 className="text-[10px] font-bold text-secondary uppercase tracking-[0.2em] font-label">Birth Information</h2>
+          </div>
+          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            <div className="space-y-1">
+              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Name</p>
+              <p className="text-sm font-medium text-on-surface leading-relaxed">{name}</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Date</p>
+              <p className="text-sm font-medium text-on-surface leading-relaxed">{formattedDob}</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Time</p>
+              <p className="text-sm font-medium text-on-surface leading-relaxed">{tob}</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Place</p>
+              <p className="text-sm font-medium text-on-surface leading-relaxed">{pob}</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -173,13 +190,6 @@ const HoroscopeContent = () => {
   );
 };
 
-const DetailCard = memo(({ label, value }: { label: string; value: string }) => (
-  <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
-    <p className="text-[10px] font-medium text-secondary uppercase tracking-widest mb-1 font-label">{label}</p>
-    <p className="text-sm font-medium text-on-surface truncate">{value}</p>
-  </div>
-));
-DetailCard.displayName = 'DetailCard';
 
 export default function HoroscopeClientPage() {
   return (
