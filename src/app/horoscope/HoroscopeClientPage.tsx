@@ -76,57 +76,61 @@ const HoroscopeContent = () => {
         </div>
       </div>
 
-      {/* Main Charts & Data Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
-        {/* Lagna Chart (D1) */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Lagna Chart (D1)</h2>
-          <KundliChart data={chartData.d1} />
-        </div>
-
-        {/* Planet Table */}
-        <div className="space-y-8">
-          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Planetary Positions</h2>
-          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-surface-container-low border-b border-outline">
-                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Planet</th>
-                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Rasi</th>
-                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Degree</th>
-                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Nakshatra</th>
-                  <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label text-center">Pada</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline">
-                {chartData.planets.map((p, idx) => (
-                  <tr key={idx}>
-                    <td className="px-4 py-2 text-xs font-medium text-on-surface">{p.name}</td>
-                    <td className="px-4 py-2 text-xs text-secondary">{p.rasi}</td>
-                    <td className="px-4 py-2 text-xs text-secondary font-mono">{p.degree}</td>
-                    <td className="px-4 py-2 text-xs text-secondary">{p.nakshatra}</td>
-                    <td className="px-4 py-2 text-xs text-on-surface text-center font-bold">{p.pada}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {/* Charts Section */}
+      <div className="space-y-16 mb-16">
+        {/* Row 1: D1 & D9 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Lagna Chart (D1)</h2>
+            <KundliChart data={chartData.d1} />
           </div>
-        </div>
-      </div>
-
-      {/* Divisional Charts Section */}
-      <div className="mb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-8">
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Navamsha Chart (D9)</h2>
             <KundliChart data={chartData.d9} />
           </div>
+        </div>
+
+        {/* Row 2: D3 & D10 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Drekkana Chart (D3)</h2>
             <KundliChart data={chartData.d3} />
           </div>
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Dashamsha Chart (D10)</h2>
+            <KundliChart data={chartData.d10} />
+          </div>
         </div>
-        <p className="text-xs text-secondary text-center italic">Traditional North Indian Style Representation of Divisional Charts</p>
+        <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
+      </div>
+
+      {/* Planet Table - Full Width */}
+      <div className="space-y-8 mb-24">
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Planetary Positions</h2>
+        <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-surface-container-low border-b border-outline">
+                <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Planet</th>
+                <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Rasi</th>
+                <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Degree</th>
+                <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Nakshatra</th>
+                <th className="px-4 py-2 text-[9px] font-bold text-secondary uppercase tracking-widest font-label text-center">Pada</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-outline">
+              {chartData.planets.map((p, idx) => (
+                <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                  <td className="px-4 py-2 text-xs font-medium text-on-surface">{p.name}</td>
+                  <td className="px-4 py-2 text-xs text-secondary">{p.rasi}</td>
+                  <td className="px-4 py-2 text-xs text-secondary font-mono">{p.degree}</td>
+                  <td className="px-4 py-2 text-xs text-secondary">{p.nakshatra}</td>
+                  <td className="px-4 py-2 text-xs text-on-surface text-center font-bold">{p.pada}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Verification CTA Section */}
