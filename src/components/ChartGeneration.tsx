@@ -69,6 +69,7 @@ const ChartGeneration = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const suggestionRef = useRef<HTMLDivElement>(null);
+  const historyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -103,6 +104,9 @@ const ChartGeneration = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (suggestionRef.current && !suggestionRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
+      }
+      if (historyRef.current && !historyRef.current.contains(event.target as Node)) {
+        setShowHistory(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -202,7 +206,32 @@ const ChartGeneration = () => {
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-    if (!name.trim() || name.length < 2) newErrors.name = 'Please enter a valid name (min 2 characters)';
+    const trimmedName = name.trim();
+
+    if (!trimmedName || trimmedName.length < 2) {
+      newErrors.name = 'Please enter a valid name (min 2 characters)';
+    } else if (dob && tob) {
+      const day = String(dob.getDate()).padStart(2, '0');
+      const month = String(dob.getMonth() + 1).padStart(2, '0');
+      const year = dob.getFullYear();
+      const dobString = `${day}-${month}-${year}`;
+
+      const hours = String(tob.getHours()).padStart(2, '0');
+      const minutes = String(tob.getMinutes()).padStart(2, '0');
+      const tobString = `${hours}:${minutes}`;
+
+      const duplicateName = history.find(item => item.name.toLowerCase() === trimmedName.toLowerCase());
+      if (duplicateName) {
+        const isExactMatch = duplicateName.dob === dobString &&
+          duplicateName.tob === tobString &&
+          duplicateName.pob === pob;
+
+        if (!isExactMatch) {
+          newErrors.name = 'This name already exists in your history. Please use a unique name.';
+        }
+      }
+    }
+
     if (!dob) newErrors.dob = 'Please select a date of birth';
     if (!tob) newErrors.tob = 'Please select a time of birth';
     if (!coords) newErrors.pob = 'Please select a location from the suggestions';
@@ -286,14 +315,14 @@ const ChartGeneration = () => {
             >
               <div
                 className="space-y-2 relative"
-                onMouseEnter={() => setShowHistory(true)}
-                onMouseLeave={() => setShowHistory(false)}
+                ref={historyRef}
               >
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
                 <input
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onFocus={() => setShowHistory(true)}
                   className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary/30 text-on-surface text-xs md:text-sm font-body`}
                   placeholder="John Doe"
                   type="text"
@@ -303,9 +332,9 @@ const ChartGeneration = () => {
                 {errors.name && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.name}</p>}
 
                 {showHistory && history.length > 0 && (
-                  <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="px-6 py-3 bg-surface-bright border-b border-outline/10">
-                      <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Recent Profiles</span>
+                  <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-accent border border-white/10 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-6 py-3 bg-white/10 border-b border-white/5">
+                      <span className="text-[8px] md:text-[10px] font-medium text-white uppercase tracking-widest font-label">Recent Profiles</span>
                     </div>
                     <ul className="max-h-60 overflow-y-auto">
                       {history.map((item, index) => (
@@ -313,11 +342,11 @@ const ChartGeneration = () => {
                           <button
                             type="button"
                             onClick={() => handleSelectHistory(item)}
-                            className="w-full text-left px-6 py-4 transition-colors hover:bg-accent/5 group"
+                            className="w-full text-left px-6 py-4 transition-colors hover:bg-white/10 group"
                           >
                             <div className="flex flex-col gap-0.5">
-                              <span className="text-xs md:text-sm text-on-surface font-body font-medium group-hover:text-accent transition-colors">{item.name}</span>
-                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-secondary font-body">
+                              <span className="text-xs md:text-sm text-white font-body font-medium transition-colors">{item.name}</span>
+                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white/70 font-body">
                                 <span>{item.dob}</span>
                                 <span className="opacity-30">•</span>
                                 <span className="truncate">{item.pob}</span>
