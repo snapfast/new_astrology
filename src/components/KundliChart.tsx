@@ -81,9 +81,13 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
         x={x}
         y={y}
         textAnchor="middle"
-        className="fill-on-surface font-medium text-[14px]"
+        className="font-medium text-[16px]"
       >
-        {planets.join(', ')}
+        {planets.map((p, i) => (
+          <tspan key={i} fill={p === 'As' ? '#9333EA' : '#991B1B'}>
+            {p}{i < planets.length - 1 ? ', ' : ''}
+          </tspan>
+        ))}
       </text>
     </g>
   );
