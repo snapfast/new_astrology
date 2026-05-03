@@ -68,26 +68,23 @@ const HoroscopeContent = () => {
           </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-normal mb-8 font-headline text-on-surface">Your Birth Chart</h1>
-        <div className="max-w-4xl mx-auto bg-surface-container-low rounded-3xl border border-outline/50 overflow-hidden text-left">
-          <div className="px-6 py-4 border-b border-outline/30 bg-surface-container-high/50">
-            <h2 className="text-[10px] font-bold text-secondary uppercase tracking-[0.2em] font-label">Birth Information</h2>
-          </div>
+        <div className="max-w-4xl mx-auto rounded-3xl border border-outline overflow-hidden text-left">
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             <div className="space-y-1">
               <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Name</p>
-              <p className="text-sm font-medium text-on-surface leading-relaxed">{name}</p>
+              <p className="text-sm font-medium text-secondary leading-relaxed">{name}</p>
             </div>
             <div className="space-y-1">
               <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Date</p>
-              <p className="text-sm font-medium text-on-surface leading-relaxed">{formattedDob}</p>
+              <p className="text-sm font-medium text-secondary leading-relaxed">{formattedDob}</p>
             </div>
             <div className="space-y-1">
               <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Time</p>
-              <p className="text-sm font-medium text-on-surface leading-relaxed">{tob}</p>
+              <p className="text-sm font-medium text-secondary leading-relaxed">{tob}</p>
             </div>
             <div className="space-y-1">
               <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Place</p>
-              <p className="text-sm font-medium text-on-surface leading-relaxed">{pob}</p>
+              <p className="text-sm font-medium text-secondary leading-relaxed">{pob}</p>
             </div>
           </div>
         </div>
