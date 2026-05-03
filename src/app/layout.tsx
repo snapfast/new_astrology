@@ -106,6 +106,10 @@ export default function RootLayout({
               },
               "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology based in Gurugram, India, providing personalized horoscopes and spiritual consultations."
             })
+              .replace(/</g, "\\u003c")
+              .replace(/>/g, "\\u003e")
+              .replace(/\u2028/g, "\\u2028")
+              .replace(/\u2029/g, "\\u2029"),
           }}
         />
         {children}
