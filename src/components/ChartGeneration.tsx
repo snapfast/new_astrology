@@ -44,6 +44,29 @@ const formatToIndianDate = (value: string) => {
   return formatted;
 };
 
+const formatToTime = (value: string) => {
+  const digits = value.replace(/\D/g, '');
+  let formatted = '';
+  if (digits.length > 0) {
+    formatted += digits.substring(0, 2);
+    if (digits.length > 2) {
+      formatted += ':' + digits.substring(2, 4);
+    }
+  }
+  return formatted.substring(0, 5);
+};
+
+const getIsoDate = (dateString: string) => {
+  const parts = dateString.split('-');
+  if (parts.length === 3) {
+    const [d, m, y] = parts;
+    if (d && m && y && y.length === 4) {
+      return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    }
+  }
+  return '';
+};
+
 // Initialize cache from sessionStorage for persistence across page refreshes
 if (typeof window !== 'undefined') {
   try {
@@ -72,6 +95,8 @@ const ChartGeneration = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const suggestionRef = useRef<HTMLDivElement>(null);
+  const dateInputRef = useRef<HTMLInputElement>(null);
+  const timeInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const now = new Date();
@@ -190,7 +215,10 @@ const ChartGeneration = () => {
     const newErrors: { [key: string]: string } = {};
     if (!name.trim() || name.length < 2) newErrors.name = 'Please enter a valid name (min 2 characters)';
     if (!isValidDate(dob)) newErrors.dob = 'Please enter a valid date (DD-MM-YYYY)';
-    if (!tob) newErrors.tob = 'Please enter time of birth';
+
+    const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    if (!tob || !timeRegex.test(tob)) newErrors.tob = 'Please enter a valid time (HH:mm)';
+
     if (!coords) newErrors.pob = 'Please select a location from the suggestions';
 
     setErrors(newErrors);
@@ -248,29 +276,74 @@ const ChartGeneration = () => {
               </div>
               <div className="space-y-2">
                 <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Date of Birth (DD-MM-YYYY)</label>
-                <input
-                  name="dob"
-                  value={dob}
-                  onChange={(e) => setDob(formatToIndianDate(e.target.value))}
-                  placeholder="DD-MM-YYYY"
-                  inputMode="numeric"
-                  maxLength={10}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body`}
-                  type="text"
-                  required
-                />
+                <div className="relative group">
+                  <input
+                    name="dob"
+                    value={dob}
+                    onChange={(e) => setDob(formatToIndianDate(e.target.value))}
+                    placeholder="DD-MM-YYYY"
+                    inputMode="numeric"
+                    maxLength={10}
+                    className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body pr-12`}
+                    type="text"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => dateInputRef.current?.showPicker()}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary/50 group-hover:text-accent transition-colors p-1"
+                    title="Open Calendar"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  </button>
+                  <input
+                    type="date"
+                    ref={dateInputRef}
+                    value={getIsoDate(dob)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val) {
+                        const [y, m, d] = val.split('-');
+                        setDob(`${d}-${m}-${y}`);
+                      }
+                    }}
+                    className="absolute opacity-0 pointer-events-none w-0 h-0 bottom-0 right-10"
+                    tabIndex={-1}
+                  />
+                </div>
                 {errors.dob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Time of Birth</label>
-                <input
-                  name="tob"
-                  value={tob}
-                  onChange={(e) => setTob(e.target.value)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body`}
-                  type="time"
-                  required
-                />
+                <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Time of Birth (HH:mm)</label>
+                <div className="relative group">
+                  <input
+                    name="tob"
+                    value={tob}
+                    onChange={(e) => setTob(formatToTime(e.target.value))}
+                    placeholder="HH:mm"
+                    inputMode="numeric"
+                    maxLength={5}
+                    className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body pr-12`}
+                    type="text"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => timeInputRef.current?.showPicker()}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary/50 group-hover:text-accent transition-colors p-1"
+                    title="Open Time Picker"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </button>
+                  <input
+                    type="time"
+                    ref={timeInputRef}
+                    value={tob}
+                    onChange={(e) => setTob(e.target.value)}
+                    className="absolute opacity-0 pointer-events-none w-0 h-0 bottom-0 right-10"
+                    tabIndex={-1}
+                  />
+                </div>
                 {errors.tob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
