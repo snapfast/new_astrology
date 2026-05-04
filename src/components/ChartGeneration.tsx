@@ -117,7 +117,7 @@ const ChartGeneration = () => {
     const query = pob.trim();
     const cacheKey = query.toLowerCase();
 
-    if (query.length < 3) {
+    if (query.length < 3 || query.length > 100) {
       setSuggestions([]);
       return;
     }
