@@ -55,7 +55,7 @@ const HoroscopeContent = () => {
       {/* Header & User Details */}
       <div className="mb-16 text-center">
         <div className="flex justify-center items-center gap-4 mb-6">
-          <span className="bg-surface-container-high border border-outline/30 px-4 py-1.5 rounded-full text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-secondary font-label flex items-center gap-2">
+          <span className="bg-surface-container-high border border-outline/30 px-4 py-1.5 rounded-full text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-secondary font-label flex items-center gap-2 pdf-hide">
             <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
             Representative Digital Map
           </span>

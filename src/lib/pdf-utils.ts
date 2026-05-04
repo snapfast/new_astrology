@@ -9,7 +9,7 @@ import jsPDF from 'jspdf';
 export const downloadHoroscopePDF = async (element: HTMLElement, fileName: string) => {
   try {
     const canvas = await html2canvas(element, {
-      scale: 1.5, // Increased scale for better print quality
+      scale: 1.2, // Reduced scale to keep file size small
       useCORS: true,
       logging: false,
       windowWidth: 800, // Balanced width for A4
@@ -41,15 +41,20 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           clonedContent.style.backgroundColor = '#ffffff';
           clonedContent.style.overflow = 'visible';
 
-          // Remove all backgrounds and shadows for "minimal colors" and size reduction
-          const containers = clonedContent.querySelectorAll('.shadow-sm, .bg-surface, .bg-surface-container-low, .bg-surface-container-high, .bg-surface-container-lowest, .bg-white, .max-w-4xl, .max-w-5xl, .max-w-2xl');
-          containers.forEach((c) => {
-            const el = c as HTMLElement;
-            el.style.boxShadow = 'none';
-            el.style.backgroundImage = 'none';
-            el.style.backgroundColor = '#ffffff';
-            el.style.maxWidth = 'none';
-            el.style.width = '100%';
+          // Aggressively remove all backgrounds and shadows for "minimal colors" and size reduction
+          const allElements = clonedContent.querySelectorAll('*');
+          allElements.forEach((el) => {
+            const element = el as HTMLElement;
+            element.style.boxShadow = 'none';
+            element.style.backgroundImage = 'none';
+            element.style.background = 'none';
+            element.style.backgroundColor = '#ffffff';
+
+            // Specifically handle containers that had max-widths
+            if (element.classList.contains('max-w-4xl') || element.classList.contains('max-w-5xl') || element.classList.contains('max-w-2xl')) {
+              element.style.maxWidth = 'none';
+              element.style.width = '100%';
+            }
           });
 
           // Ensure borders are visible
@@ -114,7 +119,7 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
     });
 
     // PDF generation in A4 format
-    const imgData = canvas.toDataURL('image/jpeg', 0.85);
+    const imgData = canvas.toDataURL('image/jpeg', 0.7);
     const pdf = new jsPDF('p', 'mm', 'a4');
 
     const imgWidth = 210; // A4 width in mm
