@@ -44,18 +44,34 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           clonedContent.style.backgroundColor = '#ffffff';
           clonedContent.style.overflow = 'visible';
 
-          // Target specific background-heavy and shadow-heavy elements for cleanup
-          // This is more reliable than global * with getComputedStyle in onclone
-          const containers = clonedContent.querySelectorAll('.bg-white, .bg-surface, .bg-surface-container-low, .bg-surface-container-high, .bg-surface-container-lowest, .rounded-3xl, .shadow-sm, .border-outline');
+          // Remove shadows and complex backgrounds to reduce size, but keep structure
+          const containers = clonedContent.querySelectorAll('.shadow-sm, .bg-surface, .bg-surface-container-low, .bg-surface-container-high, .bg-surface-container-lowest');
           containers.forEach((c) => {
             const el = c as HTMLElement;
-            el.style.backgroundColor = 'transparent';
-            el.style.backgroundImage = 'none';
             el.style.boxShadow = 'none';
+            el.style.backgroundImage = 'none';
+
+            // Keep some subtle background colors for structure, but ensure they are solid
+            if (el.classList.contains('bg-surface-container-low')) {
+              el.style.backgroundColor = '#F2F2F7'; // Light grey for headers/sections
+            } else if (el.classList.contains('bg-surface-container-high')) {
+              el.style.backgroundColor = '#E5E5EA'; // Slightly darker grey
+            } else if (el.classList.contains('bg-white')) {
+              el.style.backgroundColor = '#ffffff';
+            }
+          });
+
+          // Ensure borders are visible for structure
+          const bordered = clonedContent.querySelectorAll('.border, .border-outline, .border-outline\\/30, .border-outline\\/50');
+          bordered.forEach((b) => {
+            const el = b as HTMLElement;
+            el.style.borderColor = '#E2E2E2';
+            el.style.borderStyle = 'solid';
+            el.style.borderWidth = '1px';
           });
 
           // Hide decorative elements like blur circles
-          const decorative = clonedContent.querySelectorAll('.blur-\[100px\]');
+          const decorative = clonedContent.querySelectorAll('.blur-\\[100px\\]');
           decorative.forEach((d) => {
             (d as HTMLElement).style.display = 'none';
           });
@@ -76,10 +92,10 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
             chartEl.style.display = 'block';
             chartEl.style.margin = '0 auto';
             chartEl.style.overflow = 'visible';
-            chartEl.style.padding = '0';
-            chartEl.style.borderRadius = '0';
-            chartEl.style.border = 'none';
-            chartEl.style.backgroundColor = 'transparent';
+            chartEl.style.padding = '24px';
+            chartEl.style.borderRadius = '32px';
+            chartEl.style.border = '1px solid #E2E2E2';
+            chartEl.style.backgroundColor = '#ffffff';
 
             const svg = chartEl.querySelector('svg');
             if (svg) {
@@ -170,8 +186,15 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           tables.forEach((table) => {
             const tableEl = table as HTMLElement;
             tableEl.style.width = '100%';
-            tableEl.style.tableLayout = 'auto';
-            tableEl.style.minWidth = '1000px'; // Ensure table is wide enough for all columns
+            tableEl.style.tableLayout = 'fixed';
+            tableEl.style.minWidth = '1100px';
+
+            // Set column widths for better alignment
+            const cols = tableEl.querySelectorAll('th');
+            const widths = ['12%', '8%', '12%', '14%', '14%', '15%', '15%', '10%'];
+            cols.forEach((col, idx) => {
+              if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
+            });
           });
 
           // Force grid layout for charts to be 2 columns if width is 1200px
