@@ -12,7 +12,7 @@ const KundliChart: FC<KundliChartProps> = ({ data }) => {
   // 1st house is the top center diamond
 
   return (
-    <div className="w-full aspect-square max-w-[500px] mx-auto relative bg-white border border-outline rounded-[2rem] overflow-hidden p-4">
+    <div className="w-full aspect-square max-w-[500px] mx-auto relative p-4">
       <svg viewBox="0 0 400 400" className="w-full h-full">
         {/* Main Outer Square */}
         <rect x="0" y="0" width="400" height="400" fill="none" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
