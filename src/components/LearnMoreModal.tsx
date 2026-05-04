@@ -96,7 +96,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose, onBookNow })
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-3 md:mt-4">
             {/* Threads - Most Active */}
             <a
-              href="https://www.threads.com/@rahulbaliastro"
+              href="https://www.threads.net/@rahulbaliastro"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads' })}
