@@ -9,11 +9,11 @@ import jsPDF from 'jspdf';
 export const downloadHoroscopePDF = async (element: HTMLElement, fileName: string) => {
   try {
     const canvas = await html2canvas(element, {
-      scale: 2, // Higher scale for better quality
+      scale: 1.2, // Balanced scale for quality and file size
       useCORS: true,
       logging: false,
       windowWidth: 1200, // Ensure desktop-like rendering
-      backgroundColor: '#F9F9FB', // Matching site background (bg-surface)
+      backgroundColor: '#ffffff', // Pure white background for PDF
       onclone: (clonedDoc) => {
         // Hide elements that shouldn't be in the PDF
         const elementsToHide = clonedDoc.querySelectorAll('.pdf-hide');
@@ -41,8 +41,24 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           clonedContent.style.maxWidth = 'none';
           clonedContent.style.padding = '60px';
           clonedContent.style.margin = '0 auto';
-          clonedContent.style.backgroundColor = '#F9F9FB';
+          clonedContent.style.backgroundColor = '#ffffff';
           clonedContent.style.overflow = 'visible';
+
+          // Target specific background-heavy and shadow-heavy elements for cleanup
+          // This is more reliable than global * with getComputedStyle in onclone
+          const containers = clonedContent.querySelectorAll('.bg-white, .bg-surface, .bg-surface-container-low, .bg-surface-container-high, .bg-surface-container-lowest, .rounded-3xl, .shadow-sm, .border-outline');
+          containers.forEach((c) => {
+            const el = c as HTMLElement;
+            el.style.backgroundColor = 'transparent';
+            el.style.backgroundImage = 'none';
+            el.style.boxShadow = 'none';
+          });
+
+          // Hide decorative elements like blur circles
+          const decorative = clonedContent.querySelectorAll('.blur-\[100px\]');
+          decorative.forEach((d) => {
+            (d as HTMLElement).style.display = 'none';
+          });
 
           // Fix for text clipping and layout
           clonedContent.style.lineHeight = 'normal';
@@ -63,6 +79,7 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
             chartEl.style.padding = '0';
             chartEl.style.borderRadius = '0';
             chartEl.style.border = 'none';
+            chartEl.style.backgroundColor = 'transparent';
 
             const svg = chartEl.querySelector('svg');
             if (svg) {
@@ -88,11 +105,7 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
                     const planets = content.split(',').map(s => s.trim());
                     if (planets.length > 3) {
                       const mid = Math.ceil(planets.length / 2);
-                      const line1 = planets.slice(0, mid).join(', ');
-                      const line2 = planets.slice(mid).join(', ');
-
                       const x = text.getAttribute('x') || '0';
-                      const y = parseFloat(text.getAttribute('y') || '0');
 
                       // Clear and rebuild with tspans
                       text.textContent = '';
@@ -124,7 +137,6 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
                       text.appendChild(tspan2);
                     } else {
                       // Just fix colors for single line with multiple planets
-                      const x = text.getAttribute('x') || '0';
                       text.textContent = '';
                       planets.forEach((p, i) => {
                         const s = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
@@ -176,14 +188,14 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
       }
     });
 
-    const imgData = canvas.toDataURL('image/png');
+    const imgData = canvas.toDataURL('image/jpeg', 0.8);
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
       format: [canvas.width, canvas.height]
     });
 
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
     pdf.save(`${fileName}.pdf`);
   } catch (error) {
     console.error('Error generating PDF:', error);
