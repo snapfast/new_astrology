@@ -9,10 +9,10 @@ import jsPDF from 'jspdf';
 export const downloadHoroscopePDF = async (element: HTMLElement, fileName: string) => {
   try {
     const canvas = await html2canvas(element, {
-      scale: 1.2, // Reduced scale to keep file size small
+      scale: 1.0, // Reduced scale to keep file size small
       useCORS: true,
       logging: false,
-      windowWidth: 800, // Balanced width for A4
+      windowWidth: 1024, // Increased width for A4 to "zoom out"
       backgroundColor: '#ffffff',
       onclone: (clonedDoc) => {
         // Hide elements that shouldn't be in the PDF
@@ -31,10 +31,10 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
                              clonedDoc.body.firstElementChild) as HTMLElement;
 
         if (clonedContent) {
-          // Force A4-friendly width (800px)
-          clonedDoc.body.style.width = '800px';
+          // Force A4-friendly width (1024px)
+          clonedDoc.body.style.width = '1024px';
           clonedDoc.body.style.overflow = 'visible';
-          clonedContent.style.width = '800px';
+          clonedContent.style.width = '1024px';
           clonedContent.style.maxWidth = 'none';
           clonedContent.style.padding = '40px';
           clonedContent.style.margin = '0 auto';
@@ -72,12 +72,12 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
             (d as HTMLElement).style.display = 'none';
           });
 
-          // Adjust charts for 800px width (2 columns -> ~350px each)
+          // Adjust charts for 1024px width (2 columns -> ~440px each)
           const charts = clonedContent.querySelectorAll('.aspect-square');
           charts.forEach((chart) => {
             const chartEl = chart as HTMLElement;
-            chartEl.style.width = '350px';
-            chartEl.style.height = '350px';
+            chartEl.style.width = '440px';
+            chartEl.style.height = '440px';
             chartEl.style.padding = '15px';
             chartEl.style.borderRadius = '24px';
             chartEl.style.border = '1px solid #E2E2E2';
@@ -94,12 +94,12 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
              if (gridEl.classList.contains('lg:grid-cols-2') || gridEl.querySelector('.aspect-square')) {
                 gridEl.style.display = 'grid';
                 gridEl.style.gridTemplateColumns = '1fr 1fr';
-                gridEl.style.gap = '20px';
+                gridEl.style.gap = '32px';
                 gridEl.style.width = '100%';
              }
           });
 
-          // Planetary positions table alignment for 800px
+          // Planetary positions table alignment for 1024px
           const tables = clonedContent.querySelectorAll('table');
           tables.forEach((table) => {
             const tableEl = table as HTMLElement;
@@ -107,7 +107,7 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
             if (headers.length === 8) {
               tableEl.style.width = '100%';
               tableEl.style.tableLayout = 'fixed';
-              tableEl.style.minWidth = '720px';
+              tableEl.style.minWidth = '944px';
               const widths = ['15%', '8%', '12%', '14%', '12%', '15%', '15%', '9%'];
               headers.forEach((col, idx) => {
                 if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
