@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState, useMemo, useRef } from 'react';
+import { Suspense, useState, useMemo, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';

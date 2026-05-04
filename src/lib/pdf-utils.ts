@@ -12,7 +12,7 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
       scale: 1.2, // Balanced scale for quality and file size
       useCORS: true,
       logging: false,
-      windowWidth: 1200, // Ensure desktop-like rendering
+      windowWidth: 1000, // Ensure desktop-like rendering
       backgroundColor: '#ffffff', // Pure white background for PDF
       onclone: (clonedDoc) => {
         // Hide elements that shouldn't be in the PDF
@@ -33,13 +33,13 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
 
         if (clonedContent) {
           // Ensure the entire document is visible and sized correctly
-          clonedDoc.body.style.width = '1200px';
+          clonedDoc.body.style.width = '1000px';
           clonedDoc.body.style.overflow = 'visible';
 
           // Force a standard desktop width for consistent PDF layout regardless of screen size
-          clonedContent.style.width = '1200px';
+          clonedContent.style.width = '1000px';
           clonedContent.style.maxWidth = 'none';
-          clonedContent.style.padding = '60px';
+          clonedContent.style.padding = '40px';
           clonedContent.style.margin = '0 auto';
           clonedContent.style.backgroundColor = '#ffffff';
           clonedContent.style.overflow = 'visible';
@@ -87,8 +87,8 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           const charts = clonedContent.querySelectorAll('.aspect-square');
           charts.forEach((chart) => {
             const chartEl = chart as HTMLElement;
-            chartEl.style.width = '500px';
-            chartEl.style.height = '500px';
+            chartEl.style.width = '450px';
+            chartEl.style.height = '450px';
             chartEl.style.display = 'block';
             chartEl.style.margin = '0 auto';
             chartEl.style.overflow = 'visible';
@@ -181,30 +181,35 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
             containerEl.style.maxWidth = 'none';
           });
 
-          // Ensure tables take full width and don't shrink
+          // Ensure planetary positions table takes full width and has aligned columns
           const tables = clonedContent.querySelectorAll('table');
           tables.forEach((table) => {
             const tableEl = table as HTMLElement;
-            tableEl.style.width = '100%';
-            tableEl.style.tableLayout = 'fixed';
-            tableEl.style.minWidth = '1100px';
+            const headers = tableEl.querySelectorAll('th');
 
-            // Set column widths for better alignment
-            const cols = tableEl.querySelectorAll('th');
-            const widths = ['12%', '8%', '12%', '14%', '14%', '15%', '15%', '10%'];
-            cols.forEach((col, idx) => {
-              if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
-            });
+            // Only apply specific alignment to the planetary positions table (identified by 8 columns)
+            if (headers.length === 8) {
+              tableEl.style.width = '100%';
+              tableEl.style.tableLayout = 'fixed';
+              tableEl.style.minWidth = '920px';
+
+              const widths = ['12%', '8%', '12%', '14%', '14%', '15%', '15%', '10%'];
+              headers.forEach((col, idx) => {
+                if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
+              });
+            }
           });
 
-          // Force grid layout for charts to be 2 columns if width is 1200px
+          // Force grid layout for charts to be 2 columns
           const chartGrids = clonedContent.querySelectorAll('.grid');
           chartGrids.forEach((grid) => {
              const gridEl = grid as HTMLElement;
-             if (gridEl.classList.contains('lg:grid-cols-2')) {
+             // Specifically target the chart containers that use lg:grid-cols-2
+             if (gridEl.classList.contains('lg:grid-cols-2') || gridEl.querySelector('.aspect-square')) {
                 gridEl.style.display = 'grid';
-                gridEl.style.gridTemplateColumns = 'repeat(2, 1fr)';
-                gridEl.style.gap = '48px';
+                gridEl.style.gridTemplateColumns = '1fr 1fr';
+                gridEl.style.gap = '30px';
+                gridEl.style.width = '100%';
              }
           });
         }
