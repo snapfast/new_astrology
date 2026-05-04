@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 import { Consultation, Portion } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Portion } from '@/lib/consultations';
 
 interface PortionDetailModalProps {
