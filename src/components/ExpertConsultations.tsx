@@ -47,7 +47,7 @@ const ExpertConsultations = () => {
           <p className="text-secondary max-w-2xl mx-auto text-base font-body leading-relaxed">Bespoke services merging ancient Vedic scriptures with precision analysis.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
           {CONSULTATIONS.map((item) => (
             <button
               key={item.id}
