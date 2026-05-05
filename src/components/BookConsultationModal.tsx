@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, FC } from 'react';
+import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 
 interface BookConsultationModalProps {
