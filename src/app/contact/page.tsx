@@ -43,8 +43,8 @@ export default function ContactPage() {
                 </a>
                 <a
                   href="https://www.linkedin.com/in/rahulbaliastrology/"
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
                   className="px-6 py-3 rounded-full border border-outline/30 text-secondary text-sm font-label uppercase tracking-widest"
                 >
                   LinkedIn
