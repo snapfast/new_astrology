@@ -26,7 +26,6 @@ const HoroscopeContent = () => {
   const pob = searchParams.get('pob') || '';
   const lat = searchParams.get('lat') || '';
   const lon = searchParams.get('lon') || '';
-  const debug = searchParams.get('debug') === 'true';
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
@@ -268,7 +267,7 @@ const HoroscopeContent = () => {
         })()}
 
         {/* Interactive Vimshottari Dasha System */}
-        <VimshottariDasha mahadashas={chartData.mahadashas} debug={debug} />
+        <VimshottariDasha mahadashas={chartData.mahadashas} />
       </div>
 
       {/* Verification CTA Section */}
