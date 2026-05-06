@@ -122,9 +122,6 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
               <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
               <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
               <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
-              {level !== 'sookshma' && (
-                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-right pdf-hide">Action</th>
-              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-outline">
@@ -162,20 +159,12 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                       <span className="text-xs text-secondary/50">Upcoming</span>
                     )}
                   </td>
-                  {level !== 'sookshma' && (
-                    <td className="px-6 py-4 text-right pdf-hide">
-                      <span className="material-symbols-outlined text-outline group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 text-sm">chevron_right</span>
-                    </td>
-                  )}
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      {level !== 'sookshma' && (
-        <p className="text-[10px] text-secondary text-center italic pdf-hide">Click on a row to explore sub-periods</p>
-      )}
     </div>
   );
 }
