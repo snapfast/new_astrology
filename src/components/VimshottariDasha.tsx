@@ -138,7 +138,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                     group
                     ${isCurrent ? 'bg-accent/10' : ''}
                     ${level !== 'sookshma' ? 'cursor-pointer' : ''}
-                    hover:!bg-surface-container-low
+                    hover:!bg-accent/20
                     transition-all duration-300
                   `}
                 >
