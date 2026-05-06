@@ -118,7 +118,6 @@ const HoroscopeContent = () => {
         <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
       </div>
 
-      {/* Planet Table - Full Width */}
       <div className="space-y-8 mb-24">
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Planetary Positions</h2>
         <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
@@ -148,6 +147,101 @@ const HoroscopeContent = () => {
                   <td className="px-4 py-4 text-sm text-on-surface text-center font-bold">{p.pada}</td>
                 </tr>
               ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Vimshottari Dasha Section */}
+      <div className="space-y-12 mb-24">
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Vimshottari Dasha</h2>
+
+        {/* Current Dasha Highlight */}
+        {(() => {
+          const now = new Date();
+          const currentMd = chartData.mahadashas.find(md => now >= md.start && now <= md.end);
+          const currentAd = currentMd?.antardashas.find(ad => now >= ad.start && now <= ad.end);
+          const currentPd = currentAd?.pratyantardashas.find(pd => now >= pd.start && now <= pd.end);
+          const currentSd = currentPd?.sookshmaDashas.find(sd => now >= sd.start && now <= sd.end);
+
+          if (!currentMd) return null;
+
+          return (
+            <div className="bg-surface-container-low rounded-3xl border border-outline p-6 md:p-10">
+              <div className="space-y-8">
+                <div>
+                  <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">Current Active Dasha Hierarchy</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
+                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Mahadasha</p>
+                      <p className="text-2xl font-headline text-on-surface">{currentMd.lord}</p>
+                    </div>
+                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
+                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Antardasha</p>
+                      <p className="text-2xl font-headline text-on-surface">{currentAd?.lord}</p>
+                    </div>
+                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
+                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Pratyantardasha</p>
+                      <p className="text-2xl font-headline text-on-surface">{currentPd?.lord}</p>
+                    </div>
+                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
+                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Dasha</p>
+                      <p className="text-2xl font-headline text-on-surface">{currentSd?.lord}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-8 border-t border-outline/50 flex flex-wrap gap-12">
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Started</p>
+                    <p className="text-sm font-semibold text-on-surface">{currentSd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Ends</p>
+                    <p className="text-sm font-semibold text-on-surface">{currentSd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Mahadasha Table */}
+        <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-surface-container-low border-b border-outline">
+                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Mahadasha Lord</th>
+                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
+                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
+                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-outline">
+              {chartData.mahadashas.map((md, idx) => {
+                const now = new Date();
+                const isCurrent = now >= md.start && now <= md.end;
+                const isPast = now > md.end;
+
+                return (
+                  <tr key={idx} className={`${isCurrent ? 'bg-accent/5' : ''} hover:bg-surface-container-lowest transition-colors`}>
+                    <td className="px-6 py-4 text-sm font-medium text-on-surface">{md.lord}</td>
+                    <td className="px-6 py-4 text-sm text-on-surface">{md.start.toLocaleDateString('en-GB')}</td>
+                    <td className="px-6 py-4 text-sm text-on-surface">{md.end.toLocaleDateString('en-GB')}</td>
+                    <td className="px-6 py-4">
+                      {isCurrent ? (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/20 text-accent">
+                          Current
+                        </span>
+                      ) : isPast ? (
+                        <span className="text-xs text-secondary/50">Past</span>
+                      ) : (
+                        <span className="text-xs text-secondary/50">Upcoming</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
