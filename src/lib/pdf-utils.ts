@@ -89,7 +89,7 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
             if (svg) svg.style.overflow = 'visible';
           });
 
-          // Ensure grid layout for charts
+          // Ensure grid layout for charts and merged info section
           const chartGrids = clonedContent.querySelectorAll('.grid');
           chartGrids.forEach((grid) => {
              const gridEl = grid as HTMLElement;
@@ -97,6 +97,11 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
                 gridEl.style.display = 'grid';
                 gridEl.style.gridTemplateColumns = '1fr 1fr';
                 gridEl.style.gap = '32px';
+                gridEl.style.width = '100%';
+             } else if (gridEl.classList.contains('lg:grid-cols-6')) {
+                gridEl.style.display = 'grid';
+                gridEl.style.gridTemplateColumns = 'repeat(6, 1fr)';
+                gridEl.style.gap = '12px';
                 gridEl.style.width = '100%';
              }
           });

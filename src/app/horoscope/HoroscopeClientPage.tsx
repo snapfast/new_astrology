@@ -69,60 +69,23 @@ const HoroscopeContent = () => {
           </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-normal mb-6 font-headline text-on-surface">Your Birth Chart</h1>
-        <div className="max-w-4xl mx-auto rounded-3xl border border-outline overflow-hidden text-left">
-          <div className="py-5 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            <div className="space-y-1">
-              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Name</p>
-              <p className="text-sm font-medium text-secondary leading-relaxed">{name}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Date</p>
-              <p className="text-sm font-medium text-secondary leading-relaxed">{formattedDob}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Time</p>
-              <p className="text-sm font-medium text-secondary leading-relaxed">{tob}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Place</p>
-              <p className="text-sm font-medium text-secondary leading-relaxed">{pob}</p>
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-left">
+          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Name</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{name}</p>
           </div>
-        </div>
-      </div>
-
-      {/* Charts Section */}
-      <div className="space-y-8 mb-12">
-        {/* Row 1: D1 & D9 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Lagna Chart (D1)</h2>
-            <KundliChart data={chartData.d1} />
+          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Date</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{formattedDob}</p>
           </div>
-          <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Navamsha Chart (D9)</h2>
-            <KundliChart data={chartData.d9} />
+          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Time</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{tob}</p>
           </div>
-        </div>
-
-        {/* Row 2: D3 & D10 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Drekkana Chart (D3)</h2>
-            <KundliChart data={chartData.d3} />
+          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Place</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{pob}</p>
           </div>
-          <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Dashamsha Chart (D10)</h2>
-            <KundliChart data={chartData.d10} />
-          </div>
-        </div>
-        <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
-      </div>
-
-      {/* Panchang Section */}
-      <div className="space-y-6 mb-12">
-        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Panchang</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
           <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
             <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Tithi</p>
             <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.tithi} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.tithiSanskrit})</span></p>
@@ -181,6 +144,35 @@ const HoroscopeContent = () => {
           </div>
         </div>
       </div>
+
+      {/* Charts Section */}
+      <div className="space-y-8 mb-12">
+        {/* Row 1: D1 & D9 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Lagna Chart (D1)</h2>
+            <KundliChart data={chartData.d1} />
+          </div>
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Navamsha Chart (D9)</h2>
+            <KundliChart data={chartData.d9} />
+          </div>
+        </div>
+
+        {/* Row 2: D3 & D10 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Drekkana Chart (D3)</h2>
+            <KundliChart data={chartData.d3} />
+          </div>
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Dashamsha Chart (D10)</h2>
+            <KundliChart data={chartData.d10} />
+          </div>
+        </div>
+        <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
+      </div>
+
 
       <div className="space-y-6 mb-16">
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Planetary Positions</h2>
