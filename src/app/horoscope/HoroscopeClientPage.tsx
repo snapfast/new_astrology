@@ -118,6 +118,37 @@ const HoroscopeContent = () => {
         <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
       </div>
 
+      {/* Panchang Section */}
+      <div className="space-y-8 mb-16">
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Panchang</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Tithi</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.tithi} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.tithiSanskrit})</span></p>
+          </div>
+          <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Paksha</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.paksha} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.pakshaSanskrit})</span></p>
+          </div>
+          <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Vara</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.vara} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.varaSanskrit})</span></p>
+          </div>
+          <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Nakshatra</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.nakshatra} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.nakshatraSanskrit})</span></p>
+          </div>
+          <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Yoga</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.yoga} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.yogaSanskrit})</span></p>
+          </div>
+          <div className="bg-surface-container-low p-4 rounded-2xl border border-outline/50">
+            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Karana</p>
+            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.karana} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.karanaSanskrit})</span></p>
+          </div>
+        </div>
+      </div>
+
       <div className="space-y-8 mb-24">
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-4">Planetary Positions</h2>
         <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">

@@ -44,6 +44,21 @@ export interface DivisionalChartData {
     houseRasis: { [key: number]: number };
 }
 
+export interface PanchangData {
+    tithi: string;
+    tithiSanskrit: string;
+    paksha: string;
+    pakshaSanskrit: string;
+    nakshatra: string;
+    nakshatraSanskrit: string;
+    yoga: string;
+    yogaSanskrit: string;
+    karana: string;
+    karanaSanskrit: string;
+    vara: string;
+    varaSanskrit: string;
+}
+
 export interface ChartData {
     planets: PlanetData[];
     d1: DivisionalChartData;
@@ -51,6 +66,7 @@ export interface ChartData {
     d9: DivisionalChartData;
     d10: DivisionalChartData;
     mahadashas: Mahadasha[];
+    panchang: PanchangData;
 }
 
 const RASIS = [
@@ -61,9 +77,126 @@ const RASIS = [
 const NAKSHATRAS = [
     "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra",
     "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni",
-    "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyesha",
+    "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha",
     "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha",
     "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+];
+
+const NAKSHATRA_NAMES = [
+    { name: "Ashwini", sanskrit: "अश्विनी" },
+    { name: "Bharani", sanskrit: "भरणी" },
+    { name: "Krittika", sanskrit: "कृत्तिका" },
+    { name: "Rohini", sanskrit: "रोहिणी" },
+    { name: "Mrigashira", sanskrit: "मृगशिरा" },
+    { name: "Ardra", sanskrit: "आर्द्रा" },
+    { name: "Punarvasu", sanskrit: "पुनर्वसु" },
+    { name: "Pushya", sanskrit: "पुष्य" },
+    { name: "Ashlesha", sanskrit: "अश्लेषा" },
+    { name: "Magha", sanskrit: "मघा" },
+    { name: "Purva Phalguni", sanskrit: "पूर्वाफाल्गुनी" },
+    { name: "Uttara Phalguni", sanskrit: "उत्तराफाल्गुनी" },
+    { name: "Hasta", sanskrit: "हस्त" },
+    { name: "Chitra", sanskrit: "चित्रा" },
+    { name: "Swati", sanskrit: "स्वाती" },
+    { name: "Vishakha", sanskrit: "विशाखा" },
+    { name: "Anuradha", sanskrit: "अनुराधा" },
+    { name: "Jyeshtha", sanskrit: "ज्येष्ठा" },
+    { name: "Mula", sanskrit: "मूल" },
+    { name: "Purva Ashadha", sanskrit: "पूर्वाषाढ़ा" },
+    { name: "Uttara Ashadha", sanskrit: "उत्तराषाढ़ा" },
+    { name: "Shravana", sanskrit: "श्रवण" },
+    { name: "Dhanishta", sanskrit: "धनिष्ठा" },
+    { name: "Shatabhisha", sanskrit: "शतभिषा" },
+    { name: "Purva Bhadrapada", sanskrit: "पूर्वाभाद्रपद" },
+    { name: "Uttara Bhadrapada", sanskrit: "उत्तराभाद्रपद" },
+    { name: "Revati", sanskrit: "रेवती" }
+];
+
+const TITHIS = [
+    { name: "Pratipada", sanskrit: "प्रतिपदा" },
+    { name: "Dwitiya", sanskrit: "द्वितीया" },
+    { name: "Tritiya", sanskrit: "तृतीया" },
+    { name: "Chaturthi", sanskrit: "चतुर्थी" },
+    { name: "Panchami", sanskrit: "पञ्चमी" },
+    { name: "Shashti", sanskrit: "षष्ठी" },
+    { name: "Saptami", sanskrit: "सप्तमी" },
+    { name: "Ashtami", sanskrit: "अष्टमी" },
+    { name: "Navami", sanskrit: "नवमी" },
+    { name: "Dashami", sanskrit: "दशमी" },
+    { name: "Ekadashi", sanskrit: "एकादशी" },
+    { name: "Dwadashi", sanskrit: "द्वादशी" },
+    { name: "Trayodashi", sanskrit: "त्रयोदशी" },
+    { name: "Chaturdashi", sanskrit: "चतुर्दशी" },
+    { name: "Purnima", sanskrit: "पूर्णिमा" },
+    { name: "Pratipada", sanskrit: "प्रतिपदा" },
+    { name: "Dwitiya", sanskrit: "द्वितीया" },
+    { name: "Tritiya", sanskrit: "तृतीया" },
+    { name: "Chaturthi", sanskrit: "चतुर्थी" },
+    { name: "Panchami", sanskrit: "पञ्चमी" },
+    { name: "Shashti", sanskrit: "षष्ठी" },
+    { name: "Saptami", sanskrit: "सप्तमी" },
+    { name: "Ashtami", sanskrit: "अष्टमी" },
+    { name: "Navami", sanskrit: "नवमी" },
+    { name: "Dashami", sanskrit: "दशमी" },
+    { name: "Ekadashi", sanskrit: "एकादशी" },
+    { name: "Dwadashi", sanskrit: "द्वादशी" },
+    { name: "Trayodashi", sanskrit: "त्रयोदशी" },
+    { name: "Chaturdashi", sanskrit: "चतुर्दशी" },
+    { name: "Amavasya", sanskrit: "अमावस्या" }
+];
+
+const VARAS = [
+    { name: "Sunday", sanskrit: "रविवार" },
+    { name: "Monday", sanskrit: "सोमवार" },
+    { name: "Tuesday", sanskrit: "मंगलवार" },
+    { name: "Wednesday", sanskrit: "बुधवार" },
+    { name: "Thursday", sanskrit: "गुरुवार" },
+    { name: "Friday", sanskrit: "शुक्रवार" },
+    { name: "Saturday", sanskrit: "शनिवार" }
+];
+
+const YOGAS = [
+    { name: "Vishkumbha", sanskrit: "विष्कम्भ" },
+    { name: "Priti", sanskrit: "प्रीति" },
+    { name: "Ayushman", sanskrit: "आयुष्मान" },
+    { name: "Saubhagya", sanskrit: "सौभाग्य" },
+    { name: "Shobhana", sanskrit: "शोभन" },
+    { name: "Atiganda", sanskrit: "अतिगण्ड" },
+    { name: "Sukarma", sanskrit: "सुकर्मा" },
+    { name: "Dhriti", sanskrit: "धृति" },
+    { name: "Shula", sanskrit: "शूल" },
+    { name: "Ganda", sanskrit: "गण्ड" },
+    { name: "Vriddhi", sanskrit: "वृद्धि" },
+    { name: "Dhruva", sanskrit: "ध्रुव" },
+    { name: "Vyaghata", sanskrit: "व्याघात" },
+    { name: "Harshana", sanskrit: "हर्षण" },
+    { name: "Vajra", sanskrit: "वज्र" },
+    { name: "Siddhi", sanskrit: "सिद्धि" },
+    { name: "Vyatipata", sanskrit: "व्यतिपात" },
+    { name: "Variyana", sanskrit: "वरीयान" },
+    { name: "Parigha", sanskrit: "परिघ" },
+    { name: "Shiva", sanskrit: "शिव" },
+    { name: "Siddha", sanskrit: "सिद्ध" },
+    { name: "Sadhya", sanskrit: "साध्य" },
+    { name: "Shubha", sanskrit: "शुभ" },
+    { name: "Shukla", sanskrit: "शुक्ल" },
+    { name: "Brahma", sanskrit: "ब्रह्म" },
+    { name: "Indra", sanskrit: "इन्द्र" },
+    { name: "Vaidhriti", sanskrit: "वैधृति" }
+];
+
+const KARANAS = [
+    { name: "Bava", sanskrit: "बव" },
+    { name: "Balava", sanskrit: "बालव" },
+    { name: "Kaulava", sanskrit: "कौलव" },
+    { name: "Taitila", sanskrit: "तैतिल" },
+    { name: "Gara", sanskrit: "गर" },
+    { name: "Vanija", sanskrit: "वणिज" },
+    { name: "Vishti", sanskrit: "विष्टि" },
+    { name: "Shakuni", sanskrit: "शकुनि" },
+    { name: "Chatushpada", sanskrit: "चतुष्पाद" },
+    { name: "Naga", sanskrit: "नाग" },
+    { name: "Kimstughna", sanskrit: "किंस्तुघ्न" }
 ];
 
 const RASI_LORDS = [
@@ -129,7 +262,12 @@ export function getMeanRahu(time: Ast.AstroTime): number {
 
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     const emptyChart = { houses: {}, houseRasis: {} } as DivisionalChartData;
-    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart, d10: emptyChart, mahadashas: [] };
+    const emptyPanchang: PanchangData = {
+        tithi: "", tithiSanskrit: "", paksha: "", pakshaSanskrit: "",
+        nakshatra: "", nakshatraSanskrit: "", yoga: "", yogaSanskrit: "",
+        karana: "", karanaSanskrit: "", vara: "", varaSanskrit: ""
+    };
+    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart, d10: emptyChart, mahadashas: [], panchang: emptyPanchang };
 
     // Parse Date and Time in UTC to avoid environment-dependent timezone issues
     const [year, month, day] = dob.split('-').map(Number);
@@ -271,13 +409,82 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     // 4. Calculate Vimshottari Dasha
     const mahadashas = calculateVimshottariDasha(moonSiderealLong, istDate);
 
+    // 5. Calculate Panchang
+    const panchang = calculatePanchang(time, lat, lon, ayanamsa);
+
     return {
         planets: planetData,
         d1: { houses: d1Assignments, houseRasis: d1HouseRasis },
         d3: { houses: d3Assignments, houseRasis: d3HouseRasis },
         d9: { houses: d9Assignments, houseRasis: d9HouseRasis },
         d10: { houses: d10Assignments, houseRasis: d10HouseRasis },
-        mahadashas
+        mahadashas,
+        panchang
+    };
+}
+
+function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: string, sanskrit: string } {
+    const observer = new Ast.Observer(lat, lon, 0);
+    // Direction: +1 for Rise, -1 for Set
+    const recentSunrise = Ast.SearchRiseSet(Ast.Body.Sun, observer, 1, time, -24);
+
+    if (recentSunrise) {
+        const sunriseDate = recentSunrise.date;
+        const istSunrise = new Date(sunriseDate.getTime() + (5.5 * 60 * 60 * 1000));
+        const day = istSunrise.getUTCDay();
+        return VARAS[day];
+    }
+
+    return VARAS[time.date.getUTCDay()];
+}
+
+function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanamsa: number): PanchangData {
+    const sunPos = Ast.GeoVector(Ast.Body.Sun, time, true);
+    const sunEcl = Ast.Ecliptic(sunPos);
+    const moonPos = Ast.GeoMoon(time);
+    const moonEcl = Ast.Ecliptic(moonPos);
+
+    const sunLong = sunEcl.elon;
+    const moonLong = moonEcl.elon;
+
+    const diff = (moonLong - sunLong + 360) % 360;
+    const tithiIdx = Math.floor(diff / 12);
+    const tithi = TITHIS[tithiIdx];
+    const paksha = tithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
+
+    const siderealMoonLong = (moonLong - ayanamsa + 360) % 360;
+    const nakIdx = Math.floor(siderealMoonLong / NAKSHATRA_WIDTH);
+    const nak = NAKSHATRA_NAMES[nakIdx];
+
+    const yogaLong = (sunLong + moonLong) % 360;
+    const yogaIdx = Math.floor(yogaLong / NAKSHATRA_WIDTH);
+    const yoga = YOGAS[yogaIdx];
+
+    const karanaIdxTotal = Math.floor(diff / 6);
+    let karana;
+    if (karanaIdxTotal === 0) {
+        karana = KARANAS[10];
+    } else if (karanaIdxTotal >= 57) {
+        karana = KARANAS[7 + (karanaIdxTotal - 57)];
+    } else {
+        karana = KARANAS[(karanaIdxTotal - 1) % 7];
+    }
+
+    const vara = getVedicVara(time, lat, lon);
+
+    return {
+        tithi: tithi.name,
+        tithiSanskrit: tithi.sanskrit,
+        paksha: paksha.name,
+        pakshaSanskrit: paksha.sanskrit,
+        nakshatra: nak.name,
+        nakshatraSanskrit: nak.sanskrit,
+        yoga: yoga.name,
+        yogaSanskrit: yoga.sanskrit,
+        karana: karana.name,
+        karanaSanskrit: karana.sanskrit,
+        vara: vara.name,
+        varaSanskrit: vara.sanskrit
     };
 }
 
