@@ -122,7 +122,7 @@ const HoroscopeContent = () => {
       {/* Panchang Section */}
       <div className="space-y-6 mb-12">
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Panchang</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
           <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
             <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Tithi</p>
             <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.tithi} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.tithiSanskrit})</span></p>
@@ -146,22 +146,6 @@ const HoroscopeContent = () => {
           <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
             <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Karana</p>
             <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.karana} <span className="text-xs text-secondary font-normal block mt-0.5">({chartData.panchang.karanaSanskrit})</span></p>
-          </div>
-          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
-            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Sunrise</p>
-            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.sunrise}</p>
-          </div>
-          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
-            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Sunset</p>
-            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.sunset}</p>
-          </div>
-          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
-            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Moonrise</p>
-            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.moonrise}</p>
-          </div>
-          <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
-            <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Moonset</p>
-            <p className="text-sm font-medium text-on-surface leading-tight">{chartData.panchang.moonset}</p>
           </div>
           <div className="bg-surface-container-low p-3 rounded-2xl border border-outline/50">
             <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label mb-1">Sun Sign</p>
@@ -217,20 +201,10 @@ const HoroscopeContent = () => {
             <tbody className="divide-y divide-outline">
               {chartData.planets.map((p, idx) => (
                 <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
-<<<<<<< feature/retrograde-planets-2718923094553994345
-                  <td className="px-4 py-4 text-sm font-medium text-on-surface">
+                  <td className="px-4 py-2.5 text-sm font-medium text-on-surface">
                     {p.name}
                     {p.isRetrograde && <span className="text-green-600 ml-1">*</span>}
                   </td>
-                  <td className="px-4 py-4 text-sm text-on-surface text-center">{p.house}</td>
-                  <td className="px-4 py-4 text-sm text-on-surface">{p.rasi}</td>
-                  <td className="px-4 py-4 text-sm text-on-surface">{p.rasiLord}</td>
-                  <td className="px-4 py-4 text-sm text-on-surface font-mono whitespace-nowrap">{p.degree}</td>
-                  <td className="px-4 py-4 text-sm text-on-surface">{p.nakshatra}</td>
-                  <td className="px-4 py-4 text-sm text-on-surface">{p.nakshatraLord}</td>
-                  <td className="px-4 py-4 text-sm text-on-surface text-center font-bold">{p.pada}</td>
-=======
-                  <td className="px-4 py-2.5 text-sm font-medium text-on-surface">{p.name}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center">{p.house}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasi}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasiLord}</td>
@@ -238,7 +212,6 @@ const HoroscopeContent = () => {
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatra}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatraLord}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center font-bold">{p.pada}</td>
->>>>>>> feature-astrology-site-implementation-1411924550439576528
                 </tr>
               ))}
             </tbody>
