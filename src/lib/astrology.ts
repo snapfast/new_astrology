@@ -12,6 +12,33 @@ export interface PlanetData {
     nakshatraLord: string;
 }
 
+export interface SookshmaDasha {
+    lord: string;
+    start: Date;
+    end: Date;
+}
+
+export interface Pratyantardasha {
+    lord: string;
+    start: Date;
+    end: Date;
+    sookshmaDashas: SookshmaDasha[];
+}
+
+export interface Antardasha {
+    lord: string;
+    start: Date;
+    end: Date;
+    pratyantardashas: Pratyantardasha[];
+}
+
+export interface Mahadasha {
+    lord: string;
+    start: Date;
+    end: Date;
+    antardashas: Antardasha[];
+}
+
 export interface DivisionalChartData {
     houses: { [key: number]: string[] };
     houseRasis: { [key: number]: number };
@@ -23,6 +50,7 @@ export interface ChartData {
     d3: DivisionalChartData;
     d9: DivisionalChartData;
     d10: DivisionalChartData;
+    mahadashas: Mahadasha[];
 }
 
 const RASIS = [
@@ -47,6 +75,18 @@ const NAKSHATRA_LORDS = [
     "Ketu", "Venus", "Sun", "Moon", "Mars", "Rahu", "Jupiter", "Saturn", "Mercury"
 ];
 
+const DASHA_DURATIONS: { [key: string]: number } = {
+    "Ketu": 7,
+    "Venus": 20,
+    "Sun": 6,
+    "Moon": 10,
+    "Mars": 7,
+    "Rahu": 18,
+    "Jupiter": 16,
+    "Saturn": 19,
+    "Mercury": 17
+};
+
 const PLANET_MAP = [
     { name: "Sun", body: Ast.Body.Sun, symbol: "Su" },
     { name: "Moon", body: Ast.Body.Moon, symbol: "Mo" },
@@ -63,6 +103,7 @@ const D10_WIDTH = 3;
 const NAKSHATRA_WIDTH = 360 / 27;
 const PADA_WIDTH = 360 / 108;
 const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
+const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
 
 /**
  * Calculates the Chitra Paksha Lahiri Ayanamsa for a given date.
@@ -88,7 +129,7 @@ export function getMeanRahu(time: Ast.AstroTime): number {
 
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     const emptyChart = { houses: {}, houseRasis: {} } as DivisionalChartData;
-    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart, d10: emptyChart };
+    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart, d10: emptyChart, mahadashas: [] };
 
     // Parse Date and Time in UTC to avoid environment-dependent timezone issues
     const [year, month, day] = dob.split('-').map(Number);
@@ -141,6 +182,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1));
 
     // 2. Calculate Planets
+    let moonSiderealLong = 0;
     PLANET_MAP.forEach(p => {
         let long: number;
         if (p.name === "Sun") {
@@ -158,6 +200,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         }
 
         const siderealLong = (long - ayanamsa + 360) % 360;
+        if (p.name === "Moon") moonSiderealLong = siderealLong;
         const planetRasiIdx = Math.floor(siderealLong / 30);
         const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
@@ -225,13 +268,118 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         d10HouseRasis[h] = ((d10LagnaRasiIdx + h - 1) % 12) + 1;
     }
 
+    // 4. Calculate Vimshottari Dasha
+    const mahadashas = calculateVimshottariDasha(moonSiderealLong, istDate);
+
     return {
         planets: planetData,
         d1: { houses: d1Assignments, houseRasis: d1HouseRasis },
         d3: { houses: d3Assignments, houseRasis: d3HouseRasis },
         d9: { houses: d9Assignments, houseRasis: d9HouseRasis },
-        d10: { houses: d10Assignments, houseRasis: d10HouseRasis }
+        d10: { houses: d10Assignments, houseRasis: d10HouseRasis },
+        mahadashas
     };
+}
+
+export function parseDegree(degreeStr: string): number {
+    const match = degreeStr.match(/(\d+)°\s+(\d+)'\s+(\d+)"/);
+    if (!match) return 0;
+    const [, d, m, s] = match.map(Number);
+    return d + m / 60 + s / 3600;
+}
+
+export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Mahadasha[] {
+    const nakshatraWidth = 360 / 27;
+    const nakshatraIdx = Math.floor(moonLong / nakshatraWidth);
+    const firstLordIdx = nakshatraIdx % 9;
+    const elapsedInNakshatra = moonLong % nakshatraWidth;
+    const fractionElapsed = elapsedInNakshatra / nakshatraWidth;
+
+    const mahadashas: Mahadasha[] = [];
+    let dashaStartDate = new Date(birthDate);
+
+    // Calculate the start of the first Mahadasha (it started before birth)
+    const firstLord = NAKSHATRA_LORDS[firstLordIdx];
+    const firstFullDuration = DASHA_DURATIONS[firstLord];
+    const timeElapsedInFirstDasha = firstFullDuration * fractionElapsed * MS_PER_YEAR;
+    dashaStartDate.setTime(dashaStartDate.getTime() - timeElapsedInFirstDasha);
+
+    for (let i = 0; i < 9; i++) {
+        const currentLordIdx = (firstLordIdx + i) % 9;
+        const lord = NAKSHATRA_LORDS[currentLordIdx];
+        const durationYears = DASHA_DURATIONS[lord];
+
+        const startDate = new Date(dashaStartDate);
+        const endDate = new Date(dashaStartDate);
+        endDate.setTime(startDate.getTime() + durationYears * MS_PER_YEAR);
+
+        // Calculate Antardashas for this Mahadasha
+        const antardashas: Antardasha[] = [];
+        let adStartDate = new Date(startDate);
+        for (let j = 0; j < 9; j++) {
+            const adLordIdx = (currentLordIdx + j) % 9;
+            const adLord = NAKSHATRA_LORDS[adLordIdx];
+            const adDurationYears = (durationYears * DASHA_DURATIONS[adLord]) / 120;
+            const adEndDate = new Date(adStartDate);
+            adEndDate.setTime(adStartDate.getTime() + adDurationYears * MS_PER_YEAR);
+
+            // Calculate Pratyantardashas
+            const pratyantardashas: Pratyantardasha[] = [];
+            let pdStartDate = new Date(adStartDate);
+            for (let k = 0; k < 9; k++) {
+                const pdLordIdx = (adLordIdx + k) % 9;
+                const pdLord = NAKSHATRA_LORDS[pdLordIdx];
+                const pdDurationYears = (adDurationYears * DASHA_DURATIONS[pdLord]) / 120;
+                const pdEndDate = new Date(pdStartDate);
+                pdEndDate.setTime(pdStartDate.getTime() + pdDurationYears * MS_PER_YEAR);
+
+                // Calculate Sookshma Dashas
+                const sookshmaDashas: SookshmaDasha[] = [];
+                let sdStartDate = new Date(pdStartDate);
+                for (let l = 0; l < 9; l++) {
+                    const sdLordIdx = (pdLordIdx + l) % 9;
+                    const sdLord = NAKSHATRA_LORDS[sdLordIdx];
+                    const sdDurationYears = (pdDurationYears * DASHA_DURATIONS[sdLord]) / 120;
+                    const sdEndDate = new Date(sdStartDate);
+                    sdEndDate.setTime(sdStartDate.getTime() + sdDurationYears * MS_PER_YEAR);
+
+                    sookshmaDashas.push({
+                        lord: sdLord,
+                        start: new Date(sdStartDate),
+                        end: new Date(sdEndDate)
+                    });
+                    sdStartDate = new Date(sdEndDate);
+                }
+
+                pratyantardashas.push({
+                    lord: pdLord,
+                    start: new Date(pdStartDate),
+                    end: new Date(pdEndDate),
+                    sookshmaDashas
+                });
+                pdStartDate = new Date(pdEndDate);
+            }
+
+            antardashas.push({
+                lord: adLord,
+                start: new Date(adStartDate),
+                end: new Date(adEndDate),
+                pratyantardashas
+            });
+            adStartDate = new Date(adEndDate);
+        }
+
+        mahadashas.push({
+            lord,
+            start: startDate,
+            end: endDate,
+            antardashas
+        });
+
+        dashaStartDate = new Date(endDate);
+    }
+
+    return mahadashas;
 }
 
 function getD3Rasi(long: number): number {
