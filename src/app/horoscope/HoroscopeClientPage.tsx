@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import KundliChart from '@/components/KundliChart';
+import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -206,45 +207,8 @@ const HoroscopeContent = () => {
           );
         })()}
 
-        {/* Mahadasha Table */}
-        <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-surface-container-low border-b border-outline">
-                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Mahadasha Lord</th>
-                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
-                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
-                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-outline">
-              {chartData.mahadashas.map((md, idx) => {
-                const now = new Date();
-                const isCurrent = now >= md.start && now <= md.end;
-                const isPast = now > md.end;
-
-                return (
-                  <tr key={idx} className={`${isCurrent ? 'bg-accent/5' : ''} hover:bg-surface-container-lowest transition-colors`}>
-                    <td className="px-6 py-4 text-sm font-medium text-on-surface">{md.lord}</td>
-                    <td className="px-6 py-4 text-sm text-on-surface">{md.start.toLocaleDateString('en-GB')}</td>
-                    <td className="px-6 py-4 text-sm text-on-surface">{md.end.toLocaleDateString('en-GB')}</td>
-                    <td className="px-6 py-4">
-                      {isCurrent ? (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/20 text-accent">
-                          Current
-                        </span>
-                      ) : isPast ? (
-                        <span className="text-xs text-secondary/50">Past</span>
-                      ) : (
-                        <span className="text-xs text-secondary/50">Upcoming</span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        {/* Interactive Vimshottari Dasha System */}
+        <VimshottariDasha mahadashas={chartData.mahadashas} />
       </div>
 
       {/* Verification CTA Section */}

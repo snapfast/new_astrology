@@ -58,12 +58,14 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
           });
 
           // Ensure borders are visible
-          const bordered = clonedContent.querySelectorAll('.border, .border-outline, .border-outline\\/30, .border-outline\\/50');
+          const bordered = clonedContent.querySelectorAll('[class*="border"]');
           bordered.forEach((b) => {
             const el = b as HTMLElement;
-            el.style.borderColor = '#E2E2E2';
-            el.style.borderStyle = 'solid';
-            el.style.borderWidth = '1px';
+            const style = window.getComputedStyle(el);
+            if (style.borderWidth !== '0px') {
+              el.style.borderColor = '#E2E2E2';
+              el.style.borderStyle = 'solid';
+            }
           });
 
           // Hide decorative elements
@@ -99,16 +101,30 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
              }
           });
 
-          // Planetary positions table alignment for 1024px
+          // Table alignment for 1024px
           const tables = clonedContent.querySelectorAll('table');
           tables.forEach((table) => {
             const tableEl = table as HTMLElement;
             const headers = tableEl.querySelectorAll('th');
+
+            // Planetary positions table (8 columns)
             if (headers.length === 8) {
               tableEl.style.width = '100%';
               tableEl.style.tableLayout = 'fixed';
               tableEl.style.minWidth = '944px';
               const widths = ['15%', '8%', '12%', '14%', '12%', '15%', '15%', '9%'];
+              headers.forEach((col, idx) => {
+                if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
+              });
+            }
+
+            // Dasha tables (4 or 5 columns, where 5th is hidden in PDF)
+            if (headers.length === 4 || headers.length === 5) {
+              tableEl.style.width = '100%';
+              tableEl.style.tableLayout = 'fixed';
+              tableEl.style.minWidth = '944px';
+              // Lord, Start, End, Status
+              const widths = ['25%', '30%', '30%', '15%'];
               headers.forEach((col, idx) => {
                 if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
               });
