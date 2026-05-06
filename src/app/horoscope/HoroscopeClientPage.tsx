@@ -217,6 +217,19 @@ const HoroscopeContent = () => {
             <tbody className="divide-y divide-outline">
               {chartData.planets.map((p, idx) => (
                 <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+<<<<<<< feature/retrograde-planets-2718923094553994345
+                  <td className="px-4 py-4 text-sm font-medium text-on-surface">
+                    {p.name}
+                    {p.isRetrograde && <span className="text-green-600 ml-1">*</span>}
+                  </td>
+                  <td className="px-4 py-4 text-sm text-on-surface text-center">{p.house}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.rasi}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.rasiLord}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface font-mono whitespace-nowrap">{p.degree}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.nakshatra}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface">{p.nakshatraLord}</td>
+                  <td className="px-4 py-4 text-sm text-on-surface text-center font-bold">{p.pada}</td>
+=======
                   <td className="px-4 py-2.5 text-sm font-medium text-on-surface">{p.name}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center">{p.house}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasi}</td>
@@ -225,6 +238,7 @@ const HoroscopeContent = () => {
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatra}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatraLord}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center font-bold">{p.pada}</td>
+>>>>>>> feature-astrology-site-implementation-1411924550439576528
                 </tr>
               ))}
             </tbody>
