@@ -203,7 +203,7 @@ const HoroscopeContent = () => {
                 <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
                   <td className="px-4 py-2.5 text-sm font-medium text-on-surface">
                     {p.name}
-                    {p.isRetrograde && <span className="text-green-600 ml-1">*</span>}
+                    {p.isRetrograde && <span className="ml-1">*</span>}
                   </td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center">{p.house}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasi}</td>

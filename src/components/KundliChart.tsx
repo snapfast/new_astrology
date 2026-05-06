@@ -83,19 +83,22 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
         textAnchor="middle"
         className="font-medium text-[16px]"
       >
-        {planets.map((p, i) => (
-          <tspan key={i}>
-            <tspan fill={p.symbol === 'As' ? '#9333EA' : '#991B1B'}>
-              {p.symbol}
+        {planets.map((p, i) => {
+          const color = p.symbol === 'As' ? '#9333EA' : '#991B1B';
+          return (
+            <tspan key={i}>
+              <tspan fill={color}>
+                {p.symbol}
+              </tspan>
+              {p.isRetrograde && (
+                <tspan fill={color} dx="1">*</tspan>
+              )}
+              {i < planets.length - 1 && (
+                <tspan fill="#991B1B">, </tspan>
+              )}
             </tspan>
-            {p.isRetrograde && (
-              <tspan fill="#16a34a" dx="1">*</tspan>
-            )}
-            {i < planets.length - 1 && (
-              <tspan fill="#991B1B">, </tspan>
-            )}
-          </tspan>
-        ))}
+          );
+        })}
       </text>
     </g>
   );
