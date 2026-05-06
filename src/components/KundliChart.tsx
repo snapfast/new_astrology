@@ -61,7 +61,7 @@ interface HouseContentProps {
   x: number;
   y: number;
   rasi: number;
-  planets: string[];
+  planets: Array<{ symbol: string, isRetrograde: boolean }>;
 }
 
 const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
@@ -84,8 +84,16 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
         className="font-medium text-[16px]"
       >
         {planets.map((p, i) => (
-          <tspan key={i} fill={p === 'As' ? '#9333EA' : '#991B1B'}>
-            {p}{i < planets.length - 1 ? ', ' : ''}
+          <tspan key={i}>
+            <tspan fill={p.symbol === 'As' ? '#9333EA' : '#991B1B'}>
+              {p.symbol}
+            </tspan>
+            {p.isRetrograde && (
+              <tspan fill="#16a34a" dx="1">*</tspan>
+            )}
+            {i < planets.length - 1 && (
+              <tspan fill="#991B1B">, </tspan>
+            )}
           </tspan>
         ))}
       </text>
