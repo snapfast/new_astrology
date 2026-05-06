@@ -207,30 +207,31 @@ const HoroscopeContent = () => {
                     <div className="space-y-2 border-l-2 border-accent/20 pl-4">
                       <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Mahadasha</p>
                       <p className="text-2xl font-headline text-on-surface">{currentMd.lord}</p>
+                      <p className="text-[10px] text-secondary font-medium mt-1">
+                        {currentMd.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentMd.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
                     <div className="space-y-2 border-l-2 border-accent/20 pl-4">
                       <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Antardasha</p>
                       <p className="text-2xl font-headline text-on-surface">{currentAd?.lord}</p>
+                      <p className="text-[10px] text-secondary font-medium mt-1">
+                        {currentAd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentAd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
                     <div className="space-y-2 border-l-2 border-accent/20 pl-4">
                       <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Pratyantardasha</p>
                       <p className="text-2xl font-headline text-on-surface">{currentPd?.lord}</p>
+                      <p className="text-[10px] text-secondary font-medium mt-1">
+                        {currentPd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentPd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
                     <div className="space-y-2 border-l-2 border-accent/20 pl-4">
                       <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Dasha</p>
                       <p className="text-2xl font-headline text-on-surface">{currentSd?.lord}</p>
+                      <p className="text-[10px] text-secondary font-medium mt-1">
+                        {currentSd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentSd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
-                  </div>
-                </div>
-
-                <div className="pt-8 border-t border-outline/50 flex flex-wrap gap-12">
-                  <div className="space-y-1">
-                    <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Started</p>
-                    <p className="text-sm font-semibold text-on-surface">{currentSd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Ends</p>
-                    <p className="text-sm font-semibold text-on-surface">{currentSd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                   </div>
                 </div>
               </div>
