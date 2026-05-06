@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Mahadasha, Antardasha, Pratyantardasha } from '@/lib/astrology';
+import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha } from '@/lib/astrology';
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
@@ -25,7 +25,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
     return [];
   }, [level, mahadashas, selectedMd, selectedAd, selectedPd]);
 
-  const handleRowClick = (item: Mahadasha | Antardasha | Pratyantardasha) => {
+  const handleRowClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
     if (level === 'mahadasha') {
       setSelectedMd(item as Mahadasha);
       setLevel('antardasha');
