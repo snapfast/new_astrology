@@ -68,7 +68,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Breadcrumbs / Navigation */}
       <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium">
         <button
@@ -116,12 +116,12 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-surface-container-low border-b border-outline">
-              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">
+              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">
                 {getLevelLabel()} Lord
               </th>
-              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
-              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
-              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
+              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
+              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
+              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline">
@@ -141,14 +141,14 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                     transition-all duration-300
                   `}
                 >
-                  <td className="px-6 py-4 text-sm font-medium text-on-surface">{item.lord}</td>
-                  <td className="px-6 py-4 text-sm text-on-surface">
+                  <td className="px-6 py-2.5 text-sm font-medium text-on-surface">{item.lord}</td>
+                  <td className="px-6 py-2.5 text-sm text-on-surface">
                     {item.start.toLocaleDateString('en-GB', level === 'sookshma' ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
                   </td>
-                  <td className="px-6 py-4 text-sm text-on-surface">
+                  <td className="px-6 py-2.5 text-sm text-on-surface">
                     {item.end.toLocaleDateString('en-GB', level === 'sookshma' ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-2.5">
                     {isCurrent ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/20 text-accent">
                         Current
