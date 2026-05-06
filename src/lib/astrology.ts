@@ -310,7 +310,11 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const emptyPanchang: PanchangData = {
         tithi: "", tithiSanskrit: "", paksha: "", pakshaSanskrit: "",
         nakshatra: "", nakshatraSanskrit: "", yoga: "", yogaSanskrit: "",
-        karana: "", karanaSanskrit: "", vara: "", varaSanskrit: ""
+        karana: "", karanaSanskrit: "", vara: "", varaSanskrit: "",
+        sunrise: "", sunset: "", moonrise: "", moonset: "",
+        sunSign: "", sunSignSanskrit: "", moonSign: "", moonSignSanskrit: "",
+        ritu: "", rituSanskrit: "", ayana: "", ayanaSanskrit: "",
+        rahuKaal: "", gulikaKaal: "", yamagandaKaal: "", abhijitMuhurta: ""
     };
     if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart, d10: emptyChart, mahadashas: [], panchang: emptyPanchang };
 
@@ -494,7 +498,6 @@ function getRitu(sunLong: number): { name: string, sanskrit: string } {
     // 0: Aries, 2: Gemini...
     // Vasanta: Meena/Mesha (usually based on sun entering sidereal signs)
     // Here using approximate sidereal positions
-    const idx = Math.floor(sunLong / 60) % 6;
     // 0-60: Vasanta, 60-120: Grishma...
     // Note: Ritu traditionally depends on solar months.
     // 330-30: Vasanta (Pisces-Aries)
