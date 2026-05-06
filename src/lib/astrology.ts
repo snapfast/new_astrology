@@ -57,6 +57,22 @@ export interface PanchangData {
     karanaSanskrit: string;
     vara: string;
     varaSanskrit: string;
+    sunrise: string;
+    sunset: string;
+    moonrise: string;
+    moonset: string;
+    sunSign: string;
+    sunSignSanskrit: string;
+    moonSign: string;
+    moonSignSanskrit: string;
+    ritu: string;
+    rituSanskrit: string;
+    ayana: string;
+    ayanaSanskrit: string;
+    rahuKaal: string;
+    gulikaKaal: string;
+    yamagandaKaal: string;
+    abhijitMuhurta: string;
 }
 
 export interface ChartData {
@@ -153,6 +169,35 @@ const VARAS = [
     { name: "Thursday", sanskrit: "गुरुवार" },
     { name: "Friday", sanskrit: "शुक्रवार" },
     { name: "Saturday", sanskrit: "शनिवार" }
+];
+
+const RASI_FULL_NAMES = [
+    { name: "Aries", sanskrit: "मेष" },
+    { name: "Taurus", sanskrit: "वृषभ" },
+    { name: "Gemini", sanskrit: "मिथुन" },
+    { name: "Cancer", sanskrit: "कर्क" },
+    { name: "Leo", sanskrit: "सिंह" },
+    { name: "Virgo", sanskrit: "कन्या" },
+    { name: "Libra", sanskrit: "तुला" },
+    { name: "Scorpio", sanskrit: "वृश्चिक" },
+    { name: "Sagittarius", sanskrit: "धनु" },
+    { name: "Capricorn", sanskrit: "मकर" },
+    { name: "Aquarius", sanskrit: "कुम्भ" },
+    { name: "Pisces", sanskrit: "मीन" }
+];
+
+const RITUS = [
+    { name: "Vasanta", sanskrit: "वसन्त" },
+    { name: "Grishma", sanskrit: "ग्रीष्म" },
+    { name: "Varsha", sanskrit: "वर्षा" },
+    { name: "Sharad", sanskrit: "शरद" },
+    { name: "Hemanta", sanskrit: "हेमन्त" },
+    { name: "Shishira", sanskrit: "शिशिर" }
+];
+
+const AYANAS = [
+    { name: "Uttarayana", sanskrit: "उत्तरायण" },
+    { name: "Dakshinayana", sanskrit: "दक्षिणायन" }
 ];
 
 const YOGAS = [
@@ -423,7 +468,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     };
 }
 
-function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: string, sanskrit: string } {
+function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: string, sanskrit: string, sunrise: Date | null } {
     const observer = new Ast.Observer(lat, lon, 0);
     // Direction: +1 for Rise, -1 for Set
     const recentSunrise = Ast.SearchRiseSet(Ast.Body.Sun, observer, 1, time, -24);
@@ -432,11 +477,51 @@ function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: st
         const sunriseDate = recentSunrise.date;
         const istSunrise = new Date(sunriseDate.getTime() + (5.5 * 60 * 60 * 1000));
         const day = istSunrise.getUTCDay();
-        return VARAS[day];
+        return { ...VARAS[day], sunrise: sunriseDate };
     }
 
-    return VARAS[time.date.getUTCDay()];
+    return { ...VARAS[time.date.getUTCDay()], sunrise: null };
 }
+
+function formatTime(date: Date | null): string {
+    if (!date) return "--:--";
+    const istDate = new Date(date.getTime() + (5.5 * 60 * 60 * 1000));
+    return istDate.getUTCHours().toString().padStart(2, '0') + ":" +
+           istDate.getUTCMinutes().toString().padStart(2, '0');
+}
+
+function getRitu(sunLong: number): { name: string, sanskrit: string } {
+    // 0: Aries, 2: Gemini...
+    // Vasanta: Meena/Mesha (usually based on sun entering sidereal signs)
+    // Here using approximate sidereal positions
+    const idx = Math.floor(sunLong / 60) % 6;
+    // 0-60: Vasanta, 60-120: Grishma...
+    // Note: Ritu traditionally depends on solar months.
+    // 330-30: Vasanta (Pisces-Aries)
+    const rituIdx = Math.floor(((sunLong + 30) % 360) / 60);
+    return RITUS[rituIdx];
+}
+
+function getAyana(sunLong: number): { name: string, sanskrit: string } {
+    // Uttarayana: Makar Sankranti (0° Capricorn) to Karka Sankranti (0° Cancer)
+    // Sidereal Capricorn is 270.
+    if (sunLong >= 270 || sunLong < 90) {
+        return AYANAS[0];
+    }
+    return AYANAS[1];
+}
+
+function getMuhurtaRange(start: Date, end: Date, part: number, totalParts: number): string {
+    const duration = end.getTime() - start.getTime();
+    const partDuration = duration / totalParts;
+    const startTime = new Date(start.getTime() + (part - 1) * partDuration);
+    const endTime = new Date(start.getTime() + part * partDuration);
+    return `${formatTime(startTime)} - ${formatTime(endTime)}`;
+}
+
+const RAHU_KAAL_PARTS = [8, 2, 7, 5, 6, 4, 3]; // Sun to Sat
+const GULIKA_KAAL_PARTS = [7, 6, 5, 4, 3, 2, 1]; // Sun to Sat
+const YAMAGANDA_KAAL_PARTS = [5, 4, 3, 2, 1, 7, 6]; // Sun to Sat
 
 function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanamsa: number): PanchangData {
     const sunPos = Ast.GeoVector(Ast.Body.Sun, time, true);
@@ -447,12 +532,14 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
     const sunLong = sunEcl.elon;
     const moonLong = moonEcl.elon;
 
+    const siderealSunLong = (sunLong - ayanamsa + 360) % 360;
+    const siderealMoonLong = (moonLong - ayanamsa + 360) % 360;
+
     const diff = (moonLong - sunLong + 360) % 360;
     const tithiIdx = Math.floor(diff / 12);
     const tithi = TITHIS[tithiIdx];
     const paksha = tithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
 
-    const siderealMoonLong = (moonLong - ayanamsa + 360) % 360;
     const nakIdx = Math.floor(siderealMoonLong / NAKSHATRA_WIDTH);
     const nak = NAKSHATRA_NAMES[nakIdx];
 
@@ -470,7 +557,46 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         karana = KARANAS[(karanaIdxTotal - 1) % 7];
     }
 
-    const vara = getVedicVara(time, lat, lon);
+    const observer = new Ast.Observer(lat, lon, 0);
+    const varaData = getVedicVara(time, lat, lon);
+
+    // Sunrise/Sunset for birth day
+    const sunrise = varaData.sunrise;
+    let sunset = null;
+    if (sunrise) {
+        const sunsetResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, -1, Ast.MakeTime(sunrise), 24);
+        sunset = sunsetResult ? sunsetResult.date : null;
+    }
+
+    // Moonrise/Moonset (nearest to birth time)
+    const moonriseResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, 1, time, -24);
+    const moonsetResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, -1, time, -24);
+    const moonrise = moonriseResult ? moonriseResult.date : null;
+    const moonset = moonsetResult ? moonsetResult.date : null;
+
+    // Sun/Moon Signs
+    const sunSignIdx = Math.floor(siderealSunLong / 30);
+    const moonSignIdx = Math.floor(siderealMoonLong / 30);
+    const sunSign = RASI_FULL_NAMES[sunSignIdx];
+    const moonSign = RASI_FULL_NAMES[moonSignIdx];
+
+    // Ritu and Ayana
+    const ritu = getRitu(siderealSunLong);
+    const ayana = getAyana(siderealSunLong);
+
+    // Muhurtas (based on Sunrise/Sunset)
+    let rahuKaal = "--:--";
+    let gulikaKaal = "--:--";
+    let yamagandaKaal = "--:--";
+    let abhijitMuhurta = "--:--";
+
+    if (sunrise && sunset) {
+        const dayOfWeek = new Date(sunrise.getTime() + (5.5 * 60 * 60 * 1000)).getUTCDay();
+        rahuKaal = getMuhurtaRange(sunrise, sunset, RAHU_KAAL_PARTS[dayOfWeek], 8);
+        gulikaKaal = getMuhurtaRange(sunrise, sunset, GULIKA_KAAL_PARTS[dayOfWeek], 8);
+        yamagandaKaal = getMuhurtaRange(sunrise, sunset, YAMAGANDA_KAAL_PARTS[dayOfWeek], 8);
+        abhijitMuhurta = getMuhurtaRange(sunrise, sunset, 8, 15); // Approximately 8th Muhurta out of 15
+    }
 
     return {
         tithi: tithi.name,
@@ -483,8 +609,24 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         yogaSanskrit: yoga.sanskrit,
         karana: karana.name,
         karanaSanskrit: karana.sanskrit,
-        vara: vara.name,
-        varaSanskrit: vara.sanskrit
+        vara: varaData.name,
+        varaSanskrit: varaData.sanskrit,
+        sunrise: formatTime(sunrise),
+        sunset: formatTime(sunset),
+        moonrise: formatTime(moonrise),
+        moonset: formatTime(moonset),
+        sunSign: sunSign.name,
+        sunSignSanskrit: sunSign.sanskrit,
+        moonSign: moonSign.name,
+        moonSignSanskrit: moonSign.sanskrit,
+        ritu: ritu.name,
+        rituSanskrit: ritu.sanskrit,
+        ayana: ayana.name,
+        ayanaSanskrit: ayana.sanskrit,
+        rahuKaal,
+        gulikaKaal,
+        yamagandaKaal,
+        abhijitMuhurta
     };
 }
 
