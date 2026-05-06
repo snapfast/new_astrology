@@ -68,7 +68,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Breadcrumbs / Navigation */}
       <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium">
         <button
@@ -116,12 +116,15 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-surface-container-low border-b border-outline">
-              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">
+              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">
                 {getLevelLabel()} Lord
               </th>
-              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
-              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
-              <th className="px-6 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
+              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date</th>
+              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date</th>
+              <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Status</th>
+              {level !== 'sookshma' && (
+                <th className="px-6 py-4 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-right pdf-hide">Action</th>
+              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-outline">
@@ -142,14 +145,14 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                     transition-all duration-300
                   `}
                 >
-                  <td className="px-6 py-2.5 text-sm font-medium text-on-surface">{item.lord}</td>
-                  <td className="px-6 py-2.5 text-sm text-on-surface">
+                  <td className="px-6 py-4 text-sm font-medium text-on-surface">{item.lord}</td>
+                  <td className="px-6 py-4 text-sm text-on-surface">
                     {item.start.toLocaleDateString('en-GB', level === 'sookshma' ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
                   </td>
-                  <td className="px-6 py-2.5 text-sm text-on-surface">
+                  <td className="px-6 py-4 text-sm text-on-surface">
                     {item.end.toLocaleDateString('en-GB', level === 'sookshma' ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
                   </td>
-                  <td className="px-6 py-2.5">
+                  <td className="px-6 py-4">
                     {isCurrent ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/20 text-accent">
                         Current
@@ -160,12 +163,20 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                       <span className="text-xs text-secondary/50">Upcoming</span>
                     )}
                   </td>
+                  {level !== 'sookshma' && (
+                    <td className="px-6 py-4 text-right pdf-hide">
+                      <span className="material-symbols-outlined text-outline group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 text-sm">chevron_right</span>
+                    </td>
+                  )}
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
+      {level !== 'sookshma' && (
+        <p className="text-[10px] text-secondary text-center italic pdf-hide">Click on a row to explore sub-periods</p>
+      )}
     </div>
   );
 }
