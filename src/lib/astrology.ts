@@ -57,10 +57,6 @@ export interface PanchangData {
     karanaSanskrit: string;
     vara: string;
     varaSanskrit: string;
-    sunrise: string;
-    sunset: string;
-    moonrise: string;
-    moonset: string;
     sunSign: string;
     sunSignSanskrit: string;
     moonSign: string;
@@ -311,7 +307,6 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         tithi: "", tithiSanskrit: "", paksha: "", pakshaSanskrit: "",
         nakshatra: "", nakshatraSanskrit: "", yoga: "", yogaSanskrit: "",
         karana: "", karanaSanskrit: "", vara: "", varaSanskrit: "",
-        sunrise: "", sunset: "", moonrise: "", moonset: "",
         sunSign: "", sunSignSanskrit: "", moonSign: "", moonSignSanskrit: "",
         ritu: "", rituSanskrit: "", ayana: "", ayanaSanskrit: "",
         rahuKaal: "", gulikaKaal: "", yamagandaKaal: "", abhijitMuhurta: ""
@@ -571,12 +566,6 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         sunset = sunsetResult ? sunsetResult.date : null;
     }
 
-    // Moonrise/Moonset (nearest to birth time)
-    const moonriseResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, 1, time, -24);
-    const moonsetResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, -1, time, -24);
-    const moonrise = moonriseResult ? moonriseResult.date : null;
-    const moonset = moonsetResult ? moonsetResult.date : null;
-
     // Sun/Moon Signs
     const sunSignIdx = Math.floor(siderealSunLong / 30);
     const moonSignIdx = Math.floor(siderealMoonLong / 30);
@@ -614,10 +603,6 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         karanaSanskrit: karana.sanskrit,
         vara: varaData.name,
         varaSanskrit: varaData.sanskrit,
-        sunrise: formatTime(sunrise),
-        sunset: formatTime(sunset),
-        moonrise: formatTime(moonrise),
-        moonset: formatTime(moonset),
         sunSign: sunSign.name,
         sunSignSanskrit: sunSign.sanskrit,
         moonSign: moonSign.name,
