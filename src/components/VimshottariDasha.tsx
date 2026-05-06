@@ -5,11 +5,12 @@ import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha } from '@/lib/ast
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
+  debug?: boolean;
 }
 
 type DashaLevel = 'mahadasha' | 'antardasha' | 'pratyantardasha' | 'sookshma';
 
-export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) {
+export default function VimshottariDasha({ mahadashas, debug }: VimshottariDashaProps) {
   const [level, setLevel] = useState<DashaLevel>('mahadasha');
   const [selectedMd, setSelectedMd] = useState<Mahadasha | null>(null);
   const [selectedAd, setSelectedAd] = useState<Antardasha | null>(null);
@@ -138,16 +139,21 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                     group
                     ${isCurrent ? 'bg-accent/10' : ''}
                     ${level !== 'sookshma' ? 'cursor-pointer' : ''}
-                    hover:!bg-surface-container-low
+                    hover:!bg-accent/20
                     transition-all duration-300
                   `}
                 >
-                  <td className="px-6 py-2.5 text-sm font-medium text-on-surface">{item.lord}</td>
+                  <td className="px-6 py-2.5 text-sm font-medium text-on-surface">
+                    {item.lord}
+                    {debug && <span className="block text-[8px] text-accent mt-0.5 uppercase tracking-tighter">idx: {idx}</span>}
+                  </td>
                   <td className="px-6 py-2.5 text-sm text-on-surface">
                     {item.start.toLocaleDateString('en-GB', level === 'sookshma' ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                    {debug && <span className="block text-[8px] text-secondary mt-0.5">{item.start.getTime()}</span>}
                   </td>
                   <td className="px-6 py-2.5 text-sm text-on-surface">
                     {item.end.toLocaleDateString('en-GB', level === 'sookshma' ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                    {debug && <span className="block text-[8px] text-secondary mt-0.5">{item.end.getTime()}</span>}
                   </td>
                   <td className="px-6 py-2.5">
                     {isCurrent ? (
