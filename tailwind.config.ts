@@ -17,6 +17,8 @@ export default {
         "on-surface": "#1A1C1D",
         "surface-bright": "#F9F9FB",
         "surface-container-low": "#F0F1F3",
+        "surface-container-lowest": "#F7F8F9",
+        "surface-container-high": "#EBECEE",
         "secondary": "#5E5E5E",
         "outline": "#E2E2E2",
         "background": "#F9F9FB"

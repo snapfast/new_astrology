@@ -138,9 +138,10 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                   key={idx}
                   onClick={() => level !== 'sookshma' && handleRowClick(item)}
                   className={`
-                    ${isCurrent ? 'bg-accent/5' : ''}
-                    ${level !== 'sookshma' ? 'cursor-pointer hover:bg-surface-container-lowest' : ''}
-                    transition-colors
+                    group
+                    ${isCurrent ? 'bg-accent/10' : ''}
+                    ${level !== 'sookshma' ? 'cursor-pointer hover:bg-surface-container-low' : ''}
+                    transition-all duration-300
                   `}
                 >
                   <td className="px-6 py-4 text-sm font-medium text-on-surface">{item.lord}</td>
@@ -163,7 +164,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                   </td>
                   {level !== 'sookshma' && (
                     <td className="px-6 py-4 text-right pdf-hide">
-                      <span className="material-symbols-outlined text-outline text-sm">chevron_right</span>
+                      <span className="material-symbols-outlined text-outline group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 text-sm">chevron_right</span>
                     </td>
                   )}
                 </tr>
