@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
     description: "Get your detailed Janam Kundali instantly. Accurate Vedic calculations and divisional charts by Pandit Rahul Bali.",
-    url: "https://rahulbaliastrology.com/free-horoscope",
+    url: "https://astro.rahulbali.in/free-horoscope",
     type: "website",
   }
 };
