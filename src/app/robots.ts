@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/api/'],
     },
-    sitemap: 'https://rahulbaliastrology.com/sitemap.xml',
+    sitemap: 'https://astro.rahulbali.in/sitemap.xml',
   }
 }

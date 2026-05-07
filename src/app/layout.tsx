@@ -17,7 +17,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rahulbaliastrology.com"),
+  metadataBase: new URL("https://astro.rahulbali.in"),
   title: {
     default: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
     template: "%s | Rahul Bali Astrology",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
     description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
-    url: "https://rahulbaliastrology.com",
+    url: "https://astro.rahulbali.in",
     siteName: "Rahul Bali Astrology",
     images: [
       {
@@ -91,8 +91,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Pandit Rahul Bali",
-              "url": "https://rahulbaliastrology.com",
-              "image": "https://rahulbaliastrology.com/og-image.png",
+              "url": "https://astro.rahulbali.in",
+              "image": "https://astro.rahulbali.in/og-image.png",
               "sameAs": [
                 "https://www.instagram.com/RahulBaliAstro",
                 "https://www.youtube.com/@RahulBaliAstrology",

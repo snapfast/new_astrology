@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://rahulbaliastrology.com'
+  const baseUrl = 'https://astro.rahulbali.in'
 
   const routes = [
     '',
@@ -11,6 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/reviews',
     '/donate',
     '/horoscope',
+    '/free-horoscope',
+    '/consultation',
+    '/premium',
+    '/research',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
