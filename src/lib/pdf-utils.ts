@@ -98,10 +98,20 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
                 gridEl.style.gridTemplateColumns = '1fr 1fr';
                 gridEl.style.gap = '32px';
                 gridEl.style.width = '100%';
-             } else if (gridEl.classList.contains('lg:grid-cols-6')) {
+             } else if (gridEl.classList.contains('md:grid-cols-4')) {
                 gridEl.style.display = 'grid';
-                gridEl.style.gridTemplateColumns = 'repeat(6, 1fr)';
-                gridEl.style.gap = '12px';
+                gridEl.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                gridEl.style.gap = '24px';
+                gridEl.style.width = '100%';
+             } else if (gridEl.classList.contains('md:grid-cols-5')) {
+                gridEl.style.display = 'grid';
+                gridEl.style.gridTemplateColumns = 'repeat(5, 1fr)';
+                gridEl.style.gap = '16px';
+                gridEl.style.width = '100%';
+             } else if (gridEl.classList.contains('sm:grid-cols-2')) {
+                gridEl.style.display = 'grid';
+                gridEl.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                gridEl.style.gap = '16px';
                 gridEl.style.width = '100%';
              }
           });
