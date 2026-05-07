@@ -17,7 +17,10 @@ export const metadata: Metadata = {
     description: "Get your detailed Janam Kundali instantly. Accurate Vedic calculations and divisional charts by Pandit Rahul Bali.",
     url: "https://astro.rahulbali.in/free-horoscope",
     type: "website",
-  }
+  },
+  alternates: {
+    canonical: "https://astro.rahulbali.in/free-horoscope",
+  },
 };
 
 export default function FreeHoroscopePage() {

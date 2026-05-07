@@ -1,13 +1,81 @@
 import Navbar from '@/components/Navbar';
+import { Metadata } from 'next';
 import Hero from '@/components/Hero';
 import ChartGeneration from '@/components/ChartGeneration';
 import ExpertConsultations from '@/components/ExpertConsultations';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 
+export const metadata: Metadata = {
+  title: "Rahul Bali Astrology | Best Vedic Astrologer in Gurugram & Online",
+  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram. Get accurate Janam Kundli readings, career guidance, relationship advice, and spiritual remedies.",
+  alternates: {
+    canonical: "https://astro.rahulbali.in",
+  },
+};
+
 export default function Home() {
+  const businessSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Rahul Bali Astrology",
+    "image": "https://astro.rahulbali.in/og-image.png",
+    "@id": "https://astro.rahulbali.in",
+    "url": "https://astro.rahulbali.in",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "rahulbaliastrology@gmail.com"
+    },
+    "priceRange": "₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Gurugram",
+      "addressLocality": "Gurugram",
+      "addressRegion": "Haryana",
+      "postalCode": "122001",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.4595,
+      "longitude": 77.0266
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "21:00"
+    },
+    "sameAs": [
+      "https://www.instagram.com/RahulBaliAstro",
+      "https://www.youtube.com/@RahulBaliAstrology",
+      "https://www.linkedin.com/in/rahulbaliastrology/",
+      "https://www.threads.net/@rahulbaliastro"
+    ],
+    "description": "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji in Gurugram. Specialist in Janam Kundli, career, and relationship consultations."
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessSchema)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e")
+            .replace(/\u2028/g, "\\u2028")
+            .replace(/\u2029/g, "\\u2029"),
+        }}
+      />
       <Navbar />
       <Hero />
       <Testimonials />
