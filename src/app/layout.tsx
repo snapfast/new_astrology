@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Pandit Rahul Bali" }],
   creator: "Pandit Rahul Bali",
   publisher: "Rahul Bali Astrology",
+  alternates: {
+    canonical: "https://astro.rahulbali.in",
+  },
   formatDetection: {
     email: false,
     address: false,

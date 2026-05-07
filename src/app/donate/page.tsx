@@ -5,8 +5,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: "Support Our Work",
-  description: "Contribute to the research and spiritual services of Pandit Rahul Bali Ji. Your support helps us provide guidance to more people globally.",
+  title: "Support Our Work | Rahul Bali Astrology",
+  description: "Support the research and spiritual services provided by Pandit Rahul Bali Ji. Your contributions help us continue offering Vedic guidance and astrological research.",
+  alternates: {
+    canonical: "https://astro.rahulbali.in/donate",
+  },
 };
 
 export default function DonatePage() {

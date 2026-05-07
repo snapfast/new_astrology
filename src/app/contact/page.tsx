@@ -4,8 +4,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Get in touch with Pandit Rahul Bali Ji for personalized astrology consultations and spiritual guidance. Reach out via email or social media.",
+  title: "Contact Pandit Rahul Bali Ji | Book Astrology Appointment",
+  description: "Get in touch for personalized Vedic astrology consultations, spiritual guidance, and remedies. Available for online and in-person appointments in Gurugram.",
+  alternates: {
+    canonical: "https://astro.rahulbali.in/contact",
+  },
 };
 
 export default function ContactPage() {

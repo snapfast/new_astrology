@@ -4,8 +4,11 @@ import Footer from '@/components/Footer';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Client Reviews & Testimonials",
-  description: "Read what our clients have to say about their experiences with Pandit Rahul Bali Ji's Vedic astrology readings and spiritual guidance.",
+  title: "Client Reviews & Testimonials | Trusted Astrologer Rahul Bali",
+  description: "Read authentic testimonials from clients worldwide who have found clarity and guidance through Pandit Rahul Bali Ji's Vedic astrology consultations.",
+  alternates: {
+    canonical: "https://astro.rahulbali.in/reviews",
+  },
 };
 
 const GoogleIcon = () => (
@@ -18,8 +21,42 @@ const GoogleIcon = () => (
 );
 
 export default function ReviewsPage() {
+  const reviewsSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Vedic Astrology Consultation",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": REVIEWS.length.toString()
+    },
+    "review": REVIEWS.slice(0, 10).map(r => ({
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": r.name
+      },
+      "datePublished": r.date,
+      "reviewBody": r.review,
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      }
+    }))
+  };
+
   return (
     <main className="min-h-screen bg-surface">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(reviewsSchema)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e")
+            .replace(/\u2028/g, "\\u2028")
+            .replace(/\u2029/g, "\\u2029"),
+        }}
+      />
       <Navbar />
       <div className="pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-8 mb-16 text-center">
