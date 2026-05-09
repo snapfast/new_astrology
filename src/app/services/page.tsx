@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ExpertConsultations from '@/components/ExpertConsultations';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "Vedic Astrology Services | Personal Consultations & Readings",
@@ -40,16 +41,7 @@ export default function ServicesPage() {
 
   return (
     <main className="min-h-screen bg-surface">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(servicesSchema)
-            .replace(/</g, "\\u003c")
-            .replace(/>/g, "\\u003e")
-            .replace(/\u2028/g, "\\u2028")
-            .replace(/\u2029/g, "\\u2029"),
-        }}
-      />
+      <JsonLd data={servicesSchema} />
       <Navbar />
       <div className="pt-32">
         <div className="max-w-4xl mx-auto px-8 mb-16 text-center">

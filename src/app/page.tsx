@@ -5,6 +5,7 @@ import ChartGeneration from '@/components/ChartGeneration';
 import ExpertConsultations from '@/components/ExpertConsultations';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "Rahul Bali Astrology | Best Vedic Astrologer in Gurugram & Online",
@@ -66,16 +67,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(businessSchema)
-            .replace(/</g, "\\u003c")
-            .replace(/>/g, "\\u003e")
-            .replace(/\u2028/g, "\\u2028")
-            .replace(/\u2029/g, "\\u2029"),
-        }}
-      />
+      <JsonLd data={businessSchema} />
       <Navbar />
       <Hero />
       <Testimonials />
