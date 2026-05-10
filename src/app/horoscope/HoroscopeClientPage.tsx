@@ -258,42 +258,48 @@ const HoroscopeContent = () => {
 
           if (!currentMd) return null;
 
+          const dashaRows = [
+            { level: 'Mahadasha', lord: currentMd.lord, start: currentMd.start, end: currentMd.end },
+            { level: 'Antardasha', lord: currentAd?.lord, start: currentAd?.start, end: currentAd?.end },
+            { level: 'Pratyantardasha', lord: currentPd?.lord, start: currentPd?.start, end: currentPd?.end },
+            { level: 'Sookshma Dasha', lord: currentSd?.lord, start: currentSd?.start, end: currentSd?.end },
+          ];
+
+          const formatDate = (date?: Date) => {
+            if (!date) return '-';
+            return date.toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            });
+          };
+
           return (
-            <div className="bg-surface-container-low rounded-3xl border border-outline p-6 md:py-8 md:px-10">
-              <div className="space-y-6">
-                <div>
-                  <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label mb-4">Current Active Dasha Hierarchy</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
-                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Mahadasha</p>
-                      <p className="text-2xl font-headline text-on-surface">{currentMd.lord}</p>
-                      <p className="text-xs text-secondary font-medium mt-1">
-                        {currentMd.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentMd.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
-                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Antardasha</p>
-                      <p className="text-2xl font-headline text-on-surface">{currentAd?.lord}</p>
-                      <p className="text-xs text-secondary font-medium mt-1">
-                        {currentAd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentAd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
-                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Pratyantardasha</p>
-                      <p className="text-2xl font-headline text-on-surface">{currentPd?.lord}</p>
-                      <p className="text-xs text-secondary font-medium mt-1">
-                        {currentPd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentPd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                    <div className="space-y-2 border-l-2 border-accent/20 pl-4">
-                      <p className="text-[9px] font-medium text-secondary uppercase tracking-widest font-label">Sookshma Dasha</p>
-                      <p className="text-2xl font-headline text-on-surface">{currentSd?.lord}</p>
-                      <p className="text-xs text-secondary font-medium mt-1">
-                        {currentSd?.start.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} - {currentSd?.end.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            <div className="space-y-4">
+              <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label">Current Active Dasha Hierarchy</p>
+              <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-surface-container-low border-b border-outline">
+                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Dasha Level</th>
+                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Planet</th>
+                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date & Time</th>
+                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date & Time</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline">
+                    {dashaRows.map((row, idx) => (
+                      <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                        <td className="px-4 py-2.5 text-sm font-medium text-secondary font-label uppercase tracking-wider">{row.level}</td>
+                        <td className="px-4 py-2.5 text-base font-headline text-on-surface">{row.lord || '-'}</td>
+                        <td className="px-4 py-2.5 text-sm text-on-surface font-body">{formatDate(row.start)}</td>
+                        <td className="px-4 py-2.5 text-sm text-on-surface font-body">{formatDate(row.end)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           );
