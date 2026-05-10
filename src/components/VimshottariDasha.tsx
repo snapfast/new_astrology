@@ -110,7 +110,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
     isSookshma: boolean = false
   ) => {
     return (
-      <div className="flex-shrink-0 w-72 md:w-80 border-r border-outline flex flex-col bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl">
+      <div className="flex-shrink-0 w-64 md:w-72 border-r border-outline flex flex-col bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl">
         <div className="bg-surface-container-low border-b border-outline px-4 py-2 shrink-0">
           <h3 className="text-[10px] font-bold text-secondary uppercase tracking-[0.2em] font-label">
             {title}
@@ -133,6 +133,11 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                   ${isSelected ? 'bg-accent text-on-surface' : 'hover:bg-surface-container-lowest text-on-surface'}
                 `}
               >
+                {/* Black arrow head for selected dasha box */}
+                {isSelected && !isSookshma && (
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-on-surface border-y-[5px] border-y-transparent z-20"></div>
+                )}
+
                 <div className="flex justify-between items-center relative z-10">
                   <div className="flex items-center gap-2">
                     <span className="text-base font-bold">
@@ -166,10 +171,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">
-          Explore Dasha Levels (Scroll horizontally)
-        </p>
+      <div className="flex items-center justify-end">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
            <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label">Active Path</span>
