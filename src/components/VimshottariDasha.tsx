@@ -174,7 +174,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
       <div className="flex items-center justify-end">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
-           <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label">Active Path</span>
+           <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label">Active Dasha</span>
         </div>
       </div>
 
