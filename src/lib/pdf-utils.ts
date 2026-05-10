@@ -146,9 +146,18 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
               }
             });
 
-            // Hide the empty state placeholder in PDF
+            // Hide the empty state placeholder and magic badges in PDF
             const placeholder = containerEl.querySelector('.flex-grow.items-center.justify-center');
             if (placeholder) (placeholder as HTMLElement).style.display = 'none';
+
+            const magicBadges = containerEl.querySelectorAll('.bg-accent\\/20.text-accent');
+            magicBadges.forEach(badge => {
+              (badge as HTMLElement).style.backgroundColor = '#B69A47';
+              (badge as HTMLElement).style.color = '#ffffff';
+              // Hide the magic icon in PDF for cleaner look
+              const icon = badge.querySelector('.material-symbols-outlined');
+              if (icon) (icon as HTMLElement).style.display = 'none';
+            });
           }
 
           // Table alignment for 1024px

@@ -91,27 +91,37 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                 key={idx}
                 onClick={() => onItemClick?.(item)}
                 className={`
-                  px-6 py-4 cursor-pointer transition-all duration-200
-                  ${isCurrent ? 'bg-accent/5' : ''}
-                  ${isSelected ? 'bg-accent/10' : 'hover:bg-surface-container-lowest'}
-                  ${isSelected ? 'border-l-4 border-accent -ml-[1px]' : ''}
+                  relative px-6 py-4 cursor-pointer transition-all duration-300 group/item
+                  ${isCurrent ? 'bg-gradient-to-r from-accent/10 to-transparent' : ''}
+                  ${isSelected ? 'bg-accent/5' : 'hover:bg-surface-container-lowest'}
                 `}
               >
-                <div className="flex justify-between items-start mb-1">
-                  <span className={`text-sm font-bold ${isSelected ? 'text-accent' : 'text-on-surface'}`}>
-                    {item.lord}
-                  </span>
-                  {isCurrent && (
-                    <span className="text-[8px] font-bold uppercase tracking-tighter bg-accent text-white px-1.5 py-0.5 rounded">
-                      Current
+                {/* Active Selection Glow */}
+                {isSelected && (
+                  <div className="absolute inset-y-0 left-0 w-1 bg-accent shadow-[4px_0_15px_-2px_rgba(182,154,71,0.5)] z-10" />
+                )}
+
+                <div className="flex justify-between items-start mb-1 relative z-10">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-sm font-bold transition-colors ${isSelected ? 'text-accent' : 'text-on-surface'}`}>
+                      {item.lord}
                     </span>
+                    {isCurrent && (
+                      <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
+                    )}
+                  </div>
+                  {isCurrent && (
+                    <div className="flex items-center gap-1 bg-accent/20 text-accent px-2 py-0.5 rounded-full">
+                       <span className="material-symbols-outlined text-[10px] animate-spin-slow">auto_awesome</span>
+                       <span className="text-[7px] font-black uppercase tracking-widest leading-none">Magic Now</span>
+                    </div>
                   )}
                 </div>
                 <div className="text-[10px] text-secondary font-medium">
-                  {item.start.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                  {item.start.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
                 </div>
                 <div className="text-[10px] text-secondary/60">
-                  to {item.end.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                  to {item.end.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
                 </div>
               </div>
             );
@@ -160,6 +170,13 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
         }
       `}</style>
     </div>
