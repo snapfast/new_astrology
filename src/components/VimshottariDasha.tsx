@@ -171,10 +171,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-[10px] font-medium text-secondary uppercase tracking-widest font-label">
-          Explore Dasha Levels (Scroll horizontally)
-        </p>
+      <div className="flex items-center justify-end">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
            <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label">Active Path</span>

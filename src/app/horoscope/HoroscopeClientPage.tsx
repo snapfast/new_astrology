@@ -29,6 +29,19 @@ const HoroscopeContent = () => {
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
+  const currentActiveDasha = useMemo(() => {
+    const now = new Date();
+    const md = chartData.mahadashas.find(m => now >= m.start && now <= m.end);
+    if (!md) return null;
+    const ad = md.antardashas.find(a => now >= a.start && now <= a.end);
+    if (!ad) return null;
+    const pd = ad.pratyantardashas.find(p => now >= p.start && now <= p.end);
+    if (!pd) return null;
+    const sd = pd.sookshmaDashas.find(s => now >= s.start && now <= s.end);
+    if (!sd) return null;
+    return { md, ad, pd, sd };
+  }, [chartData.mahadashas]);
+
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_book_now' });
     setIsBookingModalOpen(true);
@@ -244,59 +257,45 @@ const HoroscopeContent = () => {
         </div>
       </div>
 
+      {/* Current Active Dasha Hierarchy Summary */}
+      {currentActiveDasha && (
+        <div className="space-y-6 mb-12">
+          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Current Active Dasha Hierarchy</h2>
+          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-surface-container-low border-b border-outline">
+                  <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Level</th>
+                  <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Lord</th>
+                  <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Period</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-outline">
+                {[
+                  { level: 'Mahadasha', item: currentActiveDasha.md },
+                  { level: 'Antardasha', item: currentActiveDasha.ad },
+                  { level: 'Pratyantardasha', item: currentActiveDasha.pd },
+                  { level: 'Sookshma Dasha', item: currentActiveDasha.sd },
+                ].map((row, idx) => (
+                  <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                    <td className="px-4 py-2.5 text-sm font-medium text-secondary uppercase tracking-widest font-label">{row.level}</td>
+                    <td className="px-4 py-2.5 text-sm font-bold text-on-surface">{row.item.lord}</td>
+                    <td className="px-4 py-2.5 text-sm text-on-surface font-medium">
+                      {row.item.start.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                      {' - '}
+                      {row.item.end.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
       {/* Vimshottari Dasha Section */}
       <div className="space-y-8 mb-16">
-        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Vimshottari Dasha</h2>
-
-        {/* Current Dasha Highlight */}
-        {(() => {
-          const now = new Date();
-          const currentMd = chartData.mahadashas.find(md => now >= md.start && now <= md.end);
-          const currentAd = currentMd?.antardashas.find(ad => now >= ad.start && now <= ad.end);
-          const currentPd = currentAd?.pratyantardashas.find(pd => now >= pd.start && now <= pd.end);
-          const currentSd = currentPd?.sookshmaDashas.find(sd => now >= sd.start && now <= sd.end);
-
-          if (!currentMd) return null;
-
-          const dashaRows = [
-            { level: 'Mahadasha', lord: currentMd.lord, start: currentMd.start, end: currentMd.end },
-            { level: 'Antardasha', lord: currentAd?.lord, start: currentAd?.start, end: currentAd?.end },
-            { level: 'Pratyantardasha', lord: currentPd?.lord, start: currentPd?.start, end: currentPd?.end },
-            { level: 'Sookshma Dasha', lord: currentSd?.lord, start: currentSd?.start, end: currentSd?.end },
-          ];
-
-          const formatDateRange = (start?: Date, end?: Date) => {
-            if (!start || !end) return '-';
-            const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
-            return `${fmt(start)} - ${fmt(end)}`;
-          };
-
-          return (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label">Current Active Dasha Hierarchy</p>
-                <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label flex items-center gap-1.5 pdf-hide">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
-                  Active Path
-                </span>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {dashaRows.map((row, idx) => (
-                  <div key={idx} className="bg-white border border-outline rounded-2xl p-3 flex flex-col justify-center hover:bg-surface-container-lowest transition-colors group">
-                    <div className="flex items-center justify-between mb-1">
-                      <p className="text-[8px] font-bold text-secondary uppercase tracking-widest font-label">{row.level.replace(' Dasha', '')}</p>
-                      <span className="material-symbols-outlined text-[10px] text-outline group-hover:text-accent transition-colors">verified</span>
-                    </div>
-                    <div className="flex items-baseline justify-between">
-                      <p className="text-base font-headline text-on-surface font-medium">{row.lord || '-'}</p>
-                      <p className="text-[9px] text-secondary font-medium font-body">{formatDateRange(row.start, row.end)}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })()}
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Explore Dasha Levels</h2>
 
         {/* Interactive Vimshottari Dasha System */}
         <VimshottariDasha mahadashas={chartData.mahadashas} />
