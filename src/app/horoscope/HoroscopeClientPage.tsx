@@ -265,15 +265,10 @@ const HoroscopeContent = () => {
             { level: 'Sookshma Dasha', lord: currentSd?.lord, start: currentSd?.start, end: currentSd?.end },
           ];
 
-          const formatDate = (date?: Date) => {
-            if (!date) return '-';
-            return date.toLocaleDateString('en-GB', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-            });
+          const formatDateRange = (start?: Date, end?: Date) => {
+            if (!start || !end) return '-';
+            const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
+            return `${fmt(start)} - ${fmt(end)}`;
           };
 
           return (
@@ -285,36 +280,19 @@ const HoroscopeContent = () => {
                   Active Path
                 </span>
               </div>
-              <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-surface-container-low/50 border-b border-outline">
-                      <th className="pl-6 pr-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Hierarchy Level</th>
-                      <th className="px-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Celestial Lord</th>
-                      <th className="px-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Commencement</th>
-                      <th className="px-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Conclusion</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-outline/50">
-                    {dashaRows.map((row, idx) => (
-                      <tr key={idx} className="group hover:bg-surface-container-lowest transition-all duration-300">
-                        <td className="pl-6 pr-4 py-3 relative">
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top pdf-hide"></div>
-                          <p className="text-[10px] font-bold text-secondary font-label uppercase tracking-widest">{row.level}</p>
-                        </td>
-                        <td className="px-4 py-3">
-                          <p className="text-base md:text-lg font-headline text-on-surface tracking-tight font-medium">{row.lord || '-'}</p>
-                        </td>
-                        <td className="px-4 py-3">
-                          <p className="text-sm text-on-surface font-body">{formatDate(row.start)}</p>
-                        </td>
-                        <td className="px-4 py-3">
-                          <p className="text-sm text-on-surface font-body">{formatDate(row.end)}</p>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {dashaRows.map((row, idx) => (
+                  <div key={idx} className="bg-white border border-outline rounded-2xl p-3 flex flex-col justify-center hover:bg-surface-container-lowest transition-colors group">
+                    <div className="flex items-center justify-between mb-1">
+                      <p className="text-[8px] font-bold text-secondary uppercase tracking-widest font-label">{row.level.replace(' Dasha', '')}</p>
+                      <span className="material-symbols-outlined text-[10px] text-outline group-hover:text-accent transition-colors">verified</span>
+                    </div>
+                    <div className="flex items-baseline justify-between">
+                      <p className="text-base font-headline text-on-surface font-medium">{row.lord || '-'}</p>
+                      <p className="text-[9px] text-secondary font-medium font-body">{formatDateRange(row.start, row.end)}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           );
