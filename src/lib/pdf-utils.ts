@@ -116,6 +116,41 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
              }
           });
 
+          // Miller Column Transformation for PDF
+          const millerContainer = clonedContent.querySelector('.miller-container');
+          if (millerContainer) {
+            const containerEl = millerContainer as HTMLElement;
+            containerEl.style.display = 'flex';
+            containerEl.style.flexDirection = 'column';
+            containerEl.style.overflow = 'visible';
+            containerEl.style.height = 'auto';
+            containerEl.style.borderRadius = '0';
+            containerEl.style.border = 'none';
+            containerEl.style.gap = '24px';
+            containerEl.style.backgroundColor = 'transparent';
+
+            const columns = containerEl.querySelectorAll('.flex-shrink-0');
+            columns.forEach((col) => {
+              const colEl = col as HTMLElement;
+              colEl.style.width = '100%';
+              colEl.style.height = 'auto';
+              colEl.style.border = '1px solid #E2E2E2';
+              colEl.style.borderRadius = '24px';
+              colEl.style.marginBottom = '20px';
+              colEl.style.pageBreakInside = 'avoid';
+
+              const scrollArea = colEl.querySelector('.overflow-y-auto');
+              if (scrollArea) {
+                (scrollArea as HTMLElement).style.maxHeight = 'none';
+                (scrollArea as HTMLElement).style.overflow = 'visible';
+              }
+            });
+
+            // Hide the empty state placeholder in PDF
+            const placeholder = containerEl.querySelector('.flex-grow.items-center.justify-center');
+            if (placeholder) (placeholder as HTMLElement).style.display = 'none';
+          }
+
           // Table alignment for 1024px
           const tables = clonedContent.querySelectorAll('table');
           tables.forEach((table) => {
@@ -128,18 +163,6 @@ export const downloadHoroscopePDF = async (element: HTMLElement, fileName: strin
               tableEl.style.tableLayout = 'fixed';
               tableEl.style.minWidth = '944px';
               const widths = ['15%', '8%', '12%', '14%', '12%', '15%', '15%', '9%'];
-              headers.forEach((col, idx) => {
-                if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
-              });
-            }
-
-            // Dasha tables (4 or 5 columns, where 5th is hidden in PDF)
-            if (headers.length === 4 || headers.length === 5) {
-              tableEl.style.width = '100%';
-              tableEl.style.tableLayout = 'fixed';
-              tableEl.style.minWidth = '944px';
-              // Lord, Start, End, Status
-              const widths = ['25%', '30%', '30%', '15%'];
               headers.forEach((col, idx) => {
                 if (widths[idx]) (col as HTMLElement).style.width = widths[idx];
               });
