@@ -11,6 +11,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
   const [selectedMd, setSelectedMd] = useState<Mahadasha | null>(null);
   const [selectedAd, setSelectedAd] = useState<Antardasha | null>(null);
   const [selectedPd, setSelectedPd] = useState<Pratyantardasha | null>(null);
+  const [selectedSd, setSelectedSd] = useState<SookshmaDasha | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const now = useMemo(() => new Date(), []);
@@ -21,6 +22,28 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
     return 'Upcoming';
   };
 
+  // Auto-select current dasha hierarchy on load
+  useEffect(() => {
+    if (mahadashas.length > 0) {
+      const currentMd = mahadashas.find(md => now >= md.start && now <= md.end);
+      if (currentMd) {
+        setSelectedMd(currentMd);
+        const currentAd = currentMd.antardashas.find(ad => now >= ad.start && now <= ad.end);
+        if (currentAd) {
+          setSelectedAd(currentAd);
+          const currentPd = currentAd.pratyantardashas.find(pd => now >= pd.start && now <= pd.end);
+          if (currentPd) {
+            setSelectedPd(currentPd);
+            const currentSd = currentPd.sookshmaDashas.find(sd => now >= sd.start && now <= sd.end);
+            if (currentSd) {
+              setSelectedSd(currentSd);
+            }
+          }
+        }
+      }
+    }
+  }, [mahadashas, now]);
+
   // Automatically scroll to the right when a new column is opened
   useEffect(() => {
     if (containerRef.current) {
@@ -29,7 +52,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
         behavior: 'smooth'
       });
     }
-  }, [selectedMd, selectedAd, selectedPd]);
+  }, [selectedMd, selectedAd, selectedPd, selectedSd]);
 
   const handleMdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
     const md = item as Mahadasha;
@@ -37,10 +60,12 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
       setSelectedMd(null);
       setSelectedAd(null);
       setSelectedPd(null);
+      setSelectedSd(null);
     } else {
       setSelectedMd(md);
       setSelectedAd(null);
       setSelectedPd(null);
+      setSelectedSd(null);
     }
   };
 
@@ -49,9 +74,11 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
     if (selectedAd?.lord === ad.lord && selectedAd?.start.getTime() === ad.start.getTime()) {
       setSelectedAd(null);
       setSelectedPd(null);
+      setSelectedSd(null);
     } else {
       setSelectedAd(ad);
       setSelectedPd(null);
+      setSelectedSd(null);
     }
   };
 
@@ -59,8 +86,19 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
     const pd = item as Pratyantardasha;
     if (selectedPd?.lord === pd.lord && selectedPd?.start.getTime() === pd.start.getTime()) {
       setSelectedPd(null);
+      setSelectedSd(null);
     } else {
       setSelectedPd(pd);
+      setSelectedSd(null);
+    }
+  };
+
+  const handleSdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
+    const sd = item as SookshmaDasha;
+    if (selectedSd?.lord === sd.lord && selectedSd?.start.getTime() === sd.start.getTime()) {
+      setSelectedSd(null);
+    } else {
+      setSelectedSd(sd);
     }
   };
 
@@ -72,13 +110,13 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
     isSookshma: boolean = false
   ) => {
     return (
-      <div className="flex-shrink-0 w-72 md:w-80 border-r border-outline flex flex-col h-[500px] bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl overflow-hidden">
-        <div className="bg-surface-container-low border-b border-outline px-6 py-3 shrink-0">
-          <h3 className="text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">
+      <div className="flex-shrink-0 w-72 md:w-80 border-r border-outline flex flex-col bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl">
+        <div className="bg-surface-container-low border-b border-outline px-4 py-2 shrink-0">
+          <h3 className="text-[10px] font-bold text-secondary uppercase tracking-[0.2em] font-label">
             {title}
           </h3>
         </div>
-        <div className="overflow-y-auto flex-grow divide-y divide-outline scrollbar-hide">
+        <div className="flex-grow divide-y divide-outline/50 scrollbar-hide">
           {items.map((item, idx) => {
             const status = getStatus(item.start, item.end);
             const isCurrent = status === 'Current';
@@ -91,37 +129,32 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                 key={idx}
                 onClick={() => onItemClick?.(item)}
                 className={`
-                  relative px-6 py-4 cursor-pointer transition-all duration-300 group/item
-                  ${isCurrent ? 'bg-gradient-to-r from-accent/10 to-transparent' : ''}
-                  ${isSelected ? 'bg-accent/5' : 'hover:bg-surface-container-lowest'}
+                  relative px-4 py-3 cursor-pointer transition-colors duration-150 group/item
+                  ${isSelected ? 'bg-accent text-on-surface' : 'hover:bg-surface-container-lowest text-on-surface'}
                 `}
               >
-                {/* Active Selection Glow */}
-                {isSelected && (
-                  <div className="absolute inset-y-0 left-0 w-1 bg-accent shadow-[4px_0_15px_-2px_rgba(182,154,71,0.5)] z-10" />
-                )}
-
-                <div className="flex justify-between items-start mb-1 relative z-10">
+                <div className="flex justify-between items-center relative z-10">
                   <div className="flex items-center gap-2">
-                    <span className={`text-sm font-bold transition-colors ${isSelected ? 'text-accent' : 'text-on-surface'}`}>
+                    <span className="text-base font-bold">
                       {item.lord}
                     </span>
-                    {isCurrent && (
+                    {isCurrent && !isSelected && (
                       <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
                     )}
+                    {isCurrent && isSelected && (
+                      <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-on-surface/40" />
+                    )}
                   </div>
-                  {isCurrent && (
-                    <div className="flex items-center gap-1 bg-accent/20 text-accent px-2 py-0.5 rounded-full">
-                       <span className="material-symbols-outlined text-[10px] animate-spin-slow">auto_awesome</span>
-                       <span className="text-[7px] font-black uppercase tracking-widest leading-none">Magic Now</span>
-                    </div>
+                  {!isSookshma && (
+                    <span className={`material-symbols-outlined text-sm ${isSelected ? 'text-on-surface/40' : 'text-outline'} group-hover/item:text-accent group-hover/item:translate-x-1 transition-all`}>
+                      chevron_right
+                    </span>
                   )}
                 </div>
-                <div className="text-[10px] text-secondary font-medium">
+                <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface/70' : 'text-secondary'}`}>
                   {item.start.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
-                </div>
-                <div className="text-[10px] text-secondary/60">
-                  to {item.end.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
+                  {' to '}
+                  {item.end.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
                 </div>
               </div>
             );
@@ -150,7 +183,7 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
         {renderColumn('Mahadasha', mahadashas, selectedMd, handleMdClick)}
         {selectedMd && renderColumn('Antardasha', selectedMd.antardashas, selectedAd, handleAdClick)}
         {selectedAd && renderColumn('Pratyantardasha', selectedAd.pratyantardashas, selectedPd, handlePdClick)}
-        {selectedPd && renderColumn('Sookshma Dasha', selectedPd.sookshmaDashas, null, undefined, true)}
+        {selectedPd && renderColumn('Sookshma Dasha', selectedPd.sookshmaDashas, selectedSd, handleSdClick, true)}
 
         {/* Placeholder for empty state when no MD is selected */}
         {!selectedMd && (
