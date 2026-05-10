@@ -295,7 +295,7 @@ const HoroscopeContent = () => {
 
       {/* Vimshottari Dasha Section */}
       <div className="space-y-8 mb-16">
-        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Explore Dasha Levels</h2>
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Vimshottri Dasha</h2>
 
         {/* Interactive Vimshottari Dasha System */}
         <VimshottariDasha mahadashas={chartData.mahadashas} />
