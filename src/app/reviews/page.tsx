@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { REVIEWS } from '@/lib/reviews';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "Client Reviews & Testimonials | Trusted Astrologer Rahul Bali",
@@ -47,16 +48,7 @@ export default function ReviewsPage() {
 
   return (
     <main className="min-h-screen bg-surface">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(reviewsSchema)
-            .replace(/</g, "\\u003c")
-            .replace(/>/g, "\\u003e")
-            .replace(/\u2028/g, "\\u2028")
-            .replace(/\u2029/g, "\\u2029"),
-        }}
-      />
+      <JsonLd data={reviewsSchema} />
       <Navbar />
       <div className="pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-8 mb-16 text-center">

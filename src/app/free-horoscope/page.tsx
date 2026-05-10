@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChartGeneration from '@/components/ChartGeneration';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
@@ -79,26 +80,8 @@ export default function FreeHoroscopePage() {
       <Navbar />
 
       {/* JSON-LD for extreme SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd)
-            .replace(/</g, "\\u003c")
-            .replace(/>/g, "\\u003e")
-            .replace(/\u2028/g, "\\u2028")
-            .replace(/\u2029/g, "\\u2029"),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd)
-            .replace(/</g, "\\u003c")
-            .replace(/>/g, "\\u003e")
-            .replace(/\u2028/g, "\\u2028")
-            .replace(/\u2029/g, "\\u2029"),
-        }}
-      />
+      <JsonLd data={jsonLd} />
+      <JsonLd data={faqJsonLd} />
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 md:pt-48 md:pb-32 bg-background relative overflow-hidden">
