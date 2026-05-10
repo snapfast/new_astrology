@@ -278,24 +278,42 @@ const HoroscopeContent = () => {
 
           return (
             <div className="space-y-4">
-              <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label">Current Active Dasha Hierarchy</p>
-              <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label">Current Active Dasha Hierarchy</p>
+                <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label flex items-center gap-1.5 pdf-hide">
+                  <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
+                  Active Path
+                </span>
+              </div>
+              <div className="overflow-x-auto bg-white rounded-[2rem] border border-outline shadow-sm">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-surface-container-low border-b border-outline">
-                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Dasha Level</th>
-                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Planet</th>
-                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Start Date & Time</th>
-                      <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">End Date & Time</th>
+                    <tr className="bg-surface-container-low/50 border-b border-outline">
+                      <th className="pl-8 pr-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Hierarchy Level</th>
+                      <th className="px-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Celestial Lord</th>
+                      <th className="px-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Commencement</th>
+                      <th className="px-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Conclusion</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-outline">
+                  <tbody className="divide-y divide-outline/50">
                     {dashaRows.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
-                        <td className="px-4 py-2.5 text-sm font-medium text-secondary font-label uppercase tracking-wider">{row.level}</td>
-                        <td className="px-4 py-2.5 text-base font-headline text-on-surface">{row.lord || '-'}</td>
-                        <td className="px-4 py-2.5 text-sm text-on-surface font-body">{formatDate(row.start)}</td>
-                        <td className="px-4 py-2.5 text-sm text-on-surface font-body">{formatDate(row.end)}</td>
+                      <tr key={idx} className="group hover:bg-surface-container-lowest transition-all duration-300">
+                        <td className="pl-8 pr-4 py-5 relative">
+                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top pdf-hide"></div>
+                          <p className="text-[11px] font-bold text-secondary font-label uppercase tracking-widest mb-1">{row.level}</p>
+                          <div className="w-8 h-px bg-accent/20"></div>
+                        </td>
+                        <td className="px-4 py-5">
+                          <p className="text-xl md:text-2xl font-headline text-on-surface tracking-tight">{row.lord || '-'}</p>
+                        </td>
+                        <td className="px-4 py-5">
+                          <p className="text-[10px] text-secondary font-label uppercase tracking-[0.1em] mb-1">From</p>
+                          <p className="text-sm text-on-surface font-body font-medium">{formatDate(row.start)}</p>
+                        </td>
+                        <td className="px-4 py-5">
+                          <p className="text-[10px] text-secondary font-label uppercase tracking-[0.1em] mb-1">Until</p>
+                          <p className="text-sm text-on-surface font-body font-medium">{formatDate(row.end)}</p>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
