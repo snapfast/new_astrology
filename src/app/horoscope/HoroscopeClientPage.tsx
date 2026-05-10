@@ -285,34 +285,31 @@ const HoroscopeContent = () => {
                   Active Path
                 </span>
               </div>
-              <div className="overflow-x-auto bg-white rounded-[2rem] border border-outline shadow-sm">
+              <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-surface-container-low/50 border-b border-outline">
-                      <th className="pl-8 pr-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Hierarchy Level</th>
-                      <th className="px-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Celestial Lord</th>
-                      <th className="px-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Commencement</th>
-                      <th className="px-4 py-4 text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Conclusion</th>
+                      <th className="pl-6 pr-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Hierarchy Level</th>
+                      <th className="px-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Celestial Lord</th>
+                      <th className="px-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Commencement</th>
+                      <th className="px-4 py-3 text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">Conclusion</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline/50">
                     {dashaRows.map((row, idx) => (
                       <tr key={idx} className="group hover:bg-surface-container-lowest transition-all duration-300">
-                        <td className="pl-8 pr-4 py-5 relative">
+                        <td className="pl-6 pr-4 py-3 relative">
                           <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top pdf-hide"></div>
-                          <p className="text-[11px] font-bold text-secondary font-label uppercase tracking-widest mb-1">{row.level}</p>
-                          <div className="w-8 h-px bg-accent/20"></div>
+                          <p className="text-[10px] font-bold text-secondary font-label uppercase tracking-widest">{row.level}</p>
                         </td>
-                        <td className="px-4 py-5">
-                          <p className="text-xl md:text-2xl font-headline text-on-surface tracking-tight">{row.lord || '-'}</p>
+                        <td className="px-4 py-3">
+                          <p className="text-base md:text-lg font-headline text-on-surface tracking-tight font-medium">{row.lord || '-'}</p>
                         </td>
-                        <td className="px-4 py-5">
-                          <p className="text-[10px] text-secondary font-label uppercase tracking-[0.1em] mb-1">From</p>
-                          <p className="text-sm text-on-surface font-body font-medium">{formatDate(row.start)}</p>
+                        <td className="px-4 py-3">
+                          <p className="text-sm text-on-surface font-body">{formatDate(row.start)}</p>
                         </td>
-                        <td className="px-4 py-5">
-                          <p className="text-[10px] text-secondary font-label uppercase tracking-[0.1em] mb-1">Until</p>
-                          <p className="text-sm text-on-surface font-body font-medium">{formatDate(row.end)}</p>
+                        <td className="px-4 py-3">
+                          <p className="text-sm text-on-surface font-body">{formatDate(row.end)}</p>
                         </td>
                       </tr>
                     ))}
