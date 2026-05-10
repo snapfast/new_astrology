@@ -150,11 +150,6 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                       <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-on-surface/40" />
                     )}
                   </div>
-                  {!isSookshma && (
-                    <span className={`material-symbols-outlined text-sm ${isSelected ? 'text-on-surface/40' : 'text-outline'} group-hover/item:text-accent group-hover/item:translate-x-1 transition-all`}>
-                      chevron_right
-                    </span>
-                  )}
                 </div>
                 <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface/70' : 'text-secondary'}`}>
                   {item.start.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
