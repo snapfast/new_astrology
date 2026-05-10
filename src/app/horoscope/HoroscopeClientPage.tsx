@@ -29,19 +29,6 @@ const HoroscopeContent = () => {
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
-  const currentActiveDasha = useMemo(() => {
-    const now = new Date();
-    const md = chartData.mahadashas.find(m => now >= m.start && now <= m.end);
-    if (!md) return null;
-    const ad = md.antardashas.find(a => now >= a.start && now <= a.end);
-    if (!ad) return null;
-    const pd = ad.pratyantardashas.find(p => now >= p.start && now <= p.end);
-    if (!pd) return null;
-    const sd = pd.sookshmaDashas.find(s => now >= s.start && now <= s.end);
-    if (!sd) return null;
-    return { md, ad, pd, sd };
-  }, [chartData.mahadashas]);
-
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_book_now' });
     setIsBookingModalOpen(true);
@@ -257,41 +244,6 @@ const HoroscopeContent = () => {
         </div>
       </div>
 
-      {/* Current Active Dasha Hierarchy Summary */}
-      {currentActiveDasha && (
-        <div className="space-y-6 mb-12">
-          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Current Active Dasha Hierarchy</h2>
-          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-surface-container-low border-b border-outline">
-                  <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Level</th>
-                  <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Lord</th>
-                  <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Period</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline">
-                {[
-                  { level: 'Mahadasha', item: currentActiveDasha.md },
-                  { level: 'Antardasha', item: currentActiveDasha.ad },
-                  { level: 'Pratyantardasha', item: currentActiveDasha.pd },
-                  { level: 'Sookshma Dasha', item: currentActiveDasha.sd },
-                ].map((row, idx) => (
-                  <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
-                    <td className="px-4 py-2.5 text-sm font-medium text-secondary uppercase tracking-widest font-label">{row.level}</td>
-                    <td className="px-4 py-2.5 text-sm font-bold text-on-surface">{row.item.lord}</td>
-                    <td className="px-4 py-2.5 text-sm text-on-surface font-medium">
-                      {row.item.start.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
-                      {' - '}
-                      {row.item.end.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
 
       {/* Vimshottari Dasha Section */}
       <div className="space-y-8 mb-16">
