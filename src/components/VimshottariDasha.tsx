@@ -8,41 +8,58 @@ interface VimshottariDashaProps {
 }
 
 export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) {
-  const [selectedMd, setSelectedMd] = useState<Mahadasha | null>(null);
-  const [selectedAd, setSelectedAd] = useState<Antardasha | null>(null);
-  const [selectedPd, setSelectedPd] = useState<Pratyantardasha | null>(null);
-  const [selectedSd, setSelectedSd] = useState<SookshmaDasha | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const now = useMemo(() => new Date(), []);
+  const nowTime = useMemo(() => now.getTime(), [now]);
 
-  const getStatus = (start: Date, end: Date) => {
-    if (now >= start && now <= end) return 'Current';
-    if (now > end) return 'Past';
-    return 'Upcoming';
-  };
+  // Pre-calculate current dasha path to avoid linear scans during render and in useEffect
+  const currentPath = useMemo(() => {
+    const path = {
+      md: null as Mahadasha | null,
+      ad: null as Antardasha | null,
+      pd: null as Pratyantardasha | null,
+      sd: null as SookshmaDasha | null
+    };
 
-  // Auto-select current dasha hierarchy on load
-  useEffect(() => {
-    if (mahadashas.length > 0) {
-      const currentMd = mahadashas.find(md => now >= md.start && now <= md.end);
-      if (currentMd) {
-        setSelectedMd(currentMd);
-        const currentAd = currentMd.antardashas.find(ad => now >= ad.start && now <= ad.end);
-        if (currentAd) {
-          setSelectedAd(currentAd);
-          const currentPd = currentAd.pratyantardashas.find(pd => now >= pd.start && now <= pd.end);
-          if (currentPd) {
-            setSelectedPd(currentPd);
-            const currentSd = currentPd.sookshmaDashas.find(sd => now >= sd.start && now <= sd.end);
-            if (currentSd) {
-              setSelectedSd(currentSd);
-            }
+    if (mahadashas.length === 0) return path;
+
+    const md = mahadashas.find(m => nowTime >= m.start.getTime() && nowTime <= m.end.getTime());
+    if (md) {
+      path.md = md;
+      const ad = md.antardashas.find(a => nowTime >= a.start.getTime() && nowTime <= a.end.getTime());
+      if (ad) {
+        path.ad = ad;
+        const pd = ad.pratyantardashas.find(p => nowTime >= p.start.getTime() && nowTime <= p.end.getTime());
+        if (pd) {
+          path.pd = pd;
+          const sd = pd.sookshmaDashas.find(s => nowTime >= s.start.getTime() && nowTime <= s.end.getTime());
+          if (sd) {
+            path.sd = sd;
           }
         }
       }
     }
-  }, [mahadashas, now]);
+    return path;
+  }, [mahadashas, nowTime]);
+
+  const [selectedMd, setSelectedMd] = useState<Mahadasha | null>(currentPath.md);
+  const [selectedAd, setSelectedAd] = useState<Antardasha | null>(currentPath.ad);
+  const [selectedPd, setSelectedPd] = useState<Pratyantardasha | null>(currentPath.pd);
+  const [selectedSd, setSelectedSd] = useState<SookshmaDasha | null>(currentPath.sd);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Sync selection if mahadashas change (e.g. new chart generation)
+  useEffect(() => {
+    setSelectedMd(currentPath.md);
+    setSelectedAd(currentPath.ad);
+    setSelectedPd(currentPath.pd);
+    setSelectedSd(currentPath.sd);
+  }, [currentPath]);
+
+  const getStatus = (start: number, end: number) => {
+    if (nowTime >= start && nowTime <= end) return 'Current';
+    if (nowTime > end) return 'Past';
+    return 'Upcoming';
+  };
 
   // Automatically scroll to the right when a new column is opened
   useEffect(() => {
@@ -118,11 +135,13 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
         </div>
         <div className="flex-grow divide-y divide-outline/50 scrollbar-hide">
           {items.map((item, idx) => {
-            const status = getStatus(item.start, item.end);
+            const itemStartTime = item.start.getTime();
+            const itemEndTime = item.end.getTime();
+            const status = getStatus(itemStartTime, itemEndTime);
             const isCurrent = status === 'Current';
             const isSelected = selectedItem &&
                              selectedItem.lord === item.lord &&
-                             selectedItem.start.getTime() === item.start.getTime();
+                             selectedItem.start.getTime() === itemStartTime;
 
             return (
               <div
