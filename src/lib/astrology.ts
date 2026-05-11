@@ -646,7 +646,9 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
 export function parseDegree(degreeStr: string): number {
     const match = degreeStr.match(/(\d+)°\s+(\d+)'\s+(\d+)"/);
     if (!match) return 0;
-    const [, d, m, s] = match.map(Number);
+    const d = Number(match[1]);
+    const m = Number(match[2]);
+    const s = Number(match[3]);
     return d + m / 60 + s / 3600;
 }
 
