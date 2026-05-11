@@ -323,6 +323,7 @@ const ChartGeneration = () => {
                   placeholder="John Doe"
                   type="text"
                   autoComplete="off"
+                  maxLength={100}
                   required
                 />
                 {errors.name && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.name}</p>}
@@ -392,6 +393,7 @@ const ChartGeneration = () => {
                   placeholder="City, Country"
                   type="text"
                   autoComplete="off"
+                  maxLength={100}
                   required
                 />
                 {errors.pob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.pob}</p>}
