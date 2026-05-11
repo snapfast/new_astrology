@@ -57,18 +57,18 @@ export default function ContactPage() {
           </div>
 
           <div className="bg-white p-10 md:p-12 rounded-[3rem] border border-outline/50 shadow-sm">
-            <form className="space-y-8">
+            <form className="space-y-8" method="POST">
               <div className="space-y-2">
                 <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Name</label>
-                <input type="text" className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body" />
+                <input type="text" maxLength={100} required className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body" />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Email</label>
-                <input type="email" className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body" />
+                <input type="email" maxLength={100} required className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body" />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-medium tracking-[0.3em] uppercase text-secondary/60 font-label ml-4">Message</label>
-                <textarea rows={4} className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body resize-none"></textarea>
+                <textarea rows={4} maxLength={1000} required className="w-full bg-surface border-none rounded-2xl px-6 py-4 focus:ring-1 focus:ring-accent outline-none font-body resize-none"></textarea>
               </div>
               <button className="w-full bg-on-surface text-surface py-5 rounded-full font-medium text-sm tracking-widest uppercase">
                 Send Message
