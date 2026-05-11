@@ -658,87 +658,83 @@ export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Ma
     const fractionElapsed = elapsedInNakshatra / nakshatraWidth;
 
     const mahadashas: Mahadasha[] = [];
-    let dashaStartDate = new Date(birthDate);
+    const birthTime = birthDate.getTime();
 
     // Calculate the start of the first Mahadasha (it started before birth)
     const firstLord = NAKSHATRA_LORDS[firstLordIdx];
     const firstFullDuration = DASHA_DURATIONS[firstLord];
-    const timeElapsedInFirstDasha = firstFullDuration * fractionElapsed * MS_PER_YEAR;
-    dashaStartDate.setTime(dashaStartDate.getTime() - timeElapsedInFirstDasha);
+    const timeElapsedInFirstDasha = Math.trunc(firstFullDuration * fractionElapsed * MS_PER_YEAR);
+    let currentDashaStart = birthTime - timeElapsedInFirstDasha;
 
     for (let i = 0; i < 9; i++) {
         const currentLordIdx = (firstLordIdx + i) % 9;
         const lord = NAKSHATRA_LORDS[currentLordIdx];
         const durationYears = DASHA_DURATIONS[lord];
+        const mahadashaDuration = Math.trunc(durationYears * MS_PER_YEAR);
+        const mdStart = currentDashaStart;
+        const mdEnd = mdStart + mahadashaDuration;
 
-        const startDate = new Date(dashaStartDate);
-        const endDate = new Date(dashaStartDate);
-        endDate.setTime(startDate.getTime() + durationYears * MS_PER_YEAR);
-
-        // Calculate Antardashas for this Mahadasha
         const antardashas: Antardasha[] = [];
-        let adStartDate = new Date(startDate);
+        let currentAdStart = mdStart;
         for (let j = 0; j < 9; j++) {
             const adLordIdx = (currentLordIdx + j) % 9;
             const adLord = NAKSHATRA_LORDS[adLordIdx];
-            const adDurationYears = (durationYears * DASHA_DURATIONS[adLord]) / 120;
-            const adEndDate = new Date(adStartDate);
-            adEndDate.setTime(adStartDate.getTime() + adDurationYears * MS_PER_YEAR);
+            const adDuration = Math.trunc((durationYears * DASHA_DURATIONS[adLord] * MS_PER_YEAR) / 120);
+            const adStart = currentAdStart;
+            const adEnd = adStart + adDuration;
 
-            // Calculate Pratyantardashas
             const pratyantardashas: Pratyantardasha[] = [];
-            let pdStartDate = new Date(adStartDate);
+            let currentPdStart = adStart;
             for (let k = 0; k < 9; k++) {
                 const pdLordIdx = (adLordIdx + k) % 9;
                 const pdLord = NAKSHATRA_LORDS[pdLordIdx];
-                const pdDurationYears = (adDurationYears * DASHA_DURATIONS[pdLord]) / 120;
-                const pdEndDate = new Date(pdStartDate);
-                pdEndDate.setTime(pdStartDate.getTime() + pdDurationYears * MS_PER_YEAR);
+                const pdDuration = Math.trunc((durationYears * DASHA_DURATIONS[adLord] * DASHA_DURATIONS[pdLord] * MS_PER_YEAR) / (120 * 120));
+                const pdStart = currentPdStart;
+                const pdEnd = pdStart + pdDuration;
 
-                // Calculate Sookshma Dashas
                 const sookshmaDashas: SookshmaDasha[] = [];
-                let sdStartDate = new Date(pdStartDate);
+                let currentSdStart = pdStart;
                 for (let l = 0; l < 9; l++) {
                     const sdLordIdx = (pdLordIdx + l) % 9;
                     const sdLord = NAKSHATRA_LORDS[sdLordIdx];
-                    const sdDurationYears = (pdDurationYears * DASHA_DURATIONS[sdLord]) / 120;
-                    const sdEndDate = new Date(sdStartDate);
-                    sdEndDate.setTime(sdStartDate.getTime() + sdDurationYears * MS_PER_YEAR);
+                    const sdDuration = Math.trunc((durationYears * DASHA_DURATIONS[adLord] * DASHA_DURATIONS[pdLord] * DASHA_DURATIONS[sdLord] * MS_PER_YEAR) / (120 * 120 * 120));
+                    const sdStart = currentSdStart;
+                    const sdEnd = sdStart + sdDuration;
 
                     sookshmaDashas.push({
                         lord: sdLord,
-                        start: new Date(sdStartDate),
-                        end: new Date(sdEndDate)
+                        start: new Date(sdStart),
+                        end: new Date(sdEnd)
                     });
-                    sdStartDate = new Date(sdEndDate);
+                    currentSdStart = sdEnd;
                 }
 
                 pratyantardashas.push({
                     lord: pdLord,
-                    start: new Date(pdStartDate),
-                    end: new Date(pdEndDate),
+                    start: new Date(pdStart),
+                    end: new Date(pdEnd),
                     sookshmaDashas
                 });
-                pdStartDate = new Date(pdEndDate);
+                currentPdStart = pdEnd;
             }
 
             antardashas.push({
                 lord: adLord,
-                start: new Date(adStartDate),
-                end: new Date(adEndDate),
+                start: new Date(adStart),
+                end: new Date(adEnd),
                 pratyantardashas
             });
-            adStartDate = new Date(adEndDate);
+            currentAdStart = adEnd;
         }
 
         mahadashas.push({
             lord,
-            start: startDate,
-            end: endDate,
+            start: new Date(mdStart),
+            end: new Date(mdEnd),
             antardashas
         });
 
-        dashaStartDate = new Date(endDate);
+        currentDashaStart = mdEnd;
     }
 
     return mahadashas;
