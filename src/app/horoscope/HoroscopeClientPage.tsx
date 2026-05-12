@@ -11,21 +11,39 @@ import { generateAstrologyData } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
 import { downloadHoroscopePDF } from '@/lib/pdf-utils';
 
+const sanitize = (val: string | null, maxLength: number, fallback: string = ''): string => {
+  if (!val) return fallback;
+  // Sanitize by length limiting and stripping potential HTML tags to mitigate XSS/UI breakage
+  return val.slice(0, maxLength).replace(/[<>]/g, '');
+};
+
+const sanitizeCoord = (val: string | null): string => {
+  if (!val) return '';
+  const trimmed = val.trim().slice(0, 20);
+  // Only allow valid numeric coordinate characters
+  return /^-?\d*\.?\d*$/.test(trimmed) ? trimmed : '';
+};
+
 const HoroscopeContent = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const searchParams = useSearchParams();
-  const name = searchParams.get('name') || 'Guest';
-  const dob = searchParams.get('dob') || '';
+
+  // Harden input by sanitizing URL parameters to prevent malformed data or injection attempts
+  const name = useMemo(() => sanitize(searchParams.get('name'), 100, 'Guest'), [searchParams]);
+  const dob = useMemo(() => sanitize(searchParams.get('dob'), 10), [searchParams]);
+  const tob = useMemo(() => sanitize(searchParams.get('tob'), 5), [searchParams]);
+  const pob = useMemo(() => sanitize(searchParams.get('pob'), 100), [searchParams]);
+  const lat = useMemo(() => sanitizeCoord(searchParams.get('lat')), [searchParams]);
+  const lon = useMemo(() => sanitizeCoord(searchParams.get('lon')), [searchParams]);
+
   const formattedDob = useMemo(() => {
-    if (!dob) return '';
-    const [year, month, day] = dob.split('-');
+    if (!dob || !dob.includes('-')) return '';
+    const parts = dob.split('-');
+    if (parts.length !== 3) return '';
+    const [year, month, day] = parts;
     return `${day}-${month}-${year}`;
   }, [dob]);
-  const tob = searchParams.get('tob') || '';
-  const pob = searchParams.get('pob') || '';
-  const lat = searchParams.get('lat') || '';
-  const lon = searchParams.get('lon') || '';
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
