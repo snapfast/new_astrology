@@ -10,22 +10,33 @@ import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
 import { downloadHoroscopePDF } from '@/lib/pdf-utils';
+import { sanitize, sanitizeCoord } from '@/lib/security';
 
 const HoroscopeContent = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const searchParams = useSearchParams();
-  const name = searchParams.get('name') || 'Guest';
-  const dob = searchParams.get('dob') || '';
+  const rawName = searchParams.get('name') || 'Guest';
+  const rawDob = searchParams.get('dob') || '';
+  const rawTob = searchParams.get('tob') || '';
+  const rawPob = searchParams.get('pob') || '';
+  const rawLat = searchParams.get('lat') || '';
+  const rawLon = searchParams.get('lon') || '';
+
+  const name = useMemo(() => sanitize(rawName, 100), [rawName]);
+  const dob = useMemo(() => sanitize(rawDob, 10), [rawDob]);
+  const tob = useMemo(() => sanitize(rawTob, 5), [rawTob]);
+  const pob = useMemo(() => sanitize(rawPob, 100), [rawPob]);
+  const lat = useMemo(() => sanitizeCoord(rawLat), [rawLat]);
+  const lon = useMemo(() => sanitizeCoord(rawLon), [rawLon]);
+
   const formattedDob = useMemo(() => {
-    if (!dob) return '';
-    const [year, month, day] = dob.split('-');
+    if (!dob || !dob.includes('-')) return '';
+    const parts = dob.split('-');
+    if (parts.length !== 3) return dob;
+    const [year, month, day] = parts;
     return `${day}-${month}-${year}`;
   }, [dob]);
-  const tob = searchParams.get('tob') || '';
-  const pob = searchParams.get('pob') || '';
-  const lat = searchParams.get('lat') || '';
-  const lon = searchParams.get('lon') || '';
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
