@@ -7,3 +7,8 @@
 **Vulnerability:** Known vulnerabilities in transitive dependencies (e.g., PostCSS XSS risk) that are not resolved by simply updating top-level packages.
 **Learning:** NPM's `overrides` field in `package.json` allows forcing a specific version of a package across the entire dependency tree, ensuring that even packages like `next` use the secure version.
 **Prevention:** Regularly run `npm audit` and use `overrides` to address vulnerabilities in nested dependencies that aren't easily updated otherwise.
+
+## 2026-05-15 - Client-Side URL Parameter Sanitization
+**Vulnerability:** XSS and UI breakage via unsanitized URL search parameters in Next.js Client Components.
+**Learning:** Even if data isn't saved to a database, reflected parameters must be sanitized to prevent client-side XSS. Using `useMemo` to process `useSearchParams` ensures parameters are sanitized efficiently once per update.
+**Prevention:** Always wrap `useSearchParams` extraction in a sanitization utility that strips HTML tags and enforces length limits before using values in JSX or business logic.
