@@ -10,22 +10,28 @@ import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
 import { downloadHoroscopePDF } from '@/lib/pdf-utils';
+import { sanitize, sanitizeCoord } from '@/lib/security';
 
 const HoroscopeContent = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const searchParams = useSearchParams();
-  const name = searchParams.get('name') || 'Guest';
-  const dob = searchParams.get('dob') || '';
+
+  // Sanitize all incoming URL parameters
+  const name = useMemo(() => sanitize(searchParams.get('name') || 'Guest', 100), [searchParams]);
+  const dob = useMemo(() => sanitize(searchParams.get('dob'), 10), [searchParams]);
+  const tob = useMemo(() => sanitize(searchParams.get('tob'), 5), [searchParams]);
+  const pob = useMemo(() => sanitize(searchParams.get('pob'), 100), [searchParams]);
+  const lat = useMemo(() => sanitizeCoord(searchParams.get('lat')), [searchParams]);
+  const lon = useMemo(() => sanitizeCoord(searchParams.get('lon')), [searchParams]);
+
   const formattedDob = useMemo(() => {
     if (!dob) return '';
-    const [year, month, day] = dob.split('-');
+    const parts = dob.split('-');
+    if (parts.length !== 3) return dob;
+    const [year, month, day] = parts;
     return `${day}-${month}-${year}`;
   }, [dob]);
-  const tob = searchParams.get('tob') || '';
-  const pob = searchParams.get('pob') || '';
-  const lat = searchParams.get('lat') || '';
-  const lon = searchParams.get('lon') || '';
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
