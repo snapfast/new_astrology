@@ -432,22 +432,13 @@ const ChartGeneration = () => {
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <svg className="animate-spin h-5 w-5 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <path
-                        className="opacity-25"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        d="M12 2.5L19.8 7V17L12 21.5L4.2 17V7L12 2.5Z"
-                      />
-                      <path
-                        className="opacity-75"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeDasharray="20 40"
-                        d="M12 2.5L19.8 7V17L12 21.5L4.2 17V7L12 2.5Z"
-                      />
-                    </svg>
+                    <div className="win-loader text-accent">
+                      <div className="win-loader-dot"></div>
+                      <div className="win-loader-dot"></div>
+                      <div className="win-loader-dot"></div>
+                      <div className="win-loader-dot"></div>
+                      <div className="win-loader-dot"></div>
+                    </div>
                   ) : (
                     "Generate Horoscope Chart"
                   )}
