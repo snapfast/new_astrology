@@ -172,52 +172,42 @@ const HoroscopeContent = () => {
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.tithi}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.tithiSanskrit : chartData.panchang.tithi})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.paksha}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.paksha : chartData.panchang.pakshaSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.pakshaSanskrit : chartData.panchang.paksha})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.vara}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.vara : chartData.panchang.varaSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.varaSanskrit : chartData.panchang.vara})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.nakshatra}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.nakshatra : chartData.panchang.nakshatraSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.nakshatraSanskrit : chartData.panchang.nakshatra})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.yoga}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.yoga : chartData.panchang.yogaSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.yogaSanskrit : chartData.panchang.yoga})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.karana}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.karana : chartData.panchang.karanaSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.karanaSanskrit : chartData.panchang.karana})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.sunSign}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.sunSign : chartData.panchang.sunSignSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.sunSignSanskrit : chartData.panchang.sunSign})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.moonSign}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.moonSign : chartData.panchang.moonSignSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.moonSignSanskrit : chartData.panchang.moonSign})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.ritu}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.ritu : chartData.panchang.rituSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.rituSanskrit : chartData.panchang.ritu})</p>
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] font-medium text-on-surface/70 uppercase tracking-widest font-label">{t.ayana}</p>
                   <p className="text-[12px] font-medium text-on-surface leading-tight">{lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit}</p>
-                  <p className="text-[9px] text-on-surface/60 italic">({lang === 'en' ? chartData.panchang.ayanaSanskrit : chartData.panchang.ayana})</p>
                 </div>
               </div>
             </div>
