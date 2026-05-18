@@ -432,13 +432,7 @@ const ChartGeneration = () => {
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <div className="win-loader text-accent">
-                      <div className="win-loader-dot"></div>
-                      <div className="win-loader-dot"></div>
-                      <div className="win-loader-dot"></div>
-                      <div className="win-loader-dot"></div>
-                      <div className="win-loader-dot"></div>
-                    </div>
+                    <div className="loading-spinner text-accent"></div>
                   ) : (
                     "Generate Horoscope Chart"
                   )}
