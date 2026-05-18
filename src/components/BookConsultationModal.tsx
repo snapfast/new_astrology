@@ -37,57 +37,60 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             </button>
           </div>
 
-          <div className="space-y-6 md:space-y-10">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-4 md:mb-6 p-4 md:p-8 bg-surface-container-low/20 rounded-[2.5rem] border border-outline/5">
-                <svg viewBox="0 0 122.88 101.11" className="w-10 h-10 md:w-16 md:h-16">
-                  <g>
-                    <polygon fill="#188038" points="69.51,50.56 81.49,64.25 97.6,74.54 100.41,50.65 97.6,27.28 81.18,36.32 69.51,50.56"/>
-                    <path fill="#1967D2" d="M0,72.32v20.36c0,4.66,3.77,8.43,8.43,8.43h20.36L33,85.72l-4.21-13.4l-13.97-4.21L0,72.32L0,72.32z"/>
-                    <polygon fill="#EA4335" points="28.79,0 0,28.79 14.82,33 28.79,28.79 32.93,15.57 28.79,0"/>
-                    <polygon fill="#4285F4" points="0,72.32 28.79,72.32 28.79,28.79 0,28.79 0,72.32"/>
-                    <path fill="#34A853" d="M115.99,12.19L97.6,27.28v47.26l18.47,15.15c2.77,2.16,6.81,0.19,6.81-3.32V15.45 C122.88,11.89,118.74,9.94,115.99,12.19L115.99,12.19z M69.51,50.56v21.77H28.79v28.79h60.39c4.66,0,8.43-3.77,8.43-8.43V74.54 L69.51,50.56L69.51,50.56z"/><path fill="#FBBC04" d="M89.18,0H28.79v28.79h40.73v21.77L97.6,27.28V8.43C97.6,3.77,93.83,0,89.18,0L89.18,0z"/>
-                  </g>
+          <div className="space-y-4 md:space-y-8">
+            {/* WhatsApp Consultation */}
+            <div className="p-4 md:p-6 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              <div className="w-12 h-12 md:w-20 md:h-20 bg-white rounded-2xl md:rounded-3xl border border-outline/10 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 md:w-10 md:h-10 fill-[#25D366]">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                 </svg>
               </div>
-
-
-              <h3 className="text-lg md:text-3xl font-normal text-on-surface font-headline mb-2 md:mb-4">Personal Consultation</h3>
-              <div className="space-y-1 md:space-y-3">
-                <p className="text-xs md:text-lg text-secondary font-body">30-minute session via Google Meet</p>
-                <p className="text-[9px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
-                  Detailed analysis including remedies, lifestyle guidance, and answers to your questions.
-                </p>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline mb-1">WhatsApp Consultation</h3>
+                <p className="text-[10px] md:text-sm text-secondary font-body mb-3">Quick and direct guidance via text/voice note.</p>
+                <a
+                  href="https://wa.me/919306057150"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_whatsapp_redirect' })}
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase"
+                >
+                  Chat on WhatsApp
+                </a>
               </div>
             </div>
 
-            <div className="space-y-3 md:space-y-6">
-              <div className="p-4 md:p-5 bg-surface-container-low/40 rounded-3xl border border-outline/5 text-center">
-                <p className="text-[10px] md:text-sm text-secondary/70 font-body leading-relaxed max-w-sm mx-auto">
-                  You will be redirected to <span className="font-semibold text-on-surface">Calendly</span> to choose your time slot. This is a donation-based service; contributions are welcome after the session.
-                </p>
+            {/* Private Email Consultation */}
+            <div className="p-4 md:p-6 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              <div className="w-12 h-12 md:w-20 md:h-20 bg-white rounded-2xl md:rounded-3xl border border-outline/10 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-3xl md:text-5xl text-accent font-variation-fill">mail</span>
               </div>
-
-              <div className="flex flex-col gap-2 md:gap-4">
-                <a
-                  href="/donate-qr.png"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_qr' })}
-                  className="w-full py-4 md:py-5 border border-outline/60 rounded-full text-on-surface font-label text-[9px] md:text-xs font-medium tracking-[0.1em] uppercase text-center bg-transparent"
-                >
-                  View Donation QR
-                </a>
-
-                <a
-                  href="https://calendly.com/rahulbaliastrology/kundli/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                  className="flex items-center justify-center gap-3 w-full py-5 md:py-6 bg-primary text-white text-center rounded-full font-medium text-[10px] md:text-sm tracking-[0.1em] uppercase shadow-xl shadow-primary/10"
-                >
-                  Book My Session
-                </a>
+              <div className="flex-1 text-center md:text-left">
+                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-1">
+                  <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">Private Email Consultation</h3>
+                  <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">More Private</span>
+                </div>
+                <p className="text-[10px] md:text-sm text-secondary font-body mb-4">Detailed analysis delivered via secure email. Comprehensive remedies and lifestyle guidance.</p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <a
+                    href="https://calendly.com/rahulbaliastrology/kundli/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase shadow-lg shadow-primary/10"
+                  >
+                    Schedule & Pay
+                  </a>
+                  <a
+                    href="/donate-qr.png"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_qr' })}
+                    className="inline-flex items-center justify-center px-6 py-3 border border-outline/30 text-on-surface rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase"
+                  >
+                    View Donation QR
+                  </a>
+                </div>
               </div>
             </div>
           </div>
