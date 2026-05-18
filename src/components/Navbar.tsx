@@ -138,7 +138,7 @@ const Navbar = () => {
             <p className="text-[10px] text-secondary font-body tracking-wider uppercase">
               Gurugram, India
             </p>
-            <p className="text-4xl text-accent/60 italic font-body">
+            <p className="text-2xl text-accent italic font-body">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।
             </p>
           </div>
