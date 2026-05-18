@@ -154,21 +154,22 @@ const ChartGeneration = () => {
           lat: string;
           lon: string;
         }
-        const cityData = data.map((item: NominatimItem) => {
+        const uniqueCitiesMap = new Map<string, Suggestion>();
+        for (let i = 0; i < data.length; i++) {
+          const item: NominatimItem = data[i];
           const address = item.address;
           const city = address.city || address.town || address.village || address.suburb || address.hamlet;
           const state = address.state;
           const country = address.country;
           const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : item.display_name;
 
-          return {
+          uniqueCitiesMap.set(name, {
             name,
             lat: item.lat,
             lon: item.lon
-          };
-        });
-        // Filter unique names by display name
-        const uniqueCities = Array.from(new Map(cityData.map((item: Suggestion) => [item.name, item])).values()) as Suggestion[];
+          });
+        }
+        const uniqueCities = Array.from(uniqueCitiesMap.values());
 
         // Cache the result to prevent redundant network calls for the same query
         if (SUGGESTIONS_CACHE.size >= MAX_CACHE_SIZE) {
