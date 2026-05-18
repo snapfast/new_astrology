@@ -22,11 +22,11 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20">
-        <div className="flex flex-col items-center mb-10">
+        <div className="flex flex-col items-center mb-6">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             VEDIC ASTROLOGY · JYOTISH SHASTRA
           </span>
-          <span className="text-xs text-secondary/60 italic font-body">
+          <span className="text-5xl md:text-6xl text-secondary/60 italic font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </span>
         </div>

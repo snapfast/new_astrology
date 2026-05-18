@@ -36,7 +36,7 @@ export default function AboutPage() {
           <p>
             Authenticity and scientific precision are the cornerstones of his practice. By utilizing high-precision astronomical calculations (Lahiri Ayanamsa), he ensures that every <strong>horoscope reading</strong> is grounded in celestial truth. His goal is to empower individuals with the knowledge of their <strong>karmic patterns</strong>, helping them navigate life&apos;s transitions with clarity and confidence.
           </p>
-          <p className="italic text-center pt-8">
+          <p className="text-5xl md:text-6xl italic text-center pt-8">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </p>
         </div>
