@@ -77,16 +77,9 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase shadow-lg shadow-primary/10"
+                    className="inline-flex items-center justify-center gap-2 px-10 py-3 bg-primary text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase shadow-lg shadow-primary/10"
                   >
-                    Schedule & Pay
-                  </a>
-                  <a
-                    href="/about#support"
-                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_support' })}
-                    className="inline-flex items-center justify-center px-6 py-3 border border-outline/30 text-on-surface rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase"
-                  >
-                    View Support Options
+                    Schedule Now
                   </a>
                 </div>
               </div>
