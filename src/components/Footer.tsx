@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import BookConsultationModal from './BookConsultationModal';
+import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const Footer = () => {
@@ -12,9 +13,8 @@ const Footer = () => {
     <footer className="w-full pt-32 pb-20 bg-background border-t border-outline/50 font-body print:hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
         <div className="col-span-1 lg:col-span-1">
-          <Link href="/" className="text-2xl font-normal tracking-tight text-on-surface mb-8 font-headline flex items-center gap-1">
-            <span>Rahul Bali</span>
-            <span className="text-accent italic">Astrology</span>
+          <Link href="/" className="mb-8 block">
+            <Logo />
           </Link>
           <p className="text-secondary text-sm leading-relaxed mb-10 max-w-xs font-light">
             Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.

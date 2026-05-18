@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import BookConsultationModal from './BookConsultationModal';
+import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const Navbar = () => {
@@ -58,11 +59,19 @@ const Navbar = () => {
           <span className="material-symbols-outlined !text-2xl">menu</span>
         </button>
 
-        {/* Desktop Logo */}
-        <Link href="/" className="hidden md:flex text-base sm:text-lg md:text-xl font-normal tracking-tight font-headline items-center gap-1">
-          <span className="text-on-surface whitespace-nowrap">Rahul Bali</span>
-          <span className="text-accent italic whitespace-nowrap">Astrology</span>
+        {/* Mobile Logo */}
+        <Link href="/" className="md:hidden flex items-center ml-2">
+          <Logo />
         </Link>
+
+        <div className="flex-grow md:hidden"></div>
+
+        {/* Desktop Logo */}
+        <div className="hidden md:flex items-center shrink-0">
+          <Link href="/">
+            <Logo />
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-10 font-normal text-xs text-secondary font-body">
@@ -99,9 +108,8 @@ const Navbar = () => {
     >
       <div className="flex flex-col h-full p-6 overflow-y-auto">
         <div className="flex items-center justify-between mb-12 shrink-0">
-          <Link href="/" onClick={closeMenu} className="text-xl font-normal tracking-tight font-headline flex items-center gap-1">
-            <span className="text-on-surface whitespace-nowrap">Rahul Bali</span>
-            <span className="text-accent italic whitespace-nowrap">Astrology</span>
+          <Link href="/" onClick={closeMenu}>
+            <Logo />
           </Link>
           <button
             onClick={closeMenu}
