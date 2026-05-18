@@ -35,6 +35,7 @@ const ExpertConsultations = () => {
   };
 
   const handleBookNow = () => {
+    setSelectedService(null);
     setIsBookingModalOpen(true);
   };
 
