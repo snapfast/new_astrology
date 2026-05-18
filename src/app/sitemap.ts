@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/services',
     '/contact',
     '/reviews',
-    '/donate',
     '/horoscope',
     '/free-horoscope',
     '/consultation',
