@@ -82,13 +82,11 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     Schedule & Pay
                   </a>
                   <a
-                    href="/donate-qr.png"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_qr' })}
+                    href="/about#support"
+                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_view_support' })}
                     className="inline-flex items-center justify-center px-6 py-3 border border-outline/30 text-on-surface rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase"
                   >
-                    View Donation QR
+                    View Support Options
                   </a>
                 </div>
               </div>

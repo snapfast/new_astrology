@@ -132,15 +132,15 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose, onBookNow })
               </div>
             </a>
 
-            {/* Donation */}
+            {/* Support */}
             <a
-              href="/donate"
-              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_donation' })}
+              href="/about#support"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_support' })}
               className="block p-3 md:p-4 bg-surface-container-low/30 border border-outline/5 rounded-[1.5rem]"
             >
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-xs md:text-base font-medium text-on-surface font-body">Donation</h3>
+                  <h3 className="text-xs md:text-base font-medium text-on-surface font-body">Support Us</h3>
                 </div>
               </div>
             </a>

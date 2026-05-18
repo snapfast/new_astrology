@@ -42,7 +42,7 @@ const Footer = () => {
           <ul className="space-y-5 text-sm">
             <li><a className="text-secondary font-light" href="/about">About Us</a></li>
             <li><a className="text-secondary font-light" href="/contact">Contact</a></li>
-            <li><a className="text-secondary font-light" href="/donate">Donate</a></li>
+            <li><a className="text-secondary font-light" href="/about#support">Support</a></li>
           </ul>
         </div>
       </div>
