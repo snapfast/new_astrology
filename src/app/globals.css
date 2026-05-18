@@ -60,5 +60,35 @@
   .font-variation-fill {
     font-variation-settings: 'FILL' 1;
   }
+
+  .win-loader {
+    @apply relative w-6 h-6;
+  }
+
+  .win-loader-dot {
+    @apply absolute w-full h-full opacity-0;
+    animation: win-loader-orbit 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .win-loader-dot::after {
+    content: '';
+    @apply absolute w-1 h-1 bg-current rounded-full left-1/2 -translate-x-1/2;
+  }
+
+  .win-loader-dot:nth-child(1) { animation-delay: 0.15s; }
+  .win-loader-dot:nth-child(2) { animation-delay: 0.3s; }
+  .win-loader-dot:nth-child(3) { animation-delay: 0.45s; }
+  .win-loader-dot:nth-child(4) { animation-delay: 0.6s; }
+  .win-loader-dot:nth-child(5) { animation-delay: 0.75s; }
+
+  @keyframes win-loader-orbit {
+    0% { transform: rotate(225deg); opacity: 1; }
+    5% { transform: rotate(345deg); }
+    20% { transform: rotate(455deg); }
+    35% { transform: rotate(570deg); }
+    70% { transform: rotate(815deg); opacity: 1; }
+    75% { transform: rotate(945deg); opacity: 0; }
+    100% { transform: rotate(945deg); opacity: 0; }
+  }
 }
 
