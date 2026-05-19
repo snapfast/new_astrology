@@ -59,12 +59,6 @@ const Navbar = () => {
           <span className="material-symbols-outlined !text-2xl">menu</span>
         </button>
 
-        {/* Mobile Logo */}
-        <Link href="/" className="md:hidden flex items-center ml-2">
-          <Logo />
-        </Link>
-
-        <div className="flex-grow md:hidden"></div>
 
         {/* Desktop Logo */}
         <div className="hidden md:flex items-center shrink-0">
