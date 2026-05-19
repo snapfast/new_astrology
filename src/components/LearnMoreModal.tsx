@@ -75,7 +75,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose, onBookNow })
               </div>
             </a>
 
-            {/* Email */}
+            {/* Google Meet */}
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'modal_schedule' });
@@ -86,11 +86,11 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose, onBookNow })
               <div className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-2 md:mb-3">
                   <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
-                    <span className="material-symbols-outlined text-base md:text-lg font-variation-fill">mail</span>
+                    <span className="material-symbols-outlined text-base md:text-lg font-variation-fill">videocam</span>
                   </div>
                   <span className="text-[7px] md:text-[10px] px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full uppercase tracking-widest font-label font-bold shrink-0">Private</span>
                 </div>
-                <h3 className="text-sm md:text-lg font-medium text-on-surface font-headline mb-1">Email Consultation</h3>
+                <h3 className="text-sm md:text-lg font-medium text-on-surface font-headline mb-1">Google Meet Consultation</h3>
                 <div className="flex items-center text-accent font-label text-[7px] md:text-[9px] font-bold tracking-widest uppercase gap-2">
                   Schedule Now
                 </div>
