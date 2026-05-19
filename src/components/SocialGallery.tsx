@@ -93,40 +93,42 @@ const SocialGallery = () => {
         </div>
 
         {/* Vertical Photo Gallery (Embeds) */}
-        <div className="flex flex-col items-center gap-12 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
           {SOCIAL_POSTS.map((post) => (
-            <div key={post.id} className="w-full bg-white rounded-[2rem] overflow-hidden shadow-sm border border-outline/10 p-1 md:p-4">
-              {post.platform === 'instagram' && (
-                <blockquote
-                  className="instagram-media"
-                  data-instgrm-captioned
-                  data-instgrm-permalink={post.url}
-                  data-instgrm-version="14"
-                  style={{ width: '100%', margin: '0 auto' }}
-                >
-                </blockquote>
-              )}
+            <div key={post.id} className="w-full bg-white rounded-[2rem] overflow-hidden shadow-sm border border-outline/10 p-1 md:p-4 flex justify-center">
+              <div className="w-full max-w-[500px]">
+                {post.platform === 'instagram' && (
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-captioned
+                    data-instgrm-permalink={post.url}
+                    data-instgrm-version="14"
+                    style={{ width: '100%', margin: '0 auto' }}
+                  >
+                  </blockquote>
+                )}
 
-              {post.platform === 'threads' && (
-                <blockquote
-                  className="threads-embed"
-                  data-threads-show-caption="true"
-                  data-threads-post-url={post.url}
-                  style={{ width: '100%', margin: '0 auto' }}
-                >
-                </blockquote>
-              )}
+                {post.platform === 'threads' && (
+                  <blockquote
+                    className="threads-embed"
+                    data-threads-show-caption="true"
+                    data-threads-post-url={post.url}
+                    style={{ width: '100%', margin: '0 auto' }}
+                  >
+                  </blockquote>
+                )}
 
-              {post.platform === 'facebook' && (
-                <div
-                  className="fb-post"
-                  data-href={post.url}
-                  data-show-text="true"
-                  data-width="auto"
-                  style={{ width: '100%', margin: '0 auto' }}
-                >
-                </div>
-              )}
+                {post.platform === 'facebook' && (
+                  <div
+                    className="fb-post"
+                    data-href={post.url}
+                    data-show-text="true"
+                    data-width="auto"
+                    style={{ width: '100%', margin: '0 auto' }}
+                  >
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
