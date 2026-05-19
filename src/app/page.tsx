@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import ChartGeneration from '@/components/ChartGeneration';
 import ExpertConsultations from '@/components/ExpertConsultations';
 import Testimonials from '@/components/Testimonials';
+import SocialGallery from '@/components/SocialGallery';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 
@@ -72,6 +73,7 @@ export default function Home() {
       <Hero />
       <Testimonials />
       <ChartGeneration />
+      <SocialGallery />
       <ExpertConsultations />
       <Footer />
     </main>

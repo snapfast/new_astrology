@@ -26,7 +26,6 @@ const Footer = () => {
             <li><Link href="/free-horoscope" className="text-accent font-medium text-left">Free Kundli</Link></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-secondary font-light text-left">Consultation</button></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-secondary font-light text-left">Premium Appointment</button></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_research' }); setIsBookingModalOpen(true); }} className="text-secondary font-light text-left">Research</button></li>
           </ul>
         </div>
         <div>
