@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/free-horoscope',
     '/consultation',
     '/premium',
-    '/research',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
