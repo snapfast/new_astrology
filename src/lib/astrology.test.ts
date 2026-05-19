@@ -3,6 +3,15 @@ import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
 import { getMeanRahu, calculateVimshottariDasha } from './astrology.ts';
 
+/**
+ * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
+ * This is used for verification in tests.
+ */
+function calculateExpectedRahu(T: number): number {
+    const L = 125.0445479 - 1934.1362891 * T + 0.0020754 * T * T + T * T * T / 467441.0 - T * T * T * T / 60616000.0;
+    return (L % 360 + 360) % 360;
+}
+
 test('getMeanRahu at J2000.0 TT', () => {
     // We want T=0 exactly. In astronomy-engine, time.tt is days from J2000 TT.
     // So we can try to find a time where tt is 0.
@@ -15,9 +24,7 @@ test('getMeanRahu at J2000.0 TT', () => {
     const date = new Date(Date.UTC(2000, 0, 1, 12, 0, 0));
     const time = Ast.MakeTime(date);
     const T = time.tt / 36525.0;
-
-    const L = 125.0445479 - 1934.1362891 * T + 0.0020754 * T * T + T * T * T / 467441.0 - T * T * T * T / 60616000.0;
-    const expected = (L % 360 + 360) % 360;
+    const expected = calculateExpectedRahu(T);
 
     const rahu = getMeanRahu(time);
 
@@ -29,9 +36,7 @@ test('getMeanRahu at another date (2024)', () => {
     const date = new Date(Date.UTC(2024, 0, 1, 0, 0, 0));
     const time = Ast.MakeTime(date);
     const T = time.tt / 36525.0;
-
-    const L = 125.0445479 - 1934.1362891 * T + 0.0020754 * T * T + T * T * T / 467441.0 - T * T * T * T / 60616000.0;
-    const expected = (L % 360 + 360) % 360;
+    const expected = calculateExpectedRahu(T);
 
     const rahu = getMeanRahu(time);
 
