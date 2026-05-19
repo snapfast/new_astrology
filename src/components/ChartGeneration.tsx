@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, FormEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface Suggestion {
@@ -67,6 +67,19 @@ const ChartGeneration = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [history, setHistory] = useState<StoredChartData[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+
+  // Performance Optimization: Memoized Map for O(1) duplicate name validation
+  const historyMap = useMemo(() => {
+    const map = new Map<string, StoredChartData>();
+    for (let i = 0; i < history.length; i++) {
+      const item = history[i];
+      const nameKey = item.name.toLowerCase();
+      if (!map.has(nameKey)) {
+        map.set(nameKey, item);
+      }
+    }
+    return map;
+  }, [history]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const suggestionRef = useRef<HTMLDivElement>(null);
   const historyRef = useRef<HTMLDivElement>(null);
@@ -217,7 +230,7 @@ const ChartGeneration = () => {
       const dobString = `${day}-${month}-${year}`;
       const tobString = tob;
 
-      const duplicateName = history.find(item => item.name.toLowerCase() === trimmedName.toLowerCase());
+      const duplicateName = historyMap.get(trimmedName.toLowerCase());
       if (duplicateName) {
         const isExactMatch = duplicateName.dob === dobString &&
           duplicateName.tob === tobString &&
