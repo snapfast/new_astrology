@@ -63,20 +63,22 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             {/* Private Google Meet Consultation */}
             <div className="p-4 md:p-6 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
               <div className="w-12 h-12 md:w-20 md:h-20 bg-white rounded-2xl md:rounded-3xl border border-outline/10 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 512 421" className="w-6 h-6 md:w-10 md:h-10">
-                  <path fill="#00832d" d="M362.4 121.7l71.2-58.4c17.5-13.6 42.7-1.1 42.7 21v252.1c0 22.1-25.2 34.5-42.7 21l-71.2-58.4V121.7z"/>
-                  <path fill="#00ac47" d="M0 311.6V109.1c0-26.6 21.5-48.1 48.1-48.1h266.3c26.6 0 48.1 21.5 48.1 48.1v202.5c0 26.6-21.5 48.1-48.1 48.1H48.1c-26.6 0-48.1-21.5-48.1-48.1z"/>
-                  <path fill="#ffba00" d="M0 109.1L82.1 0h242c26.6 0 48.1 21.5 48.1 48.1v61h-372.2z"/>
-                  <path fill="#ea4335" d="M362.4 299l114 93.4c17.5 13.6 42.7 1.1 42.7-21v-88.7L362.4 186.2V299z"/>
-                  <path fill="#4285f4" d="M0 311.6l82.1 109.1h242c26.6 0 48.1-21.5 48.1-48.1v-61H0z"/>
+                <svg viewBox="0 0 622 512" className="w-6 h-6 md:w-10 md:h-10">
+                  <path d="M351.419 255.568L411.978 324.79L493.418 376.827L507.584 256.005L493.418 137.908L410.418 183.621L351.419 255.568Z" fill="#00832D"/>
+                  <path d="M0.00283051 365.583V468.541C0.00283051 492.049 19.0851 511.136 42.5983 511.136H145.556L166.876 433.344L145.556 365.583L74.9198 344.263L0.00283051 365.583Z" fill="#0066DA"/>
+                  <path d="M145.556 -7.62939e-06L0.00283051 145.554L74.9247 166.822L145.556 145.554L166.488 78.7145L145.556 -7.62939e-06Z" fill="#E94235"/>
+                  <path d="M0.00526047 365.629H145.556V145.551H0.00526047V365.629Z" fill="#2684FC"/>
+                  <path d="M586.398 61.6293L493.416 137.91V376.827L586.782 453.404C600.758 464.352 621.204 454.374 621.204 436.607V78.0861C621.204 60.1224 600.271 50.193 586.396 61.6317" fill="#00AC47"/>
+                  <path d="M351.419 255.568V365.583H145.556V511.136H450.825C474.338 511.136 493.418 492.049 493.418 468.541V376.827L351.419 255.568Z" fill="#00AC47"/>
+                  <path d="M450.825 -7.62939e-06H145.556V145.554H351.419V255.568L493.42 137.905V42.5979C493.42 19.0847 474.338 0.00241891 450.825 0.00241891" fill="#FFBA00"/>
                 </svg>
               </div>
               <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-1">
                   <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">Private Google Meet Consultation</h3>
-                  <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">More Private</span>
+                  <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">No phone number required</span>
                 </div>
-                <p className="text-[10px] md:text-sm text-secondary font-body mb-4">Live 1-on-1 video session for deep chart analysis and personalized remedies.</p>
+                <p className="text-[10px] md:text-sm text-secondary font-body mb-4">Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.</p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <a
                     href="https://calendly.com/rahulbaliastrology/kundli/"
