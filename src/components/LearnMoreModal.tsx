@@ -86,7 +86,13 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose, onBookNow })
               <div className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-2 md:mb-3">
                   <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
-                    <span className="material-symbols-outlined text-base md:text-lg font-variation-fill">videocam</span>
+                    <svg viewBox="0 0 512 421" className="w-4 h-4 md:w-5 md:h-5">
+                      <path fill="#00832d" d="M362.4 121.7l71.2-58.4c17.5-13.6 42.7-1.1 42.7 21v252.1c0 22.1-25.2 34.5-42.7 21l-71.2-58.4V121.7z"/>
+                      <path fill="#00ac47" d="M0 311.6V109.1c0-26.6 21.5-48.1 48.1-48.1h266.3c26.6 0 48.1 21.5 48.1 48.1v202.5c0 26.6-21.5 48.1-48.1 48.1H48.1c-26.6 0-48.1-21.5-48.1-48.1z"/>
+                      <path fill="#ffba00" d="M0 109.1L82.1 0h242c26.6 0 48.1 21.5 48.1 48.1v61h-372.2z"/>
+                      <path fill="#ea4335" d="M362.4 299l114 93.4c17.5 13.6 42.7 1.1 42.7-21v-88.7L362.4 186.2V299z"/>
+                      <path fill="#4285f4" d="M0 311.6l82.1 109.1h242c26.6 0 48.1-21.5 48.1-48.1v-61H0z"/>
+                    </svg>
                   </div>
                   <span className="text-[7px] md:text-[10px] px-1.5 md:px-3 py-0.5 md:py-1 bg-accent/10 text-accent rounded-full uppercase tracking-widest font-label font-bold shrink-0">Private</span>
                 </div>
