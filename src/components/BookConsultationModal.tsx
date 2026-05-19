@@ -60,17 +60,23 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               </div>
             </div>
 
-            {/* Private Email Consultation */}
+            {/* Private Google Meet Consultation */}
             <div className="p-4 md:p-6 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
               <div className="w-12 h-12 md:w-20 md:h-20 bg-white rounded-2xl md:rounded-3xl border border-outline/10 flex items-center justify-center shrink-0">
-                <span className="material-symbols-outlined text-3xl md:text-5xl text-accent font-variation-fill">mail</span>
+                <svg viewBox="0 0 512 421" className="w-6 h-6 md:w-10 md:h-10">
+                  <path fill="#00832d" d="M362.4 121.7l71.2-58.4c17.5-13.6 42.7-1.1 42.7 21v252.1c0 22.1-25.2 34.5-42.7 21l-71.2-58.4V121.7z"/>
+                  <path fill="#00ac47" d="M0 311.6V109.1c0-26.6 21.5-48.1 48.1-48.1h266.3c26.6 0 48.1 21.5 48.1 48.1v202.5c0 26.6-21.5 48.1-48.1 48.1H48.1c-26.6 0-48.1-21.5-48.1-48.1z"/>
+                  <path fill="#ffba00" d="M0 109.1L82.1 0h242c26.6 0 48.1 21.5 48.1 48.1v61h-372.2z"/>
+                  <path fill="#ea4335" d="M362.4 299l114 93.4c17.5 13.6 42.7 1.1 42.7-21v-88.7L362.4 186.2V299z"/>
+                  <path fill="#4285f4" d="M0 311.6l82.1 109.1h242c26.6 0 48.1-21.5 48.1-48.1v-61H0z"/>
+                </svg>
               </div>
               <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-1">
-                  <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">Private Email Consultation</h3>
+                  <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">Private Google Meet Consultation</h3>
                   <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">More Private</span>
                 </div>
-                <p className="text-[10px] md:text-sm text-secondary font-body mb-4">Detailed analysis delivered via secure email. Comprehensive remedies and lifestyle guidance.</p>
+                <p className="text-[10px] md:text-sm text-secondary font-body mb-4">Live 1-on-1 video session for deep chart analysis and personalized remedies.</p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <a
                     href="https://calendly.com/rahulbaliastrology/kundli/"
