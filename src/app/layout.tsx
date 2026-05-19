@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
+import { headers } from "next/headers";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
@@ -71,11 +72,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get('x-nonce') || '';
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -83,12 +86,14 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
+          nonce={nonce}
         />
       </head>
       <body
         className={`${inter.variable} ${lora.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <JsonLd
+          nonce={nonce}
           data={{
             "@context": "https://schema.org",
             "@type": "Person",
@@ -111,7 +116,7 @@ export default function RootLayout({
         />
         {children}
       </body>
-      <GoogleAnalytics gaId="G-CXNZQJTRVS" />
+      <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />
     </html>
   );
 }

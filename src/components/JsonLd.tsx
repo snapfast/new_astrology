@@ -12,12 +12,14 @@ export const sanitizeJsonLd = (data: Record<string, unknown>): string => {
 
 interface JsonLdProps {
   data: Record<string, unknown>;
+  nonce?: string;
 }
 
-const JsonLd = ({ data }: JsonLdProps) => {
+const JsonLd = ({ data, nonce }: JsonLdProps) => {
   return (
     <script
       type="application/ld+json"
+      nonce={nonce}
       dangerouslySetInnerHTML={{
         __html: sanitizeJsonLd(data),
       }}

@@ -1,0 +1,72 @@
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+
+  const isDev = process.env.NODE_ENV === 'development'
+
+  const scriptSrc = [
+    "'self'",
+    `'nonce-${nonce}'`,
+    "https://www.googletagmanager.com",
+    isDev ? "'unsafe-eval'" : ""
+  ].filter(Boolean).join(" ")
+
+  const cspHeader = `
+    default-src 'self';
+    script-src ${scriptSrc};
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.googletagmanager.com;
+    img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.googletagmanager.com;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://stats.g.doubleclick.net https://www.google.com https://www.googletagmanager.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+  `
+  // Replace newline characters with spaces
+  const contentSecurityPolicyHeaderValue = cspHeader
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-nonce', nonce)
+
+  requestHeaders.set(
+    'Content-Security-Policy',
+    contentSecurityPolicyHeaderValue
+  )
+
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
+  response.headers.set(
+    'Content-Security-Policy',
+    contentSecurityPolicyHeaderValue
+  )
+
+  return response
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    {
+      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+      ],
+    },
+  ],
+}
