@@ -31,7 +31,7 @@ const Hero = () => {
           </span>
         </div>
 
-        <h1 className="text-7xl md:text-8xl font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight">
+        <h1 className="text-5xl md:text-7xl font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight">
           Pandit <br />
           Rahul Bali Ji
         </h1>
