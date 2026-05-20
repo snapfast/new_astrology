@@ -71,8 +71,8 @@ export default function Home() {
       <JsonLd data={businessSchema} />
       <Navbar />
       <Hero />
-      <Testimonials />
       <ChartGeneration />
+      <Testimonials />
       <SocialGallery />
       <ExpertConsultations />
       <Footer />
