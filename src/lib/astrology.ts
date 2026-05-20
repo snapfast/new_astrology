@@ -652,6 +652,96 @@ export function parseDegree(degreeStr: string): number {
     return d + m / 60 + s / 3600;
 }
 
+function calculateSookshmaDashas(mdDurationYears: number, adDurationYears: number, pdLordIdx: number, pdDurationYears: number, pdStart: number): SookshmaDasha[] {
+    const sds: SookshmaDasha[] = [];
+    let currentSdStart = pdStart;
+    for (let l = 0; l < 9; l++) {
+        const sdLordIdx = (pdLordIdx + l) % 9;
+        const sdLord = NAKSHATRA_LORDS[sdLordIdx];
+        const sdDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * DASHA_DURATIONS[sdLord] * MS_PER_YEAR) / (120 * 120 * 120));
+        const sdStart = currentSdStart;
+        const sdEnd = sdStart + sdDuration;
+
+        sds.push({
+            lord: sdLord,
+            start: new Date(sdStart),
+            end: new Date(sdEnd)
+        });
+        currentSdStart = sdEnd;
+    }
+    return sds;
+}
+
+function calculatePratyantardashas(mdDurationYears: number, adLordIdx: number, adDurationYears: number, adStart: number): Pratyantardasha[] {
+    const pds: Pratyantardasha[] = [];
+    let currentPdStart = adStart;
+    for (let k = 0; k < 9; k++) {
+        const pdLordIdx = (adLordIdx + k) % 9;
+        const pdLord = NAKSHATRA_LORDS[pdLordIdx];
+        const pdDurationYears = DASHA_DURATIONS[pdLord];
+        const pdDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * MS_PER_YEAR) / (120 * 120));
+        const pdStart = currentPdStart;
+        const pdEnd = pdStart + pdDuration;
+
+        const pratyantardasha = {
+            lord: pdLord,
+            start: new Date(pdStart),
+            end: new Date(pdEnd)
+        } as Pratyantardasha;
+
+        let sds: SookshmaDasha[] | undefined;
+        Object.defineProperty(pratyantardasha, 'sookshmaDashas', {
+            get: () => {
+                if (!sds) {
+                    sds = calculateSookshmaDashas(mdDurationYears, adDurationYears, pdLordIdx, pdDurationYears, pdStart);
+                }
+                return sds;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        pds.push(pratyantardasha);
+        currentPdStart = pdEnd;
+    }
+    return pds;
+}
+
+function calculateAntardashas(mdLordIdx: number, mdStart: number, mdDurationYears: number): Antardasha[] {
+    const ads: Antardasha[] = [];
+    let currentAdStart = mdStart;
+    for (let j = 0; j < 9; j++) {
+        const adLordIdx = (mdLordIdx + j) % 9;
+        const adLord = NAKSHATRA_LORDS[adLordIdx];
+        const adDurationYears = DASHA_DURATIONS[adLord];
+        const adDuration = Math.trunc((mdDurationYears * adDurationYears * MS_PER_YEAR) / 120);
+        const adStart = currentAdStart;
+        const adEnd = adStart + adDuration;
+
+        const antardasha = {
+            lord: adLord,
+            start: new Date(adStart),
+            end: new Date(adEnd)
+        } as Antardasha;
+
+        let pds: Pratyantardasha[] | undefined;
+        Object.defineProperty(antardasha, 'pratyantardashas', {
+            get: () => {
+                if (!pds) {
+                    pds = calculatePratyantardashas(mdDurationYears, adLordIdx, adDurationYears, adStart);
+                }
+                return pds;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        ads.push(antardasha);
+        currentAdStart = adEnd;
+    }
+    return ads;
+}
+
 export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Mahadasha[] {
     const nakshatraWidth = 360 / 27;
     const nakshatraIdx = Math.floor(moonLong / nakshatraWidth);
@@ -676,65 +766,25 @@ export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Ma
         const mdStart = currentDashaStart;
         const mdEnd = mdStart + mahadashaDuration;
 
-        const antardashas: Antardasha[] = [];
-        let currentAdStart = mdStart;
-        for (let j = 0; j < 9; j++) {
-            const adLordIdx = (currentLordIdx + j) % 9;
-            const adLord = NAKSHATRA_LORDS[adLordIdx];
-            const adDuration = Math.trunc((durationYears * DASHA_DURATIONS[adLord] * MS_PER_YEAR) / 120);
-            const adStart = currentAdStart;
-            const adEnd = adStart + adDuration;
-
-            const pratyantardashas: Pratyantardasha[] = [];
-            let currentPdStart = adStart;
-            for (let k = 0; k < 9; k++) {
-                const pdLordIdx = (adLordIdx + k) % 9;
-                const pdLord = NAKSHATRA_LORDS[pdLordIdx];
-                const pdDuration = Math.trunc((durationYears * DASHA_DURATIONS[adLord] * DASHA_DURATIONS[pdLord] * MS_PER_YEAR) / (120 * 120));
-                const pdStart = currentPdStart;
-                const pdEnd = pdStart + pdDuration;
-
-                const sookshmaDashas: SookshmaDasha[] = [];
-                let currentSdStart = pdStart;
-                for (let l = 0; l < 9; l++) {
-                    const sdLordIdx = (pdLordIdx + l) % 9;
-                    const sdLord = NAKSHATRA_LORDS[sdLordIdx];
-                    const sdDuration = Math.trunc((durationYears * DASHA_DURATIONS[adLord] * DASHA_DURATIONS[pdLord] * DASHA_DURATIONS[sdLord] * MS_PER_YEAR) / (120 * 120 * 120));
-                    const sdStart = currentSdStart;
-                    const sdEnd = sdStart + sdDuration;
-
-                    sookshmaDashas.push({
-                        lord: sdLord,
-                        start: new Date(sdStart),
-                        end: new Date(sdEnd)
-                    });
-                    currentSdStart = sdEnd;
-                }
-
-                pratyantardashas.push({
-                    lord: pdLord,
-                    start: new Date(pdStart),
-                    end: new Date(pdEnd),
-                    sookshmaDashas
-                });
-                currentPdStart = pdEnd;
-            }
-
-            antardashas.push({
-                lord: adLord,
-                start: new Date(adStart),
-                end: new Date(adEnd),
-                pratyantardashas
-            });
-            currentAdStart = adEnd;
-        }
-
-        mahadashas.push({
+        const mahadasha = {
             lord,
             start: new Date(mdStart),
-            end: new Date(mdEnd),
-            antardashas
+            end: new Date(mdEnd)
+        } as Mahadasha;
+
+        let ads: Antardasha[] | undefined;
+        Object.defineProperty(mahadasha, 'antardashas', {
+            get: () => {
+                if (!ads) {
+                    ads = calculateAntardashas(currentLordIdx, mdStart, durationYears);
+                }
+                return ads;
+            },
+            enumerable: true,
+            configurable: true
         });
+
+        mahadashas.push(mahadasha);
 
         currentDashaStart = mdEnd;
     }
