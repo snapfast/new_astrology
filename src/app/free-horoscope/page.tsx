@@ -84,20 +84,14 @@ export default function FreeHoroscopePage() {
       <JsonLd data={faqJsonLd} />
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 md:pt-48 md:pb-32 bg-background relative overflow-hidden">
+      <section className="pt-32 pb-12 md:pt-40 md:pb-20 bg-background relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 rounded-full blur-[120px] -z-0"></div>
 
         <div className="max-w-4xl mx-auto px-8 text-center relative z-10">
-          <span className="text-[10px] md:text-xs font-medium tracking-[0.3em] uppercase text-accent mb-6 block font-label">
-            Instant Vedic Insights
-          </span>
           <h1 className="text-5xl md:text-7xl font-normal mb-8 font-headline text-on-surface tracking-tight leading-tight">
             Free Online <br />
             Janam Kundali
           </h1>
-          <p className="text-base md:text-lg font-body text-secondary leading-relaxed max-w-2xl mx-auto mb-10">
-            Generate your precise Vedic Birth Chart instantly. Our tool provides detailed planetary positions using the authoritative Lahiri Ayanamsa for the most accurate astrological mapping.
-          </p>
         </div>
       </section>
 
@@ -108,6 +102,9 @@ export default function FreeHoroscopePage() {
         <div className="max-w-4xl mx-auto px-8">
           <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">The Significance of Your Birth Chart</h2>
           <div className="prose prose-sm md:prose-base max-w-none text-secondary font-body leading-relaxed space-y-6">
+            <p>
+              Generate your precise Vedic Birth Chart instantly. Our tool provides detailed planetary positions using the authoritative Lahiri Ayanamsa for the most accurate astrological mapping.
+            </p>
             <p>
               In <strong>Vedic Astrology</strong> (Jyotish), the <strong>Janam Kundali</strong> or birth chart is a celestial map of the heavens at the exact moment of your birth. This chart serves as a cosmic blueprint, revealing the karmic patterns, strengths, challenges, and life purpose of an individual.
             </p>
