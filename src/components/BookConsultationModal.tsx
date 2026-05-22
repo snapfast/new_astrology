@@ -2,6 +2,7 @@
 
 import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
+import BaseModal from './BaseModal';
 
 interface BookConsultationModalProps {
   isOpen: boolean;
@@ -9,20 +10,13 @@ interface BookConsultationModalProps {
 }
 
 const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[100]">
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-on-surface/60 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-      ></div>
-
-      {/* Modal Content Wrapper */}
-      <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
-        <div className="relative w-full max-w-lg md:max-w-2xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl animate-in fade-in zoom-in duration-500 border border-white/20 pointer-events-auto">
-          <div className="p-3 md:p-6">
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidth="max-w-lg md:max-w-2xl"
+    >
+      <div className="p-3 md:p-6">
           <div className="flex justify-center items-center mb-4 md:mb-6 relative">
             <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
             <button
@@ -99,10 +93,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               Guided by the stars, Grounded in Truth
             </p>
           </div>
-        </div>
       </div>
-    </div>
-  </div>
+    </BaseModal>
   );
 };
 
