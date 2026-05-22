@@ -17,7 +17,7 @@ const PortionDetailModal: FC<PortionDetailModalProps> = ({ isOpen, onClose, port
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      zIndex="z-[120]"
+      zIndex={120}
       maxWidth="max-w-lg"
       backdropClassName="bg-on-surface/40 backdrop-blur-md"
       wrapperClassName="rounded-[2.5rem] border-outline/20 duration-300 p-8 md:p-12"
