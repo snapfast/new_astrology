@@ -82,19 +82,6 @@ export interface ChartData {
     panchang: PanchangData;
 }
 
-const RASIS = [
-    "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-    "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
-];
-
-const NAKSHATRAS = [
-    "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra",
-    "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni",
-    "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha",
-    "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha",
-    "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
-];
-
 const NAKSHATRA_NAMES = [
     { name: "Ashwini", sanskrit: "अश्विनी" },
     { name: "Bharani", sanskrit: "भरणी" },
@@ -125,36 +112,29 @@ const NAKSHATRA_NAMES = [
     { name: "Revati", sanskrit: "रेवती" }
 ];
 
+const NAKSHATRAS = NAKSHATRA_NAMES.map(n => n.name);
+
+const TITHI_NAMES = [
+    { name: "Pratipada", sanskrit: "प्रतिपदा" },
+    { name: "Dwitiya", sanskrit: "द्वितीया" },
+    { name: "Tritiya", sanskrit: "तृतीया" },
+    { name: "Chaturthi", sanskrit: "चतुर्थी" },
+    { name: "Panchami", sanskrit: "पञ्चमी" },
+    { name: "Shashti", sanskrit: "षष्ठी" },
+    { name: "Saptami", sanskrit: "सप्तमी" },
+    { name: "Ashtami", sanskrit: "अष्टमी" },
+    { name: "Navami", sanskrit: "नवमी" },
+    { name: "Dashami", sanskrit: "दशमी" },
+    { name: "Ekadashi", sanskrit: "एकादशी" },
+    { name: "Dwadashi", sanskrit: "द्वादशी" },
+    { name: "Trayodashi", sanskrit: "त्रयोदशी" },
+    { name: "Chaturdashi", sanskrit: "चतुर्दशी" }
+];
+
 const TITHIS = [
-    { name: "Pratipada", sanskrit: "प्रतिपदा" },
-    { name: "Dwitiya", sanskrit: "द्वितीया" },
-    { name: "Tritiya", sanskrit: "तृतीया" },
-    { name: "Chaturthi", sanskrit: "चतुर्थी" },
-    { name: "Panchami", sanskrit: "पञ्चमी" },
-    { name: "Shashti", sanskrit: "षष्ठी" },
-    { name: "Saptami", sanskrit: "सप्तमी" },
-    { name: "Ashtami", sanskrit: "अष्टमी" },
-    { name: "Navami", sanskrit: "नवमी" },
-    { name: "Dashami", sanskrit: "दशमी" },
-    { name: "Ekadashi", sanskrit: "एकादशी" },
-    { name: "Dwadashi", sanskrit: "द्वादशी" },
-    { name: "Trayodashi", sanskrit: "त्रयोदशी" },
-    { name: "Chaturdashi", sanskrit: "चतुर्दशी" },
+    ...TITHI_NAMES,
     { name: "Purnima", sanskrit: "पूर्णिमा" },
-    { name: "Pratipada", sanskrit: "प्रतिपदा" },
-    { name: "Dwitiya", sanskrit: "द्वितीया" },
-    { name: "Tritiya", sanskrit: "तृतीया" },
-    { name: "Chaturthi", sanskrit: "चतुर्थी" },
-    { name: "Panchami", sanskrit: "पञ्चमी" },
-    { name: "Shashti", sanskrit: "षष्ठी" },
-    { name: "Saptami", sanskrit: "सप्तमी" },
-    { name: "Ashtami", sanskrit: "अष्टमी" },
-    { name: "Navami", sanskrit: "नवमी" },
-    { name: "Dashami", sanskrit: "दशमी" },
-    { name: "Ekadashi", sanskrit: "एकादशी" },
-    { name: "Dwadashi", sanskrit: "द्वादशी" },
-    { name: "Trayodashi", sanskrit: "त्रयोदशी" },
-    { name: "Chaturdashi", sanskrit: "चतुर्दशी" },
+    ...TITHI_NAMES,
     { name: "Amavasya", sanskrit: "अमावस्या" }
 ];
 
@@ -182,6 +162,8 @@ const RASI_FULL_NAMES = [
     { name: "Aquarius", sanskrit: "कुम्भ" },
     { name: "Pisces", sanskrit: "मीन" }
 ];
+
+const RASIS = RASI_FULL_NAMES.map(r => r.name);
 
 const RITUS = [
     { name: "Vasanta", sanskrit: "वसन्त" },
