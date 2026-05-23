@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { CONSULTATIONS, Consultation, Portion } from '@/lib/consultations';
 import ServiceDetailModal from './ServiceDetailModal';
@@ -12,18 +12,6 @@ const ExpertConsultations = () => {
   const [selectedService, setSelectedService] = useState<Consultation | null>(null);
   const [selectedPortion, setSelectedPortion] = useState<Portion | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-
-  // Centralized scroll lock management for stacked modals
-  useEffect(() => {
-    if (selectedService || selectedPortion || isBookingModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedService, selectedPortion, isBookingModalOpen]);
 
   const handleServiceClick = (service: Consultation) => {
     sendGAEvent({ event: 'action_click', action_name: `service_card_click_${service.id}` });

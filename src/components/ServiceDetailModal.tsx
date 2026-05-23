@@ -4,6 +4,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { Consultation, Portion } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';
+import BaseModal from './BaseModal';
 
 interface ServiceDetailModalProps {
   isOpen: boolean;
@@ -20,20 +21,18 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
   onPortionClick,
   onBookNow
 }) => {
-  if (!isOpen || !service) return null;
+  if (!service) return null;
 
   return (
-    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-8">
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-on-surface/60 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-      ></div>
-
-      {/* Modal Content */}
-      <div className="relative w-full max-w-5xl bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-500 border border-white/20 flex flex-col md:flex-row max-h-[90vh]">
-
-        {/* Image Section */}
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      zIndex={110}
+      maxWidth="max-w-5xl"
+      containerClassName="p-4 md:p-8"
+      wrapperClassName="rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+    >
+      {/* Image Section */}
         <div className="relative w-full md:w-2/5 min-h-[300px] md:h-auto bg-surface-bright">
           <Image
             src={service.image}
@@ -111,8 +110,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </p>
           </div>
         </div>
-      </div>
-    </div>
+    </BaseModal>
   );
 };
 
