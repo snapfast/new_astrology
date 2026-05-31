@@ -179,6 +179,21 @@ const AYANAS = [
     { name: "Dakshinayana", sanskrit: "दक्षिणायन" }
 ];
 
+export const SIGN_INSIGHTS: { [key: string]: string } = {
+    "Aries": "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
+    "Taurus": "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
+    "Gemini": "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
+    "Cancer": "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
+    "Leo": "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
+    "Virgo": "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
+    "Libra": "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
+    "Scorpio": "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
+    "Sagittarius": "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
+    "Capricorn": "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
+    "Aquarius": "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
+    "Pisces": "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul."
+};
+
 const YOGAS = [
     { name: "Vishkumbha", sanskrit: "विष्कम्भ" },
     { name: "Priti", sanskrit: "प्रीति" },
@@ -805,6 +820,10 @@ function getD10Rasi(long: number): number {
     }
 
     return (startSign + dashamshaIdx) % 12;
+}
+
+export function getSignInsight(signName: string): string {
+    return SIGN_INSIGHTS[signName] || "A unique blend of celestial energies that shapes your distinct personality and life path.";
 }
 
 function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean): PlanetData {

@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
-import { generateAstrologyData } from '@/lib/astrology';
+import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
 import { sanitize, sanitizeCoord } from '@/lib/security';
 
@@ -81,6 +81,28 @@ const HoroscopeContent = () => {
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
+  const sunSign = chartData.panchang.sunSign;
+  const moonSign = chartData.panchang.moonSign;
+
+  const handleShare = async () => {
+    sendGAEvent({ event: 'action_click', action_name: 'horoscope_share_click' });
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Horoscope for ${name}`,
+          text: `Check out my Vedic birth chart! Sun Sign: ${sunSign}, Moon Sign: ${moonSign}.`,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
+  };
+
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_book_now' });
     setIsBookingModalOpen(true);
@@ -90,7 +112,43 @@ const HoroscopeContent = () => {
     <div className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header & User Details */}
       <div className="mb-12 text-center">
-        <h1 className="text-3xl md:text-4xl font-normal mb-8 font-headline text-on-surface">Your Birth Chart</h1>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+          <a
+            href="/free-horoscope"
+            className="flex items-center gap-2 text-xs font-medium text-accent hover:text-accent/80 transition-colors uppercase tracking-widest font-label"
+          >
+            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+            Generate New Chart
+          </a>
+          <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">Your Birth Chart</h1>
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-2 px-6 py-2.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-full text-xs font-medium transition-all active:scale-95 border border-outline/50"
+          >
+            <span className="material-symbols-outlined text-[18px]">share</span>
+            Share Report
+          </button>
+        </div>
+
+        {/* New: Personality Insights Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-6 text-left relative overflow-hidden group">
+            <div className="relative z-10">
+              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">Sun Sign Insight</span>
+              <h3 className="text-xl font-headline text-on-surface mb-3">{sunSign}</h3>
+              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(sunSign)}</p>
+            </div>
+            <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-accent/5 select-none group-hover:scale-110 transition-transform duration-700">light_mode</span>
+          </div>
+          <div className="bg-primary/5 border border-primary/20 rounded-[2rem] p-6 text-left relative overflow-hidden group">
+            <div className="relative z-10">
+              <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">Moon Sign Insight</span>
+              <h3 className="text-xl font-headline text-on-surface mb-3">{moonSign}</h3>
+              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(moonSign)}</p>
+            </div>
+            <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-primary/5 select-none group-hover:scale-110 transition-transform duration-700">dark_mode</span>
+          </div>
+        </div>
 
         <div className="space-y-3 text-left">
           {/* Section: Birth Information */}
