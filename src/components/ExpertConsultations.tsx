@@ -8,7 +8,11 @@ import PortionDetailModal from './PortionDetailModal';
 import BookConsultationModal from './BookConsultationModal';
 import { sendGAEvent } from '@next/third-parties/google';
 
-const ExpertConsultations = () => {
+interface ExpertConsultationsProps {
+  showTitle?: boolean;
+}
+
+const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => {
   const [selectedService, setSelectedService] = useState<Consultation | null>(null);
   const [selectedPortion, setSelectedPortion] = useState<Portion | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -28,13 +32,15 @@ const ExpertConsultations = () => {
   };
 
   return (
-    <section className="py-40 bg-white">
+    <section className={`${showTitle ? 'py-40' : 'pb-40'} bg-white`}>
       <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-24">
-          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Services</span>
-          <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Expert Consultations</h2>
-          <p className="text-secondary max-w-2xl mx-auto text-base font-body leading-relaxed">Bespoke services merging ancient Vedic scriptures with precision analysis.</p>
-        </div>
+        {showTitle && (
+          <div className="text-center mb-24">
+            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Services</span>
+            <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Expert Consultations</h2>
+            <p className="text-secondary max-w-2xl mx-auto text-base font-body leading-relaxed">Bespoke services merging ancient Vedic scriptures with precision analysis.</p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
           {CONSULTATIONS.map((item) => (
