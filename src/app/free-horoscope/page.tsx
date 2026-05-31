@@ -64,14 +64,6 @@ export default function FreeHoroscopePage() {
           "text": "To generate an accurate Janam Kundali, you need your exact Date of Birth, Time of Birth, and Place of Birth (City/Country)."
         }
       },
-      {
-        "@type": "Question",
-        "name": "Can I download my free horoscope as a PDF?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, once your horoscope chart is generated, you can use the 'Download PDF' button to save a professional copy of your birth chart for your records."
-        }
-      }
     ]
   };
 
@@ -118,7 +110,7 @@ export default function FreeHoroscopePage() {
       {/* Features/Info Section */}
       <section className="py-24 bg-surface-container-low border-y border-outline/30">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-center max-w-4xl mx-auto">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
                 <span className="material-symbols-outlined">auto_awesome</span>
@@ -135,15 +127,6 @@ export default function FreeHoroscopePage() {
               <h3 className="text-xl font-normal font-headline text-on-surface">Divisional Analysis</h3>
               <p className="text-sm text-secondary font-body leading-relaxed">
                 Explore beyond the basics with D1, D3, and D9 charts for a multidimensional view of your destiny.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
-                <span className="material-symbols-outlined">download</span>
-              </div>
-              <h3 className="text-xl font-normal font-headline text-on-surface">Instant PDF Export</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">
-                Download your generated <strong>online Kundali</strong> as a professional PDF document for lifelong reference.
               </p>
             </div>
           </div>

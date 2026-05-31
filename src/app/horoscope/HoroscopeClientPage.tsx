@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState, useMemo, useRef } from 'react';
+import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -9,7 +9,6 @@ import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
-import { downloadHoroscopePDF } from '@/lib/pdf-utils';
 import { sanitize, sanitizeCoord } from '@/lib/security';
 
 const TRANSLATIONS = {
@@ -62,7 +61,6 @@ const TRANSLATIONS = {
 };
 
 const HoroscopeContent = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [lang, setLang] = useState<'en' | 'hi'>('en');
   const t = TRANSLATIONS[lang];
@@ -88,40 +86,10 @@ const HoroscopeContent = () => {
     setIsBookingModalOpen(true);
   };
 
-  const handleDownloadPDF = async () => {
-    if (contentRef.current) {
-      sendGAEvent({ event: 'action_click', action_name: 'horoscope_page_download_pdf' });
-      const safeName = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      await downloadHoroscopePDF(contentRef.current, `horoscope_${safeName}`);
-    }
-  };
-
   return (
-    <div ref={contentRef} data-pdf-content="true" className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* PDF-only Branding Header */}
-      <div className="hidden pdf-only flex-col items-center mb-12 w-full text-center">
-        <div className="text-3xl font-normal tracking-tight font-headline flex items-center justify-center gap-1">
-          <span className="text-on-surface whitespace-nowrap">Rahul Bali</span>
-          <span className="text-accent italic whitespace-nowrap">Astrology</span>
-        </div>
-        <p className="text-[10px] text-secondary tracking-widest uppercase font-label mt-2">rahulbaliastrology@gmail.com</p>
-      </div>
-
+    <div className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header & User Details */}
       <div className="mb-12 text-center">
-        <div className="flex justify-center items-center gap-4 mb-4">
-          <span className="bg-surface-container-high border border-outline/30 px-4 py-1.5 rounded-full text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-secondary font-label flex items-center gap-2 pdf-hide">
-            <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
-            Representative Digital Map
-          </span>
-          <button
-            onClick={handleDownloadPDF}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline/30 text-on-surface font-medium text-[7px] md:text-[9px] tracking-[0.1em] uppercase hover:bg-surface-container-low transition-colors print:hidden pdf-hide"
-          >
-            <span className="material-symbols-outlined text-[12px] md:text-sm">download</span>
-            Download PDF
-          </button>
-        </div>
         <h1 className="text-3xl md:text-4xl font-normal mb-8 font-headline text-on-surface">Your Birth Chart</h1>
 
         <div className="space-y-3 text-left">
@@ -131,7 +99,7 @@ const HoroscopeContent = () => {
               <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.birthInfo}</h2>
               <button
                 onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
-                className="pdf-hide w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
                 title="Switch Language / भाषा बदलें"
               >
                 <span className="material-symbols-outlined text-[18px]">translate</span>
@@ -307,11 +275,11 @@ const HoroscopeContent = () => {
       </div>
 
       {/* Verification CTA Section */}
-      <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden pdf-hide">
+      <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
         <div className="relative z-10">
           <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Seeking Verified Information?</h3>
           <p className="text-sm md:text-base text-secondary font-body mb-10 max-w-2xl mx-auto leading-relaxed">
-            This digital chart provides a representative visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.
+            This digital chart provides a visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.
           </p>
           <button
             onClick={handleBookNow}
@@ -327,15 +295,6 @@ const HoroscopeContent = () => {
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
       />
-
-      {/* PDF-only Branding Footer */}
-      <div className="hidden pdf-only flex-col items-center mt-20 pt-10 border-t border-outline/30 w-full text-center">
-        <p className="text-[10px] tracking-widest uppercase font-medium text-secondary/60 font-label">
-          Rahul Bali Astrology Services © 2025. All rights reserved.
-        </p>
-        <p className="text-[9px] text-secondary/40 mt-2 font-label tracking-wider uppercase">Professional Jyotish Shastra Consultations</p>
-        <p className="text-[9px] text-accent mt-4 font-label tracking-widest uppercase font-bold">Contact: rahulbaliastrology@gmail.com</p>
-      </div>
     </div>
   );
 };
