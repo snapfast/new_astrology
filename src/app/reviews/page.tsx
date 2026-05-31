@@ -28,7 +28,7 @@ export default function ReviewsPage() {
     "name": "Vedic Astrology Consultation",
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.9",
+      "ratingValue": "5.0",
       "reviewCount": REVIEWS.length.toString()
     },
     "review": REVIEWS.slice(0, 10).map(r => ({

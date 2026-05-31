@@ -33,7 +33,7 @@ export default function FreeHoroscopePage() {
     "applicationCategory": "LifestyleApplication",
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.9",
+      "ratingValue": "5.0",
       "ratingCount": "1250"
     },
     "offers": {
