@@ -2,10 +2,8 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { CONSULTATIONS, Consultation, Portion } from '@/lib/consultations';
+import { CONSULTATIONS, Consultation } from '@/lib/consultations';
 import ServiceDetailModal from './ServiceDetailModal';
-import PortionDetailModal from './PortionDetailModal';
-import BookConsultationModal from './BookConsultationModal';
 import { sendGAEvent } from '@next/third-parties/google';
 
 interface ExpertConsultationsProps {
@@ -14,21 +12,10 @@ interface ExpertConsultationsProps {
 
 const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => {
   const [selectedService, setSelectedService] = useState<Consultation | null>(null);
-  const [selectedPortion, setSelectedPortion] = useState<Portion | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const handleServiceClick = (service: Consultation) => {
     sendGAEvent({ event: 'action_click', action_name: `service_card_click_${service.id}` });
     setSelectedService(service);
-  };
-
-  const handlePortionClick = (portion: Portion) => {
-    setSelectedPortion(portion);
-  };
-
-  const handleBookNow = () => {
-    setSelectedService(null);
-    setIsBookingModalOpen(true);
   };
 
   return (
@@ -76,19 +63,6 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
         isOpen={!!selectedService}
         onClose={() => setSelectedService(null)}
         service={selectedService}
-        onPortionClick={handlePortionClick}
-        onBookNow={handleBookNow}
-      />
-
-      <PortionDetailModal
-        isOpen={!!selectedPortion}
-        onClose={() => setSelectedPortion(null)}
-        portion={selectedPortion}
-      />
-
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
       />
     </section>
   );

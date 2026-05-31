@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import Image from 'next/image';
-import { Consultation, Portion } from '@/lib/consultations';
+import { Consultation } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 
@@ -10,16 +10,12 @@ interface ServiceDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
   service: Consultation | null;
-  onPortionClick: (portion: Portion) => void;
-  onBookNow: () => void;
 }
 
 const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
   isOpen,
   onClose,
-  service,
-  onPortionClick,
-  onBookNow
+  service
 }) => {
   if (!service) return null;
 
@@ -74,39 +70,44 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             {service.description}
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+          <div className="grid grid-cols-1 gap-4 mb-12">
             {service.portions.map((portion, index) => (
-              <button
+              <div
                 key={index}
-                onClick={() => {
-                  sendGAEvent({ event: 'action_click', action_name: `portion_click_${portion.title.toLowerCase().replace(/\s+/g, '_')}` });
-                  onPortionClick(portion);
-                }}
-                className="group flex items-start gap-4 p-6 bg-surface-bright border border-outline/10 rounded-[2rem] text-left hover:border-accent/30 transition-all hover:shadow-md"
+                className="flex items-start gap-4 p-6 bg-surface-bright border border-outline/10 rounded-[2rem] text-left"
               >
-                <div className="w-10 h-10 shrink-0 rounded-xl bg-accent/5 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
                   <span className="material-symbols-outlined text-xl font-variation-fill">{portion.icon}</span>
                 </div>
                 <div>
-                  <h4 className="text-base font-medium text-on-surface font-headline mb-1">{portion.title}</h4>
-                  <span className="text-[9px] font-bold tracking-widest uppercase text-accent/60 group-hover:text-accent transition-colors">Learn More</span>
+                  <h4 className="text-base font-medium text-on-surface font-headline mb-2">{portion.title}</h4>
+                  <p className="text-sm text-secondary font-body leading-relaxed">{portion.expandedDetail}</p>
                 </div>
-              </button>
+              </div>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6 pt-8 border-t border-outline/10">
-            <button
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'detail_modal_book_now' });
-                onBookNow();
-              }}
-              className="w-full sm:w-auto px-10 py-5 bg-primary text-white rounded-full font-medium text-xs tracking-[0.1em] uppercase shadow-xl shadow-primary/10 hover:opacity-90 transition-opacity"
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-8 border-t border-outline/10">
+            <a
+              href="https://wa.me/919306057150"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_whatsapp' })}
+              className="w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-[#25D366]/10 hover:opacity-90 transition-opacity"
             >
-              Book Consultation
-            </button>
-            <p className="text-[10px] text-secondary/60 font-body text-center sm:text-left">
-              Bespoke analysis merging ancient Vedic <br className="hidden sm:block" /> scriptures with precision analysis.
+              Chat on WhatsApp
+            </a>
+            <a
+              href="https://calendly.com/rahulbaliastrology/kundli/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
+              className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity"
+            >
+              Schedule Google Meet
+            </a>
+            <p className="hidden lg:block text-[9px] text-secondary/40 font-body flex-1 text-right">
+              Guided by the stars, <br /> Grounded in Truth
             </p>
           </div>
         </div>
