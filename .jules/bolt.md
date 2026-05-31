@@ -7,3 +7,7 @@
 ## 2025-05-16 - Safe Responsive State Transitions
 **Learning:** Transitioning between responsive states (e.g., changing items-per-view in a carousel) using `matchMedia` can leave indices like `currentIndex` in an out-of-bounds state relative to the new `maxIndex`. This leads to broken layouts or empty slides.
 **Action:** Always include clamping logic or a boundary-check effect when state variables that define layout constraints change across breakpoints.
+
+## 2025-05-20 - Lazy Evaluation for Data-Heavy Utilities
+**Learning:** Functions that return large objects with many computed properties (like `generateAstrologyData`) can become performance bottlenecks if callers only need a small subset of the data. Eagerly calculating everything is wasteful.
+**Action:** Use `Object.defineProperty` with getters and closure-based memoization to implement lazy evaluation for expensive return properties. This ensures that heavy computations are only performed when actually accessed, significantly improving performance for partial-use scenarios while maintaining the same API.

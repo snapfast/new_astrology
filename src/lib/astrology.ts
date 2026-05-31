@@ -350,143 +350,171 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     // Calculate Ayanamsa (Lahiri)
     const ayanamsa = getLahiriAyanamsa(time);
 
-    const planetData: PlanetData[] = [];
-    const d1Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
-    const d3Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
-    const d9Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
-    const d10Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
-    for (let i = 1; i <= 12; i++) {
-        d1Assignments[i] = [];
-        d3Assignments[i] = [];
-        d9Assignments[i] = [];
-        d10Assignments[i] = [];
-    }
+    // Lazy Evaluation Optimization: The home page (DailyPanchang) only needs 'panchang'.
+    // By using getters, we avoid expensive planetary and divisional calculations until requested.
+    const result = {} as ChartData;
 
-    // 1. Calculate Ascendant (Lagna)
-    const siderealTime = Ast.SiderealTime(time);
-    const RAMC = (siderealTime * 15 + lon) % 360;
-    const rad = Math.PI / 180;
-    const phi = lat * rad;
-
-    // Calculate Obliquity of the Ecliptic (eps) for the given time
-    const rot = Ast.Rotation_ECL_EQD(time);
-    const eps = Math.acos(rot.rot[2][2]);
-
-    const alpha = RAMC * rad;
-
-    const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
-    const lagnaSidereal = (lagnaTropical - ayanamsa + 360) % 360;
-    const lagnaRasiIdx = Math.floor(lagnaSidereal / 30);
-    const d3LagnaRasiIdx = getD3Rasi(lagnaSidereal);
-    const d9LagnaRasiIdx = getD9Rasi(lagnaSidereal);
-    const d10LagnaRasiIdx = getD10Rasi(lagnaSidereal);
-
-    planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
-
-    // 2. Calculate Planets
-    let moonSiderealLong = 0;
-    PLANET_MAP.forEach(p => {
-        let long: number;
-        if (p.name === "Sun") {
-            const pos = Ast.GeoVector(Ast.Body.Sun, time, true);
-            const ecl = Ast.Ecliptic(pos);
-            long = ecl.elon;
-        } else if (p.name === "Moon") {
-            const pos = Ast.GeoMoon(time);
-            const ecl = Ast.Ecliptic(pos);
-            long = ecl.elon;
-        } else {
-            const pos = Ast.GeoVector(p.body, time, true);
-            const ecl = Ast.Ecliptic(pos);
-            long = ecl.elon;
-        }
-
-        const isRetro = isPlanetRetrograde(p.body, time);
-        const siderealLong = (long - ayanamsa + 360) % 360;
-        if (p.name === "Moon") moonSiderealLong = siderealLong;
-        const planetRasiIdx = Math.floor(siderealLong / 30);
-        const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
-
-        const planet = createPlanet(p.name, p.symbol, siderealLong, house, isRetro);
-        planetData.push(planet);
-
-        // Divisional Assignments
-        const d3RasiIdx = getD3Rasi(siderealLong);
-        const d9RasiIdx = getD9Rasi(siderealLong);
-        const d10RasiIdx = getD10Rasi(siderealLong);
-
-        d1Assignments[house].push({ symbol: p.symbol, isRetrograde: isRetro });
-        d3Assignments[((d3RasiIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
-        d9Assignments[((d9RasiIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
-        d10Assignments[((d10RasiIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
+    let panchang: PanchangData | undefined;
+    Object.defineProperty(result, 'panchang', {
+        get: () => {
+            if (!panchang) panchang = calculatePanchang(time, lat, lon, ayanamsa);
+            return panchang;
+        },
+        enumerable: true
     });
 
-    // 3. Rahu & Ketu (Dynamic Mean Nodes)
-    const rahuTropical = getMeanRahu(time);
-
-    const rahuSidereal = (rahuTropical - ayanamsa + 360) % 360;
-    const ketuSidereal = (rahuSidereal + 180) % 360;
-
-    const rahuRasiIdx = Math.floor(rahuSidereal / 30);
-    const ketuRasiIdx = Math.floor(ketuSidereal / 30);
-
-    const rahuHouse = ((rahuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
-    const ketuHouse = ((ketuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
-
-    // Rahu and Ketu are always retrograde as mean nodes
-    planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, rahuHouse, true));
-    planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ketuHouse, true));
-
-    // Assign Rahu/Ketu to divisions
-    const d3RahuIdx = getD3Rasi(rahuSidereal);
-    const d3KetuIdx = getD3Rasi(ketuSidereal);
-    const d9RahuIdx = getD9Rasi(rahuSidereal);
-    const d9KetuIdx = getD9Rasi(ketuSidereal);
-    const d10RahuIdx = getD10Rasi(rahuSidereal);
-    const d10KetuIdx = getD10Rasi(ketuSidereal);
-
-    d1Assignments[rahuHouse].push({ symbol: "Ra", isRetrograde: true });
-    d1Assignments[ketuHouse].push({ symbol: "Ke", isRetrograde: true });
-    d3Assignments[((d3RahuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
-    d3Assignments[((d3KetuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
-    d9Assignments[((d9RahuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
-    d9Assignments[((d9KetuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
-    d10Assignments[((d10RahuIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
-    d10Assignments[((d10KetuIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
-
-    // Lagna assignments
-    d1Assignments[1].push({ symbol: "As", isRetrograde: false });
-    d3Assignments[1].push({ symbol: "As", isRetrograde: false });
-    d9Assignments[1].push({ symbol: "As", isRetrograde: false });
-    d10Assignments[1].push({ symbol: "As", isRetrograde: false });
-
-    const d1HouseRasis: { [key: number]: number } = {};
-    const d3HouseRasis: { [key: number]: number } = {};
-    const d9HouseRasis: { [key: number]: number } = {};
-    const d10HouseRasis: { [key: number]: number } = {};
-
-    for (let h = 1; h <= 12; h++) {
-        d1HouseRasis[h] = ((lagnaRasiIdx + h - 1) % 12) + 1;
-        d3HouseRasis[h] = ((d3LagnaRasiIdx + h - 1) % 12) + 1;
-        d9HouseRasis[h] = ((d9LagnaRasiIdx + h - 1) % 12) + 1;
-        d10HouseRasis[h] = ((d10LagnaRasiIdx + h - 1) % 12) + 1;
-    }
-
-    // 4. Calculate Vimshottari Dasha
-    const mahadashas = calculateVimshottariDasha(moonSiderealLong, istDate);
-
-    // 5. Calculate Panchang
-    const panchang = calculatePanchang(time, lat, lon, ayanamsa);
-
-    return {
-        planets: planetData,
-        d1: { houses: d1Assignments, houseRasis: d1HouseRasis },
-        d3: { houses: d3Assignments, houseRasis: d3HouseRasis },
-        d9: { houses: d9Assignments, houseRasis: d9HouseRasis },
-        d10: { houses: d10Assignments, houseRasis: d10HouseRasis },
-        mahadashas,
-        panchang
+    let moonSiderealLong: number | undefined;
+    const getMoonSiderealLong = () => {
+        if (moonSiderealLong === undefined) {
+            const pos = Ast.GeoMoon(time);
+            const ecl = Ast.Ecliptic(pos);
+            moonSiderealLong = (ecl.elon - ayanamsa + 360) % 360;
+        }
+        return moonSiderealLong;
     };
+
+    let mahadashas: Mahadasha[] | undefined;
+    Object.defineProperty(result, 'mahadashas', {
+        get: () => {
+            if (!mahadashas) mahadashas = calculateVimshottariDasha(getMoonSiderealLong(), istDate);
+            return mahadashas;
+        },
+        enumerable: true
+    });
+
+    let planets: PlanetData[] | undefined;
+    let d1: DivisionalChartData | undefined;
+    let d3: DivisionalChartData | undefined;
+    let d9: DivisionalChartData | undefined;
+    let d10: DivisionalChartData | undefined;
+
+    const calculateCoreData = () => {
+        if (planets) return;
+
+        const planetData: PlanetData[] = [];
+        const d1Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
+        const d3Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
+        const d9Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
+        const d10Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
+        for (let i = 1; i <= 12; i++) {
+            d1Assignments[i] = [];
+            d3Assignments[i] = [];
+            d9Assignments[i] = [];
+            d10Assignments[i] = [];
+        }
+
+        // 1. Calculate Ascendant (Lagna)
+        const siderealTime = Ast.SiderealTime(time);
+        const RAMC = (siderealTime * 15 + lon) % 360;
+        const rad = Math.PI / 180;
+        const phi = lat * rad;
+        const rot = Ast.Rotation_ECL_EQD(time);
+        const eps = Math.acos(rot.rot[2][2]);
+        const alpha = RAMC * rad;
+        const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
+        const lagnaSidereal = (lagnaTropical - ayanamsa + 360) % 360;
+        const lagnaRasiIdx = Math.floor(lagnaSidereal / 30);
+        const d3LagnaRasiIdx = getD3Rasi(lagnaSidereal);
+        const d9LagnaRasiIdx = getD9Rasi(lagnaSidereal);
+        const d10LagnaRasiIdx = getD10Rasi(lagnaSidereal);
+
+        planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
+
+        // 2. Calculate Planets
+        PLANET_MAP.forEach(p => {
+            let long: number;
+            if (p.name === "Sun") {
+                const pos = Ast.GeoVector(Ast.Body.Sun, time, true);
+                const ecl = Ast.Ecliptic(pos);
+                long = ecl.elon;
+            } else if (p.name === "Moon") {
+                const pos = Ast.GeoMoon(time);
+                const ecl = Ast.Ecliptic(pos);
+                long = ecl.elon;
+                moonSiderealLong = (long - ayanamsa + 360) % 360;
+            } else {
+                const pos = Ast.GeoVector(p.body, time, true);
+                const ecl = Ast.Ecliptic(pos);
+                long = ecl.elon;
+            }
+
+            const isRetro = isPlanetRetrograde(p.body, time);
+            const siderealLong = (long - ayanamsa + 360) % 360;
+            const planetRasiIdx = Math.floor(siderealLong / 30);
+            const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
+
+            const planet = createPlanet(p.name, p.symbol, siderealLong, house, isRetro);
+            planetData.push(planet);
+
+            const d3RasiIdx = getD3Rasi(siderealLong);
+            const d9RasiIdx = getD9Rasi(siderealLong);
+            const d10RasiIdx = getD10Rasi(siderealLong);
+
+            d1Assignments[house].push({ symbol: p.symbol, isRetrograde: isRetro });
+            d3Assignments[((d3RasiIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
+            d9Assignments[((d9RasiIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
+            d10Assignments[((d10RasiIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
+        });
+
+        // 3. Rahu & Ketu (Dynamic Mean Nodes)
+        const rahuTropical = getMeanRahu(time);
+        const rahuSidereal = (rahuTropical - ayanamsa + 360) % 360;
+        const ketuSidereal = (rahuSidereal + 180) % 360;
+        const rahuRasiIdx = Math.floor(rahuSidereal / 30);
+        const ketuRasiIdx = Math.floor(ketuSidereal / 30);
+        const rahuHouse = ((rahuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
+        const ketuHouse = ((ketuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
+
+        planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, rahuHouse, true));
+        planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ketuHouse, true));
+
+        const d3RahuIdx = getD3Rasi(rahuSidereal);
+        const d3KetuIdx = getD3Rasi(ketuSidereal);
+        const d9RahuIdx = getD9Rasi(rahuSidereal);
+        const d9KetuIdx = getD9Rasi(ketuSidereal);
+        const d10RahuIdx = getD10Rasi(rahuSidereal);
+        const d10KetuIdx = getD10Rasi(ketuSidereal);
+
+        d1Assignments[rahuHouse].push({ symbol: "Ra", isRetrograde: true });
+        d1Assignments[ketuHouse].push({ symbol: "Ke", isRetrograde: true });
+        d3Assignments[((d3RahuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
+        d3Assignments[((d3KetuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
+        d9Assignments[((d9RahuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
+        d9Assignments[((d9KetuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
+        d10Assignments[((d10RahuIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
+        d10Assignments[((d10KetuIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
+
+        d1Assignments[1].push({ symbol: "As", isRetrograde: false });
+        d3Assignments[1].push({ symbol: "As", isRetrograde: false });
+        d9Assignments[1].push({ symbol: "As", isRetrograde: false });
+        d10Assignments[1].push({ symbol: "As", isRetrograde: false });
+
+        const d1HouseRasis: { [key: number]: number } = {};
+        const d3HouseRasis: { [key: number]: number } = {};
+        const d9HouseRasis: { [key: number]: number } = {};
+        const d10HouseRasis: { [key: number]: number } = {};
+
+        for (let h = 1; h <= 12; h++) {
+            d1HouseRasis[h] = ((lagnaRasiIdx + h - 1) % 12) + 1;
+            d3HouseRasis[h] = ((d3LagnaRasiIdx + h - 1) % 12) + 1;
+            d9HouseRasis[h] = ((d9LagnaRasiIdx + h - 1) % 12) + 1;
+            d10HouseRasis[h] = ((d10LagnaRasiIdx + h - 1) % 12) + 1;
+        }
+
+        planets = planetData;
+        d1 = { houses: d1Assignments, houseRasis: d1HouseRasis };
+        d3 = { houses: d3Assignments, houseRasis: d3HouseRasis };
+        d9 = { houses: d9Assignments, houseRasis: d9HouseRasis };
+        d10 = { houses: d10Assignments, houseRasis: d10HouseRasis };
+    };
+
+    Object.defineProperty(result, 'planets', { get: () => { calculateCoreData(); return planets; }, enumerable: true });
+    Object.defineProperty(result, 'd1', { get: () => { calculateCoreData(); return d1; }, enumerable: true });
+    Object.defineProperty(result, 'd3', { get: () => { calculateCoreData(); return d3; }, enumerable: true });
+    Object.defineProperty(result, 'd9', { get: () => { calculateCoreData(); return d9; }, enumerable: true });
+    Object.defineProperty(result, 'd10', { get: () => { calculateCoreData(); return d10; }, enumerable: true });
+
+    return result;
 }
 
 function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: string, sanskrit: string, sunrise: Date | null } {
