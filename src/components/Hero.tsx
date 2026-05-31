@@ -77,7 +77,7 @@ const Hero = () => {
             <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Charts</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xl md:text-2xl font-headline text-on-surface">4.9/5</span>
+            <span className="text-xl md:text-2xl font-headline text-on-surface">5/5</span>
             <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Rating</span>
           </div>
         </div>

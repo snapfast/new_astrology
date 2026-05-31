@@ -71,7 +71,7 @@ const Testimonials = () => {
             </p>
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-[11px] tracking-[0.15em] text-secondary uppercase font-label">4.9/5 RATING</span>
+                <span className="font-semibold text-[11px] tracking-[0.15em] text-secondary uppercase font-label">5/5 RATING</span>
               </div>
 
               <div className="flex items-center gap-4">
