@@ -1,12 +1,66 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { generateAstrologyData } from '@/lib/astrology';
 import JsonLd from '@/components/JsonLd';
 
+const TRANSLATIONS = {
+  en: {
+    heroTitle: "Daily Panchang",
+    heroSubtitle: "Vedic Timekeeping",
+    heroDesc: "Align your daily activities with the cosmic rhythm. Accurate Vedic Panchang details for New Delhi, India.",
+    elementsTitle: "Panchang Elements",
+    timingsTitle: "Muhurtas & Kaal",
+    tithi: "Tithi (Lunar Day)",
+    nakshatra: "Nakshatra",
+    yoga: "Yoga",
+    karana: "Karana",
+    vara: "Vara (Day)",
+    paksha: "Paksha",
+    sunSign: "Sun Sign",
+    moonSign: "Moon Sign",
+    ritu: "Ritu (Season)",
+    ayana: "Ayana",
+    abhijit: "Abhijit Muhurta",
+    rahu: "Rahu Kaal",
+    gulika: "Gulika Kaal",
+    yamaganda: "Yamaganda Kaal",
+    eduTitle: "Understanding Panchang",
+    ctaTitle: "Plan Your Day with Expert Guidance",
+    ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
+  },
+  hi: {
+    heroTitle: "दैनिक पंचांग",
+    heroSubtitle: "वैदिक काल गणना",
+    heroDesc: "अपनी दैनिक गतिविधियों को ब्रह्मांडीय लय के साथ जोड़ें। नई दिल्ली, भारत के लिए सटीक वैदिक पंचांग विवरण।",
+    elementsTitle: "पंचांग तत्व",
+    timingsTitle: "मुहूर्त और काल",
+    tithi: "तिथि",
+    nakshatra: "नक्षत्र",
+    yoga: "योग",
+    karana: "करण",
+    vara: "वार",
+    paksha: "पक्ष",
+    sunSign: "सूर्य राशि",
+    moonSign: "चंद्र राशि",
+    ritu: "ऋतु",
+    ayana: "अयन",
+    abhijit: "अभिजीत मुहूर्त",
+    rahu: "राहु काल",
+    gulika: "गुलिका काल",
+    yamaganda: "यमगण्ड काल",
+    eduTitle: "पंचांग को समझना",
+    ctaTitle: "विशेषज्ञ मार्गदर्शन के साथ अपने दिन की योजना बनाएं",
+    ctaDesc: "जबकि दैनिक पंचांग सामान्य मार्गदर्शन प्रदान करता है, आपकी व्यक्तिगत जन्म कुंडली (कुण्डली) पर आधारित एक व्यक्तिगत मुहूर्त आपके विशिष्ट प्रयासों के लिए उच्चतम स्तर की सफलता सुनिश्चित करता है।"
+  }
+};
+
 const PanchangPage = () => {
+  const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const t = TRANSLATIONS[lang];
+
   const panchang = useMemo(() => {
     const now = new Date();
     // Convert to IST (UTC+5:30) for calculation
@@ -44,10 +98,19 @@ const PanchangPage = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-20 bg-background relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
-          <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">Vedic Timekeeping</span>
-          <h1 className="text-4xl md:text-6xl font-normal font-headline text-on-surface mb-6">Daily Panchang</h1>
+          <div className="flex justify-center mb-6">
+             <button
+              onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
+              title="Switch Language / भाषा बदलें"
+            >
+              <span className="material-symbols-outlined text-[20px]">translate</span>
+            </button>
+          </div>
+          <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">{t.heroSubtitle}</span>
+          <h1 className="text-4xl md:text-6xl font-normal font-headline text-on-surface mb-6">{t.heroTitle}</h1>
           <p className="text-secondary font-body leading-relaxed max-w-2xl mx-auto">
-            Align your daily activities with the cosmic rhythm. Accurate Vedic Panchang details for New Delhi, India.
+            {t.heroDesc}
           </p>
         </div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 rounded-full blur-[120px] -z-0"></div>
@@ -58,70 +121,70 @@ const PanchangPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Panchang Card */}
           <div className="lg:col-span-2 bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
-            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">Panchang Elements</h2>
+            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">{t.elementsTitle}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Tithi (Lunar Day)</p>
-                <p className="text-xl font-headline text-on-surface">{panchang.tithi}</p>
-                <p className="text-xs text-accent font-medium">{panchang.tithiSanskrit}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.tithi}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.tithi : panchang.tithiSanskrit}</p>
+                {lang === 'en' && <p className="text-xs text-accent font-medium">{panchang.tithiSanskrit}</p>}
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Nakshatra</p>
-                <p className="text-xl font-headline text-on-surface">{panchang.nakshatra}</p>
-                <p className="text-xs text-accent font-medium">{panchang.nakshatraSanskrit}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.nakshatra}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.nakshatra : panchang.nakshatraSanskrit}</p>
+                {lang === 'en' && <p className="text-xs text-accent font-medium">{panchang.nakshatraSanskrit}</p>}
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Yoga</p>
-                <p className="text-xl font-headline text-on-surface">{panchang.yoga}</p>
-                <p className="text-xs text-accent font-medium">{panchang.yogaSanskrit}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.yoga}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.yoga : panchang.yogaSanskrit}</p>
+                {lang === 'en' && <p className="text-xs text-accent font-medium">{panchang.yogaSanskrit}</p>}
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Karana</p>
-                <p className="text-xl font-headline text-on-surface">{panchang.karana}</p>
-                <p className="text-xs text-accent font-medium">{panchang.karanaSanskrit}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.karana}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.karana : panchang.karanaSanskrit}</p>
+                {lang === 'en' && <p className="text-xs text-accent font-medium">{panchang.karanaSanskrit}</p>}
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Vara (Day)</p>
-                <p className="text-xl font-headline text-on-surface">{panchang.vara}</p>
-                <p className="text-xs text-accent font-medium">{panchang.varaSanskrit}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.vara}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
+                {lang === 'en' && <p className="text-xs text-accent font-medium">{panchang.varaSanskrit}</p>}
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Paksha</p>
-                <p className="text-xl font-headline text-on-surface">{panchang.paksha}</p>
-                <p className="text-xs text-accent font-medium">{panchang.pakshaSanskrit}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.paksha}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.paksha : panchang.pakshaSanskrit}</p>
+                {lang === 'en' && <p className="text-xs text-accent font-medium">{panchang.pakshaSanskrit}</p>}
               </div>
             </div>
 
             <div className="mt-12 pt-8 border-t border-outline/20 grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Sun Sign</p>
-                <p className="text-base font-headline text-on-surface">{panchang.sunSign}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.sunSign}</p>
+                <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.sunSign : panchang.sunSignSanskrit}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Moon Sign</p>
-                <p className="text-base font-headline text-on-surface">{panchang.moonSign}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.moonSign}</p>
+                <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.moonSign : panchang.moonSignSanskrit}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Ritu (Season)</p>
-                <p className="text-base font-headline text-on-surface">{panchang.ritu}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.ritu}</p>
+                <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.ritu : panchang.rituSanskrit}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Ayana</p>
-                <p className="text-base font-headline text-on-surface">{panchang.ayana}</p>
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.ayana}</p>
+                <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.ayana : panchang.ayanaSanskrit}</p>
               </div>
             </div>
           </div>
 
           {/* Timings Card */}
           <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm h-full">
-            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">Muhurtas & Kaal</h2>
+            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">{t.timingsTitle}</h2>
             <div className="space-y-8">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
                   <span className="material-symbols-outlined text-xl">sunny</span>
                 </div>
                 <div>
-                  <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Abhijit Muhurta</p>
+                  <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.abhijit}</p>
                   <p className="text-lg font-headline text-on-surface">{panchang.abhijitMuhurta}</p>
                 </div>
               </div>
@@ -130,7 +193,7 @@ const PanchangPage = () => {
                   <span className="material-symbols-outlined text-xl">block</span>
                 </div>
                 <div>
-                  <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Rahu Kaal</p>
+                  <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.rahu}</p>
                   <p className="text-lg font-headline text-on-surface">{panchang.rahuKaal}</p>
                 </div>
               </div>
@@ -139,7 +202,7 @@ const PanchangPage = () => {
                   <span className="material-symbols-outlined text-xl">schedule</span>
                 </div>
                 <div>
-                  <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Gulika Kaal</p>
+                  <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.gulika}</p>
                   <p className="text-lg font-headline text-on-surface">{panchang.gulikaKaal}</p>
                 </div>
               </div>
@@ -148,7 +211,7 @@ const PanchangPage = () => {
                   <span className="material-symbols-outlined text-xl">history</span>
                 </div>
                 <div>
-                  <p className="text-[9px] font-bold text-secondary uppercase tracking-widest font-label">Yamaganda Kaal</p>
+                  <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.yamaganda}</p>
                   <p className="text-lg font-headline text-on-surface">{panchang.yamagandaKaal}</p>
                 </div>
               </div>
@@ -160,7 +223,7 @@ const PanchangPage = () => {
       {/* Educational Content Section */}
       <section className="py-24 bg-surface-container-low border-y border-outline/30">
         <div className="max-w-4xl mx-auto px-8">
-          <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">Understanding Panchang</h2>
+          <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">{t.eduTitle}</h2>
           <div className="prose prose-sm md:prose-base max-w-none text-secondary font-body leading-relaxed space-y-8">
             <p>
               The <strong>Panchang</strong> is a traditional Vedic calendar that serves as an essential guide for daily life in Indian culture. Derived from the Sanskrit words <em>&apos;Pancha&apos;</em> (five) and <em>&apos;Anga&apos;</em> (limbs), it consists of five key astronomical elements: Tithi, Vara, Nakshatra, Yoga, and Karana.
@@ -196,22 +259,22 @@ const PanchangPage = () => {
       <section className="py-24 bg-surface">
         <div className="max-w-4xl mx-auto px-8 text-center">
           <div className="bg-surface-container-low border border-outline/50 rounded-[3rem] p-10 md:p-16">
-            <h2 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Plan Your Day with Expert Guidance</h2>
+            <h2 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">{t.ctaTitle}</h2>
             <p className="text-sm md:text-base text-secondary font-body mb-10 leading-relaxed max-w-2xl mx-auto">
-              While the daily Panchang provides general guidance, a <strong>Personalized Muhurta</strong> based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors.
+              {t.ctaDesc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/free-horoscope"
                 className="px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
               >
-                Generate Free Kundli
+                {lang === 'en' ? 'Generate Free Kundli' : 'मुफ्त कुंडली बनाएं'}
               </a>
               <a
                 href="/services"
                 className="px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
               >
-                Book Consultation
+                {lang === 'en' ? 'Book Consultation' : 'परामर्श बुक करें'}
               </a>
             </div>
           </div>
