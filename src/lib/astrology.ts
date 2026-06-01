@@ -76,8 +76,10 @@ export interface ChartData {
     planets: PlanetData[];
     d1: DivisionalChartData;
     d3: DivisionalChartData;
+    d7: DivisionalChartData;
     d9: DivisionalChartData;
     d10: DivisionalChartData;
+    d60: DivisionalChartData;
     mahadashas: Mahadasha[];
     panchang: PanchangData;
 }
@@ -270,8 +272,10 @@ const PLANET_MAP = [
 ];
 
 const DREKKANA_WIDTH = 10;
+const SAPTAMSHA_WIDTH = 30 / 7;
 const NAVAMSHA_WIDTH = 30 / 9;
 const D10_WIDTH = 3;
+const SHASHTIAMSHA_WIDTH = 0.5;
 const NAKSHATRA_WIDTH = 360 / 27;
 const PADA_WIDTH = 360 / 108;
 const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
@@ -331,7 +335,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         ritu: "", rituSanskrit: "", ayana: "", ayanaSanskrit: "",
         rahuKaal: "", gulikaKaal: "", yamagandaKaal: "", abhijitMuhurta: ""
     };
-    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d9: emptyChart, d10: emptyChart, mahadashas: [], panchang: emptyPanchang };
+    if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d7: emptyChart, d9: emptyChart, d10: emptyChart, d60: emptyChart, mahadashas: [], panchang: emptyPanchang };
 
     // Parse Date and Time in UTC to avoid environment-dependent timezone issues
     const [year, month, day] = dob.split('-').map(Number);
@@ -385,8 +389,10 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     let planets: PlanetData[] | undefined;
     let d1: DivisionalChartData | undefined;
     let d3: DivisionalChartData | undefined;
+    let d7: DivisionalChartData | undefined;
     let d9: DivisionalChartData | undefined;
     let d10: DivisionalChartData | undefined;
+    let d60: DivisionalChartData | undefined;
 
     const calculateCoreData = () => {
         if (planets) return;
@@ -394,13 +400,17 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         const planetData: PlanetData[] = [];
         const d1Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
         const d3Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
+        const d7Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
         const d9Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
         const d10Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
+        const d60Assignments: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> } = {};
         for (let i = 1; i <= 12; i++) {
             d1Assignments[i] = [];
             d3Assignments[i] = [];
+            d7Assignments[i] = [];
             d9Assignments[i] = [];
             d10Assignments[i] = [];
+            d60Assignments[i] = [];
         }
 
         // 1. Calculate Ascendant (Lagna)
@@ -415,8 +425,10 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         const lagnaSidereal = (lagnaTropical - ayanamsa + 360) % 360;
         const lagnaRasiIdx = Math.floor(lagnaSidereal / 30);
         const d3LagnaRasiIdx = getD3Rasi(lagnaSidereal);
+        const d7LagnaRasiIdx = getD7Rasi(lagnaSidereal);
         const d9LagnaRasiIdx = getD9Rasi(lagnaSidereal);
         const d10LagnaRasiIdx = getD10Rasi(lagnaSidereal);
+        const d60LagnaRasiIdx = getD60Rasi(lagnaSidereal);
 
         planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
 
@@ -447,13 +459,17 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
             planetData.push(planet);
 
             const d3RasiIdx = getD3Rasi(siderealLong);
+            const d7RasiIdx = getD7Rasi(siderealLong);
             const d9RasiIdx = getD9Rasi(siderealLong);
             const d10RasiIdx = getD10Rasi(siderealLong);
+            const d60RasiIdx = getD60Rasi(siderealLong);
 
             d1Assignments[house].push({ symbol: p.symbol, isRetrograde: isRetro });
             d3Assignments[((d3RasiIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
+            d7Assignments[((d7RasiIdx - d7LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
             d9Assignments[((d9RasiIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
             d10Assignments[((d10RasiIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
+            d60Assignments[((d60RasiIdx - d60LagnaRasiIdx + 12) % 12) + 1].push({ symbol: p.symbol, isRetrograde: isRetro });
         });
 
         // 3. Rahu & Ketu (Dynamic Mean Nodes)
@@ -470,49 +486,67 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
         const d3RahuIdx = getD3Rasi(rahuSidereal);
         const d3KetuIdx = getD3Rasi(ketuSidereal);
+        const d7RahuIdx = getD7Rasi(rahuSidereal);
+        const d7KetuIdx = getD7Rasi(ketuSidereal);
         const d9RahuIdx = getD9Rasi(rahuSidereal);
         const d9KetuIdx = getD9Rasi(ketuSidereal);
         const d10RahuIdx = getD10Rasi(rahuSidereal);
         const d10KetuIdx = getD10Rasi(ketuSidereal);
+        const d60RahuIdx = getD60Rasi(rahuSidereal);
+        const d60KetuIdx = getD60Rasi(ketuSidereal);
 
         d1Assignments[rahuHouse].push({ symbol: "Ra", isRetrograde: true });
         d1Assignments[ketuHouse].push({ symbol: "Ke", isRetrograde: true });
         d3Assignments[((d3RahuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
         d3Assignments[((d3KetuIdx - d3LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
+        d7Assignments[((d7RahuIdx - d7LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
+        d7Assignments[((d7KetuIdx - d7LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
         d9Assignments[((d9RahuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
         d9Assignments[((d9KetuIdx - d9LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
         d10Assignments[((d10RahuIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
         d10Assignments[((d10KetuIdx - d10LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
+        d60Assignments[((d60RahuIdx - d60LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ra", isRetrograde: true });
+        d60Assignments[((d60KetuIdx - d60LagnaRasiIdx + 12) % 12) + 1].push({ symbol: "Ke", isRetrograde: true });
 
         d1Assignments[1].push({ symbol: "As", isRetrograde: false });
         d3Assignments[1].push({ symbol: "As", isRetrograde: false });
+        d7Assignments[1].push({ symbol: "As", isRetrograde: false });
         d9Assignments[1].push({ symbol: "As", isRetrograde: false });
         d10Assignments[1].push({ symbol: "As", isRetrograde: false });
+        d60Assignments[1].push({ symbol: "As", isRetrograde: false });
 
         const d1HouseRasis: { [key: number]: number } = {};
         const d3HouseRasis: { [key: number]: number } = {};
+        const d7HouseRasis: { [key: number]: number } = {};
         const d9HouseRasis: { [key: number]: number } = {};
         const d10HouseRasis: { [key: number]: number } = {};
+        const d60HouseRasis: { [key: number]: number } = {};
 
         for (let h = 1; h <= 12; h++) {
             d1HouseRasis[h] = ((lagnaRasiIdx + h - 1) % 12) + 1;
             d3HouseRasis[h] = ((d3LagnaRasiIdx + h - 1) % 12) + 1;
+            d7HouseRasis[h] = ((d7LagnaRasiIdx + h - 1) % 12) + 1;
             d9HouseRasis[h] = ((d9LagnaRasiIdx + h - 1) % 12) + 1;
             d10HouseRasis[h] = ((d10LagnaRasiIdx + h - 1) % 12) + 1;
+            d60HouseRasis[h] = ((d60LagnaRasiIdx + h - 1) % 12) + 1;
         }
 
         planets = planetData;
         d1 = { houses: d1Assignments, houseRasis: d1HouseRasis };
         d3 = { houses: d3Assignments, houseRasis: d3HouseRasis };
+        d7 = { houses: d7Assignments, houseRasis: d7HouseRasis };
         d9 = { houses: d9Assignments, houseRasis: d9HouseRasis };
         d10 = { houses: d10Assignments, houseRasis: d10HouseRasis };
+        d60 = { houses: d60Assignments, houseRasis: d60HouseRasis };
     };
 
     Object.defineProperty(result, 'planets', { get: () => { calculateCoreData(); return planets; }, enumerable: true });
     Object.defineProperty(result, 'd1', { get: () => { calculateCoreData(); return d1; }, enumerable: true });
     Object.defineProperty(result, 'd3', { get: () => { calculateCoreData(); return d3; }, enumerable: true });
+    Object.defineProperty(result, 'd7', { get: () => { calculateCoreData(); return d7; }, enumerable: true });
     Object.defineProperty(result, 'd9', { get: () => { calculateCoreData(); return d9; }, enumerable: true });
     Object.defineProperty(result, 'd10', { get: () => { calculateCoreData(); return d10; }, enumerable: true });
+    Object.defineProperty(result, 'd60', { get: () => { calculateCoreData(); return d60; }, enumerable: true });
 
     return result;
 }
@@ -817,14 +851,29 @@ export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Ma
     return mahadashas;
 }
 
-function getD3Rasi(long: number): number {
+export function getD3Rasi(long: number): number {
     const rasiIdx = Math.floor(long / 30);
     const degInRasi = long % 30;
     const drekkanaIdx = Math.floor(degInRasi / DREKKANA_WIDTH); // 0, 1, 2
     return (rasiIdx + drekkanaIdx * 4) % 12;
 }
 
-function getD9Rasi(long: number): number {
+export function getD7Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const saptamshaIdx = Math.floor(degInRasi / SAPTAMSHA_WIDTH); // 0 to 6
+
+    let startSign;
+    if (rasiIdx % 2 === 0) { // Odd sign
+        startSign = rasiIdx;
+    } else { // Even sign
+        startSign = (rasiIdx + 6) % 12; // 7th from it
+    }
+
+    return (startSign + saptamshaIdx) % 12;
+}
+
+export function getD9Rasi(long: number): number {
     const rasiIdx = Math.floor(long / 30);
     const degInRasi = long % 30;
     const navamshaIdx = Math.floor(degInRasi / NAVAMSHA_WIDTH); // 0 to 8
@@ -835,7 +884,7 @@ function getD9Rasi(long: number): number {
     return (startSign + navamshaIdx) % 12;
 }
 
-function getD10Rasi(long: number): number {
+export function getD10Rasi(long: number): number {
     const rasiIdx = Math.floor(long / 30);
     const degInRasi = long % 30;
     const dashamshaIdx = Math.floor(degInRasi / D10_WIDTH); // 0 to 9
@@ -848,6 +897,14 @@ function getD10Rasi(long: number): number {
     }
 
     return (startSign + dashamshaIdx) % 12;
+}
+
+export function getD60Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const shashtiamshaIdx = Math.floor(degInRasi / SHASHTIAMSHA_WIDTH); // 0 to 59
+
+    return (rasiIdx + shashtiamshaIdx) % 12;
 }
 
 export function getSignInsight(signName: string): string {

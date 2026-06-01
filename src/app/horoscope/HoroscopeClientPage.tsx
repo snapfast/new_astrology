@@ -33,7 +33,9 @@ const TRANSLATIONS = {
     abhijit: "Abhijit Muhurta",
     rahu: "Rahu Kaal",
     gulika: "Gulika Kaal",
-    yamaganda: "Yamaganda Kaal"
+    yamaganda: "Yamaganda Kaal",
+    d7Chart: "Saptamsha Chart (D7)",
+    d60Chart: "Shashtiamsha Chart (D60)"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -56,7 +58,9 @@ const TRANSLATIONS = {
     abhijit: "अभिजीत मुहूर्त",
     rahu: "राहु काल",
     gulika: "गुलिका काल",
-    yamaganda: "यमगण्ड काल"
+    yamaganda: "यमगण्ड काल",
+    d7Chart: "सप्तमश चार्ट (D7)",
+    d60Chart: "षष्ट्यंश चार्ट (D60)"
   }
 };
 
@@ -284,6 +288,18 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Dashamsha Chart (D10)</h2>
             <KundliChart data={chartData.d10} />
+          </div>
+        </div>
+
+        {/* Row 3: D7 & D60 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d7Chart}</h2>
+            <KundliChart data={chartData.d7} />
+          </div>
+          <div className="space-y-6">
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d60Chart}</h2>
+            <KundliChart data={chartData.d60} />
           </div>
         </div>
         <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
