@@ -111,28 +111,39 @@ const HoroscopeContent = () => {
   return (
     <div className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header & User Details */}
-      <div className="mb-12 text-center">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <a
-            href="/free-horoscope"
-            className="flex items-center gap-2 text-xs font-medium text-accent hover:text-accent/80 transition-colors uppercase tracking-widest font-label"
-          >
-            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-            Generate New Chart
-          </a>
-          <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">Your Birth Chart</h1>
-          <button
-            onClick={handleShare}
-            className="flex items-center gap-2 px-6 py-2.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-full text-xs font-medium transition-all active:scale-95 border border-outline/50"
-          >
-            <span className="material-symbols-outlined text-[18px]">share</span>
-            Share Report
-          </button>
+      <div className="mb-12 text-left">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-6">
+          <div className="space-y-4">
+            <a
+              href="/free-horoscope"
+              className="flex items-center gap-2 text-xs font-medium text-accent hover:text-accent/80 transition-colors uppercase tracking-widest font-label"
+            >
+              <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+              Generate New Chart
+            </a>
+            <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">Your Birth Chart</h1>
+          </div>
+          <div className="flex items-center gap-2 pb-1">
+            <button
+              onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
+              title="Switch Language / भाषा बदलें"
+            >
+              <span className="material-symbols-outlined text-[18px]">translate</span>
+            </button>
+            <button
+              onClick={handleShare}
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
+              title="Share Report"
+            >
+              <span className="material-symbols-outlined text-[18px]">share</span>
+            </button>
+          </div>
         </div>
 
         {/* New: Personality Insights Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-6 text-left relative overflow-hidden group">
+          <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
               <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">Sun Sign Insight</span>
               <h3 className="text-xl font-headline text-on-surface mb-3">{sunSign}</h3>
@@ -140,7 +151,7 @@ const HoroscopeContent = () => {
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-accent/5 select-none group-hover:scale-110 transition-transform duration-700">light_mode</span>
           </div>
-          <div className="bg-primary/5 border border-primary/20 rounded-[2rem] p-6 text-left relative overflow-hidden group">
+          <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
               <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">Moon Sign Insight</span>
               <h3 className="text-xl font-headline text-on-surface mb-3">{moonSign}</h3>
@@ -152,16 +163,9 @@ const HoroscopeContent = () => {
 
         <div className="space-y-3 text-left">
           {/* Section: Birth Information */}
-          <div className="bg-white border border-outline/80 rounded-2xl p-4 md:p-5 relative shadow-sm">
+          <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.birthInfo}</h2>
-              <button
-                onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
-                title="Switch Language / भाषा बदलें"
-              >
-                <span className="material-symbols-outlined text-[18px]">translate</span>
-              </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               <div className="space-y-1">
@@ -185,7 +189,7 @@ const HoroscopeContent = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
             {/* Section: Vedic Panchang */}
-            <div className="lg:col-span-2 bg-white border border-outline/80 rounded-2xl p-4 md:p-5 shadow-sm">
+            <div className="lg:col-span-2 bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
               <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label mb-3 ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.panchang}</h2>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 gap-x-3">
                 <div className="space-y-1">
@@ -232,7 +236,7 @@ const HoroscopeContent = () => {
             </div>
 
             {/* Section: Time Divisions */}
-            <div className="bg-white border border-outline/80 rounded-2xl p-4 md:p-5 shadow-sm">
+            <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
               <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label mb-3 ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.timings}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-3">
                 <div className="space-y-1">
