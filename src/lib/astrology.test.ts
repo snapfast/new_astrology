@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha } from './astrology.ts';
+import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -96,4 +96,32 @@ test('calculateVimshottariDasha balance of dasha', () => {
 
   // Total Mars dasha is 7 years. 306 is near 306.66.
   assert.ok(diffYears < 1.0, 'Mars dasha should be nearly finished');
+});
+
+test('getD7Rasi logic', () => {
+    // Aries (Odd), 0-4.28 deg -> Aries (0)
+    assert.strictEqual(getD7Rasi(2), 0);
+    // Aries (Odd), 4.28-8.57 deg -> Taurus (1)
+    assert.strictEqual(getD7Rasi(5), 1);
+
+    // Taurus (Even), 0-4.28 deg -> 7th from Taurus = Scorpio (7)
+    assert.strictEqual(getD7Rasi(32), 7);
+    // Taurus (Even), 4.28-8.57 deg -> 8th from Taurus = Sagittarius (8)
+    assert.strictEqual(getD7Rasi(35), 8);
+});
+
+test('getD60Rasi logic', () => {
+    // 0-0.5 deg in any sign -> sign itself
+    // Aries 0.2 -> Aries (0)
+    assert.strictEqual(getD60Rasi(0.2), 0);
+    // Taurus 0.2 -> Taurus (1)
+    assert.strictEqual(getD60Rasi(30.2), 1);
+
+    // 0.5-1.0 deg -> next sign
+    // Aries 0.7 -> Taurus (1)
+    assert.strictEqual(getD60Rasi(0.7), 1);
+
+    // 29.5-30.0 deg -> 60th division
+    // Aries 29.7 -> (0 + 59) % 12 = 59 % 12 = 11 (Pisces)
+    assert.strictEqual(getD60Rasi(29.7), 11);
 });
