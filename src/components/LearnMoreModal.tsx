@@ -11,89 +11,72 @@ interface LearnMoreModalProps {
 }
 
 const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
+  const directoryLinks = [
+    { name: 'About Pandit Ji', href: '/about', icon: 'person', type: 'internal' },
+    { name: 'Consultation Services', href: '/services', icon: 'layers', type: 'internal' },
+    { name: 'Free Horoscope Chart', href: '/free-horoscope', icon: 'auto_awesome', type: 'internal' },
+    { name: 'Sample Reports & Resources', href: 'https://drive.google.com/drive/folders/your-link', icon: 'folder_open', type: 'external' },
+    { name: 'Client Testimonials', href: '/reviews', icon: 'star_rate', type: 'internal' },
+    { name: 'Spiritual Insights', href: 'https://www.threads.net/@rahulbaliastro', icon: 'alternate_email', type: 'external' },
+  ];
+
   return (
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-md"
+      maxWidth="max-w-sm"
     >
-      <div className="p-6 md:p-10">
-          <div className="flex justify-between items-start mb-8">
-            <h2 className="text-2xl font-normal text-on-surface font-headline tracking-tight">Practice Information</h2>
+      <div className="p-0">
+          <div className="flex justify-between items-center px-6 py-5 border-b border-outline/10">
+            <h2 className="text-lg font-medium text-on-surface font-headline tracking-tight">Platform Directory</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'learn_modal_close' });
                 onClose();
               }}
-              className="w-8 h-8 flex items-center justify-center rounded-full border border-outline/20 hover:bg-on-surface/5 transition-colors shrink-0"
+              className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-on-surface/5 transition-colors shrink-0"
               aria-label="Close modal"
             >
-              <span className="material-symbols-outlined text-on-surface text-lg">close</span>
+              <span className="material-symbols-outlined text-secondary text-lg">close</span>
             </button>
           </div>
 
-          <div className="space-y-8">
-            {/* Methodology */}
-            <section>
-              <h3 className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-4 font-label">Vedic Methodology</h3>
-              <ul className="space-y-3 text-sm text-secondary font-body">
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>Precise astronomical data (Lahiri Ayanamsa)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>Traditional analysis (Parashara & Jaimini)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>Sattvic remedial measures</span>
-                </li>
-              </ul>
-            </section>
-
-            {/* Quick Links */}
-            <section>
-              <h3 className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-4 font-label">Quick Links</h3>
-              <div className="grid grid-cols-1 gap-2">
-                {[
-                  { name: 'Free Horoscope', href: '/free-horoscope', icon: 'auto_awesome' },
-                  { name: 'Consultation Services', href: '/services', icon: 'layers' },
-                  { name: 'Client Reviews', href: '/reviews', icon: 'star_rate' },
-                  { name: 'About Pandit Ji', href: '/about', icon: 'person' },
-                ].map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => {
-                      sendGAEvent({ event: 'action_click', action_name: `modal_nav_${link.href.replace('/', '')}` });
-                      onClose();
-                    }}
-                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-bright border border-transparent hover:border-outline/10 transition-all group"
-                  >
-                    <span className="material-symbols-outlined text-secondary group-hover:text-accent text-lg">{link.icon}</span>
-                    <span className="text-sm font-medium text-on-surface">{link.name}</span>
-                  </Link>
-                ))}
-
+          <div className="py-2">
+            {directoryLinks.map((link) => (
+              link.type === 'internal' ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => {
+                    sendGAEvent({ event: 'action_click', action_name: `modal_nav_${link.href.replace('/', '')}` });
+                    onClose();
+                  }}
+                  className="flex items-center gap-4 px-6 py-4 hover:bg-surface-bright transition-all group border-b last:border-0 border-outline/5"
+                >
+                  <span className="material-symbols-outlined text-secondary group-hover:text-accent text-xl transition-colors">{link.icon}</span>
+                  <span className="text-sm font-medium text-on-surface flex-1">{link.name}</span>
+                  <span className="material-symbols-outlined text-secondary/30 text-base group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+                </Link>
+              ) : (
                 <a
-                  href="https://www.threads.net/@rahulbaliastro"
+                  key={link.href}
+                  href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_nav_threads' })}
-                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-bright border border-transparent hover:border-outline/10 transition-all group"
+                  onClick={() => sendGAEvent({ event: 'action_click', action_name: `modal_nav_${link.name.toLowerCase().replace(/\s+/g, '_')}` })}
+                  className="flex items-center gap-4 px-6 py-4 hover:bg-surface-bright transition-all group border-b last:border-0 border-outline/5"
                 >
-                  <span className="material-symbols-outlined text-secondary group-hover:text-accent text-lg">alternate_email</span>
-                  <span className="text-sm font-medium text-on-surface">Insights on Threads</span>
-                  <span className="material-symbols-outlined text-[10px] text-secondary/40 ml-auto">open_in_new</span>
+                  <span className="material-symbols-outlined text-secondary group-hover:text-accent text-xl transition-colors">{link.icon}</span>
+                  <span className="text-sm font-medium text-on-surface flex-1">{link.name}</span>
+                  <span className="material-symbols-outlined text-secondary/30 text-sm">open_in_new</span>
                 </a>
-              </div>
-            </section>
+              )
+            ))}
           </div>
 
-          <div className="mt-10 pt-6 border-t border-outline/10">
-            <p className="text-[9px] text-secondary/40 font-body uppercase tracking-widest text-center">
-              Gurugram · India
+          <div className="px-6 py-4 bg-surface-container-low/30 border-t border-outline/5 text-center">
+            <p className="text-[10px] text-secondary/40 font-body uppercase tracking-[0.2em]">
+              Vedic Astrology · Gurugram
             </p>
           </div>
       </div>
