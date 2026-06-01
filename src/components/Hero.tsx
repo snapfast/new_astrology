@@ -86,10 +86,6 @@ const Hero = () => {
       <LearnMoreModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onBookNow={() => {
-          setIsModalOpen(false);
-          setIsBookingModalOpen(true);
-        }}
       />
 
       <BookConsultationModal
