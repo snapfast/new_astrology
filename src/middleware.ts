@@ -15,12 +15,12 @@ export function middleware(request: NextRequest) {
 
   const cspHeader = `
     default-src 'self';
-    script-src ${scriptSrc} https://www.instagram.com https://www.threads.net https://connect.facebook.net;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.googletagmanager.com https://cdnjs.cloudflare.com https://www.instagram.com;
-    img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.googletagmanager.com https://www.instagram.com https://*.fbcdn.net https://*.cdninstagram.com;
+    script-src ${scriptSrc} https://www.instagram.com https://www.threads.net https://connect.facebook.net https://*.facebook.net https://*.facebook.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.googletagmanager.com https://cdnjs.cloudflare.com https://www.instagram.com https://*.facebook.com;
+    img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.googletagmanager.com https://www.instagram.com https://*.fbcdn.net https://*.cdninstagram.com https://*.facebook.com;
     font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-    connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://stats.g.doubleclick.net https://www.google.com https://www.googletagmanager.com https://www.threads.net;
-    frame-src 'self' https://www.instagram.com https://www.threads.net https://www.facebook.com;
+    connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://stats.g.doubleclick.net https://www.google.com https://www.googletagmanager.com https://www.threads.net https://*.facebook.com;
+    frame-src 'self' https://www.instagram.com https://www.threads.net https://www.facebook.com https://*.facebook.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
