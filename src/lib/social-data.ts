@@ -7,7 +7,9 @@ export interface SocialPost {
 export const SOCIAL_PROFILES = {
   threads: "https://www.threads.net/@rahulbaliastro",
   instagram: "https://www.instagram.com/rahulbaliastro",
-  facebook: "https://www.facebook.com/people/Rahul-Bali-Astrology/61584860245800/"
+  facebook: "https://www.facebook.com/people/Rahul-Bali-Astrology/61584860245800/",
+  youtube: "https://www.youtube.com/@RahulBaliAstrology",
+  linkedin: "https://www.linkedin.com/in/rahulbaliastrology/"
 };
 
 export const SOCIAL_POSTS: SocialPost[] = [
