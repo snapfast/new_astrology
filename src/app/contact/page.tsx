@@ -73,6 +73,24 @@ export default function ContactPage() {
               >
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
+              <a
+                href={SOCIAL_PROFILES.tumblr}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                aria-label="Tumblr"
+              >
+                <i className="fa-brands fa-tumblr"></i>
+              </a>
+              <a
+                href={SOCIAL_PROFILES.reddit}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                aria-label="Reddit"
+              >
+                <i className="fa-brands fa-reddit-alien"></i>
+              </a>
             </div>
           </div>
         </div>
