@@ -47,6 +47,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Free Horoscope', href: '/free-horoscope', highlight: true },
+    { name: 'Panchang', href: '/panchang' },
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Reviews', href: '/reviews' },
@@ -77,6 +78,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-10 font-normal text-xs text-secondary font-body">
           <Link href="/free-horoscope" className="text-accent font-medium">Free Horoscope</Link>
+          <Link href="/panchang">Panchang</Link>
           <Link href="/about">About</Link>
           <Link href="/services">Services</Link>
           <Link href="/reviews">Reviews</Link>

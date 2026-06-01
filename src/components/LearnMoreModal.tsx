@@ -12,6 +12,7 @@ interface LearnMoreModalProps {
 
 const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
   const directoryLinks = [
+    { name: 'Daily Panchang', href: '/panchang', icon: 'calendar_month', type: 'internal' },
     { name: 'Consultation Services', href: '/services', icon: 'layers', type: 'internal' },
     { name: 'Free Horoscope Chart', href: '/free-horoscope', icon: 'auto_awesome', type: 'internal' },
     { name: 'Sample Reports & Resources', href: 'https://drive.google.com/drive/u/0/folders/1xlyzqP8CEUx11Lh3U14UmBa2Os600SHQ', icon: 'folder_open', type: 'external' },

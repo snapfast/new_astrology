@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 
 const DailyPanchang = () => {
@@ -24,12 +25,12 @@ const DailyPanchang = () => {
         <div className="bg-white border border-outline/40 rounded-[3rem] p-8 md:p-16 shadow-[0_30px_80px_rgba(0,0,0,0.02)]">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2">
-              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">Daily Cosmic Weather</span>
-              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-6 leading-tight">Today&apos;s Vedic Outlook</h2>
+              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">Panchang</span>
+              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-6 leading-tight">Today&apos;s Panchang</h2>
               <p className="text-secondary font-body leading-relaxed mb-8 max-w-lg">
-                The alignment of the heavens changes every moment. Stay in harmony with the cosmic rhythm by following the auspicious timings of the day.
+                Align your daily activities with the cosmic rhythm. Follow the daily Tithi, Nakshatra, and auspicious Muhurtas for success and spiritual harmony.
               </p>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 mb-10">
                 <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
                   <span className="material-symbols-outlined">schedule</span>
                 </div>
@@ -38,6 +39,13 @@ const DailyPanchang = () => {
                   <p className="text-lg font-headline text-on-surface">{panchang.abhijitMuhurta}</p>
                 </div>
               </div>
+              <Link
+                href="/panchang"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all"
+              >
+                View Full Daily Panchang
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </Link>
             </div>
 
             <div className="lg:w-1/2 w-full grid grid-cols-2 gap-4">
