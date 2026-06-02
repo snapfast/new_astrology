@@ -25,26 +25,40 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-[320px]"
+      maxWidth="max-w-lg md:max-w-2xl"
     >
-      <div className="p-0">
-          <div className="flex justify-between items-center px-5 py-4 border-b border-outline/10">
-            <h2 className="text-base font-normal text-on-surface font-headline tracking-tight">Explore More</h2>
+      <div className="p-4 md:p-8">
+          <div className="flex justify-center items-center mb-6 md:mb-8 relative">
+            <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Explore More</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'learn_modal_close' });
                 onClose();
               }}
-              className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-on-surface/5 transition-colors shrink-0"
+              className="absolute right-0 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-outline/20 shrink-0 hover:bg-on-surface/5 transition-colors"
               aria-label="Close modal"
             >
-              <span className="material-symbols-outlined text-secondary text-base">close</span>
+              <span className="material-symbols-outlined text-on-surface text-lg md:text-xl">close</span>
             </button>
           </div>
 
-          <div className="py-1">
-            {directoryLinks.map((link) => (
-              link.type === 'internal' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+            {directoryLinks.map((link) => {
+              const content = (
+                <>
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl md:rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 group-hover:border-accent/30 transition-colors">
+                    <span className="material-symbols-outlined text-secondary group-hover:text-accent text-xl md:text-2xl transition-colors">{link.icon}</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm md:text-lg font-normal text-on-surface font-headline truncate group-hover:text-accent transition-colors">{link.name}</h3>
+                  </div>
+                  <span className="material-symbols-outlined text-secondary/20 text-base md:text-xl group-hover:translate-x-0.5 group-hover:text-accent/40 transition-all">
+                    {link.type === 'internal' ? 'chevron_right' : 'open_in_new'}
+                  </span>
+                </>
+              );
+
+              return link.type === 'internal' ? (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -52,11 +66,9 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                     sendGAEvent({ event: 'action_click', action_name: `modal_nav_${link.href.replace('/', '')}` });
                     onClose();
                   }}
-                  className="flex items-center gap-3 px-5 py-3 hover:bg-surface-bright transition-all group border-b last:border-0 border-outline/5"
+                  className="flex items-center gap-3 p-3 md:p-4 bg-surface-container-low/20 rounded-2xl md:rounded-[2rem] border border-outline/10 hover:border-accent/20 hover:bg-surface-bright transition-all group"
                 >
-                  <span className="material-symbols-outlined text-secondary group-hover:text-accent text-lg transition-colors">{link.icon}</span>
-                  <span className="text-xs font-medium text-on-surface flex-1">{link.name}</span>
-                  <span className="material-symbols-outlined text-secondary/20 text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+                  {content}
                 </Link>
               ) : (
                 <a
@@ -65,19 +77,17 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: `modal_nav_${link.name.toLowerCase().replace(/\s+/g, '_')}` })}
-                  className="flex items-center gap-3 px-5 py-3 hover:bg-surface-bright transition-all group border-b last:border-0 border-outline/5"
+                  className="flex items-center gap-3 p-3 md:p-4 bg-surface-container-low/20 rounded-2xl md:rounded-[2rem] border border-outline/10 hover:border-accent/20 hover:bg-surface-bright transition-all group"
                 >
-                  <span className="material-symbols-outlined text-secondary group-hover:text-accent text-lg transition-colors">{link.icon}</span>
-                  <span className="text-xs font-medium text-on-surface flex-1">{link.name}</span>
-                  <span className="material-symbols-outlined text-secondary/20 text-xs">open_in_new</span>
+                  {content}
                 </a>
-              )
-            ))}
+              );
+            })}
           </div>
 
-          <div className="px-5 py-3 bg-surface-container-low/30 border-t border-outline/5 text-center">
-            <p className="text-[9px] text-secondary/30 font-body uppercase tracking-[0.2em]">
-              Vedic Astrology · Gurugram
+          <div className="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
+            <p className="text-[8px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
+              Guided by the stars, Grounded in Truth
             </p>
           </div>
       </div>
