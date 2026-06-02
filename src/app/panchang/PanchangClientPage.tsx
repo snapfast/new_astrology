@@ -63,7 +63,7 @@ const TRANSLATIONS = {
     ayana: "अयन",
     abhijit: "अभिजीत मुहूर्त",
     brahma: "ब्रह्म मुहूर्त",
-    rahu: "राहू काल",
+    rahu: "राहु काल",
     gulika: "गुलिका काल",
     yamaganda: "यमगण्ड काल",
     sunrise: "सूर्योदय",
