@@ -13,7 +13,7 @@ const TRANSLATIONS = {
     heroDesc: "Align your daily activities with the cosmic rhythm. Accurate Vedic Panchang details for New Delhi, India.",
     elementsTitle: "Panchang Elements",
     timingsTitle: "Muhurtas & Kaal",
-    tithi: "Tithi (Lunar Day)",
+    tithi: "Tithi",
     nakshatra: "Nakshatra",
     yoga: "Yoga",
     karana: "Karana",
@@ -58,7 +58,18 @@ const TRANSLATIONS = {
 };
 
 const PanchangPage = () => {
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const [lang, setLang] = useState<'en' | 'hi'>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('preferred_lang') as 'en' | 'hi') || 'en';
+    }
+    return 'en';
+  });
+
+  const toggleLang = () => {
+    const newLang = lang === 'en' ? 'hi' : 'en';
+    setLang(newLang);
+    localStorage.setItem('preferred_lang', newLang);
+  };
   const t = TRANSLATIONS[lang];
 
   const panchang = useMemo(() => {
@@ -100,7 +111,7 @@ const PanchangPage = () => {
         <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
           <div className="flex justify-center mb-6">
              <button
-              onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
+              onClick={toggleLang}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
               title="Switch Language / भाषा बदलें"
             >

@@ -29,13 +29,33 @@ const TRANSLATIONS = {
     moonSign: "Moon Sign",
     ritu: "Ritu",
     ayana: "Ayana",
-    timings: "Auspicious & Inauspicious Timings",
+    timings: "Muhurtas & Kaal",
     abhijit: "Abhijit Muhurta",
     rahu: "Rahu Kaal",
     gulika: "Gulika Kaal",
     yamaganda: "Yamaganda Kaal",
+    d1Chart: "Lagna Chart (D1)",
+    d3Chart: "Drekkana Chart (D3)",
     d7Chart: "Saptamsha Chart (D7)",
-    d60Chart: "Shashtiamsha Chart (D60)"
+    d9Chart: "Navamsha Chart (D9)",
+    d10Chart: "Dashamsha Chart (D10)",
+    d60Chart: "Shashtiamsha Chart (D60)",
+    planet: "Planet",
+    house: "House",
+    rasi: "Rasi",
+    rasiLord: "Rasi Lord",
+    degree: "Degree",
+    nakLord: "Nak Lord",
+    pada: "Pada",
+    planetaryPositions: "Planetary Positions",
+    vimshottariDasha: "Vimshottari Dasha",
+    sunSignInsight: "Sun Sign Insight",
+    moonSignInsight: "Moon Sign Insight",
+    generateNew: "Generate New Chart",
+    pageTitle: "Your Birth Chart",
+    ctaTitle: "Seeking Verified Information?",
+    ctaDesc: "This digital chart provides a visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.",
+    ctaBtn: "Book Verified Personal Consultation"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -54,19 +74,50 @@ const TRANSLATIONS = {
     moonSign: "चंद्र राशि",
     ritu: "ऋतु",
     ayana: "अयन",
-    timings: "शुभ और अशुभ समय",
+    timings: "मुहूर्त और काल",
     abhijit: "अभिजीत मुहूर्त",
     rahu: "राहु काल",
     gulika: "गुलिका काल",
     yamaganda: "यमगण्ड काल",
-    d7Chart: "सप्तमश चार्ट (D7)",
-    d60Chart: "षष्ट्यंश चार्ट (D60)"
+    d1Chart: "लग्न चार्ट (D1)",
+    d3Chart: "द्रेष्काण चार्ट (D3)",
+    d7Chart: "सप्तमंश चार्ट (D7)",
+    d9Chart: "नवांश चार्ट (D9)",
+    d10Chart: "दशमांश चार्ट (D10)",
+    d60Chart: "षष्ट्यंश चार्ट (D60)",
+    planet: "ग्रह",
+    house: "भाव",
+    rasi: "राशि",
+    rasiLord: "राशि स्वामी",
+    degree: "अंश",
+    nakLord: "नक्षत्र स्वामी",
+    pada: "पद",
+    planetaryPositions: "ग्रहों की स्थिति",
+    vimshottariDasha: "विंशोत्तरी दशा",
+    sunSignInsight: "सूर्य राशि अंतर्दृष्टि",
+    moonSignInsight: "चंद्र राशि अंतर्दृष्टि",
+    generateNew: "नई कुंडली बनाएं",
+    pageTitle: "आपकी जन्म कुंडली",
+    ctaTitle: "सत्यापित जानकारी खोज रहे हैं?",
+    ctaDesc: "यह डिजिटल चार्ट मानक एल्गोरिदम पर आधारित एक विज़ुअलाइज़ेशन प्रदान करता है। सटीक सत्यापित जानकारी के लिए—जिसमें सटीक ग्रह अंश, विशिष्ट अयनांश और व्यक्तिगत कर्म संबंधी अंतर्दृष्टि शामिल है—एक विशेषज्ञ समीक्षा आवश्यक है।",
+    ctaBtn: "सत्यापित व्यक्तिगत परामर्श बुक करें"
   }
 };
 
 const HoroscopeContent = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const [lang, setLang] = useState<'en' | 'hi'>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('preferred_lang') as 'en' | 'hi') || 'en';
+    }
+    return 'en';
+  });
+
+  const toggleLang = () => {
+    const newLang = lang === 'en' ? 'hi' : 'en';
+    setLang(newLang);
+    localStorage.setItem('preferred_lang', newLang);
+  };
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
   const name = sanitize(searchParams.get('name'), 100) || 'Guest';
@@ -123,24 +174,24 @@ const HoroscopeContent = () => {
               className="flex items-center gap-2 text-xs font-medium text-accent hover:text-accent/80 transition-colors uppercase tracking-widest font-label"
             >
               <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-              Generate New Chart
+              {t.generateNew}
             </a>
-            <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">Your Birth Chart</h1>
+            <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">{t.pageTitle}</h1>
           </div>
           <div className="flex items-center gap-2 pb-1">
             <button
-              onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
+              onClick={toggleLang}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
               title="Switch Language / भाषा बदलें"
             >
-              <span className="material-symbols-outlined text-[18px]">translate</span>
+              <span className="material-symbols-outlined text-[20px]">translate</span>
             </button>
             <button
               onClick={handleShare}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
               title="Share Report"
             >
-              <span className="material-symbols-outlined text-[18px]">share</span>
+              <span className="material-symbols-outlined text-[20px]">share</span>
             </button>
           </div>
         </div>
@@ -149,16 +200,16 @@ const HoroscopeContent = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
-              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">Sun Sign Insight</span>
-              <h3 className="text-xl font-headline text-on-surface mb-3">{sunSign}</h3>
+              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">{t.sunSignInsight}</span>
+              <h3 className="text-xl font-headline text-on-surface mb-3">{lang === 'en' ? sunSign : chartData.panchang.sunSignSanskrit}</h3>
               <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(sunSign)}</p>
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-accent/5 select-none group-hover:scale-110 transition-transform duration-700">light_mode</span>
           </div>
           <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
-              <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">Moon Sign Insight</span>
-              <h3 className="text-xl font-headline text-on-surface mb-3">{moonSign}</h3>
+              <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">{t.moonSignInsight}</span>
+              <h3 className="text-xl font-headline text-on-surface mb-3">{lang === 'en' ? moonSign : chartData.panchang.moonSignSanskrit}</h3>
               <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(moonSign)}</p>
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-primary/5 select-none group-hover:scale-110 transition-transform duration-700">dark_mode</span>
@@ -270,11 +321,11 @@ const HoroscopeContent = () => {
         {/* Row 1: D1 & D9 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Lagna Chart (D1)</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d1Chart}</h2>
             <KundliChart data={chartData.d1} />
           </div>
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Navamsha Chart (D9)</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d9Chart}</h2>
             <KundliChart data={chartData.d9} />
           </div>
         </div>
@@ -282,11 +333,11 @@ const HoroscopeContent = () => {
         {/* Row 2: D3 & D10 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Drekkana Chart (D3)</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d3Chart}</h2>
             <KundliChart data={chartData.d3} />
           </div>
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Dashamsha Chart (D10)</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d10Chart}</h2>
             <KundliChart data={chartData.d10} />
           </div>
         </div>
@@ -307,19 +358,19 @@ const HoroscopeContent = () => {
 
 
       <div className="space-y-6 mb-16">
-        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Planetary Positions</h2>
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.planetaryPositions}</h2>
         <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container-low border-b border-outline">
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Planet</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-center">House</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Rasi</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Rasi Lord</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Degree</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Nakshatra</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">Nak Lord</th>
-                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-center">Pada</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">{t.planet}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-center">{t.house}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">{t.rasi}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">{t.rasiLord}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">{t.degree}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">{t.nakshatra}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label">{t.nakLord}</th>
+                <th className="px-4 py-2.5 text-xs font-bold text-on-surface uppercase tracking-widest font-label text-center">{t.pada}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline">
@@ -346,7 +397,7 @@ const HoroscopeContent = () => {
 
       {/* Vimshottari Dasha Section */}
       <div className="space-y-8 mb-16">
-        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">Vimshottri Dasha</h2>
+        <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.vimshottariDasha}</h2>
 
         {/* Interactive Vimshottari Dasha System */}
         <VimshottariDasha mahadashas={chartData.mahadashas} />
@@ -355,15 +406,15 @@ const HoroscopeContent = () => {
       {/* Verification CTA Section */}
       <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
         <div className="relative z-10">
-          <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Seeking Verified Information?</h3>
+          <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">{t.ctaTitle}</h3>
           <p className="text-sm md:text-base text-secondary font-body mb-10 max-w-2xl mx-auto leading-relaxed">
-            This digital chart provides a visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.
+            {t.ctaDesc}
           </p>
           <button
             onClick={handleBookNow}
             className="inline-block bg-primary text-white px-12 py-5 rounded-full font-medium text-xs md:text-sm tracking-[0.1em] uppercase font-label"
           >
-            Book Verified Personal Consultation
+            {t.ctaBtn}
           </button>
         </div>
         {/* Subtle Decorative Element */}
