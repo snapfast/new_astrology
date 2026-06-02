@@ -196,19 +196,55 @@ const AYANAS = [
     { name: "Dakshinayana", sanskrit: "दक्षिणायन" }
 ];
 
-export const SIGN_INSIGHTS: { [key: string]: string } = {
-    "Aries": "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
-    "Taurus": "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
-    "Gemini": "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
-    "Cancer": "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
-    "Leo": "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
-    "Virgo": "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
-    "Libra": "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
-    "Scorpio": "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
-    "Sagittarius": "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
-    "Capricorn": "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
-    "Aquarius": "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
-    "Pisces": "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul."
+export const SIGN_INSIGHTS: { [key: string]: { en: string; hi: string } } = {
+    "Aries": {
+        en: "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
+        hi: "अदम्य ऊर्जा वाले स्वाभाविक नेता। आपमें एक अग्रणी भावना और उत्साह के साथ किसी भी चुनौती को स्वीकार करने का साहस है।"
+    },
+    "Taurus": {
+        en: "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
+        hi: "स्थिर और भरोसेमंद, आप स्थिरता और जीवन की बेहतरीन चीजों को महत्व देते हैं। आपकी दृढ़ता और धैर्य आपकी सबसे बड़ी ताकत हैं।"
+    },
+    "Gemini": {
+        en: "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
+        hi: "बौद्धिक रूप से जिज्ञासु और अत्यधिक अनुकूलनशील। संवाद करने और कई दृष्टिकोणों को देखने की आपकी क्षमता आपको सामाजिक रूप से निपुण बनाती है।"
+    },
+    "Cancer": {
+        en: "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
+        hi: "अत्यंत सहज और पालन-पोषण करने वाले। आप घर और परिवार को सबसे ऊपर महत्व देते हैं, और आपके पास एक शक्तिशाली भावनात्मक बुद्धिमत्ता है जो आपका मार्गदर्शन करती है।"
+    },
+    "Leo": {
+        en: "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
+        hi: "रचनात्मक, आत्मविश्वासी और करिश्माई। आपमें दूसरों को प्रेरित करने की स्वाभाविक क्षमता है और आपका हृदय जितना उदार है उतना ही साहसी भी।"
+    },
+    "Virgo": {
+        en: "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
+        hi: "विश्लेषणात्मक और विवरण-उन्मुख। आप पूर्णता की तलाश करते हैं और अपने व्यावहारिक ज्ञान के माध्यम से दूसरों की सेवा करने में गहरा संतोष पाते हैं।"
+    },
+    "Libra": {
+        en: "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
+        hi: "संतुलन और सद्भाव के साधक। आपमें एक परिष्कृत सौंदर्य बोध और कूटनीति तथा सार्थक साझेदारी बनाने की स्वाभाविक प्रतिभा है।"
+    },
+    "Scorpio": {
+        en: "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
+        hi: "तीव्र, भावुक और गहराई से बोधगम्य। आपके पास महान परिवर्तन लाने और छिपे हुए सत्यों को उजागर करने की शक्ति है।"
+    },
+    "Sagittarius": {
+        en: "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
+        hi: "दार्शनिक दिमाग वाली एक साहसी आत्मा। आपका आशावाद और उच्च ज्ञान की खोज आपको निरंतर विकास और विस्तार की ओर ले जाती है।"
+    },
+    "Capricorn": {
+        en: "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
+        hi: "अनुशासित, महत्वाकांक्षी और लचीला। आपके पास सफलता के उच्चतम शिखरों पर चढ़ने के लिए आवश्यक रणनीतिक दिमाग और सहनशक्ति है।"
+    },
+    "Aquarius": {
+        en: "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
+        hi: "दूरदर्शी और स्वतंत्र। आप एक भविष्योन्मुखी विचारक हैं जो समुदाय और नवाचार को महत्व देते हैं, अक्सर अपनी अलग राह चलते हैं।"
+    },
+    "Pisces": {
+        en: "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul.",
+        hi: "दयालु, कलात्मक और गहराई से आध्यात्मिक। आपमें एक विशाल कल्पना और आत्मा के अदृश्य क्षेत्रों के साथ एक स्वाभाविक संबंध है।"
+    }
 };
 
 const YOGAS = [
@@ -1067,8 +1103,10 @@ export function getD60Rasi(long: number): number {
     return (rasiIdx + shashtiamshaIdx) % 12;
 }
 
-export function getSignInsight(signName: string): string {
-    return SIGN_INSIGHTS[signName] || "A unique blend of celestial energies that shapes your distinct personality and life path.";
+export function getSignInsight(signName: string, lang: 'en' | 'hi' = 'en'): string {
+    const insight = SIGN_INSIGHTS[signName];
+    if (!insight) return lang === 'en' ? "A unique blend of celestial energies that shapes your distinct personality and life path." : "स्वर्गीय ऊर्जाओं का एक अनूठा मिश्रण जो आपके विशिष्ट व्यक्तित्व और जीवन पथ को आकार देता है।";
+    return insight[lang];
 }
 
 function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean): PlanetData {
