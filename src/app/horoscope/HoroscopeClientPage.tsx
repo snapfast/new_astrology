@@ -383,7 +383,7 @@ const HoroscopeContent = () => {
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center">{p.house}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasi}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasiLord}</td>
-                  <td className="px-4 py-2.5 text-sm text-on-surface font-mono whitespace-nowrap">{p.degree}</td>
+                  <td className="px-4 py-2.5 text-sm text-on-surface font-body whitespace-nowrap">{p.degree}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatra}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatraLord}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center font-bold">{p.pada}</td>
