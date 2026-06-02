@@ -26,7 +26,7 @@ const Hero = () => {
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             VEDIC ASTROLOGY · JYOTISH SHASTRA
           </span>
-          <span className="text-2xl md:text-3xl text-accent italic font-body">
+          <span className="text-lg md:text-2xl text-accent italic font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </span>
         </div>
