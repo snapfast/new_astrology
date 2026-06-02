@@ -48,14 +48,18 @@ export interface DivisionalChartData {
 export interface PanchangData {
     tithi: string;
     tithiSanskrit: string;
+    tithiEnd: string;
     paksha: string;
     pakshaSanskrit: string;
     nakshatra: string;
     nakshatraSanskrit: string;
+    nakshatraEnd: string;
     yoga: string;
     yogaSanskrit: string;
+    yogaEnd: string;
     karana: string;
     karanaSanskrit: string;
+    karanaEnd: string;
     vara: string;
     varaSanskrit: string;
     sunSign: string;
@@ -70,6 +74,17 @@ export interface PanchangData {
     gulikaKaal: string;
     yamagandaKaal: string;
     abhijitMuhurta: string;
+    brahmaMuhurta: string;
+    sunrise: string;
+    sunset: string;
+    moonrise: string;
+    moonset: string;
+    vikramSamvat: number;
+    shakaSamvat: number;
+    lunarMonth: string;
+    lunarMonthSanskrit: string;
+    samvatsara: string;
+    samvatsaraSanskrit: string;
 }
 
 export interface ChartData {
@@ -181,19 +196,55 @@ const AYANAS = [
     { name: "Dakshinayana", sanskrit: "दक्षिणायन" }
 ];
 
-export const SIGN_INSIGHTS: { [key: string]: string } = {
-    "Aries": "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
-    "Taurus": "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
-    "Gemini": "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
-    "Cancer": "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
-    "Leo": "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
-    "Virgo": "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
-    "Libra": "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
-    "Scorpio": "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
-    "Sagittarius": "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
-    "Capricorn": "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
-    "Aquarius": "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
-    "Pisces": "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul."
+export const SIGN_INSIGHTS: { [key: string]: { en: string; hi: string } } = {
+    "Aries": {
+        en: "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
+        hi: "अदम्य ऊर्जा वाले स्वाभाविक नेता। आपमें एक अग्रणी भावना और उत्साह के साथ किसी भी चुनौती को स्वीकार करने का साहस है।"
+    },
+    "Taurus": {
+        en: "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
+        hi: "स्थिर और भरोसेमंद, आप स्थिरता और जीवन की बेहतरीन चीजों को महत्व देते हैं। आपकी दृढ़ता और धैर्य आपकी सबसे बड़ी ताकत हैं।"
+    },
+    "Gemini": {
+        en: "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
+        hi: "बौद्धिक रूप से जिज्ञासु और अत्यधिक अनुकूलनशील। संवाद करने और कई दृष्टिकोणों को देखने की आपकी क्षमता आपको सामाजिक रूप से निपुण बनाती है।"
+    },
+    "Cancer": {
+        en: "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
+        hi: "अत्यंत सहज और पालन-पोषण करने वाले। आप घर और परिवार को सबसे ऊपर महत्व देते हैं, और आपके पास एक शक्तिशाली भावनात्मक बुद्धिमत्ता है जो आपका मार्गदर्शन करती है।"
+    },
+    "Leo": {
+        en: "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
+        hi: "रचनात्मक, आत्मविश्वासी और करिश्माई। आपमें दूसरों को प्रेरित करने की स्वाभाविक क्षमता है और आपका हृदय जितना उदार है उतना ही साहसी भी।"
+    },
+    "Virgo": {
+        en: "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
+        hi: "विश्लेषणात्मक और विवरण-उन्मुख। आप पूर्णता की तलाश करते हैं और अपने व्यावहारिक ज्ञान के माध्यम से दूसरों की सेवा करने में गहरा संतोष पाते हैं।"
+    },
+    "Libra": {
+        en: "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
+        hi: "संतुलन और सद्भाव के साधक। आपमें एक परिष्कृत सौंदर्य बोध और कूटनीति तथा सार्थक साझेदारी बनाने की स्वाभाविक प्रतिभा है।"
+    },
+    "Scorpio": {
+        en: "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
+        hi: "तीव्र, भावुक और गहराई से बोधगम्य। आपके पास महान परिवर्तन लाने और छिपे हुए सत्यों को उजागर करने की शक्ति है।"
+    },
+    "Sagittarius": {
+        en: "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
+        hi: "दार्शनिक दिमाग वाली एक साहसी आत्मा। आपका आशावाद और उच्च ज्ञान की खोज आपको निरंतर विकास और विस्तार की ओर ले जाती है।"
+    },
+    "Capricorn": {
+        en: "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
+        hi: "अनुशासित, महत्वाकांक्षी और लचीला। आपके पास सफलता के उच्चतम शिखरों पर चढ़ने के लिए आवश्यक रणनीतिक दिमाग और सहनशक्ति है।"
+    },
+    "Aquarius": {
+        en: "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
+        hi: "दूरदर्शी और स्वतंत्र। आप एक भविष्योन्मुखी विचारक हैं जो समुदाय और नवाचार को महत्व देते हैं, अक्सर अपनी अलग राह चलते हैं।"
+    },
+    "Pisces": {
+        en: "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul.",
+        hi: "दयालु, कलात्मक और गहराई से आध्यात्मिक। आपमें एक विशाल कल्पना और आत्मा के अदृश्य क्षेत्रों के साथ एक स्वाभाविक संबंध है।"
+    }
 };
 
 const YOGAS = [
@@ -238,6 +289,36 @@ const KARANAS = [
     { name: "Chatushpada", sanskrit: "चतुष्पाद" },
     { name: "Naga", sanskrit: "नाग" },
     { name: "Kimstughna", sanskrit: "किंस्तुघ्न" }
+];
+
+const LUNAR_MONTHS = [
+    { name: "Chaitra", sanskrit: "चैत्र" },
+    { name: "Vaishakha", sanskrit: "वैशाख" },
+    { name: "Jyeshtha", sanskrit: "ज्येष्ठ" },
+    { name: "Ashadha", sanskrit: "आषाढ़" },
+    { name: "Shravana", sanskrit: "श्रावण" },
+    { name: "Bhadrapada", sanskrit: "भाद्रपद" },
+    { name: "Ashwin", sanskrit: "अश्विन" },
+    { name: "Kartika", sanskrit: "कार्तिक" },
+    { name: "Margashirsha", sanskrit: "मार्गशीर्ष" },
+    { name: "Pausha", sanskrit: "पौष" },
+    { name: "Magha", sanskrit: "माघ" },
+    { name: "Phalguna", sanskrit: "फाल्गुन" }
+];
+
+const SAMVATSARAS = [
+    { name: "Prabhava", sanskrit: "प्रभव" }, { name: "Vibhava", sanskrit: "विभव" }, { name: "Shukla", sanskrit: "शुक्ल" }, { name: "Pramoda", sanskrit: "प्रमोद" }, { name: "Prajapati", sanskrit: "प्रजापति" },
+    { name: "Angira", sanskrit: "अंगिरा" }, { name: "Shrimukha", sanskrit: "श्रीमुख" }, { name: "Bhava", sanskrit: "भाव" }, { name: "Yuva", sanskrit: "युवा" }, { name: "Dhatri", sanskrit: "धातृ" },
+    { name: "Ishvara", sanskrit: "ईश्वर" }, { name: "Bahudhanya", sanskrit: "बहुधान्य" }, { name: "Pramathi", sanskrit: "प्रमाथी" }, { name: "Vikrama", sanskrit: "विक्रम" }, { name: "Vrisha", sanskrit: "वृष" },
+    { name: "Chitrabanu", sanskrit: "चित्रभानु" }, { name: "Subhanu", sanskrit: "स्वभानु" }, { name: "Tarana", sanskrit: "तारण" }, { name: "Parthiva", sanskrit: "पार्थिव" }, { name: "Vyaya", sanskrit: "व्यय" },
+    { name: "Sarvajit", sanskrit: "सर्वजित्" }, { name: "Sarvadhari", sanskrit: "सर्वधारी" }, { name: "Virodhi", sanskrit: "विरोधी" }, { name: "Vikriti", sanskrit: "विकृति" }, { name: "Khara", sanskrit: "खर" },
+    { name: "Nandana", sanskrit: "नन्दन" }, { name: "Vijaya", sanskrit: "विजय" }, { name: "Jaya", sanskrit: "जय" }, { name: "Manmatha", sanskrit: "मन्मथ" }, { name: "Durmukha", sanskrit: "दुर्मुख" },
+    { name: "Hemalamba", sanskrit: "हेमलम्ब" }, { name: "Vilamba", sanskrit: "विलम्ब" }, { name: "Vikari", sanskrit: "विकारी" }, { name: "Sharvari", sanskrit: "शर्वरी" }, { name: "Plava", sanskrit: "प्लव" },
+    { name: "Shubhakrit", sanskrit: "शुभकृत्" }, { name: "Shobhakrit", sanskrit: "शोभकृत्" }, { name: "Krodhi", sanskrit: "क्रोधी" }, { name: "Vishvavasu", sanskrit: "विश्वावसु" }, { name: "Paridhavi", sanskrit: "परिधावी" },
+    { name: "Pramadi", sanskrit: "प्रमादी" }, { name: "Ananda", sanskrit: "आनन्द" }, { name: "Rakshasa", sanskrit: "राक्षस" }, { name: "Anala", sanskrit: "अनल" }, { name: "Pingala", sanskrit: "पिंगल" },
+    { name: "Kalayukti", sanskrit: "कालयुक्ति" }, { name: "Siddharthi", sanskrit: "सिद्धार्थी" }, { name: "Raudra", sanskrit: "रौद्र" }, { name: "Durmati", sanskrit: "दुर्मति" }, { name: "Dundubhi", sanskrit: "दुन्दुभी" },
+    { name: "Rudhirodgari", sanskrit: "रुधिरोद्गारी" }, { name: "Raktakshi", sanskrit: "रक्ताक्षी" }, { name: "Krodhana", sanskrit: "क्रोधन" }, { name: "Akshaya", sanskrit: "अक्षय" }, { name: "Kshaya", sanskrit: "क्षय" },
+    { name: "Plavanga", sanskrit: "प्लवंग" }, { name: "Kilaka", sanskrit: "कीलक" }, { name: "Saumya", sanskrit: "सौम्य" }, { name: "Sadharana", sanskrit: "साधारण" }, { name: "Virodhakrit", sanskrit: "विरोधकृत" }
 ];
 
 const RASI_LORDS = [
@@ -328,12 +409,15 @@ export function getMeanRahu(time: Ast.AstroTime): number {
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     const emptyChart: DivisionalChartData = { houses: {}, houseRasis: {} };
     const emptyPanchang: PanchangData = {
-        tithi: "", tithiSanskrit: "", paksha: "", pakshaSanskrit: "",
-        nakshatra: "", nakshatraSanskrit: "", yoga: "", yogaSanskrit: "",
-        karana: "", karanaSanskrit: "", vara: "", varaSanskrit: "",
+        tithi: "", tithiSanskrit: "", tithiEnd: "", paksha: "", pakshaSanskrit: "",
+        nakshatra: "", nakshatraSanskrit: "", nakshatraEnd: "", yoga: "", yogaSanskrit: "", yogaEnd: "",
+        karana: "", karanaSanskrit: "", karanaEnd: "", vara: "", varaSanskrit: "",
         sunSign: "", sunSignSanskrit: "", moonSign: "", moonSignSanskrit: "",
         ritu: "", rituSanskrit: "", ayana: "", ayanaSanskrit: "",
-        rahuKaal: "", gulikaKaal: "", yamagandaKaal: "", abhijitMuhurta: ""
+        rahuKaal: "", gulikaKaal: "", yamagandaKaal: "", abhijitMuhurta: "",
+        brahmaMuhurta: "", sunrise: "", sunset: "", moonrise: "", moonset: "",
+        vikramSamvat: 0, shakaSamvat: 0, lunarMonth: "", lunarMonthSanskrit: "",
+        samvatsara: "", samvatsaraSanskrit: ""
     };
     if (!dob || !tob) return { planets: [], d1: emptyChart, d3: emptyChart, d7: emptyChart, d9: emptyChart, d10: emptyChart, d60: emptyChart, mahadashas: [], panchang: emptyPanchang };
 
@@ -617,6 +701,48 @@ function getMuhurtaRange(start: Date, end: Date, part: number, totalParts: numbe
     return `${formatTime(startTime)} - ${formatTime(endTime)}`;
 }
 
+/**
+ * Finds the next time a value (like Tithi or Nakshatra angle) crosses a specific threshold.
+ * Used to find the end time of Panchang elements.
+ */
+function findNextCrossing(
+    fn: (t: Ast.AstroTime) => number,
+    startTime: Ast.AstroTime,
+    threshold: number,
+    maxHours: number = 30
+): Date | null {
+    const startVal = fn(startTime);
+    let prevT = startTime;
+    const stepMinutes = 15;
+
+    for (let m = stepMinutes; m <= maxHours * 60; m += stepMinutes) {
+        const nextDate = new Date(startTime.date.getTime() + m * 60 * 1000);
+        const nextT = Ast.MakeTime(nextDate);
+        const nextVal = fn(nextT);
+
+        // Check if we crossed the threshold (considering 360 wrap-around)
+        const crossed = (startVal < threshold && nextVal >= threshold) ||
+                        (startVal > nextVal && (startVal < threshold || nextVal >= threshold));
+
+        if (crossed) {
+            // Refine with binary search for better precision (1 minute)
+            let low = prevT.date.getTime();
+            let high = nextDate.getTime();
+            for (let i = 0; i < 5; i++) {
+                const mid = (low + high) / 2;
+                if (fn(Ast.MakeTime(new Date(mid))) < threshold) {
+                    low = mid;
+                } else {
+                    high = mid;
+                }
+            }
+            return new Date(high);
+        }
+        prevT = nextT;
+    }
+    return null;
+}
+
 const RAHU_KAAL_PARTS = [8, 2, 7, 5, 6, 4, 3]; // Sun to Sat
 const GULIKA_KAAL_PARTS = [7, 6, 5, 4, 3, 2, 1]; // Sun to Sat
 const YAMAGANDA_KAAL_PARTS = [5, 4, 3, 2, 1, 7, 6]; // Sun to Sat
@@ -630,12 +756,28 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
     const tithi = TITHIS[tithiIdx];
     const paksha = tithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
 
+    const tithiEnd = findNextCrossing((t) => {
+        const sl = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+        const ml = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+        return (ml - sl + 360) % 360;
+    }, time, (tithiIdx + 1) * 12);
+
     const nakIdx = Math.floor(siderealMoonLong / NAKSHATRA_WIDTH);
     const nak = NAKSHATRA_NAMES[nakIdx];
+    const nakEnd = findNextCrossing((t) => {
+        const ml = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+        return (ml - getLahiriAyanamsa(t) + 360) % 360;
+    }, time, (nakIdx + 1) * NAKSHATRA_WIDTH);
 
-    const yogaLong = (sunLong + moonLong) % 360;
-    const yogaIdx = Math.floor(yogaLong / NAKSHATRA_WIDTH);
+    const siderealYogaLong = (siderealSunLong + siderealMoonLong) % 360;
+    const yogaIdx = Math.floor(siderealYogaLong / NAKSHATRA_WIDTH);
     const yoga = YOGAS[yogaIdx];
+    const yogaEnd = findNextCrossing((t) => {
+        const sl = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+        const ml = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+        const ay = getLahiriAyanamsa(t);
+        return (sl - ay + ml - ay + 720) % 360;
+    }, time, (yogaIdx + 1) * NAKSHATRA_WIDTH);
 
     const karanaIdxTotal = Math.floor(diff / 6);
     let karana;
@@ -646,11 +788,15 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
     } else {
         karana = KARANAS[(karanaIdxTotal - 1) % 7];
     }
+    const karanaEnd = findNextCrossing((t) => {
+        const sl = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+        const ml = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+        return (ml - sl + 360) % 360;
+    }, time, (karanaIdxTotal + 1) * 6);
 
     const observer = new Ast.Observer(lat, lon, 0);
     const varaData = getVedicVara(time, lat, lon);
 
-    // Sunrise/Sunset for birth day
     const sunrise = varaData.sunrise;
     let sunset = null;
     if (sunrise) {
@@ -658,41 +804,72 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         sunset = sunsetResult ? sunsetResult.date : null;
     }
 
-    // Sun/Moon Signs
+    const moonriseResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, 1, time, 24);
+    const moonsetResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, -1, time, 24);
+    const moonrise = moonriseResult ? moonriseResult.date : null;
+    const moonset = moonsetResult ? moonsetResult.date : null;
+
     const sunSignIdx = Math.floor(siderealSunLong / 30);
     const moonSignIdx = Math.floor(siderealMoonLong / 30);
     const sunSign = RASI_FULL_NAMES[sunSignIdx];
     const moonSign = RASI_FULL_NAMES[moonSignIdx];
 
-    // Ritu and Ayana
     const ritu = getRitu(siderealSunLong);
     const ayana = getAyana(siderealSunLong);
 
-    // Muhurtas (based on Sunrise/Sunset)
     let rahuKaal = "--:--";
     let gulikaKaal = "--:--";
     let yamagandaKaal = "--:--";
     let abhijitMuhurta = "--:--";
+    let brahmaMuhurta = "--:--";
 
     if (sunrise && sunset) {
-        const dayOfWeek = new Date(sunrise.getTime() + (5.5 * 60 * 60 * 1000)).getUTCDay();
+        const istSunrise = new Date(sunrise.getTime() + (5.5 * 60 * 60 * 1000));
+        const dayOfWeek = istSunrise.getUTCDay();
         rahuKaal = getMuhurtaRange(sunrise, sunset, RAHU_KAAL_PARTS[dayOfWeek], 8);
         gulikaKaal = getMuhurtaRange(sunrise, sunset, GULIKA_KAAL_PARTS[dayOfWeek], 8);
         yamagandaKaal = getMuhurtaRange(sunrise, sunset, YAMAGANDA_KAAL_PARTS[dayOfWeek], 8);
-        abhijitMuhurta = getMuhurtaRange(sunrise, sunset, 8, 15); // Approximately 8th Muhurta out of 15
+        abhijitMuhurta = getMuhurtaRange(sunrise, sunset, 8, 15);
+
+        const dayDuration = sunset.getTime() - sunrise.getTime();
+        const nightDuration = (24 * 60 * 60 * 1000) - dayDuration;
+        const muhurtaLength = nightDuration / 15;
+        const brahmaStart = new Date(sunrise.getTime() - 2 * muhurtaLength);
+        const brahmaEnd = new Date(sunrise.getTime() - muhurtaLength);
+        brahmaMuhurta = `${formatTime(brahmaStart)} - ${formatTime(brahmaEnd)}`;
     }
+
+    const year = time.date.getUTCFullYear();
+    const vikramSamvat = year + 57;
+    const shakaSamvat = year - 78;
+
+    // Lunar Month: approximated by the sun's sign during the new moon
+    // Find the previous new moon
+    const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
+    let monthIdx = 0;
+    if (prevNewMoon) {
+        const nmSunLong = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, prevNewMoon, true)).elon;
+        const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
+        monthIdx = Math.floor(nmSiderealSunLong / 30);
+    }
+    const lunarMonth = LUNAR_MONTHS[(monthIdx + 1) % 12];
+    const samvatsara = SAMVATSARAS[(shakaSamvat + 11) % 60];
 
     return {
         tithi: tithi.name,
         tithiSanskrit: tithi.sanskrit,
+        tithiEnd: formatTime(tithiEnd),
         paksha: paksha.name,
         pakshaSanskrit: paksha.sanskrit,
         nakshatra: nak.name,
         nakshatraSanskrit: nak.sanskrit,
+        nakshatraEnd: formatTime(nakEnd),
         yoga: yoga.name,
         yogaSanskrit: yoga.sanskrit,
+        yogaEnd: formatTime(yogaEnd),
         karana: karana.name,
         karanaSanskrit: karana.sanskrit,
+        karanaEnd: formatTime(karanaEnd),
         vara: varaData.name,
         varaSanskrit: varaData.sanskrit,
         sunSign: sunSign.name,
@@ -706,7 +883,18 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         rahuKaal,
         gulikaKaal,
         yamagandaKaal,
-        abhijitMuhurta
+        abhijitMuhurta,
+        brahmaMuhurta,
+        sunrise: formatTime(sunrise),
+        sunset: formatTime(sunset),
+        moonrise: formatTime(moonrise),
+        moonset: formatTime(moonset),
+        vikramSamvat,
+        shakaSamvat,
+        lunarMonth: lunarMonth.name,
+        lunarMonthSanskrit: lunarMonth.sanskrit,
+        samvatsara: samvatsara.name,
+        samvatsaraSanskrit: samvatsara.sanskrit
     };
 }
 
@@ -915,8 +1103,10 @@ export function getD60Rasi(long: number): number {
     return (rasiIdx + shashtiamshaIdx) % 12;
 }
 
-export function getSignInsight(signName: string): string {
-    return SIGN_INSIGHTS[signName] || "A unique blend of celestial energies that shapes your distinct personality and life path.";
+export function getSignInsight(signName: string, lang: 'en' | 'hi' = 'en'): string {
+    const insight = SIGN_INSIGHTS[signName];
+    if (!insight) return lang === 'en' ? "A unique blend of celestial energies that shapes your distinct personality and life path." : "स्वर्गीय ऊर्जाओं का एक अनूठा मिश्रण जो आपके विशिष्ट व्यक्तित्व और जीवन पथ को आकार देता है।";
+    return insight[lang];
 }
 
 function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean): PlanetData {

@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState, useMemo } from 'react';
+import { Suspense, useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -77,7 +77,7 @@ const TRANSLATIONS = {
     timings: "मुहूर्त और काल",
     abhijit: "अभिजीत मुहूर्त",
     rahu: "राहु काल",
-    gulika: "गुलिका काल",
+    gulika: "गुलिक काल",
     yamaganda: "यमगण्ड काल",
     d1Chart: "लग्न चार्ट (D1)",
     d3Chart: "द्रेष्काण चार्ट (D3)",
@@ -106,12 +106,12 @@ const TRANSLATIONS = {
 
 const HoroscopeContent = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [lang, setLang] = useState<'en' | 'hi'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('preferred_lang') as 'en' | 'hi') || 'en';
-    }
-    return 'en';
-  });
+  const [lang, setLang] = useState<'en' | 'hi'>('en');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
+    if (saved) setLang(saved);
+  }, []);
 
   const toggleLang = () => {
     const newLang = lang === 'en' ? 'hi' : 'en';
@@ -202,7 +202,7 @@ const HoroscopeContent = () => {
             <div className="relative z-10">
               <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">{t.sunSignInsight}</span>
               <h3 className="text-xl font-headline text-on-surface mb-3">{lang === 'en' ? sunSign : chartData.panchang.sunSignSanskrit}</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(sunSign)}</p>
+              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(sunSign, lang)}</p>
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-accent/5 select-none group-hover:scale-110 transition-transform duration-700">light_mode</span>
           </div>
@@ -210,7 +210,7 @@ const HoroscopeContent = () => {
             <div className="relative z-10">
               <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">{t.moonSignInsight}</span>
               <h3 className="text-xl font-headline text-on-surface mb-3">{lang === 'en' ? moonSign : chartData.panchang.moonSignSanskrit}</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(moonSign)}</p>
+              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(moonSign, lang)}</p>
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-primary/5 select-none group-hover:scale-110 transition-transform duration-700">dark_mode</span>
           </div>
