@@ -331,8 +331,9 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 className="space-y-2 relative"
                 ref={historyRef}
               >
-                <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
+                <label htmlFor="full-name" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
                 <input
+                  id="full-name"
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -343,8 +344,10 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                   autoComplete="off"
                   maxLength={100}
                   required
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
                 />
-                {errors.name && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.name}</p>}
+                {errors.name && <p id="name-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.name}</p>}
 
                 {showHistory && history.length > 0 && (
                   <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-accent border border-white/10 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
@@ -375,30 +378,37 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 )}
               </div>
               <div className="space-y-2">
-                <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Date of Birth</label>
+                <label htmlFor="dob-input" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Date of Birth</label>
                 <input
+                  id="dob-input"
                   type="date"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
                   className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
                   required
+                  aria-invalid={!!errors.dob}
+                  aria-describedby={errors.dob ? "dob-error" : undefined}
                 />
-                {errors.dob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.dob}</p>}
+                {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Time of Birth</label>
+                <label htmlFor="tob-input" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Time of Birth</label>
                 <input
+                  id="tob-input"
                   type="time"
                   value={tob}
                   onChange={(e) => setTob(e.target.value)}
                   className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
                   required
+                  aria-invalid={!!errors.tob}
+                  aria-describedby={errors.tob ? "tob-error" : undefined}
                 />
-                {errors.tob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.tob}</p>}
+                {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
-                <label className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Place of Birth</label>
+                <label htmlFor="pob-input" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Place of Birth</label>
                 <input
+                  id="pob-input"
                   name="pob"
                   value={pob}
                   onChange={(e) => {
@@ -413,8 +423,10 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                   autoComplete="off"
                   maxLength={100}
                   required
+                  aria-invalid={!!errors.pob}
+                  aria-describedby={errors.pob ? "pob-error" : undefined}
                 />
-                {errors.pob && <p className="text-[9px] text-red-500 ml-4 font-body">{errors.pob}</p>}
+                {errors.pob && <p id="pob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.pob}</p>}
 
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
                   <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
@@ -447,6 +459,8 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                   className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label flex items-center justify-center disabled:opacity-80 disabled:cursor-not-allowed"
                   type="submit"
                   disabled={isSubmitting}
+                  aria-busy={isSubmitting}
+                  aria-label={isSubmitting ? "Generating horoscope chart..." : "Generate Horoscope Chart"}
                 >
                   {isSubmitting ? (
                     <div className="loading-spinner text-accent"></div>
