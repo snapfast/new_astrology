@@ -19,6 +19,10 @@ interface StoredChartData {
 
 const HOROSCOPE_HISTORY_KEY = 'HOROSCOPE_FORM_HISTORY';
 
+interface ChartGenerationProps {
+  className?: string;
+}
+
 const isValidHistoryItem = (item: unknown): item is StoredChartData => {
   if (!item || typeof item !== 'object') return false;
   const candidate = item as Record<string, unknown>;
@@ -54,7 +58,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-const ChartGeneration = () => {
+const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
@@ -309,7 +313,7 @@ const ChartGeneration = () => {
   };
 
   return (
-    <section className="py-24 bg-background -mt-32 relative z-20">
+    <section className={`py-24 bg-background relative z-20 ${className}`}>
       <div className="max-w-4xl mx-auto px-8">
         <div className="bg-surface p-10 md:p-16 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
           <div className="relative z-10">

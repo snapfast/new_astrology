@@ -4,7 +4,11 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 
-const DailyPanchang = () => {
+interface DailyPanchangProps {
+  className?: string;
+}
+
+const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
   const panchang = useMemo(() => {
     const now = new Date();
     // Convert to IST (UTC+5:30) for calculation
@@ -20,7 +24,7 @@ const DailyPanchang = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-surface-bright relative overflow-hidden">
+    <section className={`py-24 bg-surface-bright relative overflow-hidden ${className}`}>
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="bg-white border border-outline/40 rounded-[3rem] p-8 md:p-16 shadow-[0_30px_80px_rgba(0,0,0,0.02)]">
           <div className="flex flex-col lg:flex-row items-center gap-12">
