@@ -29,11 +29,7 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
         <div className="bg-white border border-outline/40 rounded-[3rem] p-8 md:p-16 shadow-[0_30px_80px_rgba(0,0,0,0.02)]">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2">
-              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">Panchang</span>
-              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-6 leading-tight">Today&apos;s Panchang</h2>
-              <p className="text-secondary font-body leading-relaxed mb-8 max-w-lg">
-                Align your daily activities with the cosmic rhythm. Follow the daily Tithi, Nakshatra, and auspicious Muhurtas for success and spiritual harmony.
-              </p>
+              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-8 leading-tight">Today&apos;s Panchang</h2>
               <div className="flex items-center gap-4 mb-10">
                 <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
                   <span className="material-symbols-outlined">schedule</span>
@@ -52,26 +48,35 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
               </Link>
             </div>
 
-            <div className="lg:w-1/2 w-full grid grid-cols-2 gap-4">
+            <div className="lg:w-1/2 w-full grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Tithi (Lunar Day)</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.tithi}</p>
-                <p className="text-xs text-accent font-medium">{panchang.tithiSanskrit}</p>
+                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Tithi</span>
+                <p className="text-xl font-headline text-on-surface mb-1">{panchang.paksha} {panchang.tithi}</p>
+                <p className="text-xs text-accent font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>
+                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.tithiEnd}</p>
+              </div>
+              <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
+                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Vara</span>
+                <p className="text-xl font-headline text-on-surface mb-1">{panchang.vara}</p>
+                <p className="text-xs text-accent font-medium">{panchang.varaSanskrit}</p>
               </div>
               <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
                 <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Nakshatra</span>
                 <p className="text-xl font-headline text-on-surface mb-1">{panchang.nakshatra}</p>
                 <p className="text-xs text-accent font-medium">{panchang.nakshatraSanskrit}</p>
+                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.nakshatraEnd}</p>
               </div>
               <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
                 <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Yoga</span>
                 <p className="text-xl font-headline text-on-surface mb-1">{panchang.yoga}</p>
                 <p className="text-xs text-accent font-medium">{panchang.yogaSanskrit}</p>
+                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.yogaEnd}</p>
               </div>
               <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Moon Sign</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.moonSign}</p>
-                <p className="text-xs text-accent font-medium">{panchang.moonSignSanskrit}</p>
+                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Karana</span>
+                <p className="text-xl font-headline text-on-surface mb-1">{panchang.karana}</p>
+                <p className="text-xs text-accent font-medium">{panchang.karanaSanskrit}</p>
+                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.karanaEnd}</p>
               </div>
             </div>
           </div>

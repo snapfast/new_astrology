@@ -15,11 +15,11 @@ const TRANSLATIONS = {
     timingsTitle: "Muhurtas & Kaal",
     celestialTitle: "Sun & Moon Timings",
     extraTitle: "Current Period Details",
-    tithi: "Tithi (Lunar Day)",
+    tithi: "Tithi",
     nakshatra: "Nakshatra",
     yoga: "Yoga",
     karana: "Karana",
-    vara: "Vara (Day)",
+    vara: "Vara",
     paksha: "Paksha",
     sunSign: "Sun Sign",
     moonSign: "Moon Sign",
@@ -160,9 +160,13 @@ const PanchangPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.tithi}</p>
-                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.tithi : panchang.tithiSanskrit}</p>
+                <p className="text-xl font-headline text-on-surface">
+                  {lang === 'en'
+                    ? `${panchang.paksha} ${panchang.tithi}`
+                    : `${panchang.pakshaSanskrit} ${panchang.tithiSanskrit}`}
+                </p>
                 <p className="text-xs text-accent font-medium">{t.endsAt}: {panchang.tithiEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.tithiSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.nakshatra}</p>
@@ -186,11 +190,6 @@ const PanchangPage = () => {
                 <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.vara}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
                 {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.varaSanskrit}</p>}
-              </div>
-              <div className="space-y-1">
-                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.paksha}</p>
-                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.paksha : panchang.pakshaSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.pakshaSanskrit}</p>}
               </div>
             </div>
 
