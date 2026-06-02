@@ -64,7 +64,7 @@ export default function AboutPage() {
               Every testimonial and review shared by clients reflects genuine success and authentic experiences; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification, as we maintain direct records of every consultation.
             </p>
 
-            <p className="text-2xl md:text-3xl italic text-center pt-12 text-accent border-t border-outline/20">
+            <p className="text-lg md:text-2xl italic text-center pt-12 text-accent border-t border-outline/20">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।
             </p>
           </div>
