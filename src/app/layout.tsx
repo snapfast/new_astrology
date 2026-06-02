@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
+import { Poppins, Martel } from "next/font/google";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const poppins = Poppins({
+  subsets: ["latin", "devanagari"],
+  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-lora",
+const martel = Martel({
+  subsets: ["latin", "devanagari"],
+  variable: "--font-martel",
+  weight: ["300", "400", "600", "700", "800", "900"],
   display: "swap",
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -98,7 +99,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${lora.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${poppins.variable} ${martel.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <JsonLd
           nonce={nonce}

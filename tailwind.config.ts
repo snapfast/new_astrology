@@ -30,9 +30,9 @@ export default {
         "full": "9999px"
       },
       fontFamily: {
-        "headline": ["var(--font-lora)", "serif"],
-        "body": ["var(--font-inter)", "sans-serif"],
-        "label": ["var(--font-inter)", "sans-serif"]
+        "headline": ["var(--font-martel)", "serif"],
+        "body": ["var(--font-poppins)", "sans-serif"],
+        "label": ["var(--font-poppins)", "sans-serif"]
       }
     },
   },
