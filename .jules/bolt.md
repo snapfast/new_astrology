@@ -11,3 +11,7 @@
 ## 2025-05-20 - Lazy Evaluation for Data-Heavy Utilities
 **Learning:** Functions that return large objects with many computed properties (like `generateAstrologyData`) can become performance bottlenecks if callers only need a small subset of the data. Eagerly calculating everything is wasteful.
 **Action:** Use `Object.defineProperty` with getters and closure-based memoization to implement lazy evaluation for expensive return properties. This ensures that heavy computations are only performed when actually accessed, significantly improving performance for partial-use scenarios while maintaining the same API.
+
+## 2025-05-22 - Shared Memoization in Multi-Getter Utilities
+**Learning:** In utilities using multiple lazy getters (via `Object.defineProperty`), redundant "base" calculations (like Sun/Moon positions) can occur if each getter independently computes its dependencies.
+**Action:** Lift shared astronomical dependencies into memoized closure-based helpers within the main utility scope. This ensures that heavy "core" positions are computed once and shared across `panchang`, `mahadashas`, and `planets` getters, maximizing the efficiency of the lazy evaluation pattern.

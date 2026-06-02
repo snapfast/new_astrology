@@ -358,10 +358,32 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     // By using getters, we avoid expensive planetary and divisional calculations until requested.
     const result = {} as ChartData;
 
+    // Performance Optimization: Shared tropical longitudes to avoid redundant astronomical calculations
+    let tropicalSunLong: number | undefined;
+    let tropicalMoonLong: number | undefined;
+
+    const getTropicalSunLong = () => {
+        if (tropicalSunLong === undefined) {
+            const pos = Ast.GeoVector(Ast.Body.Sun, time, true);
+            const ecl = Ast.Ecliptic(pos);
+            tropicalSunLong = ecl.elon;
+        }
+        return tropicalSunLong;
+    };
+
+    const getTropicalMoonLong = () => {
+        if (tropicalMoonLong === undefined) {
+            const pos = Ast.GeoMoon(time);
+            const ecl = Ast.Ecliptic(pos);
+            tropicalMoonLong = ecl.elon;
+        }
+        return tropicalMoonLong;
+    };
+
     let panchang: PanchangData | undefined;
     Object.defineProperty(result, 'panchang', {
         get: () => {
-            if (!panchang) panchang = calculatePanchang(time, lat, lon, ayanamsa);
+            if (!panchang) panchang = calculatePanchang(time, lat, lon, ayanamsa, getTropicalSunLong(), getTropicalMoonLong());
             return panchang;
         },
         enumerable: true
@@ -370,9 +392,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     let moonSiderealLong: number | undefined;
     const getMoonSiderealLong = () => {
         if (moonSiderealLong === undefined) {
-            const pos = Ast.GeoMoon(time);
-            const ecl = Ast.Ecliptic(pos);
-            moonSiderealLong = (ecl.elon - ayanamsa + 360) % 360;
+            moonSiderealLong = (getTropicalMoonLong() - ayanamsa + 360) % 360;
         }
         return moonSiderealLong;
     };
@@ -436,13 +456,9 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         PLANET_MAP.forEach(p => {
             let long: number;
             if (p.name === "Sun") {
-                const pos = Ast.GeoVector(Ast.Body.Sun, time, true);
-                const ecl = Ast.Ecliptic(pos);
-                long = ecl.elon;
+                long = getTropicalSunLong();
             } else if (p.name === "Moon") {
-                const pos = Ast.GeoMoon(time);
-                const ecl = Ast.Ecliptic(pos);
-                long = ecl.elon;
+                long = getTropicalMoonLong();
                 moonSiderealLong = (long - ayanamsa + 360) % 360;
             } else {
                 const pos = Ast.GeoVector(p.body, time, true);
@@ -605,15 +621,7 @@ const RAHU_KAAL_PARTS = [8, 2, 7, 5, 6, 4, 3]; // Sun to Sat
 const GULIKA_KAAL_PARTS = [7, 6, 5, 4, 3, 2, 1]; // Sun to Sat
 const YAMAGANDA_KAAL_PARTS = [5, 4, 3, 2, 1, 7, 6]; // Sun to Sat
 
-function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanamsa: number): PanchangData {
-    const sunPos = Ast.GeoVector(Ast.Body.Sun, time, true);
-    const sunEcl = Ast.Ecliptic(sunPos);
-    const moonPos = Ast.GeoMoon(time);
-    const moonEcl = Ast.Ecliptic(moonPos);
-
-    const sunLong = sunEcl.elon;
-    const moonLong = moonEcl.elon;
-
+function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanamsa: number, sunLong: number, moonLong: number): PanchangData {
     const siderealSunLong = (sunLong - ayanamsa + 360) % 360;
     const siderealMoonLong = (moonLong - ayanamsa + 360) % 360;
 
