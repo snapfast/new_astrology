@@ -55,7 +55,10 @@ const TRANSLATIONS = {
     pageTitle: "Your Birth Chart",
     ctaTitle: "Seeking Verified Information?",
     ctaDesc: "This digital chart provides a visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.",
-    ctaBtn: "Book Verified Personal Consultation"
+    ctaBtn: "Book Verified Personal Consultation",
+    linkCopied: "Link Copied!",
+    switchLanguage: "Switch Language / भाषा बदलें",
+    shareReport: "Share Report"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -100,12 +103,16 @@ const TRANSLATIONS = {
     pageTitle: "आपकी जन्म कुंडली",
     ctaTitle: "सत्यापित जानकारी खोज रहे हैं?",
     ctaDesc: "यह डिजिटल चार्ट मानक एल्गोरिदम पर आधारित एक विज़ुअलाइज़ेशन प्रदान करता है। सटीक सत्यापित जानकारी के लिए—जिसमें सटीक ग्रह अंश, विशिष्ट अयनांश और व्यक्तिगत कर्म संबंधी अंतर्दृष्टि शामिल है—एक विशेषज्ञ समीक्षा आवश्यक है।",
-    ctaBtn: "सत्यापित व्यक्तिगत परामर्श बुक करें"
+    ctaBtn: "सत्यापित व्यक्तिगत परामर्श बुक करें",
+    linkCopied: "लिंक कॉपी किया गया!",
+    switchLanguage: "भाषा बदलें / Switch Language",
+    shareReport: "रिपोर्ट साझा करें"
   }
 };
 
 const HoroscopeContent = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
   const [lang, setLang] = useState<'en' | 'hi'>('en');
 
   useEffect(() => {
@@ -153,8 +160,13 @@ const HoroscopeContent = () => {
       }
     } else {
       // Fallback for browsers that don't support Web Share API
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+      } catch (err) {
+        console.error('Error copying to clipboard:', err);
+      }
     }
   };
 
@@ -178,18 +190,25 @@ const HoroscopeContent = () => {
             </a>
             <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">{t.pageTitle}</h1>
           </div>
-          <div className="flex items-center gap-2 pb-1">
+          <div className="flex items-center gap-2 pb-1 relative">
+            {showCopied && (
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase tracking-widest">
+                {t.linkCopied}
+              </div>
+            )}
             <button
               onClick={toggleLang}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
-              title="Switch Language / भाषा बदलें"
+              title={t.switchLanguage}
+              aria-label={t.switchLanguage}
             >
               <span className="material-symbols-outlined text-[20px]">translate</span>
             </button>
             <button
               onClick={handleShare}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
-              title="Share Report"
+              title={t.shareReport}
+              aria-label={t.shareReport}
             >
               <span className="material-symbols-outlined text-[20px]">share</span>
             </button>
