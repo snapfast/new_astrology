@@ -9,7 +9,7 @@ import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
 import { sendGAEvent } from '@next/third-parties/google';
-import { sanitize, sanitizeCoord } from '@/lib/security';
+import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from '@/lib/security';
 
 const TRANSLATIONS = {
   en: {
@@ -121,7 +121,7 @@ const HoroscopeContent = () => {
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
   const name = sanitize(searchParams.get('name'), 100) || 'Guest';
-  const dob = sanitize(searchParams.get('dob'), 10) || '';
+  const dob = sanitizeDate(searchParams.get('dob')) || '';
   const formattedDob = useMemo(() => {
     if (!dob) return '';
     const parts = dob.split('-');
@@ -129,7 +129,7 @@ const HoroscopeContent = () => {
     const [year, month, day] = parts;
     return `${day}-${month}-${year}`;
   }, [dob]);
-  const tob = sanitize(searchParams.get('tob'), 5) || '';
+  const tob = sanitizeTime(searchParams.get('tob')) || '';
   const pob = sanitize(searchParams.get('pob'), 100) || '';
   const lat = sanitizeCoord(searchParams.get('lat')) || '';
   const lon = sanitizeCoord(searchParams.get('lon')) || '';
