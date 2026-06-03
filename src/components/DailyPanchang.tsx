@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 
@@ -8,7 +8,49 @@ interface DailyPanchangProps {
   className?: string;
 }
 
+const TRANSLATIONS = {
+  en: {
+    title: "Today's Panchang",
+    viewFull: "View Full Daily Panchang",
+    tithi: "Tithi",
+    nakshatra: "Nakshatra",
+    yoga: "Yoga",
+    karana: "Karana",
+    vara: "Vara",
+    abhijit: "Auspicious Muhurta",
+    rahu: "Rahu Kaal",
+    endsAt: "Ends at"
+  },
+  hi: {
+    title: "आज का पंचांग",
+    viewFull: "पूरा पंचांग देखें",
+    tithi: "तिथि",
+    nakshatra: "नक्षत्र",
+    yoga: "योग",
+    karana: "करण",
+    vara: "वार",
+    abhijit: "शुभ मुहूर्त",
+    rahu: "राहु काल",
+    endsAt: "समाप्ति समय"
+  }
+};
+
 const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
+  const [lang, setLang] = useState<'en' | 'hi'>('en');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
+    if (saved) setLang(saved);
+  }, []);
+
+  const toggleLang = () => {
+    const newLang = lang === 'en' ? 'hi' : 'en';
+    setLang(newLang);
+    localStorage.setItem('preferred_lang', newLang);
+  };
+
+  const t = TRANSLATIONS[lang];
+
   const panchang = useMemo(() => {
     const now = new Date();
     // Convert to IST (UTC+5:30) for calculation
@@ -26,57 +68,87 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
   return (
     <section className={`py-24 bg-surface-bright relative overflow-hidden ${className}`}>
       <div className="max-w-7xl mx-auto px-8 relative z-10">
-        <div className="bg-white border border-outline/40 rounded-[3rem] p-8 md:p-16 shadow-[0_30px_80px_rgba(0,0,0,0.02)]">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
+          <div className="flex flex-col lg:flex-row items-center gap-12 relative">
+            {/* Language Toggle Button */}
+            <div className="absolute top-0 right-0 z-20">
+              <button
+                onClick={toggleLang}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
+                title="Switch Language / भाषा बदलें"
+              >
+                <span className="material-symbols-outlined text-[20px]">translate</span>
+              </button>
+            </div>
+
             <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-8 leading-tight">Today&apos;s Panchang</h2>
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
-                  <span className="material-symbols-outlined">schedule</span>
+              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-8 leading-tight">{t.title}</h2>
+              <div className="space-y-6 mb-10">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
+                    <span className="material-symbols-outlined text-xl">sunny</span>
+                  </div>
+                  <div>
+                    <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.abhijit}</p>
+                    <p className="text-lg font-headline text-on-surface">{panchang.abhijitMuhurta}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[10px] font-bold text-secondary uppercase tracking-widest font-label">Auspicious Muhurta</p>
-                  <p className="text-lg font-headline text-on-surface">{panchang.abhijitMuhurta}</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-error/10 rounded-full flex items-center justify-center text-error shrink-0">
+                    <span className="material-symbols-outlined text-xl">block</span>
+                  </div>
+                  <div>
+                    <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.rahu}</p>
+                    <p className="text-lg font-headline text-on-surface">{panchang.rahuKaal}</p>
+                  </div>
                 </div>
               </div>
               <Link
                 href="/panchang"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all"
               >
-                View Full Daily Panchang
+                {t.viewFull}
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </Link>
             </div>
 
-            <div className="lg:w-1/2 w-full grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Tithi</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.paksha} {panchang.tithi}</p>
-                <p className="text-xs text-accent font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>
-                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.tithiEnd}</p>
+            <div className="lg:w-1/2 w-full grid grid-cols-2 md:grid-cols-3 gap-8">
+              <div className="space-y-1">
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.tithi}</p>
+                <p className="text-xl font-headline text-on-surface">
+                  {lang === 'en'
+                    ? `${panchang.paksha} ${panchang.tithi}`
+                    : `${panchang.pakshaSanskrit} ${panchang.tithiSanskrit}`}
+                </p>
+                <p className="text-xs text-accent font-medium">{t.endsAt}: {panchang.tithiEnd}</p>
+                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
               </div>
-              <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Vara</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.vara}</p>
-                <p className="text-xs text-accent font-medium">{panchang.varaSanskrit}</p>
+
+              <div className="space-y-1">
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.nakshatra}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.nakshatra : panchang.nakshatraSanskrit}</p>
+                <p className="text-xs text-accent font-medium">{t.endsAt}: {panchang.nakshatraEnd}</p>
+                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.nakshatraSanskrit}</p>}
               </div>
-              <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Nakshatra</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.nakshatra}</p>
-                <p className="text-xs text-accent font-medium">{panchang.nakshatraSanskrit}</p>
-                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.nakshatraEnd}</p>
+
+              <div className="space-y-1">
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.yoga}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.yoga : panchang.yogaSanskrit}</p>
+                <p className="text-xs text-accent font-medium">{t.endsAt}: {panchang.yogaEnd}</p>
+                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.yogaSanskrit}</p>}
               </div>
-              <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Yoga</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.yoga}</p>
-                <p className="text-xs text-accent font-medium">{panchang.yogaSanskrit}</p>
-                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.yogaEnd}</p>
+
+              <div className="space-y-1">
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.karana}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.karana : panchang.karanaSanskrit}</p>
+                <p className="text-xs text-accent font-medium">{t.endsAt}: {panchang.karanaEnd}</p>
+                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.karanaSanskrit}</p>}
               </div>
-              <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline/20">
-                <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.2em] font-label block mb-2">Karana</span>
-                <p className="text-xl font-headline text-on-surface mb-1">{panchang.karana}</p>
-                <p className="text-xs text-accent font-medium">{panchang.karanaSanskrit}</p>
-                <p className="text-[10px] text-accent mt-2 font-medium">Ends at {panchang.karanaEnd}</p>
+
+              <div className="space-y-1">
+                <p className={`font-bold text-secondary uppercase tracking-widest font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px]'}`}>{t.vara}</p>
+                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
+                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.varaSanskrit}</p>}
               </div>
             </div>
           </div>
