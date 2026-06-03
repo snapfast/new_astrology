@@ -15,3 +15,7 @@
 ## 2025-05-22 - Shared Memoization in Multi-Getter Utilities
 **Learning:** In utilities using multiple lazy getters (via `Object.defineProperty`), redundant "base" calculations (like Sun/Moon positions) can occur if each getter independently computes its dependencies.
 **Action:** Lift shared astronomical dependencies into memoized closure-based helpers within the main utility scope. This ensures that heavy "core" positions are computed once and shared across `panchang`, `mahadashas`, and `planets` getters, maximizing the efficiency of the lazy evaluation pattern.
+
+## 2025-05-25 - Precision-Aware Loop Consolidation
+**Learning:** Consolidating multiple search loops (like Panchang end-time lookups) into a single pass significantly reduces astronomical overhead, but a coarse step size (e.g., 15 minutes) leads to accuracy regressions if the original implementation used refinement.
+**Action:** Always include a binary search refinement step within consolidated search loops to maintain the original data precision (e.g., 1-minute accuracy) while still benefiting from the reduced number of coarse-grained lookups.
