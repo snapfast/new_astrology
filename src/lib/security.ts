@@ -1,22 +1,26 @@
 /**
  * Sanitizes a string by removing potential HTML tags (specifically < and >)
- * and enforcing a maximum length.
+ * and common XSS vectors like "javascript:" or "onhover=".
+ * Enforces a maximum length.
  */
 export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
   return val
     .replace(/[<>]/g, '')
+    .replace(/javascript:/gi, '')
+    .replace(/on\w+=/gi, '')
     .slice(0, maxLength);
 }
 
 /**
  * Sanitizes a coordinate string (latitude or longitude) by enforcing a maximum
- * length and a strict numeric format.
+ * length and a strict numeric format that prevents "NaN" results.
  */
 export function sanitizeCoord(val: unknown): string {
   if (!val || typeof val !== 'string') return '';
   const sanitized = val.slice(0, 20);
-  const regex = /^-?\d*\.?\d*$/;
+  // Strict regex to ensure it's a valid number and not just ".", "-", or "1.2.3"
+  const regex = /^-?\d+(\.\d+)?$/;
   return regex.test(sanitized) ? sanitized : '';
 }
 
