@@ -53,6 +53,7 @@ const TRANSLATIONS = {
     moonSignInsight: "Moon Sign Insight",
     generateNew: "Generate New Chart",
     pageTitle: "Your Birth Chart",
+    compactView: "Compact Dashboard",
     ctaTitle: "Seeking Verified Information?",
     ctaDesc: "This digital chart provides a visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.",
     ctaBtn: "Book Verified Personal Consultation"
@@ -98,6 +99,7 @@ const TRANSLATIONS = {
     moonSignInsight: "चंद्र राशि अंतर्दृष्टि",
     generateNew: "नई कुंडली बनाएं",
     pageTitle: "आपकी जन्म कुंडली",
+    compactView: "कॉम्पैक्ट डैशबोर्ड",
     ctaTitle: "सत्यापित जानकारी खोज रहे हैं?",
     ctaDesc: "यह डिजिटल चार्ट मानक एल्गोरिदम पर आधारित एक विज़ुअलाइज़ेशन प्रदान करता है। सटीक सत्यापित जानकारी के लिए—जिसमें सटीक ग्रह अंश, विशिष्ट अयनांश और व्यक्तिगत कर्म संबंधी अंतर्दृष्टि शामिल है—एक विशेषज्ञ समीक्षा आवश्यक है।",
     ctaBtn: "सत्यापित व्यक्तिगत परामर्श बुक करें"
@@ -118,6 +120,13 @@ const HoroscopeContent = () => {
     setLang(newLang);
     localStorage.setItem('preferred_lang', newLang);
   };
+
+  const goToCompact = () => {
+    sendGAEvent({ event: 'action_click', action_name: 'horoscope_go_compact' });
+    const params = new URLSearchParams(searchParams.toString());
+    window.location.href = `/horoscope/compact?${params.toString()}`;
+  };
+
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
   const name = sanitize(searchParams.get('name'), 100) || 'Guest';
@@ -179,6 +188,14 @@ const HoroscopeContent = () => {
             <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">{t.pageTitle}</h1>
           </div>
           <div className="flex items-center gap-2 pb-1">
+            <button
+              onClick={goToCompact}
+              className="hidden lg:flex h-10 items-center justify-center px-4 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors active:scale-95 border border-accent/20 shadow-sm mr-2"
+              title="Switch to High-Density Compact Dashboard"
+            >
+              <span className="material-symbols-outlined text-[20px] mr-2">dashboard</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest font-label">{t.compactView}</span>
+            </button>
             <button
               onClick={toggleLang}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
