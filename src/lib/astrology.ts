@@ -375,20 +375,17 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
 /**
  * Determines if a planet is in retrograde motion.
  */
-function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime): boolean {
+function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: number): boolean {
     // Sun and Moon are never retrograde
     if (body === Ast.Body.Sun || body === Ast.Body.Moon) return false;
 
     const t1 = time;
     const t2 = Ast.MakeTime(new Date(time.date.getTime() + 60 * 60 * 1000)); // +1 hour
 
-    const pos1 = Ast.GeoVector(body, t1, true);
-    const pos2 = Ast.GeoVector(body, t2, true);
+    const lon1 = currentLong ?? Ast.Ecliptic(Ast.GeoVector(body, t1, true)).elon;
+    const lon2 = Ast.Ecliptic(Ast.GeoVector(body, t2, true)).elon;
 
-    const ecl1 = Ast.Ecliptic(pos1);
-    const ecl2 = Ast.Ecliptic(pos2);
-
-    let diff = (ecl2.elon - ecl1.elon + 360) % 360;
+    let diff = (lon2 - lon1 + 360) % 360;
     if (diff > 180) diff -= 360;
 
     return diff < 0;
@@ -550,7 +547,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
                 long = ecl.elon;
             }
 
-            const isRetro = isPlanetRetrograde(p.body, time);
+            const isRetro = isPlanetRetrograde(p.body, time, long);
             const siderealLong = (long - ayanamsa + 360) % 360;
             const planetRasiIdx = Math.floor(siderealLong / 30);
             const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;

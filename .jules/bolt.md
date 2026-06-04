@@ -19,3 +19,7 @@
 ## 2025-05-25 - Precision-Aware Loop Consolidation
 **Learning:** Consolidating multiple search loops (like Panchang end-time lookups) into a single pass significantly reduces astronomical overhead, but a coarse step size (e.g., 15 minutes) leads to accuracy regressions if the original implementation used refinement.
 **Action:** Always include a binary search refinement step within consolidated search loops to maintain the original data precision (e.g., 1-minute accuracy) while still benefiting from the reduced number of coarse-grained lookups.
+
+## 2025-06-04 - Redundancy Elimination in Astronomical Utilities
+**Learning:** Functions that calculate relative states (like `isPlanetRetrograde`) often perform the same coordinate lookups as their callers. In the case of `astronomy-engine`, these calls involve expensive trigonometric operations and multiple vector transformations.
+**Action:** Design utility functions to accept optional pre-calculated values (like tropical longitude). In loops processing multiple planets, pass the already-calculated current-time longitude to state-checkers to avoid doubling the astronomical overhead per planet.

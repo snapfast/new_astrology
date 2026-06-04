@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, memo } from 'react';
 import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha } from '@/lib/astrology';
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
 }
 
-export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) {
+// Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
+const DATE_FORMATTER = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+const DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: VimshottariDashaProps) {
   const now = useMemo(() => new Date(), []);
   const nowTime = useMemo(() => now.getTime(), [now]);
 
@@ -171,9 +175,9 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
                   </div>
                 </div>
                 <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface/70' : 'text-secondary'}`}>
-                  {item.start.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
+                  {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
                   {' to '}
-                  {item.end.toLocaleDateString('en-GB', isSookshma ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: '2-digit', month: 'short', year: 'numeric' })}
+                  {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
                 </div>
               </div>
             );
@@ -230,4 +234,6 @@ export default function VimshottariDasha({ mahadashas }: VimshottariDashaProps) 
       `}</style>
     </div>
   );
-}
+});
+
+export default VimshottariDasha;

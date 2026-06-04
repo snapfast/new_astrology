@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { DivisionalChartData } from '@/lib/astrology';
 
 interface KundliChartProps {
   data: DivisionalChartData;
 }
 
-const KundliChart: FC<KundliChartProps> = ({ data }) => {
+const KundliChartComponent: FC<KundliChartProps> = ({ data }) => {
   const { houses, houseRasis } = data;
 
   // House coordinates and labels for North Indian Style (Diamond)
@@ -103,5 +103,8 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
     </g>
   );
 };
+
+const KundliChart = memo(KundliChartComponent);
+KundliChart.displayName = 'KundliChart';
 
 export default KundliChart;
