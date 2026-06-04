@@ -12,3 +12,8 @@
 **Vulnerability:** Weak, generic string sanitization that could fail at runtime if passed non-string types (e.g., arrays or objects from query params) or allow invalid formats to reach core logic.
 **Learning:** Generic "remove tags" functions are insufficient for specialized fields like dates, times, or coordinates. Sanitization must include explicit type checking (using `unknown` and `typeof` in TS) and format validation (regex).
 **Prevention:** Implement specialized, format-aware sanitizers (`sanitizeDate`, `sanitizeTime`) for all structured user inputs and ensure generic sanitizers fail safely on unexpected types.
+
+## 2025-05-25 - Enhanced XSS and Coordinate Validation
+**Vulnerability:** `sanitizeCoord` used a loose regex that allowed non-numeric strings like ".", which could lead to `NaN` being passed to astronomical calculation functions. `sanitize` only stripped `<` and `>`, leaving it vulnerable to `javascript:` protocols and HTML event handlers.
+**Learning:** Coordinate validation must be strict (`/^-?\d+(\.\d+)?$/`) to ensure only valid numbers are processed. Generic sanitization should include heuristic stripping of common XSS protocols and event handlers (e.g., `onmouseover=`).
+**Prevention:** Use strict regex for numeric inputs and extend string sanitization to cover common attribute-based XSS vectors.
