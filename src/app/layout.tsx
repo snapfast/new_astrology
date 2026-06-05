@@ -3,6 +3,7 @@ import { Poppins, Martel } from "next/font/google";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
+import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -124,6 +125,7 @@ export default async function RootLayout({
           }}
         />
         {children}
+        <BackToTop />
       </body>
       <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />
     </html>
