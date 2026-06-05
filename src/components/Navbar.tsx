@@ -61,7 +61,7 @@ const Navbar = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsMenuOpen(true)}
-          className="md:hidden p-2 -ml-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors"
+          className="md:hidden p-2 -ml-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           aria-label="Open Menu"
         >
           <span className="material-symbols-outlined !text-2xl">menu</span>
@@ -70,32 +70,45 @@ const Navbar = () => {
 
         {/* Desktop Logo */}
         <div className="hidden md:flex items-center shrink-0">
-          <Link href="/">
+          <Link href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
             <Logo />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-10 font-normal text-xs text-secondary font-body">
-          <Link href="/free-horoscope" className="text-accent font-medium">Free Horoscope</Link>
-          <Link href="/panchang">Panchang</Link>
-          <Link href="/about">About</Link>
-          <Link href="/services">Services</Link>
-          <Link href="/reviews">Reviews</Link>
-          <Link href="/contact">Contact</Link>
+          {navLinks.filter(link => link.href !== '/').map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? 'page' : undefined}
+                className={`transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-sm ${
+                  isActive
+                    ? 'text-on-surface font-semibold underline underline-offset-8 decoration-accent/40'
+                    : link.highlight
+                      ? 'text-accent font-medium'
+                      : 'text-secondary'
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <Link
             href="/free-horoscope"
-            className="md:hidden bg-accent text-white px-4 py-2.5 rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center min-w-[110px] shadow-sm active:scale-95 transition-transform"
+            className="md:hidden bg-accent text-white px-4 py-2.5 rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center min-w-[110px] shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             Free Horoscope
           </Link>
           <button
             onClick={handleBookNow}
-            className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform"
+            className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Book Now
           </button>
@@ -111,12 +124,12 @@ const Navbar = () => {
     >
       <div className="flex flex-col h-full p-6 overflow-y-auto">
         <div className="flex items-center justify-between mb-12 shrink-0">
-          <Link href="/" onClick={closeMenu}>
+          <Link href="/" onClick={closeMenu} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
             <Logo />
           </Link>
           <button
             onClick={closeMenu}
-            className="p-2 -mr-2 text-on-surface hover:bg-black/5 rounded-full transition-colors"
+            className="p-2 -mr-2 text-on-surface hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label="Close Menu"
           >
             <span className="material-symbols-outlined !text-2xl">close</span>
@@ -124,24 +137,29 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={closeMenu}
-              className={`text-3xl font-headline tracking-tight py-1 ${
-                link.highlight ? 'text-accent' : 'text-on-surface'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <div key={link.href} className="px-1">
+                <Link
+                  href={link.href}
+                  onClick={closeMenu}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`text-3xl font-headline tracking-tight py-1 block transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-8 rounded-lg ${
+                    isActive ? 'text-accent font-semibold' : link.highlight ? 'text-accent' : 'text-on-surface'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-auto pt-10 pb-8 border-t border-outline/50 shrink-0">
           <button
             onClick={handleBookNow}
-            className="w-full bg-primary text-white py-4 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform"
+            className="w-full bg-primary text-white py-4 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Book a Consultation Now
           </button>
