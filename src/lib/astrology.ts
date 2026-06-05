@@ -733,92 +733,18 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         karana = KARANAS[(karanaIdxTotal - 1) % 7];
     }
 
-    // Optimization: Single loop to find all Panchang end times.
-    // This reduces redundant Sun/Moon position calculations significantly.
-    let tithiEnd: Date | null = null;
-    let nakEnd: Date | null = null;
-    let yogaEnd: Date | null = null;
-    let karanaEnd: Date | null = null;
-
-    const tithiThreshold = (tithiIdx + 1) * 12;
-    const nakThreshold = (nakIdx + 1) * NAKSHATRA_WIDTH;
-    const yogaThreshold = (yogaIdx + 1) * NAKSHATRA_WIDTH;
-    const karanaThreshold = (karanaIdxTotal + 1) * 6;
-
-    const stepMinutes = 15;
-    const maxHours = 30;
-
-    const refine = (low: number, high: number, threshold: number, fn: (t: Ast.AstroTime) => number) => {
-        let L = low, H = high;
-        for (let i = 0; i < 5; i++) {
-            const mid = (L + H) / 2;
-            if (fn(Ast.MakeTime(new Date(mid))) < threshold) L = mid;
-            else H = mid;
-        }
-        return new Date(H);
-    };
-
-    let prevDate = time.date;
-    for (let m = stepMinutes; m <= maxHours * 60; m += stepMinutes) {
-        if (tithiEnd && nakEnd && yogaEnd && karanaEnd) break;
-
-        const nextDate = new Date(time.date.getTime() + m * 60 * 1000);
-        const nextT = Ast.MakeTime(nextDate);
-        const ay = getLahiriAyanamsa(nextT);
-
-        const sl = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, nextT, true)).elon;
-        const ml = Ast.Ecliptic(Ast.GeoMoon(nextT)).elon;
-
-        const nextDiff = (ml - sl + 360) % 360;
-        const nextSiderealMoon = (ml - ay + 360) % 360;
-        const nextSiderealSun = (sl - ay + 360) % 360;
-        const nextYogaLong = (nextSiderealSun + nextSiderealMoon) % 360;
-
-        if (!tithiEnd && ((diff < tithiThreshold && nextDiff >= tithiThreshold) || (diff > nextDiff && (diff < tithiThreshold || nextDiff >= tithiThreshold)))) {
-            tithiEnd = refine(prevDate.getTime(), nextDate.getTime(), tithiThreshold, (t) => {
-                const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
-                const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
-                return (mo - s + 360) % 360;
-            });
-        }
-        if (!karanaEnd && ((diff < karanaThreshold && nextDiff >= karanaThreshold) || (diff > nextDiff && (diff < karanaThreshold || nextDiff >= karanaThreshold)))) {
-            karanaEnd = refine(prevDate.getTime(), nextDate.getTime(), karanaThreshold, (t) => {
-                const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
-                const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
-                return (mo - s + 360) % 360;
-            });
-        }
-        if (!nakEnd && ((siderealMoonLong < nakThreshold && nextSiderealMoon >= nakThreshold) || (siderealMoonLong > nextSiderealMoon && (siderealMoonLong < nakThreshold || nextSiderealMoon >= nakThreshold)))) {
-            nakEnd = refine(prevDate.getTime(), nextDate.getTime(), nakThreshold, (t) => {
-                const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
-                return (mo - getLahiriAyanamsa(t) + 360) % 360;
-            });
-        }
-        if (!yogaEnd && ((siderealYogaLong < yogaThreshold && nextYogaLong >= yogaThreshold) || (siderealYogaLong > nextYogaLong && (siderealYogaLong < yogaThreshold || nextYogaLong >= yogaThreshold)))) {
-            yogaEnd = refine(prevDate.getTime(), nextDate.getTime(), yogaThreshold, (t) => {
-                const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
-                const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
-                const a = getLahiriAyanamsa(t);
-                return (s - a + mo - a + 720) % 360;
-            });
-        }
-        prevDate = nextDate;
-    }
-
     const observer = new Ast.Observer(lat, lon, 0);
     const varaData = getVedicVara(time, lat, lon);
 
     const sunrise = varaData.sunrise;
-    let sunset = null;
-    if (sunrise) {
-        const sunsetResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, -1, Ast.MakeTime(sunrise), 24);
-        sunset = sunsetResult ? sunsetResult.date : null;
-    }
-
-    const moonriseResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, 1, time, 24);
-    const moonsetResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, -1, time, 24);
-    const moonrise = moonriseResult ? moonriseResult.date : null;
-    const moonset = moonsetResult ? moonsetResult.date : null;
+    let sunset: Date | null = null;
+    const getSunset = () => {
+        if (sunset === null && sunrise) {
+            const sunsetResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, -1, Ast.MakeTime(sunrise), 24);
+            sunset = sunsetResult ? sunsetResult.date : null;
+        }
+        return sunset;
+    };
 
     const sunSignIdx = Math.floor(siderealSunLong / 30);
     const moonSignIdx = Math.floor(siderealMoonLong / 30);
@@ -828,59 +754,22 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
     const ritu = getRitu(siderealSunLong);
     const ayana = getAyana(siderealSunLong);
 
-    let rahuKaal = "--:--";
-    let gulikaKaal = "--:--";
-    let yamagandaKaal = "--:--";
-    let abhijitMuhurta = "--:--";
-    let brahmaMuhurta = "--:--";
-
-    if (sunrise && sunset) {
-        const istSunrise = new Date(sunrise.getTime() + (5.5 * 60 * 60 * 1000));
-        const dayOfWeek = istSunrise.getUTCDay();
-        rahuKaal = getMuhurtaRange(sunrise, sunset, RAHU_KAAL_PARTS[dayOfWeek], 8);
-        gulikaKaal = getMuhurtaRange(sunrise, sunset, GULIKA_KAAL_PARTS[dayOfWeek], 8);
-        yamagandaKaal = getMuhurtaRange(sunrise, sunset, YAMAGANDA_KAAL_PARTS[dayOfWeek], 8);
-        abhijitMuhurta = getMuhurtaRange(sunrise, sunset, 8, 15);
-
-        const dayDuration = sunset.getTime() - sunrise.getTime();
-        const nightDuration = (24 * 60 * 60 * 1000) - dayDuration;
-        const muhurtaLength = nightDuration / 15;
-        const brahmaStart = new Date(sunrise.getTime() - 2 * muhurtaLength);
-        const brahmaEnd = new Date(sunrise.getTime() - muhurtaLength);
-        brahmaMuhurta = `${formatTime(brahmaStart)} - ${formatTime(brahmaEnd)}`;
-    }
-
     const year = time.date.getUTCFullYear();
     const vikramSamvat = year + 57;
     const shakaSamvat = year - 78;
-
-    // Lunar Month: approximated by the sun's sign during the new moon
-    // Find the previous new moon
-    const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
-    let monthIdx = 0;
-    if (prevNewMoon) {
-        const nmSunLong = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, prevNewMoon, true)).elon;
-        const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
-        monthIdx = Math.floor(nmSiderealSunLong / 30);
-    }
-    const lunarMonth = LUNAR_MONTHS[(monthIdx + 1) % 12];
     const samvatsara = SAMVATSARAS[(shakaSamvat + 11) % 60];
 
-    return {
+    const result = {
         tithi: tithi.name,
         tithiSanskrit: tithi.sanskrit,
-        tithiEnd: formatTime(tithiEnd),
         paksha: paksha.name,
         pakshaSanskrit: paksha.sanskrit,
         nakshatra: nak.name,
         nakshatraSanskrit: nak.sanskrit,
-        nakshatraEnd: formatTime(nakEnd),
         yoga: yoga.name,
         yogaSanskrit: yoga.sanskrit,
-        yogaEnd: formatTime(yogaEnd),
         karana: karana.name,
         karanaSanskrit: karana.sanskrit,
-        karanaEnd: formatTime(karanaEnd),
         vara: varaData.name,
         varaSanskrit: varaData.sanskrit,
         sunSign: sunSign.name,
@@ -891,22 +780,159 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         rituSanskrit: ritu.sanskrit,
         ayana: ayana.name,
         ayanaSanskrit: ayana.sanskrit,
-        rahuKaal,
-        gulikaKaal,
-        yamagandaKaal,
-        abhijitMuhurta,
-        brahmaMuhurta,
         sunrise: formatTime(sunrise),
-        sunset: formatTime(sunset),
-        moonrise: formatTime(moonrise),
-        moonset: formatTime(moonset),
         vikramSamvat,
         shakaSamvat,
-        lunarMonth: lunarMonth.name,
-        lunarMonthSanskrit: lunarMonth.sanskrit,
         samvatsara: samvatsara.name,
         samvatsaraSanskrit: samvatsara.sanskrit
+    } as PanchangData;
+
+    // Performance Optimization: Lazy evaluation for expensive search-based properties
+    let endTimes: { tithi: Date | null, nak: Date | null, yoga: Date | null, karana: Date | null } | undefined;
+    const calculateEndTimes = () => {
+        if (endTimes) return endTimes;
+
+        let tithiEnd: Date | null = null;
+        let nakEnd: Date | null = null;
+        let yogaEnd: Date | null = null;
+        let karanaEnd: Date | null = null;
+
+        const tithiThreshold = (tithiIdx + 1) * 12;
+        const nakThreshold = (nakIdx + 1) * NAKSHATRA_WIDTH;
+        const yogaThreshold = (yogaIdx + 1) * NAKSHATRA_WIDTH;
+        const karanaThreshold = (karanaIdxTotal + 1) * 6;
+
+        const stepMinutes = 15;
+        const maxHours = 30;
+
+        const refine = (low: number, high: number, threshold: number, fn: (t: Ast.AstroTime) => number) => {
+            let L = low, H = high;
+            for (let i = 0; i < 5; i++) {
+                const mid = (L + H) / 2;
+                if (fn(Ast.MakeTime(new Date(mid))) < threshold) L = mid;
+                else H = mid;
+            }
+            return new Date(H);
+        };
+
+        let prevDate = time.date;
+        for (let m = stepMinutes; m <= maxHours * 60; m += stepMinutes) {
+            if (tithiEnd && nakEnd && yogaEnd && karanaEnd) break;
+
+            const nextDate = new Date(time.date.getTime() + m * 60 * 1000);
+            const nextT = Ast.MakeTime(nextDate);
+            const ay = getLahiriAyanamsa(nextT);
+
+            const sl = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, nextT, true)).elon;
+            const ml = Ast.Ecliptic(Ast.GeoMoon(nextT)).elon;
+
+            const nextDiff = (ml - sl + 360) % 360;
+            const nextSiderealMoon = (ml - ay + 360) % 360;
+            const nextSiderealSun = (sl - ay + 360) % 360;
+            const nextYogaLong = (nextSiderealSun + nextSiderealMoon) % 360;
+
+            if (!tithiEnd && ((diff < tithiThreshold && nextDiff >= tithiThreshold) || (diff > nextDiff && (diff < tithiThreshold || nextDiff >= tithiThreshold)))) {
+                tithiEnd = refine(prevDate.getTime(), nextDate.getTime(), tithiThreshold, (t) => {
+                    const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    return (mo - s + 360) % 360;
+                });
+            }
+            if (!karanaEnd && ((diff < karanaThreshold && nextDiff >= karanaThreshold) || (diff > nextDiff && (diff < karanaThreshold || nextDiff >= karanaThreshold)))) {
+                karanaEnd = refine(prevDate.getTime(), nextDate.getTime(), karanaThreshold, (t) => {
+                    const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    return (mo - s + 360) % 360;
+                });
+            }
+            if (!nakEnd && ((siderealMoonLong < nakThreshold && nextSiderealMoon >= nakThreshold) || (siderealMoonLong > nextSiderealMoon && (siderealMoonLong < nakThreshold || nextSiderealMoon >= nakThreshold)))) {
+                nakEnd = refine(prevDate.getTime(), nextDate.getTime(), nakThreshold, (t) => {
+                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    return (mo - getLahiriAyanamsa(t) + 360) % 360;
+                });
+            }
+            if (!yogaEnd && ((siderealYogaLong < yogaThreshold && nextYogaLong >= yogaThreshold) || (siderealYogaLong > nextYogaLong && (siderealYogaLong < yogaThreshold || nextYogaLong >= yogaThreshold)))) {
+                yogaEnd = refine(prevDate.getTime(), nextDate.getTime(), yogaThreshold, (t) => {
+                    const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    const a = getLahiriAyanamsa(t);
+                    return (s - a + mo - a + 720) % 360;
+                });
+            }
+            prevDate = nextDate;
+        }
+        endTimes = { tithi: tithiEnd, nak: nakEnd, yoga: yogaEnd, karana: karanaEnd };
+        return endTimes;
     };
+
+    Object.defineProperty(result, 'tithiEnd', { get: () => formatTime(calculateEndTimes().tithi), enumerable: true });
+    Object.defineProperty(result, 'nakshatraEnd', { get: () => formatTime(calculateEndTimes().nak), enumerable: true });
+    Object.defineProperty(result, 'yogaEnd', { get: () => formatTime(calculateEndTimes().yoga), enumerable: true });
+    Object.defineProperty(result, 'karanaEnd', { get: () => formatTime(calculateEndTimes().karana), enumerable: true });
+
+    Object.defineProperty(result, 'sunset', { get: () => formatTime(getSunset()), enumerable: true });
+
+    let moonTimings: { rise: Date | null, set: Date | null } | undefined;
+    const calculateMoonTimings = () => {
+        if (moonTimings) return moonTimings;
+        const moonriseResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, 1, time, 24);
+        const moonsetResult = Ast.SearchRiseSet(Ast.Body.Moon, observer, -1, time, 24);
+        moonTimings = {
+            rise: moonriseResult ? moonriseResult.date : null,
+            set: moonsetResult ? moonsetResult.date : null
+        };
+        return moonTimings;
+    };
+    Object.defineProperty(result, 'moonrise', { get: () => formatTime(calculateMoonTimings().rise), enumerable: true });
+    Object.defineProperty(result, 'moonset', { get: () => formatTime(calculateMoonTimings().set), enumerable: true });
+
+    let muhurtas: { rahu: string, gulika: string, yama: string, abhijit: string, brahma: string } | undefined;
+    const calculateMuhurtas = () => {
+        if (muhurtas) return muhurtas;
+        const ss = getSunset();
+        let rk = "--:--", gk = "--:--", yk = "--:--", am = "--:--", bm = "--:--";
+
+        if (sunrise && ss) {
+            const istSunrise = new Date(sunrise.getTime() + (5.5 * 60 * 60 * 1000));
+            const dayOfWeek = istSunrise.getUTCDay();
+            rk = getMuhurtaRange(sunrise, ss, RAHU_KAAL_PARTS[dayOfWeek], 8);
+            gk = getMuhurtaRange(sunrise, ss, GULIKA_KAAL_PARTS[dayOfWeek], 8);
+            yk = getMuhurtaRange(sunrise, ss, YAMAGANDA_KAAL_PARTS[dayOfWeek], 8);
+            am = getMuhurtaRange(sunrise, ss, 8, 15);
+
+            const dayDuration = ss.getTime() - sunrise.getTime();
+            const nightDuration = (24 * 60 * 60 * 1000) - dayDuration;
+            const muhurtaLength = nightDuration / 15;
+            const brahmaStart = new Date(sunrise.getTime() - 2 * muhurtaLength);
+            const brahmaEnd = new Date(sunrise.getTime() - muhurtaLength);
+            bm = `${formatTime(brahmaStart)} - ${formatTime(brahmaEnd)}`;
+        }
+        muhurtas = { rahu: rk, gulika: gk, yama: yk, abhijit: am, brahma: bm };
+        return muhurtas;
+    };
+    Object.defineProperty(result, 'rahuKaal', { get: () => calculateMuhurtas().rahu, enumerable: true });
+    Object.defineProperty(result, 'gulikaKaal', { get: () => calculateMuhurtas().gulika, enumerable: true });
+    Object.defineProperty(result, 'yamagandaKaal', { get: () => calculateMuhurtas().yama, enumerable: true });
+    Object.defineProperty(result, 'abhijitMuhurta', { get: () => calculateMuhurtas().abhijit, enumerable: true });
+    Object.defineProperty(result, 'brahmaMuhurta', { get: () => calculateMuhurtas().brahma, enumerable: true });
+
+    let month: { name: string, sanskrit: string } | undefined;
+    const calculateLunarMonth = () => {
+        if (month) return month;
+        const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
+        let monthIdx = 0;
+        if (prevNewMoon) {
+            const nmSunLong = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, prevNewMoon, true)).elon;
+            const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
+            monthIdx = Math.floor(nmSiderealSunLong / 30);
+        }
+        month = LUNAR_MONTHS[(monthIdx + 1) % 12];
+        return month;
+    };
+    Object.defineProperty(result, 'lunarMonth', { get: () => calculateLunarMonth().name, enumerable: true });
+    Object.defineProperty(result, 'lunarMonthSanskrit', { get: () => calculateLunarMonth().sanskrit, enumerable: true });
+
+    return result;
 }
 
 export function parseDegree(degreeStr: string): number {
