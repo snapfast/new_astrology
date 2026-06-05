@@ -5,7 +5,7 @@ import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from './security.
 describe('Security Utilities', () => {
   it('sanitize handles tags, length, and non-strings', () => {
     assert.strictEqual(sanitize('<script>', 10), 'script');
-    assert.strictEqual(sanitize('Very long string', 5), 'Very ');
+    assert.strictEqual(sanitize('Very long string', 5), 'Very');
     assert.strictEqual(sanitize(['array'], 10), '');
   });
 
@@ -13,6 +13,21 @@ describe('Security Utilities', () => {
     assert.strictEqual(sanitize('javascript:alert(1)', 20), 'alert(1)');
     assert.strictEqual(sanitize('<img src=x onerror=alert(1)>', 30), 'img src=x alert(1)');
     assert.strictEqual(sanitize('onclick=evil()', 20), 'evil()');
+  });
+
+  it('sanitize handles advanced security cases', () => {
+    // Null bytes
+    assert.strictEqual(sanitize('hello\0world', 20), 'helloworld');
+
+    // Other protocols
+    assert.strictEqual(sanitize('vbscript:msgbox("XSS")', 30), 'msgbox("XSS")');
+    assert.strictEqual(sanitize('data:text/html,<script>alert(1)</script>', 50), 'text/html,scriptalert(1)/script');
+
+    // Whitespace in event handlers
+    assert.strictEqual(sanitize('onmouseover  =  alert(1)', 30), 'alert(1)');
+
+    // Trimming
+    assert.strictEqual(sanitize('  clean me  ', 20), 'clean me');
   });
 
   it('sanitizeCoord validates numeric format strictly', () => {

@@ -1,15 +1,17 @@
 /**
  * Sanitizes a string by removing potential HTML tags (specifically < and >)
  * and common XSS vectors like "javascript:" or "onhover=".
- * Enforces a maximum length.
+ * Enforces a maximum length and strips null bytes.
  */
 export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
   return val
+    .slice(0, maxLength)
+    .replace(/\0/g, '') // Remove null bytes
     .replace(/[<>]/g, '')
-    .replace(/javascript:/gi, '')
-    .replace(/on\w+=/gi, '')
-    .slice(0, maxLength);
+    .replace(/(javascript|vbscript|data|feed):/gi, '')
+    .replace(/on\w+\s*=/gi, '')
+    .trim();
 }
 
 /**
