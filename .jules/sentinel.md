@@ -17,3 +17,8 @@
 **Vulnerability:** `sanitizeCoord` used a loose regex that allowed non-numeric strings like ".", which could lead to `NaN` being passed to astronomical calculation functions. `sanitize` only stripped `<` and `>`, leaving it vulnerable to `javascript:` protocols and HTML event handlers.
 **Learning:** Coordinate validation must be strict (`/^-?\d+(\.\d+)?$/`) to ensure only valid numbers are processed. Generic sanitization should include heuristic stripping of common XSS protocols and event handlers (e.g., `onmouseover=`).
 **Prevention:** Use strict regex for numeric inputs and extend string sanitization to cover common attribute-based XSS vectors.
+
+## 2025-06-12 - Recursive Protocol Sanitization and Range Validation
+**Vulnerability:** Protocol-based XSS filters can often be bypassed by nesting keywords (e.g., `javasjavascriptcript:`) which become valid after a single-pass replacement. Additionally, coordinate sanitization without range checks could allow extreme values that might crash or degrade performance of astronomical calculation engines.
+**Learning:** Protocol removal must be recursive (using a loop) to ensure no bypasses remain. Validating coordinates should include geographic range checks (+/- 90/180) to prevent out-of-bounds data from entering the system.
+**Prevention:** Implement a `do-while` loop for protocol stripping and enforce strict numeric bounds for specialized inputs like coordinates.

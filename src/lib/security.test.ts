@@ -22,6 +22,12 @@ describe('Security Utilities', () => {
     // Other protocols
     assert.strictEqual(sanitize('vbscript:msgbox("XSS")', 30), 'msgbox("XSS")');
     assert.strictEqual(sanitize('data:text/html,<script>alert(1)</script>', 50), 'text/html,scriptalert(1)/script');
+    assert.strictEqual(sanitize('file:///etc/passwd', 30), '///etc/passwd');
+    assert.strictEqual(sanitize('jar:https://example.com!/', 30), 'https://example.com!/');
+
+    // Recursive bypasses
+    assert.strictEqual(sanitize('javascjavascript:ript:alert(1)', 40), 'alert(1)');
+    assert.strictEqual(sanitize('jajavascjavascript:ript:vascript:alert(1)', 50), 'alert(1)');
 
     // Whitespace in event handlers
     assert.strictEqual(sanitize('onmouseover  =  alert(1)', 30), 'alert(1)');
@@ -30,10 +36,15 @@ describe('Security Utilities', () => {
     assert.strictEqual(sanitize('  clean me  ', 20), 'clean me');
   });
 
-  it('sanitizeCoord validates numeric format strictly', () => {
+  it('sanitizeCoord validates numeric format and range strictly', () => {
     assert.strictEqual(sanitizeCoord('28.6'), '28.6');
     assert.strictEqual(sanitizeCoord('-77.2'), '-77.2');
     assert.strictEqual(sanitizeCoord('0'), '0');
+    assert.strictEqual(sanitizeCoord('180'), '180');
+    assert.strictEqual(sanitizeCoord('-180'), '-180');
+    assert.strictEqual(sanitizeCoord('180.1'), '');
+    assert.strictEqual(sanitizeCoord('-180.1'), '');
+    assert.strictEqual(sanitizeCoord('999'), '');
     assert.strictEqual(sanitizeCoord('invalid'), '');
     assert.strictEqual(sanitizeCoord('.'), '');
     assert.strictEqual(sanitizeCoord('-'), '');

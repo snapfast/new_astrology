@@ -5,11 +5,19 @@
  */
 export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
-  return val
+  let sanitized = val
     .slice(0, maxLength)
     .replace(/\0/g, '') // Remove null bytes
-    .replace(/[<>]/g, '')
-    .replace(/(javascript|vbscript|data|feed):/gi, '')
+    .replace(/[<>]/g, '');
+
+  // Recursively remove suspicious protocols to prevent bypasses like "javasjavascriptcript:"
+  let prev;
+  do {
+    prev = sanitized;
+    sanitized = sanitized.replace(/(javascript|vbscript|data|feed|file|jar):/gi, '');
+  } while (sanitized !== prev);
+
+  return sanitized
     .replace(/on\w+\s*=/gi, '')
     .trim();
 }
@@ -23,7 +31,12 @@ export function sanitizeCoord(val: unknown): string {
   const sanitized = val.slice(0, 20);
   // Strict regex to ensure it's a valid number and not just ".", "-", or "1.2.3"
   const regex = /^-?\d+(\.\d+)?$/;
-  return regex.test(sanitized) ? sanitized : '';
+  if (!regex.test(sanitized)) return '';
+
+  const num = parseFloat(sanitized);
+  // Latitude is [-90, 90], Longitude is [-180, 180].
+  // 180 is a safe upper bound for both to prevent extreme out-of-range values.
+  return Math.abs(num) <= 180 ? sanitized : '';
 }
 
 /**
