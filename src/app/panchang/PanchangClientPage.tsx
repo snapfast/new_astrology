@@ -39,6 +39,11 @@ const TRANSLATIONS = {
     month: "Lunar Month",
     samvatsara: "Samvatsara",
     endsAt: "Ends at",
+    prevDay: "Previous Day",
+    nextDay: "Next Day",
+    today: "Today",
+    selectDate: "Select Date",
+    selectedDate: "Selected Date",
     eduTitle: "Understanding Panchang",
     ctaTitle: "Plan Your Day with Expert Guidance",
     ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
@@ -75,6 +80,11 @@ const TRANSLATIONS = {
     month: "चंद्र मास",
     samvatsara: "संवत्सर",
     endsAt: "समाप्ति समय",
+    prevDay: "पिछला दिन",
+    nextDay: "अगला दिन",
+    today: "आज",
+    selectDate: "तारीख चुनें",
+    selectedDate: "चुनी हुई तारीख",
     eduTitle: "पंचांग को समझना",
     ctaTitle: "विशेषज्ञ मार्गदर्शन के साथ अपने दिन की योजना बनाएं",
     ctaDesc: "जबकि दैनिक पंचांग सामान्य मार्गदर्शन प्रदान करता है, आपकी व्यक्तिगत जन्म कुंडली (कुण्डली) पर आधारित एक व्यक्तिगत मुहूर्त आपके विशिष्ट प्रयासों के लिए उच्चतम स्तर की सफलता सुनिश्चित करता है।"
@@ -83,6 +93,11 @@ const TRANSLATIONS = {
 
 const PanchangPage = () => {
   const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const [selectedDate, setSelectedDate] = useState<Date>(() => {
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    return new Date(now.getTime() + istOffset);
+  });
 
   useEffect(() => {
     const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
@@ -96,19 +111,60 @@ const PanchangPage = () => {
   };
   const t = TRANSLATIONS[lang];
 
-  const panchang = useMemo(() => {
-    const now = new Date();
-    // Convert to IST (UTC+5:30) for calculation
-    const istOffset = 5.5 * 60 * 60 * 1000;
-    const istTime = new Date(now.getTime() + istOffset);
+  const handlePrevDay = () => {
+    setSelectedDate(prev => {
+      const next = new Date(prev);
+      next.setUTCDate(next.getUTCDate() - 1);
+      return next;
+    });
+  };
 
-    const dob = istTime.toISOString().split('T')[0];
-    const tob = istTime.toISOString().split('T')[1].substring(0, 5);
+  const handleNextDay = () => {
+    setSelectedDate(prev => {
+      const next = new Date(prev);
+      next.setUTCDate(next.getUTCDate() + 1);
+      return next;
+    });
+  };
+
+  const handleToday = () => {
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    setSelectedDate(new Date(now.getTime() + istOffset));
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      // When picking from <input type="date">, it returns YYYY-MM-DD
+      // new Date("YYYY-MM-DD") creates a UTC midnight date.
+      setSelectedDate(new Date(e.target.value));
+    }
+  };
+
+  const panchang = useMemo(() => {
+    const dob = selectedDate.toISOString().split('T')[0];
+    // Use fixed time 12:00 for daily panchang if not "today" or just use current time if it's today?
+    // Actually, usually daily panchang is calculated for sunrise or a specific time.
+    // The previous code used "now". Let's keep current time for today, and 12:00 for other days?
+    // Or just 12:00 for all to be consistent.
+    // Wait, the previous code was:
+    // const istTime = new Date(now.getTime() + istOffset);
+    // const dob = istTime.toISOString().split('T')[0];
+    // const tob = istTime.toISOString().split('T')[1].substring(0, 5);
+
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const todayIST = new Date(now.getTime() + istOffset).toISOString().split('T')[0];
+
+    let tob = "12:00";
+    if (selectedDate.toISOString().split('T')[0] === todayIST) {
+       tob = new Date(now.getTime() + istOffset).toISOString().split('T')[1].substring(0, 5);
+    }
 
     // Default to New Delhi coordinates
     const data = generateAstrologyData(dob, tob, "28.6139", "77.2090");
     return data.panchang;
-  }, []);
+  }, [selectedDate]);
 
   const panchangSchema = {
     "@context": "https://schema.org",
@@ -153,6 +209,59 @@ const PanchangPage = () => {
 
       {/* Panchang Details */}
       <section className="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+        {/* Date Sequencer & Calendar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePrevDay}
+              className="px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase tracking-wider flex items-center gap-2 group"
+              title={t.prevDay}
+            >
+              <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
+              {t.prevDay}
+            </button>
+            <button
+              onClick={handleToday}
+              className="px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] md:text-xs font-label uppercase tracking-wider"
+            >
+              {t.today}
+            </button>
+            <button
+              onClick={handleNextDay}
+              className="px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase tracking-wider flex items-center gap-2 group"
+              title={t.nextDay}
+            >
+              {t.nextDay}
+              <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-4 w-full md:w-auto border-t md:border-t-0 md:border-l border-outline/20 pt-6 md:pt-0 md:pl-8">
+            <div className="relative flex-1 md:flex-none">
+              <input
+                type="date"
+                value={selectedDate.toISOString().split('T')[0]}
+                onChange={handleDateChange}
+                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-surface-container-lowest border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                aria-label={t.selectDate}
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-secondary pointer-events-none text-xl">calendar_month</span>
+            </div>
+            <div className="hidden sm:block">
+              <p className={`text-xs font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.selectedDate}</p>
+              <p className="text-sm font-headline text-on-surface whitespace-nowrap">
+                {selectedDate.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  timeZone: 'UTC'
+                })}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Panchang Card */}
           <div className="lg:col-span-2 bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
