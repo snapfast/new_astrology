@@ -5,3 +5,7 @@
 ## 2025-05-23 - [Localized UI Feedback vs Browser Alerts]
 **Learning:** Native browser `alert()` calls are jarring and break the user's flow. Replacing them with transient, localized UI feedback (like a "Link Copied!" tooltip) provides a much more polished and professional experience. Furthermore, adding explicit `aria-label` and `title` attributes to icon-only buttons using localized strings is crucial for international accessibility.
 **Action:** Prefer transient, localized UI notifications over native browser alerts, and always provide localized accessibility labels for icon-only interactive elements.
+
+## 2026-06-05 - [Global Back to Top Navigation]
+**Learning:** For content-heavy Vedic astrology platforms, a global "Back to Top" button significantly improves mobile and desktop navigation efficiency. Adhering to established UI standards (w-10 h-10 circular buttons) ensures design consistency. Throttling scroll event listeners to ~200ms prevents performance degradation during fast scrolling without sacrificing responsiveness.
+**Action:** Implement throttled scroll listeners for global navigation elements and maintain consistent button sizing across all floating UI actions.
