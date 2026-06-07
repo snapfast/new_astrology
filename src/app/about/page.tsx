@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram",
-  description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram. With years of experience in Jyotish Shastra, he provides spiritual insights and practical life remedies.",
+  description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram, providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
   alternates: {
     canonical: "https://astro.rahulbali.in/about",
   },
@@ -53,7 +53,7 @@ export default function AboutPage() {
             </p>
 
             <p>
-              Pandit Rahul Bali Ji is a renowned Vedic Astrologer based in Gurugram, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. With years of experience, he provides precise birth chart analysis and practical remedies for career, relationships, and health.
+              Pandit Rahul Bali Ji is a renowned Vedic Astrologer based in Gurugram, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. He provides precise birth chart analysis and practical remedies for career, relationships, and health.
             </p>
 
             <p>
