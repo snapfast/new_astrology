@@ -84,7 +84,7 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? 'page' : undefined}
-                className={`transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-sm ${
+                className={`transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
                   isActive
                     ? 'text-on-surface font-semibold underline underline-offset-8 decoration-accent/40'
                     : link.highlight
@@ -124,7 +124,7 @@ const Navbar = () => {
     >
       <div className="flex flex-col h-full p-6 overflow-y-auto">
         <div className="flex items-center justify-between mb-12 shrink-0">
-          <Link href="/" onClick={closeMenu} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
+          <Link href="/" onClick={closeMenu} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg">
             <Logo />
           </Link>
           <button

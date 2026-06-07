@@ -234,7 +234,7 @@ const CompactHoroscopeContent = () => {
         <div className="col-span-2 row-span-12 flex flex-col gap-3">
           {/* Panchang */}
           <section className="flex-grow bg-white border border-outline/80 rounded-2xl p-3 shadow-sm overflow-y-auto no-scrollbar">
-            <h2 className="text-[10px] font-bold text-accent uppercase tracking-widest font-label mb-3 border-b border-outline/30 pb-1">{t.panchang}</h2>
+            <h2 className={`text-[10px] font-bold text-accent uppercase font-label mb-3 border-b border-outline/30 pb-1 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
             <div className="space-y-2.5">
               {[
                 { label: t.tithi, val: lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit },
@@ -258,7 +258,7 @@ const CompactHoroscopeContent = () => {
 
           {/* Muhurtas */}
           <section className="bg-white border border-outline/80 rounded-2xl p-3 shadow-sm">
-            <h2 className="text-[10px] font-bold text-accent uppercase tracking-widest font-label mb-3 border-b border-outline/30 pb-1">{t.timings}</h2>
+            <h2 className={`text-[10px] font-bold text-accent uppercase font-label mb-3 border-b border-outline/30 pb-1 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
             <div className="grid grid-cols-1 gap-2.5">
               {[
                 { label: t.abhijit, val: chartData.panchang.abhijitMuhurta, color: 'text-success' },
@@ -268,7 +268,7 @@ const CompactHoroscopeContent = () => {
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-[9px] text-on-surface/60 font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
-                  <span className={`text-[11px] font-bold leading-tight ${item.color}`}>{item.val}</span>
+                  <span className={`text-[11px] font-bold leading-tight tabular-nums font-body ${item.color}`}>{item.val}</span>
                 </div>
               ))}
             </div>
@@ -277,12 +277,12 @@ const CompactHoroscopeContent = () => {
 
         {/* Middle: 6 Charts Grid */}
         <div className="col-span-6 row-span-12 grid grid-cols-3 grid-rows-2 gap-3">
-          <ChartBox title={t.d1Chart} data={chartData.d1} />
-          <ChartBox title={t.d9Chart} data={chartData.d9} />
-          <ChartBox title={t.d3Chart} data={chartData.d3} />
-          <ChartBox title={t.d10Chart} data={chartData.d10} />
-          <ChartBox title={t.d7Chart} data={chartData.d7} />
-          <ChartBox title={t.d60Chart} data={chartData.d60} />
+          <ChartBox title={t.d1Chart} data={chartData.d1} lang={lang} />
+          <ChartBox title={t.d9Chart} data={chartData.d9} lang={lang} />
+          <ChartBox title={t.d3Chart} data={chartData.d3} lang={lang} />
+          <ChartBox title={t.d10Chart} data={chartData.d10} lang={lang} />
+          <ChartBox title={t.d7Chart} data={chartData.d7} lang={lang} />
+          <ChartBox title={t.d60Chart} data={chartData.d60} lang={lang} />
         </div>
 
         {/* Right Column: Table & Dasha */}
@@ -290,7 +290,7 @@ const CompactHoroscopeContent = () => {
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
             <div className="bg-surface-container-low px-3 py-1.5 border-b border-outline/50">
-              <h2 className="text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">{t.planetaryPositions}</h2>
+              <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
             </div>
             <div className="flex-grow overflow-y-auto no-scrollbar">
               <table className="w-full text-left border-collapse">
@@ -305,13 +305,13 @@ const CompactHoroscopeContent = () => {
                 </thead>
                 <tbody className="divide-y divide-outline/10">
                   {chartData.planets.map((p, idx) => (
-                    <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                    <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
                       <td className="px-2 py-1.5 text-[11px] font-medium text-on-surface">
                         {p.name}{p.isRetrograde && '*'}
                       </td>
-                      <td className="px-1 py-1.5 text-[11px] text-on-surface text-center font-bold">{p.house}</td>
+                      <td className="px-1 py-1.5 text-[11px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
                       <td className="px-2 py-1.5 text-[11px] text-on-surface">{p.rasi}</td>
-                      <td className="px-2 py-1.5 text-[10px] text-on-surface font-body whitespace-nowrap">{p.degree}</td>
+                      <td className="px-2 py-1.5 text-[10px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
                       <td className="px-2 py-1.5 text-[10px] text-on-surface truncate max-w-[80px]">{p.nakshatra}</td>
                     </tr>
                   ))}
@@ -323,7 +323,7 @@ const CompactHoroscopeContent = () => {
           {/* Dasha (Condensed) */}
           <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
              <div className="bg-surface-container-low px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
-              <h2 className="text-[10px] font-bold text-on-surface uppercase tracking-widest font-label">{t.vimshottariDasha}</h2>
+              <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.vimshottariDasha}</h2>
               <div className="flex items-center gap-1">
                  <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
                  <span className="text-[8px] font-bold text-accent uppercase tracking-tighter font-label">Active</span>
@@ -382,10 +382,10 @@ const CompactHoroscopeContent = () => {
   );
 };
 
-const ChartBox = ({ title, data }: { title: string, data: DivisionalChartData }) => (
+const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartData, lang: string }) => (
   <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden">
     <div className="bg-surface-container-low px-3 py-1 border-b border-outline/30">
-      <h2 className="text-[9px] font-bold text-on-surface uppercase tracking-widest font-label truncate">{title}</h2>
+      <h2 className={`text-[9px] font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
     <div className="flex-grow flex items-center justify-center p-1 overflow-hidden">
       <div className="w-full h-full max-w-[280px] max-h-[280px]">
