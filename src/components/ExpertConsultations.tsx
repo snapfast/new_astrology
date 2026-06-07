@@ -39,9 +39,10 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
               <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] mb-10 border border-outline/30 relative bg-surface-bright transition-transform duration-500 group-hover:scale-[1.02]">
                 <Image
                   alt={item.alt}
-                  className="w-full h-full object-cover opacity-90 grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover transition-all duration-700"
                   src={item.image}
                   fill
+                  quality={90}
                   sizes="(max-width: 768px) calc(100vw - 64px), (max-width: 1024px) calc(50vw - 80px), 380px"
                 />
                 <div className="absolute inset-0 bg-on-surface/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

@@ -18,7 +18,7 @@ export const CONSULTATIONS: Consultation[] = [
     id: 'soul-compatibility',
     title: "Soul Compatibility",
     description: "Deep dive into Synastry and Kundli matching to find harmonious soul connections and karmic ties.",
-    image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?auto=format&fit=crop&q=90&w=1200",
     alt: "Stunning cinematic photography of a vibrant nebula and distant stars in deep space",
     portions: [
       {
@@ -47,7 +47,7 @@ export const CONSULTATIONS: Consultation[] = [
     id: 'vedic-wisdom',
     title: "Vedic Wisdom",
     description: "Personalized sessions to master your charts, understand karmic patterns, and spiritual evolution.",
-    image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=90&w=1200",
     alt: "Atmospheric photography of an open ancient book in a dimly lit, classical library setting",
     portions: [
       {
@@ -76,7 +76,7 @@ export const CONSULTATIONS: Consultation[] = [
     id: 'remedial-measures',
     title: "Remedial Measures",
     description: "Curated mantras, gemstones, and rituals to balance planetary influences and enhance fortune.",
-    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=90&w=1200",
     alt: "Serene arrangement of healing crystals, sage, and spiritual elements on a natural surface",
     portions: [
       {
