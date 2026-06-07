@@ -13,92 +13,83 @@ export interface Consultation {
   portions: Portion[];
 }
 
-export const CONSULTATIONS: Consultation[] = [
+export interface SpecializedService {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export const CONSULTATIONS: Consultation[] = [];
+
+export const SPECIALIZED_SERVICES: SpecializedService[] = [
   {
-    id: 'soul-compatibility',
-    title: "Soul Compatibility",
-    description: "Deep dive into Synastry and Kundli matching to find harmonious soul connections and karmic ties.",
-    image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?auto=format&fit=crop&q=90&w=1200",
-    alt: "Stunning cinematic photography of a vibrant nebula and distant stars in deep space",
-    portions: [
-      {
-        title: "Synastry Analysis",
-        icon: "favorite",
-        expandedDetail: "We analyze the planetary alignments between two individuals to understand the underlying energy flow, mutual attractions, and potential friction points."
-      },
-      {
-        title: "Karmic Connections",
-        icon: "auto_stories",
-        expandedDetail: "Explore past-life ties and soul contracts that bring you together, identifying the lessons and growth opportunities within the relationship."
-      },
-      {
-        title: "Marital Harmony",
-        icon: "home",
-        expandedDetail: "Assessment of long-term stability, family growth, and emotional resonance using the Ashta Kuta matching system and beyond."
-      },
-      {
-        title: "Dosha Mitigation",
-        icon: "shield_with_heart",
-        expandedDetail: "Identifying and providing remedies for matching challenges like Manglik Dosha or Bhakoot Dosha to ensure a peaceful union."
-      }
-    ]
+    id: "emotional-distress",
+    title: "Emotional Distress",
+    description: "Navigate through periods of inner turmoil and emotional instability with Vedic insights. Understand the planetary influences affecting your peace of mind and find clarity through spiritual guidance."
   },
   {
-    id: 'vedic-wisdom',
-    title: "Vedic Wisdom",
-    description: "Personalized sessions to master your charts, understand karmic patterns, and spiritual evolution.",
-    image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=90&w=1200",
-    alt: "Atmospheric photography of an open ancient book in a dimly lit, classical library setting",
-    portions: [
-      {
-        title: "Chart Mastery",
-        icon: "analytics",
-        expandedDetail: "In-depth training on reading birth charts, understanding house placements, and identifying planetary strengths (Shadbala)."
-      },
-      {
-        title: "Nakshatra Wisdom",
-        icon: "auto_awesome",
-        expandedDetail: "Exploring the deeper layers of the 27 lunar mansions to reveal subtle character traits and destiny patterns."
-      },
-      {
-        title: "Dasha Systems",
-        icon: "history",
-        expandedDetail: "Learn to navigate the complex time-cycles (Vimshottari Dasha) to predict and prepare for different life phases."
-      },
-      {
-        title: "Spiritual Path",
-        icon: "spa",
-        expandedDetail: "Identifying your Atmakaraka (soul planet) and Ishta Devata to find clarity on your spiritual evolution."
-      }
-    ]
+    id: "health-concerns",
+    title: "Health Concerns",
+    description: "Gain perspective on your physical well-being through the lens of medical astrology and planetary cycles. Identify potential vulnerabilities in your birth chart and explore holistic remedial measures for vitality."
   },
   {
-    id: 'remedial-measures',
-    title: "Remedial Measures",
-    description: "Curated mantras, gemstones, and rituals to balance planetary influences and enhance fortune.",
-    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=90&w=1200",
-    alt: "Serene arrangement of healing crystals, sage, and spiritual elements on a natural surface",
-    portions: [
-      {
-        title: "Gem Therapy",
-        icon: "diamond",
-        expandedDetail: "Scientific and astrological selection of gemstones based on planetary lordship, functional beneficence, and current dashas."
-      },
-      {
-        title: "Mantra Jaap",
-        icon: "record_voice_over",
-        expandedDetail: "Prescription of specific sound frequencies (mantras) to neutralize negative planetary effects and strengthen beneficial ones."
-      },
-      {
-        title: "Wearing Rituals",
-        icon: "celebration",
-        expandedDetail: "Step-by-step instructions for the purification, energizing (Prana Pratishtha), and initial wearing on auspicious days."
-      },
-      {
-        title: "Charity & Dana",
-        icon: "volunteer_activism",
-        expandedDetail: "Guidance on specific acts of charity and donations that help balance karmic debts related to challenging planets."
-      }
-    ]
+    id: "financial-challenges",
+    title: "Financial Challenges",
+    description: "Analyze the wealth-generating potential in your horoscope and identify periods of financial growth or restriction. Receive guidance on wealth management and traditional remedies to overcome monetary obstacles."
+  },
+  {
+    id: "relationship-struggles",
+    title: "Relationship Struggles",
+    description: "Deeply examine the dynamics of your personal connections and the karmic lessons they bring. Discover ways to improve communication and harmony within your relationships through astrological understanding."
+  },
+  {
+    id: "career-hurdles",
+    title: "Career Hurdles",
+    description: "Identify the most suitable professional paths and timing for career advancements or transitions. Overcome workplace challenges and stagnation by aligning your efforts with favorable planetary periods."
+  },
+  {
+    id: "family-conflicts",
+    title: "Family Conflicts",
+    description: "Address domestic discord and misunderstandings within the family unit through an analysis of ancestral karma. Find peaceful resolutions and strengthen family bonds by understanding individual chart influences."
+  },
+  {
+    id: "legal-disputes",
+    title: "Legal Disputes",
+    description: "Evaluate the astrological indicators for success in legal matters and the timing of judicial proceedings. Navigate complex litigations with strategic foresight based on your planetary transits and strengths."
+  },
+  {
+    id: "property-issues",
+    title: "Property Issues",
+    description: "Determine auspicious timings for real estate transactions and resolve disputes related to land or inheritance. Understand the planetary configurations governing your property luck and residential stability."
+  },
+  {
+    id: "business-obstacles",
+    title: "Business Obstacles",
+    description: "Identify growth opportunities and risk factors within your entrepreneurial journey through Vedic analysis. Optimize your business strategy by timing major decisions according to your professional dasha cycles."
+  },
+  {
+    id: "marriage-concerns",
+    title: "Marriage Concerns",
+    description: "Address delays or difficulties in marital life by analyzing your seventh house and planetary placements. Receive practical guidance and traditional remedies to foster a fulfilling and stable partnership."
+  },
+  {
+    id: "education-setbacks",
+    title: "Education Setbacks",
+    description: "Understand the factors affecting academic performance and clarity in choosing educational paths. Overcome learning obstacles and examination anxiety by strengthening the relevant planetary influences."
+  },
+  {
+    id: "child-related-challenges",
+    title: "Child-related Challenges",
+    description: "Explore astrological insights regarding progeny, child-rearing, and the well-being of your children. Navigate parenting hurdles and support your child's growth through a deeper understanding of their chart."
+  },
+  {
+    id: "mental-health-struggles",
+    title: "Mental Health Struggles",
+    description: "Find support for psychological well-being by identifying planetary patterns associated with mental stress. Complement traditional care with Vedic wisdom to achieve inner balance and mental resilience."
+  },
+  {
+    id: "spiritual-dilemmas",
+    title: "Spiritual Dilemmas",
+    description: "Resolve inner conflicts regarding your life's purpose and spiritual path through Atmakaraka analysis. Gain clarity on your evolutionary journey and connect with your higher self through Vedic teachings."
   }
 ];
