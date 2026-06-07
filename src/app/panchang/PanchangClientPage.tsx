@@ -435,7 +435,7 @@ const PanchangPage = () => {
               The <strong>Panchang</strong> is a traditional Vedic calendar that serves as an essential guide for daily life in Indian culture. Derived from the Sanskrit words <em>&apos;Pancha&apos;</em> (five) and <em>&apos;Anga&apos;</em> (limbs), it consists of five key astronomical elements: Tithi, Vara, Nakshatra, Yoga, and Karana.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 not-prose">
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
                 <h3 className="text-lg font-headline text-on-surface mb-2">1. Tithi</h3>
                 <p className="text-sm">The lunar day based on the angular distance between the Sun and the Moon. It is crucial for determining festivals and rituals.</p>
@@ -451,6 +451,10 @@ const PanchangPage = () => {
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
                 <h3 className="text-lg font-headline text-on-surface mb-2">4. Yoga</h3>
                 <p className="text-sm">A specific relationship between the Sun and Moon positions that indicates the general prevailing energy or &apos;joining&apos;.</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl border border-outline/20">
+                <h3 className="text-lg font-headline text-on-surface mb-2">5. Karana</h3>
+                <p className="text-sm">Half of a Tithi. Each Tithi consists of two Karanas. It represents the active energy and is significant for worldly tasks and determining the outcome of actions.</p>
               </div>
             </div>
 
