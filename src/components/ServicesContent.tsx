@@ -32,16 +32,6 @@ export default function ServicesContent() {
                 <p className="text-lg font-body text-secondary leading-relaxed">
                   {service.description}
                 </p>
-                <div className="pt-4">
-                   <a
-                    href="https://wa.me/919306057150"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent hover:underline underline-offset-4"
-                   >
-                     Inquire via WhatsApp →
-                   </a>
-                </div>
               </div>
 
               {/* Right: Detailed Portions (60%) */}

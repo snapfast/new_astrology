@@ -16,4 +16,7 @@ test('services page has minimalist layout with services and descriptions', async
   await expect(page.locator('img[alt*="nebula"]')).not.toBeVisible();
   await expect(page.locator('img[alt*="ancient book"]')).not.toBeVisible();
   await expect(page.locator('img[alt*="healing crystals"]')).not.toBeVisible();
+
+  // Check that "Inquire via WhatsApp" is NOT present
+  await expect(page.getByText('Inquire via WhatsApp')).not.toBeVisible();
 });
