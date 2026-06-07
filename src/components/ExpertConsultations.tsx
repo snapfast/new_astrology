@@ -42,7 +42,7 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
                   className="w-full h-full object-cover opacity-90 grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
                   src={item.image}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
+                  sizes="(max-width: 768px) calc(100vw - 64px), (max-width: 1024px) calc(50vw - 80px), 380px"
                 />
                 <div className="absolute inset-0 bg-on-surface/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>

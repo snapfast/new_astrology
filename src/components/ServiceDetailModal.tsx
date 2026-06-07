@@ -35,7 +35,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             alt={service.alt}
             fill
             className="object-cover opacity-90"
-            sizes="(max-width: 768px) 100vw, 40vw"
+            sizes="(max-width: 768px) calc(100vw - 32px), 400px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:hidden"></div>
 
