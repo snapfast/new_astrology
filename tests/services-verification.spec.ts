@@ -15,11 +15,16 @@ test('services page shows specialized consultations', async ({ page }) => {
   await expect(page.getByText('Navigate through periods of inner turmoil and emotional instability')).toBeVisible();
 
   // Verify there are 14 specialized services
-  // The section is after the main CONSULTATIONS list.
-  // CONSULTATIONS has 3 items, and they use h2 for titles.
-  // SPECIALIZED_SERVICES use h3 for titles.
   const specializedServiceTitles = page.locator('h3');
   await expect(specializedServiceTitles).toHaveCount(14);
+
+  // Check that images are NOT present
+  await expect(page.locator('img[alt*="nebula"]')).not.toBeVisible();
+  await expect(page.locator('img[alt*="ancient book"]')).not.toBeVisible();
+  await expect(page.locator('img[alt*="healing crystals"]')).not.toBeVisible();
+
+  // Check that "Inquire via WhatsApp" is NOT present (as per latest requirements)
+  await expect(page.getByText('Inquire via WhatsApp')).not.toBeVisible();
 
   await page.screenshot({ path: 'services-verification.png', fullPage: true });
 });
