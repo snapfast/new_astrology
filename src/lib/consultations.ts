@@ -73,35 +73,6 @@ export const CONSULTATIONS: Consultation[] = [
     ]
   },
   {
-    id: 'sacred-numerology',
-    title: "Sacred Numerology",
-    description: "Discover the vibrational power of your birth numbers, name frequencies, and business resonance.",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
-    alt: "high-contrast abstract digital art representing numerical vibrations and sacred geometry",
-    portions: [
-      {
-        title: "Life Path Numbers",
-        icon: "pin",
-        expandedDetail: "Calculate your core destiny numbers to reveal your innate talents, life purpose, and the major themes of your journey."
-      },
-      {
-        title: "Name Frequency",
-        icon: "text_fields",
-        expandedDetail: "Analyze the energetic resonance of your name and explore potential adjustments to align with your birth numbers for greater success."
-      },
-      {
-        title: "Business Resonance",
-        icon: "business_center",
-        expandedDetail: "Select auspicious names for companies, brands, or products that vibrate with prosperity and market relevance."
-      },
-      {
-        title: "Yearly Forecast",
-        icon: "event",
-        expandedDetail: "Understand the personal year cycle you are in and how to best utilize the prevailing numerical vibrations for growth."
-      }
-    ]
-  },
-  {
     id: 'remedial-measures',
     title: "Remedial Measures",
     description: "Curated mantras, gemstones, and rituals to balance planetary influences and enhance fortune.",
@@ -127,64 +98,6 @@ export const CONSULTATIONS: Consultation[] = [
         title: "Charity & Dana",
         icon: "volunteer_activism",
         expandedDetail: "Guidance on specific acts of charity and donations that help balance karmic debts related to challenging planets."
-      }
-    ]
-  },
-  {
-    id: 'vastu-shastra',
-    title: "Vastu Shastra",
-    description: "Aligning your living and working spaces with cosmic energy flows for peace and prosperity.",
-    image: "https://images.unsplash.com/photo-1585938389612-a552a28d6914?auto=format&fit=crop&q=80&w=800",
-    alt: "high-contrast photography of a geometric architectural detail representing spatial harmony",
-    portions: [
-      {
-        title: "Energy Audit",
-        icon: "bungalow",
-        expandedDetail: "Optimizing the energy of your home by analyzing directions, room placements, and the flow of 'Prana'."
-      },
-      {
-        title: "Commercial Vastu",
-        icon: "domain",
-        expandedDetail: "Designing workspaces that foster productivity, financial growth, and harmonious relationships between employees."
-      },
-      {
-        title: "Remedial Vastu",
-        icon: "build",
-        expandedDetail: "Correcting existing architectural defects using non-destructive remedies like colors, mirrors, pyramids, and yantras."
-      },
-      {
-        title: "Plot Selection",
-        icon: "map",
-        expandedDetail: "Astrological guidance on choosing the right land based on its shape, slope, soil quality, and surrounding environment."
-      }
-    ]
-  },
-  {
-    id: 'auspicious-timing',
-    title: "Auspicious Timing",
-    description: "Selecting precise cosmic windows for life's milestones and naming ceremonies.",
-    image: "https://images.unsplash.com/photo-1508921340878-ba53e1f016ec?auto=format&fit=crop&q=80&w=800",
-    alt: "high-contrast photography of a star-filled sky representing the movement of time and destiny",
-    portions: [
-      {
-        title: "Marriage Muhurta",
-        icon: "favorite_border",
-        expandedDetail: "Calculating the most auspicious date and time for wedding rituals to ensure long-term stability and happiness."
-      },
-      {
-        title: "Business Launch",
-        icon: "rocket_launch",
-        expandedDetail: "Timing the inauguration of offices or the signing of major contracts to maximize success and minimize obstacles."
-      },
-      {
-        title: "Namakaran",
-        icon: "child_care",
-        expandedDetail: "Selecting names whose starting sounds (Aksharas) align with the infant's birth Nakshatra and Pada for a fortunate life."
-      },
-      {
-        title: "Griha Pravesh",
-        icon: "key",
-        expandedDetail: "Identifying the ideal window for entering a new home to invite prosperity and peace for the residents."
       }
     ]
   }

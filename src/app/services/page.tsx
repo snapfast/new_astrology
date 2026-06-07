@@ -6,8 +6,8 @@ import JsonLd from '@/components/JsonLd';
 import ServicesContent from '@/components/ServicesContent';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology Services | Personal Consultations & Readings",
-  description: "Comprehensive Vedic Astrology services including Janam Kundli analysis, career guidance, marriage matching, Vastu Shastra, and remedial measures by Pandit Rahul Bali Ji.",
+  title: "Professional Vedic Astrology Services | Rahul Bali Astrology",
+  description: "Specialized Vedic Astrology services focusing on Soul Compatibility, Vedic Wisdom, and Remedial Measures for life's complex challenges.",
   alternates: {
     canonical: "https://astro.rahulbali.in/services",
   },
