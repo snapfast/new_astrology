@@ -431,7 +431,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
                   <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     {isLoading ? (
-                      <div className="px-6 py-4 text-xs text-secondary/50 font-body italic">Searching cities...</div>
+                      <div className="px-6 py-4 text-xs text-secondary/80 font-body italic">Searching cities...</div>
                     ) : (
                       <ul className="max-h-60 overflow-y-auto">
                         {suggestions.map((suggestion, index) => (
