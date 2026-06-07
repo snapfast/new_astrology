@@ -67,12 +67,8 @@ const Hero = () => {
         </div>
 
         {/* Trust Signals */}
-        <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-outline/20">
-          <div className="flex flex-col items-center">
-            <span className="text-xl md:text-2xl font-headline text-on-surface">15+</span>
-            <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Years Exp.</span>
-          </div>
-          <div className="flex flex-col items-center border-x border-outline/20 px-4">
+        <div className="grid grid-cols-2 gap-4 md:gap-12 max-w-lg mx-auto pt-8 border-t border-outline/20">
+          <div className="flex flex-col items-center border-r border-outline/20">
             <span className="text-xl md:text-2xl font-headline text-on-surface">5000+</span>
             <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Charts</span>
           </div>
