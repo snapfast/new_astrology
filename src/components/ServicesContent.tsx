@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CONSULTATIONS } from '@/lib/consultations';
+import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 
 export default function ServicesContent() {
   return (
@@ -20,38 +20,20 @@ export default function ServicesContent() {
 
       {/* Services List */}
       <section className="py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-8 space-y-32">
-          {CONSULTATIONS.map((service, serviceIdx) => (
-            <div key={service.id} className="grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
-              {/* Left: Service Title & Description (40%) */}
-              <div className="lg:col-span-4 space-y-6">
-                <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent block font-label">Service 0{serviceIdx + 1}</span>
-                <h2 className="text-4xl md:text-5xl font-normal font-headline text-on-surface tracking-tight leading-tight">
+        <div className="max-w-5xl mx-auto px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
+            {SPECIALIZED_SERVICES.map((service) => (
+              <div key={service.id} className="space-y-4">
+                <h3 className="text-xl font-normal font-headline text-on-surface tracking-tight flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                   {service.title}
-                </h2>
-                <p className="text-lg font-body text-secondary leading-relaxed">
+                </h3>
+                <p className="text-sm font-body text-secondary leading-relaxed pl-4.5 border-l border-outline/30">
                   {service.description}
                 </p>
               </div>
-
-              {/* Right: Detailed Portions (60%) */}
-              <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-12 pt-4">
-                {service.portions.map((portion, idx) => (
-                  <div key={idx} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent/5 rounded-lg flex items-center justify-center text-accent">
-                        <span className="material-symbols-outlined text-lg">{portion.icon}</span>
-                      </div>
-                      <h4 className="text-sm font-bold text-on-surface uppercase tracking-wider">{portion.title}</h4>
-                    </div>
-                    <p className="text-xs text-secondary font-body leading-relaxed">
-                      {portion.expandedDetail}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
