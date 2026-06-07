@@ -58,15 +58,6 @@ export default function ReviewsPage() {
           </p>
           <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
             <a
-              href="https://g.page/r/CXBUAJqKmqoBEB0/review"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase"
-            >
-              Write a Review on Google
-              <span className="material-symbols-outlined text-base">open_in_new</span>
-            </a>
-            <a
               href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
               target="_blank"
               rel="noopener noreferrer"
@@ -74,6 +65,15 @@ export default function ReviewsPage() {
             >
               <GoogleIcon />
               Google Reviews
+              <span className="material-symbols-outlined text-base">open_in_new</span>
+            </a>
+            <a
+              href="https://g.page/r/CXBUAJqKmqoBEB0/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase"
+            >
+              Write a Review on Google
               <span className="material-symbols-outlined text-base">open_in_new</span>
             </a>
           </div>
