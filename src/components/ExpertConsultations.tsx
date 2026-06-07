@@ -19,10 +19,10 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
   };
 
   return (
-    <section className={`${showTitle ? 'py-40' : 'pb-40'} bg-white`}>
+    <section className={`${showTitle ? 'py-32' : 'pb-32'} bg-white`}>
       <div className="max-w-7xl mx-auto px-8">
         {showTitle && (
-          <div className="text-center mb-24">
+          <div className="text-center mb-20">
             <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Services</span>
             <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Expert Consultations</h2>
             <p className="text-secondary max-w-2xl mx-auto text-base font-body leading-relaxed">Bespoke services merging ancient Vedic scriptures with precision analysis.</p>

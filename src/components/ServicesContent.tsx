@@ -49,7 +49,7 @@ export default function ServicesContent() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-40 pb-24 bg-background relative overflow-hidden border-b border-outline/20">
+      <section className="pt-32 pb-16 bg-background relative overflow-hidden border-b border-outline/20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-accent/5 rounded-full blur-[140px] -z-0"></div>
         <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 block font-label">Spiritual Guidance</span>
@@ -64,9 +64,9 @@ export default function ServicesContent() {
       </section>
 
       {/* Consultation Process */}
-      <section className="py-32 bg-white border-b border-outline/20">
+      <section className="py-24 bg-white border-b border-outline/20">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-20">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-normal font-headline text-on-surface">The Consultation Journey</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -92,7 +92,7 @@ export default function ServicesContent() {
       <ExpertConsultations showTitle={false} />
 
       {/* Why Vedic Astrology Section */}
-      <section className="py-32 bg-surface-container-low border-y border-outline/20">
+      <section className="py-24 bg-surface-container-low border-y border-outline/20">
         <div className="max-w-4xl mx-auto px-8 text-center">
           <h2 className="text-4xl font-normal mb-12 font-headline text-on-surface">Illuminating the Path</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
@@ -119,9 +119,9 @@ export default function ServicesContent() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-32 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-normal font-headline text-on-surface">Frequently Asked Questions</h2>
           </div>
           <div className="space-y-10">
@@ -136,7 +136,7 @@ export default function ServicesContent() {
       </section>
 
       {/* Final CTA */}
-      <section className="pb-32 bg-white">
+      <section className="pb-24 bg-white">
         <div className="max-w-4xl mx-auto px-8">
            <div className="bg-on-surface p-12 md:p-16 rounded-[3rem] text-center text-surface shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
