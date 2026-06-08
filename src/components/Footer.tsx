@@ -46,7 +46,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 mt-32 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-secondary/70 font-label">
+      <div className="max-w-7xl mx-auto px-8 mt-32 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-secondary font-label">
         <Link href="/">Rahul Bali Astrology Services © 2025. All rights reserved.</Link>
         <div className="flex gap-10">
           <a href="#">Privacy</a>

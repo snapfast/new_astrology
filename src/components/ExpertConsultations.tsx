@@ -34,7 +34,7 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
             >
               <div className="flex justify-between items-start mb-4">
                 <h4 className="text-xl font-normal font-headline text-on-surface group-hover:text-accent transition-colors leading-tight">{item.title}</h4>
-                <span className="material-symbols-outlined text-accent opacity-40 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+                <span className="material-symbols-outlined text-accent transition-opacity">arrow_outward</span>
               </div>
               <p className="text-secondary text-sm leading-relaxed font-body">{item.description}</p>
             </button>
