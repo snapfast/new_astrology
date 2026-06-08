@@ -48,6 +48,7 @@ const Navbar = () => {
     { name: 'Home', href: '/' },
     { name: 'Free Horoscope', href: '/free-horoscope', highlight: true },
     { name: 'Panchang', href: '/panchang' },
+    { name: 'Biorhythm', href: '/biorhythm' },
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Reviews', href: '/reviews' },
