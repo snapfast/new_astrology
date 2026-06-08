@@ -94,7 +94,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_whatsapp' })}
-              className="w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-[#25D366]/10 hover:opacity-90 transition-opacity"
+              className="w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-[#25D366]/10 hover:bg-[#25D366]/90 transition-colors"
             >
               Chat on WhatsApp
             </a>
@@ -103,11 +103,11 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
-              className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity"
+              className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-primary/10 hover:bg-primary/90 transition-colors"
             >
               Schedule Google Meet
             </a>
-            <p className="hidden lg:block text-[9px] text-secondary/70 font-body flex-1 text-right">
+            <p className="hidden lg:block text-[9px] text-secondary font-body flex-1 text-right">
               Guided by the stars, <br /> Grounded in Truth
             </p>
           </div>
