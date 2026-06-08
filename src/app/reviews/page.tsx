@@ -91,7 +91,7 @@ export default function ReviewsPage() {
                 </div>
                 <div>
                   <h5 className="font-medium text-[11px] tracking-[0.05em] uppercase font-label text-on-surface">{item.name}</h5>
-                  <p className="text-[10px] text-secondary/60 uppercase tracking-[0.1em] font-label">{item.date}</p>
+                  <p className="text-[10px] text-secondary/90 uppercase tracking-[0.1em] font-label">{item.date}</p>
                 </div>
               </div>
             </div>

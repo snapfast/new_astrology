@@ -107,7 +107,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             >
               Schedule Google Meet
             </a>
-            <p className="hidden lg:block text-[9px] text-secondary/40 font-body flex-1 text-right">
+            <p className="hidden lg:block text-[9px] text-secondary/70 font-body flex-1 text-right">
               Guided by the stars, <br /> Grounded in Truth
             </p>
           </div>

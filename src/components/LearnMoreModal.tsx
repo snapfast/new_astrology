@@ -86,7 +86,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[8px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
+            <p className="text-[8px] md:text-[10px] text-secondary/80 font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>

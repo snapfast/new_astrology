@@ -11,7 +11,7 @@ export default {
       colors: {
         "primary": "#1A1C1D",
         "on-primary": "#FFFFFF",
-        "accent": "#B69A47",
+        "accent": "#967C31",
         "on-accent": "#FFFFFF",
         "surface": "#FFFFFF",
         "on-surface": "#1A1C1D",
@@ -19,7 +19,7 @@ export default {
         "surface-container-low": "#F0F1F3",
         "surface-container-lowest": "#F7F8F9",
         "surface-container-high": "#EBECEE",
-        "secondary": "#5E5E5E",
+        "secondary": "#474747",
         "outline": "#E2E2E2",
         "background": "#F9F9FB"
       },

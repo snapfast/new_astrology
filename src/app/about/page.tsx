@@ -83,7 +83,7 @@ export default function AboutPage() {
                   sizes="(max-width: 768px) 240px, 240px"
                 />
               </div>
-              <p className="text-[10px] text-secondary/40 font-label uppercase tracking-[0.2em] text-center">
+              <p className="text-[10px] text-secondary/70 font-label uppercase tracking-[0.2em] text-center">
                 rahul.bali@ybl
               </p>
             </div>
