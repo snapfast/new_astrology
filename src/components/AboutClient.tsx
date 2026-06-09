@@ -107,15 +107,6 @@ export default function AboutClient() {
               </button>
             </div>
           </div>
-          <a
-            href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=rahulbaliastrology@gmail.com&currency_code=USD"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-2 border border-outline/30 rounded-full text-[10px] font-label uppercase tracking-widest text-secondary hover:text-accent hover:border-accent transition-colors mx-auto"
-          >
-            <span className="material-symbols-outlined text-sm">payments</span>
-            Support via PayPal
-          </a>
         </div>
 
         {/* Core Principles - Integrated (No Cards) */}
