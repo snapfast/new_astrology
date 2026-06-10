@@ -53,7 +53,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
 
   return (
     <div className="w-full overflow-x-auto pb-4">
-      <div className="min-w-[800px] bg-white border border-outline/80 rounded-[2.5rem] p-6 shadow-sm">
+      <div className="min-w-[800px] bg-white border border-outline/80 rounded-[2.5rem] p-4 md:p-6 shadow-sm">
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
           {/* Horizontal Grid Lines */}
           <line
@@ -132,7 +132,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
         </svg>
 
         {/* Legend */}
-        <div className="flex flex-wrap justify-center gap-4 mt-6">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mt-6">
           {BIORHYTHM_CYCLES.map(cycle => (
             <div key={cycle.name} className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cycle.color }} />

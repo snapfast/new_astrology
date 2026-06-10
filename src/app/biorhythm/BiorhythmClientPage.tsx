@@ -61,9 +61,9 @@ const BiorhythmContent = () => {
   });
 
   return (
-    <div className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-20 md:pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-normal font-headline text-on-surface mb-4">Personal Biorhythms</h1>
+        <h1 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-4">Personal Biorhythms</h1>
         <p className="text-secondary font-body max-w-2xl mx-auto">
           Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth.
         </p>
@@ -71,7 +71,7 @@ const BiorhythmContent = () => {
 
       {/* Input Section */}
       <div className="max-w-md mx-auto mb-12">
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 shadow-sm">
+        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm">
           <label htmlFor="dob" className="block text-[10px] font-bold text-accent uppercase tracking-widest font-label mb-4 text-center">
             Enter Your Date of Birth
           </label>
@@ -88,7 +88,7 @@ const BiorhythmContent = () => {
       {biorhythmData && (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
           {/* Date Selector */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-surface-container-low/50 rounded-3xl p-6 border border-outline/50">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 bg-surface-container-low/50 rounded-3xl p-6 border border-outline/50">
             <button
               onClick={() => adjustDate(-1)}
               className="flex items-center gap-2 text-accent hover:text-accent/80 font-label text-xs uppercase tracking-widest font-bold transition-colors group"
@@ -129,7 +129,7 @@ const BiorhythmContent = () => {
           {/* Metrics Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {biorhythmData.cycles.map((cycle) => (
-              <div key={cycle.name} className="bg-white border border-outline/80 rounded-[2.5rem] p-8 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+              <div key={cycle.name} className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-6">
                     <div>
@@ -182,7 +182,7 @@ const BiorhythmContent = () => {
             ))}
           </div>
 
-          <div className="bg-accent/5 border border-accent/20 rounded-[2.5rem] p-8 text-center max-w-3xl mx-auto">
+          <div className="bg-accent/5 border border-accent/20 rounded-[2.5rem] p-6 md:p-8 text-center max-w-3xl mx-auto">
             <h4 className="text-lg font-headline text-on-surface mb-2">How to interpret these results?</h4>
             <p className="text-sm text-secondary font-body leading-relaxed">
               Values above 50% indicate a <strong>High Phase</strong>, where you likely feel more energetic and capable in that area.
@@ -205,6 +205,21 @@ const BiorhythmContent = () => {
            <span className="material-symbols-outlined text-accent text-6xl mt-8">calendar_today</span>
         </div>
       )}
+
+      <div className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm mt-12">
+        <h4 className="text-xl font-headline text-on-surface mb-4">History & Origins</h4>
+        <div className="space-y-4 text-sm text-secondary font-body leading-relaxed">
+          <p>
+            The theory of biorhythms originated in the late 19th century with Wilhelm Fliess, a Berlin physician who observed recurring 23-day physical and 28-day emotional cycles. He believed these rhythms were present from birth and influenced human behavior throughout life.
+          </p>
+          <p>
+            In the early 20th century, Alfred Teltscher, a professor of engineering at the University of Innsbruck, added the 33-day intellectual cycle. He developed this theory after observing rhythmic patterns in his students&apos; academic performance, suggesting that mental alertness and ability to absorb information also followed a cyclic nature.
+          </p>
+          <p>
+            Popularized in the 1970s through books and early handheld calculators like the Casio Biolator, biorhythm charting became a global phenomenon. While modern science views these fixed cycles as more of a historical curiosity than a biological certainty, they remain a popular tool for self-reflection and understanding the natural ebb and flow of human energy.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
