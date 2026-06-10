@@ -3,8 +3,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { calculateBiorhythms } from '@/lib/biorhythm';
+import { calculateBiorhythms, calculateBiorhythmSeries } from '@/lib/biorhythm';
 import { sendGAEvent } from '@next/third-parties/google';
+import BiorhythmChart from '@/components/BiorhythmChart';
 
 const BiorhythmContent = () => {
   const [dob, setDob] = useState('');
@@ -38,7 +39,16 @@ const BiorhythmContent = () => {
     if (!dob) return null;
     try {
       return calculateBiorhythms(new Date(dob), targetDate);
-    } catch (e) {
+    } catch {
+      return null;
+    }
+  }, [dob, targetDate]);
+
+  const seriesData = useMemo(() => {
+    if (!dob) return null;
+    try {
+      return calculateBiorhythmSeries(new Date(dob), targetDate, 15);
+    } catch {
       return null;
     }
   }, [dob, targetDate]);
@@ -105,6 +115,16 @@ const BiorhythmContent = () => {
               <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
             </button>
           </div>
+
+          {/* Chart Section */}
+          {seriesData && (
+            <div className="animate-in fade-in duration-1000 delay-300">
+              <div className="mb-6">
+                <h3 className="text-lg font-headline text-on-surface text-center">Cycle Overview (31 Days)</h3>
+              </div>
+              <BiorhythmChart series={seriesData} />
+            </div>
+          )}
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

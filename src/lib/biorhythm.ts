@@ -27,6 +27,12 @@ export interface BiorhythmData {
   daysSinceBirth: number;
 }
 
+export interface BiorhythmSeriesPoint {
+  date: Date;
+  values: { [key: string]: number };
+  isTarget: boolean;
+}
+
 export function calculateBiorhythms(birthDate: Date, targetDate: Date): BiorhythmData {
   // Normalize both dates to midnight UTC to ensure accurate day counting
   const start = new Date(Date.UTC(birthDate.getFullYear(), birthDate.getMonth(), birthDate.getDate()));
@@ -48,4 +54,30 @@ export function calculateBiorhythms(birthDate: Date, targetDate: Date): Biorhyth
     targetDate: end,
     daysSinceBirth
   };
+}
+
+export function calculateBiorhythmSeries(birthDate: Date, targetDate: Date, rangeDays: number = 15): BiorhythmSeriesPoint[] {
+  const series: BiorhythmSeriesPoint[] = [];
+
+  // Normalize target date to midnight
+  const baseTarget = new Date(Date.UTC(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()));
+
+  for (let i = -rangeDays; i <= rangeDays; i++) {
+    const currentTarget = new Date(baseTarget);
+    currentTarget.setUTCDate(baseTarget.getUTCDate() + i);
+
+    const data = calculateBiorhythms(birthDate, currentTarget);
+    const values: { [key: string]: number } = {};
+    data.cycles.forEach(c => {
+      values[c.name] = c.value;
+    });
+
+    series.push({
+      date: currentTarget,
+      values,
+      isTarget: i === 0
+    });
+  }
+
+  return series;
 }
