@@ -1,19 +1,22 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BiorhythmChart from '@/components/BiorhythmChart';
+import MiniBiorhythmChart from '@/components/MiniBiorhythmChart';
 import { calculateBiorhythms, calculateBiorhythmSeries } from '@/lib/biorhythm';
 import { sendGAEvent } from '@next/third-parties/google';
-import BiorhythmChart from '@/components/BiorhythmChart';
 
 const BiorhythmContent = () => {
-  const [dob, setDob] = useState('');
-  const [targetDate, setTargetDate] = useState(new Date());
+  const [dob, setDob] = useState<string>('');
+  const [targetDate, setTargetDate] = useState<Date>(new Date());
 
   useEffect(() => {
     const savedDob = localStorage.getItem('biorhythm_dob');
-    if (savedDob) setDob(savedDob);
+    if (savedDob) {
+      setDob(savedDob);
+    }
   }, []);
 
   const handleDobChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,17 +50,18 @@ const BiorhythmContent = () => {
   const seriesData = useMemo(() => {
     if (!dob) return null;
     try {
-      return calculateBiorhythmSeries(new Date(dob), targetDate, 15);
+      // Range 3 means -3 to +3, total 7 days
+      return calculateBiorhythmSeries(new Date(dob), targetDate, 3);
     } catch {
       return null;
     }
   }, [dob, targetDate]);
 
   const formattedTargetDate = targetDate.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
   });
 
   return (
@@ -87,32 +91,39 @@ const BiorhythmContent = () => {
 
       {biorhythmData && (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          {/* Date Selector */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 bg-surface-container-low/50 rounded-3xl p-6 border border-outline/50">
+          {/* Subtle Date Selector */}
+          <div className="flex items-center justify-center gap-2 md:gap-4 bg-surface-container-low/40 rounded-full py-2 px-4 border border-outline/30 w-fit mx-auto">
             <button
               onClick={() => adjustDate(-1)}
-              className="flex items-center gap-2 text-accent hover:text-accent/80 font-label text-xs uppercase tracking-widest font-bold transition-colors group"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-accent hover:bg-surface-container-high transition-colors"
+              title="Previous Day"
+              aria-label="Previous Day"
             >
-              <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
-              Previous Day
+              <span className="material-symbols-outlined text-xl">chevron_left</span>
             </button>
 
-            <div className="text-center">
-              <h2 className="text-xl font-headline text-on-surface">{formattedTargetDate}</h2>
-              <button
-                onClick={resetToday}
-                className="text-[10px] text-accent uppercase tracking-widest font-bold mt-1 hover:underline"
-              >
-                Reset to Today
-              </button>
+            <div className="px-4 text-center">
+              <h2 className="text-xs font-bold font-label text-on-surface uppercase tracking-widest">{formattedTargetDate}</h2>
             </div>
 
             <button
               onClick={() => adjustDate(1)}
-              className="flex items-center gap-2 text-accent hover:text-accent/80 font-label text-xs uppercase tracking-widest font-bold transition-colors group"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-accent hover:bg-surface-container-high transition-colors"
+              title="Next Day"
+              aria-label="Next Day"
             >
-              Next Day
-              <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+              <span className="material-symbols-outlined text-xl">chevron_right</span>
+            </button>
+
+            <div className="w-px h-4 bg-outline/20 mx-1" />
+
+            <button
+              onClick={resetToday}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-accent hover:bg-surface-container-high transition-colors"
+              title="Reset to Today"
+              aria-label="Reset to Today"
+            >
+              <span className="material-symbols-outlined text-xl">today</span>
             </button>
           </div>
 
@@ -120,7 +131,7 @@ const BiorhythmContent = () => {
           {seriesData && (
             <div className="animate-in fade-in duration-1000 delay-300">
               <div className="mb-6">
-                <h3 className="text-lg font-headline text-on-surface text-center">Cycle Overview (31 Days)</h3>
+                <h3 className="text-lg font-headline text-on-surface text-center">Cycle Overview (7 Days)</h3>
               </div>
               <BiorhythmChart series={seriesData} />
             </div>
@@ -131,53 +142,40 @@ const BiorhythmContent = () => {
             {biorhythmData.cycles.map((cycle) => (
               <div key={cycle.name} className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
                 <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-6">
+                  <div className="flex justify-between items-start mb-4">
                     <div>
                       <h3 className="text-xl font-headline text-on-surface">{cycle.name}</h3>
                       <p className="text-[10px] text-secondary font-label uppercase tracking-widest mt-1">
                         {cycle.period} Day Cycle
                       </p>
                     </div>
-                    <div className="text-3xl font-bold font-body tabular-nums" style={{ color: cycle.color }}>
-                      {Math.round((cycle.value + 1) * 50)}%
-                    </div>
+                    <span
+                      className="material-symbols-outlined text-2xl"
+                      style={{ color: cycle.color }}
+                    >
+                      {cycle.name === 'Physical' ? 'fitness_center' :
+                       cycle.name === 'Emotional' ? 'favorite' :
+                       cycle.name === 'Intellectual' ? 'psychology' :
+                       cycle.name === 'Spiritual' ? 'self_improvement' :
+                       cycle.name === 'Intuitional' ? 'auto_awesome' :
+                       cycle.name === 'Aesthetic' ? 'palette' : 'visibility'}
+                    </span>
                   </div>
 
-                  <div className="space-y-4">
-                    {/* Progress Bar */}
-                    <div className="h-3 w-full bg-surface-container-low rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{
-                          width: `${(cycle.value + 1) * 50}%`,
-                          backgroundColor: cycle.color
-                        }}
+                  <div className="mb-6 bg-surface-container-low/30 rounded-2xl p-4">
+                    {seriesData && (
+                      <MiniBiorhythmChart
+                        series={seriesData}
+                        cycleName={cycle.name}
+                        color={cycle.color}
                       />
-                    </div>
-
-                    <div className="flex justify-between text-[10px] font-bold font-label uppercase tracking-widest">
-                      <span className="text-secondary/50">Low Phase</span>
-                      <span className="text-secondary/50">High Phase</span>
-                    </div>
-
-                    <p className="text-sm text-secondary font-body leading-relaxed pt-2">
-                      {cycle.description}
-                    </p>
+                    )}
                   </div>
-                </div>
 
-                {/* Decorative background icon */}
-                <span
-                  className="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl opacity-[0.03] select-none group-hover:scale-110 transition-transform duration-700 pointer-events-none"
-                  style={{ color: cycle.color }}
-                >
-                  {cycle.name === 'Physical' ? 'fitness_center' :
-                   cycle.name === 'Emotional' ? 'favorite' :
-                   cycle.name === 'Intellectual' ? 'psychology' :
-                   cycle.name === 'Spiritual' ? 'self_improvement' :
-                   cycle.name === 'Intuitional' ? 'auto_awesome' :
-                   cycle.name === 'Aesthetic' ? 'palette' : 'visibility'}
-                </span>
+                  <p className="text-sm text-secondary font-body leading-relaxed">
+                    {cycle.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -185,9 +183,9 @@ const BiorhythmContent = () => {
           <div className="bg-accent/5 border border-accent/20 rounded-[2.5rem] p-6 md:p-8 text-center max-w-3xl mx-auto">
             <h4 className="text-lg font-headline text-on-surface mb-2">How to interpret these results?</h4>
             <p className="text-sm text-secondary font-body leading-relaxed">
-              Values above 50% indicate a <strong>High Phase</strong>, where you likely feel more energetic and capable in that area.
-              Values below 50% are <strong>Low Phases</strong>, suitable for rest and caution.
-              The most critical days are when the cycle crosses the 50% line (0 value), often marked by instability or transition.
+              Values above the center line indicate a <strong>High Phase</strong>, where you likely feel more energetic and capable in that area.
+              Values below the line are <strong>Low Phases</strong>, suitable for rest and caution.
+              The most critical days are when the cycle crosses the center line, often marked by instability or transition.
             </p>
           </div>
         </div>

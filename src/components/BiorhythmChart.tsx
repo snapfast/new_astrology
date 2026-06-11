@@ -89,8 +89,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
 
           {/* Date Labels (X-Axis) */}
           {series.map((p, i) => (
-             i % 5 === 0 || p.isTarget ? (
-              <text
+             <text
                 key={i}
                 x={getX(i)} y={height - 20}
                 className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary/60'}`}
@@ -98,7 +97,6 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
               >
                 {p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </text>
-             ) : null
           ))}
 
           {/* Value Labels (Y-Axis) */}
@@ -117,15 +115,17 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
                 strokeLinecap="round"
                 className="opacity-80"
               />
-              {/* Dots */}
+              {/* Dots - Only show for current day */}
               {series.map((p, i) => (
-                <circle
-                  key={i}
-                  cx={getX(i)} cy={getY(p.values[cycle.name])}
-                  r={p.isTarget ? 4 : 2}
-                  fill={cycle.color}
-                  className={p.isTarget ? 'stroke-white stroke-2' : ''}
-                />
+                p.isTarget ? (
+                  <circle
+                    key={i}
+                    cx={getX(i)} cy={getY(p.values[cycle.name])}
+                    r={4}
+                    fill={cycle.color}
+                    className="stroke-white stroke-2"
+                  />
+                ) : null
               ))}
             </g>
           ))}
