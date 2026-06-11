@@ -77,7 +77,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-10 font-normal text-xs text-secondary font-body">
+        <div className="hidden md:flex items-center gap-8 font-medium text-sm text-on-surface font-body">
           {navLinks.filter(link => link.href !== '/').map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -90,7 +90,7 @@ const Navbar = () => {
                     ? 'text-on-surface font-semibold underline underline-offset-8 decoration-accent/40'
                     : link.highlight
                       ? 'text-accent font-medium'
-                      : 'text-secondary'
+                      : 'text-on-surface'
                 }`}
               >
                 {link.name}
@@ -103,13 +103,13 @@ const Navbar = () => {
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <Link
             href="/free-horoscope"
-            className="md:hidden bg-accent text-white px-4 py-2.5 rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center min-w-[110px] shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="md:hidden bg-accent text-white px-4 py-2.5 rounded-full font-medium text-[11px] tracking-[0.1em] uppercase text-center min-w-[110px] shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             Free Horoscope
           </Link>
           <button
             onClick={handleBookNow}
-            className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[11px] md:text-sm tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Book Now
           </button>
@@ -165,7 +165,7 @@ const Navbar = () => {
             Book a Consultation Now
           </button>
           <div className="flex flex-col items-center mt-8 gap-2">
-            <p className="text-[10px] text-secondary font-body tracking-wider uppercase">
+            <p className="text-[11px] text-on-surface font-body tracking-wider uppercase">
               Gurugram, India
             </p>
             <p className="text-lg text-accent font-body">
