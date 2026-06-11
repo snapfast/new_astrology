@@ -16,7 +16,7 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <div className="pt-32 pb-24 max-w-4xl mx-auto px-8 flex flex-col items-center text-center">
+      <div className="pt-24 pb-16 max-w-4xl mx-auto px-8 flex flex-col items-center text-center">
         <h1 className="text-5xl font-normal mb-16 font-headline text-on-surface">Contact Us</h1>
 
         <div className="space-y-16">

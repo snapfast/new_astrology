@@ -50,7 +50,7 @@ export default function ReviewsPage() {
     <main className="min-h-screen bg-surface">
       <JsonLd data={reviewsSchema} />
       <Navbar />
-      <div className="pt-32 pb-24">
+      <div className="pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-8 mb-16 text-center">
           <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface tracking-tight">Client Reviews</h1>
           <p className="text-lg font-body text-secondary leading-relaxed">

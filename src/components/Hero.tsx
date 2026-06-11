@@ -10,7 +10,7 @@ const Hero = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
       <div className="concentric-circles animate-slow-spin">
         <div className="circle-dashed w-[400px] h-[400px]"></div>
@@ -21,7 +21,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-12">
         <div className="flex flex-col items-center mb-6">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             VEDIC ASTROLOGY · JYOTISH SHASTRA

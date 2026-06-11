@@ -65,7 +65,7 @@ const BiorhythmContent = () => {
   });
 
   return (
-    <div className="pt-20 md:pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-16 md:pt-20 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-4">Personal Biorhythms</h1>
         <p className="text-secondary font-body max-w-2xl mx-auto">
