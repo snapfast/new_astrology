@@ -187,7 +187,7 @@ const PanchangPage = () => {
       <JsonLd data={panchangSchema} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-12 md:pt-40 md:pb-20 bg-background relative overflow-hidden">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-background relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
           <div className="flex justify-center mb-6">
              <button

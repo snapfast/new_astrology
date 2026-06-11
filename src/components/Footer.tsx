@@ -10,7 +10,7 @@ const Footer = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
-    <footer className="w-full pt-32 pb-20 bg-background border-t border-outline/50 font-body print:hidden">
+    <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/50 font-body print:hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
         <div className="col-span-1 lg:col-span-1">
           <Link href="/" className="mb-8 block">
@@ -46,7 +46,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 mt-32 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-secondary font-label">
+      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-secondary font-label">
         <Link href="/">Rahul Bali Astrology Services © 2025. All rights reserved.</Link>
         <div className="flex gap-10">
           <a href="#">Privacy</a>

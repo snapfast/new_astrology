@@ -12,7 +12,7 @@ export default function ServicesPlaceholder({ title }: { title: string }) {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <div className="pt-32 pb-24 max-w-4xl mx-auto px-8 text-center">
+      <div className="pt-24 pb-16 max-w-4xl mx-auto px-8 text-center">
         <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface">{title}</h1>
         <p className="text-secondary text-lg mb-12 font-body max-w-2xl mx-auto">
           Expert Astrology guidance tailored to your soul&apos;s journey.

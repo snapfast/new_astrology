@@ -76,7 +76,7 @@ export default function FreeHoroscopePage() {
       <JsonLd data={faqJsonLd} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-8 md:pt-40 md:pb-12 bg-background relative overflow-hidden">
+      <section className="pt-24 pb-8 md:pt-32 md:pb-12 bg-background relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 rounded-full blur-[120px] -z-0"></div>
       </section>
 

@@ -15,7 +15,7 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
   };
 
   return (
-    <section className={`${showTitle ? 'py-32' : 'pb-32'} bg-white`}>
+    <section className={`${showTitle ? 'py-20' : 'pb-20'} bg-white`}>
       <div className="max-w-7xl mx-auto px-8">
         {showTitle && (
           <div className="text-center mb-20">
