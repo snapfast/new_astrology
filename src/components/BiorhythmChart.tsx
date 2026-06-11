@@ -9,8 +9,8 @@ interface BiorhythmChartProps {
 
 const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
   const width = 1000;
-  const height = 400;
-  const padding = { top: 40, right: 40, bottom: 60, left: 40 };
+  const height = 280;
+  const padding = { top: 25, right: 40, bottom: 50, left: 40 };
 
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
@@ -78,7 +78,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
                 className="stroke-accent/40" strokeWidth="2" strokeDasharray="6 4"
               />
               <text
-                x={getX(targetIndex)} y={height - padding.bottom + 25}
+                x={getX(targetIndex)} y={height - padding.bottom + 22}
                 className="fill-accent text-[10px] font-bold font-label text-center"
                 textAnchor="middle"
               >
@@ -91,7 +91,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
           {series.map((p, i) => (
              <text
                 key={i}
-                x={getX(i)} y={height - 20}
+                x={getX(i)} y={height - 15}
                 className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary/60'}`}
                 textAnchor="middle"
               >
