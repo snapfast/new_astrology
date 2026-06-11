@@ -122,7 +122,6 @@ export default function AboutClient() {
                 fill
                 className="object-contain"
                 priority
-                quality={95}
                 sizes="(max-width: 768px) 200px, 200px"
               />
             </div>
