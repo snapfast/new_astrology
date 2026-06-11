@@ -50,7 +50,7 @@ export default function ReviewsPage() {
     <main className="min-h-screen bg-surface">
       <JsonLd data={reviewsSchema} />
       <Navbar />
-      <div className="pt-32 pb-24">
+      <div className="pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-8 mb-16 text-center">
           <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface tracking-tight">Client Reviews</h1>
           <p className="text-lg font-body text-secondary leading-relaxed">
@@ -82,7 +82,7 @@ export default function ReviewsPage() {
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline/50 flex flex-col shadow-sm">
-              <p className="text-sm text-on-surface mb-6 italic leading-relaxed font-body font-light flex-grow">
+              <p className="text-sm text-on-surface mb-6 leading-relaxed font-body font-light flex-grow">
                 &quot;{item.review}&quot;
               </p>
               <div className="flex items-center gap-4 pt-6 border-t border-outline/30">
@@ -91,7 +91,7 @@ export default function ReviewsPage() {
                 </div>
                 <div>
                   <h5 className="font-medium text-[11px] tracking-[0.05em] uppercase font-label text-on-surface">{item.name}</h5>
-                  <p className="text-[10px] text-secondary/60 uppercase tracking-[0.1em] font-label">{item.date}</p>
+                  <p className="text-[10px] text-secondary uppercase tracking-[0.1em] font-label">{item.date}</p>
                 </div>
               </div>
             </div>

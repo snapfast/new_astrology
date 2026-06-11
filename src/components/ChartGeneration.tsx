@@ -313,7 +313,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
   };
 
   return (
-    <section className={`py-24 bg-background relative z-20 ${className}`}>
+    <section className={`py-16 bg-background relative z-20 ${className}`}>
       <div className="max-w-4xl mx-auto px-8">
         <div className="bg-surface p-10 md:p-16 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
           <div className="relative z-10">
@@ -338,7 +338,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onFocus={() => setShowHistory(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary/30 text-on-surface text-xs md:text-sm font-body`}
+                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
                   placeholder="John Doe"
                   type="text"
                   autoComplete="off"
@@ -364,9 +364,9 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                           >
                             <div className="flex flex-col gap-0.5">
                               <span className="text-xs md:text-sm text-white font-body font-medium transition-colors">{item.name}</span>
-                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white/70 font-body">
+                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white font-body">
                                 <span>{item.dob}</span>
-                                <span className="opacity-30">•</span>
+                                <span>•</span>
                                 <span className="truncate">{item.pob}</span>
                               </div>
                             </div>
@@ -417,7 +417,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                     setShowSuggestions(true);
                   }}
                   onFocus={() => setShowSuggestions(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary/30 text-on-surface text-xs md:text-sm font-body`}
+                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
                   placeholder="City, Country"
                   type="text"
                   autoComplete="off"
@@ -431,7 +431,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
                   <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     {isLoading ? (
-                      <div className="px-6 py-4 text-xs text-secondary/50 font-body italic">Searching cities...</div>
+                      <div className="px-6 py-4 text-xs text-secondary font-body italic">Searching cities...</div>
                     ) : (
                       <ul className="max-h-60 overflow-y-auto">
                         {suggestions.map((suggestion, index) => (
@@ -456,7 +456,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
               </div>
               <div className="md:col-span-2 pt-2 md:pt-4">
                 <button
-                  className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label flex items-center justify-center disabled:opacity-80 disabled:cursor-not-allowed"
+                  className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label flex items-center justify-center disabled:cursor-not-allowed"
                   type="submit"
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}

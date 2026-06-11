@@ -60,7 +60,7 @@ const Testimonials = () => {
   );
 
   return (
-    <section className="py-20 md:py-32 bg-background relative overflow-hidden">
+    <section className="py-12 md:py-20 bg-background relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-1 lg:sticky lg:top-24">
@@ -102,7 +102,7 @@ const Testimonials = () => {
                 {featuredReviews.map((item) => (
                   <div key={item.id} className={`${itemsPerView === 2 ? 'min-w-[50%]' : 'min-w-full'} px-2`}>
                     <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline/50 h-full flex flex-col">
-                      <p className="text-sm md:text-base text-on-surface mb-6 italic leading-relaxed font-body font-light">
+                      <p className="text-sm md:text-base text-on-surface mb-6 leading-relaxed font-body font-light">
                         &quot;{item.review}&quot;
                       </p>
                       <div className="flex items-center gap-4 mt-auto">
@@ -111,7 +111,7 @@ const Testimonials = () => {
                         </div>
                         <div>
                           <h5 className="font-medium text-[12px] tracking-[0.05em] uppercase font-label text-on-surface">{item.name}</h5>
-                          <p className="text-[10px] text-secondary/60 uppercase tracking-[0.1em] font-label">{item.date}</p>
+                          <p className="text-[10px] text-secondary uppercase tracking-[0.1em] font-label">{item.date}</p>
                         </div>
                       </div>
                     </div>

@@ -52,7 +52,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm md:text-lg font-normal text-on-surface font-headline truncate group-hover:text-accent transition-colors">{link.name}</h3>
                   </div>
-                  <span className="material-symbols-outlined text-secondary/20 text-base md:text-xl group-hover:translate-x-0.5 group-hover:text-accent/40 transition-all">
+                  <span className="material-symbols-outlined text-secondary text-base md:text-xl group-hover:translate-x-0.5 group-hover:text-accent transition-all">
                     {link.type === 'internal' ? 'chevron_right' : 'open_in_new'}
                   </span>
                 </>
@@ -86,7 +86,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[8px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
+            <p className="text-[8px] md:text-[10px] text-secondary font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>

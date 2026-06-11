@@ -9,3 +9,9 @@
 ## 2026-06-05 - [Global Back to Top Navigation]
 **Learning:** For content-heavy Vedic astrology platforms, a global "Back to Top" button significantly improves mobile and desktop navigation efficiency. Adhering to established UI standards (w-10 h-10 circular buttons) ensures design consistency. Throttling scroll event listeners to ~200ms prevents performance degradation during fast scrolling without sacrificing responsiveness.
 **Action:** Implement throttled scroll listeners for global navigation elements and maintain consistent button sizing across all floating UI actions.
+## Support Section Enhancement
+- Restructured the support section on the About page to include distinct UPI and PayPal blocks.
+- Integrated brand-appropriate SVG logos (UPI and PayPal) using the theme's accent color.
+- Added "Pay using Email ID" label for PayPal to clarify the payment method.
+- Ensured full opacity for all text and icons, adhering to the 'Text Clarity & Readability Standard'.
+- Maintained "copy to clipboard" functionality with localized feedback (Copied).

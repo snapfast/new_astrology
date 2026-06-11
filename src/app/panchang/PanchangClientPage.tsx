@@ -6,6 +6,15 @@ import Footer from '@/components/Footer';
 import { generateAstrologyData } from '@/lib/astrology';
 import JsonLd from '@/components/JsonLd';
 
+// Performance Optimization: Pre-instantiate formatters outside the component
+const DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC'
+});
+
 const TRANSLATIONS = {
   en: {
     heroTitle: "Daily Panchang",
@@ -44,6 +53,7 @@ const TRANSLATIONS = {
     today: "Today",
     selectDate: "Select Date",
     selectedDate: "Selected Date",
+    switchLanguage: "Switch Language / भाषा बदलें",
     eduTitle: "Understanding Panchang",
     ctaTitle: "Plan Your Day with Expert Guidance",
     ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
@@ -85,6 +95,7 @@ const TRANSLATIONS = {
     today: "आज",
     selectDate: "तारीख चुनें",
     selectedDate: "चुनी हुई तारीख",
+    switchLanguage: "भाषा बदलें / Switch Language",
     eduTitle: "पंचांग को समझना",
     ctaTitle: "विशेषज्ञ मार्गदर्शन के साथ अपने दिन की योजना बनाएं",
     ctaDesc: "जबकि दैनिक पंचांग सामान्य मार्गदर्शन प्रदान करता है, आपकी व्यक्तिगत जन्म कुंडली (कुण्डली) पर आधारित एक व्यक्तिगत मुहूर्त आपके विशिष्ट प्रयासों के लिए उच्चतम स्तर की सफलता सुनिश्चित करता है।"
@@ -129,8 +140,11 @@ const PanchangPage = () => {
 
   const handleToday = () => {
     const now = new Date();
+    // Normalize to IST then to UTC midnight to ensure consistency with the date picker
     const istOffset = 5.5 * 60 * 60 * 1000;
-    setSelectedDate(new Date(now.getTime() + istOffset));
+    const istTime = new Date(now.getTime() + istOffset);
+    const utcMidnight = new Date(Date.UTC(istTime.getUTCFullYear(), istTime.getUTCMonth(), istTime.getUTCDate()));
+    setSelectedDate(utcMidnight);
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -187,18 +201,8 @@ const PanchangPage = () => {
       <JsonLd data={panchangSchema} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-12 md:pt-40 md:pb-20 bg-background relative overflow-hidden">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-background relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
-          <div className="flex justify-center mb-6">
-             <button
-              onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-              title="Switch Language / भाषा बदलें"
-              aria-label="Switch Language / भाषा बदलें"
-            >
-              <span className="material-symbols-outlined text-[20px]">translate</span>
-            </button>
-          </div>
           <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">{t.heroSubtitle}</span>
           <h1 className="text-4xl md:text-6xl font-normal font-headline text-on-surface mb-6">{t.heroTitle}</h1>
           <p className="text-secondary font-body leading-relaxed max-w-2xl mx-auto">
@@ -215,7 +219,7 @@ const PanchangPage = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrevDay}
-                className={`px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-wider' : ''}`}
+                className={`px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
               title={t.prevDay}
             >
               <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
@@ -223,13 +227,13 @@ const PanchangPage = () => {
             </button>
             <button
               onClick={handleToday}
-                className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] md:text-xs font-label uppercase ${lang === 'en' ? 'tracking-wider' : ''}`}
+                className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] md:text-xs font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
             >
               {t.today}
             </button>
             <button
               onClick={handleNextDay}
-                className={`px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-wider' : ''}`}
+                className={`px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
               title={t.nextDay}
             >
               {t.nextDay}
@@ -251,15 +255,17 @@ const PanchangPage = () => {
             <div className="hidden sm:block">
               <p className={`text-xs font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.selectedDate}</p>
               <p className="text-sm font-body tabular-nums text-on-surface whitespace-nowrap">
-                {selectedDate.toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  timeZone: 'UTC'
-                })}
+                {DATE_FORMATTER.format(selectedDate)}
               </p>
             </div>
+            <button
+              onClick={toggleLang}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shrink-0"
+              title={t.switchLanguage}
+              aria-label={t.switchLanguage}
+            >
+              <span className="material-symbols-outlined text-[20px]">translate</span>
+            </button>
           </div>
         </div>
 
@@ -276,30 +282,30 @@ const PanchangPage = () => {
                     : `${panchang.pakshaSanskrit} ${panchang.tithiSanskrit}`}
                 </p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.tithiEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.nakshatra}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.nakshatra : panchang.nakshatraSanskrit}</p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.nakshatraEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.nakshatraSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.nakshatraSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.yoga}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.yoga : panchang.yogaSanskrit}</p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.yogaEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.yogaSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.yogaSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.karana}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.karana : panchang.karanaSanskrit}</p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.karanaEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.karanaSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.karanaSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.vara}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.varaSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.varaSanskrit}</p>}
               </div>
             </div>
 
@@ -407,12 +413,12 @@ const PanchangPage = () => {
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.month}</p>
                 <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.lunarMonth : panchang.lunarMonthSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.lunarMonthSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.lunarMonthSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.samvatsara}</p>
                 <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.samvatsara : panchang.samvatsaraSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.samvatsaraSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.samvatsaraSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.vikram}</p>

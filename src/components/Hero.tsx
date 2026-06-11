@@ -10,7 +10,7 @@ const Hero = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
       <div className="concentric-circles animate-slow-spin">
         <div className="circle-dashed w-[400px] h-[400px]"></div>
@@ -21,12 +21,12 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-12">
         <div className="flex flex-col items-center mb-6">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             VEDIC ASTROLOGY · JYOTISH SHASTRA
           </span>
-          <span className="text-lg md:text-2xl text-accent italic font-body">
+          <span className="text-lg md:text-2xl text-accent font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </span>
         </div>
@@ -40,7 +40,7 @@ const Hero = () => {
           <p className="text-base text-secondary font-body leading-relaxed mb-1">
             Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.
           </p>
-          <p className="text-sm text-secondary/70 font-body">
+          <p className="text-sm text-secondary font-body">
             Gurugram, India.
           </p>
         </div>
@@ -67,12 +67,8 @@ const Hero = () => {
         </div>
 
         {/* Trust Signals */}
-        <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-outline/20">
-          <div className="flex flex-col items-center">
-            <span className="text-xl md:text-2xl font-headline text-on-surface">15+</span>
-            <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Years Exp.</span>
-          </div>
-          <div className="flex flex-col items-center border-x border-outline/20 px-4">
+        <div className="grid grid-cols-2 gap-4 md:gap-12 max-w-lg mx-auto pt-8 border-t border-outline/20">
+          <div className="flex flex-col items-center border-r border-outline/20">
             <span className="text-xl md:text-2xl font-headline text-on-surface">5000+</span>
             <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Charts</span>
           </div>

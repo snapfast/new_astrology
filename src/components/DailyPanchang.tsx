@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, memo } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 
@@ -35,7 +35,7 @@ const TRANSLATIONS = {
   }
 };
 
-const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
+const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
   const [lang, setLang] = useState<'en' | 'hi'>('en');
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
   }, []);
 
   return (
-    <section className={`py-24 bg-surface-bright relative overflow-hidden ${className}`}>
+    <section className={`py-16 bg-surface-bright relative overflow-hidden ${className}`}>
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
           <div className="flex flex-col lg:flex-row items-center gap-12 relative">
@@ -122,34 +122,34 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
                     : `${panchang.pakshaSanskrit} ${panchang.tithiSanskrit}`}
                 </p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.tithiEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
               </div>
 
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.nakshatra}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.nakshatra : panchang.nakshatraSanskrit}</p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.nakshatraEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.nakshatraSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.nakshatraSanskrit}</p>}
               </div>
 
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.yoga}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.yoga : panchang.yogaSanskrit}</p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.yogaEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.yogaSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.yogaSanskrit}</p>}
               </div>
 
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.karana}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.karana : panchang.karanaSanskrit}</p>
                 <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.karanaEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.karanaSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.karanaSanskrit}</p>}
               </div>
 
               <div className="space-y-1">
                 <p className={`font-bold text-secondary uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.vara}</p>
                 <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-secondary opacity-70 font-medium">{panchang.varaSanskrit}</p>}
+                {lang === 'en' && <p className="text-[10px] text-secondary font-medium">{panchang.varaSanskrit}</p>}
               </div>
             </div>
           </div>
@@ -161,5 +161,8 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
     </section>
   );
 };
+
+const DailyPanchang = memo(DailyPanchangComponent);
+DailyPanchang.displayName = 'DailyPanchang';
 
 export default DailyPanchang;

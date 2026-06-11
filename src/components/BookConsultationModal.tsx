@@ -89,7 +89,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           <div className="mt-4 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[6px] md:text-[10px] text-secondary/50 font-label uppercase tracking-widest">
+            <p className="text-[6px] md:text-[10px] text-secondary font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>

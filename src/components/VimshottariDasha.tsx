@@ -170,11 +170,11 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
                       <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
                     )}
                     {isCurrent && isSelected && (
-                      <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-on-surface/40" />
+                      <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-on-surface" />
                     )}
                   </div>
                 </div>
-                <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface/70' : 'text-secondary'}`}>
+                <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface' : 'text-secondary'}`}>
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
                   {' to '}
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}

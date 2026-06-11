@@ -35,7 +35,7 @@ const SocialGallery = () => {
   };
 
   return (
-    <section className="py-24 bg-background border-t border-outline/10">
+    <section className="py-16 bg-background border-t border-outline/10">
       {/* Social Embed Scripts */}
       <Script
         src="https://www.instagram.com/embed.js"
@@ -145,7 +145,7 @@ const SocialGallery = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <p className="text-secondary text-sm font-body mb-6 italic">Stay connected for daily astrological updates.</p>
           <div className="flex flex-wrap justify-center gap-8">
             <a href={SOCIAL_PROFILES.threads} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors">Threads</a>

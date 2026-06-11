@@ -177,7 +177,7 @@ const CompactHoroscopeContent = () => {
         <div className="flex items-center gap-6">
           <button
             onClick={goToStandard}
-            className="flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase tracking-wider font-label hover:opacity-80"
+            className="flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase tracking-wider font-label hover:text-accent"
           >
             <span className="material-symbols-outlined text-[14px]">arrow_back</span>
             {t.backToStandard}
@@ -185,19 +185,19 @@ const CompactHoroscopeContent = () => {
           <div className="h-4 w-px bg-outline/30"></div>
           <div className="flex items-center gap-4 text-xs">
             <div className="flex gap-2">
-              <span className="text-on-surface/50 font-label uppercase tracking-tighter">{t.name}:</span>
+              <span className="text-on-surface font-label uppercase tracking-tighter">{t.name}:</span>
               <span className="font-bold">{name}</span>
             </div>
             <div className="flex gap-2">
-              <span className="text-on-surface/50 font-label uppercase tracking-tighter">{t.date}:</span>
+              <span className="text-on-surface font-label uppercase tracking-tighter">{t.date}:</span>
               <span className="font-bold">{formattedDob}</span>
             </div>
             <div className="flex gap-2">
-              <span className="text-on-surface/50 font-label uppercase tracking-tighter">{t.time}:</span>
+              <span className="text-on-surface font-label uppercase tracking-tighter">{t.time}:</span>
               <span className="font-bold">{tob}</span>
             </div>
             <div className="flex gap-2 max-w-[200px] truncate">
-              <span className="text-on-surface/50 font-label uppercase tracking-tighter">{t.place}:</span>
+              <span className="text-on-surface font-label uppercase tracking-tighter">{t.place}:</span>
               <span className="font-bold truncate">{pob}</span>
             </div>
           </div>
@@ -249,7 +249,7 @@ const CompactHoroscopeContent = () => {
                 { label: t.ayana, val: lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-[9px] text-on-surface/60 font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
+                  <span className="text-[9px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
                   <span className="text-xs font-bold leading-tight">{item.val}</span>
                 </div>
               ))}
@@ -267,7 +267,7 @@ const CompactHoroscopeContent = () => {
                 { label: t.yamaganda, val: chartData.panchang.yamagandaKaal, color: 'text-on-surface' },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-[9px] text-on-surface/60 font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
+                  <span className="text-[9px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
                   <span className={`text-[11px] font-bold leading-tight tabular-nums font-body ${item.color}`}>{item.val}</span>
                 </div>
               ))}
@@ -296,11 +296,11 @@ const CompactHoroscopeContent = () => {
               <table className="w-full text-left border-collapse">
                 <thead className="sticky top-0 bg-white shadow-sm z-10">
                   <tr className="border-b border-outline/30">
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface/70 uppercase font-label">{t.planet}</th>
-                    <th className="px-1 py-1.5 text-[9px] font-bold text-on-surface/70 uppercase font-label text-center">{t.house}</th>
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface/70 uppercase font-label">{t.rasi}</th>
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface/70 uppercase font-label">{t.degree}</th>
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface/70 uppercase font-label">{t.nakshatra}</th>
+                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.planet}</th>
+                    <th className="px-1 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label text-center">{t.house}</th>
+                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.rasi}</th>
+                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.degree}</th>
+                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.nakshatra}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline/10">

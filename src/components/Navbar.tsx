@@ -48,6 +48,7 @@ const Navbar = () => {
     { name: 'Home', href: '/' },
     { name: 'Free Horoscope', href: '/free-horoscope', highlight: true },
     { name: 'Panchang', href: '/panchang' },
+    { name: 'Biorhythm', href: '/biorhythm' },
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Reviews', href: '/reviews' },
@@ -57,7 +58,7 @@ const Navbar = () => {
   return (
     <>
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-outline/20 antialiased print:hidden">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 py-3 md:px-8 md:py-6 w-full">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 py-2 md:px-8 md:py-4 w-full">
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsMenuOpen(true)}
@@ -167,7 +168,7 @@ const Navbar = () => {
             <p className="text-[10px] text-secondary font-body tracking-wider uppercase">
               Gurugram, India
             </p>
-            <p className="text-lg text-accent italic font-body">
+            <p className="text-lg text-accent font-body">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।
             </p>
           </div>
