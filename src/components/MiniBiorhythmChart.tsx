@@ -64,7 +64,7 @@ const MiniBiorhythmChart: React.FC<MiniBiorhythmChartProps> = ({ series, cycleNa
           stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
-          className="opacity-80"
+          className="opacity-100"
         />
 
         {/* Current Day Dot */}

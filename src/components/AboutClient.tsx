@@ -64,7 +64,7 @@ export default function AboutClient() {
       {/* Left Column: Condensed Bio and Support (60%) */}
       <div className="lg:col-span-6 space-y-16">
         <div className="prose prose-lg max-w-none font-body text-secondary leading-relaxed space-y-8">
-          <p className="text-xl text-on-surface font-light leading-relaxed italic">
+          <p className="text-xl text-on-surface font-light leading-relaxed">
             &quot;Astrology is not just about predicting the future; it is about understanding the karmic blueprint of your soul to navigate life with wisdom.&quot;
           </p>
 
@@ -80,7 +80,7 @@ export default function AboutClient() {
             Every testimonial and review shared by clients reflects genuine success and authentic experiences; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification, as we maintain direct records of every consultation.
           </p>
 
-          <p className="text-lg md:text-2xl italic text-center pt-12 text-accent border-t border-outline/20">
+          <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </p>
         </div>
