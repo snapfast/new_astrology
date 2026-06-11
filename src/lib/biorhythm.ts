@@ -35,8 +35,9 @@ export interface BiorhythmSeriesPoint {
 
 export function calculateBiorhythms(birthDate: Date, targetDate: Date): BiorhythmData {
   // Normalize both dates to midnight UTC to ensure accurate day counting
-  const start = new Date(Date.UTC(birthDate.getFullYear(), birthDate.getMonth(), birthDate.getDate()));
-  const end = new Date(Date.UTC(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()));
+  // Use getUTC* methods for the normalization to avoid local timezone shifts
+  const start = new Date(Date.UTC(birthDate.getUTCFullYear(), birthDate.getUTCMonth(), birthDate.getUTCDate()));
+  const end = new Date(Date.UTC(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate()));
 
   const diffTime = end.getTime() - start.getTime();
   const daysSinceBirth = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -59,8 +60,8 @@ export function calculateBiorhythms(birthDate: Date, targetDate: Date): Biorhyth
 export function calculateBiorhythmSeries(birthDate: Date, targetDate: Date, rangeDays: number = 15): BiorhythmSeriesPoint[] {
   const series: BiorhythmSeriesPoint[] = [];
 
-  // Normalize target date to midnight
-  const baseTarget = new Date(Date.UTC(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()));
+  // Normalize target date to midnight UTC
+  const baseTarget = new Date(Date.UTC(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate()));
 
   for (let i = -rangeDays; i <= rangeDays; i++) {
     const currentTarget = new Date(baseTarget);
