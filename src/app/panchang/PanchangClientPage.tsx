@@ -44,6 +44,7 @@ const TRANSLATIONS = {
     today: "Today",
     selectDate: "Select Date",
     selectedDate: "Selected Date",
+    switchLanguage: "Switch Language / भाषा बदलें",
     eduTitle: "Understanding Panchang",
     ctaTitle: "Plan Your Day with Expert Guidance",
     ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
@@ -85,6 +86,7 @@ const TRANSLATIONS = {
     today: "आज",
     selectDate: "तारीख चुनें",
     selectedDate: "चुनी हुई तारीख",
+    switchLanguage: "भाषा बदलें / Switch Language",
     eduTitle: "पंचांग को समझना",
     ctaTitle: "विशेषज्ञ मार्गदर्शन के साथ अपने दिन की योजना बनाएं",
     ctaDesc: "जबकि दैनिक पंचांग सामान्य मार्गदर्शन प्रदान करता है, आपकी व्यक्तिगत जन्म कुंडली (कुण्डली) पर आधारित एक व्यक्तिगत मुहूर्त आपके विशिष्ट प्रयासों के लिए उच्चतम स्तर की सफलता सुनिश्चित करता है।"
@@ -189,16 +191,6 @@ const PanchangPage = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-background relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
-          <div className="flex justify-center mb-6">
-             <button
-              onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-              title="Switch Language / भाषा बदलें"
-              aria-label="Switch Language / भाषा बदलें"
-            >
-              <span className="material-symbols-outlined text-[20px]">translate</span>
-            </button>
-          </div>
           <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">{t.heroSubtitle}</span>
           <h1 className="text-4xl md:text-6xl font-normal font-headline text-on-surface mb-6">{t.heroTitle}</h1>
           <p className="text-secondary font-body leading-relaxed max-w-2xl mx-auto">
@@ -260,6 +252,14 @@ const PanchangPage = () => {
                 })}
               </p>
             </div>
+            <button
+              onClick={toggleLang}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shrink-0"
+              title={t.switchLanguage}
+              aria-label={t.switchLanguage}
+            >
+              <span className="material-symbols-outlined text-[20px]">translate</span>
+            </button>
           </div>
         </div>
 
