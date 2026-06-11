@@ -11,7 +11,7 @@ const Logo: React.FC<LogoProps> = ({ className = "" }) => {
         Rahul Bali
       </span>
       <div className="flex items-center gap-2 mt-1">
-        <span className="text-[8px] md:text-[10px] font-medium tracking-[0.4em] uppercase text-accent font-body whitespace-nowrap">
+        <span className="text-[10px] md:text-[12px] font-medium tracking-[0.4em] uppercase text-accent font-body whitespace-nowrap">
           Astrology
         </span>
         <div className="h-[1px] w-6 md:w-8 bg-accent/30"></div>
