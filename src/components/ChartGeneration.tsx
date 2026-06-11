@@ -313,7 +313,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
   };
 
   return (
-    <section className={`py-24 bg-background relative z-20 ${className}`}>
+    <section className={`py-16 bg-background relative z-20 ${className}`}>
       <div className="max-w-4xl mx-auto px-8">
         <div className="bg-surface p-10 md:p-16 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
           <div className="relative z-10">

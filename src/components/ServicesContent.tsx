@@ -7,7 +7,7 @@ export default function ServicesContent() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-background relative overflow-hidden border-b border-outline/20">
+      <section className="pt-24 pb-12 bg-background relative overflow-hidden border-b border-outline/20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-accent/5 rounded-full blur-[140px] -z-0"></div>
         <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 block font-label">Spiritual Guidance</span>
@@ -19,7 +19,7 @@ export default function ServicesContent() {
       </section>
 
       {/* Services List */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
             {SPECIALIZED_SERVICES.map((service) => (
@@ -38,8 +38,8 @@ export default function ServicesContent() {
       </section>
 
       {/* Simple Footer Mantra */}
-      <section className="pb-24 bg-white">
-        <div className="max-w-4xl mx-auto px-8 text-center border-t border-outline/20 pt-16">
+      <section className="pb-16 bg-white">
+        <div className="max-w-4xl mx-auto px-8 text-center border-t border-outline/20 pt-12">
           <p className="text-lg md:text-2xl italic text-accent font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </p>

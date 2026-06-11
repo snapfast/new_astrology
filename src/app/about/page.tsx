@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <div className="pt-32 pb-24 max-w-5xl mx-auto px-8">
+      <div className="pt-24 pb-16 max-w-5xl mx-auto px-8">
         <div className="text-center mb-16">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">The Practitioner</span>
           <h1 className="text-5xl md:text-6xl font-normal mb-8 font-headline text-on-surface">Pandit Rahul Bali Ji</h1>

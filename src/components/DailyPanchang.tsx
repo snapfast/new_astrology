@@ -66,7 +66,7 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
   }, []);
 
   return (
-    <section className={`py-24 bg-surface-bright relative overflow-hidden ${className}`}>
+    <section className={`py-16 bg-surface-bright relative overflow-hidden ${className}`}>
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
           <div className="flex flex-col lg:flex-row items-center gap-12 relative">
