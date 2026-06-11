@@ -136,7 +136,7 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series }) => {
           {BIORHYTHM_CYCLES.map(cycle => (
             <div key={cycle.name} className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cycle.color }} />
-              <span className="text-[10px] font-bold font-label uppercase tracking-widest text-secondary">{cycle.name}</span>
+              <span className="text-[10px] font-bold font-label uppercase tracking-widest text-on-surface">{cycle.name}</span>
             </div>
           ))}
         </div>

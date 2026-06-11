@@ -86,7 +86,7 @@ export default function FreeHoroscopePage() {
       <section className="py-24 bg-surface border-t border-outline/30">
         <div className="max-w-4xl mx-auto px-8">
           <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">The Significance of Your Birth Chart</h2>
-          <div className="prose prose-sm md:prose-base max-w-none text-secondary font-body leading-relaxed space-y-6">
+          <div className="prose prose-sm md:prose-base max-w-none text-on-surface font-body leading-relaxed space-y-6">
             <p>
               Generate your precise Vedic Birth Chart instantly. Our tool provides detailed planetary positions using the authoritative Lahiri Ayanamsa for the most accurate astrological mapping.
             </p>
@@ -116,7 +116,7 @@ export default function FreeHoroscopePage() {
                 <span className="material-symbols-outlined">auto_awesome</span>
               </div>
               <h3 className="text-xl font-normal font-headline text-on-surface">Scientific Precision</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">
+              <p className="text-sm text-on-surface font-body leading-relaxed">
                 Utilizing high-precision NASA-level astronomical algorithms to determine exact planetary coordinates and Lagna.
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function FreeHoroscopePage() {
                 <span className="material-symbols-outlined">grid_view</span>
               </div>
               <h3 className="text-xl font-normal font-headline text-on-surface">Divisional Analysis</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">
+              <p className="text-sm text-on-surface font-body leading-relaxed">
                 Explore beyond the basics with D1, D3, and D9 charts for a multidimensional view of your destiny.
               </p>
             </div>
@@ -140,15 +140,15 @@ export default function FreeHoroscopePage() {
           <div className="space-y-8">
             <div>
               <h4 className="text-lg font-medium font-headline text-on-surface mb-2">How accurate is this free online Kundli?</h4>
-              <p className="text-sm text-secondary font-body">Our generator uses advanced astronomical libraries to ensure that planetary longitudes and house cusps are calculated with scientific accuracy based on your specific birth details.</p>
+              <p className="text-sm text-on-surface font-body">Our generator uses advanced astronomical libraries to ensure that planetary longitudes and house cusps are calculated with scientific accuracy based on your specific birth details.</p>
             </div>
             <div>
               <h4 className="text-lg font-medium font-headline text-on-surface mb-2">Can I use this birth chart for matching?</h4>
-              <p className="text-sm text-secondary font-body">Yes, the planetary positions and Nakshatra details provided in this chart are perfect for Gun Milan and general compatibility analysis.</p>
+              <p className="text-sm text-on-surface font-body">Yes, the planetary positions and Nakshatra details provided in this chart are perfect for Gun Milan and general compatibility analysis.</p>
             </div>
             <div>
               <h4 className="text-lg font-medium font-headline text-on-surface mb-2">Why are divisional charts (Varga) important?</h4>
-              <p className="text-sm text-secondary font-body">Divisional charts like Navamsha (D9) reveal the internal strength of planets that might not be visible in the main D1 chart, providing a more granular understanding of your life.</p>
+              <p className="text-sm text-on-surface font-body">Divisional charts like Navamsha (D9) reveal the internal strength of planets that might not be visible in the main D1 chart, providing a more granular understanding of your life.</p>
             </div>
           </div>
         </div>
@@ -159,7 +159,7 @@ export default function FreeHoroscopePage() {
         <div className="max-w-4xl mx-auto px-8">
           <div className="bg-surface-container-low border border-outline/50 rounded-[3rem] p-10 md:p-16 text-center">
             <h2 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Unlock Your Cosmic Potential</h2>
-            <p className="text-sm md:text-base text-secondary font-body mb-10 leading-relaxed">
+            <p className="text-sm md:text-base text-on-surface font-body mb-10 leading-relaxed">
               While a digital chart is a valuable tool, a <strong>Verified Personal Consultation</strong> with Pandit Rahul Bali Ji offers the depth and nuance needed for life-altering decisions.
             </p>
             <a

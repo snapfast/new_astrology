@@ -64,8 +64,8 @@ export default function AboutClient() {
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
         {/* Left Column: Condensed Bio (60%) */}
         <div className="lg:col-span-6 space-y-16">
-          <div className="prose prose-lg max-w-none font-body text-secondary leading-relaxed space-y-8">
-            <p className="text-xl text-on-surface font-light leading-relaxed italic">
+          <div className="prose prose-lg max-w-none font-body text-on-surface leading-relaxed space-y-8">
+            <p className="text-xl text-on-surface font-normal leading-relaxed">
               &quot;Astrology is not just about predicting the future; it is about understanding the karmic blueprint of your soul to navigate life with wisdom.&quot;
             </p>
 
@@ -81,7 +81,7 @@ export default function AboutClient() {
               Every testimonial and review shared by clients reflects genuine success and authentic experiences; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification, as we maintain direct records of every consultation.
             </p>
 
-            <p className="text-lg md:text-2xl italic text-center pt-12 text-accent border-t border-outline/20">
+            <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।
             </p>
           </div>
@@ -99,7 +99,7 @@ export default function AboutClient() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-on-surface mb-1 uppercase tracking-wider">{value.title}</h4>
-                    <p className="text-xs text-secondary leading-relaxed">{value.description}</p>
+                    <p className="text-xs text-on-surface leading-relaxed">{value.description}</p>
                   </div>
                 </div>
               ))}

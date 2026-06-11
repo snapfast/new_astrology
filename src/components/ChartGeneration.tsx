@@ -319,7 +319,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
           <div className="relative z-10">
             <div className="mb-8 md:mb-12 text-center">
               <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">Generate Your Free Chart</h2>
-              <p className="text-xs md:text-sm text-secondary font-body max-w-sm mx-auto">Enter your details to unlock a precise map of the stars at the moment of your birth.</p>
+              <p className="text-xs md:text-sm text-on-surface font-body max-w-sm mx-auto">Enter your details to unlock a precise map of the stars at the moment of your birth.</p>
             </div>
             <form
               onSubmit={handleSubmit}
@@ -331,14 +331,14 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 className="space-y-2 relative"
                 ref={historyRef}
               >
-                <label htmlFor="full-name" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Full Name</label>
+                <label htmlFor="full-name" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Full Name</label>
                 <input
                   id="full-name"
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onFocus={() => setShowHistory(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-on-surface text-on-surface text-xs md:text-sm font-body`}
                   placeholder="John Doe"
                   type="text"
                   autoComplete="off"
@@ -378,7 +378,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 )}
               </div>
               <div className="space-y-2">
-                <label htmlFor="dob-input" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Date of Birth</label>
+                <label htmlFor="dob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Date of Birth</label>
                 <input
                   id="dob-input"
                   type="date"
@@ -392,7 +392,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
-                <label htmlFor="tob-input" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Time of Birth</label>
+                <label htmlFor="tob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Time of Birth</label>
                 <input
                   id="tob-input"
                   type="time"
@@ -406,7 +406,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
-                <label htmlFor="pob-input" className="text-[7px] md:text-[10px] font-medium text-secondary uppercase tracking-widest ml-1 font-label">Place of Birth</label>
+                <label htmlFor="pob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Place of Birth</label>
                 <input
                   id="pob-input"
                   name="pob"
@@ -417,7 +417,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                     setShowSuggestions(true);
                   }}
                   onFocus={() => setShowSuggestions(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-on-surface text-on-surface text-xs md:text-sm font-body`}
                   placeholder="City, Country"
                   type="text"
                   autoComplete="off"
@@ -431,7 +431,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
                   <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     {isLoading ? (
-                      <div className="px-6 py-4 text-xs text-secondary font-body italic">Searching cities...</div>
+                      <div className="px-6 py-4 text-xs text-on-surface font-body">Searching cities...</div>
                     ) : (
                       <ul className="max-h-60 overflow-y-auto">
                         {suggestions.map((suggestion, index) => (

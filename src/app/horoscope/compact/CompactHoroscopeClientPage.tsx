@@ -163,7 +163,7 @@ const CompactHoroscopeContent = () => {
       <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-8 text-center">
         <span className="material-symbols-outlined text-6xl text-accent mb-4">desktop_windows</span>
         <h2 className="text-2xl font-headline mb-4">{t.desktopOnly}</h2>
-        <p className="text-secondary font-body mb-8 text-sm">{t.mobileMsg}</p>
+        <p className="text-on-surface font-body mb-8 text-sm">{t.mobileMsg}</p>
         <button
           onClick={goToStandard}
           className="bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase tracking-wider"

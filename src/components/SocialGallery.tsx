@@ -10,21 +10,40 @@ const SocialGallery = () => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const win = window as any;
+
+    let attempts = 0;
+    const maxAttempts = 10; // Try for up to 5 seconds
+
     const processEmbeds = () => {
+      let allProcessed = true;
+
       if (win.instgrm) {
         win.instgrm.Embeds.process();
+      } else {
+        allProcessed = false;
       }
+
       if (win.FB) {
         win.FB.XFBML.parse();
+      } else {
+        allProcessed = false;
       }
+
+      return allProcessed;
     };
 
     // Process immediately
-    processEmbeds();
+    if (!processEmbeds()) {
+      // If not all scripts are loaded, poll until they are or we hit max attempts
+      const intervalId = setInterval(() => {
+        attempts++;
+        if (processEmbeds() || attempts >= maxAttempts) {
+          clearInterval(intervalId);
+        }
+      }, 500);
 
-    // Process again after a short delay to ensure scripts are fully loaded
-    const timeoutId = setTimeout(processEmbeds, 1000);
-    return () => clearTimeout(timeoutId);
+      return () => clearInterval(intervalId);
+    }
   }, []);
 
   const handleProfileClick = (platform: string) => {
@@ -146,7 +165,7 @@ const SocialGallery = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-secondary text-sm font-body mb-6 italic">Stay connected for daily astrological updates.</p>
+          <p className="text-on-surface text-sm font-body mb-6">Stay connected for daily astrological updates.</p>
           <div className="flex flex-wrap justify-center gap-8">
             <a href={SOCIAL_PROFILES.threads} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors">Threads</a>
             <a href={SOCIAL_PROFILES.instagram} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors">Instagram</a>

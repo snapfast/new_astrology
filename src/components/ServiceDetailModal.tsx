@@ -67,7 +67,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </button>
           </div>
 
-          <p className="text-secondary text-lg leading-relaxed font-body mb-12 max-w-2xl">
+          <p className="text-on-surface text-lg leading-relaxed font-body mb-12 max-w-2xl">
             {service.description}
           </p>
 
@@ -82,7 +82,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-base font-medium text-on-surface font-headline mb-2">{portion.title}</h4>
-                  <p className="text-sm text-secondary font-body leading-relaxed">{portion.expandedDetail}</p>
+                  <p className="text-sm text-on-surface font-body leading-relaxed">{portion.expandedDetail}</p>
                 </div>
               </div>
             ))}
@@ -107,7 +107,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             >
               Schedule Google Meet
             </a>
-            <p className="hidden lg:block text-[9px] text-secondary font-body flex-1 text-right">
+            <p className="hidden lg:block text-[9px] text-on-surface font-body flex-1 text-right">
               Guided by the stars, <br /> Grounded in Truth
             </p>
           </div>
