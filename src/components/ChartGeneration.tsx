@@ -456,7 +456,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
               </div>
               <div className="md:col-span-2 pt-2 md:pt-4">
                 <button
-                  className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label flex items-center justify-center disabled:opacity-80 disabled:cursor-not-allowed"
+                  className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label flex items-center justify-center disabled:cursor-not-allowed"
                   type="submit"
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}

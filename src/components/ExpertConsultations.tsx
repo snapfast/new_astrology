@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { SPECIALIZED_SERVICES, SpecializedService } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';
 
@@ -7,7 +8,7 @@ interface ExpertConsultationsProps {
   showTitle?: boolean;
 }
 
-const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => {
+const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsProps) => {
   const handleServiceClick = (service: SpecializedService) => {
     sendGAEvent({ event: 'action_click', action_name: `service_click_${service.id}` });
     // Open WhatsApp directly for now as there's no detail modal for these
@@ -44,5 +45,8 @@ const ExpertConsultations = ({ showTitle = true }: ExpertConsultationsProps) => 
     </section>
   );
 };
+
+const ExpertConsultations = memo(ExpertConsultationsComponent);
+ExpertConsultations.displayName = 'ExpertConsultations';
 
 export default ExpertConsultations;

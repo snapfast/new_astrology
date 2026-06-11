@@ -201,7 +201,10 @@ const HoroscopeContent = () => {
           </div>
           <div className="flex items-center gap-2 pb-1 relative">
             {showCopied && (
-              <div className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}>
+              <div
+                aria-live="polite"
+                className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
+              >
                 {t.linkCopied}
               </div>
             )}
@@ -389,7 +392,7 @@ const HoroscopeContent = () => {
             <KundliChart data={chartData.d60} />
           </div>
         </div>
-        <p className="text-xs text-secondary text-center italic pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
+        <p className="text-xs text-secondary text-center pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
       </div>
 
 

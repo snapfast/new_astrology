@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, memo } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 
@@ -35,7 +35,7 @@ const TRANSLATIONS = {
   }
 };
 
-const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
+const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
   const [lang, setLang] = useState<'en' | 'hi'>('en');
 
   useEffect(() => {
@@ -161,5 +161,8 @@ const DailyPanchang = ({ className = "" }: DailyPanchangProps) => {
     </section>
   );
 };
+
+const DailyPanchang = memo(DailyPanchangComponent);
+DailyPanchang.displayName = 'DailyPanchang';
 
 export default DailyPanchang;

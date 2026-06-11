@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { BiorhythmSeriesPoint, BIORHYTHM_CYCLES } from '@/lib/biorhythm';
 
 interface BiorhythmChartProps {
   series: BiorhythmSeriesPoint[];
 }
 
-const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
+const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series }) => {
   const width = 1000;
   const height = 280;
   const padding = { top: 25, right: 40, bottom: 50, left: 40 };
@@ -92,7 +92,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
              <text
                 key={i}
                 x={getX(i)} y={height - 15}
-                className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary/60'}`}
+                className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary'}`}
                 textAnchor="middle"
               >
                 {p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -100,9 +100,9 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
           ))}
 
           {/* Value Labels (Y-Axis) */}
-          <text x={padding.left - 10} y={getY(1)} className="fill-secondary/60 text-[10px] font-label" textAnchor="end" dominantBaseline="middle">100%</text>
-          <text x={padding.left - 10} y={getY(0)} className="fill-secondary/60 text-[10px] font-label" textAnchor="end" dominantBaseline="middle">50%</text>
-          <text x={padding.left - 10} y={getY(-1)} className="fill-secondary/60 text-[10px] font-label" textAnchor="end" dominantBaseline="middle">0%</text>
+          <text x={padding.left - 10} y={getY(1)} className="fill-secondary text-[10px] font-label" textAnchor="end" dominantBaseline="middle">100%</text>
+          <text x={padding.left - 10} y={getY(0)} className="fill-secondary text-[10px] font-label" textAnchor="end" dominantBaseline="middle">50%</text>
+          <text x={padding.left - 10} y={getY(-1)} className="fill-secondary text-[10px] font-label" textAnchor="end" dominantBaseline="middle">0%</text>
 
           {/* Cycle Paths */}
           {BIORHYTHM_CYCLES.map(cycle => (
@@ -113,7 +113,7 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
                 stroke={cycle.color}
                 strokeWidth="2.5"
                 strokeLinecap="round"
-                className="opacity-80"
+                className="opacity-100"
               />
               {/* Dots - Only show for current day */}
               {series.map((p, i) => (
@@ -144,5 +144,8 @@ const BiorhythmChart: React.FC<BiorhythmChartProps> = ({ series }) => {
     </div>
   );
 };
+
+const BiorhythmChart = memo(BiorhythmChartComponent);
+BiorhythmChart.displayName = 'BiorhythmChart';
 
 export default BiorhythmChart;
