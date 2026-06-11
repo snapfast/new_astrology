@@ -10,7 +10,11 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 const BiorhythmContent = () => {
   const [dob, setDob] = useState<string>('');
-  const [targetDate, setTargetDate] = useState<Date>(new Date());
+  const [targetDate, setTargetDate] = useState<Date>(() => {
+    const now = new Date();
+    // Initialize with UTC midnight of today
+    return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  });
 
   useEffect(() => {
     const savedDob = localStorage.getItem('biorhythm_dob');
@@ -26,21 +30,30 @@ const BiorhythmContent = () => {
     sendGAEvent({ event: 'action_click', action_name: 'biorhythm_dob_change' });
   };
 
+  const handleTargetDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      // Input returns YYYY-MM-DD, new Date("YYYY-MM-DD") creates UTC midnight
+      setTargetDate(new Date(e.target.value));
+    }
+  };
+
   const adjustDate = (days: number) => {
     const newDate = new Date(targetDate);
-    newDate.setDate(newDate.getDate() + days);
+    newDate.setUTCDate(newDate.getUTCDate() + days);
     setTargetDate(newDate);
     sendGAEvent({ event: 'action_click', action_name: `biorhythm_date_adjust_${days}` });
   };
 
   const resetToday = () => {
-    setTargetDate(new Date());
+    const now = new Date();
+    setTargetDate(new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())));
     sendGAEvent({ event: 'action_click', action_name: 'biorhythm_reset_today' });
   };
 
   const biorhythmData = useMemo(() => {
     if (!dob) return null;
     try {
+      // dob string is YYYY-MM-DD, new Date(dob) is UTC midnight
       return calculateBiorhythms(new Date(dob), targetDate);
     } catch {
       return null;
@@ -61,72 +74,94 @@ const BiorhythmContent = () => {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: 'UTC'
   });
 
   return (
     <div className="pt-16 md:pt-20 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="mb-12 text-center">
+      <div className="mb-6 text-center">
         <h1 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-4">Personal Biorhythms</h1>
         <p className="text-secondary font-body max-w-2xl mx-auto text-sm md:text-base">
           Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth.
         </p>
       </div>
 
-      {/* Input Section */}
-      <div className="max-w-md mx-auto mb-8">
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm">
-          <label htmlFor="dob" className="block text-[10px] font-bold text-accent uppercase tracking-widest font-label mb-3 text-center">
-            Enter Your Date of Birth
-          </label>
-          <input
-            type="date"
-            id="dob"
-            value={dob}
-            onChange={handleDobChange}
-            className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-3 text-on-surface font-body focus:ring-2 focus:ring-accent transition-all text-center"
-          />
+      {/* Unified Control Bar */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mb-8">
+        {/* DOB Input */}
+        <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="shrink-0">
+            <label htmlFor="dob" className="block text-[10px] font-bold text-accent uppercase tracking-widest font-label mb-1 sm:mb-0">
+              Date of Birth
+            </label>
+          </div>
+          <div className="relative w-full sm:max-w-[200px]">
+            <input
+              type="date"
+              id="dob"
+              value={dob}
+              onChange={handleDobChange}
+              className="w-full bg-surface-container-low border-none rounded-xl px-4 py-2 text-on-surface font-body focus:ring-2 focus:ring-accent transition-all text-sm appearance-none"
+            />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-lg">calendar_today</span>
+          </div>
         </div>
+
+        {/* Target Date Navigation (Only shown when DOB is present) */}
+        {dob && (
+          <div className="flex flex-col md:flex-row items-center gap-6 border-t md:border-t-0 md:border-l border-outline/20 pt-6 md:pt-0 md:pl-8">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => adjustDate(-1)}
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-low text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
+                title="Previous Day"
+                aria-label="Previous Day"
+              >
+                <span className="material-symbols-outlined text-xl">chevron_left</span>
+              </button>
+
+              <button
+                onClick={resetToday}
+                className="px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label uppercase tracking-wider"
+              >
+                Today
+              </button>
+
+              <button
+                onClick={() => adjustDate(1)}
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-low text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
+                title="Next Day"
+                aria-label="Next Day"
+              >
+                <span className="material-symbols-outlined text-xl">chevron_right</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4 w-full md:w-auto">
+              <div className="relative flex-1 md:flex-none">
+                <input
+                  type="date"
+                  value={targetDate.toISOString().split('T')[0]}
+                  onChange={handleTargetDateChange}
+                  className="w-full md:w-44 px-4 py-2 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                  aria-label="Select Target Date"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-lg">event</span>
+              </div>
+              <div className="hidden sm:block">
+                <p className="text-[10px] font-label text-accent uppercase tracking-widest mb-0.5">Analysis Date</p>
+                <p className="text-xs font-body tabular-nums text-on-surface whitespace-nowrap">
+                  {formattedTargetDate}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {biorhythmData && (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          {/* Subtle Date Selector */}
-          <div className="flex items-center justify-center gap-2 md:gap-4 bg-surface-container-low/40 rounded-full py-1.5 px-4 border border-outline/30 w-fit mx-auto">
-            <button
-              onClick={() => adjustDate(-1)}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-accent hover:bg-surface-container-high transition-colors"
-              title="Previous Day"
-              aria-label="Previous Day"
-            >
-              <span className="material-symbols-outlined text-xl">chevron_left</span>
-            </button>
-
-            <div className="px-2 md:px-4 text-center">
-              <h2 className="text-[10px] md:text-xs font-bold font-label text-on-surface uppercase tracking-widest">{formattedTargetDate}</h2>
-            </div>
-
-            <button
-              onClick={() => adjustDate(1)}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-accent hover:bg-surface-container-high transition-colors"
-              title="Next Day"
-              aria-label="Next Day"
-            >
-              <span className="material-symbols-outlined text-xl">chevron_right</span>
-            </button>
-
-            <div className="w-px h-4 bg-outline/20 mx-1" />
-
-            <button
-              onClick={resetToday}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-accent hover:bg-surface-container-high transition-colors"
-              title="Reset to Today"
-              aria-label="Reset to Today"
-            >
-              <span className="material-symbols-outlined text-xl">today</span>
-            </button>
-          </div>
-
           {/* Chart Section */}
           {seriesData && (
             <div className="animate-in fade-in duration-1000 delay-300">
