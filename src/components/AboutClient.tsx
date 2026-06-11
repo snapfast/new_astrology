@@ -34,8 +34,8 @@ const UPILogo = () => (
   </svg>
 );
 
-const PayPalLogo = () => (
-  <svg width="100" height="26" viewBox="0 0 124 33" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-accent">
+const PayPalLogo = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 124 33" fill="none" xmlns="http://www.w3.org/2000/svg" className={className || "text-accent"}>
     <path fill="currentColor" d="M46.211,6.749h-6.839c-0.468,0-0.866,0.34-0.939,0.802l-2.766,17.537c-0.055,0.346,0.213,0.658,0.564,0.658 h3.265c0.468,0,0.866-0.34,0.939-0.803l0.746-4.73c0.072-0.463,0.471-0.803,0.938-0.803h2.165c4.505,0,7.105-2.18,7.784-6.5 c0.306-1.89,0.013-3.375-0.872-4.415C50.224,7.353,48.5,6.749,46.211,6.749z M47,13.154c-0.374,2.454-2.249,2.454-4.062,2.454 h-1.032l0.724-4.583c0.043-0.277,0.283-0.481,0.563-0.481h0.473c1.235,0,2.4,0,3.002,0.704C47.027,11.668,47.137,12.292,47,13.154z" />
     <path fill="currentColor" d="M66.654,13.075h-3.275c-0.279,0-0.52,0.204-0.563,0.481l-0.145,0.916l-0.229-0.332 c-0.709-1.029-2.29-1.373-3.868-1.373c-3.619,0-6.71,2.741-7.312,6.586c-0.313,1.918,0.132,3.752,1.22,5.031 c0.998,1.176,2.426,1.666,4.125,1.666c2.916,0,4.533-1.875,4.533-1.875l-0.146,0.91c-0.055,0.348,0.213,0.66,0.562,0.66h2.95 c0.469,0,0.865-0.34,0.939-0.803l1.77-11.209C67.271,13.388,67.004,13.075,66.654,13.075z M62.089,19.449 c-0.316,1.871-1.801,3.127-3.695,3.127c-0.951,0-1.711-0.305-2.199-0.883c-0.484-0.574-0.668-1.391-0.514-2.301 c0.295-1.855,1.805-3.152,3.67-3.152c0.93,0,1.686,0.309,2.184,0.892C62.034,17.721,62.232,18.543,62.089,19.449z" />
     <path fill="currentColor" d="M84.096,13.075h-3.291c-0.314,0-0.609,0.156-0.787,0.417l-4.539,6.686l-1.924-6.425 c-0.121-0.402-0.492-0.678-0.912-0.678h-3.234c-0.393,0-0.666,0.384-0.541,0.754l3.625,10.638l-3.408,4.811 c-0.268,0.379,0.002,0.9,0.465,0.9h3.287c0.312,0,0.604-0.152,0.781-0.408L84.564,13.97C84.826,13.592,84.557,13.075,84.096,13.075z" />
@@ -60,111 +60,120 @@ export default function AboutClient() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
-      {/* Left Column: Condensed Bio and Support (60%) */}
-      <div className="lg:col-span-6 space-y-16">
-        <div className="prose prose-lg max-w-none font-body text-secondary leading-relaxed space-y-8">
-          <p className="text-xl text-on-surface font-light leading-relaxed">
-            &quot;Astrology is not just about predicting the future; it is about understanding the karmic blueprint of your soul to navigate life with wisdom.&quot;
-          </p>
+    <div className="space-y-24">
+      <div className="grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
+        {/* Left Column: Condensed Bio (60%) */}
+        <div className="lg:col-span-6 space-y-16">
+          <div className="prose prose-lg max-w-none font-body text-secondary leading-relaxed space-y-8">
+            <p className="text-xl text-on-surface font-light leading-relaxed italic">
+              &quot;Astrology is not just about predicting the future; it is about understanding the karmic blueprint of your soul to navigate life with wisdom.&quot;
+            </p>
 
-          <p>
-            Pandit Rahul Bali Ji is a renowned Vedic Astrologer based in Gurugram, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Since starting <strong>paid consultations in August 2024</strong>, he has been providing precise birth chart analysis and practical remedies for career, relationships, and health.
-          </p>
+            <p>
+              Pandit Rahul Bali Ji is a renowned Vedic Astrologer based in Gurugram, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Since starting <strong>paid consultations in August 2024</strong>, he has been providing precise birth chart analysis and practical remedies for career, relationships, and health.
+            </p>
 
-          <p>
-            His approach combines ancient wisdom with modern clarity, utilizing high-precision <strong>Lahiri Ayanamsa</strong> for every calculation. Every prediction and remedy is rooted in authentic karmic patterns to empower you with confidence and actionable insights.
-          </p>
+            <p>
+              His approach combines ancient wisdom with modern clarity, utilizing high-precision <strong>Lahiri Ayanamsa</strong> for every calculation. Every prediction and remedy is rooted in authentic karmic patterns to empower you with confidence and actionable insights.
+            </p>
 
-          <p>
-            Every testimonial and review shared by clients reflects genuine success and authentic experiences; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification, as we maintain direct records of every consultation.
-          </p>
+            <p>
+              Every testimonial and review shared by clients reflects genuine success and authentic experiences; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification, as we maintain direct records of every consultation.
+            </p>
 
-          <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20">
-            ।। ॐ नमो भगवते वासुदेवाय नम: ।।
-          </p>
+            <p className="text-lg md:text-2xl italic text-center pt-12 text-accent border-t border-outline/20">
+              ।। ॐ नमो भगवते वासुदेवाय नम: ।।
+            </p>
+          </div>
         </div>
 
-        {/* Support Our Work - Moved to Main Section */}
-        <div id="support" className="pt-8 border-t border-outline/10">
-          <h3 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-8 font-label text-center md:text-left">Support Our Work</h3>
-          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
-            {/* QR Code */}
-            <div className="shrink-0 w-full max-w-[200px]">
-              <div className="relative aspect-[495/640] overflow-hidden">
-                <Image
-                  src="/donate-qr.png"
-                  alt="Support QR Code"
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 200px, 200px"
-                />
-              </div>
-            </div>
-
-            {/* Payment Details */}
-            <div className="flex-1 w-full max-w-[320px] space-y-4">
-              {/* UPI Section */}
-              <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
-                <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center">
-                  <UPILogo />
+        {/* Right Column: Core Principles (40%) */}
+        <div className="lg:col-span-4 space-y-12">
+          <div className="space-y-8">
+            <h3 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Core Principles</h3>
+            <div className="space-y-8">
+              {CORE_VALUES.map((value, idx) => (
+                <div key={idx} className="flex gap-5">
+                  <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-xl flex items-center justify-center text-accent">
+                    <span className="material-symbols-outlined text-xl">{value.icon}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-on-surface mb-1 uppercase tracking-wider">{value.title}</h4>
+                    <p className="text-xs text-secondary leading-relaxed">{value.description}</p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Support via UPI</p>
-                  <p className="text-xs text-on-surface font-body truncate">rahul.bali@ybl</p>
-                </div>
-                <button
-                  onClick={() => copyToClipboard('rahul.bali@ybl', 'upi')}
-                  className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
-                  title="Copy UPI ID"
-                >
-                  <span className="material-symbols-outlined text-[18px]">
-                    {copiedId === 'upi' ? 'check' : 'content_copy'}
-                  </span>
-                </button>
-              </div>
-
-              {/* PayPal Section */}
-              <div className="flex items-center gap-6 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
-                <div className="shrink-0">
-                  <PayPalLogo />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Pay using Email ID</p>
-                  <p className="text-xs text-on-surface font-body truncate">rahulbaliastrology@gmail.com</p>
-                </div>
-                <button
-                  onClick={() => copyToClipboard('rahulbaliastrology@gmail.com', 'paypal')}
-                  className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
-                  title="Copy PayPal Email"
-                >
-                  <span className="material-symbols-outlined text-[18px]">
-                    {copiedId === 'paypal' ? 'check' : 'content_copy'}
-                  </span>
-                </button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right Column: Core Principles (40%) */}
-      <div className="lg:col-span-4 space-y-12">
-        <div className="space-y-8">
-          <h3 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Core Principles</h3>
-          <div className="space-y-8">
-            {CORE_VALUES.map((value, idx) => (
-              <div key={idx} className="flex gap-5">
-                <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-xl flex items-center justify-center text-accent">
-                  <span className="material-symbols-outlined text-xl">{value.icon}</span>
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-on-surface mb-1 uppercase tracking-wider">{value.title}</h4>
-                  <p className="text-xs text-secondary leading-relaxed">{value.description}</p>
-                </div>
+      {/* Support Our Work - Full Width Main Area */}
+      <div id="support" className="pt-16 border-t border-outline/10 space-y-12">
+        <h3 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent font-label text-center md:text-left">Support Our Work</h3>
+
+        <div className="flex flex-col gap-12 items-center md:items-start">
+          {/* 1. UPI QR Code */}
+          <div className="shrink-0 w-full max-w-[200px]">
+            <div className="relative aspect-[495/640] overflow-hidden">
+              <Image
+                src="/donate-qr.png"
+                alt="Support QR Code"
+                fill
+                className="object-contain"
+                priority
+                sizes="(max-width: 768px) 200px, 200px"
+              />
+            </div>
+          </div>
+
+          {/* 2. UPI ID for copy */}
+          <div className="w-full">
+            <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
+              <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center">
+                <UPILogo />
               </div>
-            ))}
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Support via UPI</p>
+                <p className="text-xs text-on-surface font-body truncate">rahul.bali@ybl</p>
+              </div>
+              <button
+                onClick={() => copyToClipboard('rahul.bali@ybl', 'upi')}
+                className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
+                title="Copy UPI ID"
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {copiedId === 'upi' ? 'check' : 'content_copy'}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* 3. PayPal Logo (Big) */}
+          <div className="w-full max-w-[200px] flex justify-center md:justify-start">
+            <PayPalLogo className="w-full h-auto text-accent" />
+          </div>
+
+          {/* 4. Email for copy */}
+          <div className="w-full">
+            <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
+              <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center text-accent">
+                <span className="material-symbols-outlined text-[20px]">mail</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Pay using Email ID</p>
+                <p className="text-xs text-on-surface font-body truncate">rahulbaliastrology@gmail.com</p>
+              </div>
+              <button
+                onClick={() => copyToClipboard('rahulbaliastrology@gmail.com', 'paypal')}
+                className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
+                title="Copy PayPal Email"
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {copiedId === 'paypal' ? 'check' : 'content_copy'}
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
