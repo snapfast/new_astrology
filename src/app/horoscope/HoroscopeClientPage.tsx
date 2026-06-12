@@ -457,7 +457,7 @@ const HoroscopeContent = () => {
           </button>
         </div>
         {/* Subtle Decorative Element */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
       </div>
       <BookConsultationModal
         isOpen={isBookingModalOpen}

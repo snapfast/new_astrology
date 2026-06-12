@@ -8,7 +8,7 @@ export default function ServicesContent() {
     <>
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-background relative overflow-hidden border-b border-outline/20">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-accent/5 rounded-full blur-[140px] -z-0"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
         <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 block font-label">Spiritual Guidance</span>
           <h1 className="text-5xl md:text-7xl font-normal mb-8 font-headline text-on-surface tracking-tight">Vedic Astrology Services</h1>
