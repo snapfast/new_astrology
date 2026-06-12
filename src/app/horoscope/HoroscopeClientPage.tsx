@@ -187,8 +187,8 @@ const HoroscopeContent = () => {
   return (
     <div className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header & User Details */}
-      <div className="mb-12 text-left">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-6">
+      <div className="bg-surface-container-low border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mb-8 text-left">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="space-y-4">
             <a
               href="/free-horoscope"
@@ -218,7 +218,7 @@ const HoroscopeContent = () => {
             </button>
             <button
               onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
               title={t.switchLanguage}
               aria-label={t.switchLanguage}
             >
@@ -226,7 +226,7 @@ const HoroscopeContent = () => {
             </button>
             <button
               onClick={handleShare}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
               title={t.shareReport}
               aria-label={t.shareReport}
             >
@@ -234,8 +234,9 @@ const HoroscopeContent = () => {
             </button>
           </div>
         </div>
+      </div>
 
-        {/* New: Personality Insights Section */}
+      {/* New: Personality Insights Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
@@ -353,7 +354,6 @@ const HoroscopeContent = () => {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Charts Section */}
       <div className="space-y-8 mb-12">
