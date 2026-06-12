@@ -15,10 +15,10 @@ export const BIORHYTHM_CYCLES = [
   { name: 'Physical', period: 23, color: '#EF4444', description: 'Coordination, strength, and well-being.' },
   { name: 'Emotional', period: 28, color: '#EC4899', description: 'Creativity, sensitivity, and mood.' },
   { name: 'Intellectual', period: 33, color: '#3B82F6', description: 'Logic, memory, and concentration.' },
-  { name: 'Spiritual', period: 53, color: '#8B5CF6', description: 'Peace, harmony, and inner stability.' },
+  { name: 'Spiritual', period: 53, color: '#9333EA', description: 'Peace, harmony, and inner stability.' },
   { name: 'Intuitional', period: 38, color: '#F59E0B', description: 'Unconscious perception and instincts.' },
   { name: 'Aesthetic', period: 43, color: '#10B981', description: 'Appreciation for art, culture, and beauty.' },
-  { name: 'Awareness', period: 48, color: '#6366F1', description: 'Conscious perception and alertness.' },
+  { name: 'Awareness', period: 48, color: '#06B6D4', description: 'Conscious perception and alertness.' },
 ];
 
 export interface BiorhythmData {

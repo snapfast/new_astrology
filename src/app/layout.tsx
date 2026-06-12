@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
-import { Poppins, Martel } from "next/font/google";
+import { Poppins, Martel, Noto_Serif_Devanagari } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const poppins = Poppins({
-  subsets: ["latin", "devanagari"],
+  subsets: ["latin"],
   variable: "--font-poppins",
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 const martel = Martel({
-  subsets: ["latin", "devanagari"],
+  subsets: ["latin"],
   variable: "--font-martel",
   weight: ["300", "400", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+const notoSerifDevanagari = Noto_Serif_Devanagari({
+  subsets: ["devanagari"],
+  variable: "--font-noto-serif-devanagari",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -99,7 +106,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${martel.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${poppins.variable} ${martel.variable} ${notoSerifDevanagari.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <JsonLd
           nonce={nonce}
