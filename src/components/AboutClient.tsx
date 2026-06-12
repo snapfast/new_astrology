@@ -112,67 +112,73 @@ export default function AboutClient() {
       <div id="support" className="pt-16 border-t border-outline/10 space-y-12">
         <h3 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent font-label text-center md:text-left">Support Our Work</h3>
 
-        <div className="flex flex-col gap-12 items-center md:items-start">
-          {/* 1. UPI QR Code */}
-          <div className="shrink-0 w-full max-w-[200px]">
-            <div className="relative aspect-[495/640] overflow-hidden">
-              <Image
-                src="/donate-qr.png"
-                alt="Support QR Code"
-                fill
-                className="object-contain"
-                priority
-                sizes="(max-width: 768px) 200px, 200px"
-              />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-start">
+          {/* Column 1: UPI Support */}
+          <div className="flex flex-col gap-12 items-center md:items-start">
+            {/* 1. UPI QR Code */}
+            <div className="shrink-0 w-full max-w-[200px]">
+              <div className="relative aspect-[495/640] overflow-hidden">
+                <Image
+                  src="/donate-qr.png"
+                  alt="Support QR Code"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 768px) 200px, 200px"
+                />
+              </div>
+            </div>
+
+            {/* 2. UPI ID for copy */}
+            <div className="w-full">
+              <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
+                <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center">
+                  <UPILogo />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Support via UPI</p>
+                  <p className="text-xs text-on-surface font-body truncate">rahul.bali@ybl</p>
+                </div>
+                <button
+                  onClick={() => copyToClipboard('rahul.bali@ybl', 'upi')}
+                  className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
+                  title="Copy UPI ID"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    {copiedId === 'upi' ? 'check' : 'content_copy'}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* 2. UPI ID for copy */}
-          <div className="w-full">
-            <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
-              <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center">
-                <UPILogo />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Support via UPI</p>
-                <p className="text-xs text-on-surface font-body truncate">rahul.bali@ybl</p>
-              </div>
-              <button
-                onClick={() => copyToClipboard('rahul.bali@ybl', 'upi')}
-                className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
-                title="Copy UPI ID"
-              >
-                <span className="material-symbols-outlined text-[18px]">
-                  {copiedId === 'upi' ? 'check' : 'content_copy'}
-                </span>
-              </button>
+          {/* Column 2: PayPal Support */}
+          <div className="flex flex-col gap-12 items-center md:items-start">
+            {/* 3. PayPal Logo (Big) */}
+            <div className="w-full max-w-[200px] flex justify-center md:justify-start">
+              <PayPalLogo className="w-full h-auto text-accent" />
             </div>
-          </div>
 
-          {/* 3. PayPal Logo (Big) */}
-          <div className="w-full max-w-[200px] flex justify-center md:justify-start">
-            <PayPalLogo className="w-full h-auto text-accent" />
-          </div>
-
-          {/* 4. Email for copy */}
-          <div className="w-full">
-            <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
-              <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center text-accent">
-                <span className="material-symbols-outlined text-[20px]">mail</span>
+            {/* 4. Email for copy */}
+            <div className="w-full">
+              <div className="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-2xl border border-outline/50 transition-all hover:border-accent/30 group">
+                <div className="shrink-0 w-10 h-10 bg-accent/5 rounded-full flex items-center justify-center text-accent">
+                  <span className="material-symbols-outlined text-[20px]">mail</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Pay using Email ID</p>
+                  <p className="text-xs text-on-surface font-body truncate">rahulbaliastrology@gmail.com</p>
+                </div>
+                <button
+                  onClick={() => copyToClipboard('rahulbaliastrology@gmail.com', 'paypal')}
+                  className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
+                  title="Copy PayPal Email"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    {copiedId === 'paypal' ? 'check' : 'content_copy'}
+                  </span>
+                </button>
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-0.5 font-label">Pay using Email ID</p>
-                <p className="text-xs text-on-surface font-body truncate">rahulbaliastrology@gmail.com</p>
-              </div>
-              <button
-                onClick={() => copyToClipboard('rahulbaliastrology@gmail.com', 'paypal')}
-                className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-accent/10 text-accent transition-colors"
-                title="Copy PayPal Email"
-              >
-                <span className="material-symbols-outlined text-[18px]">
-                  {copiedId === 'paypal' ? 'check' : 'content_copy'}
-                </span>
-              </button>
             </div>
           </div>
         </div>
