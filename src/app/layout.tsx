@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins, Martel } from "next/font/google";
-import { headers } from "next/headers";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
@@ -79,7 +78,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const nonce = (await headers()).get('x-nonce') || '';
+  const nonce = "";
 
   return (
     <html lang="en" className="scroll-smooth">

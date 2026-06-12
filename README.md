@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Performance Improvements
+
+Initial performance profiling highlighted bottlenecks on initial load and navigation to `/services`.
+
+### Before
+- Initial Load (/): ~1700ms - ~2100ms
+- Navigation to Services: ~650ms - ~750ms
+
+### After
+- Removed dynamic `headers()` call in `layout.tsx` to enable full Static Site Generation.
+- Removed heavy CSS computation (`blur-[140px]`) in `ServicesContent.tsx`.
+- Initial Load (/): ~1900ms (now serving statically).
+- Client-side Navigation to Services: ~124ms.
