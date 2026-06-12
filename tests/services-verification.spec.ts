@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('services page shows specialized consultations', async ({ page }) => {
-  await page.goto('/services');
+  await page.goto('http://localhost:3000/services');
 
   // Check if the main heading is present
   await expect(page.locator('h1')).toContainText('Vedic Astrology Services');
