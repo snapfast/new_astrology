@@ -101,7 +101,7 @@ const Testimonials = () => {
               >
                 {featuredReviews.map((item) => (
                   <div key={item.id} className={`${itemsPerView === 2 ? 'min-w-[50%]' : 'min-w-full'} px-2`}>
-                    <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline/50 h-full flex flex-col">
+                    <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline h-full flex flex-col">
                       <p className="text-sm md:text-base text-on-surface mb-6 leading-relaxed font-body font-normal">
                         &quot;{item.review}&quot;
                       </p>
