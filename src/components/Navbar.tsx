@@ -59,18 +59,17 @@ const Navbar = () => {
     <>
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-outline/20 antialiased print:hidden">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 py-2 md:px-8 md:py-4 w-full">
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className="md:hidden p-2 -ml-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          aria-label="Open Menu"
-        >
-          <span className="material-symbols-outlined !text-2xl">menu</span>
-        </button>
+        <div className="flex items-center shrink-0">
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="md:hidden p-2 -ml-2 mr-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            aria-label="Open Menu"
+          >
+            <span className="material-symbols-outlined !text-2xl">menu</span>
+          </button>
 
-
-        {/* Desktop Logo */}
-        <div className="hidden md:flex items-center shrink-0">
+          {/* Logo */}
           <Link href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
             <Logo />
           </Link>
@@ -101,12 +100,6 @@ const Navbar = () => {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
-          <Link
-            href="/free-horoscope"
-            className="md:hidden bg-accent text-white px-4 py-2.5 rounded-full font-medium text-[11px] tracking-[0.1em] uppercase text-center min-w-[110px] shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          >
-            Free Horoscope
-          </Link>
           <button
             onClick={handleBookNow}
             className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[11px] md:text-sm tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
