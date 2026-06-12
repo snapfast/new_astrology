@@ -9,7 +9,7 @@ import { calculateBiorhythms, calculateBiorhythmSeries } from "@/lib/biorhythm";
 import { sendGAEvent } from "@next/third-parties/google";
 
 const BiorhythmContent = () => {
-  const [dob, setDob] = useState<string>("");
+  const [dob, setDob] = useState<string>("2000-01-01");
   const [targetDate, setTargetDate] = useState<Date>(() => {
     const now = new Date();
     // Initialize with UTC midnight of today
