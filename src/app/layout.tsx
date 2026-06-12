@@ -86,7 +86,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const nonce = (await headers()).get('x-nonce') || '';
+  const nonce = "";
 
   return (
     <html lang="en" className="scroll-smooth">
