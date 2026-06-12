@@ -5,7 +5,6 @@ import ChartGeneration from '@/components/ChartGeneration';
 import ExpertConsultations from '@/components/ExpertConsultations';
 import Testimonials from '@/components/Testimonials';
 import DailyPanchang from '@/components/DailyPanchang';
-import SocialGallery from '@/components/SocialGallery';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 
@@ -75,7 +74,6 @@ export default function Home() {
       <DailyPanchang className="-mt-32 z-20" />
       <ChartGeneration className="" />
       <Testimonials />
-      <SocialGallery />
       <ExpertConsultations />
       <Footer />
     </main>

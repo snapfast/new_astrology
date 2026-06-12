@@ -1,44 +1,55 @@
-'use client';
-
 import { memo } from 'react';
-import { SPECIALIZED_SERVICES, SpecializedService } from '@/lib/consultations';
-import { sendGAEvent } from '@next/third-parties/google';
 
 interface ExpertConsultationsProps {
   showTitle?: boolean;
 }
 
-const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsProps) => {
-  const handleServiceClick = (service: SpecializedService) => {
-    sendGAEvent({ event: 'action_click', action_name: `service_click_${service.id}` });
-    // Open WhatsApp directly for now as there's no detail modal for these
-    window.open('https://wa.me/919306057150', '_blank');
-  };
+const CONSULTATION_GUIDELINES = [
+  {
+    id: "booking-process",
+    title: "Booking Process",
+    description: "Consultations can be booked in advance to ensure dedicated time. Please use our contact channels to schedule your appointment."
+  },
+  {
+    id: "required-details",
+    title: "Required Details",
+    description: "For an accurate reading, please provide your exact date, time, and place of birth at the time of booking."
+  },
+  {
+    id: "prepare-questions",
+    title: "Prepare Your Questions",
+    description: "Take some time to note down your most pressing questions or areas of life you wish to focus on during the session."
+  },
+  {
+    id: "open-mindset",
+    title: "Open Mindset",
+    description: "Approach the consultation with an open mind. Astrology provides guidance and clarity, empowering you to make informed decisions."
+  }
+];
 
+const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsProps) => {
   return (
-    <section className={`${showTitle ? 'py-20' : 'pb-20'} bg-white`}>
-      <div className="max-w-7xl mx-auto px-8">
+    <section className={`${showTitle ? 'py-16' : 'pb-16'} bg-white`}>
+      <div className="max-w-5xl mx-auto px-8">
         {showTitle && (
-          <div className="text-center mb-20">
-            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Services</span>
-            <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Expert Consultations</h2>
-            <p className="text-on-surface max-w-2xl mx-auto text-base font-body leading-relaxed">Personalized Vedic guidance for life&apos;s most pressing challenges.</p>
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Preparation</span>
+            <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Consultation Guide</h2>
+            <p className="text-on-surface max-w-2xl mx-auto text-base font-body leading-relaxed">How to prepare and what to expect during your Vedic astrology session.</p>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
-          {SPECIALIZED_SERVICES.slice(0, 6).map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleServiceClick(item)}
-              className="group text-left p-8 bg-surface-bright rounded-[2rem] border border-outline/30 hover:border-accent/40 transition-all duration-300"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h4 className="text-xl font-normal font-headline text-on-surface group-hover:text-accent transition-colors leading-tight">{item.title}</h4>
-                <span className="material-symbols-outlined text-accent transition-opacity">arrow_outward</span>
-              </div>
-              <p className="text-on-surface text-sm leading-relaxed font-body">{item.description}</p>
-            </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
+          {CONSULTATION_GUIDELINES.map((item) => (
+            <div key={item.id} className="space-y-4">
+              <h3 className="text-xl font-normal font-headline text-on-surface tracking-tight flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                {item.title}
+              </h3>
+              <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30">
+                {item.description}
+              </p>
+            </div>
           ))}
         </div>
       </div>
