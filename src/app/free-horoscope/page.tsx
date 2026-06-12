@@ -77,7 +77,7 @@ export default function FreeHoroscopePage() {
 
       {/* Hero Section */}
       <section className="pt-24 pb-8 md:pt-32 md:pb-12 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 rounded-full blur-[120px] -z-0"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
       </section>
 
       <ChartGeneration />
