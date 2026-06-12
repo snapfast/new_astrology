@@ -81,7 +81,7 @@ export default function ReviewsPage() {
 
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
-            <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline/50 flex flex-col shadow-sm">
+            <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline flex flex-col shadow-sm">
               <p className="text-sm text-on-surface mb-6 leading-relaxed font-body font-normal flex-grow">
                 &quot;{item.review}&quot;
               </p>
