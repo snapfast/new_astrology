@@ -339,7 +339,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                   onChange={(e) => setName(e.target.value)}
                   onFocus={() => setShowHistory(true)}
                   className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-on-surface text-on-surface text-xs md:text-sm font-body`}
-                  placeholder="John Doe"
+                  placeholder="Kamini Bali"
                   type="text"
                   autoComplete="off"
                   maxLength={100}
