@@ -12,7 +12,7 @@ export default function ServicesContent() {
         <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 block font-label">Spiritual Guidance</span>
           <h1 className="text-5xl md:text-7xl font-normal mb-8 font-headline text-on-surface tracking-tight">Vedic Astrology Services</h1>
-          <p className="text-xl font-body text-secondary leading-relaxed mb-8 max-w-2xl mx-auto">
+          <p className="text-xl font-body text-on-surface leading-relaxed mb-8 max-w-2xl mx-auto">
             Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life&apos;s unique karmic path.
           </p>
         </div>
@@ -28,7 +28,7 @@ export default function ServicesContent() {
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                   {service.title}
                 </h3>
-                <p className="text-sm font-body text-secondary leading-relaxed pl-4.5 border-l border-outline/30">
+                <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30">
                   {service.description}
                 </p>
               </div>

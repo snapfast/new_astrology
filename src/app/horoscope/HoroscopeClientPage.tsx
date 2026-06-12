@@ -241,7 +241,7 @@ const HoroscopeContent = () => {
             <div className="relative z-10">
               <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">{t.sunSignInsight}</span>
               <h3 className="text-xl font-headline text-on-surface mb-3">{lang === 'en' ? sunSign : chartData.panchang.sunSignSanskrit}</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(sunSign, lang)}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{getSignInsight(sunSign, lang)}</p>
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-accent select-none group-hover:scale-110 transition-transform duration-700">light_mode</span>
           </div>
@@ -249,7 +249,7 @@ const HoroscopeContent = () => {
             <div className="relative z-10">
               <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">{t.moonSignInsight}</span>
               <h3 className="text-xl font-headline text-on-surface mb-3">{lang === 'en' ? moonSign : chartData.panchang.moonSignSanskrit}</h3>
-              <p className="text-sm text-secondary font-body leading-relaxed">{getSignInsight(moonSign, lang)}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{getSignInsight(moonSign, lang)}</p>
             </div>
             <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-primary select-none group-hover:scale-110 transition-transform duration-700">dark_mode</span>
           </div>
@@ -392,7 +392,7 @@ const HoroscopeContent = () => {
             <KundliChart data={chartData.d60} />
           </div>
         </div>
-        <p className="text-xs text-secondary text-center pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
+        <p className="text-xs text-on-surface text-center pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
       </div>
 
 
@@ -446,7 +446,7 @@ const HoroscopeContent = () => {
       <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
         <div className="relative z-10">
           <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">{t.ctaTitle}</h3>
-          <p className="text-sm md:text-base text-secondary font-body mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-base text-on-surface font-body mb-10 max-w-2xl mx-auto leading-relaxed">
             {t.ctaDesc}
           </p>
           <button

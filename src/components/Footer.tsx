@@ -16,7 +16,7 @@ const Footer = () => {
           <Link href="/" className="mb-8 block">
             <Logo />
           </Link>
-          <p className="text-secondary text-sm leading-relaxed mb-10 max-w-xs font-normal">
+          <p className="text-on-surface text-sm leading-relaxed mb-10 max-w-xs font-normal">
             Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.
           </p>
         </div>
@@ -24,29 +24,29 @@ const Footer = () => {
           <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Services</h6>
           <ul className="space-y-5 text-sm">
             <li><Link href="/panchang" className="text-accent font-medium text-left">Daily Panchang</Link></li>
-            <li><Link href="/free-horoscope" className="text-secondary font-normal text-left">Free Kundli</Link></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-secondary font-normal text-left">Consultation</button></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-secondary font-normal text-left">Premium Appointment</button></li>
+            <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">Free Kundli</Link></li>
+            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">Consultation</button></li>
+            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">Premium Appointment</button></li>
           </ul>
         </div>
         <div>
           <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Follow Us</h6>
           <ul className="space-y-5 text-sm">
-            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_instagram' })} className="text-secondary font-normal" href="https://www.instagram.com/RahulBaliAstro" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_youtube' })} className="text-secondary font-normal" href="https://www.youtube.com/@RahulBaliAstrology" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_tumblr' })} className="text-secondary font-normal" href="https://rahulbaliastrology.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr</a></li>
+            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_instagram' })} className="text-on-surface font-normal" href="https://www.instagram.com/RahulBaliAstro" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_youtube' })} className="text-on-surface font-normal" href="https://www.youtube.com/@RahulBaliAstrology" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_tumblr' })} className="text-on-surface font-normal" href="https://rahulbaliastrology.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr</a></li>
           </ul>
         </div>
         <div>
           <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Company</h6>
           <ul className="space-y-5 text-sm">
-            <li><a className="text-secondary font-normal" href="/about">About Us</a></li>
-            <li><a className="text-secondary font-normal" href="/contact">Contact</a></li>
-            <li><a className="text-secondary font-normal" href="/about#support">Support</a></li>
+            <li><a className="text-on-surface font-normal" href="/about">About Us</a></li>
+            <li><a className="text-on-surface font-normal" href="/contact">Contact</a></li>
+            <li><a className="text-on-surface font-normal" href="/about#support">Support</a></li>
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-secondary font-label">
+      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-on-surface font-label">
         <Link href="/">Rahul Bali Astrology Services © 2025. All rights reserved.</Link>
         <div className="flex gap-10">
           <a href="#">Privacy</a>

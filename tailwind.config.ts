@@ -11,7 +11,7 @@ export default {
       colors: {
         "primary": "#1A1C1D",
         "on-primary": "#FFFFFF",
-        "accent": "#967C31",
+        "accent": "#ffae42",
         "on-accent": "#FFFFFF",
         "surface": "#FFFFFF",
         "on-surface": "#1A1C1D",

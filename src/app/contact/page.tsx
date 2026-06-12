@@ -32,7 +32,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="Instagram"
               >
                 <i className="fa-brands fa-instagram"></i>
@@ -41,7 +41,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="YouTube"
               >
                 <i className="fa-brands fa-youtube"></i>
@@ -50,7 +50,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.threads}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="Threads"
               >
                 <i className="fa-brands fa-threads"></i>
@@ -59,7 +59,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="Facebook"
               >
                 <i className="fa-brands fa-facebook-f"></i>
@@ -68,7 +68,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.linkedin}
                 rel="noopener noreferrer"
                 target="_blank"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="LinkedIn"
               >
                 <i className="fa-brands fa-linkedin-in"></i>
@@ -77,7 +77,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.tumblr}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="Tumblr"
               >
                 <i className="fa-brands fa-tumblr"></i>
@@ -86,7 +86,7 @@ export default function ContactPage() {
                 href={SOCIAL_PROFILES.reddit}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-secondary hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
+                className="w-16 h-16 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300 text-2xl"
                 aria-label="Reddit"
               >
                 <i className="fa-brands fa-reddit-alien"></i>

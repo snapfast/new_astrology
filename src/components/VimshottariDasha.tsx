@@ -133,7 +133,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
     return (
       <div className="flex-shrink-0 w-64 md:w-72 border-r border-outline flex flex-col bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl">
         <div className="bg-surface-container-low border-b border-outline px-4 py-2 shrink-0">
-          <h3 className="text-[10px] font-bold text-secondary uppercase tracking-[0.2em] font-label">
+          <h3 className="text-[10px] font-bold text-on-surface uppercase tracking-[0.2em] font-label">
             {title}
           </h3>
         </div>
@@ -174,7 +174,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
                     )}
                   </div>
                 </div>
-                <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface' : 'text-secondary'}`}>
+                <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface' : 'text-on-surface'}`}>
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
                   {' to '}
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
@@ -210,7 +210,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
           <div className="flex-grow flex items-center justify-center p-12 text-center border-l border-outline bg-surface-container-lowest/30">
             <div className="max-w-xs">
               <span className="material-symbols-outlined text-4xl text-outline mb-4">account_tree</span>
-              <p className="text-xs text-secondary font-medium uppercase tracking-widest">Select a Mahadasha to drill down</p>
+              <p className="text-xs text-on-surface font-medium uppercase tracking-widest">Select a Mahadasha to drill down</p>
             </div>
           </div>
         )}

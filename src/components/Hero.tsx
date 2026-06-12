@@ -37,10 +37,10 @@ const Hero = () => {
         </h1>
 
         <div className="max-w-md mx-auto mb-12">
-          <p className="text-base text-secondary font-body leading-relaxed mb-1">
+          <p className="text-base text-on-surface font-body leading-relaxed mb-1">
             Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.
           </p>
-          <p className="text-sm text-secondary font-body">
+          <p className="text-sm text-on-surface font-body">
             Gurugram, India.
           </p>
         </div>
@@ -70,11 +70,11 @@ const Hero = () => {
         <div className="grid grid-cols-2 gap-4 md:gap-12 max-w-lg mx-auto pt-8 border-t border-outline/20">
           <div className="flex flex-col items-center border-r border-outline/20">
             <span className="text-xl md:text-2xl font-headline text-on-surface">5000+</span>
-            <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Charts</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label">Charts</span>
           </div>
           <div className="flex flex-col items-center">
             <span className="text-xl md:text-2xl font-headline text-on-surface">5/5</span>
-            <span className="text-[8px] md:text-[10px] font-medium text-secondary uppercase tracking-[0.2em] font-label">Rating</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label">Rating</span>
           </div>
         </div>
       </div>

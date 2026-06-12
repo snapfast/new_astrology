@@ -47,12 +47,12 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               const content = (
                 <>
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl md:rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 group-hover:border-accent/30 transition-colors">
-                    <span className="material-symbols-outlined text-secondary group-hover:text-accent text-xl md:text-2xl transition-colors">{link.icon}</span>
+                    <span className="material-symbols-outlined text-on-surface group-hover:text-accent text-xl md:text-2xl transition-colors">{link.icon}</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm md:text-lg font-normal text-on-surface font-headline truncate group-hover:text-accent transition-colors">{link.name}</h3>
                   </div>
-                  <span className="material-symbols-outlined text-secondary text-base md:text-xl group-hover:translate-x-0.5 group-hover:text-accent transition-all">
+                  <span className="material-symbols-outlined text-on-surface text-base md:text-xl group-hover:translate-x-0.5 group-hover:text-accent transition-all">
                     {link.type === 'internal' ? 'chevron_right' : 'open_in_new'}
                   </span>
                 </>
@@ -86,7 +86,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[8px] md:text-[10px] text-secondary font-label uppercase tracking-widest">
+            <p className="text-[8px] md:text-[10px] text-on-surface font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>

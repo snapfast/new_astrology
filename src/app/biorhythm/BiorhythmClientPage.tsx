@@ -82,7 +82,7 @@ const BiorhythmContent = () => {
     <div className="pt-16 md:pt-20 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-6 text-center">
         <h1 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-4">Personal Biorhythms</h1>
-        <p className="text-secondary font-body max-w-2xl mx-auto text-sm md:text-base">
+        <p className="text-on-surface font-body max-w-2xl mx-auto text-sm md:text-base">
           Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth.
         </p>
       </div>
@@ -180,7 +180,7 @@ const BiorhythmContent = () => {
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <h3 className="text-lg font-headline text-on-surface">{cycle.name}</h3>
-                      <p className="text-[9px] text-secondary font-label uppercase tracking-widest mt-0.5">
+                      <p className="text-[9px] text-on-surface font-label uppercase tracking-widest mt-0.5">
                         {cycle.period} Day Cycle
                       </p>
                     </div>
@@ -207,7 +207,7 @@ const BiorhythmContent = () => {
                     )}
                   </div>
 
-                  <p className="text-xs text-secondary font-body leading-relaxed">
+                  <p className="text-xs text-on-surface font-body leading-relaxed">
                     {cycle.description}
                   </p>
                 </div>
@@ -217,7 +217,7 @@ const BiorhythmContent = () => {
             {/* Integrated Interpretation Box */}
             <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-4 md:p-5 flex flex-col justify-center">
               <h4 className="text-base font-headline text-on-surface mb-2">Interpretation</h4>
-              <p className="text-[11px] text-secondary font-body leading-tight">
+              <p className="text-[11px] text-on-surface font-body leading-tight">
                 Values above the center line are <strong>High Phases</strong> (energetic), below are <strong>Low Phases</strong> (rest). Crossing the line indicates transition or instability.
               </p>
             </div>
@@ -227,20 +227,20 @@ const BiorhythmContent = () => {
 
       {!biorhythmData && dob && (
          <div className="text-center py-12">
-            <p className="text-secondary font-body">Calculating your rhythms...</p>
+            <p className="text-on-surface font-body">Calculating your rhythms...</p>
          </div>
       )}
 
       {!dob && (
         <div className="text-center py-12 animate-pulse">
-           <p className="text-secondary font-body text-base">Please enter your birth date to see your personal biorhythm cycles.</p>
+           <p className="text-on-surface font-body text-base">Please enter your birth date to see your personal biorhythm cycles.</p>
            <span className="material-symbols-outlined text-accent text-5xl mt-6">calendar_today</span>
         </div>
       )}
 
       <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mt-8">
         <h4 className="text-xl font-headline text-on-surface mb-4">History & Origins</h4>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-secondary font-body leading-relaxed">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-on-surface font-body leading-relaxed">
           <p>
             The theory of biorhythms originated in the late 19th century with Wilhelm Fliess, a Berlin physician who observed recurring 23-day physical and 28-day emotional cycles. He believed these rhythms were present from birth and influenced human behavior throughout life.
           </p>

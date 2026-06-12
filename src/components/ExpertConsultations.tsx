@@ -22,7 +22,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
           <div className="text-center mb-20">
             <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Services</span>
             <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">Expert Consultations</h2>
-            <p className="text-secondary max-w-2xl mx-auto text-base font-body leading-relaxed">Personalized Vedic guidance for life&apos;s most pressing challenges.</p>
+            <p className="text-on-surface max-w-2xl mx-auto text-base font-body leading-relaxed">Personalized Vedic guidance for life&apos;s most pressing challenges.</p>
           </div>
         )}
 
@@ -37,7 +37,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
                 <h4 className="text-xl font-normal font-headline text-on-surface group-hover:text-accent transition-colors leading-tight">{item.title}</h4>
                 <span className="material-symbols-outlined text-accent transition-opacity">arrow_outward</span>
               </div>
-              <p className="text-secondary text-sm leading-relaxed font-body">{item.description}</p>
+              <p className="text-on-surface text-sm leading-relaxed font-body">{item.description}</p>
             </button>
           ))}
         </div>

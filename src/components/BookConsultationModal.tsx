@@ -41,7 +41,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               </div>
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline mb-1">WhatsApp Consultation</h3>
-                <p className="text-[10px] md:text-sm text-secondary font-body mb-3">Quick and direct guidance via text/voice note.</p>
+                <p className="text-[10px] md:text-sm text-on-surface font-body mb-3">Quick and direct guidance via text/voice note.</p>
                 <a
                   href="https://wa.me/919306057150"
                   target="_blank"
@@ -72,7 +72,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">Private Google Meet Consultation</h3>
                   <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">No phone number required</span>
                 </div>
-                <p className="text-[10px] md:text-sm text-secondary font-body mb-4">Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.</p>
+                <p className="text-[10px] md:text-sm text-on-surface font-body mb-4">Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.</p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <a
                     href="https://calendly.com/rahulbaliastrology/kundli/"
@@ -89,7 +89,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           <div className="mt-4 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[6px] md:text-[10px] text-secondary font-label uppercase tracking-widest">
+            <p className="text-[6px] md:text-[10px] text-on-surface font-label uppercase tracking-widest">
               Guided by the stars, Grounded in Truth
             </p>
           </div>
