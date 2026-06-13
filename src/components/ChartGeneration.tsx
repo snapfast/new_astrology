@@ -2,6 +2,46 @@
 
 import { useState, useEffect, useRef, FormEvent, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    title: "Generate Your Free Chart",
+    desc: "Enter your details to unlock a precise map of the stars at the moment of your birth.",
+    labelName: "Full Name",
+    labelDob: "Date of Birth",
+    labelTob: "Time of Birth",
+    labelPob: "Place of Birth",
+    placeholderPob: "City, Country",
+    recentProfiles: "Recent Profiles",
+    searching: "Searching cities...",
+    submitBtn: "Generate Horoscope Chart",
+    loading: "Generating horoscope chart...",
+    errorName: "Please enter a valid name (min 2 characters)",
+    errorHistory: "This name already exists in your history. Please use a unique name.",
+    errorDob: "Please select a date of birth",
+    errorTob: "Please select a time of birth",
+    errorPob: "Please select a location from the suggestions"
+  },
+  hi: {
+    title: "अपनी मुफ्त कुंडली बनाएं",
+    desc: "अपने जन्म के क्षण में सितारों के सटीक मानचित्र को अनलॉक करने के लिए अपना विवरण दर्ज करें।",
+    labelName: "पूरा नाम",
+    labelDob: "जन्म तिथि",
+    labelTob: "जन्म समय",
+    labelPob: "जन्म स्थान",
+    placeholderPob: "शहर, देश",
+    recentProfiles: "हाल के प्रोफाइल",
+    searching: "शहर खोजे जा रहे हैं...",
+    submitBtn: "कुंडली बनाएं",
+    loading: "कुंडली बनाई जा रही है...",
+    errorName: "कृपया एक वैध नाम दर्ज करें (न्यूनतम 2 वर्ण)",
+    errorHistory: "यह नाम आपकी हिस्ट्री में पहले से मौजूद है। कृपया एक अनूठा नाम उपयोग करें।",
+    errorDob: "कृपया जन्म तिथि चुनें",
+    errorTob: "कृपया जन्म का समय चुनें",
+    errorPob: "कृपया सुझावों में से एक स्थान चुनें"
+  }
+};
 
 interface Suggestion {
   name: string;
@@ -60,6 +100,8 @@ if (typeof window !== 'undefined') {
 
 const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
   const router = useRouter();
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
   const [tob, setTob] = useState('');
@@ -227,7 +269,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
     const trimmedName = name.trim();
 
     if (!trimmedName || trimmedName.length < 2) {
-      newErrors.name = 'Please enter a valid name (min 2 characters)';
+      newErrors.name = t.errorName;
     } else if (dob && tob) {
       // dob is YYYY-MM-DD, tob is HH:mm
       const [year, month, day] = dob.split('-');
@@ -241,14 +283,14 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
           duplicateName.pob === pob;
 
         if (!isExactMatch) {
-          newErrors.name = 'This name already exists in your history. Please use a unique name.';
+          newErrors.name = t.errorHistory;
         }
       }
     }
 
-    if (!dob) newErrors.dob = 'Please select a date of birth';
-    if (!tob) newErrors.tob = 'Please select a time of birth';
-    if (!coords) newErrors.pob = 'Please select a location from the suggestions';
+    if (!dob) newErrors.dob = t.errorDob;
+    if (!tob) newErrors.tob = t.errorTob;
+    if (!coords) newErrors.pob = t.errorPob;
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -318,8 +360,8 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
         <div className="bg-surface p-10 md:p-16 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
           <div className="relative z-10">
             <div className="mb-8 md:mb-12 text-center">
-              <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">Generate Your Free Chart</h2>
-              <p className="text-xs md:text-sm text-on-surface font-body max-w-sm mx-auto">Enter your details to unlock a precise map of the stars at the moment of your birth.</p>
+              <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">{t.title}</h2>
+              <p className="text-xs md:text-sm text-on-surface font-body max-w-sm mx-auto">{t.desc}</p>
             </div>
             <form
               onSubmit={handleSubmit}
@@ -331,7 +373,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 className="space-y-2 relative"
                 ref={historyRef}
               >
-                <label htmlFor="full-name" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Full Name</label>
+                <label htmlFor="full-name" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelName}</label>
                 <input
                   id="full-name"
                   name="name"
@@ -352,7 +394,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {showHistory && history.length > 0 && (
                   <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-accent border border-white/10 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-6 py-3 bg-white/10 border-b border-white/5">
-                      <span className="text-[8px] md:text-[10px] font-medium text-white uppercase tracking-widest font-label">Recent Profiles</span>
+                      <span className={`text-[8px] md:text-[10px] font-medium text-white uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.recentProfiles}</span>
                     </div>
                     <ul className="max-h-60 overflow-y-auto">
                       {history.map((item, index) => (
@@ -378,7 +420,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 )}
               </div>
               <div className="space-y-2">
-                <label htmlFor="dob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Date of Birth</label>
+                <label htmlFor="dob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelDob}</label>
                 <input
                   id="dob-input"
                   type="date"
@@ -392,7 +434,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
-                <label htmlFor="tob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Time of Birth</label>
+                <label htmlFor="tob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelTob}</label>
                 <input
                   id="tob-input"
                   type="time"
@@ -406,7 +448,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
-                <label htmlFor="pob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase tracking-widest ml-1 font-label">Place of Birth</label>
+                <label htmlFor="pob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelPob}</label>
                 <input
                   id="pob-input"
                   name="pob"
@@ -418,7 +460,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                   }}
                   onFocus={() => setShowSuggestions(true)}
                   className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-on-surface text-on-surface text-xs md:text-sm font-body`}
-                  placeholder="City, Country"
+                  placeholder={t.placeholderPob}
                   type="text"
                   autoComplete="off"
                   maxLength={100}
@@ -431,7 +473,7 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
                   <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     {isLoading ? (
-                      <div className="px-6 py-4 text-xs text-on-surface font-body">Searching cities...</div>
+                      <div className="px-6 py-4 text-xs text-on-surface font-body">{t.searching}</div>
                     ) : (
                       <ul className="max-h-60 overflow-y-auto">
                         {suggestions.map((suggestion, index) => (
@@ -456,16 +498,16 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
               </div>
               <div className="md:col-span-2 pt-2 md:pt-4">
                 <button
-                  className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label flex items-center justify-center disabled:cursor-not-allowed"
+                  className={`w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
                   type="submit"
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}
-                  aria-label={isSubmitting ? "Generating horoscope chart..." : "Generate Horoscope Chart"}
+                  aria-label={isSubmitting ? t.loading : t.submitBtn}
                 >
                   {isSubmitting ? (
                     <div className="loading-spinner text-accent"></div>
                   ) : (
-                    "Generate Horoscope Chart"
+                    t.submitBtn
                   )}
                 </button>
               </div>

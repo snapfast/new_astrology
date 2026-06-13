@@ -3,14 +3,31 @@
 import React from 'react';
 import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 import PageHeader from './PageHeader';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    title: "Vedic Astrology Services",
+    subtitle: "Spiritual Guidance",
+    description: "Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life's unique karmic path."
+  },
+  hi: {
+    title: "वैदिक ज्योतिष सेवाएं",
+    subtitle: "आध्यात्मिक मार्गदर्शन",
+    description: "ज्योतिष शास्त्र के प्राचीन सिद्धांतों पर आधारित पेशेवर परामर्श, जो आपके जीवन के अनूठे कर्म पथ पर स्पष्टता प्रदान करते हैं।"
+  }
+};
 
 export default function ServicesContent() {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
+
   return (
     <>
       <PageHeader
-        title="Vedic Astrology Services"
-        subtitle="Spiritual Guidance"
-        description="Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life's unique karmic path."
+        title={t.title}
+        subtitle={t.subtitle}
+        description={t.description}
       />
 
       {/* Services List */}
@@ -21,10 +38,10 @@ export default function ServicesContent() {
               <div key={service.id} className="space-y-4">
                 <h3 className="text-xl font-normal font-headline text-on-surface tracking-tight flex items-center gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                  {service.title}
+                  {service.title[lang]}
                 </h3>
                 <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30">
-                  {service.description}
+                  {service.description[lang]}
                 </p>
               </div>
             ))}

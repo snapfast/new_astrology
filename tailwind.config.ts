@@ -30,9 +30,10 @@ export default {
         "full": "9999px"
       },
       fontFamily: {
-        "headline": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"],
-        "body": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"],
-        "label": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"]
+        "headline": ["var(--font-poppins)", "sans-serif"],
+        "body": ["var(--font-poppins)", "sans-serif"],
+        "label": ["var(--font-poppins)", "sans-serif"],
+        "hindi": ["var(--font-noto-serif-devanagari)", "serif"]
       }
     },
   },

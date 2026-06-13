@@ -6,8 +6,42 @@ import { usePathname } from 'next/navigation';
 import BookConsultationModal from './BookConsultationModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    home: 'Home',
+    freeHoroscope: 'Free Horoscope',
+    panchang: 'Panchang',
+    biorhythm: 'Biorhythm',
+    about: 'About',
+    services: 'Services',
+    reviews: 'Reviews',
+    contact: 'Contact',
+    bookNow: 'Book Now',
+    bookConsultation: 'Book a Consultation Now',
+    location: 'Gurugram, India',
+    switchLanguage: 'Switch Language / भाषा बदलें'
+  },
+  hi: {
+    home: 'होम',
+    freeHoroscope: 'मुफ्त कुंडली',
+    panchang: 'पंचांग',
+    biorhythm: 'बायोरिदम',
+    about: 'मेरे बारे में',
+    services: 'सेवाएं',
+    reviews: 'समीक्षाएं',
+    contact: 'संपर्क करें',
+    bookNow: 'अभी बुक करें',
+    bookConsultation: 'अभी परामर्श बुक करें',
+    location: 'गुरुग्राम, भारत',
+    switchLanguage: 'भाषा बदलें / Switch Language'
+  }
+};
 
 const Navbar = () => {
+  const { lang, toggleLang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -45,14 +79,14 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Free Horoscope', href: '/free-horoscope', highlight: true },
-    { name: 'Panchang', href: '/panchang' },
-    { name: 'Biorhythm', href: '/biorhythm' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Reviews', href: '/reviews' },
-    { name: 'Contact', href: '/contact' },
+    { name: t.home, href: '/' },
+    { name: t.freeHoroscope, href: '/free-horoscope', highlight: true },
+    { name: t.panchang, href: '/panchang' },
+    { name: t.biorhythm, href: '/biorhythm' },
+    { name: t.about, href: '/about' },
+    { name: t.services, href: '/services' },
+    { name: t.reviews, href: '/reviews' },
+    { name: t.contact, href: '/contact' },
   ];
 
   return (
@@ -101,10 +135,18 @@ const Navbar = () => {
         {/* Action Buttons */}
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <button
+            onClick={toggleLang}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            title={t.switchLanguage}
+            aria-label={t.switchLanguage}
+          >
+            <span className="material-symbols-outlined text-[20px]">translate</span>
+          </button>
+          <button
             onClick={handleBookNow}
             className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[11px] md:text-sm tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            Book Now
+            {t.bookNow}
           </button>
         </div>
       </div>
@@ -155,11 +197,11 @@ const Navbar = () => {
             onClick={handleBookNow}
             className="w-full bg-primary text-white py-4 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            Book a Consultation Now
+            {t.bookConsultation}
           </button>
           <div className="flex flex-col items-center mt-8 gap-2">
             <p className="text-[11px] text-on-surface font-body tracking-wider uppercase">
-              Gurugram, India
+              {t.location}
             </p>
             <p className="text-lg text-accent font-body">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।

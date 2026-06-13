@@ -1,35 +1,49 @@
+'use client';
+
 import React from 'react';
-import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { SOCIAL_PROFILES } from '@/lib/social-data';
+import { useLanguage } from '@/context/LanguageContext';
 
-export const metadata: Metadata = {
-  title: "Contact Pandit Rahul Bali Ji | Book Astrology Appointment",
-  description: "Get in touch for personalized Vedic astrology consultations, spiritual guidance, and remedies. Reach out via our social media platforms for appointments and queries.",
-  alternates: {
-    canonical: "https://astro.rahulbali.in/contact",
+const TRANSLATIONS = {
+  en: {
+    title: "Contact Us",
+    subtitle: "Get in Touch",
+    location: "Location",
+    city: "Gurugram, Haryana, India",
+    online: "Online Presence"
   },
+  hi: {
+    title: "संपर्क करें",
+    subtitle: "जुड़ें",
+    location: "स्थान",
+    city: "गुरुग्राम, हरियाणा, भारत",
+    online: "ऑनलाइन उपस्थिति"
+  }
 };
 
 export default function ContactPage() {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
+
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
       <PageHeader
-        title="Contact Us"
-        subtitle="Get in Touch"
+        title={t.title}
+        subtitle={t.subtitle}
       />
       <div className="py-16 max-w-4xl mx-auto px-8 flex flex-col items-center text-center">
         <div className="space-y-16">
           <div>
-            <h2 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Location</h2>
-            <p className="text-2xl font-body text-on-surface">Gurugram, Haryana, India</p>
+            <h2 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.location}</h2>
+            <p className="text-2xl font-body text-on-surface">{t.city}</p>
           </div>
 
           <div>
-            <h2 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Online Presence</h2>
+            <h2 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.online}</h2>
             <div className="flex flex-wrap justify-center gap-6">
               <a
                 href={SOCIAL_PROFILES.instagram}

@@ -3,6 +3,32 @@
 import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    title: "Book Consultation",
+    whatsappTitle: "WhatsApp Consultation",
+    whatsappDesc: "Quick and direct guidance via text/voice note.",
+    whatsappBtn: "Chat on WhatsApp",
+    meetTitle: "Private Google Meet Consultation",
+    meetBadge: "No phone number required",
+    meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
+    meetBtn: "Schedule Now",
+    motto: "Guided by the stars, Grounded in Truth"
+  },
+  hi: {
+    title: "परामर्श बुक करें",
+    whatsappTitle: "व्हाट्सएप परामर्श",
+    whatsappDesc: "टेक्स्ट/वॉयस नोट के माध्यम से त्वरित और सीधा मार्गदर्शन।",
+    whatsappBtn: "व्हाट्सएप पर चैट करें",
+    meetTitle: "निजी गूगल मीट परामर्श",
+    meetBadge: "फोन नंबर की आवश्यकता नहीं",
+    meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
+    meetBtn: "अभी शेड्यूल करें",
+    motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
+  }
+};
 
 interface BookConsultationModalProps {
   isOpen: boolean;
@@ -10,6 +36,9 @@ interface BookConsultationModalProps {
 }
 
 const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -18,7 +47,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
     >
       <div className="p-3 md:p-6">
           <div className="flex justify-center items-center mb-4 md:mb-6 relative">
-            <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">Book Consultation</h2>
+            <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">{t.title}</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
@@ -40,8 +69,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 </svg>
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline mb-1">WhatsApp Consultation</h3>
-                <p className="text-[10px] md:text-sm text-on-surface font-body mb-3">Quick and direct guidance via text/voice note.</p>
+                <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline mb-1">{t.whatsappTitle}</h3>
+                <p className="text-[10px] md:text-sm text-on-surface font-body mb-3">{t.whatsappDesc}</p>
                 <a
                   href="https://wa.me/919306057150"
                   target="_blank"
@@ -49,7 +78,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_whatsapp_redirect' })}
                   className="inline-flex items-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase"
                 >
-                  Chat on WhatsApp
+                  {t.whatsappBtn}
                 </a>
               </div>
             </div>
@@ -69,10 +98,10 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               </div>
               <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-1">
-                  <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">Private Google Meet Consultation</h3>
-                  <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">No phone number required</span>
+                  <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">{t.meetTitle}</h3>
+                  <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">{t.meetBadge}</span>
                 </div>
-                <p className="text-[10px] md:text-sm text-on-surface font-body mb-4">Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.</p>
+                <p className="text-[10px] md:text-sm text-on-surface font-body mb-4">{t.meetDesc}</p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <a
                     href="https://calendly.com/rahulbaliastrology/kundli/"
@@ -81,7 +110,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
                     className="inline-flex items-center justify-center gap-2 px-10 py-3 bg-primary text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase shadow-lg shadow-primary/10"
                   >
-                    Schedule Now
+                    {t.meetBtn}
                   </a>
                 </div>
               </div>
@@ -89,8 +118,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           <div className="mt-4 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className="text-[6px] md:text-[10px] text-on-surface font-label uppercase tracking-widest">
-              Guided by the stars, Grounded in Truth
+            <p className={`text-[6px] md:text-[10px] text-on-surface font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}>
+              {t.motto}
             </p>
           </div>
       </div>

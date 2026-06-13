@@ -2,8 +2,32 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { REVIEWS } from '@/lib/reviews';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    subtitle: "Reviews",
+    title: "Testimonials",
+    desc: "Hear from those who have transformed their lives through celestial alignment and expert guidance.",
+    rating: "5/5 RATING",
+    prev: "Previous review",
+    next: "Next review",
+    goToSlide: "Go to slide"
+  },
+  hi: {
+    subtitle: "समीक्षाएं",
+    title: "प्रशंसापत्र",
+    desc: "उन लोगों से सुनें जिन्होंने खगोलीय संरेखण और विशेषज्ञ मार्गदर्शन के माध्यम से अपने जीवन को बदल दिया है।",
+    rating: "5/5 रेटिंग",
+    prev: "पिछली समीक्षा",
+    next: "अगली समीक्षा",
+    goToSlide: "स्लाइड पर जाएं"
+  }
+};
 
 const Testimonials = () => {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   // Use a curated subset of reviews for the home page testimonials
   const featuredReviews = useMemo(() => {
     const featuredIds = [1, 2, 3, 4, 10, 8, 14]; // Aditi, Ishwar Goswami, Saurav Thapa, Ansh, Sanaa, Luis, Gomathi
@@ -64,28 +88,28 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-1 lg:sticky lg:top-24">
-            <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-4 block font-label">Reviews</span>
-            <h2 className="text-4xl md:text-5xl font-normal mb-6 font-headline text-on-surface tracking-tight">Testimonials</h2>
+            <span className={`text-[10px] font-medium uppercase text-accent mb-4 block font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.subtitle}</span>
+            <h2 className="text-4xl md:text-5xl font-normal mb-6 font-headline text-on-surface tracking-tight">{t.title}</h2>
             <p className="text-on-surface text-base mb-10 font-body leading-relaxed max-w-xs">
-              Hear from those who have transformed their lives through celestial alignment and expert guidance.
+              {t.desc}
             </p>
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5/5 RATING</span>
+                <span className={`font-semibold text-[11px] text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-[0.15em]' : ''}`}>{t.rating}</span>
               </div>
 
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => { prevSlide(); setIsAutoPlaying(false); }}
                   className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface"
-                  aria-label="Previous review"
+                  aria-label={t.prev}
                 >
                   <span className="material-symbols-outlined">chevron_left</span>
                 </button>
                 <button
                   onClick={() => { nextSlide(); setIsAutoPlaying(false); }}
                   className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface"
-                  aria-label="Next review"
+                  aria-label={t.next}
                 >
                   <span className="material-symbols-outlined">chevron_right</span>
                 </button>
@@ -126,7 +150,7 @@ const Testimonials = () => {
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
                   className={`w-1.5 h-1.5 rounded-full ${i === currentIndex ? 'bg-accent w-6' : 'bg-outline/30'}`}
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`${t.goToSlide} ${i + 1}`}
                 />
               ))}
             </div>
