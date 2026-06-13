@@ -70,8 +70,8 @@ const Testimonials = () => {
               Hear from those who have transformed their lives through celestial alignment and expert guidance.
             </p>
             <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5/5 RATING</span>
+              <div className="flex flex-col gap-1.5">
+                <span className="font-semibold text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5.0 GOOGLE RATING</span>
               </div>
 
               <div className="flex items-center gap-4">
