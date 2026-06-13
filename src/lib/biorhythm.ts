@@ -44,9 +44,11 @@ export function calculateBiorhythms(birthDate: Date, targetDate: Date): Biorhyth
 
   const cycles = BIORHYTHM_CYCLES.map(cycle => {
     const value = Math.sin((2 * Math.PI * daysSinceBirth) / cycle.period);
+    // Performance optimization: Avoid expensive string conversion (parseFloat/toFixed)
+    // using direct mathematical rounding for 4 decimal places.
     return {
       ...cycle,
-      value: parseFloat(value.toFixed(4))
+      value: Math.round(value * 10000) / 10000
     };
   });
 
