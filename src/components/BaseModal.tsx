@@ -19,7 +19,7 @@ const BaseModal: FC<BaseModalProps> = ({
   children,
   zIndex = 100,
   maxWidth = 'max-w-lg',
-  backdropClassName = 'bg-on-surface/60 backdrop-blur-sm',
+  backdropClassName = 'bg-on-surface/60 ',
   containerClassName = 'p-4',
   wrapperClassName = 'rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500',
 }) => {

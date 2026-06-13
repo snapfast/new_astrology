@@ -42,7 +42,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white md:hidden"
+            className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden"
             aria-label="Close"
           >
             <span className="material-symbols-outlined">close</span>
