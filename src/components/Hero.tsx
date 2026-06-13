@@ -67,34 +67,24 @@ const Hero = () => {
         </div>
 
         {/* Trust Signals */}
-        <div className="flex flex-row items-center justify-center gap-4 md:gap-10 max-w-2xl mx-auto pt-8 border-t border-outline/20">
+        <div className="flex flex-row items-center justify-center gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-outline/20">
           <div className="flex flex-col items-center flex-1">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="material-symbols-outlined text-accent text-lg">chat_bubble</span>
-              <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums">200+</span>
-            </div>
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">200+</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Consultations</span>
           </div>
 
           <div className="w-px h-8 bg-outline/20 shrink-0"></div>
 
           <div className="flex flex-col items-center flex-1">
-            <div className="flex items-center gap-0.5 mb-1">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className="material-symbols-outlined font-variation-fill text-accent text-sm md:text-base">star</span>
-              ))}
-            </div>
-            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">5.0 Google Rating</span>
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">5.0</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Google Rating</span>
           </div>
 
           <div className="w-px h-8 bg-outline/20 shrink-0"></div>
 
           <div className="flex flex-col items-center flex-1">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="material-symbols-outlined text-accent text-lg">public</span>
-              <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums">10+</span>
-            </div>
-            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Countries</span>
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">10+</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Countries Reach</span>
           </div>
         </div>
       </div>

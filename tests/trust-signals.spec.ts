@@ -5,13 +5,13 @@ test('Hero section trust signals are visible and correct', async ({ page }) => {
   await expect(page.getByText('200+', { exact: true })).toBeVisible();
   await expect(page.getByText('Consultations', { exact: true })).toBeVisible();
   await expect(page.getByText('10+', { exact: true })).toBeVisible();
-  await expect(page.getByText('Countries', { exact: true })).toBeVisible();
-  await expect(page.getByText('5.0 Google Rating', { exact: true })).toBeVisible();
+  await expect(page.getByText('Countries Reach', { exact: true })).toBeVisible();
+  await expect(page.getByText('5.0', { exact: true })).toBeVisible();
+  await expect(page.getByText('Google Rating', { exact: true })).toBeVisible();
 
-  // Check for star icons
-  const stars = page.locator('.material-symbols-outlined:has-text("star")');
-  // 5 in Hero, 5 in Testimonials
-  await expect(stars).toHaveCount(10);
+  // Verify no star icons or chat_bubble icons exist in this section
+  const heroTrustSignals = page.locator('.max-w-2xl.mx-auto.pt-8');
+  await expect(heroTrustSignals.locator('.material-symbols-outlined')).toHaveCount(0);
 });
 
 test('Testimonials section rating is visible', async ({ page }) => {

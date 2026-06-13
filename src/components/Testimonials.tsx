@@ -71,11 +71,6 @@ const Testimonials = () => {
             </p>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-1.5">
-                <div className="flex items-center gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="material-symbols-outlined font-variation-fill text-accent text-[12px]">star</span>
-                  ))}
-                </div>
                 <span className="font-semibold text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5.0 GOOGLE RATING</span>
               </div>
 
