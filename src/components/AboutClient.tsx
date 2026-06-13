@@ -95,7 +95,12 @@ export default function AboutClient() {
 
       {/* Support Our Work - Full Width Main Area */}
       <div id="support" className="pt-16 border-t border-outline/10 space-y-12">
-        <h3 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent font-label text-center md:text-left">Support Our Work</h3>
+        <div className="space-y-4 text-center md:text-left">
+          <h3 className="text-lg md:text-2xl font-medium tracking-[0.1em] uppercase text-accent font-label">Support Our Work</h3>
+          <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto md:mx-0">
+            If you found our service valuable, we would be deeply grateful for any donation to support our mission, suggested amount ₹701, ₹1100, ₹1200, ₹2100, ₹7100, etc.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* Column 1: UPI Support */}
