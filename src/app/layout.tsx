@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins, Martel, Noto_Serif_Devanagari } from "next/font/google";
-import { headers } from "next/headers";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";

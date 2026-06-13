@@ -25,6 +25,8 @@
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/screenshots/
+*.png
 
 # misc
 .DS_Store
