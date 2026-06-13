@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { REVIEWS } from '@/lib/reviews';
 import JsonLd from '@/components/JsonLd';
 
@@ -50,18 +51,17 @@ export default function ReviewsPage() {
     <main className="min-h-screen bg-surface">
       <JsonLd data={reviewsSchema} />
       <Navbar />
-      <div className="pt-24 pb-16">
-        <div className="max-w-4xl mx-auto px-8 mb-16 text-center">
-          <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface tracking-tight">Client Reviews</h1>
-          <p className="text-lg font-body text-on-surface leading-relaxed">
-            Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji.
-          </p>
-          <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
+      <PageHeader
+        title="Client Reviews"
+        subtitle="Testimonials"
+        description="Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji."
+      >
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
             <a
               href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-transparent text-on-surface border border-outline/60 px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase"
+              className="inline-flex items-center justify-center gap-3 bg-transparent text-on-surface border border-outline/60 px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase w-full md:w-auto"
             >
               <GoogleIcon />
               Google Reviews
@@ -71,14 +71,15 @@ export default function ReviewsPage() {
               href="https://g.page/r/CXBUAJqKmqoBEB0/review"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase"
+              className="inline-flex items-center justify-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase w-full md:w-auto"
             >
               Write a Review on Google
               <span className="material-symbols-outlined text-base">open_in_new</span>
             </a>
           </div>
-        </div>
+      </PageHeader>
 
+      <div className="py-16">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline flex flex-col shadow-sm">

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHeader from "@/components/PageHeader";
 import BiorhythmChart from "@/components/BiorhythmChart";
 import MiniBiorhythmChart from "@/components/MiniBiorhythmChart";
 import { calculateBiorhythms, calculateBiorhythmSeries } from "@/lib/biorhythm";
@@ -87,16 +88,14 @@ const BiorhythmContent = () => {
   });
 
   return (
-    <div className="pt-16 md:pt-20 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="mb-6 text-center">
-        <h1 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-4">
-          Personal Biorhythms
-        </h1>
-        <p className="text-on-surface font-body max-w-2xl mx-auto text-sm md:text-base">
-          Understand your natural cycles. Physical, emotional, and intellectual
-          rhythms influence your daily life from the moment of birth.
-        </p>
-      </div>
+    <>
+      <PageHeader
+        title="Personal Biorhythms"
+        subtitle="Energy Cycles"
+        description="Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth."
+      />
+
+      <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       {biorhythmData && (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 mb-8">
@@ -286,32 +285,33 @@ const BiorhythmContent = () => {
         )}
       </div>
 
-      <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mt-8">
-        <h4 className="text-xl font-headline text-on-surface mb-4">
-          History & Origins
-        </h4>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-on-surface font-body leading-relaxed">
-          <p>
-            The theory of biorhythms originated in the late 19th century with
-            Wilhelm Fliess, a Berlin physician who observed recurring 23-day
-            physical and 28-day emotional cycles. He believed these rhythms were
-            present from birth and influenced human behavior throughout life.
-          </p>
-          <p>
-            In the early 20th century, Alfred Teltscher added the 33-day
-            intellectual cycle after observing rhythmic patterns in
-            students&apos; academic performance, suggesting that mental
-            alertness also followed a cyclic nature.
-          </p>
-          <p>
-            Popularized in the 1970s, biorhythm charting became a global
-            phenomenon. While modern science views these as a historical
-            curiosity, they remain a popular tool for self-reflection and
-            understanding the natural ebb and flow of human energy.
-          </p>
+        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mt-8">
+          <h4 className="text-xl font-headline text-on-surface mb-4">
+            History & Origins
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-on-surface font-body leading-relaxed">
+            <p>
+              The theory of biorhythms originated in the late 19th century with
+              Wilhelm Fliess, a Berlin physician who observed recurring 23-day
+              physical and 28-day emotional cycles. He believed these rhythms were
+              present from birth and influenced human behavior throughout life.
+            </p>
+            <p>
+              In the early 20th century, Alfred Teltscher added the 33-day
+              intellectual cycle after observing rhythmic patterns in
+              students&apos; academic performance, suggesting that mental
+              alertness also followed a cyclic nature.
+            </p>
+            <p>
+              Popularized in the 1970s, biorhythm charting became a global
+              phenomenon. While modern science views these as a historical
+              curiosity, they remain a popular tool for self-reflection and
+              understanding the natural ebb and flow of human energy.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

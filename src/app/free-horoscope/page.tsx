@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import ChartGeneration from '@/components/ChartGeneration';
 import JsonLd from '@/components/JsonLd';
 
@@ -75,12 +76,15 @@ export default function FreeHoroscopePage() {
       <JsonLd data={jsonLd} />
       <JsonLd data={faqJsonLd} />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-8 md:pt-32 md:pb-12 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
-      </section>
+      <PageHeader
+        title="Free Kundli Online"
+        subtitle="Vedic Horoscope"
+        description="Generate your precise Vedic Birth Chart instantly. Detailed planetary positions and divisional charts using authoritative Lahiri Ayanamsa."
+      />
 
-      <ChartGeneration />
+      <div className="mt-12">
+        <ChartGeneration />
+      </div>
 
       {/* SEO Content Section: Why Kundli Matters */}
       <section className="py-24 bg-surface border-t border-outline/30">

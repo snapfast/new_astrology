@@ -3,6 +3,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { generateAstrologyData } from '@/lib/astrology';
 import JsonLd from '@/components/JsonLd';
 
@@ -200,17 +201,11 @@ const PanchangPage = () => {
       <Navbar />
       <JsonLd data={panchangSchema} />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-background relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
-          <span className="text-[10px] font-bold text-accent uppercase tracking-[0.3em] font-label block mb-4">{t.heroSubtitle}</span>
-          <h1 className="text-4xl md:text-6xl font-normal font-headline text-on-surface mb-6">{t.heroTitle}</h1>
-          <p className="text-on-surface font-body leading-relaxed max-w-2xl mx-auto">
-            {t.heroDesc}
-          </p>
-        </div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
-      </section>
+      <PageHeader
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
+        description={t.heroDesc}
+      />
 
       {/* Panchang Details */}
       <section className="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
