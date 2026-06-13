@@ -57,7 +57,7 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-outline/20 antialiased print:hidden">
+    <nav className="fixed top-0 w-full z-50 bg-white/95  border-b border-outline/20 antialiased print:hidden">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 py-2 md:px-8 md:py-4 w-full">
         <div className="flex items-center shrink-0">
           {/* Mobile Menu Toggle */}
