@@ -21,7 +21,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-12">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             VEDIC ASTROLOGY · JYOTISH SHASTRA
