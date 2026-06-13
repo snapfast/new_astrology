@@ -2,13 +2,11 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
-
   const isDev = process.env.NODE_ENV === 'development'
 
   const scriptSrc = [
     "'self'",
-    `'nonce-${nonce}'`,
+    "'unsafe-inline'",
     "https://www.googletagmanager.com",
     isDev ? "'unsafe-eval'" : ""
   ].filter(Boolean).join(" ")
@@ -33,7 +31,6 @@ export function middleware(request: NextRequest) {
     .trim()
 
   const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('x-nonce', nonce)
   requestHeaders.set(
     'Content-Security-Policy',
     contentSecurityPolicyHeaderValue
