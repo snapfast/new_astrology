@@ -4,6 +4,7 @@ import { Suspense, useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
@@ -185,21 +186,20 @@ const HoroscopeContent = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Header & User Details */}
-      <div className="bg-surface-container-low border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mb-8 text-left">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div className="space-y-4">
-            <a
-              href="/free-horoscope"
-              className={`flex items-center gap-2 text-xs font-medium text-accent hover:text-accent transition-colors uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
-            >
-              <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-              {t.generateNew}
-            </a>
-            <h1 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">{t.pageTitle}</h1>
-          </div>
-          <div className="flex items-center gap-2 pb-1 relative">
+    <div className="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PageHeader
+        title={t.pageTitle}
+      >
+        <div className="flex flex-col items-center gap-6 w-full">
+          <a
+            href="/free-horoscope"
+            className={`flex items-center gap-2 text-xs font-medium text-accent hover:text-accent transition-colors uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+          >
+            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+            {t.generateNew}
+          </a>
+
+          <div className="flex items-center gap-2 relative">
             {showCopied && (
               <div
                 aria-live="polite"
@@ -234,7 +234,9 @@ const HoroscopeContent = () => {
             </button>
           </div>
         </div>
-      </div>
+      </PageHeader>
+
+      <div className="mt-8"></div>
 
       {/* New: Personality Insights Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">

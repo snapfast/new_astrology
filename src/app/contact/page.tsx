@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { SOCIAL_PROFILES } from '@/lib/social-data';
 
 export const metadata: Metadata = {
@@ -16,9 +17,11 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <div className="pt-24 pb-16 max-w-4xl mx-auto px-8 flex flex-col items-center text-center">
-        <h1 className="text-5xl font-normal mb-16 font-headline text-on-surface">Contact Us</h1>
-
+      <PageHeader
+        title="Contact Us"
+        subtitle="Get in Touch"
+      />
+      <div className="py-16 max-w-4xl mx-auto px-8 flex flex-col items-center text-center">
         <div className="space-y-16">
           <div>
             <h2 className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-6 font-label">Location</h2>
