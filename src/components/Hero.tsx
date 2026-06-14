@@ -52,7 +52,7 @@ const Hero = () => {
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             {t.subtitle}
           </span>
-          <span className="text-lg md:text-2xl text-accent font-body">
+          <span className="text-lg md:text-2xl text-accent font-hindi">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </span>
         </div>
