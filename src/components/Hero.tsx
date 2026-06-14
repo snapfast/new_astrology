@@ -47,7 +47,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-12">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
             {t.subtitle}
@@ -92,14 +92,24 @@ const Hero = () => {
         </div>
 
         {/* Trust Signals */}
-        <div className="grid grid-cols-2 gap-4 md:gap-12 max-w-lg mx-auto pt-8 border-t border-outline/20">
-          <div className="flex flex-col items-center border-r border-outline/20">
-            <span className="text-xl md:text-2xl font-headline text-on-surface">5000+</span>
-            <span className={`text-[8px] md:text-[10px] font-medium text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-[0.2em]' : ''}`}>{t.charts}</span>
+        <div className="flex flex-row items-center justify-center gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-outline/20">
+          <div className="flex flex-col items-center flex-1">
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">200+</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Consultations</span>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-xl md:text-2xl font-headline text-on-surface">5/5</span>
-            <span className={`text-[8px] md:text-[10px] font-medium text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-[0.2em]' : ''}`}>{t.rating}</span>
+
+          <div className="w-px h-8 bg-outline/20 shrink-0"></div>
+
+          <div className="flex flex-col items-center flex-1">
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">5.0</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Google Rating</span>
+          </div>
+
+          <div className="w-px h-8 bg-outline/20 shrink-0"></div>
+
+          <div className="flex flex-col items-center flex-1">
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">10+</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Countries Reach</span>
           </div>
         </div>
       </div>
