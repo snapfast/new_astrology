@@ -8,14 +8,6 @@ import { generateAstrologyData } from '@/lib/astrology';
 import JsonLd from '@/components/JsonLd';
 import { useLanguage } from '@/context/LanguageContext';
 
-// Performance Optimization: Pre-instantiate formatters outside the component
-const DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC'
-});
 
 const TRANSLATIONS = {
   en: {
@@ -130,13 +122,21 @@ const TRANSLATIONS = {
 
 const PanchangPage = () => {
   const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
+
+  const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC'
+  }), [lang]);
+
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
     const now = new Date();
     const istOffset = 5.5 * 60 * 60 * 1000;
     return new Date(now.getTime() + istOffset);
   });
-
-  const t = TRANSLATIONS[lang];
 
   const handlePrevDay = () => {
     setSelectedDate(prev => {
@@ -264,7 +264,7 @@ const PanchangPage = () => {
             </div>
             <div className="hidden sm:block">
               <p className={`text-xs font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.selectedDate}</p>
-              <p className="text-sm font-body tabular-nums text-on-surface whitespace-nowrap">
+              <p className={`text-sm font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
                 {DATE_FORMATTER.format(selectedDate)}
               </p>
             </div>
