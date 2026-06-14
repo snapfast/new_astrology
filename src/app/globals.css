@@ -63,6 +63,14 @@
     @apply w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin;
   }
 
+  .font-body {
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  .font-hindi {
+    font-family: var(--font-noto-serif-devanagari), serif;
+  }
+
   /* Hide default calendar icon for date inputs as we use custom material icons */
   input[type="date"]::-webkit-calendar-picker-indicator {
     background: transparent;

@@ -1,11 +1,12 @@
 'use client';
 
-import { Suspense, useState, useMemo, useEffect } from 'react';
+import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData, DivisionalChartData } from '@/lib/astrology';
+import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
 import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from '@/lib/security';
 
@@ -102,19 +103,8 @@ const TRANSLATIONS = {
 
 const CompactHoroscopeContent = () => {
   const router = useRouter();
+  const { lang } = useLanguage();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
-    if (saved) setLang(saved);
-  }, []);
-
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'hi' : 'en';
-    setLang(newLang);
-    localStorage.setItem('preferred_lang', newLang);
-  };
 
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
@@ -204,13 +194,6 @@ const CompactHoroscopeContent = () => {
         </div>
 
         <div className="flex items-center gap-2">
-           <button
-            onClick={toggleLang}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors border border-outline/50"
-            title="Toggle Language"
-          >
-            <span className="material-symbols-outlined text-[18px]">translate</span>
-          </button>
           <button
             onClick={handleShare}
             className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors border border-outline/50"

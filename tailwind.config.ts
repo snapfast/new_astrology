@@ -32,7 +32,8 @@ export default {
       fontFamily: {
         "headline": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"],
         "body": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"],
-        "label": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"]
+        "label": ["var(--font-poppins)", "var(--font-noto-serif-devanagari)", "sans-serif"],
+        "hindi": ["var(--font-noto-serif-devanagari)", "serif"]
       }
     },
   },

@@ -5,8 +5,46 @@ import Link from 'next/link';
 import BookConsultationModal from './BookConsultationModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
+    services: 'Services',
+    dailyPanchang: 'Daily Panchang',
+    freeKundli: 'Free Kundli',
+    consultation: 'Consultation',
+    premium: 'Premium Appointment',
+    followUs: 'Follow Us',
+    company: 'Company',
+    aboutUs: 'About Us',
+    contact: 'Contact',
+    support: 'Support',
+    rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
+    privacy: 'Privacy',
+    terms: 'Terms'
+  },
+  hi: {
+    desc: 'तारों द्वारा निर्देशित, प्राचीन ज्ञान में निहित। आध्यात्मिक स्पष्टता और संरेखण के लिए पेशेवर वैदिक ज्योतिष सेवाएं।',
+    services: 'सेवाएं',
+    dailyPanchang: 'दैनिक पंचांग',
+    freeKundli: 'मुफ्त कुंडली',
+    consultation: 'परामर्श',
+    premium: 'प्रीमियम अपॉइंटमेंट',
+    followUs: 'हमें फॉलो करें',
+    company: 'कंपनी',
+    aboutUs: 'मेरे बारे में',
+    contact: 'संपर्क करें',
+    support: 'सहायता',
+    rights: 'राहुल बाली ज्योतिष सेवाएं © 2025. सर्वाधिकार सुरक्षित।',
+    privacy: 'गोपनीयता',
+    terms: 'शर्तें'
+  }
+};
 
 const Footer = () => {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
@@ -17,20 +55,20 @@ const Footer = () => {
             <Logo />
           </Link>
           <p className="text-on-surface text-sm leading-relaxed mb-10 max-w-xs font-normal">
-            Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.
+            {t.desc}
           </p>
         </div>
         <div>
-          <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Services</h6>
+          <h6 className={`text-on-surface mb-8 text-[10px] font-semibold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.services}</h6>
           <ul className="space-y-5 text-sm">
-            <li><Link href="/panchang" className="text-accent font-medium text-left">Daily Panchang</Link></li>
-            <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">Free Kundli</Link></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">Consultation</button></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">Premium Appointment</button></li>
+            <li><Link href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
+            <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
+            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.consultation}</button></li>
+            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.premium}</button></li>
           </ul>
         </div>
         <div>
-          <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Follow Us</h6>
+          <h6 className={`text-on-surface mb-8 text-[10px] font-semibold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.followUs}</h6>
           <ul className="space-y-5 text-sm">
             <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_instagram' })} className="text-on-surface font-normal" href="https://www.instagram.com/RahulBaliAstro" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_youtube' })} className="text-on-surface font-normal" href="https://www.youtube.com/@RahulBaliAstrology" target="_blank" rel="noopener noreferrer">YouTube</a></li>
@@ -38,19 +76,19 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h6 className="text-on-surface mb-8 text-[10px] font-semibold tracking-widest uppercase font-label">Company</h6>
+          <h6 className={`text-on-surface mb-8 text-[10px] font-semibold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.company}</h6>
           <ul className="space-y-5 text-sm">
-            <li><a className="text-on-surface font-normal" href="/about">About Us</a></li>
-            <li><a className="text-on-surface font-normal" href="/contact">Contact</a></li>
-            <li><a className="text-on-surface font-normal" href="/about#support">Support</a></li>
+            <li><a className="text-on-surface font-normal" href="/about">{t.aboutUs}</a></li>
+            <li><a className="text-on-surface font-normal" href="/contact">{t.contact}</a></li>
+            <li><a className="text-on-surface font-normal" href="/about#support">{t.support}</a></li>
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] tracking-widest uppercase font-medium text-on-surface font-label">
-        <Link href="/">Rahul Bali Astrology Services © 2025. All rights reserved.</Link>
+      <div className={`max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase font-medium text-on-surface font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>
+        <Link href="/">{t.rights}</Link>
         <div className="flex gap-10">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="#">{t.privacy}</a>
+          <a href="#">{t.terms}</a>
         </div>
       </div>
 

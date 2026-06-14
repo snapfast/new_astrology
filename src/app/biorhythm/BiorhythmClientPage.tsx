@@ -8,8 +8,68 @@ import BiorhythmChart from "@/components/BiorhythmChart";
 import MiniBiorhythmChart from "@/components/MiniBiorhythmChart";
 import { calculateBiorhythms, calculateBiorhythmSeries } from "@/lib/biorhythm";
 import { sendGAEvent } from "@next/third-parties/google";
+import { useLanguage } from "@/context/LanguageContext";
+
+const TRANSLATIONS = {
+  en: {
+    heroTitle: "Personal Biorhythms",
+    heroSubtitle: "Energy Cycles",
+    heroDesc: "Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth.",
+    chartTitle: "Cycle Overview (7 Days)",
+    cycleDay: "Day Cycle",
+    interpretation: "Interpretation",
+    interpretationDesc: "Values above the center line are <strong>High Phases</strong> (energetic), below are <strong>Low Phases</strong> (rest). Crossing the line indicates transition or instability.",
+    calculating: "Calculating your rhythms...",
+    enterDob: "Please enter your birth date to see your personal biorhythm cycles.",
+    dobLabel: "Date of Birth",
+    analysisDate: "Analysis Date",
+    today: "Today",
+    historyTitle: "History & Origins",
+    history1: "The theory of biorhythms originated in the late 19th century with Wilhelm Fliess, a Berlin physician who observed recurring 23-day physical and 28-day emotional cycles. He believed these rhythms were present from birth and influenced human behavior throughout life.",
+    history2: "In the early 20th century, Alfred Teltscher added the 33-day intellectual cycle after observing rhythmic patterns in students' academic performance, suggesting that mental alertness also followed a cyclic nature.",
+    history3: "Popularized in the 1970s, biorhythm charting became a global phenomenon. While modern science views these as a historical curiosity, they remain a popular tool for self-reflection and understanding the natural ebb and flow of human energy.",
+    cycles: {
+      Physical: { name: "Physical", desc: "Coordination, strength, and well-being." },
+      Emotional: { name: "Emotional", desc: "Creativity, sensitivity, and mood." },
+      Intellectual: { name: "Intellectual", desc: "Logic, memory, and concentration." },
+      Spiritual: { name: "Spiritual", desc: "Peace, harmony, and inner stability." },
+      Intuitional: { name: "Intuitional", desc: "Unconscious perception and instincts." },
+      Aesthetic: { name: "Aesthetic", desc: "Appreciation for art, culture, and beauty." },
+      Awareness: { name: "Awareness", desc: "Conscious perception and alertness." }
+    }
+  },
+  hi: {
+    heroTitle: "व्यक्तिगत बायोरिदम",
+    heroSubtitle: "ऊर्जा चक्र",
+    heroDesc: "अपने प्राकृतिक चक्रों को समझें। शारीरिक, भावनात्मक और बौद्धिक लय जन्म के समय से ही आपके दैनिक जीवन को प्रभावित करती है।",
+    chartTitle: "चक्र अवलोकन (7 दिन)",
+    cycleDay: "दिवसीय चक्र",
+    interpretation: "व्याख्या",
+    interpretationDesc: "केंद्र रेखा के ऊपर के मान <strong>उच्च चरण</strong> (ऊर्जावान) हैं, नीचे के मान <strong>निम्न चरण</strong> (विश्राम) हैं। रेखा को पार करना संक्रमण या अस्थिरता को दर्शाता है।",
+    calculating: "आपकी लय की गणना की जा रही है...",
+    enterDob: "कृपया अपने व्यक्तिगत बायोरिदम चक्रों को देखने के लिए अपनी जन्म तिथि दर्ज करें।",
+    dobLabel: "जन्म तिथि",
+    analysisDate: "विश्लेषण तिथि",
+    today: "आज",
+    historyTitle: "इतिहास और उत्पत्ति",
+    history1: "बायोरिदम का सिद्धांत 19वीं शताब्दी के अंत में बर्लिन के एक चिकित्सक विल्हेम फ्लिस के साथ शुरू हुआ, जिन्होंने 23-दिवसीय शारीरिक और 28-दिवसीय भावनात्मक चक्रों को दोहराते हुए देखा। उनका मानना ​​था कि ये लय जन्म से ही मौजूद होती हैं और जीवन भर मानवीय व्यवहार को प्रभावित करती हैं।",
+    history2: "20वीं शताब्दी की शुरुआत में, अल्फ्रेड टेल्त्शर ने छात्रों के शैक्षणिक प्रदर्शन में लयबद्ध पैटर्न देखने के बाद 33-दिवसीय बौद्धिक चक्र जोड़ा, जिससे पता चला कि मानसिक सतर्कता भी एक चक्रीय प्रकृति का पालन करती है।",
+    history3: "1970 के दशक में लोकप्रिय हुआ, बायोरिदम चार्टिंग एक वैश्विक घटना बन गई। जबकि आधुनिक विज्ञान इन्हें एक ऐतिहासिक जिज्ञासा के रूप में देखता है, वे आत्म-चिंतन और मानव ऊर्जा के प्राकृतिक उतार-चढ़ाव को समझने के लिए एक लोकप्रिय उपकरण बने हुए हैं।",
+    cycles: {
+      Physical: { name: "शारीरिक", desc: "समन्वय, शक्ति और कल्याण।" },
+      Emotional: { name: "भावनात्मक", desc: "रचनात्मकता, संवेदनशीलता और मनोदशा।" },
+      Intellectual: { name: "बौद्धिक", desc: "तर्क, स्मृति और एकाग्रता।" },
+      Spiritual: { name: "आध्यात्मिक", desc: "शांति, सद्भाव और आंतरिक स्थिरता।" },
+      Intuitional: { name: "सहज ज्ञान युक्त", desc: "अचेतन धारणा और वृत्ति।" },
+      Aesthetic: { name: "सौंदर्यबोध", desc: "कला, संस्कृति और सुंदरता के लिए प्रशंसा।" },
+      Awareness: { name: "जागरूकता", desc: "सचेत धारणा और सतर्कता।" }
+    }
+  }
+};
 
 const BiorhythmContent = () => {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   const [dob, setDob] = useState<string>("2000-01-01");
   const [targetDate, setTargetDate] = useState<Date>(() => {
     const now = new Date();
@@ -90,9 +150,9 @@ const BiorhythmContent = () => {
   return (
     <>
       <PageHeader
-        title="Personal Biorhythms"
-        subtitle="Energy Cycles"
-        description="Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth."
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
+        description={t.heroDesc}
       />
 
       <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +164,7 @@ const BiorhythmContent = () => {
             <div className="animate-in fade-in duration-1000 delay-300">
               <div className="mb-4">
                 <h3 className="text-base md:text-lg font-headline text-on-surface text-center">
-                  Cycle Overview (7 Days)
+                  {t.chartTitle}
                 </h3>
               </div>
               <BiorhythmChart series={seriesData} />
@@ -122,10 +182,10 @@ const BiorhythmContent = () => {
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <h3 className="text-lg font-headline text-on-surface">
-                        {cycle.name}
+                        {t.cycles[cycle.name as keyof typeof t.cycles]?.name || cycle.name}
                       </h3>
-                      <p className="text-[9px] text-on-surface font-label uppercase tracking-widest mt-0.5">
-                        {cycle.period} Day Cycle
+                      <p className={`text-[9px] text-on-surface font-label uppercase mt-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
+                        {cycle.period} {t.cycleDay}
                       </p>
                     </div>
                     <span
@@ -159,7 +219,7 @@ const BiorhythmContent = () => {
                   </div>
 
                   <p className="text-xs text-on-surface font-body leading-relaxed">
-                    {cycle.description}
+                    {t.cycles[cycle.name as keyof typeof t.cycles]?.desc || cycle.description}
                   </p>
                 </div>
               </div>
@@ -168,13 +228,9 @@ const BiorhythmContent = () => {
             {/* Integrated Interpretation Box */}
             <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-4 md:p-5 flex flex-col justify-center">
               <h4 className="text-base font-headline text-on-surface mb-2">
-                Interpretation
+                {t.interpretation}
               </h4>
-              <p className="text-[11px] text-on-surface font-body leading-tight">
-                Values above the center line are <strong>High Phases</strong>{" "}
-                (energetic), below are <strong>Low Phases</strong> (rest).
-                Crossing the line indicates transition or instability.
-              </p>
+              <p className="text-[11px] text-on-surface font-body leading-tight" dangerouslySetInnerHTML={{ __html: t.interpretationDesc }} />
             </div>
           </div>
         </div>
@@ -183,7 +239,7 @@ const BiorhythmContent = () => {
       {!biorhythmData && dob && (
         <div className="text-center py-12">
           <p className="text-on-surface font-body">
-            Calculating your rhythms...
+            {t.calculating}
           </p>
         </div>
       )}
@@ -191,7 +247,7 @@ const BiorhythmContent = () => {
       {!dob && (
         <div className="text-center py-12 animate-pulse">
           <p className="text-on-surface font-body text-base">
-            Please enter your birth date to see your personal biorhythm cycles.
+            {t.enterDob}
           </p>
           <span className="material-symbols-outlined text-accent text-5xl mt-6">
             calendar_today
@@ -206,9 +262,9 @@ const BiorhythmContent = () => {
           <div className="shrink-0">
             <label
               htmlFor="dob"
-              className="block text-[10px] font-bold text-accent uppercase tracking-widest font-label mb-1 sm:mb-0"
+              className={`block text-[10px] font-bold text-accent uppercase font-label mb-1 sm:mb-0 ${lang === 'en' ? 'tracking-widest' : ''}`}
             >
-              Date of Birth
+              {t.dobLabel}
             </label>
           </div>
           <div className="relative w-full sm:max-w-[200px]">
@@ -242,9 +298,9 @@ const BiorhythmContent = () => {
 
               <button
                 onClick={resetToday}
-                className="px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label uppercase tracking-wider"
+                className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label uppercase ${lang === 'en' ? 'tracking-wider' : ''}`}
               >
-                Today
+                {t.today}
               </button>
 
               <button
@@ -273,8 +329,8 @@ const BiorhythmContent = () => {
                 </span>
               </div>
               <div className="hidden sm:block">
-                <p className="text-[10px] font-label text-accent uppercase tracking-widest mb-0.5">
-                  Analysis Date
+                <p className={`text-[10px] font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
+                  {t.analysisDate}
                 </p>
                 <p className="text-xs font-body tabular-nums text-on-surface whitespace-nowrap">
                   {formattedTargetDate}
@@ -287,26 +343,17 @@ const BiorhythmContent = () => {
 
         <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mt-8">
           <h4 className="text-xl font-headline text-on-surface mb-4">
-            History & Origins
+            {t.historyTitle}
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-on-surface font-body leading-relaxed">
             <p>
-              The theory of biorhythms originated in the late 19th century with
-              Wilhelm Fliess, a Berlin physician who observed recurring 23-day
-              physical and 28-day emotional cycles. He believed these rhythms were
-              present from birth and influenced human behavior throughout life.
+              {t.history1}
             </p>
             <p>
-              In the early 20th century, Alfred Teltscher added the 33-day
-              intellectual cycle after observing rhythmic patterns in
-              students&apos; academic performance, suggesting that mental
-              alertness also followed a cyclic nature.
+              {t.history2}
             </p>
             <p>
-              Popularized in the 1970s, biorhythm charting became a global
-              phenomenon. While modern science views these as a historical
-              curiosity, they remain a popular tool for self-reflection and
-              understanding the natural ebb and flow of human energy.
+              {t.history3}
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState, useMemo, useEffect } from 'react';
+import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -9,6 +9,7 @@ import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
+import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
 import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from '@/lib/security';
 
@@ -114,20 +115,9 @@ const TRANSLATIONS = {
 };
 
 const HoroscopeContent = () => {
+  const { lang } = useLanguage();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
-    if (saved) setLang(saved);
-  }, []);
-
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'hi' : 'en';
-    setLang(newLang);
-    localStorage.setItem('preferred_lang', newLang);
-  };
 
   const goToCompact = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_go_compact' });
@@ -215,14 +205,6 @@ const HoroscopeContent = () => {
             >
               <span className="material-symbols-outlined text-[20px] mr-2">dashboard</span>
               <span className={`text-[10px] font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.compactView}</span>
-            </button>
-            <button
-              onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
-              title={t.switchLanguage}
-              aria-label={t.switchLanguage}
-            >
-              <span className="material-symbols-outlined text-[20px]">translate</span>
             </button>
             <button
               onClick={handleShare}

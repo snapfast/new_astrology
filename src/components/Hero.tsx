@@ -4,8 +4,34 @@ import { useState } from 'react';
 import LearnMoreModal from './LearnMoreModal';
 import BookConsultationModal from './BookConsultationModal';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useLanguage } from '@/context/LanguageContext';
+
+const TRANSLATIONS = {
+  en: {
+    subtitle: 'VEDIC ASTROLOGY · JYOTISH SHASTRA',
+    title: 'Pandit Rahul Bali Ji',
+    desc1: 'Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.',
+    desc2: 'Gurugram, India.',
+    bookBtn: 'Book a Consultation',
+    learnBtn: 'Learn More',
+    charts: 'Charts',
+    rating: 'Rating'
+  },
+  hi: {
+    subtitle: 'वैदिक ज्योतिष · ज्योतिष शास्त्र',
+    title: 'पंडित राहुल बाली जी',
+    desc1: 'शास्त्रीय ज्योतिष परंपरा में निहित व्यक्तिगत वैदिक ज्योतिष रीडिंग और आध्यात्मिक परामर्श।',
+    desc2: 'गुरुग्राम, भारत।',
+    bookBtn: 'परामर्श बुक करें',
+    learnBtn: 'और जानें',
+    charts: 'कुंडलियां',
+    rating: 'रेटिंग'
+  }
+};
 
 const Hero = () => {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
@@ -24,7 +50,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
-            VEDIC ASTROLOGY · JYOTISH SHASTRA
+            {t.subtitle}
           </span>
           <span className="text-lg md:text-2xl text-accent font-body">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
@@ -32,16 +58,15 @@ const Hero = () => {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight">
-          Pandit <br />
-          Rahul Bali Ji
+          {lang === 'hi' ? 'पंडित राहुल बाली जी' : <>Pandit <br /> Rahul Bali Ji</>}
         </h1>
 
         <div className="max-w-md mx-auto mb-12">
           <p className="text-base text-on-surface font-body leading-relaxed mb-1">
-            Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.
+            {t.desc1}
           </p>
           <p className="text-sm text-on-surface font-body">
-            Gurugram, India.
+            {t.desc2}
           </p>
         </div>
 
@@ -51,18 +76,18 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
               setIsBookingModalOpen(true);
             }}
-            className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase active:translate-y-0 text-center"
+            className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label active:translate-y-0 text-center ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
           >
-            Book a Consultation
+            {t.bookBtn}
           </button>
           <button
             onClick={() => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
               setIsModalOpen(true);
             }}
-            className="px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
+            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-[10px] md:text-xs uppercase font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
           >
-            Learn More
+            {t.learnBtn}
           </button>
         </div>
 

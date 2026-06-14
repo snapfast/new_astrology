@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins, Noto_Serif_Devanagari } from "next/font/google";
-import { headers } from "next/headers";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -102,30 +102,32 @@ export default async function RootLayout({
       <body
         className={`${poppins.variable} ${notoSerifDevanagari.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
-        <JsonLd
-          nonce={nonce}
-          data={{
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Pandit Rahul Bali",
-            "url": "https://astro.rahulbali.in",
-            "image": "https://astro.rahulbali.in/og-image.png",
-            "sameAs": [
-              "https://www.instagram.com/RahulBaliAstro",
-              "https://www.youtube.com/@RahulBaliAstrology",
-              "https://www.linkedin.com/in/rahulbaliastrology/",
-              "https://www.threads.net/@rahulbaliastro"
-            ],
-            "jobTitle": "Vedic Astrologer",
-            "worksFor": {
-              "@type": "Organization",
-              "name": "Rahul Bali Astrology"
-            },
-            "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology based in Gurugram, India, providing personalized horoscopes and spiritual consultations."
-          }}
-        />
-        {children}
-        <BackToTop />
+        <LanguageProvider>
+          <JsonLd
+            nonce={nonce}
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Pandit Rahul Bali",
+              "url": "https://astro.rahulbali.in",
+              "image": "https://astro.rahulbali.in/og-image.png",
+              "sameAs": [
+                "https://www.instagram.com/RahulBaliAstro",
+                "https://www.youtube.com/@RahulBaliAstrology",
+                "https://www.linkedin.com/in/rahulbaliastrology/",
+                "https://www.threads.net/@rahulbaliastro"
+              ],
+              "jobTitle": "Vedic Astrologer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Rahul Bali Astrology"
+              },
+              "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology based in Gurugram, India, providing personalized horoscopes and spiritual consultations."
+            }}
+          />
+          {children}
+          <BackToTop />
+        </LanguageProvider>
       </body>
       <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />
     </html>

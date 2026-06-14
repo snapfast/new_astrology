@@ -1,11 +1,12 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { generateAstrologyData } from '@/lib/astrology';
 import JsonLd from '@/components/JsonLd';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Performance Optimization: Pre-instantiate formatters outside the component
 const DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
@@ -56,6 +57,18 @@ const TRANSLATIONS = {
     selectedDate: "Selected Date",
     switchLanguage: "Switch Language / भाषा बदलें",
     eduTitle: "Understanding Panchang",
+    eduPara1: "The Panchang is a traditional Vedic calendar that serves as an essential guide for daily life in Indian culture. Derived from the Sanskrit words 'Pancha' (five) and 'Anga' (limbs), it consists of five key astronomical elements: Tithi, Vara, Nakshatra, Yoga, and Karana.",
+    tithiTitle: "1. Tithi",
+    tithiDesc: "The lunar day based on the angular distance between the Sun and the Moon. It is crucial for determining festivals and rituals.",
+    varaTitle: "2. Vara",
+    varaDesc: "The solar day of the week. Each day is ruled by a specific planet, influencing the energy of the activities performed.",
+    nakshatraTitle: "3. Nakshatra",
+    nakshatraDesc: "The lunar mansion where the Moon is positioned. Nakshatras define the psychological and emotional temperament of the time.",
+    yogaTitle: "4. Yoga",
+    yogaDesc: "A specific relationship between the Sun and Moon positions that indicates the general prevailing energy or 'joining'.",
+    karanaTitle: "5. Karana",
+    karanaDesc: "Half of a Tithi. Each Tithi consists of two Karanas. It represents the active energy and is significant for worldly tasks and determining the outcome of actions.",
+    eduPara2: "Beyond these five limbs, the Panchang also provides information on Auspicious Timings (Muhurtas) like Abhijit Muhurta, which is ideal for starting new ventures, and Inauspicious Periods like Rahu Kaal, during which significant new actions are traditionally avoided.",
     ctaTitle: "Plan Your Day with Expert Guidance",
     ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
   },
@@ -98,29 +111,31 @@ const TRANSLATIONS = {
     selectedDate: "चुनी हुई तारीख",
     switchLanguage: "भाषा बदलें / Switch Language",
     eduTitle: "पंचांग को समझना",
+    eduPara1: "पंचांग एक पारंपरिक वैदिक कैलेंडर है जो भारतीय संस्कृति में दैनिक जीवन के लिए एक आवश्यक मार्गदर्शक के रूप में कार्य करता है। संस्कृत शब्दों 'पंच' (पांच) और 'अंग' से बना, इसमें पांच प्रमुख खगोलीय तत्व शामिल हैं: तिथि, वार, नक्षत्र, योग और करण।",
+    tithiTitle: "1. तिथि",
+    tithiDesc: "सूर्य और चंद्रमा के बीच की कोणीय दूरी के आधार पर चंद्र दिवस। यह त्योहारों और अनुष्ठानों के निर्धारण के लिए महत्वपूर्ण है।",
+    varaTitle: "2. वार",
+    varaDesc: "सप्ताह का सौर दिन। प्रत्येक दिन एक विशिष्ट ग्रह द्वारा शासित होता है, जो किए गए कार्यों की ऊर्जा को प्रभावित करता है।",
+    nakshatraTitle: "3. नक्षत्र",
+    nakshatraDesc: "चंद्र नक्षत्र जहां चंद्रमा स्थित है। नक्षत्र समय के मनोवैज्ञानिक और भावनात्मक स्वभाव को परिभाषित करते हैं।",
+    yogaTitle: "4. योग",
+    yogaDesc: "सूर्य और चंद्रमा की स्थिति के बीच एक विशिष्ट संबंध जो सामान्य प्रचलित ऊर्जा या 'मिलन' को दर्शाता है।",
+    karanaTitle: "5. करण",
+    karanaDesc: "एक तिथि का आधा भाग। प्रत्येक तिथि में दो करण होते हैं। यह सक्रिय ऊर्जा का प्रतिनिधित्व करता है और सांसारिक कार्यों और कार्यों के परिणाम निर्धारित करने के लिए महत्वपूर्ण है।",
+    eduPara2: "इन पांच अंगों के अलावा, पंचांग अभिजीत मुहूर्त जैसे शुभ समय (मुहूर्त) की भी जानकारी प्रदान करता है, जो नए उद्यम शुरू करने के लिए आदर्श है, और राहु काल जैसे अशुभ काल की भी जानकारी देता है, जिसके दौरान पारंपरिक रूप से महत्वपूर्ण नए कार्यों से बचा जाता है।",
     ctaTitle: "विशेषज्ञ मार्गदर्शन के साथ अपने दिन की योजना बनाएं",
     ctaDesc: "जबकि दैनिक पंचांग सामान्य मार्गदर्शन प्रदान करता है, आपकी व्यक्तिगत जन्म कुंडली (कुण्डली) पर आधारित एक व्यक्तिगत मुहूर्त आपके विशिष्ट प्रयासों के लिए उच्चतम स्तर की सफलता सुनिश्चित करता है।"
   }
 };
 
 const PanchangPage = () => {
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const { lang } = useLanguage();
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
     const now = new Date();
     const istOffset = 5.5 * 60 * 60 * 1000;
     return new Date(now.getTime() + istOffset);
   });
 
-  useEffect(() => {
-    const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
-    if (saved) setLang(saved);
-  }, []);
-
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'hi' : 'en';
-    setLang(newLang);
-    localStorage.setItem('preferred_lang', newLang);
-  };
   const t = TRANSLATIONS[lang];
 
   const handlePrevDay = () => {
@@ -253,14 +268,6 @@ const PanchangPage = () => {
                 {DATE_FORMATTER.format(selectedDate)}
               </p>
             </div>
-            <button
-              onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shrink-0"
-              title={t.switchLanguage}
-              aria-label={t.switchLanguage}
-            >
-              <span className="material-symbols-outlined text-[20px]">translate</span>
-            </button>
           </div>
         </div>
 
@@ -434,34 +441,34 @@ const PanchangPage = () => {
           <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">{t.eduTitle}</h2>
           <div className="prose prose-sm md:prose-base max-w-none text-on-surface font-body leading-relaxed space-y-8">
             <p>
-              The <strong>Panchang</strong> is a traditional Vedic calendar that serves as an essential guide for daily life in Indian culture. Derived from the Sanskrit words <em>&apos;Pancha&apos;</em> (five) and <em>&apos;Anga&apos;</em> (limbs), it consists of five key astronomical elements: Tithi, Vara, Nakshatra, Yoga, and Karana.
+              {t.eduPara1}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 not-prose">
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
-                <h3 className="text-lg font-headline text-on-surface mb-2">1. Tithi</h3>
-                <p className="text-sm">The lunar day based on the angular distance between the Sun and the Moon. It is crucial for determining festivals and rituals.</p>
+                <h3 className="text-lg font-headline text-on-surface mb-2">{t.tithiTitle}</h3>
+                <p className="text-sm">{t.tithiDesc}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
-                <h3 className="text-lg font-headline text-on-surface mb-2">2. Vara</h3>
-                <p className="text-sm">The solar day of the week. Each day is ruled by a specific planet, influencing the energy of the activities performed.</p>
+                <h3 className="text-lg font-headline text-on-surface mb-2">{t.varaTitle}</h3>
+                <p className="text-sm">{t.varaDesc}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
-                <h3 className="text-lg font-headline text-on-surface mb-2">3. Nakshatra</h3>
-                <p className="text-sm">The lunar mansion where the Moon is positioned. Nakshatras define the psychological and emotional temperament of the time.</p>
+                <h3 className="text-lg font-headline text-on-surface mb-2">{t.nakshatraTitle}</h3>
+                <p className="text-sm">{t.nakshatraDesc}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
-                <h3 className="text-lg font-headline text-on-surface mb-2">4. Yoga</h3>
-                <p className="text-sm">A specific relationship between the Sun and Moon positions that indicates the general prevailing energy or &apos;joining&apos;.</p>
+                <h3 className="text-lg font-headline text-on-surface mb-2">{t.yogaTitle}</h3>
+                <p className="text-sm">{t.yogaDesc}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl border border-outline/20">
-                <h3 className="text-lg font-headline text-on-surface mb-2">5. Karana</h3>
-                <p className="text-sm">Half of a Tithi. Each Tithi consists of two Karanas. It represents the active energy and is significant for worldly tasks and determining the outcome of actions.</p>
+                <h3 className="text-lg font-headline text-on-surface mb-2">{t.karanaTitle}</h3>
+                <p className="text-sm">{t.karanaDesc}</p>
               </div>
             </div>
 
             <p>
-              Beyond these five limbs, the Panchang also provides information on <strong>Auspicious Timings (Muhurtas)</strong> like Abhijit Muhurta, which is ideal for starting new ventures, and <strong>Inauspicious Periods</strong> like Rahu Kaal, during which significant new actions are traditionally avoided.
+              {t.eduPara2}
             </p>
           </div>
         </div>

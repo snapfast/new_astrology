@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState, useEffect, memo } from 'react';
+import { useMemo, memo } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface DailyPanchangProps {
   className?: string;
@@ -36,18 +37,7 @@ const TRANSLATIONS = {
 };
 
 const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('preferred_lang') as 'en' | 'hi';
-    if (saved) setLang(saved);
-  }, []);
-
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'hi' : 'en';
-    setLang(newLang);
-    localStorage.setItem('preferred_lang', newLang);
-  };
+  const { lang } = useLanguage();
 
   const t = TRANSLATIONS[lang];
 
@@ -70,18 +60,6 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
           <div className="flex flex-col lg:flex-row items-center gap-12 relative">
-            {/* Language Toggle Button */}
-            <div className="absolute top-0 right-0 z-20">
-              <button
-                onClick={toggleLang}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                title="Switch Language / भाषा बदलें"
-                aria-label="Switch Language / भाषा बदलें"
-              >
-                <span className="material-symbols-outlined text-[20px]">translate</span>
-              </button>
-            </div>
-
             <div className="lg:w-1/2">
               <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-8 leading-tight">{t.title}</h2>
               <div className="space-y-6 mb-10">
