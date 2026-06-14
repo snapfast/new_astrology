@@ -1,17 +1,40 @@
 'use client';
 
 import { useState, useMemo, useEffect, useRef, memo } from 'react';
-import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha } from '@/lib/astrology';
+import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PLANET_NAMES } from '@/lib/astrology';
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
+  lang?: 'en' | 'hi';
 }
 
-// Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
-const DATE_FORMATTER = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-const DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+const TRANSLATIONS = {
+  en: {
+    mahadasha: "Mahadasha",
+    antardasha: "Antardasha",
+    pratyantardasha: "Pratyantardasha",
+    sookshmaDasha: "Sookshma Dasha",
+    activeDasha: "Active Dasha",
+    selectMd: "Select a Mahadasha to drill down",
+    to: " to "
+  },
+  hi: {
+    mahadasha: "महादशा",
+    antardasha: "अंतर्दशा",
+    pratyantardasha: "प्रत्यंतर्दशा",
+    sookshmaDasha: "सूक्ष्म दशा",
+    activeDasha: "सक्रिय दशा",
+    selectMd: "विस्तृत विवरण के लिए महादशा चुनें",
+    to: " से "
+  }
+};
 
-const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: VimshottariDashaProps) {
+const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en' }: VimshottariDashaProps) {
+  const t = TRANSLATIONS[lang];
+
+  // Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
+  const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), [lang]);
+  const DATE_TIME_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }), [lang]);
   const now = useMemo(() => new Date(), []);
   const nowTime = useMemo(() => now.getTime(), [now]);
 
@@ -163,8 +186,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
 
                 <div className="flex justify-between items-center relative z-10">
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold">
-                      {item.lord}
+                    <span className={`text-base font-bold ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                      {lang === 'hi' ? PLANET_NAMES[item.lord]?.sanskrit || item.lord : item.lord}
                     </span>
                     {isCurrent && !isSelected && (
                       <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -174,9 +197,9 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
                     )}
                   </div>
                 </div>
-                <div className={`text-xs font-medium mt-0.5 ${isSelected ? 'text-on-surface' : 'text-on-surface'}`}>
+                <div className={`text-[11px] font-medium mt-0.5 tabular-nums ${isSelected ? 'text-on-surface' : 'text-on-surface'}`}>
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
-                  {' to '}
+                  {t.to}
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
                 </div>
               </div>
@@ -192,7 +215,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
       <div className="flex items-center justify-end">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
-           <span className="text-[9px] font-bold text-accent uppercase tracking-widest font-label">Active Dasha</span>
+           <span className={`text-[9px] font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
         </div>
       </div>
 
@@ -200,17 +223,17 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas }: Vimshott
         ref={containerRef}
         className="miller-container flex overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm scroll-smooth no-scrollbar"
       >
-        {renderColumn('Mahadasha', mahadashas, selectedMd, handleMdClick)}
-        {selectedMd && renderColumn('Antardasha', selectedMd.antardashas, selectedAd, handleAdClick)}
-        {selectedAd && renderColumn('Pratyantardasha', selectedAd.pratyantardashas, selectedPd, handlePdClick)}
-        {selectedPd && renderColumn('Sookshma Dasha', selectedPd.sookshmaDashas, selectedSd, handleSdClick, true)}
+        {renderColumn(t.mahadasha, mahadashas, selectedMd, handleMdClick)}
+        {selectedMd && renderColumn(t.antardasha, selectedMd.antardashas, selectedAd, handleAdClick)}
+        {selectedAd && renderColumn(t.pratyantardasha, selectedAd.pratyantardashas, selectedPd, handlePdClick)}
+        {selectedPd && renderColumn(t.sookshmaDasha, selectedPd.sookshmaDashas, selectedSd, handleSdClick, true)}
 
         {/* Placeholder for empty state when no MD is selected */}
         {!selectedMd && (
           <div className="flex-grow flex items-center justify-center p-12 text-center border-l border-outline bg-surface-container-lowest/30">
             <div className="max-w-xs">
               <span className="material-symbols-outlined text-4xl text-outline mb-4">account_tree</span>
-              <p className="text-xs text-on-surface font-medium uppercase tracking-widest">Select a Mahadasha to drill down</p>
+              <p className={`text-xs text-on-surface font-medium uppercase tracking-widest ${lang === 'hi' ? 'font-hindi' : ''}`}>{t.selectMd}</p>
             </div>
           </div>
         )}

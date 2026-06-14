@@ -2,14 +2,19 @@ import * as Ast from 'astronomy-engine';
 
 export interface PlanetData {
     name: string;
+    nameSanskrit: string;
     symbol: string;
     degree: string;
     rasi: string;
+    rasiSanskrit: string;
     nakshatra: string;
+    nakshatraSanskrit: string;
     pada: number;
     house: number;
     rasiLord: string;
+    rasiLordSanskrit: string;
     nakshatraLord: string;
+    nakshatraLordSanskrit: string;
     isRetrograde: boolean;
 }
 
@@ -130,6 +135,19 @@ const NAKSHATRA_NAMES = [
 ];
 
 const NAKSHATRAS = NAKSHATRA_NAMES.map(n => n.name);
+
+export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string } } = {
+    "Sun": { name: "Sun", sanskrit: "सूर्य" },
+    "Moon": { name: "Moon", sanskrit: "चंद्र" },
+    "Mars": { name: "Mars", sanskrit: "मंगल" },
+    "Mercury": { name: "Mercury", sanskrit: "बुध" },
+    "Jupiter": { name: "Jupiter", sanskrit: "गुरु" },
+    "Venus": { name: "Venus", sanskrit: "शुक्र" },
+    "Saturn": { name: "Saturn", sanskrit: "शनि" },
+    "Rahu": { name: "Rahu", sanskrit: "राहु" },
+    "Ketu": { name: "Ketu", sanskrit: "केतु" },
+    "Ascendant": { name: "Ascendant", sanskrit: "लग्न" }
+};
 
 const TITHI_NAMES = [
     { name: "Pratipada", sanskrit: "प्रतिपदा" },
@@ -1181,16 +1199,24 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
     const m = Math.floor((degInRasi - d) * 60);
     const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
 
+    const rasiLordName = RASI_LORDS[rasiIdx];
+    const nakLordName = NAKSHATRA_LORDS[nakshatraIdx % 9];
+
     return {
         name,
+        nameSanskrit: PLANET_NAMES[name]?.sanskrit || name,
         symbol,
         degree: `${d}° ${m}' ${s}"`,
         rasi: RASIS[rasiIdx],
+        rasiSanskrit: RASI_FULL_NAMES[rasiIdx].sanskrit,
         nakshatra: NAKSHATRAS[nakshatraIdx],
+        nakshatraSanskrit: NAKSHATRA_NAMES[nakshatraIdx].sanskrit,
         pada,
         house,
-        rasiLord: RASI_LORDS[rasiIdx],
-        nakshatraLord: NAKSHATRA_LORDS[nakshatraIdx % 9],
+        rasiLord: rasiLordName,
+        rasiLordSanskrit: PLANET_NAMES[rasiLordName]?.sanskrit || rasiLordName,
+        nakshatraLord: nakLordName,
+        nakshatraLordSanskrit: PLANET_NAMES[nakLordName]?.sanskrit || nakLordName,
         isRetrograde
     };
 }

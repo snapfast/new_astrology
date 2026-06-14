@@ -5,9 +5,19 @@ import { BiorhythmSeriesPoint, BIORHYTHM_CYCLES } from '@/lib/biorhythm';
 
 interface BiorhythmChartProps {
   series: BiorhythmSeriesPoint[];
+  lang?: 'en' | 'hi';
 }
 
-const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series }) => {
+const TRANSLATIONS = {
+  en: {
+    selectedDate: "SELECTED DATE"
+  },
+  hi: {
+    selectedDate: "चुनी हुई तारीख"
+  }
+};
+
+const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series, lang = 'en' }) => {
   const width = 1000;
   const height = 280;
   const padding = { top: 25, right: 40, bottom: 50, left: 40 };
@@ -79,10 +89,10 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series }) => {
               />
               <text
                 x={getX(targetIndex)} y={height - padding.bottom + 22}
-                className="fill-accent text-[10px] font-bold font-label text-center"
+                className={`fill-accent text-[10px] font-bold font-label text-center ${lang === 'hi' ? 'font-hindi' : ''}`}
                 textAnchor="middle"
               >
-                SELECTED DATE
+                {TRANSLATIONS[lang].selectedDate}
               </text>
             </g>
           )}
@@ -92,10 +102,10 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series }) => {
              <text
                 key={i}
                 x={getX(i)} y={height - 15}
-                className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary'}`}
+                className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary'} ${lang === 'hi' ? 'font-hindi' : ''}`}
                 textAnchor="middle"
               >
-                {p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                {p.date.toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric' })}
               </text>
           ))}
 
@@ -136,7 +146,9 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series }) => {
           {BIORHYTHM_CYCLES.map(cycle => (
             <div key={cycle.name} className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cycle.color }} />
-              <span className="text-[10px] font-bold font-label uppercase tracking-widest text-on-surface">{cycle.name}</span>
+              <span className={`text-[10px] font-bold font-label uppercase text-on-surface ${lang === 'en' ? 'tracking-widest' : 'font-hindi'}`}>
+                {lang === 'hi' ? (cycle.name === "Physical" ? "शारीरिक" : cycle.name === "Emotional" ? "भावनात्मक" : cycle.name === "Intellectual" ? "बौद्धिक" : cycle.name === "Spiritual" ? "आध्यात्मिक" : cycle.name === "Intuitional" ? "सहज ज्ञान युक्त" : cycle.name === "Aesthetic" ? "सौंदर्यबोध" : "जागरूकता") : cycle.name}
+              </span>
             </div>
           ))}
         </div>

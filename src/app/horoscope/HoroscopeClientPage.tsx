@@ -62,7 +62,9 @@ const TRANSLATIONS = {
     ctaBtn: "Book Verified Personal Consultation",
     linkCopied: "Link Copied!",
     switchLanguage: "Switch Language / भाषा बदलें",
-    shareReport: "Share Report"
+    shareReport: "Share Report",
+    northIndianStyle: "Traditional North Indian Style Representation of Divisional Charts",
+    loading: "Loading your destiny..."
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -111,7 +113,9 @@ const TRANSLATIONS = {
     ctaBtn: "सत्यापित व्यक्तिगत परामर्श बुक करें",
     linkCopied: "लिंक कॉपी किया गया!",
     switchLanguage: "भाषा बदलें / Switch Language",
-    shareReport: "रिपोर्ट साझा करें"
+    shareReport: "रिपोर्ट साझा करें",
+    northIndianStyle: "विभागीय चार्ट का पारंपरिक उत्तर भारतीय शैली प्रतिनिधित्व",
+    loading: "आपका भाग्य लोड हो रहा है..."
   }
 };
 
@@ -392,7 +396,7 @@ const HoroscopeContent = () => {
             <KundliChart data={chartData.d60} />
           </div>
         </div>
-        <p className="text-xs text-on-surface text-center pt-4">Traditional North Indian Style Representation of Divisional Charts</p>
+        <p className={`text-xs text-on-surface text-center pt-4 ${lang === 'hi' ? 'font-hindi' : ''}`}>{t.northIndianStyle}</p>
       </div>
 
 
@@ -439,16 +443,16 @@ const HoroscopeContent = () => {
             <tbody className="divide-y divide-outline">
               {chartData.planets.map((p, idx) => (
                 <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
-                  <td className="px-4 py-2.5 text-sm font-medium text-on-surface">
-                    {p.name}
+                  <td className={`px-4 py-2.5 text-sm font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                    {lang === 'hi' ? p.nameSanskrit : p.name}
                     {p.isRetrograde && <span className="ml-1">*</span>}
                   </td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center tabular-nums">{p.house}</td>
-                  <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasi}</td>
-                  <td className="px-4 py-2.5 text-sm text-on-surface">{p.rasiLord}</td>
+                  <td className={`px-4 py-2.5 text-sm text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
+                  <td className={`px-4 py-2.5 text-sm text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiLordSanskrit : p.rasiLord}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
-                  <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatra}</td>
-                  <td className="px-4 py-2.5 text-sm text-on-surface">{p.nakshatraLord}</td>
+                  <td className={`px-4 py-2.5 text-sm text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
+                  <td className={`px-4 py-2.5 text-sm text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraLordSanskrit : p.nakshatraLord}</td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center font-bold tabular-nums">{p.pada}</td>
                 </tr>
               ))}
@@ -463,7 +467,7 @@ const HoroscopeContent = () => {
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.vimshottariDasha}</h2>
 
         {/* Interactive Vimshottari Dasha System */}
-        <VimshottariDasha mahadashas={chartData.mahadashas} />
+        <VimshottariDasha mahadashas={chartData.mahadashas} lang={lang} />
       </div>
 
       {/* Verification CTA Section */}
@@ -496,10 +500,12 @@ const HoroscopeContent = () => {
 
 
 export default function HoroscopeClientPage() {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <Suspense fallback={<div className="pt-32 text-center">Loading your destiny...</div>}>
+      <Suspense fallback={<div className="pt-32 text-center">{t.loading}</div>}>
         <HoroscopeContent />
       </Suspense>
       <Footer />
