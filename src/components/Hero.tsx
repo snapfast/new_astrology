@@ -49,7 +49,7 @@ const Hero = () => {
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
-          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 font-label">
+          <span className={`font-medium text-accent mb-3 font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
             {t.subtitle}
           </span>
           <span className="text-lg md:text-2xl text-accent font-hindi">
@@ -57,15 +57,15 @@ const Hero = () => {
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight">
+        <h1 className={`font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight ${lang === 'hi' ? 'text-4xl md:text-6xl lg:text-7xl' : 'text-5xl md:text-7xl'}`}>
           {lang === 'hi' ? 'पंडित राहुल बाली जी' : <>Pandit <br /> Rahul Bali Ji</>}
         </h1>
 
         <div className="max-w-md mx-auto mb-12">
-          <p className="text-base text-on-surface font-body leading-relaxed mb-1">
+          <p className={`text-on-surface font-body leading-relaxed mb-1 ${lang === 'hi' ? 'text-lg' : 'text-base'}`}>
             {t.desc1}
           </p>
-          <p className="text-sm text-on-surface font-body">
+          <p className={`text-on-surface font-body ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
             {t.desc2}
           </p>
         </div>
@@ -76,7 +76,11 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
               setIsBookingModalOpen(true);
             }}
-            className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label active:translate-y-0 text-center ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+            className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:translate-y-0 text-center transition-all ${
+              lang === 'hi'
+                ? 'text-[13px] md:text-[15px] tracking-normal'
+                : 'text-[10px] md:text-xs tracking-[0.1em]'
+            }`}
           >
             {t.bookBtn}
           </button>
@@ -85,7 +89,11 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
               setIsModalOpen(true);
             }}
-            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium text-[10px] md:text-xs uppercase font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all ${
+              lang === 'hi'
+                ? 'text-[13px] md:text-[15px] tracking-normal'
+                : 'text-[10px] md:text-xs tracking-[0.1em]'
+            }`}
           >
             {t.learnBtn}
           </button>
