@@ -52,7 +52,7 @@ export default function ServicesContent() {
       {/* Simple Footer Mantra */}
       <section className="pb-16 bg-white">
         <div className="max-w-4xl mx-auto px-8 text-center border-t border-outline/20 pt-12">
-          <p className="text-lg md:text-2xl text-accent font-body">
+          <p className="text-lg md:text-2xl text-accent font-hindi">
             ।। ॐ नमो भगवते वासुदेवाय नम: ।।
           </p>
         </div>

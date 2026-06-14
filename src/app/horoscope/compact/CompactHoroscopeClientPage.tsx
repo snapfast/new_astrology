@@ -233,7 +233,7 @@ const CompactHoroscopeContent = () => {
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-[9px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
-                  <span className="text-xs font-bold leading-tight">{item.val}</span>
+                  <span className={`text-xs font-bold leading-tight ${lang === 'hi' || (i <= 9 && item.val.match(/[अ-ह]/)) ? 'font-hindi' : ''}`}>{item.val}</span>
                 </div>
               ))}
             </div>

@@ -115,7 +115,7 @@ export default function AboutClient() {
               {t.para3}
             </p>
 
-            <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20">
+            <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।
             </p>
           </div>

@@ -203,7 +203,7 @@ const Navbar = () => {
             <p className="text-[11px] text-on-surface font-body tracking-wider uppercase">
               {t.location}
             </p>
-            <p className="text-lg text-accent font-body">
+            <p className="text-lg text-accent font-hindi">
               ।। ॐ नमो भगवते वासुदेवाय नम: ।।
             </p>
           </div>
