@@ -53,7 +53,11 @@ const TRANSLATIONS = {
     backToStandard: "Standard View",
     desktopOnly: "Desktop Recommended",
     mobileMsg: "This compact dashboard is designed for desktop screens to provide a professional high-density view. Please visit this page from a PC or laptop for the best experience.",
-    goBack: "Go to Standard View"
+    goBackBtn: "Go to Standard View",
+    linkCopied: "Link Copied!",
+    bookBtn: "Book Consultation",
+    activeDasha: "Active",
+    loading: "Loading Dashboard..."
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -97,7 +101,11 @@ const TRANSLATIONS = {
     backToStandard: "सामान्य दृश्य",
     desktopOnly: "केवल डेस्कटॉप",
     mobileMsg: "यह कॉम्पैक्ट डैशबोर्ड डेस्कटॉप स्क्रीन के लिए डिज़ाइन किया गया है। सर्वोत्तम अनुभव के लिए कृपया इसे पीसी या लैपटॉप पर देखें।",
-    goBack: "सामान्य दृश्य पर जाएं"
+    goBackBtn: "सामान्य दृश्य पर जाएं",
+    linkCopied: "लिंक कॉपी किया गया!",
+    bookBtn: "परामर्श बुक करें",
+    activeDasha: "सक्रिय",
+    loading: "डैशबोर्ड लोड हो रहा है..."
   }
 };
 
@@ -105,6 +113,7 @@ const CompactHoroscopeContent = () => {
   const router = useRouter();
   const { lang } = useLanguage();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
 
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
@@ -137,8 +146,13 @@ const CompactHoroscopeContent = () => {
         console.error('Error sharing:', err);
       }
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+      } catch (err) {
+        console.error('Error copying to clipboard:', err);
+      }
     }
   };
 
@@ -158,7 +172,7 @@ const CompactHoroscopeContent = () => {
           onClick={goToStandard}
           className="bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase tracking-wider"
         >
-          {t.goBack}
+          {t.goBackBtn}
         </button>
       </div>
 
@@ -193,7 +207,15 @@ const CompactHoroscopeContent = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative">
+          {showCopied && (
+            <div
+              aria-live="polite"
+              className={`absolute -bottom-10 right-0 bg-on-surface text-surface text-[9px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-top-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
+            >
+              {t.linkCopied}
+            </div>
+          )}
           <button
             onClick={handleShare}
             className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors border border-outline/50"
@@ -203,9 +225,9 @@ const CompactHoroscopeContent = () => {
           </button>
           <button
             onClick={() => setIsBookingModalOpen(true)}
-            className="ml-2 bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest font-label"
+            className={`ml-2 bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
           >
-            Book Consultation
+            {t.bookBtn}
           </button>
         </div>
       </header>
@@ -289,13 +311,13 @@ const CompactHoroscopeContent = () => {
                 <tbody className="divide-y divide-outline/10">
                   {chartData.planets.map((p, idx) => (
                     <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
-                      <td className="px-2 py-1.5 text-[11px] font-medium text-on-surface">
-                        {p.name}{p.isRetrograde && '*'}
+                      <td className={`px-2 py-1.5 text-[11px] font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                        {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && '*'}
                       </td>
                       <td className="px-1 py-1.5 text-[11px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
-                      <td className="px-2 py-1.5 text-[11px] text-on-surface">{p.rasi}</td>
+                      <td className={`px-2 py-1.5 text-[11px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
                       <td className="px-2 py-1.5 text-[10px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
-                      <td className="px-2 py-1.5 text-[10px] text-on-surface truncate max-w-[80px]">{p.nakshatra}</td>
+                      <td className={`px-2 py-1.5 text-[10px] text-on-surface truncate max-w-[80px] ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -309,11 +331,11 @@ const CompactHoroscopeContent = () => {
               <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.vimshottariDasha}</h2>
               <div className="flex items-center gap-1">
                  <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                 <span className="text-[8px] font-bold text-accent uppercase tracking-tighter font-label">Active</span>
+                 <span className={`text-[8px] font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-tighter' : ''}`}>{t.activeDasha}</span>
               </div>
             </div>
             <div className="flex-grow overflow-hidden condensed-dasha">
-               <VimshottariDasha mahadashas={chartData.mahadashas} />
+               <VimshottariDasha mahadashas={chartData.mahadashas} lang={lang} />
             </div>
           </section>
         </div>
@@ -379,9 +401,11 @@ const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartD
 );
 
 export default function CompactHoroscopeClientPage() {
+  const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   return (
     <div className="font-body">
-      <Suspense fallback={<div className="h-screen flex items-center justify-center bg-surface">Loading Dashboard...</div>}>
+      <Suspense fallback={<div className="h-screen flex items-center justify-center bg-surface">{t.loading}</div>}>
         <CompactHoroscopeContent />
       </Suspense>
     </div>
