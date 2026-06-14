@@ -14,8 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/free-horoscope',
     '/panchang',
     '/biorhythm',
-    '/consultation',
-    '/premium',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
