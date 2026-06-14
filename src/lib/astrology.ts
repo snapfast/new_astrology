@@ -805,6 +805,24 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         const stepDays = 120 / (24 * 60); // 2 hours in days
         const maxDays = 30 / 24; // 30 hours in days
 
+        const sunCache = new Map<number, number>();
+        const getSun = (t: Ast.AstroTime) => {
+            const cached = sunCache.get(t.ut);
+            if (cached !== undefined) return cached;
+            const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+            sunCache.set(t.ut, s);
+            return s;
+        };
+
+        const moonCache = new Map<number, number>();
+        const getMoon = (t: Ast.AstroTime) => {
+            const cached = moonCache.get(t.ut);
+            if (cached !== undefined) return cached;
+            const m = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+            moonCache.set(t.ut, m);
+            return m;
+        };
+
         const refine = (low: number, high: number, threshold: number, fn: (t: Ast.AstroTime) => number) => {
             let L = low, H = high;
             for (let i = 0; i < 10; i++) {
@@ -827,8 +845,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
             const nextT = Ast.MakeTime(nextUT);
             const ay = getLahiriAyanamsa(nextT);
 
-            const sl = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, nextT, true)).elon;
-            const ml = Ast.Ecliptic(Ast.GeoMoon(nextT)).elon;
+            const sl = getSun(nextT);
+            const ml = getMoon(nextT);
 
             const nextDiff = (ml - sl + 360) % 360;
             const nextSiderealMoon = (ml - ay + 360) % 360;
@@ -837,28 +855,28 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
 
             if (!tithiEnd && ((prevDiff < tithiThreshold && nextDiff >= tithiThreshold) || (prevDiff > nextDiff && (prevDiff < tithiThreshold || nextDiff >= tithiThreshold)))) {
                 tithiEnd = refine(prevUT, nextUT, tithiThreshold, (t) => {
-                    const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
-                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    const s = getSun(t);
+                    const mo = getMoon(t);
                     return (mo - s + 360) % 360;
                 });
             }
             if (!karanaEnd && ((prevDiff < karanaThreshold && nextDiff >= karanaThreshold) || (prevDiff > nextDiff && (prevDiff < karanaThreshold || nextDiff >= karanaThreshold)))) {
                 karanaEnd = refine(prevUT, nextUT, karanaThreshold, (t) => {
-                    const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
-                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    const s = getSun(t);
+                    const mo = getMoon(t);
                     return (mo - s + 360) % 360;
                 });
             }
             if (!nakEnd && ((prevSiderealMoon < nakThreshold && nextSiderealMoon >= nakThreshold) || (prevSiderealMoon > nextSiderealMoon && (prevSiderealMoon < nakThreshold || nextSiderealMoon >= nakThreshold)))) {
                 nakEnd = refine(prevUT, nextUT, nakThreshold, (t) => {
-                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    const mo = getMoon(t);
                     return (mo - getLahiriAyanamsa(t) + 360) % 360;
                 });
             }
             if (!yogaEnd && ((prevSiderealYoga < yogaThreshold && nextYogaLong >= yogaThreshold) || (prevSiderealYoga > nextYogaLong && (prevSiderealYoga < yogaThreshold || nextYogaLong >= yogaThreshold)))) {
                 yogaEnd = refine(prevUT, nextUT, yogaThreshold, (t) => {
-                    const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
-                    const mo = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+                    const s = getSun(t);
+                    const mo = getMoon(t);
                     const a = getLahiriAyanamsa(t);
                     return (s - a + mo - a + 720) % 360;
                 });
