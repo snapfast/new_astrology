@@ -2,6 +2,7 @@
 
 import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
@@ -166,11 +167,14 @@ const CompactHoroscopeContent = () => {
       {/* Mobile Blocker Overlay */}
       <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-8 text-center">
         <span className="material-symbols-outlined text-6xl text-accent mb-4">desktop_windows</span>
-        <h2 className="text-2xl font-headline mb-4">{t.desktopOnly}</h2>
+        <h2 className={`text-2xl mb-4 ${lang === 'hi' ? 'font-hindi font-bold' : 'font-headline'}`}>{t.desktopOnly}</h2>
         <p className="text-on-surface font-body mb-8 text-sm">{t.mobileMsg}</p>
         <button
           onClick={goToStandard}
-          className="bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase tracking-wider"
+          className={cn(
+            "bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase",
+            lang === 'hi' ? "tracking-normal text-base" : "tracking-wider"
+          )}
         >
           {t.goBackBtn}
         </button>
@@ -181,7 +185,10 @@ const CompactHoroscopeContent = () => {
         <div className="flex items-center gap-6">
           <button
             onClick={goToStandard}
-            className="flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase tracking-wider font-label hover:text-accent"
+            className={cn(
+              "flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase font-label hover:text-accent",
+              lang === 'hi' ? "tracking-normal text-[11px]" : "tracking-wider"
+            )}
           >
             <span className="material-symbols-outlined text-[14px]">arrow_back</span>
             {t.backToStandard}

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Consultation } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ServiceDetailModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
   onClose,
   service
 }) => {
+  const { lang } = useLanguage();
   if (!service) return null;
 
   return (
@@ -53,8 +55,12 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
         <div className="flex-1 p-8 md:p-14 overflow-y-auto custom-scrollbar bg-white">
           <div className="flex justify-between items-start mb-8">
             <div>
-              <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-accent mb-3 block font-label">Service Detail</span>
-              <h2 className="text-4xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">
+              <span className={`font-medium text-accent mb-3 block font-label ${
+                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'
+              }`}>{lang === 'hi' ? 'सेवा विवरण' : 'Service Detail'}</span>
+              <h2 className={`font-normal text-on-surface font-headline tracking-tight ${
+                lang === 'hi' ? 'text-3xl md:text-5xl' : 'text-4xl md:text-5xl'
+              }`}>
                 {service.title}
               </h2>
             </div>
@@ -67,7 +73,9 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </button>
           </div>
 
-          <p className="text-on-surface text-lg leading-relaxed font-body mb-12 max-w-2xl">
+          <p className={`text-on-surface leading-relaxed font-body mb-12 max-w-2xl ${
+            lang === 'hi' ? 'text-xl' : 'text-lg'
+          }`}>
             {service.description}
           </p>
 
@@ -94,21 +102,27 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_whatsapp' })}
-              className="w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-[#25D366]/10 hover:bg-[#25D366]/90 transition-colors"
+              className={`w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-medium uppercase text-center shadow-lg shadow-[#25D366]/10 hover:bg-[#25D366]/90 transition-all ${
+                lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] tracking-[0.1em]'
+              }`}
             >
-              Chat on WhatsApp
+              {lang === 'hi' ? 'व्हाट्सएप पर चैट करें' : 'Chat on WhatsApp'}
             </a>
             <a
               href="https://calendly.com/rahulbaliastrology/kundli/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
-              className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] tracking-[0.1em] uppercase text-center shadow-lg shadow-primary/10 hover:bg-primary/90 transition-colors"
+              className={`w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-medium uppercase text-center shadow-lg shadow-primary/10 hover:bg-primary/90 transition-all ${
+                lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] tracking-[0.1em]'
+              }`}
             >
-              Schedule Google Meet
+              {lang === 'hi' ? 'गूगल मीट शेड्यूल करें' : 'Schedule Google Meet'}
             </a>
-            <p className="hidden lg:block text-[9px] text-on-surface font-body flex-1 text-right">
-              Guided by the stars, <br /> Grounded in Truth
+            <p className={`hidden lg:block text-on-surface font-body flex-1 text-right transition-all ${
+              lang === 'hi' ? 'text-xs tracking-normal' : 'text-[9px] tracking-normal'
+            }`}>
+              {lang === 'hi' ? <>सितारों द्वारा निर्देशित, <br /> सत्य में निहित</> : <>Guided by the stars, <br /> Grounded in Truth</>}
             </p>
           </div>
         </div>

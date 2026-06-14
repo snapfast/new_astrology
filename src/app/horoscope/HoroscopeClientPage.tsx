@@ -10,6 +10,7 @@ import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
 import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
+import { cn } from '@/lib/utils';
 import { sendGAEvent } from '@next/third-parties/google';
 import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from '@/lib/security';
 
@@ -228,7 +229,10 @@ const HoroscopeContent = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
-              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] font-label block mb-2">{t.sunSignInsight}</span>
+              <span className={cn(
+                "text-[10px] font-bold text-accent uppercase font-label block mb-2",
+                lang === 'hi' ? "tracking-normal" : "tracking-[0.2em]"
+              )}>{t.sunSignInsight}</span>
               <h3 className={`text-xl text-on-surface mb-3 ${lang === 'hi' ? 'font-hindi' : 'font-headline'}`}>{lang === 'en' ? sunSign : chartData.panchang.sunSignSanskrit}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{getSignInsight(sunSign, lang)}</p>
             </div>
@@ -236,7 +240,10 @@ const HoroscopeContent = () => {
           </div>
           <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
-              <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-label block mb-2">{t.moonSignInsight}</span>
+              <span className={cn(
+                "text-[10px] font-bold text-primary uppercase font-label block mb-2",
+                lang === 'hi' ? "tracking-normal" : "tracking-[0.2em]"
+              )}>{t.moonSignInsight}</span>
               <h3 className={`text-xl text-on-surface mb-3 ${lang === 'hi' ? 'font-hindi' : 'font-headline'}`}>{lang === 'en' ? moonSign : chartData.panchang.moonSignSanskrit}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{getSignInsight(moonSign, lang)}</p>
             </div>
@@ -248,7 +255,10 @@ const HoroscopeContent = () => {
           {/* Section: Birth Information */}
           <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm">
             <div className="flex justify-between items-center mb-4">
-              <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.birthInfo}</h2>
+              <h2 className={cn(
+                "font-bold text-accent uppercase font-label",
+                lang === 'hi' ? "text-[12px] tracking-normal" : "text-[10px] tracking-[0.2em]"
+              )}>{t.birthInfo}</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               <div className="space-y-1">
@@ -273,7 +283,10 @@ const HoroscopeContent = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
             {/* Section: Vedic Panchang */}
             <div className="lg:col-span-2 bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
-              <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label mb-3 ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.panchang}</h2>
+              <h2 className={cn(
+                "font-bold text-accent uppercase font-label mb-3",
+                lang === 'hi' ? "text-[12px] tracking-normal" : "text-[10px] tracking-[0.2em]"
+              )}>{t.panchang}</h2>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 gap-x-3">
                 <div className="space-y-1">
                   <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.tithi}</p>
@@ -320,7 +333,10 @@ const HoroscopeContent = () => {
 
             {/* Section: Time Divisions */}
             <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
-              <h2 className={`font-bold text-accent uppercase tracking-[0.2em] font-label mb-3 ${lang === 'hi' ? 'text-[12px]' : 'text-[10px]'}`}>{t.timings}</h2>
+              <h2 className={cn(
+                "font-bold text-accent uppercase font-label mb-3",
+                lang === 'hi' ? "text-[12px] tracking-normal" : "text-[10px] tracking-[0.2em]"
+              )}>{t.timings}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-3">
                 <div className="space-y-1">
                   <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.abhijit}</p>
@@ -390,14 +406,38 @@ const HoroscopeContent = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container-low border-b border-outline">
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planet}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label text-center ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.house}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.rasi}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.rasiLord}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.degree}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.nakshatra}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.nakLord}</th>
-                <th className={`px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label text-center ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.pada}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.planet}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label text-center",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.house}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.rasi}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.rasiLord}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.degree}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.nakshatra}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.nakLord}</th>
+                <th className={cn(
+                  "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label text-center",
+                  lang === 'hi' ? "tracking-normal" : "tracking-widest"
+                )}>{t.pada}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline">
@@ -439,7 +479,10 @@ const HoroscopeContent = () => {
           </p>
           <button
             onClick={handleBookNow}
-            className="inline-block bg-primary text-white px-12 py-5 rounded-full font-medium text-xs md:text-sm tracking-[0.1em] uppercase font-label"
+            className={cn(
+              "inline-block bg-primary text-white px-12 py-5 rounded-full font-medium text-xs md:text-sm uppercase font-label",
+              lang === 'hi' ? "tracking-normal text-base" : "tracking-[0.1em]"
+            )}
           >
             {t.ctaBtn}
           </button>

@@ -69,14 +69,16 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 </svg>
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline mb-1">{t.whatsappTitle}</h3>
-                <p className="text-[10px] md:text-sm text-on-surface font-body mb-3">{t.whatsappDesc}</p>
+                <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-xl md:text-3xl' : 'text-lg md:text-2xl'}`}>{t.whatsappTitle}</h3>
+                <p className={`text-on-surface font-body mb-3 ${lang === 'hi' ? 'text-xs md:text-base' : 'text-[10px] md:text-sm'}`}>{t.whatsappDesc}</p>
                 <a
                   href="https://wa.me/919306057150"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_whatsapp_redirect' })}
-                  className="inline-flex items-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase"
+                  className={`inline-flex items-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-full font-medium uppercase transition-all ${
+                    lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
+                  }`}
                 >
                   {t.whatsappBtn}
                 </a>
@@ -98,17 +100,21 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               </div>
               <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-1">
-                  <h3 className="text-lg md:text-2xl font-normal text-on-surface font-headline">{t.meetTitle}</h3>
-                  <span className="inline-block px-2 py-0.5 bg-accent/10 text-accent text-[8px] md:text-[9px] font-bold tracking-widest uppercase rounded-full self-center">{t.meetBadge}</span>
+                  <h3 className={`font-normal text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-3xl' : 'text-lg md:text-2xl'}`}>{t.meetTitle}</h3>
+                  <span className={`inline-block px-2 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full self-center transition-all ${
+                    lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[8px] md:text-[9px] tracking-widest'
+                  }`}>{t.meetBadge}</span>
                 </div>
-                <p className="text-[10px] md:text-sm text-on-surface font-body mb-4">{t.meetDesc}</p>
+                <p className={`text-on-surface font-body mb-4 ${lang === 'hi' ? 'text-xs md:text-base' : 'text-[10px] md:text-sm'}`}>{t.meetDesc}</p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <a
                     href="https://calendly.com/rahulbaliastrology/kundli/"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                    className="inline-flex items-center justify-center gap-2 px-10 py-3 bg-primary text-white rounded-full text-[10px] md:text-xs font-medium tracking-wider uppercase shadow-lg shadow-primary/10"
+                    className={`inline-flex items-center justify-center gap-2 px-10 py-3 bg-primary text-white rounded-full font-medium uppercase shadow-lg shadow-primary/10 transition-all ${
+                      lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
+                    }`}
                   >
                     {t.meetBtn}
                   </a>
@@ -118,7 +124,9 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           <div className="mt-4 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className={`text-[6px] md:text-[10px] text-on-surface font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}>
+            <p className={`text-on-surface font-label uppercase transition-all ${
+              lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[6px] md:text-[10px] tracking-widest'
+            }`}>
               {t.motto}
             </p>
           </div>
