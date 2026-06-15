@@ -1,6 +1,7 @@
 'use client';
 
 import { FC } from 'react';
+import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,6 +16,7 @@ const TRANSLATIONS = {
     meetBadge: "No phone number required",
     meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
     meetBtn: "Schedule Now",
+    supportWork: "Support Our Work",
     motto: "Guided by the stars, Grounded in Truth"
   },
   hi: {
@@ -26,6 +28,7 @@ const TRANSLATIONS = {
     meetBadge: "फोन नंबर की आवश्यकता नहीं",
     meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
     meetBtn: "अभी शेड्यूल करें",
+    supportWork: "हमारे काम का समर्थन करें",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
   }
 };
@@ -120,6 +123,21 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   </a>
                 </div>
               </div>
+            </div>
+
+            <div className="flex justify-center">
+              <Link
+                href="/about#support"
+                onClick={() => {
+                  sendGAEvent({ event: 'action_click', action_name: 'book_modal_support' });
+                  onClose();
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-surface-bright border border-outline/10 rounded-full hover:bg-on-surface/5 transition-all group"
+              >
+                <span className="material-symbols-outlined text-accent text-lg group-hover:scale-110 transition-transform">volunteer_activism</span>
+                <span className={`text-on-surface font-headline ${lang === 'hi' ? 'text-sm' : 'text-xs uppercase tracking-wider'}`}>{t.supportWork}</span>
+                <span className="material-symbols-outlined text-on-surface/30 text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+              </Link>
             </div>
           </div>
 
