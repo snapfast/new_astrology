@@ -34,6 +34,12 @@ describe('Security Utilities', () => {
 
     // Trimming
     assert.strictEqual(sanitize('  clean me  ', 20), 'clean me');
+
+    // Obfuscation characters (tabs, newlines, carriage returns)
+    assert.strictEqual(sanitize('java\tscript:alert(1)', 30), 'alert(1)');
+    assert.strictEqual(sanitize('java\nscript:alert(1)', 30), 'alert(1)');
+    assert.strictEqual(sanitize('java\rscript:alert(1)', 30), 'alert(1)');
+    assert.strictEqual(sanitize('j\ta\nv\rascript:alert(1)', 30), 'alert(1)');
   });
 
   it('sanitizeCoord validates numeric format and range strictly', () => {

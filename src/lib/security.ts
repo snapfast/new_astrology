@@ -6,6 +6,7 @@
 export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
   let sanitized = val
+    .replace(/[\t\n\r]/g, '') // Remove tabs, newlines, and carriage returns
     .slice(0, maxLength)
     .replace(/\0/g, '') // Remove null bytes
     .replace(/[<>]/g, '');

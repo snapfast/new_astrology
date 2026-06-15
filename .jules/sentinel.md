@@ -22,3 +22,8 @@
 **Vulnerability:** Protocol-based XSS filters can often be bypassed by nesting keywords (e.g., `javasjavascriptcript:`) which become valid after a single-pass replacement. Additionally, coordinate sanitization without range checks could allow extreme values that might crash or degrade performance of astronomical calculation engines.
 **Learning:** Protocol removal must be recursive (using a loop) to ensure no bypasses remain. Validating coordinates should include geographic range checks (+/- 90/180) to prevent out-of-bounds data from entering the system.
 **Prevention:** Implement a `do-while` loop for protocol stripping and enforce strict numeric bounds for specialized inputs like coordinates.
+
+## 2026-06-15 - [XSS Protocol Obfuscation Bypass]
+**Vulnerability:** Attackers can bypass protocol filters (like "javascript:") by injecting browser-ignored whitespace characters (tabs, newlines, carriage returns) inside the protocol string (e.g., "java\tscript:").
+**Learning:** Standard string replacement for "javascript:" is insufficient if it doesn't account for how browsers normalize and execute URIs. Recursive stripping combined with character normalization is required.
+**Prevention:** Always strip whitespace characters (\t, \n, \r) before performing security-critical keyword or protocol filtering.
