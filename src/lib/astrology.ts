@@ -824,6 +824,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         const maxDays = 30 / 24; // 30 hours in days
 
         const sunCache = new Map<number, number>();
+        if (sunLong !== undefined) sunCache.set(time.ut, sunLong);
         const getSun = (t: Ast.AstroTime) => {
             const cached = sunCache.get(t.ut);
             if (cached !== undefined) return cached;
@@ -833,6 +834,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         };
 
         const moonCache = new Map<number, number>();
+        if (moonLong !== undefined) moonCache.set(time.ut, moonLong);
         const getMoon = (t: Ast.AstroTime) => {
             const cached = moonCache.get(t.ut);
             if (cached !== undefined) return cached;
