@@ -17,6 +17,7 @@ const TRANSLATIONS = {
       { name: 'Client Testimonials', href: '/reviews', icon: 'star_rate', type: 'internal' },
       { name: 'Spiritual Insights', href: 'https://www.threads.net/@rahulbaliastro', icon: 'alternate_email', type: 'external' },
       { name: 'About Pandit Ji', href: '/about', icon: 'person', type: 'internal' },
+      { name: 'Support Our Work', href: '/about#support', icon: 'volunteer_activism', type: 'internal' },
     ],
     motto: 'Guided by the stars, Grounded in Truth'
   },
@@ -30,6 +31,7 @@ const TRANSLATIONS = {
       { name: 'ग्राहक समीक्षाएं', href: '/reviews', icon: 'star_rate', type: 'internal' },
       { name: 'आध्यात्मिक अंतर्दृष्टि', href: 'https://www.threads.net/@rahulbaliastro', icon: 'alternate_email', type: 'external' },
       { name: 'पंडित जी के बारे में', href: '/about', icon: 'person', type: 'internal' },
+      { name: 'हमारे काम का समर्थन करें', href: '/about#support', icon: 'volunteer_activism', type: 'internal' },
     ],
     motto: 'सितारों द्वारा निर्देशित, सत्य में निहित'
   }
