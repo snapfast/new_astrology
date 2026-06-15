@@ -21,6 +21,11 @@ export const BIORHYTHM_CYCLES = [
   { name: 'Awareness', period: 48, color: '#06B6D4', description: 'Conscious perception and alertness.' },
 ];
 
+// Pre-calculate factors to avoid repeated division and PI access
+const TWO_PI = 2 * Math.PI;
+const CYCLE_FACTORS = BIORHYTHM_CYCLES.map(c => TWO_PI / c.period);
+const DAY_MS = 86400000; // 1000 * 60 * 60 * 24
+
 export interface BiorhythmData {
   cycles: BiorhythmCycle[];
   targetDate: Date;
@@ -35,17 +40,15 @@ export interface BiorhythmSeriesPoint {
 
 export function calculateBiorhythms(birthDate: Date, targetDate: Date): BiorhythmData {
   // Normalize both dates to midnight UTC to ensure accurate day counting
-  // Use getUTC* methods for the normalization to avoid local timezone shifts
-  const start = new Date(Date.UTC(birthDate.getUTCFullYear(), birthDate.getUTCMonth(), birthDate.getUTCDate()));
-  const end = new Date(Date.UTC(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate()));
+  // Use Date.UTC for normalization as it returns a timestamp directly
+  const startTs = Date.UTC(birthDate.getUTCFullYear(), birthDate.getUTCMonth(), birthDate.getUTCDate());
+  const endTs = Date.UTC(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate());
 
-  const diffTime = end.getTime() - start.getTime();
-  const daysSinceBirth = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const daysSinceBirth = Math.floor((endTs - startTs) / DAY_MS);
 
-  const cycles = BIORHYTHM_CYCLES.map(cycle => {
-    const value = Math.sin((2 * Math.PI * daysSinceBirth) / cycle.period);
-    // Performance optimization: Avoid expensive string conversion (parseFloat/toFixed)
-    // using direct mathematical rounding for 4 decimal places.
+  // Performance optimization: Avoid expensive string conversion and redundant Math.PI access
+  const cycles = BIORHYTHM_CYCLES.map((cycle, index) => {
+    const value = Math.sin(daysSinceBirth * CYCLE_FACTORS[index]);
     return {
       ...cycle,
       value: Math.round(value * 10000) / 10000
@@ -54,32 +57,35 @@ export function calculateBiorhythms(birthDate: Date, targetDate: Date): Biorhyth
 
   return {
     cycles,
-    targetDate: end,
+    targetDate: new Date(endTs),
     daysSinceBirth
   };
 }
 
 export function calculateBiorhythmSeries(birthDate: Date, targetDate: Date, rangeDays: number = 15): BiorhythmSeriesPoint[] {
-  const series: BiorhythmSeriesPoint[] = [];
+  // Hoist normalization and pre-allocate series array
+  const startTs = Date.UTC(birthDate.getUTCFullYear(), birthDate.getUTCMonth(), birthDate.getUTCDate());
+  const baseTargetTs = Date.UTC(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate());
 
-  // Normalize target date to midnight UTC
-  const baseTarget = new Date(Date.UTC(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate()));
+  const totalPoints = 2 * rangeDays + 1;
+  const series = new Array<BiorhythmSeriesPoint>(totalPoints);
 
   for (let i = -rangeDays; i <= rangeDays; i++) {
-    const currentTarget = new Date(baseTarget);
-    currentTarget.setUTCDate(baseTarget.getUTCDate() + i);
+    const currentTs = baseTargetTs + (i * DAY_MS);
+    const daysSinceBirth = Math.floor((currentTs - startTs) / DAY_MS);
 
-    const data = calculateBiorhythms(birthDate, currentTarget);
+    // Optimized inner loop: direct calculation and minimal object creation
     const values: { [key: string]: number } = {};
-    data.cycles.forEach(c => {
-      values[c.name] = c.value;
-    });
+    for (let j = 0; j < BIORHYTHM_CYCLES.length; j++) {
+      const value = Math.sin(daysSinceBirth * CYCLE_FACTORS[j]);
+      values[BIORHYTHM_CYCLES[j].name] = Math.round(value * 10000) / 10000;
+    }
 
-    series.push({
-      date: currentTarget,
+    series[i + rangeDays] = {
+      date: new Date(currentTs),
       values,
       isTarget: i === 0
-    });
+    };
   }
 
   return series;
