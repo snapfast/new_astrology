@@ -144,18 +144,18 @@ export default function AboutClient() {
 
       {/* Support Our Work - Full Width Main Area */}
       <div id="support" className="pt-16 border-t border-outline/10 space-y-12">
-        <div className="space-y-4 text-center md:text-left">
+        <div className="space-y-4 text-center">
           <h3 className={`text-lg md:text-2xl font-medium uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}>{t.supportTitle}</h3>
-          <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto md:mx-0">
+          <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto">
             {t.supportDesc}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* Column 1: UPI Support */}
-          <div className="flex flex-col gap-12 items-center md:items-start">
+          <div className="flex flex-col gap-12 items-center">
             {/* 1. UPI QR Code */}
-            <div className="shrink-0 w-full max-w-[200px]">
+            <div className="shrink-0 w-full max-w-[200px] md:max-w-[300px]">
               <div className="relative aspect-[495/640] overflow-hidden">
                 <Image
                   src="/donate-qr.png"
@@ -163,7 +163,7 @@ export default function AboutClient() {
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 200px, 200px"
+                  sizes="(max-width: 768px) 200px, 300px"
                 />
               </div>
             </div>
@@ -192,14 +192,14 @@ export default function AboutClient() {
           </div>
 
           {/* Column 2: PayPal Support */}
-          <div className="flex flex-col gap-12 items-center md:items-start">
+          <div className="flex flex-col gap-12 items-center">
             {/* 3. PayPal Logo (Big) */}
-            <div className="w-full max-w-[200px] flex justify-center md:justify-start">
+            <div className="w-full max-w-[200px] md:max-w-[300px] flex justify-center">
               <Image
                 src="/paypal-logo.svg"
                 alt="PayPal Logo"
-                width={200}
-                height={60}
+                width={300}
+                height={90}
                 className="object-contain w-full h-auto"
               />
             </div>
