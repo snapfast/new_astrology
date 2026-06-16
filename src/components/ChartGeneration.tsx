@@ -213,22 +213,16 @@ const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
           lat: string;
           lon: string;
         }
-        const uniqueCitiesMap = new Map<string, Suggestion>();
-        for (let i = 0; i < data.length; i++) {
-          const item: NominatimItem = data[i];
-          const address = item.address;
+        const uniqueCitiesMap = data.reduce((map: Map<string, Suggestion>, item: NominatimItem) => {
+          const { address, lat, lon, display_name } = item;
           const city = address.city || address.town || address.village || address.suburb || address.hamlet;
-          const state = address.state;
-          const country = address.country;
-          const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : item.display_name;
+          const { state, country } = address;
+          const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : display_name;
 
-          uniqueCitiesMap.set(name, {
-            name,
-            lat: item.lat,
-            lon: item.lon
-          });
-        }
-        const uniqueCities = Array.from(uniqueCitiesMap.values());
+          map.set(name, { name, lat, lon });
+          return map;
+        }, new Map<string, Suggestion>());
+        const uniqueCities: Suggestion[] = Array.from(uniqueCitiesMap.values());
 
         // Cache the result to prevent redundant network calls for the same query
         if (SUGGESTIONS_CACHE.size >= MAX_CACHE_SIZE) {
