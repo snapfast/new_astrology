@@ -14,8 +14,8 @@ const TRANSLATIONS = {
     whatsappBtn: "Chat on WhatsApp",
     meetTitle: "Private Google Meet Consultation",
     meetBadge: "No phone number required",
-    meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
-    meetBtn: "Schedule Now",
+    meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies. Schedule your consultation in the slots available.",
+    meetBtn: "Schedule Consultation",
     supportWork: "Support Our Work",
     motto: "Guided by the stars, Grounded in Truth"
   },
@@ -26,8 +26,8 @@ const TRANSLATIONS = {
     whatsappBtn: "व्हाट्सएप पर चैट करें",
     meetTitle: "निजी गूगल मीट परामर्श",
     meetBadge: "फोन नंबर की आवश्यकता नहीं",
-    meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
-    meetBtn: "अभी शेड्यूल करें",
+    meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र। उपलब्ध स्लॉट में अपना परामर्श शेड्यूल करें।",
+    meetBtn: "परामर्श शेड्यूल करें",
     supportWork: "हमारे काम का समर्थन करें",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
   }

@@ -118,7 +118,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
                 lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] tracking-[0.1em]'
               }`}
             >
-              {lang === 'hi' ? 'गूगल मीट शेड्यूल करें' : 'Schedule Google Meet'}
+              {lang === 'hi' ? 'परामर्श शेड्यूल करें' : 'Schedule Consultation'}
             </a>
             <p className={`hidden lg:block text-on-surface font-body flex-1 text-right transition-all ${
               lang === 'hi' ? 'text-xs tracking-normal' : 'text-[9px] tracking-normal'
