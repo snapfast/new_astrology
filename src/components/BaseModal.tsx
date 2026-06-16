@@ -58,7 +58,7 @@ const BaseModal: FC<BaseModalProps> = ({
       {/* Modal Content Wrapper */}
       <div className={`flex min-h-full items-center justify-center pointer-events-none ${containerClassName}`}>
         <div
-          className={`relative w-full ${maxWidth} bg-white shadow-2xl animate-in fade-in zoom-in border pointer-events-auto ${wrapperClassName}`}
+          className={`relative w-full ${maxWidth} bg-white shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300 border border-outline/10 pointer-events-auto ${wrapperClassName}`}
         >
           {children}
         </div>

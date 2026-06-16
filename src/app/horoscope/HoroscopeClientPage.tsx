@@ -8,6 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
@@ -122,6 +123,7 @@ const TRANSLATIONS = {
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
 
   const goToCompact = () => {
@@ -492,6 +494,15 @@ const HoroscopeContent = () => {
       <BookConsultationModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
+        onOpenPayment={() => {
+          setIsBookingModalOpen(false);
+          setIsPaymentModalOpen(true);
+        }}
+      />
+
+      <PaymentOptionsModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
       />
     </div>
     </>
