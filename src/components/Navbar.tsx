@@ -136,7 +136,7 @@ const Navbar = () => {
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
           {/* Segmented Language Toggle */}
           <div
-            className="flex items-center bg-surface-container-high/50 p-1 rounded-full border border-outline/30 shadow-sm h-9 md:h-10"
+            className="hidden md:flex items-center bg-surface-container-high/50 p-1 rounded-full border border-outline/30 shadow-sm h-9 md:h-10"
             role="group"
             aria-label={t.switchLanguage}
           >
@@ -223,6 +223,41 @@ const Navbar = () => {
           >
             {t.bookConsultation}
           </button>
+
+          {/* Segmented Language Toggle for Mobile Sidebar */}
+          <div className="flex justify-center mt-8">
+            <div
+              className="flex items-center bg-surface-container-high/50 p-1 rounded-full border border-outline/30 shadow-sm h-10"
+              role="group"
+              aria-label={t.switchLanguage}
+            >
+              <button
+                onClick={() => lang !== 'en' && toggleLang()}
+                aria-pressed={lang === 'en'}
+                aria-label="English"
+                className={`w-14 h-8 rounded-full transition-all duration-300 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
+                  lang === 'en'
+                    ? 'bg-white text-on-surface shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]'
+                    : 'text-on-surface/40 hover:text-on-surface hover:bg-black/[0.03]'
+                }`}
+              >
+                <span className="text-[10px] font-bold tracking-tight">EN</span>
+              </button>
+              <button
+                onClick={() => lang !== 'hi' && toggleLang()}
+                aria-pressed={lang === 'hi'}
+                aria-label="हिन्दी"
+                className={`w-14 h-8 rounded-full transition-all duration-300 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
+                  lang === 'hi'
+                    ? 'bg-white text-on-surface shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]'
+                    : 'text-on-surface/40 hover:text-on-surface hover:bg-black/[0.03]'
+                }`}
+              >
+                <span className="text-[17px] font-hindi font-bold leading-none translate-y-[1px]">हि</span>
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-col items-center mt-8 gap-2">
             <p className="text-[11px] text-on-surface font-body tracking-wider uppercase">
               {t.location}
