@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -16,7 +15,6 @@ const TRANSLATIONS = {
     meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
     emailTitle: "Email for Consultations & Payment Issues",
-    supportWork: "Support Our Work",
     motto: "Guided by the stars, Grounded in Truth"
   },
   hi: {
@@ -28,7 +26,6 @@ const TRANSLATIONS = {
     meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
     emailTitle: "परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल",
-    supportWork: "हमारे काम का समर्थन करें",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
   }
 };
@@ -111,19 +108,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 <span className="material-symbols-outlined text-lg">mail</span>
                 <span>{t.emailTitle}: rahulbaliastrology@gmail.com</span>
               </a>
-
-              <Link
-                href="/about#support"
-                onClick={() => {
-                  sendGAEvent({ event: 'action_click', action_name: 'book_modal_support' });
-                  onClose();
-                }}
-                className="flex items-center gap-2 px-4 py-2 bg-surface-bright border border-outline/10 rounded-full hover:bg-on-surface/5 transition-all group"
-              >
-                <span className="material-symbols-outlined text-accent text-lg group-hover:scale-110 transition-transform">volunteer_activism</span>
-                <span className={`text-on-surface font-headline ${lang === 'hi' ? 'text-sm' : 'text-xs uppercase tracking-wider'}`}>{t.supportWork}</span>
-                <span className="material-symbols-outlined text-on-surface/30 text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
-              </Link>
             </div>
           </div>
 
