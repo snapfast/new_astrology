@@ -13,14 +13,16 @@ const TRANSLATIONS = {
     subtitle: "Testimonials",
     description: "Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji.",
     googleReviews: "Google Reviews",
-    writeReview: "Write a Review on Google"
+    writeReview: "Write a Review on Google",
+    latestReviewsNote: "The reviews below are from our earlier archives. For our most recent client feedback, please visit our Google profile above."
   },
   hi: {
     title: "ग्राहक समीक्षाएं",
     subtitle: "प्रशंसापत्र",
     description: "उन लोगों से सुनें जिन्होंने पंडित राहुल बाली जी के साथ ज्योतिष परामर्श के माध्यम से स्पष्टता और मार्गदर्शन पाया है।",
     googleReviews: "गूगल समीक्षाएं",
-    writeReview: "गूगल पर समीक्षा लिखें"
+    writeReview: "गूगल पर समीक्षा लिखें",
+    latestReviewsNote: "नीचे दी गई समीक्षाएं हमारे पुराने अभिलेखागार से हैं। हमारे सबसे हालिया क्लाइंट फीडबैक के लिए, कृपया ऊपर हमारे गूगल प्रोफाइल पर जाएं।"
   }
 };
 
@@ -92,6 +94,23 @@ export default function ReviewsClientPage() {
             </a>
           </div>
       </PageHeader>
+
+      <section className="max-w-7xl mx-auto px-8 pt-16">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3507.5973617160266!2d77.0661377!3d28.4615515!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1911f4ce53e1%3A0x1aa9a8a9a005470!2sRahul%20Bali%20Astrology!5e0!3m2!1sen!2sin!4v1781586655704!5m2!1sen!2sin"
+          className="w-full h-[450px] rounded-[2.5rem] border border-outline shadow-sm"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Rahul Bali Astrology on Google Maps"
+        />
+      </section>
+
+      <div className="max-w-7xl mx-auto px-8 pt-16 text-center">
+        <p className="text-on-surface text-sm md:text-base font-body max-w-2xl mx-auto">
+          {t.latestReviewsNote}
+        </p>
+      </div>
 
       <div className="py-16">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
