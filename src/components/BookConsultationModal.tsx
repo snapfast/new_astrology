@@ -1,6 +1,7 @@
 'use client';
 
 import { FC } from 'react';
+import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,6 +15,10 @@ const TRANSLATIONS = {
     meetPricing: "Fee: Rs 10,001 / $151",
     meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
+    paymentTitle: "Payment Methods",
+    upiTitle: "Scan to Pay (UPI)",
+    paypalTitle: "PayPal Payment",
+    paypalEmail: "rahulbaliastrology@gmail.com",
     emailTitle: "Email for Consultations & Payment Issues",
     motto: "Guided by the stars, Grounded in Truth"
   },
@@ -25,6 +30,10 @@ const TRANSLATIONS = {
     meetPricing: "शुल्क: ₹10,001 / $151",
     meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
+    paymentTitle: "भुगतान के तरीके",
+    upiTitle: "स्कैन करके भुगतान करें (UPI)",
+    paypalTitle: "पेपाल भुगतान",
+    paypalEmail: "rahulbaliastrology@gmail.com",
     emailTitle: "परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
   }
@@ -96,6 +105,46 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   >
                     {t.meetBtn}
                   </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Methods */}
+            <div className="space-y-4">
+              <h3 className={`text-center font-normal text-on-surface font-headline uppercase ${lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-[10px] md:text-xs tracking-widest'}`}>
+                {t.paymentTitle}
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* UPI QR */}
+                <div className="p-4 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col items-center text-center">
+                  <h4 className={`mb-3 font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>{t.upiTitle}</h4>
+                  <div className="relative w-32 h-32 md:w-40 md:h-40 bg-white rounded-2xl p-2 border border-outline/10">
+                    <Image
+                      src="/donate-qr.png"
+                      alt="UPI QR Code"
+                      fill
+                      className="object-contain p-2"
+                    />
+                  </div>
+                </div>
+
+                {/* PayPal */}
+                <div className="p-4 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col items-center text-center">
+                  <h4 className={`mb-3 font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>{t.paypalTitle}</h4>
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="relative w-24 h-8 md:w-32 md:h-10">
+                      <Image
+                        src="/paypal-logo.svg"
+                        alt="PayPal"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="text-xs md:text-sm font-body text-on-surface font-medium break-all selection:bg-accent/20">
+                      {t.paypalEmail}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
