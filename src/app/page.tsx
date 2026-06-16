@@ -71,8 +71,8 @@ export default function Home() {
       <JsonLd data={businessSchema} />
       <Navbar />
       <Hero />
-      <DailyPanchang className="-mt-32 z-20" />
-      <ChartGeneration className="" />
+      <DailyPanchang className="-mt-20 z-20" />
+      <ChartGeneration className="mt-8" />
       <Testimonials />
       <ExpertConsultations />
       <Footer />
