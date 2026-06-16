@@ -19,7 +19,6 @@ const TRANSLATIONS = {
     company: 'Company',
     aboutUs: 'About Us',
     contact: 'Contact',
-    support: 'Support',
     rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
     privacy: 'Privacy',
     terms: 'Terms'
@@ -35,7 +34,6 @@ const TRANSLATIONS = {
     company: 'कंपनी',
     aboutUs: 'मेरे बारे में',
     contact: 'संपर्क करें',
-    support: 'सहायता',
     rights: 'राहुल बाली ज्योतिष सेवाएं © 2025. सर्वाधिकार सुरक्षित।',
     privacy: 'गोपनीयता',
     terms: 'शर्तें'
@@ -86,7 +84,6 @@ const Footer = () => {
           <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
             <li><a className="text-on-surface font-normal" href="/about">{t.aboutUs}</a></li>
             <li><a className="text-on-surface font-normal" href="/contact">{t.contact}</a></li>
-            <li><a className="text-on-surface font-normal" href="/about#support">{t.support}</a></li>
           </ul>
         </div>
       </div>

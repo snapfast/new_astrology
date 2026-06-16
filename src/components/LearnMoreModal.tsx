@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,7 +14,6 @@ const TRANSLATIONS = {
     socialTitle: 'Spiritual Insights',
     socialDesc: 'Daily astrological wisdom, mantras, and spiritual guidance on social media.',
     socialBtn: 'Follow on Threads',
-    supportWork: "Support Our Work",
     motto: 'Guided by the stars, Grounded in Truth'
   },
   hi: {
@@ -26,7 +24,6 @@ const TRANSLATIONS = {
     socialTitle: 'आध्यात्मिक अंतर्दृष्टि',
     socialDesc: 'सोशल मीडिया पर दैनिक ज्योतिषीय ज्ञान, मंत्र और आध्यात्मिक मार्गदर्शन।',
     socialBtn: 'थ्रेड्स पर फॉलो करें',
-    supportWork: "हमारे काम का समर्थन करें",
     motto: 'सितारों द्वारा निर्देशित, सत्य में निहित'
   }
 };
@@ -106,21 +103,6 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   <span className="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
               </div>
-            </div>
-
-            <div className="flex justify-center">
-              <Link
-                href="/about#support"
-                onClick={() => {
-                  sendGAEvent({ event: 'action_click', action_name: 'learn_modal_support' });
-                  onClose();
-                }}
-                className="flex items-center gap-2 px-4 py-2 bg-surface-bright border border-outline/10 rounded-full hover:bg-on-surface/5 transition-all group"
-              >
-                <span className="material-symbols-outlined text-accent text-lg group-hover:scale-110 transition-transform">volunteer_activism</span>
-                <span className={`text-on-surface font-headline ${lang === 'hi' ? 'text-sm' : 'text-xs uppercase tracking-wider'}`}>{t.supportWork}</span>
-                <span className="material-symbols-outlined text-on-surface/30 text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
-              </Link>
             </div>
           </div>
 

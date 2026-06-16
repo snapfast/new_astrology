@@ -2,7 +2,6 @@
 
 import { FC } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Consultation } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
@@ -116,7 +115,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
+          <div className="flex flex-col md:flex-row items-center gap-6">
             <a
               href="mailto:rahulbaliastrology@gmail.com"
               className="flex items-center gap-2 text-on-surface/70 hover:text-on-surface transition-colors font-body text-sm"
@@ -124,23 +123,6 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               <span className="material-symbols-outlined text-lg">mail</span>
               <span>{lang === 'hi' ? 'परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल' : 'Email for Consultations & Payment Issues'}: rahulbaliastrology@gmail.com</span>
             </a>
-          </div>
-
-          <div className="flex justify-center md:justify-start">
-            <Link
-              href="/about#support"
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'service_modal_support' });
-                onClose();
-              }}
-              className="flex items-center gap-2 px-4 py-2 bg-surface-bright border border-outline/10 rounded-full hover:bg-on-surface/5 transition-all group"
-            >
-              <span className="material-symbols-outlined text-accent text-lg group-hover:scale-110 transition-transform">volunteer_activism</span>
-              <span className={`text-on-surface font-headline ${lang === 'hi' ? 'text-sm' : 'text-xs uppercase tracking-wider'}`}>
-                {lang === 'hi' ? 'हमारे काम का समर्थन करें' : 'Support Our Work'}
-              </span>
-              <span className="material-symbols-outlined text-on-surface/30 text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
-            </Link>
           </div>
         </div>
     </BaseModal>
