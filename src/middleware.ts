@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
     img-src 'self' data: https://images.unsplash.com https://lh3.googleusercontent.com https://www.googletagmanager.com https://www.instagram.com https://*.fbcdn.net https://*.cdninstagram.com https://*.facebook.com;
     font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
     connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://stats.g.doubleclick.net https://www.google.com https://www.googletagmanager.com https://www.threads.net https://*.facebook.com;
-    frame-src 'self' https://www.instagram.com https://www.threads.net https://www.facebook.com https://*.facebook.com;
+    frame-src 'self' https://www.google.com https://www.instagram.com https://www.threads.net https://www.facebook.com https://*.facebook.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
