@@ -16,14 +16,25 @@ describe('Security Utilities', () => {
   });
 
   it('sanitize handles advanced security cases', () => {
-    // Null bytes
+    // Null bytes and ASCII control characters
     assert.strictEqual(sanitize('hello\0world', 20), 'helloworld');
+    assert.strictEqual(sanitize('hello\x01world', 20), 'helloworld');
+    assert.strictEqual(sanitize('hello\x1Fworld', 20), 'helloworld');
+    assert.strictEqual(sanitize('hello\x7Fworld', 20), 'helloworld');
+
+    // Unicode Bidi control characters
+    assert.strictEqual(sanitize('hello\u200Eworld', 20), 'helloworld');
+    assert.strictEqual(sanitize('hello\u202Aworld', 20), 'helloworld');
+    assert.strictEqual(sanitize('hello\u2066world', 20), 'helloworld');
 
     // Other protocols
     assert.strictEqual(sanitize('vbscript:msgbox("XSS")', 30), 'msgbox("XSS")');
     assert.strictEqual(sanitize('data:text/html,<script>alert(1)</script>', 50), 'text/html,scriptalert(1)/script');
     assert.strictEqual(sanitize('file:///etc/passwd', 30), '///etc/passwd');
     assert.strictEqual(sanitize('jar:https://example.com!/', 30), 'https://example.com!/');
+    assert.strictEqual(sanitize('srcdoc:test', 20), 'test');
+    assert.strictEqual(sanitize('about:blank', 20), 'blank');
+    assert.strictEqual(sanitize('content:test', 20), 'test');
 
     // Recursive bypasses
     assert.strictEqual(sanitize('javascjavascript:ript:alert(1)', 40), 'alert(1)');

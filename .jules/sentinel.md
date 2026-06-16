@@ -27,3 +27,8 @@
 **Vulnerability:** Attackers can bypass protocol filters (like "javascript:") by injecting browser-ignored whitespace characters (tabs, newlines, carriage returns) inside the protocol string (e.g., "java\tscript:").
 **Learning:** Standard string replacement for "javascript:" is insufficient if it doesn't account for how browsers normalize and execute URIs. Recursive stripping combined with character normalization is required.
 **Prevention:** Always strip whitespace characters (\t, \n, \r) before performing security-critical keyword or protocol filtering.
+
+## 2026-06-16 - [Control Character and Protocol Hardening]
+**Vulnerability:** Sanitization logic allowed ASCII control characters (0-31, 127) and Unicode Bidi control characters, which can be used for "Trojan Source" attacks or to bypass filters. Additionally, obscure but potentially dangerous protocols like `srcdoc` or `ms-appx` were not blocked.
+**Learning:** Robust sanitization must cover non-printable and direction-control characters that browsers might interpret or that can obfuscate malicious payloads.
+**Prevention:** Always strip the full range of ASCII control characters and known Bidi characters before processing user-provided strings. Expand protocol blacklists to include platform-specific or emerging web protocols.
