@@ -159,7 +159,7 @@ test('generateAstrologyData returns complete and valid data structure', () => {
 });
 
 test('generateAstrologyData handles empty inputs', () => {
-  // @ts-ignore
+  // @ts-expect-error: Testing with invalid empty string inputs for robustness
   const data = generateAstrologyData("", "");
   assert.strictEqual(data.planets.length, 0);
   assert.strictEqual(data.mahadashas.length, 0);
