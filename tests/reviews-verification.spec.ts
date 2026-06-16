@@ -12,7 +12,7 @@ test('Reviews page map and note verification', async ({ page }) => {
   expect(iframeSrc).toContain('google.com/maps/embed');
 
   // Verify Archival Note (English)
-  await expect(page.getByText('The reviews below are from our earlier archives.', { exact: false })).toBeVisible();
+  await expect(page.getByText('The reviews below are from our old records.', { exact: false })).toBeVisible();
 
   // Switch to Hindi and verify
   // The Hindi button has aria-label="हिन्दी"

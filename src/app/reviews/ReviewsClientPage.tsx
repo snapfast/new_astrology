@@ -15,7 +15,7 @@ const TRANSLATIONS = {
     description: "Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji.",
     googleReviews: "Google Reviews",
     writeReview: "Write a Review on Google",
-    latestReviewsNote: "The reviews below are from our earlier archives. For our most recent client feedback, please visit our Google profile above."
+    latestReviewsNote: "The reviews below are from our old records. For the latest feedback, please check our Google profile above."
   },
   hi: {
     title: "ग्राहक समीक्षाएं",
