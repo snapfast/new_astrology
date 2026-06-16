@@ -1,0 +1,3 @@
+## 2025-05-14 - Localization and Accessibility of Global UI Elements
+**Learning:** Icon-only buttons (like 'Back to Top') require explicit localization for `aria-label` and `title` attributes to remain accessible in multi-language applications. Furthermore, when using CSS-driven transitions (opacity, transform) to hide elements instead of conditional rendering, it is critical to manage keyboard focus and screen reader visibility using `tabIndex` and `aria-hidden` to avoid a confusing "phantom" tab stop.
+**Action:** Always wrap global UI utilities in the application's localization context and pair CSS visibility transitions with proper state-driven `tabIndex` and `aria-hidden` attributes.
