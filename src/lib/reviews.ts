@@ -1,9 +1,4 @@
-export interface Review {
-  id: number;
-  name: string;
-  date: string;
-  review: string;
-}
+import { Review } from './types';
 
 export const REVIEWS: Review[] = [
   { id: 1, name: "Aditi", date: "Oct 28, 2025", review: "I wanted to share with someone trustworthy and fortunately got the answers I needed. Thank you for the guidance and advice. Can't thank you enough!" },
