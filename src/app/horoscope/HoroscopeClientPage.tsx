@@ -181,7 +181,7 @@ const HoroscopeContent = () => {
   };
 
   return (
-    <div className="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
       <PageHeader
         title={t.pageTitle}
       >
@@ -223,10 +223,9 @@ const HoroscopeContent = () => {
         </div>
       </PageHeader>
 
-      <div className="mt-8"></div>
-
-      {/* New: Personality Insights Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16">
+        {/* New: Personality Insights Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
               <span className={cn(
@@ -360,7 +359,7 @@ const HoroscopeContent = () => {
         </div>
 
       {/* Charts Section */}
-      <div className="space-y-8 mb-12">
+      <div className="space-y-8">
         {/* Row 1: D1 & D9 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
@@ -400,7 +399,7 @@ const HoroscopeContent = () => {
       </div>
 
 
-      <div className="space-y-6 mb-16">
+      <div className="space-y-6">
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.planetaryPositions}</h2>
         <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
           <table className="w-full text-left border-collapse">
@@ -463,7 +462,7 @@ const HoroscopeContent = () => {
 
 
       {/* Vimshottari Dasha Section */}
-      <div className="space-y-8 mb-16">
+      <div className="space-y-8">
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.vimshottariDasha}</h2>
 
         {/* Interactive Vimshottari Dasha System */}
@@ -495,6 +494,7 @@ const HoroscopeContent = () => {
         onClose={() => setIsBookingModalOpen(false)}
       />
     </div>
+    </>
   );
 };
 
