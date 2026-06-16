@@ -83,7 +83,7 @@ export default function FreeHoroscopePage() {
       />
 
       <div className="mt-12">
-        <ChartGeneration />
+        <ChartGeneration className="-mt-32" />
       </div>
 
       {/* SEO Content Section: Why Kundli Matters */}

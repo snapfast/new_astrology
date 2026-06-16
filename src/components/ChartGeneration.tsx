@@ -98,7 +98,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-const ChartGeneration = ({ className = "-mt-32" }: ChartGenerationProps) => {
+const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
   const router = useRouter();
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
