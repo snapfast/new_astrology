@@ -13,6 +13,7 @@ const TRANSLATIONS = {
     subtitle: "Get in Touch",
     location: "Location",
     city: "Gurugram, Haryana, India",
+    email: "Email Address",
     online: "Online Presence"
   },
   hi: {
@@ -20,6 +21,7 @@ const TRANSLATIONS = {
     subtitle: "जुड़ें",
     location: "स्थान",
     city: "गुरुग्राम, हरियाणा, भारत",
+    email: "ईमेल पता",
     online: "ऑनलाइन उपस्थिति"
   }
 };
@@ -40,6 +42,13 @@ export default function ContactContent() {
           <div>
             <h2 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.location}</h2>
             <p className="text-2xl font-body text-on-surface">{t.city}</p>
+          </div>
+
+          <div>
+            <h2 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.email}</h2>
+            <a href="mailto:rahulbaliastrology@gmail.com" className="text-2xl font-body text-on-surface hover:text-accent transition-colors">
+              rahulbaliastrology@gmail.com
+            </a>
           </div>
 
           <div>

@@ -99,17 +99,6 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
 
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-8 border-t border-outline/10 mb-8">
             <a
-              href="https://wa.me/919306057150"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_whatsapp' })}
-              className={`w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-medium uppercase text-center shadow-lg shadow-[#25D366]/10 hover:bg-[#25D366]/90 transition-all ${
-                lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] tracking-[0.1em]'
-              }`}
-            >
-              {lang === 'hi' ? 'व्हाट्सएप पर चैट करें' : 'Chat on WhatsApp'}
-            </a>
-            <a
               href="https://calendly.com/rahulbaliastrology/kundli/"
               target="_blank"
               rel="noopener noreferrer"
@@ -125,6 +114,16 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             }`}>
               {lang === 'hi' ? <>सितारों द्वारा निर्देशित, <br /> सत्य में निहित</> : <>Guided by the stars, <br /> Grounded in Truth</>}
             </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
+            <a
+              href="mailto:rahulbaliastrology@gmail.com"
+              className="flex items-center gap-2 text-on-surface/70 hover:text-on-surface transition-colors font-body text-sm"
+            >
+              <span className="material-symbols-outlined text-lg">mail</span>
+              <span>{lang === 'hi' ? 'परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल' : 'Email for Consultations & Payment Issues'}: rahulbaliastrology@gmail.com</span>
+            </a>
           </div>
 
           <div className="flex justify-center md:justify-start">
