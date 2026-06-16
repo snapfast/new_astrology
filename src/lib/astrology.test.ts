@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi } from './astrology.ts';
+import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -124,4 +124,45 @@ test('getD60Rasi logic', () => {
     // 29.5-30.0 deg -> 60th division
     // Aries 29.7 -> (0 + 59) % 12 = 59 % 12 = 11 (Pisces)
     assert.strictEqual(getD60Rasi(29.7), 11);
+});
+
+test('generateAstrologyData returns complete and valid data structure', () => {
+  const dob = "1990-01-01";
+  const tob = "12:00";
+  const lat = "28.6139";
+  const lon = "77.2090";
+
+  const data = generateAstrologyData(dob, tob, lat, lon);
+
+  // Check top-level properties
+  assert.ok(Array.isArray(data.planets), 'planets should be an array');
+  assert.ok(data.planets.length > 0, 'planets should not be empty');
+
+  assert.ok(data.d1, 'D1 chart should exist');
+  assert.ok(data.d9, 'D9 chart should exist');
+  assert.ok(data.d60, 'D60 chart should exist');
+
+  assert.ok(Array.isArray(data.mahadashas), 'mahadashas should be an array');
+  assert.ok(data.mahadashas.length === 9, 'should have 9 mahadashas');
+
+  assert.ok(data.panchang, 'panchang should exist');
+  assert.ok(data.panchang.tithi, 'panchang should have tithi');
+
+  // Check lazy evaluation and data consistency
+  const sun = data.planets.find(p => p.name === "Sun");
+  assert.ok(sun, 'Sun should be in planets');
+  assert.strictEqual(typeof sun.degree, 'string', 'Sun degree should be a string');
+
+  // Verify divisional charts have houses and houseRasis
+  assert.ok(data.d1.houses[1], 'D1 should have house 1');
+  assert.ok(data.d1.houseRasis[1], 'D1 should have houseRasis for house 1');
+});
+
+test('generateAstrologyData handles empty inputs', () => {
+  // @ts-ignore
+  const data = generateAstrologyData("", "");
+  assert.strictEqual(data.planets.length, 0);
+  assert.strictEqual(data.mahadashas.length, 0);
+  assert.ok(data.panchang);
+  assert.strictEqual(data.panchang.tithi, "");
 });
