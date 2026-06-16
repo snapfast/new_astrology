@@ -52,8 +52,8 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 p-8 md:p-14 overflow-y-auto custom-scrollbar bg-white">
-          <div className="flex justify-between items-start mb-8">
+        <div className="flex-1 p-6 md:p-14 overflow-y-auto custom-scrollbar bg-white">
+          <div className="flex justify-between items-start mb-10 md:mb-12">
             <div>
               <span className={`font-medium text-accent mb-3 block font-label ${
                 lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'
@@ -73,56 +73,54 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </button>
           </div>
 
-          <p className={`text-on-surface leading-relaxed font-body mb-12 max-w-2xl ${
-            lang === 'hi' ? 'text-xl' : 'text-lg'
+          <p className={`text-on-surface/80 leading-relaxed font-body mb-12 max-w-2xl ${
+            lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg'
           }`}>
             {service.description}
           </p>
 
-          <div className="grid grid-cols-1 gap-4 mb-12">
+          <div className="grid grid-cols-1 gap-6 mb-12">
             {service.portions.map((portion, index) => (
               <div
                 key={index}
-                className="flex items-start gap-4 p-6 bg-surface-bright border border-outline/10 rounded-[2rem] text-left"
+                className="flex items-start gap-6 p-6 md:p-8 bg-surface-bright border border-outline/10 rounded-[2.5rem] text-left"
               >
-                <div className="w-10 h-10 shrink-0 rounded-xl bg-accent/5 flex items-center justify-center text-accent">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">{portion.icon}</span>
+                <div className="w-12 h-12 shrink-0 rounded-2xl bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
+                  <span className="material-symbols-outlined text-2xl font-variation-fill">{portion.icon}</span>
                 </div>
                 <div>
-                  <h4 className="text-base font-medium text-on-surface font-headline mb-2">{portion.title}</h4>
-                  <p className="text-sm text-on-surface font-body leading-relaxed">{portion.expandedDetail}</p>
+                  <h4 className="text-lg font-medium text-on-surface font-headline mb-2">{portion.title}</h4>
+                  <p className="text-sm md:text-base text-on-surface/70 font-body leading-relaxed">{portion.expandedDetail}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-8 border-t border-outline/10 mb-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-8 pt-10 border-t border-outline/10">
             <a
               href="https://calendly.com/rahulbaliastrology/kundli/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
-              className={`w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-medium uppercase text-center shadow-lg shadow-primary/10 hover:bg-primary/90 transition-all ${
-                lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] tracking-[0.1em]'
+              className={`w-full sm:w-auto px-10 py-4 bg-primary text-white rounded-full font-medium uppercase text-center shadow-lg shadow-primary/10 hover:bg-primary/90 transition-all ${
+                lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
               }`}
             >
               {lang === 'hi' ? 'परामर्श शेड्यूल करें' : 'Schedule Consultation'}
             </a>
-            <p className={`hidden lg:block text-on-surface font-body flex-1 text-right transition-all ${
-              lang === 'hi' ? 'text-xs tracking-normal' : 'text-[9px] tracking-normal'
-            }`}>
-              {lang === 'hi' ? <>सितारों द्वारा निर्देशित, <br /> सत्य में निहित</> : <>Guided by the stars, <br /> Grounded in Truth</>}
-            </p>
-          </div>
 
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <a
-              href="mailto:rahulbaliastrology@gmail.com"
-              className="flex items-center gap-2 text-on-surface/70 hover:text-on-surface transition-colors font-body text-sm"
-            >
-              <span className="material-symbols-outlined text-lg">mail</span>
-              <span>{lang === 'hi' ? 'परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल' : 'Email for Consultations & Payment Issues'}: rahulbaliastrology@gmail.com</span>
-            </a>
+            <div className="flex flex-col items-end text-right">
+              <p className={`text-on-surface/40 font-label uppercase mb-1 ${
+                lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
+              }`}>
+                {lang === 'hi' ? 'सितारों द्वारा निर्देशित' : 'Guided by the stars'}
+              </p>
+              <p className={`text-on-surface/40 font-label uppercase ${
+                lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
+              }`}>
+                {lang === 'hi' ? 'सत्य में निहित' : 'Grounded in Truth'}
+              </p>
+            </div>
           </div>
         </div>
     </BaseModal>

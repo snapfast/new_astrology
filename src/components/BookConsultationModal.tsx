@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,11 +14,7 @@ const TRANSLATIONS = {
     meetPricing: "Fee: Rs 10,001 / $151",
     meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
-    paymentTitle: "Payment Methods",
-    upiTitle: "Scan to Pay (UPI)",
-    paypalTitle: "PayPal Payment",
-    paypalEmail: "rahulbaliastrology@gmail.com",
-    emailTitle: "Email for Consultations & Payment Issues",
+    viewPayments: "View Payment Methods",
     motto: "Guided by the stars, Grounded in Truth"
   },
   hi: {
@@ -30,11 +25,7 @@ const TRANSLATIONS = {
     meetPricing: "शुल्क: ₹10,001 / $151",
     meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
-    paymentTitle: "भुगतान के तरीके",
-    upiTitle: "स्कैन करके भुगतान करें (UPI)",
-    paypalTitle: "पेपाल भुगतान",
-    paypalEmail: "rahulbaliastrology@gmail.com",
-    emailTitle: "परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल",
+    viewPayments: "भुगतान के तरीके देखें",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
   }
 };
@@ -42,9 +33,10 @@ const TRANSLATIONS = {
 interface BookConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenPayment: () => void;
 }
 
-const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
+const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose, onOpenPayment }) => {
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
 
@@ -54,26 +46,26 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
       onClose={onClose}
       maxWidth="max-w-lg md:max-w-2xl"
     >
-      <div className="p-3 md:p-6">
-          <div className="flex justify-center items-center mb-4 md:mb-6 relative">
-            <h2 className="text-xl md:text-4xl font-normal text-on-surface font-headline tracking-tight text-center">{t.title}</h2>
+      <div className="p-4 md:p-10">
+          <div className="flex justify-between items-center mb-6 md:mb-10">
+            <h2 className="text-2xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
                 onClose();
               }}
-              className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 shrink-0"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
               aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
           </div>
 
-          <div className="space-y-4 md:space-y-8">
+          <div className="space-y-8 md:space-y-12">
             {/* Private Google Meet Consultation */}
-            <div className="p-4 md:p-6 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
-              <div className="w-12 h-12 md:w-20 md:h-20 bg-white rounded-2xl md:rounded-3xl border border-outline/10 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 622 512" className="w-6 h-6 md:w-10 md:h-10">
+            <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10">
+              <div className="w-14 h-14 md:w-20 md:h-20 bg-surface-bright rounded-3xl border border-outline/10 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 622 512" className="w-8 h-8 md:w-10 md:h-10">
                   <path d="M351.419 255.568L411.978 324.79L493.418 376.827L507.584 256.005L493.418 137.908L410.418 183.621L351.419 255.568Z" fill="#00832D"/>
                   <path d="M0.00283051 365.583V468.541C0.00283051 492.049 19.0851 511.136 42.5983 511.136H145.556L166.876 433.344L145.556 365.583L74.9198 344.263L0.00283051 365.583Z" fill="#0066DA"/>
                   <path d="M145.556 -7.62939e-06L0.00283051 145.554L74.9247 166.822L145.556 145.554L166.488 78.7145L145.556 -7.62939e-06Z" fill="#E94235"/>
@@ -83,89 +75,60 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   <path d="M450.825 -7.62939e-06H145.556V145.554H351.419V255.568L493.42 137.905V42.5979C493.42 19.0847 474.338 0.00241891 450.825 0.00241891" fill="#FFBA00"/>
                 </svg>
               </div>
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-1">
-                  <h3 className={`font-normal text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-3xl' : 'text-lg md:text-2xl'}`}>{t.meetTitle}</h3>
-                  <span className={`inline-block px-2 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full self-center transition-all ${
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 className={`font-normal text-on-surface font-headline ${lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>{t.meetTitle}</h3>
+                  <span className={`px-2 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full ${
                     lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[8px] md:text-[9px] tracking-widest'
                   }`}>{t.meetBadge}</span>
                 </div>
-                <p className={`text-on-surface font-body mb-2 ${lang === 'hi' ? 'text-xs md:text-base' : 'text-[10px] md:text-sm'}`}>{t.meetDesc}</p>
-                <p className={`text-on-surface font-headline font-semibold tabular-nums mb-1 ${lang === 'hi' ? 'text-base md:text-xl' : 'text-sm md:text-lg'}`}>{t.meetPricing}</p>
-                <p className={`text-accent font-body mb-6 italic ${lang === 'hi' ? 'text-[10px] md:text-sm' : 'text-[9px] md:text-xs'}`}>{t.meetInstruction}</p>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <a
-                    href="https://calendly.com/rahulbaliastrology/kundli/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                    className={`inline-flex items-center justify-center gap-2 px-10 py-3 bg-primary text-white rounded-full font-medium uppercase shadow-lg shadow-primary/10 transition-all ${
-                      lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
-                    }`}
-                  >
-                    {t.meetBtn}
-                  </a>
-                </div>
-              </div>
-            </div>
+                <p className={`text-on-surface font-body mb-6 max-w-xl leading-relaxed ${lang === 'hi' ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>{t.meetDesc}</p>
 
-            {/* Payment Methods */}
-            <div className="space-y-4">
-              <h3 className={`text-center font-normal text-on-surface font-headline uppercase ${lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-[10px] md:text-xs tracking-widest'}`}>
-                {t.paymentTitle}
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* UPI QR */}
-                <div className="p-4 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col items-center text-center">
-                  <h4 className={`mb-3 font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>{t.upiTitle}</h4>
-                  <div className="relative w-32 h-32 md:w-40 md:h-40 bg-white rounded-2xl p-2 border border-outline/10">
-                    <Image
-                      src="/donate-qr.png"
-                      alt="UPI QR Code"
-                      fill
-                      className="object-contain p-2"
-                    />
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-4">
+                  <div className="space-y-1">
+                    <p className={`text-on-surface font-headline font-semibold tabular-nums ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.meetPricing}</p>
+                    <p className={`text-accent font-body italic ${lang === 'hi' ? 'text-xs md:text-sm' : 'text-[10px] md:text-xs'}`}>{t.meetInstruction}</p>
                   </div>
-                </div>
 
-                {/* PayPal */}
-                <div className="p-4 bg-surface-container-low/20 rounded-[2rem] border border-outline/10 flex flex-col items-center text-center">
-                  <h4 className={`mb-3 font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>{t.paypalTitle}</h4>
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="relative w-24 h-8 md:w-32 md:h-10">
-                      <Image
-                        src="/paypal-logo.svg"
-                        alt="PayPal"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <p className="text-xs md:text-sm font-body text-on-surface font-medium break-all selection:bg-accent/20">
-                      {t.paypalEmail}
-                    </p>
+                  <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <a
+                      href="https://calendly.com/rahulbaliastrology/kundli/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
+                      className={`inline-flex items-center justify-center px-10 py-4 bg-primary text-white rounded-full font-medium uppercase shadow-lg shadow-primary/10 hover:bg-primary/90 transition-all ${
+                        lang === 'hi' ? 'text-[13px] md:text-[15px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
+                      }`}
+                    >
+                      {t.meetBtn}
+                    </a>
+                    <button
+                      onClick={() => {
+                        sendGAEvent({ event: 'action_click', action_name: 'modal_view_payments' });
+                        onOpenPayment();
+                      }}
+                      className={`text-on-surface/60 hover:text-primary transition-colors font-medium border-b border-on-surface/20 hover:border-primary/40 pb-0.5 ${
+                        lang === 'hi' ? 'text-xs md:text-sm' : 'text-[10px] md:text-xs uppercase tracking-wider'
+                      }`}
+                    >
+                      {t.viewPayments}
+                    </button>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="flex flex-col items-center gap-4">
-              <a
-                href="mailto:rahulbaliastrology@gmail.com"
-                className="flex items-center gap-2 text-on-surface/70 hover:text-on-surface transition-colors font-body text-sm"
-              >
-                <span className="material-symbols-outlined text-lg">mail</span>
-                <span>{t.emailTitle}: rahulbaliastrology@gmail.com</span>
-              </a>
             </div>
           </div>
 
-          <div className="mt-4 md:mt-10 pt-4 md:pt-6 border-t border-outline/10 text-center">
-            <p className={`text-on-surface font-label uppercase transition-all ${
-              lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[6px] md:text-[10px] tracking-widest'
+          <div className="mt-12 md:mt-16 pt-6 md:pt-8 border-t border-outline/10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className={`text-on-surface/40 font-label uppercase transition-all ${
+              lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
             }`}>
               {t.motto}
             </p>
+            <div className="flex items-center gap-2 text-on-surface/40 font-body text-[10px] md:text-xs">
+              <span className="material-symbols-outlined text-base">verified_user</span>
+              <span>Secure Booking via Calendly</span>
+            </div>
           </div>
       </div>
     </BaseModal>

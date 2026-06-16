@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import BookConsultationModal from './BookConsultationModal';
+import PaymentOptionsModal from './PaymentOptionsModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useLanguage } from '@/context/LanguageContext';
@@ -44,6 +45,7 @@ const Footer = () => {
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   return (
     <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/50 font-body print:hidden">
@@ -100,6 +102,15 @@ const Footer = () => {
       <BookConsultationModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
+        onOpenPayment={() => {
+          setIsBookingModalOpen(false);
+          setIsPaymentModalOpen(true);
+        }}
+      />
+
+      <PaymentOptionsModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
       />
     </footer>
   );

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import BookConsultationModal from '@/components/BookConsultationModal';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { generateAstrologyData, DivisionalChartData } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -114,6 +115,7 @@ const CompactHoroscopeContent = () => {
   const router = useRouter();
   const { lang } = useLanguage();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
 
   const t = TRANSLATIONS[lang];
@@ -351,6 +353,15 @@ const CompactHoroscopeContent = () => {
       <BookConsultationModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
+        onOpenPayment={() => {
+          setIsBookingModalOpen(false);
+          setIsPaymentModalOpen(true);
+        }}
+      />
+
+      <PaymentOptionsModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
       />
 
       <style jsx global>{`

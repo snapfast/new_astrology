@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import LearnMoreModal from './LearnMoreModal';
 import BookConsultationModal from './BookConsultationModal';
+import PaymentOptionsModal from './PaymentOptionsModal';
 import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,6 +15,7 @@ const TRANSLATIONS = {
     desc1: 'Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.',
     desc2: 'Gurugram, India.',
     bookBtn: 'Book a Consultation',
+    paymentBtn: 'Payment Options',
     learnBtn: 'Learn More',
     charts: 'Charts',
     rating: 'Rating'
@@ -24,6 +26,7 @@ const TRANSLATIONS = {
     desc1: 'शास्त्रीय ज्योतिष परंपरा में निहित व्यक्तिगत वैदिक ज्योतिष रीडिंग और आध्यात्मिक परामर्श।',
     desc2: 'गुरुग्राम, भारत।',
     bookBtn: 'परामर्श बुक करें',
+    paymentBtn: 'भुगतान के विकल्प',
     learnBtn: 'और जानें',
     charts: 'कुंडलियां',
     rating: 'रेटिंग'
@@ -35,6 +38,7 @@ const Hero = () => {
   const t = TRANSLATIONS[lang];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
@@ -87,6 +91,19 @@ const Hero = () => {
           </button>
           <button
             onClick={() => {
+              sendGAEvent({ event: 'action_click', action_name: 'hero_payment_options' });
+              setIsPaymentModalOpen(true);
+            }}
+            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all ${
+              lang === 'hi'
+                ? 'text-[13px] md:text-[15px] tracking-normal'
+                : 'text-[10px] md:text-xs tracking-[0.1em]'
+            }`}
+          >
+            {t.paymentBtn}
+          </button>
+          <button
+            onClick={() => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
               setIsModalOpen(true);
             }}
@@ -132,6 +149,15 @@ const Hero = () => {
       <BookConsultationModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
+        onOpenPayment={() => {
+          setIsBookingModalOpen(false);
+          setIsPaymentModalOpen(true);
+        }}
+      />
+
+      <PaymentOptionsModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
       />
     </section>
   );
