@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { REVIEWS } from '@/lib/reviews';
 import JsonLd from '@/components/JsonLd';
+import StarRating from '@/components/StarRating';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
@@ -116,6 +117,7 @@ export default function ReviewsClientPage() {
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline flex flex-col shadow-sm">
+              <StarRating className="mb-4" starClassName="text-base" />
               <p className="text-sm text-on-surface mb-6 leading-relaxed font-body font-normal flex-grow">
                 &quot;{item.review}&quot;
               </p>
