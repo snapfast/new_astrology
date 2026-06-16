@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { REVIEWS } from '@/lib/reviews';
 import { useLanguage } from '@/context/LanguageContext';
+import StarRating from './StarRating';
 
 const TRANSLATIONS = {
   en: {
@@ -96,6 +97,7 @@ const Testimonials = () => {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-1.5">
                 <span className="font-semibold text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5.0 GOOGLE RATING</span>
+                <StarRating starClassName="text-base" />
               </div>
 
               <div className="flex items-center gap-4">
@@ -126,6 +128,7 @@ const Testimonials = () => {
                 {featuredReviews.map((item) => (
                   <div key={item.id} className={`${itemsPerView === 2 ? 'min-w-[50%]' : 'min-w-full'} px-2`}>
                     <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline h-full flex flex-col">
+                      <StarRating className="mb-4" starClassName="text-sm md:text-base" />
                       <p className="text-sm md:text-base text-on-surface mb-6 leading-relaxed font-body font-normal">
                         &quot;{item.review}&quot;
                       </p>

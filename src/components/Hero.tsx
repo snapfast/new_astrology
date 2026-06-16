@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import LearnMoreModal from './LearnMoreModal';
 import BookConsultationModal from './BookConsultationModal';
+import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -109,6 +110,7 @@ const Hero = () => {
           <div className="w-px h-8 bg-outline/20 shrink-0"></div>
 
           <div className="flex flex-col items-center flex-1">
+            <StarRating className="mb-1" starClassName="text-[14px] md:text-[16px]" />
             <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">5.0</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Google Rating</span>
           </div>
