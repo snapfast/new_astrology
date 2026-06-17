@@ -262,7 +262,7 @@ const PanchangPage = () => {
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">calendar_month</span>
             </div>
-            <div className="hidden sm:block">
+            <div className="hidden sm:block sm:w-60 shrink-0">
               <p className={`text-xs font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.selectedDate}</p>
               <p className={`text-sm font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
                 {DATE_FORMATTER.format(selectedDate)}

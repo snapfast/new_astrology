@@ -227,7 +227,7 @@ const BiorhythmContent = () => {
                     event
                   </span>
                 </div>
-                <div className="hidden sm:block">
+                <div className="hidden sm:block sm:w-40 shrink-0">
                   <p className={`text-[10px] font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
                     {t.analysisDate}
                   </p>
