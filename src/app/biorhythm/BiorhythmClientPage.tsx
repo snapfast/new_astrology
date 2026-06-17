@@ -245,11 +245,6 @@ const BiorhythmContent = () => {
             {/* Chart Section */}
             {seriesData && (
               <div className="animate-in fade-in duration-1000 delay-300">
-                <div className="mb-6">
-                  <h3 className="text-base md:text-lg font-headline text-on-surface text-center">
-                    {t.chartTitle}
-                  </h3>
-                </div>
                 <BiorhythmChart series={seriesData} lang={lang} />
               </div>
             )}
