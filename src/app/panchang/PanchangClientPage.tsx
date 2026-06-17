@@ -223,17 +223,17 @@ const PanchangPage = () => {
       />
 
       {/* Panchang Details */}
-      <section className="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 md:space-y-12">
         {/* Date Sequencer & Calendar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm">
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrevDay}
-                className={`px-4 py-2 rounded-full bg-white text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
+              className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
               title={t.prevDay}
+              aria-label={t.prevDay}
             >
-              <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
-              {t.prevDay}
+              <span className="material-symbols-outlined text-xl">chevron_left</span>
             </button>
             <button
               onClick={handleToday}
@@ -243,11 +243,11 @@ const PanchangPage = () => {
             </button>
             <button
               onClick={handleNextDay}
-                className={`px-4 py-2 rounded-full bg-white text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
+              className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
               title={t.nextDay}
+              aria-label={t.nextDay}
             >
-              {t.nextDay}
-              <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              <span className="material-symbols-outlined text-xl">chevron_right</span>
             </button>
           </div>
 
@@ -271,10 +271,10 @@ const PanchangPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Panchang Card */}
-          <div className="lg:col-span-2 bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
-            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">{t.elementsTitle}</h2>
+          <div className="lg:col-span-2 bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">{t.elementsTitle}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.tithi}</p>
@@ -311,7 +311,7 @@ const PanchangPage = () => {
               </div>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-outline/20 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="mt-8 pt-8 border-t border-outline/20 grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.sunSign}</p>
                 <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.sunSign : panchang.sunSignSanskrit}</p>
@@ -332,8 +332,8 @@ const PanchangPage = () => {
           </div>
 
           {/* Timings Card */}
-          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm h-full">
-            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">{t.timingsTitle}</h2>
+          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm h-full">
+            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">{t.timingsTitle}</h2>
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
@@ -384,10 +384,10 @@ const PanchangPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
            {/* Celestial Timings Card */}
-           <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
-            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">{t.celestialTitle}</h2>
+           <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">{t.celestialTitle}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.sunrise}</p>
@@ -409,8 +409,8 @@ const PanchangPage = () => {
           </div>
 
           {/* Current Period Details Card */}
-          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
-            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-8">{t.extraTitle}</h2>
+          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+            <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">{t.extraTitle}</h2>
             <div className="grid grid-cols-2 gap-8">
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.month}</p>
@@ -436,32 +436,32 @@ const PanchangPage = () => {
       </section>
 
       {/* Educational Content Section */}
-      <section className="py-24 bg-surface-container-low border-y border-outline/30">
+      <section className="py-8 md:py-16 bg-white border-y border-outline/30">
         <div className="max-w-4xl mx-auto px-8">
-          <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">{t.eduTitle}</h2>
+          <h2 className="text-3xl md:text-4xl font-normal mb-8 font-headline text-on-surface text-center">{t.eduTitle}</h2>
           <div className="prose prose-sm md:prose-base max-w-none text-on-surface font-body leading-relaxed space-y-8">
             <p>
               {t.eduPara1}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 not-prose">
-              <div className="bg-white p-6 rounded-2xl border border-outline/20">
+              <div className="bg-white p-6 rounded-[2rem] border border-outline/80 shadow-sm">
                 <h3 className="text-lg font-headline text-on-surface mb-2">{t.tithiTitle}</h3>
                 <p className="text-sm">{t.tithiDesc}</p>
               </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20">
+              <div className="bg-white p-6 rounded-[2rem] border border-outline/80 shadow-sm">
                 <h3 className="text-lg font-headline text-on-surface mb-2">{t.varaTitle}</h3>
                 <p className="text-sm">{t.varaDesc}</p>
               </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20">
+              <div className="bg-white p-6 rounded-[2rem] border border-outline/80 shadow-sm">
                 <h3 className="text-lg font-headline text-on-surface mb-2">{t.nakshatraTitle}</h3>
                 <p className="text-sm">{t.nakshatraDesc}</p>
               </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20">
+              <div className="bg-white p-6 rounded-[2rem] border border-outline/80 shadow-sm">
                 <h3 className="text-lg font-headline text-on-surface mb-2">{t.yogaTitle}</h3>
                 <p className="text-sm">{t.yogaDesc}</p>
               </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20">
+              <div className="bg-white p-6 rounded-[2rem] border border-outline/80 shadow-sm">
                 <h3 className="text-lg font-headline text-on-surface mb-2">{t.karanaTitle}</h3>
                 <p className="text-sm">{t.karanaDesc}</p>
               </div>
@@ -475,9 +475,9 @@ const PanchangPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-surface">
+      <section className="py-8 md:py-16 bg-white">
         <div className="max-w-4xl mx-auto px-8 text-center">
-          <div className="bg-surface-container-low border border-outline/50 rounded-[3rem] p-10 md:p-16">
+          <div className="bg-white border border-outline/80 rounded-[3rem] p-8 md:p-12 shadow-sm">
             <h2 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">{t.ctaTitle}</h2>
             <p className="text-sm md:text-base text-on-surface font-body mb-10 leading-relaxed max-w-2xl mx-auto">
               {t.ctaDesc}

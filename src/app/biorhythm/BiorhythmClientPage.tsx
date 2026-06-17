@@ -155,9 +155,9 @@ const BiorhythmContent = () => {
         description={t.heroDesc}
       />
 
-      <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-8 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 md:space-y-12">
         {/* Unified Control Bar */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm mb-8">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm">
           {/* DOB Input */}
           <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div className="shrink-0">
@@ -243,11 +243,11 @@ const BiorhythmContent = () => {
         </div>
 
         {biorhythmData && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 mb-8">
+          <div className="space-y-8 md:space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Chart Section */}
             {seriesData && (
               <div className="animate-in fade-in duration-1000 delay-300">
-                <div className="mb-4">
+                <div className="mb-6">
                   <h3 className="text-base md:text-lg font-headline text-on-surface text-center">
                     {t.chartTitle}
                   </h3>
@@ -257,11 +257,11 @@ const BiorhythmContent = () => {
             )}
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {biorhythmData.cycles.map((cycle) => (
                 <div
                   key={cycle.name}
-                  className="bg-white border border-outline/80 rounded-[2rem] p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+                  className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
                 >
                   <div className="relative z-10">
                     <div className="flex justify-between items-start mb-3">
@@ -340,7 +340,7 @@ const BiorhythmContent = () => {
           </div>
         )}
 
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mt-8">
+        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
           <h4 className="text-xl font-headline text-on-surface mb-4">
             {t.historyTitle}
           </h4>
