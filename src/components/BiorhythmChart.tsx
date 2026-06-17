@@ -98,8 +98,14 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series, lang =
           )}
 
           {/* Date Labels (X-Axis) */}
-          {series.map((p, i) => (
-             <text
+          {series.map((p, i) => {
+            // Only show labels every 10 days to avoid crowding in the 60-day view,
+            // but always show the label for the target date.
+            const shouldShowLabel = i % 10 === 0 || p.isTarget;
+            if (!shouldShowLabel) return null;
+
+            return (
+              <text
                 key={i}
                 x={getX(i)} y={height - 15}
                 className={`text-[10px] font-label ${p.isTarget ? 'fill-on-surface font-bold' : 'fill-secondary'} ${lang === 'hi' ? 'font-hindi' : ''}`}
@@ -107,7 +113,8 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series, lang =
               >
                 {p.date.toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric' })}
               </text>
-          ))}
+            );
+          })}
 
           {/* Value Labels (Y-Axis) */}
           <text x={padding.left - 10} y={getY(1)} className="fill-secondary text-[10px] font-label" textAnchor="end" dominantBaseline="middle">100%</text>
