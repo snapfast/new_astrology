@@ -20,3 +20,7 @@
 - Added "Pay using Email ID" label for PayPal to clarify the payment method.
 - Ensured full opacity for all text and icons, adhering to the 'Text Clarity & Readability Standard'.
 - Maintained "copy to clipboard" functionality with localized feedback (Copied).
+
+## 2026-06-17 - [Repository Bloat and CI Artifacts]
+**Learning:** Committing binary artifacts like screenshots directly to the repository root increases repository size and clutter. Verification screenshots should be used for development/debugging and excluded from production commits.
+**Action:** Always delete temporary verification assets before submission and configure tests to output artifacts to ignored directories.
