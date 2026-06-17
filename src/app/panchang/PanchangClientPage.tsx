@@ -229,7 +229,7 @@ const PanchangPage = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrevDay}
-                className={`px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
+                className={`px-4 py-2 rounded-full bg-white text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
               title={t.prevDay}
             >
               <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
@@ -243,7 +243,7 @@ const PanchangPage = () => {
             </button>
             <button
               onClick={handleNextDay}
-                className={`px-4 py-2 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
+                className={`px-4 py-2 rounded-full bg-white text-on-surface hover:bg-surface-container-high transition-colors border border-outline/30 text-[10px] md:text-xs font-label uppercase flex items-center gap-2 group ${lang === 'en' ? 'tracking-widest' : ''}`}
               title={t.nextDay}
             >
               {t.nextDay}
@@ -257,7 +257,7 @@ const PanchangPage = () => {
                 type="date"
                 value={selectedDate.toISOString().split('T')[0]}
                 onChange={handleDateChange}
-                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-surface-container-lowest border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
                 aria-label={t.selectDate}
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">calendar_month</span>

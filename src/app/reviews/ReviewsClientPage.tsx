@@ -122,7 +122,7 @@ export default function ReviewsClientPage() {
                 &quot;{item.review}&quot;
               </p>
               <div className="flex items-center gap-4 pt-6 border-t border-outline/30">
-                <div className="w-10 h-10 rounded-full bg-surface-container-low border border-outline/50 flex items-center justify-center text-accent font-semibold text-base uppercase">
+                <div className="w-10 h-10 rounded-full bg-white border border-outline/50 flex items-center justify-center text-accent font-semibold text-base uppercase">
                   {item.name[0]}
                 </div>
                 <div>

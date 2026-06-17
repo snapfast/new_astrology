@@ -133,7 +133,7 @@ const Testimonials = () => {
                         &quot;{item.review}&quot;
                       </p>
                       <div className="flex items-center gap-4 mt-auto">
-                        <div className="w-12 h-12 rounded-full bg-surface-container-low border border-outline/50 flex items-center justify-center text-accent font-semibold text-lg">
+                        <div className="w-12 h-12 rounded-full bg-white border border-outline/50 flex items-center justify-center text-accent font-semibold text-lg">
                           {item.name[0]}
                         </div>
                         <div>
