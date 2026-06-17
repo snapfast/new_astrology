@@ -303,7 +303,7 @@ const CompactHoroscopeContent = () => {
         <div className="col-span-4 row-span-12 flex flex-col gap-3">
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="bg-surface-container-low px-3 py-1.5 border-b border-outline/50">
+            <div className="bg-white px-3 py-1.5 border-b border-outline/50">
               <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
             </div>
             <div className="flex-grow overflow-y-auto no-scrollbar">
@@ -336,7 +336,7 @@ const CompactHoroscopeContent = () => {
 
           {/* Dasha (Condensed) */}
           <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
-             <div className="bg-surface-container-low px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
+             <div className="bg-white px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
               <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.vimshottariDasha}</h2>
               <div className="flex items-center gap-1">
                  <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
@@ -407,7 +407,7 @@ const CompactHoroscopeContent = () => {
 
 const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartData, lang: string }) => (
   <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden">
-    <div className="bg-surface-container-low px-3 py-1 border-b border-outline/30">
+    <div className="bg-white px-3 py-1 border-b border-outline/30">
       <h2 className={`text-[9px] font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
     <div className="flex-grow flex items-center justify-center p-1 overflow-hidden">

@@ -406,7 +406,7 @@ const HoroscopeContent = () => {
         <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-surface-container-low border-b border-outline">
+              <tr className="bg-white border-b border-outline">
                 <th className={cn(
                   "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
                   lang === 'hi' ? "tracking-normal" : "tracking-widest"

@@ -374,7 +374,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onFocus={() => setShowHistory(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
                   placeholder="Rahul Bali"
                   type="text"
                   autoComplete="off"
@@ -420,7 +420,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                   type="date"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
                   required
                   aria-invalid={!!errors.dob}
                   aria-describedby={errors.dob ? "dob-error" : undefined}
@@ -434,7 +434,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                   type="time"
                   value={tob}
                   onChange={(e) => setTob(e.target.value)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
                   required
                   aria-invalid={!!errors.tob}
                   aria-describedby={errors.tob ? "tob-error" : undefined}
@@ -453,7 +453,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                     setShowSuggestions(true);
                   }}
                   onFocus={() => setShowSuggestions(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-surface-container-low border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
                   placeholder={t.placeholderPob}
                   type="text"
                   autoComplete="off"
