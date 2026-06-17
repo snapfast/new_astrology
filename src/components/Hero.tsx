@@ -41,7 +41,7 @@ const Hero = () => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
       <div className="concentric-circles animate-slow-spin">
         <div className="circle-dashed w-[400px] h-[400px]"></div>
@@ -52,7 +52,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center mt-20 md:mt-12">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center py-20 md:py-32 mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
           <span className={`font-medium text-accent mb-3 font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
             {t.subtitle}

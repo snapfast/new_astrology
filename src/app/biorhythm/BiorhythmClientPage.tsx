@@ -156,190 +156,189 @@ const BiorhythmContent = () => {
       />
 
       <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      {biorhythmData && (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 mb-8">
-          {/* Chart Section */}
-          {seriesData && (
-            <div className="animate-in fade-in duration-1000 delay-300">
-              <div className="mb-4">
-                <h3 className="text-base md:text-lg font-headline text-on-surface text-center">
-                  {t.chartTitle}
-                </h3>
-              </div>
-              <BiorhythmChart series={seriesData} lang={lang} />
-            </div>
-          )}
-
-          {/* Metrics Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {biorhythmData.cycles.map((cycle) => (
-              <div
-                key={cycle.name}
-                className="bg-white border border-outline/80 rounded-[2rem] p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+        {/* Unified Control Bar */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm mb-8">
+          {/* DOB Input */}
+          <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="shrink-0">
+              <label
+                htmlFor="dob"
+                className={`block text-[10px] font-bold text-accent uppercase font-label mb-1 sm:mb-0 ${lang === 'en' ? 'tracking-widest' : ''}`}
               >
-                <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 className="text-lg font-headline text-on-surface">
-                        {t.cycles[cycle.name as keyof typeof t.cycles]?.name || cycle.name}
-                      </h3>
-                      <p className={`text-[9px] text-on-surface font-label uppercase mt-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
-                        {cycle.period} {t.cycleDay}
-                      </p>
-                    </div>
-                    <span
-                      className="material-symbols-outlined text-xl"
-                      style={{ color: cycle.color }}
-                    >
-                      {cycle.name === "Physical"
-                        ? "fitness_center"
-                        : cycle.name === "Emotional"
-                          ? "favorite"
-                          : cycle.name === "Intellectual"
-                            ? "psychology"
-                            : cycle.name === "Spiritual"
-                              ? "self_improvement"
-                              : cycle.name === "Intuitional"
-                                ? "auto_awesome"
-                                : cycle.name === "Aesthetic"
-                                  ? "palette"
-                                  : "visibility"}
-                    </span>
-                  </div>
+                {t.dobLabel}
+              </label>
+            </div>
+            <div className="relative w-full sm:max-w-[200px]">
+              <input
+                type="date"
+                id="dob"
+                value={dob}
+                onChange={handleDobChange}
+                className="w-full bg-white border border-outline/50 rounded-xl px-4 py-2 text-on-surface font-body focus:ring-2 focus:ring-accent transition-all text-sm appearance-none"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-lg">
+                calendar_today
+              </span>
+            </div>
+          </div>
 
-                  <div className="mb-4 bg-surface-container-low/30 rounded-xl p-3">
-                    {seriesData && (
-                      <MiniBiorhythmChart
-                        series={seriesData}
-                        cycleName={cycle.name}
-                        color={cycle.color}
-                      />
-                    )}
-                  </div>
+          {/* Target Date Navigation (Only shown when DOB is present) */}
+          {dob && (
+            <div className="flex flex-col md:flex-row items-center gap-6 border-t md:border-t-0 md:border-l border-outline/20 pt-6 md:pt-0 md:pl-8">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => adjustDate(-1)}
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
+                  title="Previous Day"
+                  aria-label="Previous Day"
+                >
+                  <span className="material-symbols-outlined text-xl">
+                    chevron_left
+                  </span>
+                </button>
 
-                  <p className="text-xs text-on-surface font-body leading-relaxed">
-                    {t.cycles[cycle.name as keyof typeof t.cycles]?.desc || cycle.description}
+                <button
+                  onClick={resetToday}
+                  className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label uppercase ${lang === 'en' ? 'tracking-wider' : ''}`}
+                >
+                  {t.today}
+                </button>
+
+                <button
+                  onClick={() => adjustDate(1)}
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
+                  title="Next Day"
+                  aria-label="Next Day"
+                >
+                  <span className="material-symbols-outlined text-xl">
+                    chevron_right
+                  </span>
+                </button>
+              </div>
+
+              <div className="flex items-center gap-4 w-full md:w-auto">
+                <div className="relative flex-1 md:flex-none">
+                  <input
+                    type="date"
+                    value={targetDate.toISOString().split("T")[0]}
+                    onChange={handleTargetDateChange}
+                    className="w-full md:w-44 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                    aria-label="Select Target Date"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-lg">
+                    event
+                  </span>
+                </div>
+                <div className="hidden sm:block">
+                  <p className={`text-[10px] font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
+                    {t.analysisDate}
+                  </p>
+                  <p className={`text-xs font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                    {formattedTargetDate}
                   </p>
                 </div>
               </div>
-            ))}
-
-            {/* Integrated Interpretation Box */}
-            <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-4 md:p-5 flex flex-col justify-center">
-              <h4 className="text-base font-headline text-on-surface mb-2">
-                {t.interpretation}
-              </h4>
-              <p className="text-[11px] text-on-surface font-body leading-tight" dangerouslySetInnerHTML={{ __html: t.interpretationDesc }} />
             </div>
-          </div>
-        </div>
-      )}
-
-      {!biorhythmData && dob && (
-        <div className="text-center py-12">
-          <p className="text-on-surface font-body">
-            {t.calculating}
-          </p>
-        </div>
-      )}
-
-      {!dob && (
-        <div className="text-center py-12 animate-pulse">
-          <p className="text-on-surface font-body text-base">
-            {t.enterDob}
-          </p>
-          <span className="material-symbols-outlined text-accent text-5xl mt-6">
-            calendar_today
-          </span>
-        </div>
-      )}
-
-      {/* Unified Control Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm mb-8">
-        {/* DOB Input */}
-        <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="shrink-0">
-            <label
-              htmlFor="dob"
-              className={`block text-[10px] font-bold text-accent uppercase font-label mb-1 sm:mb-0 ${lang === 'en' ? 'tracking-widest' : ''}`}
-            >
-              {t.dobLabel}
-            </label>
-          </div>
-          <div className="relative w-full sm:max-w-[200px]">
-            <input
-              type="date"
-              id="dob"
-              value={dob}
-              onChange={handleDobChange}
-              className="w-full bg-white border border-outline/50 rounded-xl px-4 py-2 text-on-surface font-body focus:ring-2 focus:ring-accent transition-all text-sm appearance-none"
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-lg">
-              calendar_today
-            </span>
-          </div>
+          )}
         </div>
 
-        {/* Target Date Navigation (Only shown when DOB is present) */}
-        {dob && (
-          <div className="flex flex-col md:flex-row items-center gap-6 border-t md:border-t-0 md:border-l border-outline/20 pt-6 md:pt-0 md:pl-8">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => adjustDate(-1)}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
-                title="Previous Day"
-                aria-label="Previous Day"
-              >
-                <span className="material-symbols-outlined text-xl">
-                  chevron_left
-                </span>
-              </button>
-
-              <button
-                onClick={resetToday}
-                className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label uppercase ${lang === 'en' ? 'tracking-wider' : ''}`}
-              >
-                {t.today}
-              </button>
-
-              <button
-                onClick={() => adjustDate(1)}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
-                title="Next Day"
-                aria-label="Next Day"
-              >
-                <span className="material-symbols-outlined text-xl">
-                  chevron_right
-                </span>
-              </button>
-            </div>
-
-            <div className="flex items-center gap-4 w-full md:w-auto">
-              <div className="relative flex-1 md:flex-none">
-                <input
-                  type="date"
-                  value={targetDate.toISOString().split("T")[0]}
-                  onChange={handleTargetDateChange}
-                  className="w-full md:w-44 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
-                  aria-label="Select Target Date"
-                />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-lg">
-                  event
-                </span>
+        {biorhythmData && (
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 mb-8">
+            {/* Chart Section */}
+            {seriesData && (
+              <div className="animate-in fade-in duration-1000 delay-300">
+                <div className="mb-4">
+                  <h3 className="text-base md:text-lg font-headline text-on-surface text-center">
+                    {t.chartTitle}
+                  </h3>
+                </div>
+                <BiorhythmChart series={seriesData} lang={lang} />
               </div>
-              <div className="hidden sm:block">
-                <p className={`text-[10px] font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
-                  {t.analysisDate}
-                </p>
-                <p className={`text-xs font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                  {formattedTargetDate}
-                </p>
+            )}
+
+            {/* Metrics Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {biorhythmData.cycles.map((cycle) => (
+                <div
+                  key={cycle.name}
+                  className="bg-white border border-outline/80 rounded-[2rem] p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+                >
+                  <div className="relative z-10">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="text-lg font-headline text-on-surface">
+                          {t.cycles[cycle.name as keyof typeof t.cycles]?.name || cycle.name}
+                        </h3>
+                        <p className={`text-[9px] text-on-surface font-label uppercase mt-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
+                          {cycle.period} {t.cycleDay}
+                        </p>
+                      </div>
+                      <span
+                        className="material-symbols-outlined text-xl"
+                        style={{ color: cycle.color }}
+                      >
+                        {cycle.name === "Physical"
+                          ? "fitness_center"
+                          : cycle.name === "Emotional"
+                            ? "favorite"
+                            : cycle.name === "Intellectual"
+                              ? "psychology"
+                              : cycle.name === "Spiritual"
+                                ? "self_improvement"
+                                : cycle.name === "Intuitional"
+                                  ? "auto_awesome"
+                                  : cycle.name === "Aesthetic"
+                                    ? "palette"
+                                    : "visibility"}
+                      </span>
+                    </div>
+
+                    <div className="mb-4 bg-surface-container-low/30 rounded-xl p-3">
+                      {seriesData && (
+                        <MiniBiorhythmChart
+                          series={seriesData}
+                          cycleName={cycle.name}
+                          color={cycle.color}
+                        />
+                      )}
+                    </div>
+
+                    <p className="text-xs text-on-surface font-body leading-relaxed">
+                      {t.cycles[cycle.name as keyof typeof t.cycles]?.desc || cycle.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+
+              {/* Integrated Interpretation Box */}
+              <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-4 md:p-5 flex flex-col justify-center">
+                <h4 className="text-base font-headline text-on-surface mb-2">
+                  {t.interpretation}
+                </h4>
+                <p className="text-[11px] text-on-surface font-body leading-tight" dangerouslySetInnerHTML={{ __html: t.interpretationDesc }} />
               </div>
             </div>
           </div>
         )}
-      </div>
+
+        {!biorhythmData && dob && (
+          <div className="text-center py-12">
+            <p className="text-on-surface font-body">
+              {t.calculating}
+            </p>
+          </div>
+        )}
+
+        {!dob && (
+          <div className="text-center py-12 animate-pulse">
+            <p className="text-on-surface font-body text-base">
+              {t.enterDob}
+            </p>
+            <span className="material-symbols-outlined text-accent text-5xl mt-6">
+              calendar_today
+            </span>
+          </div>
+        )}
 
         <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-6 shadow-sm mt-8">
           <h4 className="text-xl font-headline text-on-surface mb-4">
