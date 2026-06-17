@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
@@ -10,18 +10,26 @@ const TRANSLATIONS = {
   en: {
     title: "Payment Methods",
     upiTitle: "Scan to Pay (UPI)",
+    upiIdLabel: "UPI ID",
+    upiId: "rahul.bali@ybl",
     paypalTitle: "PayPal Payment",
     paypalEmail: "rahulbaliastrology@gmail.com",
     emailTitle: "Email for Consultations & Payment Issues",
-    motto: "Guided by the stars, Grounded in Truth"
+    paypalEmailLabel: "PayPal Email",
+    motto: "Guided by the stars, Grounded in Truth",
+    copied: "Copied!"
   },
   hi: {
     title: "भुगतान के तरीके",
     upiTitle: "स्कैन करके भुगतान करें (UPI)",
+    upiIdLabel: "UPI आईडी",
+    upiId: "rahul.bali@ybl",
     paypalTitle: "पेपाल भुगतान",
     paypalEmail: "rahulbaliastrology@gmail.com",
     emailTitle: "परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल",
-    motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
+    paypalEmailLabel: "पेपाल ईमेल",
+    motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
+    copied: "कॉपी हो गया!"
   }
 };
 
@@ -29,6 +37,49 @@ interface PaymentOptionsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const CopyableField: FC<{ value: string; label: string; copiedLabel: string; lang: string }> = ({ value, label, copiedLabel, lang }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      sendGAEvent({ event: 'action_click', action_name: 'payment_field_copy', field: label });
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-1.5 w-full max-w-[320px]">
+      <span className={`text-on-surface/40 font-label uppercase ${lang === 'hi' ? 'text-[10px]' : 'text-[9px] tracking-widest'}`}>
+        {label}
+      </span>
+      <div className="relative group">
+        <button
+          onClick={handleCopy}
+          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/10 rounded-xl hover:border-primary/30 transition-all text-left group"
+        >
+          <span className="text-sm md:text-base font-body text-on-surface font-medium mr-2">
+            {value}
+          </span>
+          <div className="flex items-center shrink-0">
+             <span className="material-symbols-outlined text-on-surface/40 group-hover:text-primary transition-colors text-lg">
+               {copied ? 'check' : 'content_copy'}
+             </span>
+          </div>
+        </button>
+        {copied && (
+          <div className={`absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'hi' ? 'tracking-normal' : 'tracking-widest'}`}>
+            {copiedLabel}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) => {
   const { lang } = useLanguage();
@@ -38,7 +89,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-lg md:max-w-2xl"
+      maxWidth="max-w-lg lg:max-w-4xl"
     >
       <div className="p-4 md:p-10">
           <div className="flex justify-between items-center mb-6 md:mb-10">
@@ -55,26 +106,37 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
             </button>
           </div>
 
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-              {/* UPI QR */}
-              <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <h4 className={`mb-4 font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.upiTitle}</h4>
-                <div className="relative w-36 h-36 md:w-44 md:h-44 bg-surface-bright rounded-3xl p-3 border border-outline/10 shadow-sm">
+          <div className="space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+              {/* UPI Section */}
+              <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+                <div className="space-y-2">
+                  <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.upiTitle}</h4>
+                </div>
+                <div className="relative w-64 h-64 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden">
                   <Image
                     src="/donate-qr.png"
                     alt="UPI QR Code"
                     fill
-                    className="object-contain p-2"
+                    className="object-contain p-6"
+                    priority
                   />
                 </div>
+                <CopyableField
+                  value={t.upiId}
+                  label={t.upiIdLabel}
+                  copiedLabel={t.copied}
+                  lang={lang}
+                />
               </div>
 
-              {/* PayPal */}
-              <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <h4 className={`mb-4 font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.paypalTitle}</h4>
-                <div className="flex flex-col items-center md:items-start gap-4">
-                  <div className="relative w-32 h-10 md:w-40 md:h-12 bg-surface-bright rounded-xl border border-outline/10 flex items-center justify-center p-2">
+              {/* PayPal Section */}
+              <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
+                <div className="space-y-2">
+                  <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.paypalTitle}</h4>
+                </div>
+                <div className="flex flex-col items-center lg:items-start gap-8 w-full">
+                  <div className="relative w-40 h-12 md:w-48 md:h-16 bg-surface-bright rounded-2xl border border-outline/10 flex items-center justify-center p-3">
                     <div className="relative w-full h-full">
                       <Image
                         src="/paypal-logo.svg"
@@ -84,9 +146,12 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                       />
                     </div>
                   </div>
-                  <p className="text-sm md:text-base font-body text-on-surface font-medium selection:bg-accent/20">
-                    {t.paypalEmail}
-                  </p>
+                  <CopyableField
+                    value={t.paypalEmail}
+                    label={t.paypalEmailLabel}
+                    copiedLabel={t.copied}
+                    lang={lang}
+                  />
                 </div>
               </div>
             </div>
