@@ -15,7 +15,6 @@ const TRANSLATIONS = {
     heroTitle: "Personal Biorhythms",
     heroSubtitle: "Energy Cycles",
     heroDesc: "Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth.",
-    chartTitle: "Cycle Overview (7 Days)",
     cycleDay: "Day Cycle",
     interpretation: "Interpretation",
     interpretationDesc: "Values above the center line are <strong>High Phases</strong> (energetic), below are <strong>Low Phases</strong> (rest). Crossing the line indicates transition or instability.",
@@ -42,7 +41,6 @@ const TRANSLATIONS = {
     heroTitle: "व्यक्तिगत बायोरिदम",
     heroSubtitle: "ऊर्जा चक्र",
     heroDesc: "अपने प्राकृतिक चक्रों को समझें। शारीरिक, भावनात्मक और बौद्धिक लय जन्म के समय से ही आपके दैनिक जीवन को प्रभावित करती है।",
-    chartTitle: "चक्र अवलोकन (7 दिन)",
     cycleDay: "दिवसीय चक्र",
     interpretation: "व्याख्या",
     interpretationDesc: "केंद्र रेखा के ऊपर के मान <strong>उच्च चरण</strong> (ऊर्जावान) हैं, नीचे के मान <strong>निम्न चरण</strong> (विश्राम) हैं। रेखा को पार करना संक्रमण या अस्थिरता को दर्शाता है।",
@@ -132,8 +130,8 @@ const BiorhythmContent = () => {
   const seriesData = useMemo(() => {
     if (!dob) return null;
     try {
-      // Range 3 means -3 to +3, total 7 days
-      return calculateBiorhythmSeries(new Date(dob), targetDate, 3);
+      // Range 30 means -30 to +30, total 61 days
+      return calculateBiorhythmSeries(new Date(dob), targetDate, 30);
     } catch {
       return null;
     }
