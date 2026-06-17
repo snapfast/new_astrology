@@ -6,16 +6,16 @@
 export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
   let sanitized = val
-    .replace(/[\t\n\r]/g, '') // Remove tabs, newlines, and carriage returns
+    // Remove ASCII control characters (0-31, 127) and Unicode Bidi control characters
+    .replace(/[\x00-\x1F\x7F\u200E\u200F\u202A-\u202E\u2066-\u2069]/g, '')
     .slice(0, maxLength)
-    .replace(/\0/g, '') // Remove null bytes
     .replace(/[<>]/g, '');
 
   // Recursively remove suspicious protocols to prevent bypasses like "javasjavascriptcript:"
   let prev;
   do {
     prev = sanitized;
-    sanitized = sanitized.replace(/(javascript|vbscript|data|feed|file|jar):/gi, '');
+    sanitized = sanitized.replace(/(javascript|vbscript|data|feed|file|jar|srcdoc|about|content|ms-appx|ms-appx-web):/gi, '');
   } while (sanitized !== prev);
 
   return sanitized
