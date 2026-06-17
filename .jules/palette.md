@@ -9,6 +9,11 @@
 ## 2026-06-05 - [Global Back to Top Navigation]
 **Learning:** For content-heavy Vedic astrology platforms, a global "Back to Top" button significantly improves mobile and desktop navigation efficiency. Adhering to established UI standards (w-10 h-10 circular buttons) ensures design consistency. Throttling scroll event listeners to ~200ms prevents performance degradation during fast scrolling without sacrificing responsiveness.
 **Action:** Implement throttled scroll listeners for global navigation elements and maintain consistent button sizing across all floating UI actions.
+
+## 2026-06-06 - [Transition-Hidden Element Accessibility]
+**Learning:** When hiding interactive elements using CSS transitions (e.g., `opacity-0`) instead of conditional rendering, they remain in the tab order and are discoverable by screen readers unless explicitly managed. To ensure a truly "hidden" state, it is mandatory to combine the transition with `pointer-events-none`, `tabIndex={-1}`, and `aria-hidden={true}`.
+**Action:** Always synchronize `tabIndex`, `aria-hidden`, and `pointer-events` with the visibility state when using CSS transitions for UI elements.
+
 ## Support Section Enhancement
 - Restructured the support section on the About page to include distinct UPI and PayPal blocks.
 - Integrated brand-appropriate SVG logos (UPI and PayPal) using the theme's accent color.
