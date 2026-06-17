@@ -130,8 +130,18 @@ const BiorhythmContent = () => {
   const seriesData = useMemo(() => {
     if (!dob) return null;
     try {
-      // Range 30 means -30 to +30, total 61 days
+      // Range 30 means -30 to +30, total 61 days (Fulfils 60-day cycle requirement)
       return calculateBiorhythmSeries(new Date(dob), targetDate, 30);
+    } catch {
+      return null;
+    }
+  }, [dob, targetDate]);
+
+  const miniSeriesData = useMemo(() => {
+    if (!dob) return null;
+    try {
+      // Range 3 means -3 to +3, total 7 days
+      return calculateBiorhythmSeries(new Date(dob), targetDate, 3);
     } catch {
       return null;
     }
@@ -287,9 +297,9 @@ const BiorhythmContent = () => {
                     </div>
 
                     <div className="mb-4 bg-surface-container-low/30 rounded-xl p-3">
-                      {seriesData && (
+                      {miniSeriesData && (
                         <MiniBiorhythmChart
-                          series={seriesData}
+                          series={miniSeriesData}
                           cycleName={cycle.name}
                           color={cycle.color}
                         />
