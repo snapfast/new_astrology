@@ -32,3 +32,8 @@
 **Vulnerability:** Sanitization logic allowed ASCII control characters (0-31, 127) and Unicode Bidi control characters, which can be used for "Trojan Source" attacks or to bypass filters. Additionally, obscure but potentially dangerous protocols like `srcdoc` or `ms-appx` were not blocked.
 **Learning:** Robust sanitization must cover non-printable and direction-control characters that browsers might interpret or that can obfuscate malicious payloads.
 **Prevention:** Always strip the full range of ASCII control characters and known Bidi characters before processing user-provided strings. Expand protocol blacklists to include platform-specific or emerging web protocols.
+
+## 2026-06-17 - [Whitespace Protocol Bypass and Attribute Hardening]
+**Vulnerability:** Protocol-based XSS filters could be bypassed using whitespace (e.g., `javascript :`). Additionally, generic event handler stripping (`on\w+`) caused false positives for words like `long=` or `version=`.
+**Learning:** Regex for protocol detection must account for optional whitespace before the colon. Attribute stripping should use word boundaries (`\b`) to avoid over-matching and include a broader set of dangerous attributes (style, formaction, etc.).
+**Prevention:** Always use `\s*:` for protocol checks and `\b` word boundaries for attribute/event handler blacklists.

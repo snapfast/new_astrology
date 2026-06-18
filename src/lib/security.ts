@@ -12,14 +12,16 @@ export function sanitize(val: unknown, maxLength: number): string {
     .replace(/[<>]/g, '');
 
   // Recursively remove suspicious protocols to prevent bypasses like "javasjavascriptcript:"
+  // Accounts for optional whitespace before the colon.
   let prev;
   do {
     prev = sanitized;
-    sanitized = sanitized.replace(/(javascript|vbscript|data|feed|file|jar|srcdoc|about|content|ms-appx|ms-appx-web):/gi, '');
+    sanitized = sanitized.replace(/(javascript|vbscript|data|feed|file|jar|srcdoc|about|content|ms-appx|ms-appx-web)\s*:/gi, '');
   } while (sanitized !== prev);
 
   return sanitized
-    .replace(/on\w+\s*=/gi, '')
+    // Remove event handlers and dangerous attributes using word boundaries to avoid false positives (e.g. "long=")
+    .replace(/\b(on\w+|style|formaction|background|poster)\b\s*=/gi, '')
     .trim();
 }
 
