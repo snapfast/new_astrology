@@ -7,6 +7,23 @@ import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
 
+const TRANSLATIONS = {
+  en: {
+    serviceDetail: 'Service Detail',
+    close: 'Close',
+    guided: 'Guided by the stars',
+    grounded: 'Grounded in Truth',
+    schedule: 'Schedule Consultation'
+  },
+  hi: {
+    serviceDetail: 'सेवा विवरण',
+    close: 'बंद करें',
+    guided: 'सितारों द्वारा निर्देशित',
+    grounded: 'सत्य में निहित',
+    schedule: 'परामर्श शेड्यूल करें'
+  }
+};
+
 interface ServiceDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -19,6 +36,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
   service
 }) => {
   const { lang } = useLanguage();
+  const t = TRANSLATIONS[lang];
   if (!service) return null;
 
   return (
@@ -45,7 +63,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
           <button
             onClick={onClose}
             className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden"
-            aria-label="Close"
+            aria-label={t.close}
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -57,7 +75,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             <div>
               <span className={`font-medium text-accent mb-3 block font-label ${
                 lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'
-              }`}>{lang === 'hi' ? 'सेवा विवरण' : 'Service Detail'}</span>
+              }`}>{t.serviceDetail}</span>
               <h2 className={`font-normal text-on-surface font-headline tracking-tight ${
                 lang === 'hi' ? 'text-3xl md:text-5xl' : 'text-4xl md:text-5xl'
               }`}>
@@ -67,7 +85,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             <button
               onClick={onClose}
               className="hidden md:flex w-12 h-12 items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
-              aria-label="Close"
+              aria-label={t.close}
             >
               <span className="material-symbols-outlined text-on-surface">close</span>
             </button>
@@ -106,19 +124,19 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
                 lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
               }`}
             >
-              {lang === 'hi' ? 'परामर्श शेड्यूल करें' : 'Schedule Consultation'}
+              {t.schedule}
             </a>
 
             <div className="flex flex-col items-end text-right">
               <p className={`text-on-surface/40 font-label uppercase mb-1 ${
                 lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
               }`}>
-                {lang === 'hi' ? 'सितारों द्वारा निर्देशित' : 'Guided by the stars'}
+                {t.guided}
               </p>
               <p className={`text-on-surface/40 font-label uppercase ${
                 lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
               }`}>
-                {lang === 'hi' ? 'सत्य में निहित' : 'Grounded in Truth'}
+                {t.grounded}
               </p>
             </div>
           </div>

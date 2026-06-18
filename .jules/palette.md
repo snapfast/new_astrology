@@ -28,3 +28,7 @@
 ## 2026-06-18 - [Localized Rating Accessibility]
 **Learning:** Screen readers often announce icon-based rating systems (like star ratings) redundantly by reading out the underlying text or ligature (e.g., "star star star..."). Providing a single, localized `aria-label` on a container with `role="img"` while hiding individual stars with `aria-hidden="true"` creates a much cleaner experience for assistive technology.
 **Action:** Always wrap rating icons in a container with `role="img"` and a concise, localized `aria-label`, ensuring individual decorative icons are hidden from screen readers.
+
+## 2026-06-20 - [Accessibility Localization in Interactive Elements]
+**Learning:** Hardcoded accessibility labels (e.g., `aria-label="Close modal"`) in icon-only buttons prevent a fully localized experience for screen reader users. Localizing these labels via the component's internal `TRANSLATIONS` object ensures that accessibility cues correctly match the chosen UI language, providing a more inclusive experience for a global audience.
+**Action:** Always localize `aria-label` for icon-only interactive elements using the same translation mechanism as other UI text.

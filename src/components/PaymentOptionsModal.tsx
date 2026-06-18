@@ -17,7 +17,8 @@ const TRANSLATIONS = {
     emailTitle: "Email for Consultations & Payment Issues",
     paypalEmailLabel: "PayPal Email",
     motto: "Guided by the stars, Grounded in Truth",
-    copied: "Copied!"
+    copied: "Copied!",
+    closeModal: "Close modal"
   },
   hi: {
     title: "भुगतान के तरीके",
@@ -29,7 +30,8 @@ const TRANSLATIONS = {
     emailTitle: "परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल",
     paypalEmailLabel: "पेपाल ईमेल",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
-    copied: "कॉपी हो गया!"
+    copied: "कॉपी हो गया!",
+    closeModal: "मोडल बंद करें"
   }
 };
 
@@ -100,7 +102,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                 onClose();
               }}
               className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
-              aria-label="Close modal"
+              aria-label={t.closeModal}
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
