@@ -24,3 +24,7 @@
 ## 2026-06-17 - [Repository Bloat and CI Artifacts]
 **Learning:** Committing binary artifacts like screenshots directly to the repository root increases repository size and clutter. Verification screenshots should be used for development/debugging and excluded from production commits.
 **Action:** Always delete temporary verification assets before submission and configure tests to output artifacts to ignored directories.
+
+## 2026-06-18 - [Localized Rating Accessibility]
+**Learning:** Screen readers often announce icon-based rating systems (like star ratings) redundantly by reading out the underlying text or ligature (e.g., "star star star..."). Providing a single, localized `aria-label` on a container with `role="img"` while hiding individual stars with `aria-hidden="true"` creates a much cleaner experience for assistive technology.
+**Action:** Always wrap rating icons in a container with `role="img"` and a concise, localized `aria-label`, ensuring individual decorative icons are hidden from screen readers.
