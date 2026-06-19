@@ -14,7 +14,8 @@ const TRANSLATIONS = {
     socialTitle: 'Spiritual Insights',
     socialDesc: 'Daily astrological wisdom, mantras, and spiritual guidance on social media.',
     socialBtn: 'Follow on Threads',
-    motto: 'Guided by the stars, Grounded in Truth'
+    motto: 'Guided by the stars, Grounded in Truth',
+    closeModal: 'Close modal'
   },
   hi: {
     title: 'और खोजें',
@@ -24,7 +25,8 @@ const TRANSLATIONS = {
     socialTitle: 'आध्यात्मिक अंतर्दृष्टि',
     socialDesc: 'सोशल मीडिया पर दैनिक ज्योतिषीय ज्ञान, मंत्र और आध्यात्मिक मार्गदर्शन।',
     socialBtn: 'थ्रेड्स पर फॉलो करें',
-    motto: 'सितारों द्वारा निर्देशित, सत्य में निहित'
+    motto: 'सितारों द्वारा निर्देशित, सत्य में निहित',
+    closeModal: 'मोडल बंद करें'
   }
 };
 
@@ -52,7 +54,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 onClose();
               }}
               className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
-              aria-label="Close modal"
+              aria-label={t.closeModal}
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>

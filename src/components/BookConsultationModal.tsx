@@ -15,7 +15,8 @@ const TRANSLATIONS = {
     meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
     viewPayments: "View Payment Methods",
-    motto: "Guided by the stars, Grounded in Truth"
+    motto: "Guided by the stars, Grounded in Truth",
+    closeModal: "Close modal"
   },
   hi: {
     title: "परामर्श बुक करें",
@@ -26,7 +27,8 @@ const TRANSLATIONS = {
     meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
     viewPayments: "भुगतान के तरीके देखें",
-    motto: "सितारों द्वारा निर्देशित, सत्य में निहित"
+    motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
+    closeModal: "मोडल बंद करें"
   }
 };
 
@@ -55,7 +57,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 onClose();
               }}
               className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
-              aria-label="Close modal"
+              aria-label={t.closeModal}
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>

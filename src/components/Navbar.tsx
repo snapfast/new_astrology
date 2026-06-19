@@ -22,7 +22,9 @@ const TRANSLATIONS = {
     bookNow: 'Book Now',
     bookConsultation: 'Book a Consultation Now',
     location: 'Gurugram, India',
-    switchLanguage: 'Switch Language / भाषा बदलें'
+    switchLanguage: 'Switch Language / भाषा बदलें',
+    openMenu: 'Open Menu',
+    closeMenu: 'Close Menu'
   },
   hi: {
     home: 'होम',
@@ -36,7 +38,9 @@ const TRANSLATIONS = {
     bookNow: 'अभी बुक करें',
     bookConsultation: 'अभी परामर्श बुक करें',
     location: 'गुरुग्राम, भारत',
-    switchLanguage: 'भाषा बदलें / Switch Language'
+    switchLanguage: 'भाषा बदलें / Switch Language',
+    openMenu: 'मेन्यू खोलें',
+    closeMenu: 'मेन्यू बंद करें'
   }
 };
 
@@ -100,7 +104,7 @@ const Navbar = () => {
           <button
             onClick={() => setIsMenuOpen(true)}
             className="md:hidden p-2 -ml-2 mr-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            aria-label="Open Menu"
+            aria-label={t.openMenu}
           >
             <span className="material-symbols-outlined !text-2xl">menu</span>
           </button>
@@ -192,7 +196,7 @@ const Navbar = () => {
           <button
             onClick={closeMenu}
             className="p-2 -mr-2 text-on-surface hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            aria-label="Close Menu"
+            aria-label={t.closeMenu}
           >
             <span className="material-symbols-outlined !text-2xl">close</span>
           </button>
