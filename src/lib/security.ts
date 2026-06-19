@@ -6,8 +6,8 @@
 export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
   let sanitized = val
-    // Remove ASCII control characters (0-31, 127) and Unicode Bidi control characters
-    .replace(/[\x00-\x1F\x7F\u200E\u200F\u202A-\u202E\u2066-\u2069]/g, '')
+    // Remove ASCII control characters (0-31, 127), Zero Width characters, and Unicode Bidi control characters
+    .replace(/[\x00-\x1F\x7F\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, '')
     .slice(0, maxLength)
     .replace(/[<>]/g, '');
 
