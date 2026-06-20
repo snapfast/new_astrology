@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, FormEvent, useMemo } from 'react';
+import { useState, useEffect, useRef, FormEvent, useMemo, KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -113,6 +113,8 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [history, setHistory] = useState<StoredChartData[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [activeHistoryIndex, setActiveHistoryIndex] = useState(-1);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
 
   // Performance Optimization: Memoized Map for O(1) duplicate name validation
   const historyMap = useMemo(() => {
@@ -163,9 +165,11 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (suggestionRef.current && !suggestionRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
+        setActiveSuggestionIndex(-1);
       }
       if (historyRef.current && !historyRef.current.contains(event.target as Node)) {
         setShowHistory(false);
+        setActiveHistoryIndex(-1);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -307,6 +311,47 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
     setPob(item.pob);
     setCoords(item.coords);
     setShowHistory(false);
+    setActiveHistoryIndex(-1);
+  };
+
+  const handleHistoryKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!showHistory || history.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveHistoryIndex(prev => (prev < history.length - 1 ? prev + 1 : prev));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveHistoryIndex(prev => (prev > 0 ? prev - 1 : -1));
+    } else if (e.key === 'Enter' && activeHistoryIndex >= 0) {
+      e.preventDefault();
+      handleSelectHistory(history[activeHistoryIndex]);
+    } else if (e.key === 'Escape') {
+      setShowHistory(false);
+      setActiveHistoryIndex(-1);
+    }
+  };
+
+  const handleSuggestionKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveSuggestionIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : prev));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveSuggestionIndex(prev => (prev > 0 ? prev - 1 : -1));
+    } else if (e.key === 'Enter' && activeSuggestionIndex >= 0) {
+      e.preventDefault();
+      const suggestion = suggestions[activeSuggestionIndex];
+      setPob(suggestion.name);
+      setCoords({ lat: suggestion.lat, lon: suggestion.lon });
+      setShowSuggestions(false);
+      setActiveSuggestionIndex(-1);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+      setActiveSuggestionIndex(-1);
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -368,21 +413,29 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                 ref={historyRef}
               >
                 <label htmlFor="full-name" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelName}</label>
-                <input
-                  id="full-name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onFocus={() => setShowHistory(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
-                  placeholder="Rahul Bali"
-                  type="text"
-                  autoComplete="off"
-                  maxLength={100}
-                  required
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                />
+                <div role="combobox" aria-expanded={showHistory && history.length > 0} aria-haspopup="listbox" aria-controls="history-listbox">
+                  <input
+                    id="full-name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      if (!showHistory) setShowHistory(true);
+                    }}
+                    onFocus={() => setShowHistory(true)}
+                    onKeyDown={handleHistoryKeyDown}
+                    className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                    placeholder="Rahul Bali"
+                    type="text"
+                    autoComplete="off"
+                    maxLength={100}
+                    required
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                    aria-autocomplete="list"
+                    aria-activedescendant={activeHistoryIndex >= 0 ? `history-option-${activeHistoryIndex}` : undefined}
+                  />
+                </div>
                 {errors.name && <p id="name-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.name}</p>}
 
                 {showHistory && history.length > 0 && (
@@ -390,13 +443,14 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                     <div className="px-6 py-3 bg-white/10 border-b border-white/5">
                       <span className={`text-[8px] md:text-[10px] font-medium text-white uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.recentProfiles}</span>
                     </div>
-                    <ul className="max-h-60 overflow-y-auto">
+                    <ul id="history-listbox" role="listbox" className="max-h-60 overflow-y-auto">
                       {history.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} id={`history-option-${index}`} role="option" aria-selected={index === activeHistoryIndex}>
                           <button
                             type="button"
                             onClick={() => handleSelectHistory(item)}
-                            className="w-full text-left px-6 py-4 transition-colors hover:bg-white/10 group"
+                            onMouseEnter={() => setActiveHistoryIndex(index)}
+                            className={`w-full text-left px-6 py-4 transition-colors group ${index === activeHistoryIndex ? 'bg-white/20' : 'hover:bg-white/10'}`}
                           >
                             <div className="flex flex-col gap-0.5">
                               <span className="text-xs md:text-sm text-white font-body font-medium transition-colors">{item.name}</span>
@@ -443,25 +497,31 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
                 <label htmlFor="pob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelPob}</label>
-                <input
-                  id="pob-input"
-                  name="pob"
-                  value={pob}
-                  onChange={(e) => {
-                    setPob(e.target.value);
-                    setCoords(null);
-                    setShowSuggestions(true);
-                  }}
-                  onFocus={() => setShowSuggestions(true)}
-                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
-                  placeholder={t.placeholderPob}
-                  type="text"
-                  autoComplete="off"
-                  maxLength={100}
-                  required
-                  aria-invalid={!!errors.pob}
-                  aria-describedby={errors.pob ? "pob-error" : undefined}
-                />
+                <div role="combobox" aria-expanded={showSuggestions && (suggestions.length > 0 || isLoading)} aria-haspopup="listbox" aria-controls="suggestions-listbox">
+                  <input
+                    id="pob-input"
+                    name="pob"
+                    value={pob}
+                    onChange={(e) => {
+                      setPob(e.target.value);
+                      setCoords(null);
+                      setShowSuggestions(true);
+                      setActiveSuggestionIndex(-1);
+                    }}
+                    onFocus={() => setShowSuggestions(true)}
+                    onKeyDown={handleSuggestionKeyDown}
+                    className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                    placeholder={t.placeholderPob}
+                    type="text"
+                    autoComplete="off"
+                    maxLength={100}
+                    required
+                    aria-invalid={!!errors.pob}
+                    aria-describedby={errors.pob ? "pob-error" : undefined}
+                    aria-autocomplete="list"
+                    aria-activedescendant={activeSuggestionIndex >= 0 ? `suggestion-option-${activeSuggestionIndex}` : undefined}
+                  />
+                </div>
                 {errors.pob && <p id="pob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.pob}</p>}
 
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
@@ -469,17 +529,19 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                     {isLoading ? (
                       <div className="px-6 py-4 text-xs text-on-surface font-body">{t.searching}</div>
                     ) : (
-                      <ul className="max-h-60 overflow-y-auto">
+                      <ul id="suggestions-listbox" role="listbox" className="max-h-60 overflow-y-auto">
                         {suggestions.map((suggestion, index) => (
-                          <li key={index}>
+                          <li key={index} id={`suggestion-option-${index}`} role="option" aria-selected={index === activeSuggestionIndex}>
                             <button
                               type="button"
                               onClick={() => {
                                 setPob(suggestion.name);
                                 setCoords({ lat: suggestion.lat, lon: suggestion.lon });
                                 setShowSuggestions(false);
+                                setActiveSuggestionIndex(-1);
                               }}
-                              className="w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body active:bg-accent/5 transition-colors"
+                              onMouseEnter={() => setActiveSuggestionIndex(index)}
+                              className={`w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body transition-colors ${index === activeSuggestionIndex ? 'bg-accent/20' : 'active:bg-accent/5'}`}
                             >
                               {suggestion.name}
                             </button>
