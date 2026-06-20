@@ -51,6 +51,12 @@ describe('Security Utilities', () => {
     assert.strictEqual(sanitize('java\nscript:alert(1)', 30), 'alert(1)');
     assert.strictEqual(sanitize('java\rscript:alert(1)', 30), 'alert(1)');
     assert.strictEqual(sanitize('j\ta\nv\rascript:alert(1)', 30), 'alert(1)');
+
+    // Invisible Unicode characters (Zero Width Space, etc.)
+    assert.strictEqual(sanitize('java\u200Bscript:alert(1)', 30), 'alert(1)');
+    assert.strictEqual(sanitize('java\u200Cscript:alert(1)', 30), 'alert(1)');
+    assert.strictEqual(sanitize('java\u200Dscript:alert(1)', 30), 'alert(1)');
+    assert.strictEqual(sanitize('java\uFEFFscript:alert(1)', 30), 'alert(1)');
   });
 
   it('sanitizeCoord validates numeric format and range strictly', () => {

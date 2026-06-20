@@ -37,3 +37,8 @@
 **Vulnerability:** Protocol-based XSS filters could be bypassed using whitespace (e.g., `javascript :`). Additionally, generic event handler stripping (`on\w+`) caused false positives for words like `long=` or `version=`.
 **Learning:** Regex for protocol detection must account for optional whitespace before the colon. Attribute stripping should use word boundaries (`\b`) to avoid over-matching and include a broader set of dangerous attributes (style, formaction, etc.).
 **Prevention:** Always use `\s*:` for protocol checks and `\b` word boundaries for attribute/event handler blacklists.
+
+## 2026-06-19 - [Invisible Unicode Character Bypass]
+**Vulnerability:** Attackers can bypass protocol and keyword filters (e.g., "javascript:") by injecting invisible Unicode characters like Zero Width Space (\u200B), Non-Joiner (\u200C), Joiner (\u200D), or Byte Order Mark (\uFEFF) inside the string.
+**Learning:** Many "invisible" characters are ignored by browsers during URI parsing but effectively break simple string matching or regex filters that don't explicitly account for them.
+**Prevention:** Expand character stripping regex to include the full range of Zero Width characters (\u200B-\u200F) and the Byte Order Mark (\uFEFF) before performing security-critical filtering.
