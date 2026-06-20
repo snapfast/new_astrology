@@ -1,0 +1,3 @@
+## 2026-06-20 - Accessible Autocomplete Pattern
+**Learning:** Custom dropdowns (like history or search suggestions) are inaccessible to keyboard and screen reader users without explicit state management for active items and ARIA attributes. Providing only mouse-based interaction or simple focus visibility isn't enough for a professional UX.
+**Action:** Implement the WAI-ARIA Combobox pattern: use `role="combobox"`, `aria-autocomplete="list"`, and `aria-activedescendant` on the input; `role="listbox"` and `role="option"` on the dropdown; and handle ArrowUp/Down, Enter, and Escape keys for navigation and selection.
