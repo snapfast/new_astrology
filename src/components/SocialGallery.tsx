@@ -112,7 +112,7 @@ const SocialGallery = () => {
               rel="noopener noreferrer"
               onClick={() => handleProfileClick('threads')}
               aria-label="Follow on Threads"
-              className="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
             >
               <i className="fa-brands fa-threads text-xl"></i>
             </a>
@@ -122,7 +122,7 @@ const SocialGallery = () => {
               rel="noopener noreferrer"
               onClick={() => handleProfileClick('instagram')}
               aria-label="Follow on Instagram"
-              className="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
             >
               <i className="fa-brands fa-instagram text-xl"></i>
             </a>
@@ -132,7 +132,7 @@ const SocialGallery = () => {
               rel="noopener noreferrer"
               onClick={() => handleProfileClick('facebook')}
               aria-label="Follow on Facebook"
-              className="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
             >
               <i className="fa-brands fa-facebook-f text-lg"></i>
             </a>
@@ -183,9 +183,9 @@ const SocialGallery = () => {
         <div className="mt-12 text-center">
           <p className="text-on-surface text-sm font-body mb-6">{t.stayConnected}</p>
           <div className="flex flex-wrap justify-center gap-8">
-            <a href={SOCIAL_PROFILES.threads} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors">Threads</a>
-            <a href={SOCIAL_PROFILES.instagram} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors">Instagram</a>
-            <a href={SOCIAL_PROFILES.facebook} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors">Facebook</a>
+            <a href={SOCIAL_PROFILES.threads} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4">Threads</a>
+            <a href={SOCIAL_PROFILES.instagram} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4">Instagram</a>
+            <a href={SOCIAL_PROFILES.facebook} target="_blank" rel="noopener noreferrer" className="text-on-surface text-[10px] font-semibold tracking-widest uppercase border-b border-accent/30 pb-1 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4">Facebook</a>
           </div>
         </div>
       </div>
