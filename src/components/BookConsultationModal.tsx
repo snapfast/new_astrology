@@ -11,7 +11,9 @@ const TRANSLATIONS = {
     meetTitle: "Private Google Meet Consultation",
     meetBadge: "No phone number required",
     meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
-    meetPricing: "Fee: Rs 10,001 / $151",
+    price1: "₹1,100 / $21",
+    price2: "₹5,100 / $71",
+    price3: "₹11,001 / $151",
     meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
     viewPayments: "View Payment Methods",
@@ -23,7 +25,9 @@ const TRANSLATIONS = {
     meetTitle: "निजी गूगल मीट परामर्श",
     meetBadge: "फोन नंबर की आवश्यकता नहीं",
     meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
-    meetPricing: "शुल्क: ₹10,001 / $151",
+    price1: "₹1,100 / $21",
+    price2: "₹5,100 / $71",
+    price3: "₹11,001 / $151",
     meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
     viewPayments: "भुगतान के तरीके देखें",
@@ -87,8 +91,12 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 <p className={`text-on-surface font-body mb-6 max-w-xl leading-relaxed ${lang === 'hi' ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>{t.meetDesc}</p>
 
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-4">
-                  <div className="space-y-1">
-                    <p className={`text-on-surface font-headline font-semibold tabular-nums ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.meetPricing}</p>
+                  <div className="space-y-4">
+                    <div className="flex flex-col gap-2">
+                      <p className={`text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi ${lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg'}`}>{t.price1}</p>
+                      <p className={`text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi ${lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg'}`}>{t.price2}</p>
+                      <p className={`text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi ${lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg'}`}>{t.price3}</p>
+                    </div>
                     <p className={`text-accent font-body italic ${lang === 'hi' ? 'text-xs md:text-sm' : 'text-[10px] md:text-xs'}`}>{t.meetInstruction}</p>
                   </div>
 
