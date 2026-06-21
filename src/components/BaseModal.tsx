@@ -20,8 +20,8 @@ const BaseModal: FC<BaseModalProps> = ({
   zIndex = 100,
   maxWidth = 'max-w-lg',
   backdropClassName = 'bg-on-surface/60 ',
-  containerClassName = 'p-4',
-  wrapperClassName = 'rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500',
+  containerClassName = 'p-2 md:p-4',
+  wrapperClassName = 'rounded-2xl md:rounded-3xl border-white/20 duration-500',
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -58,7 +58,7 @@ const BaseModal: FC<BaseModalProps> = ({
       {/* Modal Content Wrapper */}
       <div className={`flex min-h-full items-center justify-center pointer-events-none ${containerClassName}`}>
         <div
-          className={`relative w-full ${maxWidth} bg-white shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300 border border-outline/10 pointer-events-auto ${wrapperClassName}`}
+          className={`relative w-full ${maxWidth} bg-white shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300 border border-outline/10 pointer-events-auto ${wrapperClassName} max-h-[90vh] overflow-y-auto`}
         >
           {children}
         </div>

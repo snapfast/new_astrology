@@ -95,9 +95,9 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
       onClose={onClose}
       maxWidth="max-w-lg lg:max-w-4xl"
     >
-      <div className="p-4 md:p-10">
+      <div className="p-3 md:p-10">
           <div className="flex justify-between items-center mb-6 md:mb-10">
-            <h2 className="text-2xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
+            <h2 className="text-xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'payment_modal_close' });
@@ -110,8 +110,8 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
             </button>
           </div>
 
-          <div className="space-y-12">
-            <div className="bg-on-surface/5 border border-outline/10 rounded-2xl p-6 mb-8">
+          <div className="space-y-8 md:space-y-12">
+            <div className="bg-on-surface/5 border border-outline/10 rounded-2xl p-4 mb-6">
               <p className={`text-on-surface/90 font-body leading-relaxed ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
                 <span className="material-symbols-outlined align-middle mr-2 text-xl">info</span>
                 {t.paymentInstructions}
@@ -124,7 +124,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                 <div className="space-y-2">
                   <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.upiTitle}</h4>
                 </div>
-                <div className="relative w-64 h-64 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden">
+                <div className="relative w-56 h-56 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden">
                   <Image
                     src="/donate-qr.png"
                     alt="UPI QR Code"
@@ -147,7 +147,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                   <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.paypalTitle}</h4>
                 </div>
                 <div className="flex flex-col items-center lg:items-start gap-8 w-full">
-                  <div className="relative w-40 h-12 md:w-48 md:h-16 bg-surface-bright rounded-2xl border border-outline/10 flex items-center justify-center p-3">
+                  <div className="relative w-32 h-10 md:w-48 md:h-16 bg-surface-bright rounded-2xl border border-outline/10 flex items-center justify-center p-3">
                     <div className="relative w-full h-full">
                       <Image
                         src="/paypal-logo.svg"
