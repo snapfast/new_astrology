@@ -7,7 +7,8 @@ export function sanitize(val: unknown, maxLength: number): string {
   if (!val || typeof val !== 'string') return '';
   let sanitized = val
     // Remove ASCII control characters (0-31, 127), Zero Width characters, and Unicode Bidi control characters
-    .replace(/[\x00-\x1F\x7F\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, '')
+    // Also strips soft hyphens (\u00AD), word joiners (\u2060), and Mongolian vowel separators (\u180E) to prevent keyword obfuscation.
+    .replace(/[\x00-\x1F\x7F\u00AD\u180E\u200B-\u200F\u202A-\u202E\u2060\u2066-\u2069\uFEFF]/g, '')
     .slice(0, maxLength)
     .replace(/[<>]/g, '');
 
@@ -21,7 +22,8 @@ export function sanitize(val: unknown, maxLength: number): string {
 
   return sanitized
     // Remove event handlers and dangerous attributes using word boundaries to avoid false positives (e.g. "long=")
-    .replace(/\b(on\w+|style|formaction|background|poster)\b\s*=/gi, '')
+    // Accounts for optional slashes before the equal sign (e.g. "onload/=") used to bypass simple space-based filters.
+    .replace(/\b(on\w+|style|formaction|background|poster|srcdoc)\b[\s/]*=/gi, '')
     .trim();
 }
 

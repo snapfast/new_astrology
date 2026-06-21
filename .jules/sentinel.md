@@ -47,3 +47,8 @@
 **Vulnerability:** Security overrides for transitive dependencies (like `postcss`) were not being applied because they were defined in the top-level `overrides` field, which `pnpm` ignores in favor of `pnpm.overrides`.
 **Learning:** Dependency managers have specific keys for version overrides. Misconfiguring these keys leaves the application vulnerable despite having "fix" code present.
 **Prevention:** Always verify that security overrides are active by running the manager-specific audit command (e.g., `pnpm audit`) after applying changes to `package.json`.
+
+## 2025-06-21 - [Keyword Obfuscation and Attribute Bypass Hardening]
+**Vulnerability:** Attackers can bypass keyword-based XSS filters (e.g., `javascript:`) by injecting non-printable characters like soft hyphens (\u00AD), word joiners (\u2060), or Mongolian vowel separators (\u180E) that browsers ignore during parsing. Additionally, filters looking for `on*=` can be bypassed using slashes instead of whitespace (e.g., `onload/=`).
+**Learning:** Simple string sanitization is insufficient against browser-level parser normalization. Characters that are "invisible" to users but interpreted as delimiters or ignored by parsers must be explicitly stripped before keyword matching.
+**Prevention:** Extend character stripping regex to include the full range of formatting and control characters known to be ignored by browser URI/HTML parsers. Robustify attribute detection regex to account for non-whitespace delimiters like `/`.
