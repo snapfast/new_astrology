@@ -49,7 +49,7 @@ export default function ReviewsClientPage() {
       "ratingValue": "5.0",
       "reviewCount": REVIEWS.length.toString()
     },
-    "review": REVIEWS.slice(0, 10).map(r => ({
+    "review": REVIEWS.map(r => ({
       "@type": "Review",
       "author": {
         "@type": "Person",
