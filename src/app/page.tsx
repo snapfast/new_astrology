@@ -29,7 +29,7 @@ export default function Home() {
       "contactType": "customer support",
       "email": "rahulbaliastrology@gmail.com"
     },
-    "priceRange": "₹₹",
+    "priceRange": "₹ - ₹₹₹",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Gurugram",

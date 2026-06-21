@@ -16,6 +16,7 @@ const TRANSLATIONS = {
     paypalEmail: "rahulbaliastrology@gmail.com",
     emailTitle: "Email for Consultations & Payment Issues",
     paypalEmailLabel: "PayPal Email",
+    paymentInstructions: "These are suggested payments, please make these payments only. Please send this payment screenshot to rahulbaliastrology@gmail.com before booking the slot.",
     motto: "Guided by the stars, Grounded in Truth",
     copied: "Copied!",
     closeModal: "Close modal"
@@ -29,6 +30,7 @@ const TRANSLATIONS = {
     paypalEmail: "rahulbaliastrology@gmail.com",
     emailTitle: "परामर्श और भुगतान संबंधी समस्याओं के लिए ईमेल",
     paypalEmailLabel: "पेपाल ईमेल",
+    paymentInstructions: "ये सुझाए गए भुगतान हैं, कृपया केवल यही भुगतान करें। स्लॉट बुक करने से पहले कृपया इस भुगतान का स्क्रीनशॉट rahulbaliastrology@gmail.com पर भेजें।",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
     copied: "कॉपी हो गया!",
     closeModal: "मोडल बंद करें"
@@ -109,6 +111,13 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
           </div>
 
           <div className="space-y-12">
+            <div className="bg-accent/5 border border-accent/10 rounded-2xl p-6 mb-8">
+              <p className={`text-accent font-body leading-relaxed ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
+                <span className="material-symbols-outlined align-middle mr-2 text-xl">info</span>
+                {t.paymentInstructions}
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               {/* UPI Section */}
               <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
