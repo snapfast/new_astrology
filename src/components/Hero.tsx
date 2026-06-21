@@ -81,7 +81,7 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
               setIsBookingModalOpen(true);
             }}
-            className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:translate-y-0 text-center transition-all ${
+            className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               lang === 'hi'
                 ? 'text-[13px] md:text-[15px] tracking-normal'
                 : 'text-[10px] md:text-xs tracking-[0.1em]'
@@ -94,7 +94,7 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_payment_options' });
               setIsPaymentModalOpen(true);
             }}
-            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all ${
+            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
               lang === 'hi'
                 ? 'text-[13px] md:text-[15px] tracking-normal'
                 : 'text-[10px] md:text-xs tracking-[0.1em]'
@@ -107,7 +107,7 @@ const Hero = () => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
               setIsModalOpen(true);
             }}
-            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all ${
+            className={`px-10 py-4 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
               lang === 'hi'
                 ? 'text-[13px] md:text-[15px] tracking-normal'
                 : 'text-[10px] md:text-xs tracking-[0.1em]'

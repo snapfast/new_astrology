@@ -62,7 +62,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden"
+            className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 active:scale-95"
             aria-label={t.close}
           >
             <span className="material-symbols-outlined">close</span>
@@ -84,7 +84,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="hidden md:flex w-12 h-12 items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
+              className="hidden md:flex w-12 h-12 items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.close}
             >
               <span className="material-symbols-outlined text-on-surface">close</span>

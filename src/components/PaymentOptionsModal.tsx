@@ -62,7 +62,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string; lan
       <div className="relative group">
         <button
           onClick={handleCopy}
-          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/10 rounded-xl hover:border-primary/30 transition-all text-left group"
+          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/10 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
         >
           <span className="text-sm md:text-base font-body text-on-surface font-medium mr-2">
             {value}
@@ -101,7 +101,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                 sendGAEvent({ event: 'action_click', action_name: 'payment_modal_close' });
                 onClose();
               }}
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.closeModal}
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>

@@ -56,7 +56,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
                 onClose();
               }}
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.closeModal}
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
