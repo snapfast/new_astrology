@@ -42,3 +42,8 @@
 **Vulnerability:** Attackers can bypass protocol and keyword filters (e.g., "javascript:") by injecting invisible Unicode characters like Zero Width Space (\u200B), Non-Joiner (\u200C), Joiner (\u200D), or Byte Order Mark (\uFEFF) inside the string.
 **Learning:** Many "invisible" characters are ignored by browsers during URI parsing but effectively break simple string matching or regex filters that don't explicitly account for them.
 **Prevention:** Expand character stripping regex to include the full range of Zero Width characters (\u200B-\u200F) and the Byte Order Mark (\uFEFF) before performing security-critical filtering.
+
+## 2025-06-20 - Correct Pnpm Override Configuration
+**Vulnerability:** Security overrides for transitive dependencies (like `postcss`) were not being applied because they were defined in the top-level `overrides` field, which `pnpm` ignores in favor of `pnpm.overrides`.
+**Learning:** Dependency managers have specific keys for version overrides. Misconfiguring these keys leaves the application vulnerable despite having "fix" code present.
+**Prevention:** Always verify that security overrides are active by running the manager-specific audit command (e.g., `pnpm audit`) after applying changes to `package.json`.
