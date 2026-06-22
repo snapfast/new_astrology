@@ -83,8 +83,9 @@
     font-family: var(--font-noto-serif-devanagari), serif;
   }
 
-  /* Hide default calendar icon for date inputs as we use custom material icons */
-  input[type="date"]::-webkit-calendar-picker-indicator {
+  /* Hide default calendar icon for date/time inputs as we use custom material icons */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
     background: transparent;
     bottom: 0;
     color: transparent;
