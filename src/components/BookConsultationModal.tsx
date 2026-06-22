@@ -15,8 +15,8 @@ const TRANSLATIONS = {
     price1: "₹1,100 / $21",
     price2: "₹5,100 / $71",
     price3: "₹11,001 / $151",
-    suggestedPayments: "These are suggested payments. Please choose one as per your requirement. This is not an automated payment; you will have to make the payment manually.",
-    meetInstruction: "you can donate the amount after the booking",
+    suggestedPayments: "This is not an automated payment; you will have to make the payment manually.",
+    meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
     viewPayments: "View Payment Methods",
     motto: "Guided by the stars, Grounded in Truth",
@@ -31,8 +31,8 @@ const TRANSLATIONS = {
     price1: "₹1,100 / $21",
     price2: "₹5,100 / $71",
     price3: "₹11,001 / $151",
-    suggestedPayments: "ये सुझाए गए भुगतान हैं। अपनी आवश्यकता के अनुसार एक चुनें। यह एक स्वचालित भुगतान नहीं है; आपको भुगतान मैन्युअल रूप से करना होगा।",
-    meetInstruction: "आप बुकिंग के बाद राशि दान कर सकते हैं।",
+    suggestedPayments: "यह एक स्वचालित भुगतान नहीं है; आपको भुगतान मैन्युअल रूप से करना होगा।",
+    meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
     viewPayments: "भुगतान के तरीके देखें",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
@@ -110,7 +110,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             {/* Right Column: Pricing & Action */}
             <div className="lg:col-span-5">
               <div className="bg-surface-bright/50 border border-outline/10 rounded-[2rem] p-8 md:p-10">
-                <p className={`text-on-surface/90 font-body mb-8 leading-relaxed ${lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
+                <p className={`bg-accent/20 p-4 rounded-xl text-on-surface/90 font-body mb-8 leading-relaxed ${lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
                   {t.suggestedPayments}
                 </p>
 
