@@ -469,30 +469,36 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
               </div>
               <div className="space-y-2">
                 <label htmlFor="dob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelDob}</label>
-                <input
-                  id="dob-input"
-                  type="date"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
-                  required
-                  aria-invalid={!!errors.dob}
-                  aria-describedby={errors.dob ? "dob-error" : undefined}
-                />
+                <div className="relative">
+                  <input
+                    id="dob-input"
+                    type="date"
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)}
+                    className={`w-full pl-6 pr-12 py-3 md:py-4 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                    required
+                    aria-invalid={!!errors.dob}
+                    aria-describedby={errors.dob ? "dob-error" : undefined}
+                  />
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">calendar_month</span>
+                </div>
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
                 <label htmlFor="tob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelTob}</label>
-                <input
-                  id="tob-input"
-                  type="time"
-                  value={tob}
-                  onChange={(e) => setTob(e.target.value)}
-                  className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
-                  required
-                  aria-invalid={!!errors.tob}
-                  aria-describedby={errors.tob ? "tob-error" : undefined}
-                />
+                <div className="relative">
+                  <input
+                    id="tob-input"
+                    type="time"
+                    value={tob}
+                    onChange={(e) => setTob(e.target.value)}
+                    className={`w-full pl-6 pr-12 py-3 md:py-4 bg-white border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                    required
+                    aria-invalid={!!errors.tob}
+                    aria-describedby={errors.tob ? "tob-error" : undefined}
+                  />
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                </div>
                 {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
@@ -554,7 +560,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
               </div>
               <div className="md:col-span-2 pt-2 md:pt-4">
                 <button
-                  className={`w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                  className={`w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
                   type="submit"
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}
