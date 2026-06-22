@@ -121,7 +121,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
               className={`w-full sm:w-auto px-10 py-4 bg-primary text-white rounded-full font-medium uppercase text-center shadow-lg shadow-primary/10 hover:bg-primary/90 transition-all ${
-                lang === 'hi' ? 'text-[12px] md:text-[14px] tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
+                lang === 'hi' ? 'text-[11px] md:text-[12px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-wider'
               }`}
             >
               {t.schedule}

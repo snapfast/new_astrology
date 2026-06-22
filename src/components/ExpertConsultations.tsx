@@ -16,7 +16,7 @@ const TRANSLATIONS = {
       {
         id: "booking-process",
         title: "Booking Process",
-        description: "Consultations can be booked in advance to ensure dedicated time. Please use our contact channels to schedule your appointment."
+        description: "30-minute consultations can be booked in advance to ensure dedicated time. Please use our contact channels to schedule your appointment."
       },
       {
         id: "required-details",
@@ -43,7 +43,7 @@ const TRANSLATIONS = {
       {
         id: "booking-process",
         title: "बुकिंग प्रक्रिया",
-        description: "समर्पित समय सुनिश्चित करने के लिए परामर्श पहले से बुक किया जा सकता है। अपनी अपॉइंटमेंट शेड्यूल करने के लिए कृपया हमारे संपर्क चैनलों का उपयोग करें।"
+        description: "समर्पित समय सुनिश्चित करने के लिए 30 मिनट का परामर्श पहले से बुक किया जा सकता है। अपनी अपॉइंटमेंट शेड्यूल करने के लिए कृपया हमारे संपर्क चैनलों का उपयोग करें।"
       },
       {
         id: "required-details",

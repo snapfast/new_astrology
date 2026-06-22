@@ -10,6 +10,7 @@ const TRANSLATIONS = {
     title: "Book Consultation",
     meetTitle: "Private Google Meet Consultation",
     meetBadge: "No phone number required",
+    durationBadge: "30 Mins Duration",
     meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
     price1: "₹1,100 / $21",
     price2: "₹5,100 / $71",
@@ -25,6 +26,7 @@ const TRANSLATIONS = {
     title: "परामर्श बुक करें",
     meetTitle: "निजी गूगल मीट परामर्श",
     meetBadge: "फोन नंबर की आवश्यकता नहीं",
+    durationBadge: "30 मिनट की अवधि",
     meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
     price1: "₹1,100 / $21",
     price2: "₹5,100 / $71",
@@ -88,9 +90,14 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               <div className="space-y-4 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
                   <h3 className={`font-normal text-on-surface font-headline tracking-tight ${lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl lg:text-3xl'}`}>{t.meetTitle}</h3>
-                  <span className={`px-3 py-1 bg-accent/10 text-accent font-bold uppercase rounded-full ${
-                    lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
-                  }`}>{t.meetBadge}</span>
+                  <div className="flex flex-wrap gap-2">
+                    <span className={`px-3 py-1 bg-accent/10 text-accent font-bold uppercase rounded-full ${
+                      lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
+                    }`}>{t.durationBadge}</span>
+                    <span className={`px-3 py-1 bg-accent/10 text-accent font-bold uppercase rounded-full ${
+                      lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
+                    }`}>{t.meetBadge}</span>
+                  </div>
                 </div>
                 <p className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetDesc}</p>
               </div>
@@ -120,7 +127,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     rel="noopener noreferrer"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
                     className={`flex items-center justify-center w-full py-5 bg-primary text-white rounded-full font-bold uppercase shadow-xl shadow-primary/10 hover:translate-y-[-2px] active:scale-[0.98] transition-all ${
-                      lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-[10px] md:text-xs tracking-[0.2em]'
+                      lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.2em]'
                     }`}
                   >
                     {t.meetBtn}
