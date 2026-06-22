@@ -120,7 +120,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     rel="noopener noreferrer"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
                     className={`flex items-center justify-center w-full py-5 bg-primary text-white rounded-full font-bold uppercase shadow-xl shadow-primary/10 hover:translate-y-[-2px] active:scale-[0.98] transition-all ${
-                      lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-[10px] md:text-xs tracking-[0.2em]'
+                      lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.2em]'
                     }`}
                   >
                     {t.meetBtn}
