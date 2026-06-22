@@ -57,6 +57,16 @@ describe('Security Utilities', () => {
     assert.strictEqual(sanitize('java\u200Cscript:alert(1)', 30), 'alert(1)');
     assert.strictEqual(sanitize('java\u200Dscript:alert(1)', 30), 'alert(1)');
     assert.strictEqual(sanitize('java\uFEFFscript:alert(1)', 30), 'alert(1)');
+
+    // Additional obfuscation characters
+    assert.strictEqual(sanitize('java\u00ADscript:alert(1)', 30), 'alert(1)'); // Soft Hyphen
+    assert.strictEqual(sanitize('java\u180Escript:alert(1)', 30), 'alert(1)'); // Mongolian Vowel Separator
+    assert.strictEqual(sanitize('java\u2060script:alert(1)', 30), 'alert(1)'); // Word Joiner
+
+    // Dangerous attributes and slash-based bypasses
+    assert.strictEqual(sanitize('srcdoc="<script>alert(1)</script>"', 50), '"scriptalert(1)/script"');
+    assert.strictEqual(sanitize('onload/="alert(1)"', 30), '"alert(1)"');
+    assert.strictEqual(sanitize('onmouseover//=/alert(1)/', 30), '/alert(1)/');
   });
 
   it('sanitizeCoord validates numeric format and range strictly', () => {
