@@ -116,12 +116,14 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                   <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.upiTitle}</h4>
                 </div>
                 <div className="relative w-56 h-56 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden">
+                  {/* ⚡ Bolt Optimization: Added sizes attribute to prevent downloading 100vw image, mapping to w-56/w-80 tailwind classes */}
                   <Image
                     src="/donate-qr.png"
                     alt="UPI QR Code"
                     fill
                     className="object-contain p-6"
                     priority
+                    sizes="(max-width: 768px) 224px, 320px"
                   />
                 </div>
                 <CopyableField
@@ -140,11 +142,13 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                 <div className="flex flex-col items-center lg:items-start gap-8 w-full">
                   <div className="relative w-56 h-56 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden flex items-center justify-center">
                     <div className="relative w-full h-full">
+                      {/* ⚡ Bolt Optimization: Added sizes attribute to prevent downloading 100vw image, mapping to container boundaries */}
                       <Image
                         src="/paypal-logo.svg"
                         alt="PayPal"
                         fill
                         className="object-contain"
+                        sizes="(max-width: 768px) 224px, 320px"
                       />
                     </div>
                   </div>
