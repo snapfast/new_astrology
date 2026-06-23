@@ -62,10 +62,6 @@ const Hero = () => {
           </span>
         </div>
 
-        <h1 className={`font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight ${lang === 'hi' ? 'text-4xl md:text-6xl lg:text-7xl' : 'text-5xl md:text-7xl'}`}>
-          {lang === 'hi' ? 'पंडित राहुल बाली जी' : <>Pandit <br /> Rahul Bali Ji</>}
-        </h1>
-
         <div className="max-w-md mx-auto mb-12">
           <p className={`text-on-surface font-body leading-relaxed mb-1 ${lang === 'hi' ? 'text-lg' : 'text-base'}`}>
             {t.desc1}

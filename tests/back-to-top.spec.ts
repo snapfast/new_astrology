@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('BackToTop button visibility and localization', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByText('Pandit Rahul Bali Ji')).toBeVisible();
+  await expect(page.getByText('VEDIC ASTROLOGY · JYOTISH SHASTRA')).toBeVisible();
 
   // Find the button by its icon content since it's unique
   const backToTop = page.locator('button').filter({ has: page.locator('span:text("arrow_upward")') });
