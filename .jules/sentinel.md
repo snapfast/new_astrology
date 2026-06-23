@@ -52,3 +52,8 @@
 **Vulnerability:** Attackers can bypass keyword-based XSS filters (e.g., `javascript:`) by injecting non-printable characters like soft hyphens (\u00AD), word joiners (\u2060), or Mongolian vowel separators (\u180E) that browsers ignore during parsing. Additionally, filters looking for `on*=` can be bypassed using slashes instead of whitespace (e.g., `onload/=`).
 **Learning:** Simple string sanitization is insufficient against browser-level parser normalization. Characters that are "invisible" to users but interpreted as delimiters or ignored by parsers must be explicitly stripped before keyword matching.
 **Prevention:** Extend character stripping regex to include the full range of formatting and control characters known to be ignored by browser URI/HTML parsers. Robustify attribute detection regex to account for non-whitespace delimiters like `/`.
+
+## 2025-06-22 - [Unicode Separator and Protocol Hardening]
+**Vulnerability:** Unicode Line Separator (\u2028) and Paragraph Separator (\u2029) are treated as newlines in JavaScript and can break string literals if sanitized content is injected into scripts. Modern protocols like `blob:` and `filesystem:` can also be used as XSS vectors to bypass standard protocol filters.
+**Learning:** Sanitization must account for characters that have special semantic meaning in the target execution environment (like JS newlines) even if they aren't standard ASCII controls. The protocol blacklist must be continuously updated to cover emerging browser APIs.
+**Prevention:** Always strip \u2028 and \u2029 in generic string sanitizers. Include `blob:` and `filesystem:` in protocol blacklists for defense-in-depth.
