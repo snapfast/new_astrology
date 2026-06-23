@@ -17,7 +17,6 @@ const TRANSLATIONS = {
     price2: "₹5,100 / $71",
     price3: "₹11,001 / $151",
     suggestedPayments: "This is not an automated payment; you will have to make the payment manually.",
-    meetInstruction: "Confirm your booking slot after payment.",
     meetBtn: "Schedule Consultation",
     viewPayments: "View Payment Methods",
     motto: "Guided by the stars, Grounded in Truth",
@@ -33,7 +32,6 @@ const TRANSLATIONS = {
     price2: "₹5,100 / $71",
     price3: "₹11,001 / $151",
     suggestedPayments: "यह एक स्वचालित भुगतान नहीं है; आपको भुगतान मैन्युअल रूप से करना होगा।",
-    meetInstruction: "भुगतान के बाद अपने बुकिंग स्लॉट की पुष्टि करें।",
     meetBtn: "परामर्श शेड्यूल करें",
     viewPayments: "भुगतान के तरीके देखें",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
@@ -103,9 +101,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 <p className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetDesc}</p>
               </div>
 
-              <div className="hidden lg:block pt-8">
-                 <p className={`text-on-surface/60 font-body italic ${lang === 'hi' ? 'text-sm' : 'text-xs'}`}>{t.meetInstruction}</p>
-              </div>
             </div>
 
             {/* Right Column: Pricing & Action */}
@@ -144,9 +139,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     {t.viewPayments}
                   </button>
                 </div>
-              </div>
-              <div className="lg:hidden mt-6 text-center">
-                 <p className={`text-on-surface/60 font-body italic ${lang === 'hi' ? 'text-sm' : 'text-xs'}`}>{t.meetInstruction}</p>
               </div>
             </div>
           </div>
