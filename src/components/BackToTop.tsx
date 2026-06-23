@@ -58,7 +58,7 @@ const BackToTop = () => {
       tabIndex={isVisible ? 0 : -1}
       aria-hidden={!isVisible}
     >
-      <span className="material-symbols-outlined text-[20px]">arrow_upward</span>
+      <span className="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_upward</span>
     </button>
   );
 };
