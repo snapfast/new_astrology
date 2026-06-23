@@ -120,8 +120,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   <AnimatedScheduleButton
                     href="https://calendly.com/rahulbaliastrology/kundli/"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                    className={`flex items-center justify-center w-full py-6 md:py-8 bg-gradient-to-r from-[#1b0238] via-[#300f68] to-[#1b0238] text-white rounded-full font-bold uppercase shadow-xl shadow-primary/10 transition-all [text-shadow:-1.5px_0px_0px_rgba(255,174,66,0.8),1.5px_0px_0px_rgba(0,172,71,0.8)] ${
-                      lang === 'hi' ? 'text-lg md:text-xl tracking-normal' : 'text-base md:text-lg tracking-[0.2em]'
+                    className={`flex items-center justify-center w-full py-4 md:py-5 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase shadow-lg shadow-primary/10 hover:border-accent hover:shadow-accent/20 transition-all ${
+                      lang === 'hi' ? 'text-[11px] md:text-[12px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.2em]'
                     }`}
                   >
                     {t.meetBtn}
