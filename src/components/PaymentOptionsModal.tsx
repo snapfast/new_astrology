@@ -147,7 +147,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                   <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.paypalTitle}</h4>
                 </div>
                 <div className="flex flex-col items-center lg:items-start gap-8 w-full">
-                  <div className="relative w-32 h-10 md:w-48 md:h-16 bg-surface-bright rounded-2xl border border-outline/10 flex items-center justify-center p-3">
+                  <div className="relative w-56 h-56 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden flex items-center justify-center">
                     <div className="relative w-full h-full">
                       <Image
                         src="/paypal-logo.svg"
