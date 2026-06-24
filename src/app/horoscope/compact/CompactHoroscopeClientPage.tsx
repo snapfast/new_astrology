@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
-import BookConsultationModal from '@/components/BookConsultationModal';
 import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { generateAstrologyData, DivisionalChartData } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
@@ -114,7 +113,6 @@ const TRANSLATIONS = {
 const CompactHoroscopeContent = () => {
   const router = useRouter();
   const { lang } = useLanguage();
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
 
@@ -233,7 +231,7 @@ const CompactHoroscopeContent = () => {
             <span className="material-symbols-outlined text-[18px]">share</span>
           </button>
           <button
-            onClick={() => setIsBookingModalOpen(true)}
+            onClick={() => window.dispatchEvent(new CustomEvent('openBookingModal'))}
             className={`ml-2 bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
           >
             {t.bookBtn}
@@ -349,15 +347,6 @@ const CompactHoroscopeContent = () => {
           </section>
         </div>
       </main>
-
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        onOpenPayment={() => {
-          setIsBookingModalOpen(false);
-          setIsPaymentModalOpen(true);
-        }}
-      />
 
       <PaymentOptionsModal
         isOpen={isPaymentModalOpen}

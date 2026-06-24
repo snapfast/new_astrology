@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import BookConsultationModal from './BookConsultationModal';
 import PaymentOptionsModal from './PaymentOptionsModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -44,7 +43,6 @@ const TRANSLATIONS = {
 const Footer = () => {
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   return (
@@ -65,8 +63,8 @@ const Footer = () => {
           <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
             <li><Link href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
             <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.consultation}</button></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.premium}</button></li>
+            <li><Link href="/book" onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); }} className="text-on-surface font-normal text-left">{t.consultation}</Link></li>
+            <li><Link href="/book" onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); }} className="text-on-surface font-normal text-left">{t.premium}</Link></li>
           </ul>
         </div>
         <div>
@@ -98,15 +96,6 @@ const Footer = () => {
           <a href="#">{t.terms}</a>
         </div>
       </div>
-
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        onOpenPayment={() => {
-          setIsBookingModalOpen(false);
-          setIsPaymentModalOpen(true);
-        }}
-      />
 
       <PaymentOptionsModal
         isOpen={isPaymentModalOpen}
