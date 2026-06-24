@@ -9,19 +9,14 @@ const TRANSLATIONS = {
   en: {
     title: "Vedic Astrology Services",
     subtitle: "Spiritual Guidance",
-    description: "Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life's unique karmic path."
+    description: "Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life's unique karmic path.",
+    bookBtn: "Book Consultation"
   },
   hi: {
     title: "वैदिक ज्योतिष सेवाएं",
     subtitle: "आध्यात्मिक मार्गदर्शन",
     description: "ज्योतिष शास्त्र के प्राचीन सिद्धांतों पर आधारित पेशेवर परामर्श, जो आपके जीवन के अनूठे कर्म पथ पर स्पष्टता प्रदान करते हैं।",
     bookBtn: "परामर्श बुक करें"
-  },
-  en: {
-    title: "Vedic Astrology Services",
-    subtitle: "Spiritual Guidance",
-    description: "Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life's unique karmic path.",
-    bookBtn: "Book Consultation"
   }
 };
 
