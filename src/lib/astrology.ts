@@ -387,7 +387,8 @@ const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
     // T is centuries from J2000.0
     const T = time.tt / 36525.0;
-    return 23.85 + 1.39638 * T + 0.000308 * T * T;
+    // Lahiri Ayanamsa at J2000.0 is 23° 51' 25.53" = 23.857091666...
+    return 23.85709 + 1.39638 * T + 0.000308 * T * T;
 }
 
 /**
@@ -487,14 +488,41 @@ function calculatePlanetaryAndDivisionalData(
     });
 
     // 1. Calculate Ascendant (Lagna)
-    const siderealTime = Ast.SiderealTime(time);
-    const RAMC = (siderealTime * 15 + lon) % 360;
-    const rad = Math.PI / 180;
-    const phi = lat * rad;
-    const rot = Ast.Rotation_ECL_EQD(time);
-    const eps = Math.acos(rot.rot[2][2]);
-    const alpha = RAMC * rad;
-    const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
+    // The Ascendant is the point where the Ecliptic intersects the Eastern Horizon.
+    // We use rotation matrices for higher precision, combining Ecliptic-to-Equatorial
+    // and Equatorial-to-Horizontal transformations.
+    const observer = new Ast.Observer(lat, lon, 0);
+    const R_ecl_eq = Ast.Rotation_ECL_EQD(time);
+    const R_eq_hor = Ast.Rotation_EQD_HOR(time, observer);
+
+    // Composite rotation matrix: Ecliptic to Horizontal
+    const R = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ];
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            for (let k = 0; k < 3; k++) {
+                R[i][j] += R_eq_hor.rot[i][k] * R_ecl_eq.rot[k][j];
+            }
+        }
+    }
+
+    // On the horizon, the Z-component in the horizontal frame is 0.
+    // Z_hor = R[2][0]*cos(long) + R[2][1]*sin(long) = 0  (assuming Z_ecl=0)
+    // tan(long) = -R[2][0] / R[2][1]
+    const lagnaTropicalBase = (Math.atan2(-R[2][0], R[2][1]) * (180 / Math.PI) + 360) % 360;
+
+    // The atan2 gives two possible points (Ascendant and Descendant).
+    // We select the one with a positive Y-component in the horizontal frame (East).
+    // In astronomy-engine's horizontal frame: X=North, Y=East, Z=Up.
+    const lrad = lagnaTropicalBase * (Math.PI / 180);
+    const v_ecl = [Math.cos(lrad), Math.sin(lrad), 0];
+    let y_hor = 0;
+    for (let j = 0; j < 3; j++) y_hor += R[1][j] * v_ecl[j];
+
+    const lagnaTropical = y_hor > 0 ? lagnaTropicalBase : (lagnaTropicalBase + 180) % 360;
     const lagnaSidereal = (lagnaTropical - ayanamsa + 360) % 360;
     const lagnaRasiIdx = Math.floor(lagnaSidereal / 30);
 
