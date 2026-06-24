@@ -9,56 +9,58 @@ interface ExpertConsultationsProps {
 
 const TRANSLATIONS = {
   en: {
-    prep: "Preparation",
-    title: "Consultation Guide",
-    desc: "How to prepare and what to expect during your Vedic astrology session.",
+    prep: "Journey to Clarity",
+    title: "How it Works",
+    desc: "A seamless path to receiving personalized spiritual guidance and life-changing astrological insights.",
+    bookNow: "Book Your Session Now",
     guidelines: [
       {
         id: "booking-process",
-        title: "Booking Process",
-        description: "30-minute consultations can be booked in advance to ensure dedicated time. Please use our contact channels to schedule your appointment."
+        title: "Instant Booking",
+        description: "Secure your 30-minute private session instantly through our integrated calendar. Choose a time that works best for you."
       },
       {
         id: "required-details",
-        title: "Required Details",
-        description: "For an accurate reading, please provide your exact date, time, and place of birth at the time of booking."
+        title: "Birth Details",
+        description: "To decode your karmic map accurately, we require your exact date, time, and place of birth during the scheduling process."
       },
       {
         id: "prepare-questions",
-        title: "Prepare Your Questions",
-        description: "Take some time to note down your most pressing questions or areas of life you wish to focus on during the session."
+        title: "Focused Areas",
+        description: "Think about the specific areas—career, relationships, or health—where you seek the most clarity to make our session deeply impactful."
       },
       {
         id: "open-mindset",
-        title: "Open Mindset",
-        description: "Approach the consultation with an open mind. Astrology provides guidance and clarity, empowering you to make informed decisions."
+        title: "Transformative Insight",
+        description: "Approach our session with an open heart. You will receive guidance that empowers you to navigate life's challenges with confidence."
       }
     ]
   },
   hi: {
-    prep: "तैयारी",
-    title: "परामर्श मार्गदर्शिका",
-    desc: "आपके वैदिक ज्योतिष सत्र के दौरान क्या उम्मीद करें और कैसे तैयारी करें।",
+    prep: "स्पष्टता की यात्रा",
+    title: "यह कैसे काम करता है",
+    desc: "व्यक्तिगत आध्यात्मिक मार्गदर्शन और जीवन बदलने वाली ज्योतिषीय अंतर्दृष्टि प्राप्त करने का एक सहज मार्ग।",
+    bookNow: "अभी अपना सत्र बुक करें",
     guidelines: [
       {
         id: "booking-process",
-        title: "बुकिंग प्रक्रिया",
-        description: "समर्पित समय सुनिश्चित करने के लिए 30 मिनट का परामर्श पहले से बुक किया जा सकता है। अपनी अपॉइंटमेंट शेड्यूल करने के लिए कृपया हमारे संपर्क चैनलों का उपयोग करें।"
+        title: "तत्काल बुकिंग",
+        description: "हमारे एकीकृत कैलेंडर के माध्यम से अपना 30 मिनट का निजी सत्र तुरंत सुरक्षित करें। वह समय चुनें जो आपके लिए सबसे अच्छा हो।"
       },
       {
         id: "required-details",
-        title: "आवश्यक विवरण",
-        description: "सटीक रीडिंग के लिए, कृपया बुकिंग के समय अपनी जन्म तिथि, समय और स्थान का सटीक विवरण प्रदान करें।"
+        title: "जन्म विवरण",
+        description: "आपके कर्म मानचित्र को सटीक रूप से डिकोड करने के लिए, हमें शेड्यूलिंग प्रक्रिया के दौरान आपकी सटीक जन्म तिथि, समय और स्थान की आवश्यकता होती है।"
       },
       {
         id: "prepare-questions",
-        title: "अपने प्रश्न तैयार करें",
-        description: "अपने सबसे महत्वपूर्ण प्रश्नों या जीवन के उन क्षेत्रों को नोट करने के लिए कुछ समय निकालें जिन पर आप सत्र के दौरान ध्यान केंद्रित करना चाहते हैं।"
+        title: "केंद्रित क्षेत्र",
+        description: "उन विशिष्ट क्षेत्रों—करियर, रिश्ते या स्वास्थ्य—के बारे में सोचें जहां आप सबसे अधिक स्पष्टता चाहते हैं ताकि हमारे सत्र को गहरा प्रभावशाली बनाया जा सके।"
       },
       {
         id: "open-mindset",
-        title: "खुला नजरिया",
-        description: "खुले दिमाग के साथ परामर्श के लिए आएं। ज्योतिष मार्गदर्शन और स्पष्टता प्रदान करता है, जो आपको सूचित निर्णय लेने के लिए सशक्त बनाता है।"
+        title: "परिवर्तनकारी अंतर्दृष्टि",
+        description: "खुले दिल से हमारे सत्र में आएं। आपको वह मार्गदर्शन प्राप्त होगा जो आपको आत्मविश्वास के साथ जीवन की चुनौतियों का सामना करने के लिए सशक्त बनाएगा।"
       }
     ]
   }
@@ -91,6 +93,20 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="mt-20 text-center">
+          <button
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('openBookingModal'));
+            }}
+            className={`inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 ${
+              lang === 'hi' ? 'text-[15px] tracking-normal' : 'text-xs tracking-[0.2em]'
+            }`}
+          >
+            {t.bookNow}
+          </button>
         </div>
       </div>
     </section>

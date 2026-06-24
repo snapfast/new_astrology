@@ -18,7 +18,7 @@ export default function AnimatedScheduleButton({ href, onClick, className, child
     setTimeout(() => {
       window.open(href, '_blank', 'noopener,noreferrer');
       setIsAnimating(false);
-    }, 2000);
+    }, 1000);
   };
 
   useEffect(() => {

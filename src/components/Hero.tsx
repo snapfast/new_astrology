@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import LearnMoreModal from './LearnMoreModal';
-import BookConsultationModal from './BookConsultationModal';
 import PaymentOptionsModal from './PaymentOptionsModal';
 import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -37,7 +36,6 @@ const Hero = () => {
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   return (
@@ -75,7 +73,7 @@ const Hero = () => {
           <button
             onClick={() => {
               sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
-              setIsBookingModalOpen(true);
+              window.dispatchEvent(new CustomEvent('openBookingModal'));
             }}
             className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               lang === 'hi'
@@ -140,15 +138,6 @@ const Hero = () => {
       <LearnMoreModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      />
-
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        onOpenPayment={() => {
-          setIsBookingModalOpen(false);
-          setIsPaymentModalOpen(true);
-        }}
       />
 
       <PaymentOptionsModal

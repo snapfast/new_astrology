@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import BookConsultationModal from './BookConsultationModal';
+import { usePathname, useRouter } from 'next/navigation';
 import PaymentOptionsModal from './PaymentOptionsModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -47,14 +46,14 @@ const TRANSLATIONS = {
 const Navbar = () => {
   const { lang, toggleLang } = useLanguage();
   const t = TRANSLATIONS[lang];
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'navbar_book_now' });
-    setIsBookingModalOpen(true);
+    router.push('/book');
     setIsMenuOpen(false);
   };
 
@@ -67,10 +66,10 @@ const Navbar = () => {
 
   // Listen for custom openBookingModal event
   useEffect(() => {
-    const handleOpenModal = () => setIsBookingModalOpen(true);
+    const handleOpenModal = () => router.push('/book');
     window.addEventListener('openBookingModal', handleOpenModal);
     return () => window.removeEventListener('openBookingModal', handleOpenModal);
-  }, []);
+  }, [router]);
 
   // Lock scroll when menu is open
   useEffect(() => {
@@ -275,15 +274,6 @@ const Navbar = () => {
         </div>
       </div>
     </div>
-
-    <BookConsultationModal
-      isOpen={isBookingModalOpen}
-      onClose={() => setIsBookingModalOpen(false)}
-      onOpenPayment={() => {
-        setIsBookingModalOpen(false);
-        setIsPaymentModalOpen(true);
-      }}
-    />
 
     <PaymentOptionsModal
       isOpen={isPaymentModalOpen}
