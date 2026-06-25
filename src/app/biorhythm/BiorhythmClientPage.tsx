@@ -138,14 +138,12 @@ const BiorhythmContent = () => {
   }, [dob, targetDate]);
 
   const miniSeriesData = useMemo(() => {
-    if (!dob) return null;
-    try {
-      // Range 3 means -3 to +3, total 7 days
-      return calculateBiorhythmSeries(new Date(dob), targetDate, 3);
-    } catch {
-      return null;
-    }
-  }, [dob, targetDate]);
+    if (!seriesData) return null;
+    // Performance Optimization: Slice the already calculated seriesData instead of recalculating.
+    // seriesData has 61 points (-30 to +30). We need 7 points (-3 to +3).
+    // The starting index for -3 is 27 (30 - 3), and we want 7 elements.
+    return seriesData.slice(27, 34);
+  }, [seriesData]);
 
   const formattedTargetDate = useMemo(() => targetDate.toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', {
     weekday: "short",
