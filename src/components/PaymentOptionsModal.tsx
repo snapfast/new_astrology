@@ -121,7 +121,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                     src="/donate-qr.png"
                     alt="UPI QR Code"
                     fill
-                    className="object-contain p-6"
+                    className="object-contain p-6 scale-125"
                     priority
                     sizes="(max-width: 768px) 224px, 320px"
                   />
