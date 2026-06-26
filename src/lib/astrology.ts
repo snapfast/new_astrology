@@ -46,7 +46,7 @@ export interface Mahadasha {
 }
 
 export interface DivisionalChartData {
-    houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degreeStr: string }> };
+    houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> };
     houseRasis: { [key: number]: number };
 }
 
@@ -511,7 +511,7 @@ function calculatePlanetaryAndDivisionalData(
     const chartKeys = ['d1', 'd3', 'd7', 'd9', 'd10', 'd60'] as const;
     type ChartKey = typeof chartKeys[number];
 
-    const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degreeStr: string }> }> = {
+    const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> }> = {
         d1: {}, d3: {}, d7: {}, d9: {}, d10: {}, d60: {}
     };
 
@@ -555,27 +555,16 @@ function calculatePlanetaryAndDivisionalData(
             d60: getD60Rasi(siderealLong)
         };
 
-        const degInRasi = siderealLong % 30;
-        const d = Math.floor(degInRasi);
-        const m = Math.floor((degInRasi - d) * 60);
-        const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
-        const degreeStr = `${d}° ${m}' ${s}"`;
-
         chartKeys.forEach(key => {
             const chartRasiIdx = rasiIndices[key];
             const lagnaRasi = lagnaRasis[key];
             const house = ((chartRasiIdx - lagnaRasi + 12) % 12) + 1;
-            assignments[key][house].push({ symbol, isRetrograde: isRetro, degreeStr });
+            assignments[key][house].push({ symbol, isRetrograde: isRetro });
         });
     };
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
-    const lagnaDegInRasi = lagnaSidereal % 30;
-    const ld = Math.floor(lagnaDegInRasi);
-    const lm = Math.floor((lagnaDegInRasi - ld) * 60);
-    const ls = Math.floor(((lagnaDegInRasi - ld) * 60 - lm) * 60);
-    const lagnaDegreeStr = `${ld}° ${lm}' ${ls}"`;
-    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false, degreeStr: lagnaDegreeStr }));
+    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false }));
 
     // 2. Calculate Planets
     PLANET_MAP.forEach(p => {
