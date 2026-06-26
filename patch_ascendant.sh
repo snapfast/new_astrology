@@ -1,0 +1,1 @@
+sed -i 's/chartKeys.forEach(key => assignments\[key\]\[1\].push({ symbol: "As", isRetrograde: false, degree: formatDegree(lagnaSidereal) }));/chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) }));/g' src/lib/astrology.ts

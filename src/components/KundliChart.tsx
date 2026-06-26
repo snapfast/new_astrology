@@ -6,6 +6,7 @@ interface KundliChartProps {
 }
 
 const KundliChartComponent: FC<KundliChartProps> = ({ data }) => {
+  if (!data || !data.houses) return null;
   const { houses, houseRasis } = data;
 
   // House coordinates and labels for North Indian Style (Diamond)
@@ -85,7 +86,7 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
         className="overflow-visible"
       >
         <div className="flex flex-row justify-center items-start gap-2 w-full h-full font-medium text-[14px]">
-          {planets.map((p, i) => {
+          {(planets || []).map((p, i) => {
             const color = p.symbol === 'As' ? '#9333EA' : '#991B1B';
             return (
               <div key={i} className="flex flex-col items-center">
@@ -94,7 +95,7 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
                   {p.isRetrograde && '*'}
                 </div>
                 {p.degree && (
-                  <div className="text-[8px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
+                  <div className="text-[6px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
                     {p.degree}
                   </div>
                 )}
