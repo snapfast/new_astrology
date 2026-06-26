@@ -29,6 +29,29 @@ const TRANSLATIONS = {
   }
 };
 
+// Helper to perform binary search for the active dasha period
+function findCurrentDasha<T extends { start: Date; end: Date }>(items: T[], targetTime: number): T | undefined {
+  let low = 0;
+  let high = items.length - 1;
+
+  while (low <= high) {
+    const mid = (low + high) >>> 1;
+    const item = items[mid];
+    const startTime = item.start.getTime();
+    const endTime = item.end.getTime();
+
+    if (targetTime >= startTime && targetTime <= endTime) {
+      return item;
+    } else if (targetTime < startTime) {
+      high = mid - 1;
+    } else {
+      low = mid + 1;
+    }
+  }
+
+  return undefined;
+}
+
 const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en' }: VimshottariDashaProps) {
   const t = TRANSLATIONS[lang];
 
@@ -49,16 +72,16 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
     if (mahadashas.length === 0) return path;
 
-    const md = mahadashas.find(m => nowTime >= m.start.getTime() && nowTime <= m.end.getTime());
+    const md = findCurrentDasha(mahadashas, nowTime);
     if (md) {
       path.md = md;
-      const ad = md.antardashas.find(a => nowTime >= a.start.getTime() && nowTime <= a.end.getTime());
+      const ad = findCurrentDasha(md.antardashas, nowTime);
       if (ad) {
         path.ad = ad;
-        const pd = ad.pratyantardashas.find(p => nowTime >= p.start.getTime() && nowTime <= p.end.getTime());
+        const pd = findCurrentDasha(ad.pratyantardashas, nowTime);
         if (pd) {
           path.pd = pd;
-          const sd = pd.sookshmaDashas.find(s => nowTime >= s.start.getTime() && nowTime <= s.end.getTime());
+          const sd = findCurrentDasha(pd.sookshmaDashas, nowTime);
           if (sd) {
             path.sd = sd;
           }
