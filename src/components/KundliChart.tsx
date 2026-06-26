@@ -61,7 +61,7 @@ interface HouseContentProps {
   x: number;
   y: number;
   rasi: number;
-  planets: Array<{ symbol: string, isRetrograde: boolean }>;
+  planets: Array<{ symbol: string, isRetrograde: boolean, degree?: string }>;
 }
 
 const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
@@ -77,29 +77,32 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
         {rasi}
       </text>
       {/* Planets */}
-      <text
-        x={x}
-        y={y}
-        textAnchor="middle"
-        className="font-medium text-[16px]"
+      <foreignObject
+        x={x - 60}
+        y={y - 10}
+        width={120}
+        height={50}
+        className="overflow-visible"
       >
-        {planets.map((p, i) => {
-          const color = p.symbol === 'As' ? '#9333EA' : '#991B1B';
-          return (
-            <tspan key={i}>
-              <tspan fill={color}>
-                {p.symbol}
-              </tspan>
-              {p.isRetrograde && (
-                <tspan fill={color} dx="1">*</tspan>
-              )}
-              {i < planets.length - 1 && (
-                <tspan fill="#991B1B">, </tspan>
-              )}
-            </tspan>
-          );
-        })}
-      </text>
+        <div className="flex flex-row justify-center items-start gap-2 w-full h-full font-medium text-[14px]">
+          {planets.map((p, i) => {
+            const color = p.symbol === 'As' ? '#9333EA' : '#991B1B';
+            return (
+              <div key={i} className="flex flex-col items-center">
+                <div style={{ color }}>
+                  {p.symbol}
+                  {p.isRetrograde && '*'}
+                </div>
+                {p.degree && (
+                  <div className="text-[8px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
+                    {p.degree}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </foreignObject>
     </g>
   );
 };

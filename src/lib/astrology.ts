@@ -46,7 +46,7 @@ export interface Mahadasha {
 }
 
 export interface DivisionalChartData {
-    houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> };
+    houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> };
     houseRasis: { [key: number]: number };
 }
 
@@ -465,6 +465,14 @@ function parseISTToUTC(dob: string, tob: string): { istDate: Date, time: Ast.Ast
     return { istDate, time };
 }
 
+function formatDegree(siderealLong: number): string {
+    const degInRasi = siderealLong % 30;
+    const d = Math.floor(degInRasi);
+    const m = Math.floor((degInRasi - d) * 60);
+    const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
+    return `${d}° ${m}' ${s}"`;
+}
+
 function calculatePlanetaryAndDivisionalData(
     time: Ast.AstroTime,
     lat: number,
@@ -477,7 +485,7 @@ function calculatePlanetaryAndDivisionalData(
     const chartKeys = ['d1', 'd3', 'd7', 'd9', 'd10', 'd60'] as const;
     type ChartKey = typeof chartKeys[number];
 
-    const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean }> }> = {
+    const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> }> = {
         d1: {}, d3: {}, d7: {}, d9: {}, d10: {}, d60: {}
     };
 
@@ -520,17 +528,18 @@ function calculatePlanetaryAndDivisionalData(
             d10: getD10Rasi(siderealLong),
             d60: getD60Rasi(siderealLong)
         };
+        const degree = formatDegree(siderealLong);
 
         chartKeys.forEach(key => {
             const chartRasiIdx = rasiIndices[key];
             const lagnaRasi = lagnaRasis[key];
             const house = ((chartRasiIdx - lagnaRasi + 12) % 12) + 1;
-            assignments[key][house].push({ symbol, isRetrograde: isRetro });
+            assignments[key][house].push({ symbol, isRetrograde: isRetro, degree });
         });
     };
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
-    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false }));
+    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree(lagnaSidereal) }));
 
     // 2. Calculate Planets
     PLANET_MAP.forEach(p => {
@@ -1193,13 +1202,8 @@ export function getSignInsight(signName: string, lang: 'en' | 'hi' = 'en'): stri
 
 function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean): PlanetData {
     const rasiIdx = Math.floor(siderealLong / 30);
-    const degInRasi = siderealLong % 30;
     const nakshatraIdx = Math.floor(siderealLong / NAKSHATRA_WIDTH);
     const pada = Math.floor((siderealLong % NAKSHATRA_WIDTH) / PADA_WIDTH) + 1;
-
-    const d = Math.floor(degInRasi);
-    const m = Math.floor((degInRasi - d) * 60);
-    const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
 
     const rasiLordName = RASI_LORDS[rasiIdx];
     const nakLordName = NAKSHATRA_LORDS[nakshatraIdx % 9];
@@ -1208,7 +1212,7 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
         name,
         nameSanskrit: PLANET_NAMES[name]?.sanskrit || name,
         symbol,
-        degree: `${d}° ${m}' ${s}"`,
+        degree: formatDegree(siderealLong),
         rasi: RASIS[rasiIdx],
         rasiSanskrit: RASI_FULL_NAMES[rasiIdx].sanskrit,
         nakshatra: NAKSHATRAS[nakshatraIdx],
