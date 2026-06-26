@@ -8,6 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import PaymentOptionsModal from '@/components/PaymentOptionsModal';
+import HoroscopeSettingsModal from '@/components/HoroscopeSettingsModal';
 import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
@@ -64,7 +65,8 @@ const TRANSLATIONS = {
     switchLanguage: "Switch Language / भाषा बदलें",
     shareReport: "Share Report",
     northIndianStyle: "Traditional North Indian Style Representation of Divisional Charts",
-    loading: "Loading your destiny..."
+    loading: "Loading your destiny...",
+    settings: "Settings"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -115,13 +117,15 @@ const TRANSLATIONS = {
     switchLanguage: "भाषा बदलें / Switch Language",
     shareReport: "रिपोर्ट साझा करें",
     northIndianStyle: "विभागीय चार्ट का पारंपरिक उत्तर भारतीय शैली प्रतिनिधित्व",
-    loading: "आपका भाग्य लोड हो रहा है..."
+    loading: "आपका भाग्य लोड हो रहा है...",
+    settings: "सेटिंग्स"
   }
 };
 
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
 
   const goToCompact = () => {
@@ -145,8 +149,9 @@ const HoroscopeContent = () => {
   const pob = sanitize(searchParams.get('pob'), 100) || '';
   const lat = sanitizeCoord(searchParams.get('lat')) || '';
   const lon = sanitizeCoord(searchParams.get('lon')) || '';
+  const nodeType = searchParams.get('nodeType') === 'true' ? 'true' : 'mean';
 
-  const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
+  const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon, nodeType), [dob, tob, lat, lon, nodeType]);
 
   const sunSign = chartData.panchang.sunSign;
   const moonSign = chartData.panchang.moonSign;
@@ -210,6 +215,14 @@ const HoroscopeContent = () => {
             >
               <span className="material-symbols-outlined text-[20px] mr-2">dashboard</span>
               <span className={`text-[10px] font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.compactView}</span>
+            </button>
+            <button
+              onClick={() => setIsSettingsModalOpen(true)}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm mr-2"
+              title={t.settings}
+              aria-label={t.settings}
+            >
+              <span className="material-symbols-outlined text-[20px]">settings</span>
             </button>
             <button
               onClick={handleShare}
@@ -492,6 +505,10 @@ const HoroscopeContent = () => {
       <PaymentOptionsModal
         isOpen={isPaymentModalOpen}
         onClose={() => setIsPaymentModalOpen(false)}
+      />
+      <HoroscopeSettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
       />
     </div>
     </>
