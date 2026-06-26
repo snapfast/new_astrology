@@ -483,6 +483,7 @@ function calculatePlanetaryAndDivisionalData(
 ) {
     const planetData: PlanetData[] = [];
     const chartKeys = ['d1', 'd3', 'd7', 'd9', 'd10', 'd60'] as const;
+    const divisions: Record<ChartKey, number> = { d1: 1, d3: 3, d7: 7, d9: 9, d10: 10, d60: 60 };
     type ChartKey = typeof chartKeys[number];
 
     const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> }> = {
@@ -528,18 +529,20 @@ function calculatePlanetaryAndDivisionalData(
             d10: getD10Rasi(siderealLong),
             d60: getD60Rasi(siderealLong)
         };
-        const degree = formatDegree(siderealLong);
+
 
         chartKeys.forEach(key => {
             const chartRasiIdx = rasiIndices[key];
             const lagnaRasi = lagnaRasis[key];
             const house = ((chartRasiIdx - lagnaRasi + 12) % 12) + 1;
+            const divLong = (siderealLong * divisions[key]) % 30;
+            const degree = formatDegree(divLong);
             assignments[key][house].push({ symbol, isRetrograde: isRetro, degree });
         });
     };
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
-    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree(lagnaSidereal) }));
+    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) }));
 
     // 2. Calculate Planets
     PLANET_MAP.forEach(p => {

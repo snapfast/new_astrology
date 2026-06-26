@@ -1,0 +1,2 @@
+sed -i 's/const divisions: Record<ChartKey, number> = { d1: 1, d3: 3, d7: 7, d9: 9, d10: 10, d60: 60 };//g' src/lib/astrology.ts
+sed -i 's/const chartKeys = \['\''d1'\'', '\''d3'\'', '\''d7'\'', '\''d9'\'', '\''d10'\'', '\''d60'\''\] as const;/const chartKeys = ['\''d1'\'', '\''d3'\'', '\''d7'\'', '\''d9'\'', '\''d10'\'', '\''d60'\''] as const;\n    const divisions: Record<ChartKey, number> = { d1: 1, d3: 3, d7: 7, d9: 9, d10: 10, d60: 60 };/g' src/lib/astrology.ts
