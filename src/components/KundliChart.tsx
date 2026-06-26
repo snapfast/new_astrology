@@ -61,10 +61,17 @@ interface HouseContentProps {
   x: number;
   y: number;
   rasi: number;
-  planets: Array<{ symbol: string, isRetrograde: boolean }>;
+  planets: Array<{ symbol: string, isRetrograde: boolean, degreeStr: string }>;
 }
 
 const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
+  // Foreign object dimensions
+  const foWidth = 140;
+  const foHeight = 100;
+  // Center foreign object around x,y
+  const foX = x - foWidth / 2;
+  const foY = y - foHeight / 2 + 5; // Slight offset so planets sit nicely relative to the rasi number
+
   return (
     <g>
       {/* Rasi Number (Small) */}
@@ -76,30 +83,26 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
       >
         {rasi}
       </text>
-      {/* Planets */}
-      <text
-        x={x}
-        y={y}
-        textAnchor="middle"
-        className="font-medium text-[16px]"
-      >
-        {planets.map((p, i) => {
-          const color = p.symbol === 'As' ? '#9333EA' : '#991B1B';
-          return (
-            <tspan key={i}>
-              <tspan fill={color}>
-                {p.symbol}
-              </tspan>
-              {p.isRetrograde && (
-                <tspan fill={color} dx="1">*</tspan>
-              )}
-              {i < planets.length - 1 && (
-                <tspan fill="#991B1B">, </tspan>
-              )}
-            </tspan>
-          );
-        })}
-      </text>
+
+      {/* Planets via foreignObject for flexible wrapping and layout */}
+      <foreignObject x={foX} y={foY} width={foWidth} height={foHeight} style={{ overflow: 'visible' }}>
+        <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 w-full h-full leading-none">
+          {planets && planets.map((p, i) => {
+            const colorClass = p.symbol === 'As' ? 'text-purple-600' : 'text-accent';
+            return (
+              <div key={i} className={`flex flex-col items-center ${colorClass}`}>
+                <div className="font-medium text-[14px]">
+                  {p.symbol}
+                  {p.isRetrograde && <span>*</span>}
+                </div>
+                <div className="text-[9px] font-normal tracking-tighter opacity-80" style={{ marginTop: '1px' }}>
+                  {p.degreeStr}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </foreignObject>
     </g>
   );
 };
