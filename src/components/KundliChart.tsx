@@ -95,7 +95,7 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
                   {p.isRetrograde && '*'}
                 </div>
                 {p.degree && (
-                  <div className="text-[6px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
+                  <div className="text-[7px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
                     {p.degree}
                   </div>
                 )}
