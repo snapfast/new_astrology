@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import PaymentOptionsModal from '@/components/PaymentOptionsModal';
+import HoroscopeSettingsModal from '@/components/HoroscopeSettingsModal';
 import { generateAstrologyData, DivisionalChartData } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -58,7 +59,8 @@ const TRANSLATIONS = {
     linkCopied: "Link Copied!",
     bookBtn: "Book Consultation",
     activeDasha: "Active",
-    loading: "Loading Dashboard..."
+    loading: "Loading Dashboard...",
+    settings: "Settings"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -106,7 +108,8 @@ const TRANSLATIONS = {
     linkCopied: "लिंक कॉपी किया गया!",
     bookBtn: "परामर्श बुक करें",
     activeDasha: "सक्रिय",
-    loading: "डैशबोर्ड लोड हो रहा है..."
+    loading: "डैशबोर्ड लोड हो रहा है...",
+    settings: "सेटिंग्स"
   }
 };
 
@@ -114,6 +117,7 @@ const CompactHoroscopeContent = () => {
   const router = useRouter();
   const { lang } = useLanguage();
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
 
   const t = TRANSLATIONS[lang];
@@ -131,8 +135,9 @@ const CompactHoroscopeContent = () => {
   const pob = sanitize(searchParams.get('pob'), 100) || '';
   const lat = sanitizeCoord(searchParams.get('lat')) || '';
   const lon = sanitizeCoord(searchParams.get('lon')) || '';
+  const nodeType = searchParams.get('nodeType') === 'true' ? 'true' : 'mean';
 
-  const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
+  const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon, nodeType), [dob, tob, lat, lon, nodeType]);
 
   const handleShare = async () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_compact_share_click' });
@@ -223,6 +228,14 @@ const CompactHoroscopeContent = () => {
               {t.linkCopied}
             </div>
           )}
+          <button
+            onClick={() => setIsSettingsModalOpen(true)}
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors border border-outline/50 mr-2"
+            title={t.settings}
+            aria-label={t.settings}
+          >
+            <span className="material-symbols-outlined text-[18px]">settings</span>
+          </button>
           <button
             onClick={handleShare}
             className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors border border-outline/50"
@@ -351,6 +364,10 @@ const CompactHoroscopeContent = () => {
       <PaymentOptionsModal
         isOpen={isPaymentModalOpen}
         onClose={() => setIsPaymentModalOpen(false)}
+      />
+      <HoroscopeSettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
       />
 
       <style jsx global>{`

@@ -422,6 +422,39 @@ export function getMeanRahu(time: Ast.AstroTime): number {
     return (L % 360 + 360) % 360;
 }
 
+/**
+ * Calculates the true longitude of Rahu (Ascending Node) for a given time.
+ * Uses the mean node and adds the most significant perturbations.
+ */
+export function getTrueRahu(time: Ast.AstroTime): number {
+    const T = time.tt / 36525.0;
+
+    // Mean elongation of the Moon
+    const D = (297.8501921 + 445267.1114034 * T - 0.0018819 * T * T + T * T * T / 545868.0 - T * T * T * T / 113065000.0) % 360;
+
+    // Sun's mean anomaly
+    const M = (357.5291092 + 35999.0502909 * T - 0.0001536 * T * T + T * T * T / 24490000.0) % 360;
+
+    // Moon's mean anomaly
+    const Mprime = (134.9633964 + 477198.8675055 * T + 0.0087414 * T * T + T * T * T / 69699.0 - T * T * T * T / 14712000.0) % 360;
+
+    // Moon's argument of latitude
+    const F = (93.2720950 + 483202.0175233 * T - 0.0036539 * T * T - T * T * T / 3526000.0 + T * T * T * T / 863310000.0) % 360;
+
+    // Mean longitude of the ascending node
+    const omega = (125.04452 - 1934.136261 * T + 0.0020708 * T * T + T * T * T / 450000.0) % 360;
+
+    const deg2rad = Math.PI / 180.0;
+    let dOmega = 0;
+    dOmega += -1.4979 * Math.sin(2.0 * (D - F) * deg2rad);
+    dOmega += -0.1500 * Math.sin(M * deg2rad);
+    dOmega += -0.1226 * Math.sin(2.0 * D * deg2rad);
+    dOmega += 0.1176 * Math.sin(2.0 * F * deg2rad);
+    dOmega += -0.0801 * Math.sin(2.0 * (Mprime - F) * deg2rad);
+
+    return ((omega + dOmega) % 360 + 360) % 360;
+}
+
 function getEmptyChartData(): ChartData {
     const emptyChart: DivisionalChartData = { houses: {}, houseRasis: {} };
     const emptyPanchang: PanchangData = {
@@ -471,7 +504,8 @@ function calculatePlanetaryAndDivisionalData(
     lon: number,
     ayanamsa: number,
     tropicalSunLong: number,
-    tropicalMoonLong: number
+    tropicalMoonLong: number,
+    nodeType: 'mean' | 'true' = 'mean'
 ) {
     const planetData: PlanetData[] = [];
     const chartKeys = ['d1', 'd3', 'd7', 'd9', 'd10', 'd60'] as const;
@@ -555,7 +589,7 @@ function calculatePlanetaryAndDivisionalData(
     });
 
     // 3. Rahu & Ketu
-    const rahuTropical = getMeanRahu(time);
+    const rahuTropical = nodeType === 'true' ? getTrueRahu(time) : getMeanRahu(time);
     const rahuSidereal = (rahuTropical - ayanamsa + 360) % 360;
     const ketuSidereal = (rahuSidereal + 180) % 360;
     const rahuRasiIdx = Math.floor(rahuSidereal / 30);
@@ -590,7 +624,7 @@ function calculatePlanetaryAndDivisionalData(
     };
 }
 
-export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
+export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string, nodeType: 'mean' | 'true' = 'mean'): ChartData {
     if (!dob || !tob) return getEmptyChartData();
 
     const { istDate, time } = parseISTToUTC(dob, tob);
@@ -651,7 +685,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
     let coreData: ReturnType<typeof calculatePlanetaryAndDivisionalData> | undefined;
     const getCoreData = () => {
-        if (!coreData) coreData = calculatePlanetaryAndDivisionalData(time, lat, lon, ayanamsa, getTropicalSunLong(), getTropicalMoonLong());
+        if (!coreData) coreData = calculatePlanetaryAndDivisionalData(time, lat, lon, ayanamsa, getTropicalSunLong(), getTropicalMoonLong(), nodeType);
         return coreData;
     };
 
