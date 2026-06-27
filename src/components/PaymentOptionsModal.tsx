@@ -18,7 +18,11 @@ const TRANSLATIONS = {
     paypalEmailLabel: "PayPal Email",
     motto: "Guided by the stars, Grounded in Truth",
     copied: "Copied!",
-    closeModal: "Close modal"
+    closeModal: "Close modal",
+    donationText: "Please consider donating in these denominations only:",
+    price1: "₹1,100 / $21",
+    price2: "₹5,100 / $71",
+    price3: "₹11,001 / $151"
   },
   hi: {
     title: "भुगतान के तरीके",
@@ -31,7 +35,11 @@ const TRANSLATIONS = {
     paypalEmailLabel: "पेपाल ईमेल",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
     copied: "कॉपी हो गया!",
-    closeModal: "मोडल बंद करें"
+    closeModal: "मोडल बंद करें",
+    donationText: "Please consider donating in these denominations only:",
+    price1: "₹1,100 / $21",
+    price2: "₹5,100 / $71",
+    price3: "₹11,001 / $151"
   }
 };
 
@@ -106,6 +114,15 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
             >
               <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
+          </div>
+
+          <div className="mb-10 bg-accent/10 p-6 rounded-2xl border border-accent/20">
+            <p className="text-on-surface/90 font-body mb-4 text-sm md:text-base">{t.donationText}</p>
+            <div className="flex flex-wrap gap-6">
+              <span className="text-xl md:text-2xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price1}</span>
+              <span className="text-xl md:text-2xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price2}</span>
+              <span className="text-xl md:text-2xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price3}</span>
+            </div>
           </div>
 
           <div className="space-y-8 md:space-y-12">

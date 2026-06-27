@@ -13,9 +13,6 @@ const TRANSLATIONS = {
     meetBadge: "No phone number required",
     durationBadge: "30 Mins Duration",
     meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
-    price1: "₹1,100 / $21",
-    price2: "₹5,100 / $71",
-    price3: "₹11,001 / $151",
     suggestedPayments: "No upfront payment is needed; you can simply pay after our session is complete.",
     meetBtn: "Schedule Consultation",
     viewPayments: "View Payment Methods",
@@ -28,9 +25,6 @@ const TRANSLATIONS = {
     meetBadge: "फोन नंबर की आवश्यकता नहीं",
     durationBadge: "30 मिनट की अवधि",
     meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
-    price1: "₹1,100 / $21",
-    price2: "₹5,100 / $71",
-    price3: "₹11,001 / $151",
     suggestedPayments: "किसी अग्रिम भुगतान की आवश्यकता नहीं है; आप हमारे सत्र के पूरा होने के बाद आसानी से भुगतान कर सकते हैं।",
     meetBtn: "परामर्श शेड्यूल करें",
     viewPayments: "भुगतान के तरीके देखें",
@@ -109,12 +103,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 <p className={`bg-accent/20 p-4 rounded-xl text-on-surface/90 font-body mb-8 leading-relaxed ${lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
                   {t.suggestedPayments}
                 </p>
-
-                <div className="flex flex-col gap-5 mb-10">
-                  <p className="text-2xl md:text-3xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price1}</p>
-                  <p className="text-2xl md:text-3xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price2}</p>
-                  <p className="text-2xl md:text-3xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price3}</p>
-                </div>
 
                 <div className="space-y-6">
                   <AnimatedScheduleButton
