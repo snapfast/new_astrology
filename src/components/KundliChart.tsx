@@ -85,7 +85,7 @@ const HouseContent: FC<HouseContentProps> = ({ x, y, rasi, planets }) => {
         height={50}
         className="overflow-visible"
       >
-        <div className="flex flex-row justify-center items-start gap-2 w-full h-full font-medium text-[14px]">
+        <div className={`w-full h-full font-medium text-[14px] ${planets?.length >= 3 ? 'grid grid-cols-2 gap-x-1 gap-y-0.5 place-items-center place-content-center leading-none' : 'flex flex-row justify-center items-start gap-2'}`}>
           {(planets || []).map((p, i) => {
             const color = p.symbol === 'As' ? '#9333EA' : '#991B1B';
             return (
