@@ -20,28 +20,28 @@ export interface PlanetData {
 
 export interface SookshmaDasha {
     lord: string;
-    start: Date;
-    end: Date;
+    start: number;
+    end: number;
 }
 
 export interface Pratyantardasha {
     lord: string;
-    start: Date;
-    end: Date;
+    start: number;
+    end: number;
     sookshmaDashas: SookshmaDasha[];
 }
 
 export interface Antardasha {
     lord: string;
-    start: Date;
-    end: Date;
+    start: number;
+    end: number;
     pratyantardashas: Pratyantardasha[];
 }
 
 export interface Mahadasha {
     lord: string;
-    start: Date;
-    end: Date;
+    start: number;
+    end: number;
     antardashas: Antardasha[];
 }
 
@@ -1013,8 +1013,8 @@ function calculateSookshmaDashas(mdDurationYears: number, adDurationYears: numbe
 
         sds.push({
             lord: sdLord,
-            start: new Date(sdStart),
-            end: new Date(sdEnd)
+            start: sdStart,
+            end: sdEnd
         });
         currentSdStart = sdEnd;
     }
@@ -1034,8 +1034,8 @@ function calculatePratyantardashas(mdDurationYears: number, adLordIdx: number, a
 
         const pratyantardasha = {
             lord: pdLord,
-            start: new Date(pdStart),
-            end: new Date(pdEnd)
+            start: pdStart,
+            end: pdEnd
         } as Pratyantardasha;
 
         let sds: SookshmaDasha[] | undefined;
@@ -1069,8 +1069,8 @@ function calculateAntardashas(mdLordIdx: number, mdStart: number, mdDurationYear
 
         const antardasha = {
             lord: adLord,
-            start: new Date(adStart),
-            end: new Date(adEnd)
+            start: adStart,
+            end: adEnd
         } as Antardasha;
 
         let pds: Pratyantardasha[] | undefined;
@@ -1117,8 +1117,8 @@ export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Ma
 
         const mahadasha = {
             lord,
-            start: new Date(mdStart),
-            end: new Date(mdEnd)
+            start: mdStart,
+            end: mdEnd
         } as Mahadasha;
 
         let ads: Antardasha[] | undefined;
