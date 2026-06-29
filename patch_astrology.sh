@@ -1,2 +1,0 @@
-sed -i 's/const degree = formatDegree(siderealLong);/const divisions: Record<ChartKey, number> = { d1: 1, d3: 3, d7: 7, d9: 9, d10: 10, d60: 60 };/g' src/lib/astrology.ts
-sed -i 's/assignments\[key\]\[house\].push({ symbol, isRetrograde: isRetro, degree });/const divLong = (siderealLong * divisions[key]) % 30;\n            const degree = formatDegree(divLong);\n            assignments[key][house].push({ symbol, isRetrograde: isRetro, degree });/g' src/lib/astrology.ts
