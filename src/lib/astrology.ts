@@ -490,11 +490,13 @@ function calculatePlanetaryAndDivisionalData(
         d1: {}, d3: {}, d7: {}, d9: {}, d10: {}, d60: {}
     };
 
-    chartKeys.forEach(key => {
+    for (let k = 0; k < chartKeys.length; k++) {
+        const key = chartKeys[k];
+        const chart = assignments[key];
         for (let i = 1; i <= 12; i++) {
-            assignments[key][i] = [];
+            chart[i] = [];
         }
-    });
+    }
 
     // 1. Calculate Ascendant (Lagna)
     // The Ascendant is the point where the Ecliptic intersects the Eastern Horizon.
@@ -521,31 +523,36 @@ function calculatePlanetaryAndDivisionalData(
     };
 
     const assignToCharts = (symbol: string, siderealLong: number, isRetro: boolean) => {
-        const rasiIndices: Record<ChartKey, number> = {
-            d1: Math.floor(siderealLong / 30),
-            d3: getD3Rasi(siderealLong),
-            d7: getD7Rasi(siderealLong),
-            d9: getD9Rasi(siderealLong),
-            d10: getD10Rasi(siderealLong),
-            d60: getD60Rasi(siderealLong)
-        };
+        for (let k = 0; k < chartKeys.length; k++) {
+            const key = chartKeys[k];
+            let chartRasiIdx: number;
+            switch (key) {
+                case 'd1': chartRasiIdx = Math.floor(siderealLong / 30); break;
+                case 'd3': chartRasiIdx = getD3Rasi(siderealLong); break;
+                case 'd7': chartRasiIdx = getD7Rasi(siderealLong); break;
+                case 'd9': chartRasiIdx = getD9Rasi(siderealLong); break;
+                case 'd10': chartRasiIdx = getD10Rasi(siderealLong); break;
+                case 'd60': chartRasiIdx = getD60Rasi(siderealLong); break;
+                default: chartRasiIdx = 0;
+            }
 
-
-        chartKeys.forEach(key => {
-            const chartRasiIdx = rasiIndices[key];
             const lagnaRasi = lagnaRasis[key];
             const house = ((chartRasiIdx - lagnaRasi + 12) % 12) + 1;
             const divLong = (siderealLong * divisions[key]) % 30;
             const degree = formatDegree(divLong);
             assignments[key][house].push({ symbol, isRetrograde: isRetro, degree });
-        });
+        }
     };
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
-    chartKeys.forEach(key => assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) }));
+    for (let k = 0; k < chartKeys.length; k++) {
+        const key = chartKeys[k];
+        assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) });
+    }
 
     // 2. Calculate Planets
-    PLANET_MAP.forEach(p => {
+    for (let i = 0; i < PLANET_MAP.length; i++) {
+        const p = PLANET_MAP[i];
         let long: number;
         if (p.name === "Sun") {
             long = tropicalSunLong;
@@ -564,7 +571,7 @@ function calculatePlanetaryAndDivisionalData(
 
         planetData.push(createPlanet(p.name, p.symbol, siderealLong, house, isRetro));
         assignToCharts(p.symbol, siderealLong, isRetro);
-    });
+    }
 
     // 3. Rahu & Ketu
     const rahuTropical = getMeanRahu(time);
@@ -584,12 +591,14 @@ function calculatePlanetaryAndDivisionalData(
         d1: {}, d3: {}, d7: {}, d9: {}, d10: {}, d60: {}
     };
 
-    chartKeys.forEach(key => {
+    for (let k = 0; k < chartKeys.length; k++) {
+        const key = chartKeys[k];
         const lagnaRasi = lagnaRasis[key];
+        const chartRasis = houseRasis[key];
         for (let h = 1; h <= 12; h++) {
-            houseRasis[key][h] = ((lagnaRasi + h - 1) % 12) + 1;
+            chartRasis[h] = ((lagnaRasi + h - 1) % 12) + 1;
         }
-    });
+    }
 
     return {
         planets: planetData,
