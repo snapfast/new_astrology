@@ -30,15 +30,15 @@ const TRANSLATIONS = {
 };
 
 // Helper to perform binary search for the active dasha period
-function findCurrentDasha<T extends { start: Date; end: Date }>(items: T[], targetTime: number): T | undefined {
+function findCurrentDasha<T extends { start: number; end: number }>(items: T[], targetTime: number): T | undefined {
   let low = 0;
   let high = items.length - 1;
 
   while (low <= high) {
     const mid = (low + high) >>> 1;
     const item = items[mid];
-    const startTime = item.start.getTime();
-    const endTime = item.end.getTime();
+    const startTime = item.start;
+    const endTime = item.end;
 
     if (targetTime >= startTime && targetTime <= endTime) {
       return item;
@@ -123,7 +123,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
   const handleMdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
     const md = item as Mahadasha;
-    if (selectedMd?.lord === md.lord && selectedMd?.start.getTime() === md.start.getTime()) {
+    if (selectedMd?.lord === md.lord && selectedMd?.start === md.start) {
       setSelectedMd(null);
       setSelectedAd(null);
       setSelectedPd(null);
@@ -138,7 +138,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
   const handleAdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
     const ad = item as Antardasha;
-    if (selectedAd?.lord === ad.lord && selectedAd?.start.getTime() === ad.start.getTime()) {
+    if (selectedAd?.lord === ad.lord && selectedAd?.start === ad.start) {
       setSelectedAd(null);
       setSelectedPd(null);
       setSelectedSd(null);
@@ -151,7 +151,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
   const handlePdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
     const pd = item as Pratyantardasha;
-    if (selectedPd?.lord === pd.lord && selectedPd?.start.getTime() === pd.start.getTime()) {
+    if (selectedPd?.lord === pd.lord && selectedPd?.start === pd.start) {
       setSelectedPd(null);
       setSelectedSd(null);
     } else {
@@ -162,7 +162,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
   const handleSdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
     const sd = item as SookshmaDasha;
-    if (selectedSd?.lord === sd.lord && selectedSd?.start.getTime() === sd.start.getTime()) {
+    if (selectedSd?.lord === sd.lord && selectedSd?.start === sd.start) {
       setSelectedSd(null);
     } else {
       setSelectedSd(sd);
@@ -185,13 +185,13 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
         </div>
         <div className="flex-grow divide-y divide-outline/50 scrollbar-hide">
           {items.map((item, idx) => {
-            const itemStartTime = item.start.getTime();
-            const itemEndTime = item.end.getTime();
+            const itemStartTime = item.start;
+            const itemEndTime = item.end;
             const status = getStatus(itemStartTime, itemEndTime);
             const isCurrent = status === 'Current';
             const isSelected = selectedItem &&
                              selectedItem.lord === item.lord &&
-                             selectedItem.start.getTime() === itemStartTime;
+                             selectedItem.start === itemStartTime;
 
             return (
               <div

@@ -60,7 +60,7 @@ test('calculateVimshottariDasha basic structure', () => {
 
   assert.strictEqual(result.length, 9, 'Should have 9 Mahadashas');
 
-  const now = new Date();
+  const now = Date.now();
   const currentMahadasha = result.find(d => now >= d.start && now < d.end);
   assert.ok(currentMahadasha, 'Should have a current dasha based on dates');
 
@@ -91,8 +91,8 @@ test('calculateVimshottariDasha balance of dasha', () => {
   assert.strictEqual(result[0].lord, 'Mars');
 
   // Since it's near the end, Mars dasha should end soon after birth
-  const marsEnd = new Date(result[0].end);
-  const diffYears = (marsEnd.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+  const marsEnd = result[0].end;
+  const diffYears = (marsEnd - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
 
   // Total Mars dasha is 7 years. 306 is near 306.66.
   assert.ok(diffYears < 1.0, 'Mars dasha should be nearly finished');
