@@ -378,7 +378,7 @@ const SHASHTIAMSHA_WIDTH = 0.5;
 const NAKSHATRA_WIDTH = 360 / 27;
 const PADA_WIDTH = 360 / 108;
 const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
-const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
+const MS_PER_YEAR = 365.24219 * 24 * 60 * 60 * 1000;
 
 /**
  * Calculates the Chitra Paksha Lahiri Ayanamsa for a given date.
@@ -401,8 +401,8 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
     const t1 = time;
     const t2 = Ast.MakeTime(time.ut + 1 / 24); // +1 hour in days
 
-    const lon1 = currentLong ?? Ast.Ecliptic(Ast.GeoVector(body, t1, true)).elon;
-    const lon2 = Ast.Ecliptic(Ast.GeoVector(body, t2, true)).elon;
+    const lon1 = currentLong ?? getTrueEclipticLongitude(body, t1);
+    const lon2 = getTrueEclipticLongitude(body, t2);
 
     let diff = (lon2 - lon1 + 360) % 360;
     if (diff > 180) diff -= 360;
@@ -413,6 +413,24 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
 /**
  * Calculates the mean longitude of Rahu (Ascending Node) for a given time.
  */
+
+
+
+
+function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime): number {
+    const geoJ2000 = Ast.GeoVector(body, time, true);
+    const rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+    const eclDateVec = Ast.RotateVector(rotEqjEct, geoJ2000);
+    return (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+}
+
+function getTrueMoonEclipticLongitude(time: Ast.AstroTime): number {
+    const geoJ2000 = Ast.GeoMoon(time);
+    const rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+    const eclDateVec = Ast.RotateVector(rotEqjEct, geoJ2000);
+    return (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+}
+
 export function getMeanRahu(time: Ast.AstroTime): number {
     // T is centuries since J2000.0
     const T = time.tt / 36525.0;
@@ -559,9 +577,7 @@ function calculatePlanetaryAndDivisionalData(
         } else if (p.name === "Moon") {
             long = tropicalMoonLong;
         } else {
-            const pos = Ast.GeoVector(p.body, time, true);
-            const ecl = Ast.Ecliptic(pos);
-            long = ecl.elon;
+            long = getTrueEclipticLongitude(p.body, time);
         }
 
         const isRetro = isPlanetRetrograde(p.body, time, long);
@@ -628,18 +644,14 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
     const getTropicalSunLong = () => {
         if (tropicalSunLong === undefined) {
-            const pos = Ast.GeoVector(Ast.Body.Sun, time, true);
-            const ecl = Ast.Ecliptic(pos);
-            tropicalSunLong = ecl.elon;
+            tropicalSunLong = getTrueEclipticLongitude(Ast.Body.Sun, time);
         }
         return tropicalSunLong;
     };
 
     const getTropicalMoonLong = () => {
         if (tropicalMoonLong === undefined) {
-            const pos = Ast.GeoMoon(time);
-            const ecl = Ast.Ecliptic(pos);
-            tropicalMoonLong = ecl.elon;
+            tropicalMoonLong = getTrueMoonEclipticLongitude(time);
         }
         return tropicalMoonLong;
     };
@@ -849,7 +861,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         const getSun = (t: Ast.AstroTime) => {
             const cached = sunCache.get(t.ut);
             if (cached !== undefined) return cached;
-            const s = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, t, true)).elon;
+            const s = getTrueEclipticLongitude(Ast.Body.Sun, t);
             sunCache.set(t.ut, s);
             return s;
         };
@@ -859,7 +871,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         const getMoon = (t: Ast.AstroTime) => {
             const cached = moonCache.get(t.ut);
             if (cached !== undefined) return cached;
-            const m = Ast.Ecliptic(Ast.GeoMoon(t)).elon;
+            const m = getTrueMoonEclipticLongitude(t);
             moonCache.set(t.ut, m);
             return m;
         };
@@ -988,7 +1000,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
         let monthIdx = 0;
         if (prevNewMoon) {
-            const nmSunLong = Ast.Ecliptic(Ast.GeoVector(Ast.Body.Sun, prevNewMoon, true)).elon;
+            const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon);
             const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
             monthIdx = Math.floor(nmSiderealSunLong / 30);
         }
