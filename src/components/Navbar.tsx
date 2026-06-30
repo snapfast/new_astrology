@@ -16,6 +16,7 @@ const TRANSLATIONS = {
     panchang: 'Panchang',
     panchPakshi: 'Panch Pakshi',
     biorhythm: 'Biorhythm',
+    tools: 'Tools',
     about: 'About',
     services: 'Services',
     reviews: 'Reviews',
@@ -33,6 +34,7 @@ const TRANSLATIONS = {
     panchang: 'पंचांग',
     panchPakshi: 'पंच पक्षी',
     biorhythm: 'बायोरिदम',
+    tools: 'उपकरण',
     about: 'मेरे बारे में',
     services: 'सेवाएं',
     reviews: 'समीक्षाएं',
@@ -86,12 +88,24 @@ const Navbar = () => {
     }
   }, [isMenuOpen]);
 
-  const navLinks = [
+  type NavLink = {
+    name: string;
+    href?: string;
+    highlight?: boolean;
+    subLinks?: { name: string; href: string; highlight?: boolean }[];
+  };
+
+  const navLinks: NavLink[] = [
     { name: t.home, href: '/' },
     { name: t.freeHoroscope, href: '/free-horoscope', highlight: true },
     { name: t.panchang, href: '/panchang' },
-    { name: t.panchPakshi, href: '/panch-pakshi' },
-    { name: t.biorhythm, href: '/biorhythm' },
+    {
+      name: t.tools,
+      subLinks: [
+        { name: t.biorhythm, href: '/biorhythm' },
+        { name: t.panchPakshi, href: '/panch-pakshi' }
+      ]
+    },
     { name: t.about, href: '/about' },
     { name: t.services, href: '/services' },
     { name: t.reviews, href: '/reviews' },
@@ -121,11 +135,43 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 font-medium text-sm text-on-surface font-body">
           {navLinks.filter(link => link.href !== '/').map((link) => {
+            if (link.subLinks) {
+              const isSubActive = link.subLinks.some(subLink => pathname === subLink.href);
+              return (
+                <div key={link.name} className="relative group">
+                  <button
+                    className={`flex items-center gap-1 transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
+                      isSubActive
+                        ? 'text-on-surface font-semibold underline underline-offset-8 decoration-accent/40'
+                        : 'text-on-surface'
+                    }`}
+                  >
+                    {link.name}
+                    <span className="material-symbols-outlined !text-lg" aria-hidden="true">expand_more</span>
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-outline/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-2">
+                      {link.subLinks.map(subLink => (
+                        <Link
+                          key={subLink.href}
+                          href={subLink.href}
+                          className={`block px-4 py-2 text-sm hover:bg-surface-container-high transition-colors ${
+                            pathname === subLink.href ? 'text-accent font-semibold' : 'text-on-surface'
+                          }`}
+                        >
+                          {subLink.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
             const isActive = pathname === link.href;
             return (
               <Link
-                key={link.href}
-                href={link.href}
+                key={link.href || link.name}
+                href={link.href || '/'}
                 aria-current={isActive ? 'page' : undefined}
                 className={`transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
                   isActive
@@ -207,11 +253,40 @@ const Navbar = () => {
 
         <div className="flex flex-col gap-8">
           {navLinks.map((link) => {
+            if (link.subLinks) {
+              const isSubActive = link.subLinks.some(subLink => pathname === subLink.href);
+              return (
+                <div key={link.name} className="px-1 flex flex-col gap-4">
+                  <div className={`text-3xl font-headline tracking-tight py-1 block ${isSubActive ? 'text-accent' : 'text-on-surface'}`}>
+                    {link.name}
+                  </div>
+                  <div className="flex flex-col gap-4 pl-4 border-l-2 border-outline/20">
+                    {link.subLinks.map(subLink => {
+                      const isActive = pathname === subLink.href;
+                      return (
+                        <Link
+                          key={subLink.href}
+                          href={subLink.href}
+                          onClick={closeMenu}
+                          aria-current={isActive ? 'page' : undefined}
+                          className={`text-2xl font-headline tracking-tight py-1 block transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-8 rounded-lg ${
+                            isActive ? 'text-accent font-semibold' : 'text-on-surface/80'
+                          }`}
+                        >
+                          {subLink.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            }
+
             const isActive = pathname === link.href;
             return (
-              <div key={link.href} className="px-1">
+              <div key={link.href || link.name} className="px-1">
                 <Link
-                  href={link.href}
+                  href={link.href || '/'}
                   onClick={closeMenu}
                   aria-current={isActive ? 'page' : undefined}
                   className={`text-3xl font-headline tracking-tight py-1 block transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-8 rounded-lg ${
