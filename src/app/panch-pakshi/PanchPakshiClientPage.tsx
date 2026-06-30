@@ -116,6 +116,74 @@ export default function PanchPakshiClientPage() {
           </div>
         </div>
 
+        {/* Understanding Panch Pakshi Activities */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-outline/20 mt-8">
+          <h2 className="text-2xl font-headline text-accent mb-6">
+            {lang === 'en' ? 'Understanding Panch Pakshi Activities' : 'पंच पक्षी गतिविधियों को समझना'}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Ruling */}
+            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+              <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-success/20 text-success">
+                {lang === 'en' ? 'Ruling' : 'शासन (Ruling)'}
+              </span>
+              <p className="text-sm text-on-surface/80">
+                {lang === 'en'
+                  ? 'Highly favorable time for important tasks and new beginnings.'
+                  : 'महत्वपूर्ण कार्यों और नई शुरुआत के लिए अत्यधिक अनुकूल समय।'}
+              </p>
+            </div>
+
+            {/* Eating */}
+            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+              <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-info/20 text-info">
+                {lang === 'en' ? 'Eating' : 'भोजन (Eating)'}
+              </span>
+              <p className="text-sm text-on-surface/80">
+                {lang === 'en'
+                  ? 'Good time for growth, learning, and steady progress.'
+                  : 'विकास, सीखने और निरंतर प्रगति के लिए अच्छा समय।'}
+              </p>
+            </div>
+
+            {/* Walking */}
+            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+              <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-warning/20 text-warning">
+                {lang === 'en' ? 'Walking' : 'चलना (Walking)'}
+              </span>
+              <p className="text-sm text-on-surface/80">
+                {lang === 'en'
+                  ? 'Neutral time. Good for routine tasks and travel.'
+                  : 'तटस्थ समय। नियमित कार्यों और यात्रा के लिए अच्छा है।'}
+              </p>
+            </div>
+
+            {/* Sleeping */}
+            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+              <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-on-surface/10 text-on-surface">
+                {lang === 'en' ? 'Sleeping' : 'नींद (Sleeping)'}
+              </span>
+              <p className="text-sm text-on-surface/80">
+                {lang === 'en'
+                  ? 'Inactive time. Avoid starting new ventures. Best for rest.'
+                  : 'निष्क्रिय समय। नए काम शुरू करने से बचें। आराम के लिए सर्वोत्तम।'}
+              </p>
+            </div>
+
+            {/* Dying */}
+            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+              <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-error/20 text-error">
+                {lang === 'en' ? 'Dying' : 'मृत्यु (Dying)'}
+              </span>
+              <p className="text-sm text-on-surface/80">
+                {lang === 'en'
+                  ? 'Highly inauspicious time. Strictly avoid important work or decisions.'
+                  : 'अत्यधिक अशुभ समय। महत्वपूर्ण काम या फैसलों से सख्ती से बचें।'}
+              </p>
+            </div>
+          </div>
+        </div>
+
       </main>
       <Footer />
     </div>
