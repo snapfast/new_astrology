@@ -17,7 +17,7 @@
     "@next/third-parties": "^16.2.4",
     "astronomy-engine": "^2.1.19",
     "clsx": "^2.1.1",
-    "next": "15.5.18",
+    "next": "15.5.15",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "tailwind-merge": "^3.6.0"
