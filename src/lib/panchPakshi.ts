@@ -9,6 +9,36 @@ export interface PanchPakshiDayData {
   activities: PanchPakshiActivity[];
 }
 
+export const NAKSHATRA_BIRD_MAPPING: Record<string, { Shukla: string, Krishna: string }> = {
+  "Ashwini": { "Shukla": "Vulture", "Krishna": "Peacock" },
+  "Bharani": { "Shukla": "Vulture", "Krishna": "Peacock" },
+  "Krittika": { "Shukla": "Vulture", "Krishna": "Peacock" },
+  "Rohini": { "Shukla": "Vulture", "Krishna": "Peacock" },
+  "Mrigashira": { "Shukla": "Vulture", "Krishna": "Peacock" },
+  "Ardra": { "Shukla": "Owl", "Krishna": "Rooster" },
+  "Punarvasu": { "Shukla": "Owl", "Krishna": "Rooster" },
+  "Pushya": { "Shukla": "Owl", "Krishna": "Rooster" },
+  "Ashlesha": { "Shukla": "Owl", "Krishna": "Rooster" },
+  "Magha": { "Shukla": "Owl", "Krishna": "Rooster" },
+  "Purva Phalguni": { "Shukla": "Owl", "Krishna": "Rooster" },
+  "Uttara Phalguni": { "Shukla": "Crow", "Krishna": "Crow" },
+  "Hasta": { "Shukla": "Crow", "Krishna": "Crow" },
+  "Chitra": { "Shukla": "Crow", "Krishna": "Crow" },
+  "Swati": { "Shukla": "Crow", "Krishna": "Crow" },
+  "Vishakha": { "Shukla": "Crow", "Krishna": "Crow" },
+  "Anuradha": { "Shukla": "Rooster", "Krishna": "Owl" },
+  "Jyeshtha": { "Shukla": "Rooster", "Krishna": "Owl" },
+  "Mula": { "Shukla": "Rooster", "Krishna": "Owl" },
+  "Purva Ashadha": { "Shukla": "Rooster", "Krishna": "Owl" },
+  "Uttara Ashadha": { "Shukla": "Rooster", "Krishna": "Owl" },
+  "Shravana": { "Shukla": "Peacock", "Krishna": "Vulture" },
+  "Dhanishta": { "Shukla": "Peacock", "Krishna": "Vulture" },
+  "Shatabhisha": { "Shukla": "Peacock", "Krishna": "Vulture" },
+  "Purva Bhadrapada": { "Shukla": "Peacock", "Krishna": "Vulture" },
+  "Uttara Bhadrapada": { "Shukla": "Peacock", "Krishna": "Vulture" },
+  "Revati": { "Shukla": "Peacock", "Krishna": "Vulture" }
+};
+
 export const BIRDS = ["Vulture", "Owl", "Crow", "Rooster", "Peacock"];
 
 export const BIRD_TRANSLATIONS: Record<string, string> = {

@@ -4,19 +4,28 @@ import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { BIRDS, BIRD_TRANSLATIONS, getPanchPakshiSchedule } from '@/lib/panchPakshi';
+import { BIRD_TRANSLATIONS, getPanchPakshiSchedule, NAKSHATRA_BIRD_MAPPING } from '@/lib/panchPakshi';
+import { NAKSHATRA_NAMES } from '@/lib/astrology';
 
 export default function PanchPakshiClientPage() {
   const { lang } = useLanguage();
   const [dateStr, setDateStr] = useState(new Date().toISOString().split('T')[0]);
-  const [selectedBird, setSelectedBird] = useState("Vulture");
+  const [selectedNakshatra, setSelectedNakshatra] = useState("Ashwini");
+  const [selectedPaksha, setSelectedPaksha] = useState<"Shukla" | "Krishna">("Shukla");
 
   const title = lang === 'en' ? 'Panch Pakshi' : 'पंच पक्षी';
   const selectDateLabel = lang === 'en' ? 'Select Date' : 'तारीख चुनें';
   const datePlaceholder = lang === 'en' ? 'Date' : 'तारीख';
-  const selectBirdLabel = lang === 'en' ? 'Select Bird' : 'पक्षी चुनें';
+  const selectNakshatraLabel = lang === 'en' ? 'Birth Nakshatra' : 'जन्म नक्षत्र';
+  const selectPakshaLabel = lang === 'en' ? 'Birth Paksha' : 'जन्म पक्ष';
 
-  const currentSchedule = getPanchPakshiSchedule(selectedBird);
+  const pakshaOptions = [
+    { value: "Shukla", label: lang === 'en' ? 'Shukla Paksha (Waxing)' : 'शुक्ल पक्ष' },
+    { value: "Krishna", label: lang === 'en' ? 'Krishna Paksha (Waning)' : 'कृष्ण पक्ष' }
+  ];
+
+  const calculatedBird = NAKSHATRA_BIRD_MAPPING[selectedNakshatra]?.[selectedPaksha] || "Vulture";
+  const currentSchedule = getPanchPakshiSchedule(calculatedBird);
 
   return (
     <div className="min-h-screen flex flex-col bg-surface">
@@ -31,17 +40,31 @@ export default function PanchPakshiClientPage() {
           <div className="lg:col-span-1 space-y-8">
             {/* Unified Control Bar */}
             <div className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm">
-              <div className="flex flex-col sm:flex-row items-center gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4">
                 <div className="flex flex-col w-full sm:w-auto">
-                  <label htmlFor="panch-pakshi-bird" className="text-xs font-semibold uppercase tracking-wider text-on-surface/70 mb-1 ml-1">{selectBirdLabel}</label>
+                  <label htmlFor="panch-pakshi-nakshatra" className="text-xs font-semibold uppercase tracking-wider text-on-surface/70 mb-1 ml-1">{selectNakshatraLabel}</label>
                   <select
-                    id="panch-pakshi-bird"
-                    value={selectedBird}
-                    onChange={(e) => setSelectedBird(e.target.value)}
+                    id="panch-pakshi-nakshatra"
+                    value={selectedNakshatra}
+                    onChange={(e) => setSelectedNakshatra(e.target.value)}
                     className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 text-sm font-medium"
                   >
-                    {BIRDS.map(b => (
-                      <option key={b} value={b}>{lang === 'en' ? b : BIRD_TRANSLATIONS[b]}</option>
+                    {NAKSHATRA_NAMES.map(n => (
+                      <option key={n.name} value={n.name}>{lang === 'en' ? n.name : n.sanskrit}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col w-full sm:w-auto">
+                  <label htmlFor="panch-pakshi-paksha" className="text-xs font-semibold uppercase tracking-wider text-on-surface/70 mb-1 ml-1">{selectPakshaLabel}</label>
+                  <select
+                    id="panch-pakshi-paksha"
+                    value={selectedPaksha}
+                    onChange={(e) => setSelectedPaksha(e.target.value as "Shukla" | "Krishna")}
+                    className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 text-sm font-medium"
+                  >
+                    {pakshaOptions.map(p => (
+                      <option key={p.value} value={p.value}>{p.label}</option>
                     ))}
                   </select>
                 </div>
