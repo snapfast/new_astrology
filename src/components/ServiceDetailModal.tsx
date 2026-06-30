@@ -47,7 +47,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
       zIndex={110}
       maxWidth="max-w-5xl"
       containerClassName="p-4 md:p-8"
-      wrapperClassName="rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+      wrapperClassName="rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[80vh] md:max-h-[90vh]"
     >
       {/* Image Section */}
         <div className="relative w-full md:w-2/5 min-h-[300px] md:h-auto bg-surface-bright">
