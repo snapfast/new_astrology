@@ -104,7 +104,7 @@ export interface ChartData {
     panchang: PanchangData;
 }
 
-const NAKSHATRA_NAMES = [
+export const NAKSHATRA_NAMES = [
     { name: "Ashwini", sanskrit: "अश्विनी" },
     { name: "Bharani", sanskrit: "भरणी" },
     { name: "Krittika", sanskrit: "कृत्तिका" },
