@@ -1,6 +1,7 @@
 'use client';
 
 import { FC } from 'react';
+import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,7 +16,7 @@ const TRANSLATIONS = {
     meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
     suggestedPayments: "No upfront payment is needed; you can simply pay after our session is complete.",
     meetBtn: "Schedule Consultation",
-    viewPayments: "View Payment Methods",
+    viewPayments: "Support My Work (Donate)",
     motto: "Guided by the stars, Grounded in Truth",
     closeModal: "Close modal"
   },
@@ -27,7 +28,7 @@ const TRANSLATIONS = {
     meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
     suggestedPayments: "किसी अग्रिम भुगतान की आवश्यकता नहीं है; आप हमारे सत्र के पूरा होने के बाद आसानी से भुगतान कर सकते हैं।",
     meetBtn: "परामर्श शेड्यूल करें",
-    viewPayments: "भुगतान के तरीके देखें",
+    viewPayments: "मेरे काम का समर्थन करें (दान करें)",
     motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
     closeModal: "मोडल बंद करें"
   }
@@ -36,10 +37,9 @@ const TRANSLATIONS = {
 interface BookConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenPayment: () => void;
 }
 
-const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose, onOpenPayment }) => {
+const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
 
@@ -115,17 +115,18 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     {t.meetBtn}
                   </AnimatedScheduleButton>
 
-                  <button
+                  <Link
+                    href="/donate"
                     onClick={() => {
-                      sendGAEvent({ event: 'action_click', action_name: 'modal_view_payments' });
-                      onOpenPayment();
+                      sendGAEvent({ event: 'action_click', action_name: 'modal_view_donate' });
+                      onClose();
                     }}
                     className={`block w-full text-center font-medium transition-colors ${
                       lang === 'hi' ? 'text-sm text-on-surface/70 hover:text-primary' : 'text-[10px] uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
                     }`}
                   >
                     {t.viewPayments}
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

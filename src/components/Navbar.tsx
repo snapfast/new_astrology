@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import BookConsultationModal from './BookConsultationModal';
-import PaymentOptionsModal from './PaymentOptionsModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useLanguage } from '@/context/LanguageContext';
@@ -52,7 +51,6 @@ const Navbar = () => {
   const { lang, toggleLang } = useLanguage();
   const t = TRANSLATIONS[lang];
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -357,15 +355,6 @@ const Navbar = () => {
     <BookConsultationModal
       isOpen={isBookingModalOpen}
       onClose={() => setIsBookingModalOpen(false)}
-      onOpenPayment={() => {
-        setIsBookingModalOpen(false);
-        setIsPaymentModalOpen(true);
-      }}
-    />
-
-    <PaymentOptionsModal
-      isOpen={isPaymentModalOpen}
-      onClose={() => setIsPaymentModalOpen(false)}
     />
   </>
   );
