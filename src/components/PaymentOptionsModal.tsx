@@ -101,8 +101,8 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
       onClose={onClose}
       maxWidth="max-w-lg lg:max-w-4xl"
     >
-      <div className="p-3 md:p-10">
-          <div className="flex justify-between items-center mb-6 md:mb-10">
+      <div className="p-3 md:p-6">
+          <div className="flex justify-between items-center mb-4 md:mb-6">
             <h2 className="text-xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
@@ -116,23 +116,23 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
             </button>
           </div>
 
-          <div className="mb-10 bg-accent/10 p-6 rounded-2xl border border-accent/20">
+          <div className="mb-6 bg-accent/10 p-4 rounded-2xl border border-accent/20">
             <p className="text-on-surface/90 font-body mb-4 text-sm md:text-base">{t.donationText}</p>
             <div className="flex flex-wrap gap-6">
-              <span className="text-xl md:text-2xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price1}</span>
-              <span className="text-xl md:text-2xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price2}</span>
-              <span className="text-xl md:text-2xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price3}</span>
+              <span className="text-base md:text-xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price1}</span>
+              <span className="text-base md:text-xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price2}</span>
+              <span className="text-base md:text-xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price3}</span>
             </div>
           </div>
 
-          <div className="space-y-8 md:space-y-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="space-y-6 md:space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
               {/* UPI Section */}
               <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
                 <div className="space-y-2">
                   <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.upiTitle}</h4>
                 </div>
-                <div className="relative w-56 h-56 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden">
+                <div className="relative w-48 h-48 md:w-64 md:h-64 bg-surface-bright rounded-3xl p-4 border border-outline/10 shadow-sm overflow-hidden">
                   {/* ⚡ Bolt Optimization: Added sizes attribute to prevent downloading 100vw image, mapping to w-56/w-80 tailwind classes */}
                   <Image
                     src="/donate-qr.png"
@@ -140,7 +140,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                     fill
                     className="object-contain p-6 scale-125"
                     priority
-                    sizes="(max-width: 768px) 224px, 320px"
+                    sizes="(max-width: 768px) 192px, 256px"
                   />
                 </div>
                 <CopyableField
@@ -157,7 +157,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                   <h4 className={`font-medium text-on-surface font-headline ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>{t.paypalTitle}</h4>
                 </div>
                 <div className="flex flex-col items-center lg:items-start gap-8 w-full">
-                  <div className="relative w-56 h-56 md:w-80 md:h-80 bg-surface-bright rounded-[3rem] p-6 border border-outline/10 shadow-sm overflow-hidden flex items-center justify-center">
+                  <div className="relative w-48 h-48 md:w-64 md:h-64 bg-surface-bright rounded-3xl p-4 border border-outline/10 shadow-sm overflow-hidden flex items-center justify-center">
                     <div className="relative w-full h-full">
                       {/* ⚡ Bolt Optimization: Added sizes attribute to prevent downloading 100vw image, mapping to container boundaries */}
                       <Image
@@ -165,7 +165,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
                         alt="PayPal"
                         fill
                         className="object-contain"
-                        sizes="(max-width: 768px) 224px, 320px"
+                        sizes="(max-width: 768px) 192px, 256px"
                       />
                     </div>
                   </div>
@@ -192,7 +192,7 @@ const PaymentOptionsModal: FC<PaymentOptionsModalProps> = ({ isOpen, onClose }) 
             </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-outline/10">
+          <div className="mt-6 pt-4 border-t border-outline/10">
             <p className={`text-on-surface/40 font-label uppercase transition-all ${
               lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
             }`}>

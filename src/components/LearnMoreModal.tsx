@@ -45,8 +45,8 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
       onClose={onClose}
       maxWidth="max-w-lg md:max-w-2xl"
     >
-      <div className="p-4 md:p-10">
-          <div className="flex justify-between items-center mb-6 md:mb-10">
+      <div className="p-4 md:p-6">
+          <div className="flex justify-between items-center mb-4 md:mb-6">
             <h2 className="text-2xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
@@ -60,11 +60,11 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-4 md:space-y-6">
             {/* Sample Reports */}
-            <div className="p-6 md:p-8 bg-surface-bright border border-outline/10 rounded-[2.5rem] flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-left">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-on-surface text-2xl md:text-3xl">folder_open</span>
+            <div className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 text-center md:text-left">
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
+                <span className="material-symbols-outlined text-on-surface text-xl md:text-2xl">folder_open</span>
               </div>
               <div className="flex-1">
                 <h3 className={`font-normal text-on-surface font-headline mb-2 ${lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>{t.sampleTitle}</h3>
@@ -85,9 +85,9 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Spiritual Insights */}
-            <div className="p-6 md:p-8 bg-surface-bright border border-outline/10 rounded-[2.5rem] flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-left">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-on-surface text-2xl md:text-3xl">alternate_email</span>
+            <div className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 text-center md:text-left">
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
+                <span className="material-symbols-outlined text-on-surface text-xl md:text-2xl">alternate_email</span>
               </div>
               <div className="flex-1">
                 <h3 className={`font-normal text-on-surface font-headline mb-2 ${lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>{t.socialTitle}</h3>
@@ -108,7 +108,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="mt-12 md:mt-16 pt-6 md:pt-8 border-t border-outline/10">
+          <div className="mt-8 pt-4 md:pt-6 border-t border-outline/10">
             <p className={`text-on-surface/40 font-label uppercase transition-all ${
               lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
             }`}>
