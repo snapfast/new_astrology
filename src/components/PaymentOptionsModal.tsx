@@ -20,9 +20,9 @@ const TRANSLATIONS = {
     copied: "Copied!",
     closeModal: "Close modal",
     donationText: "Please consider donating in these denominations only:",
-    price1: "₹11 / $11",
-    price2: "₹21 / $21",
-    price3: "₹51 / $51"
+    price1: "₹1,100 / $11",
+    price2: "₹2,100 / $21",
+    price3: "₹5,100 / $51"
   },
   hi: {
     title: "भुगतान के तरीके",
@@ -37,9 +37,9 @@ const TRANSLATIONS = {
     copied: "कॉपी हो गया!",
     closeModal: "मोडल बंद करें",
     donationText: "Please consider donating in these denominations only:",
-    price1: "₹11 / $11",
-    price2: "₹21 / $21",
-    price3: "₹51 / $51"
+    price1: "₹1,100 / $11",
+    price2: "₹2,100 / $21",
+    price3: "₹5,100 / $51"
   }
 };
 
