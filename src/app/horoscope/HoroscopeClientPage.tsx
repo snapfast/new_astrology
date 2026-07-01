@@ -7,7 +7,6 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
-import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
@@ -121,7 +120,6 @@ const TRANSLATIONS = {
 
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
 
   const goToCompact = () => {
@@ -489,10 +487,6 @@ const HoroscopeContent = () => {
         {/* Subtle Decorative Element */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
       </div>
-      <PaymentOptionsModal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-      />
     </div>
     </>
   );
