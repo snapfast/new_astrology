@@ -49,9 +49,9 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
       onClose={onClose}
       maxWidth="max-w-lg lg:max-w-4xl"
     >
-      <div className="p-6 md:p-12">
+      <div className="p-4 md:p-8">
           {/* Header */}
-          <div className="flex justify-between items-center mb-10 md:mb-16">
+          <div className="flex justify-between items-center mb-6 md:mb-8">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
@@ -65,11 +65,11 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             </button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* Left Column: Service Details */}
             <div className="lg:col-span-7">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-white shadow-sm border border-outline/10 rounded-2xl md:rounded-3xl flex items-center justify-center mb-8 md:mb-10">
-                <svg viewBox="0 0 622 512" className="w-8 h-8 md:w-10 md:h-10">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-white shadow-sm border border-outline/10 rounded-2xl flex items-center justify-center mb-6 md:mb-8">
+                <svg viewBox="0 0 622 512" className="w-6 h-6 md:w-8 md:h-8">
                   <path d="M351.419 255.568L411.978 324.79L493.418 376.827L507.584 256.005L493.418 137.908L410.418 183.621L351.419 255.568Z" fill="#00832D"/>
                   <path d="M0.00283051 365.583V468.541C0.00283051 492.049 19.0851 511.136 42.5983 511.136H145.556L166.876 433.344L145.556 365.583L74.9198 344.263L0.00283051 365.583Z" fill="#0066DA"/>
                   <path d="M145.556 -7.62939e-06L0.00283051 145.554L74.9247 166.822L145.556 145.554L166.488 78.7145L145.556 -7.62939e-06Z" fill="#E94235"/>
@@ -99,7 +99,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
 
             {/* Right Column: Pricing & Action */}
             <div className="lg:col-span-5">
-              <div className="bg-surface-bright/50 border border-outline/10 rounded-[2rem] p-8 md:p-10">
+              <div className="bg-surface-bright/50 border border-outline/10 rounded-[2rem] p-6 md:p-8">
                 <p className={`bg-accent/20 p-4 rounded-xl text-on-surface/90 font-body mb-8 leading-relaxed ${lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
                   {t.suggestedPayments}
                 </p>
@@ -132,7 +132,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           {/* Footer */}
-          <div className="mt-16 md:mt-24 pt-8 md:pt-10 border-t border-outline/10 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="mt-8 md:mt-12 pt-6 border-t border-outline/10 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className={`text-on-surface/40 font-label uppercase text-center md:text-left ${
               lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.3em]'
             }`}>

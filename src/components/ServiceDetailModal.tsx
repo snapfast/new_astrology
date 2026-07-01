@@ -46,7 +46,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
       onClose={onClose}
       zIndex={110}
       maxWidth="max-w-5xl"
-      containerClassName="p-4 md:p-8"
+      containerClassName="p-4 md:p-6"
       wrapperClassName="rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[80vh] md:max-h-[90vh]"
     >
       {/* Image Section */}
@@ -71,8 +71,8 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 p-6 md:p-14 overflow-y-auto custom-scrollbar bg-white">
-          <div className="flex justify-between items-start mb-10 md:mb-12">
+        <div className="flex-1 p-5 md:p-8 overflow-y-auto custom-scrollbar bg-white">
+          <div className="flex justify-between items-start mb-6 md:mb-8">
             <div>
               <span className={`font-medium text-accent mb-3 block font-label ${
                 lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'
@@ -98,14 +98,14 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             {service.description}
           </p>
 
-          <div className="grid grid-cols-1 gap-6 mb-12">
+          <div className="grid grid-cols-1 gap-4 mb-8">
             {service.portions.map((portion, index) => (
               <div
                 key={index}
-                className="flex items-start gap-6 p-6 md:p-8 bg-surface-bright border border-outline/10 rounded-[2.5rem] text-left"
+                className="flex items-start gap-4 p-5 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl text-left"
               >
-                <div className="w-12 h-12 shrink-0 rounded-2xl bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
-                  <span className="material-symbols-outlined text-2xl font-variation-fill">{portion.icon}</span>
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
+                  <span className="material-symbols-outlined text-xl font-variation-fill">{portion.icon}</span>
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-on-surface font-headline mb-2">{portion.title}</h4>
@@ -115,7 +115,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-8 pt-10 border-t border-outline/10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-outline/10">
             <AnimatedScheduleButton
               href="https://calendly.com/rahulbaliastrology/kundli/"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
