@@ -14,7 +14,7 @@ const TRANSLATIONS = {
     subtitle: "CONTRIBUTIONS & DONATIONS",
     description: (
       <div className="font-akshar">
-        If you found our service valuable, we would be deeply grateful for any donation to support our mission, suggested amount <span className="font-hindi">₹701</span>, <span className="font-hindi">₹1100</span>, <span className="font-hindi">₹1200</span>, <span className="font-hindi">₹2100</span>, <span className="font-hindi">₹7100</span>, etc.
+        If you found our service valuable, we would be deeply grateful for any donation to support our mission.
       </div>
     ),
     upiTitle: "Scan to Pay (UPI)",
@@ -26,12 +26,6 @@ const TRANSLATIONS = {
     emailTitle: "Email for Payment Issues",
     motto: "Guided by the stars, Grounded in Truth",
     copied: "Copied!",
-    donationText: "Suggested donation amounts:",
-    price1: "₹701",
-    price2: "₹1100",
-    price3: "₹1200",
-    price4: "₹2100",
-    price5: "₹7100",
     backHome: "Back to Home"
   }
 };
@@ -101,18 +95,6 @@ const DonateClientPage: FC = () => {
       </PageHeader>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        {/* Donation Denominations */}
-        <div className="mb-16 bg-accent/5 p-6 md:p-10 rounded-[2.5rem] border border-accent/20 text-center">
-          <p className="text-on-surface/90 font-body mb-6 text-base md:text-lg">{t.donationText}</p>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price1}</span>
-            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price2}</span>
-            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price3}</span>
-            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price4}</span>
-            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price5}</span>
-          </div>
-        </div>
-
         <div className="space-y-16 md:space-y-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             {/* UPI Section */}
@@ -120,7 +102,7 @@ const DonateClientPage: FC = () => {
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.upiTitle}</h4>
               </div>
-              <div className="relative w-[392px] h-[392px] md:w-[560px] md:h-[560px] bg-white rounded-[3rem] p-6 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/donate-qr.png"
@@ -128,7 +110,7 @@ const DonateClientPage: FC = () => {
                     fill
                     className="object-contain p-6 scale-125"
                     priority
-                    sizes="(max-width: 768px) 392px, 560px"
+                    sizes="(max-width: 768px) 400px, 560px"
                   />
                 </div>
               </div>
@@ -144,14 +126,14 @@ const DonateClientPage: FC = () => {
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.paypalTitle}</h4>
               </div>
-              <div className="relative w-56 h-56 md:w-80 md:h-80 bg-white rounded-[3rem] p-6 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-[2.5rem] md:rounded-[3rem] p-10 md:p-16 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/paypal-logo.svg"
                     alt="PayPal"
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 224px, 320px"
+                    sizes="(max-width: 768px) 400px, 560px"
                   />
                 </div>
               </div>
