@@ -10,26 +10,24 @@ import AnimatedScheduleButton from './AnimatedScheduleButton';
 const TRANSLATIONS = {
   en: {
     title: "Book Consultation",
-    meetTitle: "Private Google Meet Consultation",
-    meetBadge: "No phone number required",
-    durationBadge: "30 Mins Duration",
-    meetDesc: "Live 1-on-1 audio/video session for deep chart analysis and personalized remedies.",
-    suggestedPayments: "No upfront payment is needed; you can simply pay after our session is complete.",
-    meetBtn: "Schedule Consultation",
-    viewPayments: "Support My Work (Donate)",
-    motto: "Guided by the stars, Grounded in Truth",
+    meetTitle: "Google Meet Session",
+    meetBadge: "No phone needed",
+    durationBadge: "30 Mins",
+    meetDesc: "1-on-1 session for deep chart analysis and remedies.",
+    suggestedPayments: "Pay after the session. No upfront payment needed.",
+    meetBtn: "Schedule Now",
+    viewPayments: "Support & Donate",
     closeModal: "Close modal"
   },
   hi: {
     title: "परामर्श बुक करें",
-    meetTitle: "निजी गूगल मीट परामर्श",
-    meetBadge: "फोन नंबर की आवश्यकता नहीं",
-    durationBadge: "30 मिनट की अवधि",
-    meetDesc: "गहन कुंडली विश्लेषण और व्यक्तिगत उपायों के लिए लाइव 1-ऑन-1 ऑडियो/वीडियो सत्र।",
-    suggestedPayments: "किसी अग्रिम भुगतान की आवश्यकता नहीं है; आप हमारे सत्र के पूरा होने के बाद आसानी से भुगतान कर सकते हैं।",
-    meetBtn: "परामर्श शेड्यूल करें",
-    viewPayments: "मेरे काम का समर्थन करें (दान करें)",
-    motto: "सितारों द्वारा निर्देशित, सत्य में निहित",
+    meetTitle: "गूगल मीट सत्र",
+    meetBadge: "फोन नंबर की जरूरत नहीं",
+    durationBadge: "30 मिनट",
+    meetDesc: "कुंडली विश्लेषण और उपायों के लिए 1-ऑन-1 सत्र।",
+    suggestedPayments: "सत्र के बाद भुगतान करें। अग्रिम भुगतान की जरूरत नहीं।",
+    meetBtn: "अभी शेड्यूल करें",
+    viewPayments: "समर्थन और दान",
     closeModal: "मोडल बंद करें"
   }
 };
@@ -133,17 +131,12 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           {/* Footer */}
-          <div className="mt-8 md:mt-12 pt-6 border-t border-outline/10 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className={`text-on-surface/40 font-label uppercase text-center md:text-left ${
-              lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.3em]'
-            }`}>
-              {t.motto}
-            </p>
+          <div className="mt-8 md:mt-12 pt-6 border-t border-outline/10 flex flex-col md:flex-row justify-center items-center gap-6">
             <div className={`flex items-center gap-2 text-on-surface/40 font-body uppercase ${
                lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
             }`}>
               <span className="material-symbols-outlined text-lg">verified_user</span>
-              <span>Secure Booking via Calendly</span>
+              <span>Secure via Calendly</span>
             </div>
           </div>
       </div>
