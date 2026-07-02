@@ -10,7 +10,7 @@ import PageHeader from '@/components/PageHeader';
 
 const TRANSLATIONS = {
   en: {
-    title: "Support My Work",
+    title: "Donate",
     subtitle: "CONTRIBUTIONS & DONATIONS",
     description: (
       <div className="font-akshar">
