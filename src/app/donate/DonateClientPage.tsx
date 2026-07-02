@@ -23,9 +23,9 @@ const TRANSLATIONS = {
     motto: "Guided by the stars, Grounded in Truth",
     copied: "Copied!",
     donationText: "Suggested donation amounts:",
-    price1: "₹1,100",
-    price2: "₹2,100",
-    price3: "₹5,100",
+    price1: "₹1100",
+    price2: "₹2100",
+    price3: "₹5100",
     backHome: "Back to Home"
   }
 };
@@ -112,7 +112,7 @@ const DonateClientPage: FC = () => {
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.upiTitle}</h4>
               </div>
-              <div className="relative w-56 h-56 md:w-80 md:h-80 bg-white rounded-[3rem] p-6 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
+              <div className="relative w-[392px] h-[392px] md:w-[560px] md:h-[560px] bg-white rounded-[3rem] p-6 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/donate-qr.png"
@@ -120,7 +120,7 @@ const DonateClientPage: FC = () => {
                     fill
                     className="object-contain p-6 scale-125"
                     priority
-                    sizes="(max-width: 768px) 224px, 320px"
+                    sizes="(max-width: 768px) 392px, 560px"
                   />
                 </div>
               </div>
