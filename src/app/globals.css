@@ -83,6 +83,10 @@
     font-family: var(--font-noto-serif-devanagari), serif;
   }
 
+  .font-akshar {
+    font-family: var(--font-akshar), sans-serif;
+  }
+
   /* Hide default calendar icon for date/time inputs as we use custom material icons */
   input[type="date"]::-webkit-calendar-picker-indicator,
   input[type="time"]::-webkit-calendar-picker-indicator {
