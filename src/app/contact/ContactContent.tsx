@@ -12,7 +12,7 @@ const TRANSLATIONS = {
     title: "Contact Us",
     subtitle: "Get in Touch",
     location: "Location",
-    city: "Gurugram, Haryana, India",
+    city: "Gurugram (Gurgaon), Haryana, India",
     email: "Email Address",
     online: "Online Presence"
   },
@@ -20,7 +20,7 @@ const TRANSLATIONS = {
     title: "संपर्क करें",
     subtitle: "जुड़ें",
     location: "स्थान",
-    city: "गुरुग्राम, हरियाणा, भारत",
+    city: "गुरुग्राम (गुड़गांव), हरियाणा, भारत",
     email: "ईमेल पता",
     online: "ऑनलाइन उपस्थिति"
   }

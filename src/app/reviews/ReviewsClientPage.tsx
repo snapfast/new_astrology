@@ -10,17 +10,17 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
-    title: "Client Reviews",
+    title: "Rahul Bali Astrology Reviews",
     subtitle: "Testimonials",
-    description: "Hear from those who have found clarity and guidance through Astrology consultations with Pandit Rahul Bali Ji.",
+    description: "Authentic reviews and testimonials for Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram and Gurgaon.",
     googleReviews: "Google Reviews",
     writeReview: "Write a Review on Google",
     latestReviewsNote: "The reviews below are from our old records. For the latest feedback, please check our Google profile above."
   },
   hi: {
-    title: "ग्राहक समीक्षाएं",
+    title: "राहुल बाली ज्योतिष समीक्षाएं",
     subtitle: "प्रशंसापत्र",
-    description: "उन लोगों से सुनें जिन्होंने पंडित राहुल बाली जी के साथ ज्योतिष परामर्श के माध्यम से स्पष्टता और मार्गदर्शन पाया है।",
+    description: "पंडित राहुल बाली जी के लिए वास्तविक समीक्षाएं और प्रशंसापत्र, जो गुरुग्राम और गुड़गांव के एक प्रमुख वैदिक ज्योतिषी हैं।",
     googleReviews: "गूगल समीक्षाएं",
     writeReview: "गूगल पर समीक्षा लिखें",
     latestReviewsNote: "नीचे दी गई समीक्षाएं हमारे पुराने अभिलेखागार से हैं। हमारे सबसे हालिया क्लाइंट फीडबैक के लिए, कृपया ऊपर हमारे गूगल प्रोफाइल पर जाएं।"
@@ -43,7 +43,8 @@ export default function ReviewsClientPage() {
   const reviewsSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Vedic Astrology Consultation",
+    "name": "Rahul Bali Astrology - Vedic Astrology Consultation in Gurugram",
+    "description": "Professional Vedic Astrology consultations by Pandit Rahul Bali Ji in Gurugram and Gurgaon.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
