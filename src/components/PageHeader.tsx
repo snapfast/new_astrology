@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 interface PageHeaderProps {
   title: string;
   subtitle?: string;
-  description?: string;
+  description?: string | React.ReactNode;
   children?: React.ReactNode;
   centered?: boolean;
 }
@@ -44,11 +44,11 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         </h1>
 
         {description && (
-          <p className={`font-body text-on-surface leading-relaxed max-w-2xl transition-all ${
+          <div className={`font-body text-on-surface leading-relaxed max-w-2xl transition-all ${
             centered ? 'mx-auto' : ''
           } ${lang === 'hi' ? 'text-xl' : 'text-lg'}`}>
             {description}
-          </p>
+          </div>
         )}
 
         {children && (

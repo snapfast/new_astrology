@@ -12,7 +12,11 @@ const TRANSLATIONS = {
   en: {
     title: "Support My Work",
     subtitle: "CONTRIBUTIONS & DONATIONS",
-    description: "Your contributions help maintain this platform and keep classical Vedic Astrology tools free for everyone. If you find my guidance or tools helpful, please consider making a donation.",
+    description: (
+      <div className="font-akshar">
+        If you found our service valuable, we would be deeply grateful for any donation to support our mission, suggested amount <span className="font-hindi">₹701</span>, <span className="font-hindi">₹1100</span>, <span className="font-hindi">₹1200</span>, <span className="font-hindi">₹2100</span>, <span className="font-hindi">₹7100</span>, etc.
+      </div>
+    ),
     upiTitle: "Scan to Pay (UPI)",
     upiIdLabel: "UPI ID",
     upiId: "rahul.bali@ybl",
@@ -23,9 +27,11 @@ const TRANSLATIONS = {
     motto: "Guided by the stars, Grounded in Truth",
     copied: "Copied!",
     donationText: "Suggested donation amounts:",
-    price1: "₹1100",
-    price2: "₹2100",
-    price3: "₹5100",
+    price1: "₹701",
+    price2: "₹1100",
+    price3: "₹1200",
+    price4: "₹2100",
+    price5: "₹7100",
     backHome: "Back to Home"
   }
 };
@@ -102,6 +108,8 @@ const DonateClientPage: FC = () => {
             <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price1}</span>
             <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price2}</span>
             <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price3}</span>
+            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price4}</span>
+            <span className="text-2xl md:text-4xl text-on-surface font-headline font-semibold tabular-nums whitespace-nowrap font-hindi tracking-tight">{t.price5}</span>
           </div>
         </div>
 
