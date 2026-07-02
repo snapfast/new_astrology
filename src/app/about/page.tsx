@@ -6,8 +6,8 @@ import AboutClient from '@/components/AboutClient';
 import PageHeader from '@/components/PageHeader';
 
 export const metadata: Metadata = {
-  title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram",
-  description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram, providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
+  title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram & Gurgaon",
+  description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram (Gurgaon), providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
   alternates: {
     canonical: "https://astro.rahulbali.in/about",
   },

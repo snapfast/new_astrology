@@ -7,8 +7,8 @@ import ServicesContent from '@/components/ServicesContent';
 import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 
 export const metadata: Metadata = {
-  title: "Professional Vedic Astrology Services | Rahul Bali Astrology",
-  description: "Expert Vedic Astrology services covering career, finance, relationships, health, and spiritual guidance through traditional Jyotish principles.",
+  title: "Vedic Astrology Services in Gurugram & Gurgaon | Rahul Bali Astrology",
+  description: "Expert Vedic Astrology services in Gurugram (Gurgaon) covering career, finance, relationships, health, and spiritual guidance through traditional Jyotish principles.",
   alternates: {
     canonical: "https://astro.rahulbali.in/services",
   },

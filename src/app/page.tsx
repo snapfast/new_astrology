@@ -10,8 +10,8 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Rahul Bali Astrology | Expert Vedic Astrologer in Gurugram & Online",
-  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram. Get accurate Janam Kundli readings, career guidance, relationship advice, and spiritual remedies.",
+  title: "Rahul Bali Astrology | Expert Vedic Astrologer in Gurugram & Gurgaon",
+  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram (Gurgaon). Get accurate Janam Kundli readings, career guidance, relationship advice, and spiritual remedies.",
   alternates: {
     canonical: "https://astro.rahulbali.in",
   },
@@ -64,7 +64,7 @@ export default function Home() {
       "https://www.linkedin.com/in/rahulbaliastrology/",
       "https://www.threads.net/@rahulbaliastro"
     ],
-    "description": "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji in Gurugram. Specialist in Janam Kundli, career, and relationship consultations.",
+    "description": "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji in Gurugram and Gurgaon. Specialist in Janam Kundli, career, and relationship consultations.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",

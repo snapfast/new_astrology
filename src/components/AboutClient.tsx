@@ -6,9 +6,9 @@ import { useLanguage } from '@/context/LanguageContext';
 const TRANSLATIONS = {
   en: {
     quote: '"Astrology is not just about predicting the future; it is about understanding the karmic blueprint of your soul to navigate life with wisdom."',
-    para1: 'Pandit Rahul Bali Ji is a renowned Vedic Astrologer based in Gurugram, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Since starting <strong>consultations in August 2024</strong>, he has been providing precise birth chart analysis and practical remedies for career, relationships, and health.',
+    para1: 'Pandit Rahul Bali Ji is a renowned Vedic Astrologer based in <strong>Gurugram (Gurgaon)</strong>, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Since starting <strong>consultations in August 2024</strong>, he has been providing precise birth chart analysis and practical remedies for career, relationships, and health.',
     para2: 'His approach combines ancient wisdom with modern clarity, utilizing high-precision <strong>Lahiri Ayanamsa</strong> for every calculation. Every prediction and remedy is rooted in authentic karmic patterns to empower you with confidence and actionable insights.',
-    para3: 'Every testimonial and review shared by clients reflects genuine success and authentic experiences; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification, as we maintain direct records of every consultation.',
+    para3: 'With a global reach extending from <strong>India</strong> to <strong>Indonesia</strong> and beyond, he has helped numerous clients find clarity. Every testimonial and review shared reflects genuine success; no reviews are fake. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification.',
     corePrinciples: 'Core Principles',
     values: [
       {
@@ -35,9 +35,9 @@ const TRANSLATIONS = {
   },
   hi: {
     quote: '"ज्योतिष केवल भविष्य बताने के बारे में नहीं है; यह जीवन को ज्ञान के साथ जीने के लिए आपकी आत्मा के कर्म खाके को समझने के बारे में है।"',
-    para1: 'पंडित राहुल बाली जी गुरुग्राम में स्थित एक प्रसिद्ध वैदिक ज्योतिषी हैं, जो <strong>ज्योतिष शास्त्र</strong>, <strong>पराशर</strong> और <strong>जैमिनी</strong> प्रणालियों में विशेषज्ञ हैं। <strong>अगस्त 2024 में परामर्श</strong> शुरू करने के बाद से, वह करियर, रिश्तों और स्वास्थ्य के लिए सटीक जन्म कुंडली विश्लेषण और व्यावहारिक उपाय प्रदान कर रहे हैं।',
+    para1: 'पंडित राहुल बाली जी <strong>गुरुग्राम (गुड़गांव)</strong> में स्थित एक प्रसिद्ध वैदिक ज्योतिषी हैं, जो <strong>ज्योतिष शास्त्र</strong>, <strong>पराशर</strong> और <strong>जैमिनी</strong> प्रणालियों में विशेषज्ञ हैं। <strong>अगस्त 2024 में परामर्श</strong> शुरू करने के बाद से, वह करियर, रिश्तों और स्वास्थ्य के लिए सटीक जन्म कुंडली विश्लेषण और व्यावहारिक उपाय प्रदान कर रहे हैं।',
     para2: 'उनका दृष्टिकोण आधुनिक स्पष्टता के साथ प्राचीन ज्ञान को जोड़ता है, प्रत्येक गणना के लिए उच्च-सटीक <strong>लाहिड़ी अयनांश</strong> का उपयोग करता है। प्रत्येक भविष्यवाणी और उपाय आपको आत्मविश्वास और व्यावहारिक अंतर्दृष्टि के साथ सशक्त बनाने के लिए प्रामाणिक कर्म पैटर्न में निहित है।',
-    para3: 'ग्राहकों द्वारा साझा किया गया प्रत्येक प्रशंसापत्र और समीक्षा वास्तविक सफलता और प्रामाणिक अनुभवों को दर्शाती है; कोई भी समीक्षा नकली नहीं है। जो लोग पूर्ण निश्चितता चाहते हैं, उनके लिए किसी भी समीक्षक के संपर्क विवरण व्यक्तिगत सत्यापन के लिए निजी तौर पर प्रदान किए जा सकते हैं, क्योंकि हम प्रत्येक परामर्श का प्रत्यक्ष रिकॉर्ड रखते हैं।',
+    para3: '<strong>भारत</strong> से लेकर <strong>इंडोनेशिया</strong> और उसके बाद तक वैश्विक पहुंच के साथ, उन्होंने अनगिनत क्लाइंट्स को स्पष्टता खोजने में मदद की है। साझा किया गया प्रत्येक प्रशंसापत्र और समीक्षा वास्तविक सफलता को दर्शाती है; कोई भी समीक्षा नकली नहीं है। जो लोग पूर्ण निश्चितता चाहते हैं, उनके लिए किसी भी समीक्षक के संपर्क विवरण व्यक्तिगत सत्यापन के लिए निजी तौर पर प्रदान किए जा सकते हैं।',
     corePrinciples: 'मुख्य सिद्धांत',
     values: [
       {
