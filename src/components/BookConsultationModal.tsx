@@ -11,8 +11,8 @@ const TRANSLATIONS = {
   en: {
     title: "Book Consultation",
     meetTitle: "Google Meet Session",
-    meetBadge: "No phone needed",
     durationBadge: "30 Mins",
+    videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
     suggestedPayments: "Pay after the session. No upfront payment needed.",
     meetBtn: "Schedule Now",
@@ -22,8 +22,8 @@ const TRANSLATIONS = {
   hi: {
     title: "परामर्श बुक करें",
     meetTitle: "गूगल मीट सत्र",
-    meetBadge: "फोन नंबर की जरूरत नहीं",
     durationBadge: "30 मिनट",
+    videoBadge: "वीडियो वैकल्पिक है",
     meetDesc: "कुंडली विश्लेषण और उपायों के लिए 1-ऑन-1 सत्र।",
     suggestedPayments: "सत्र के बाद भुगतान करें। अग्रिम भुगतान की जरूरत नहीं।",
     meetBtn: "अभी शेड्यूल करें",
@@ -87,7 +87,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     }`}>{t.durationBadge}</span>
                     <span className={`px-3 py-1 bg-accent/10 text-accent font-bold uppercase rounded-full ${
                       lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
-                    }`}>{t.meetBadge}</span>
+                    }`}>{t.videoBadge}</span>
                   </div>
                 </div>
                 <p className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetDesc}</p>

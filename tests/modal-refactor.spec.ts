@@ -15,8 +15,9 @@ test('BookConsultationModal text reduction', async ({ page }) => {
 
   // Verify shortened English text
   await expect(page.getByText('Google Meet Session')).toBeVisible();
-  await expect(page.getByText('No phone needed')).toBeVisible();
+  await expect(page.getByText('No phone needed')).not.toBeVisible();
   await expect(page.getByText('30 Mins', { exact: true })).toBeVisible();
+  await expect(page.getByText('Video is optional')).toBeVisible();
   await expect(page.getByText('1-on-1 session for deep chart analysis and remedies.')).toBeVisible();
   await expect(page.getByText('Pay after the session. No upfront payment needed.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Schedule Now' })).toBeVisible();
