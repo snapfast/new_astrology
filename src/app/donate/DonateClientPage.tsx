@@ -2,7 +2,6 @@
 
 import { FC, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -25,8 +24,7 @@ const TRANSLATIONS = {
     paypalEmailLabel: "PayPal Email",
     emailTitle: "Email for Payment Issues",
     motto: "Guided by the stars, Grounded in Truth",
-    copied: "Copied!",
-    backHome: "Back to Home"
+    copied: "Copied!"
   }
 };
 
@@ -84,15 +82,7 @@ const DonateClientPage: FC = () => {
         title={t.title}
         subtitle={t.subtitle}
         description={t.description}
-      >
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 px-8 py-3 bg-transparent text-on-surface border border-outline/60 rounded-full font-medium uppercase font-label transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 text-[10px] md:text-xs tracking-[0.1em]"
-        >
-          <span className="material-symbols-outlined text-[18px]">arrow_back</span>
-          {t.backHome}
-        </Link>
-      </PageHeader>
+      />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="space-y-16 md:space-y-24">
