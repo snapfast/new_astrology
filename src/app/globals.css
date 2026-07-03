@@ -13,11 +13,11 @@
 @layer base {
   body {
     --font-primary: var(--font-poppins);
-    --font-secondary: var(--font-noto-serif-devanagari);
+    --font-secondary: var(--font-akshar);
   }
 
   html[lang="hi"] body {
-    --font-primary: var(--font-noto-serif-devanagari);
+    --font-primary: var(--font-akshar);
     --font-secondary: var(--font-poppins);
   }
 }
@@ -80,7 +80,7 @@
   }
 
   .font-hindi {
-    font-family: var(--font-noto-serif-devanagari), serif;
+    font-family: var(--font-akshar), serif;
   }
 
   .font-akshar {

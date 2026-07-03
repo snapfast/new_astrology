@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Noto_Serif_Devanagari, Akshar } from "next/font/google";
+import { Poppins, Akshar } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
@@ -16,13 +16,6 @@ const poppins = Poppins({
 const akshar = Akshar({
   subsets: ["latin", "devanagari"],
   variable: "--font-akshar",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const notoSerifDevanagari = Noto_Serif_Devanagari({
-  subsets: ["devanagari"],
-  variable: "--font-noto-serif-devanagari",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
@@ -107,7 +100,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${notoSerifDevanagari.variable} ${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${poppins.variable} ${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <LanguageProvider>
           <JsonLd
