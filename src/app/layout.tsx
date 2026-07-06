@@ -3,6 +3,7 @@ import { Poppins, Akshar } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
+import AdPopup from "@/components/AdPopup";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
@@ -127,6 +128,7 @@ export default async function RootLayout({
           />
           {children}
           <BackToTop />
+          <AdPopup />
         </LanguageProvider>
       </body>
       <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />
