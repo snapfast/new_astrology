@@ -46,7 +46,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
       onClose={onClose}
       zIndex={110}
       maxWidth="max-w-5xl"
-      containerClassName="p-4 md:p-6"
+      containerClassName="p-2 md:p-6"
       wrapperClassName="rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[80vh] md:max-h-[90vh]"
     >
       {/* Image Section */}
@@ -71,8 +71,8 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 p-5 md:p-8 overflow-y-auto custom-scrollbar bg-white">
-          <div className="flex justify-between items-start mb-6 md:mb-8">
+        <div className="flex-1 p-4 md:p-8 overflow-y-auto custom-scrollbar bg-white">
+          <div className="flex justify-between items-start mb-4 md:mb-8">
             <div>
               <span className={`font-medium text-accent mb-3 block font-label ${
                 lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'
@@ -92,17 +92,17 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             </button>
           </div>
 
-          <p className={`text-on-surface/80 leading-relaxed font-body mb-12 max-w-2xl ${
+          <p className={`text-on-surface/80 leading-relaxed font-body mb-6 md:mb-12 max-w-2xl ${
             lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg'
           }`}>
             {service.description}
           </p>
 
-          <div className="grid grid-cols-1 gap-4 mb-8">
+          <div className="grid grid-cols-1 gap-3 md:gap-4 mb-6 md:mb-8">
             {service.portions.map((portion, index) => (
               <div
                 key={index}
-                className="flex items-start gap-4 p-5 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl text-left"
+                className="flex items-start gap-3 md:gap-4 p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl text-left"
               >
                 <div className="w-10 h-10 shrink-0 rounded-xl bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
                   <span className="material-symbols-outlined text-xl font-variation-fill">{portion.icon}</span>
