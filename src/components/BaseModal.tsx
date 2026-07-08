@@ -25,10 +25,18 @@ const BaseModal: FC<BaseModalProps> = ({
 }) => {
   useEffect(() => {
     if (isOpen) {
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      document.addEventListener('keydown', handleEscape);
+
       const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
 
       return () => {
+        document.removeEventListener('keydown', handleEscape);
         // Only unlock if no other base modals are present in the DOM
         // We check if we are the last modal being removed
         const otherModals = document.querySelectorAll('[data-base-modal="true"]');
@@ -37,7 +45,7 @@ const BaseModal: FC<BaseModalProps> = ({
         }
       };
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
