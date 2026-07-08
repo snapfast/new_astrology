@@ -46,7 +46,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
       maxWidth="max-w-lg md:max-w-2xl"
     >
       <div className="p-4 md:p-6">
-          <div className="flex justify-between items-center mb-4 md:mb-6">
+          <div className="flex justify-between items-center mb-3 md:mb-6">
             <h2 className="text-2xl md:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
@@ -60,9 +60,9 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          <div className="space-y-4 md:space-y-6">
+          <div className="space-y-3 md:space-y-6">
             {/* Sample Reports */}
-            <div className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 text-center md:text-left">
+            <div className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-6 text-center md:text-left">
               <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
                 <span className="material-symbols-outlined text-on-surface text-xl md:text-2xl">folder_open</span>
               </div>
@@ -85,7 +85,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Spiritual Insights */}
-            <div className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 text-center md:text-left">
+            <div className="p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-6 text-center md:text-left">
               <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-2xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
                 <span className="material-symbols-outlined text-on-surface text-xl md:text-2xl">alternate_email</span>
               </div>
@@ -108,7 +108,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="mt-8 pt-4 md:pt-6 border-t border-outline/10">
+          <div className="mt-6 pt-4 md:pt-6 border-t border-outline/10">
             <p className={`text-on-surface/40 font-label uppercase transition-all ${
               lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[8px] md:text-[10px] tracking-widest'
             }`}>
