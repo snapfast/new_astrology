@@ -14,14 +14,30 @@ export const metadata: Metadata = {
     "Free Astrology Report", "Kundali Matching", "Laguna Chart", "Navamsha Chart",
     "Vedic Astrology Online", "Accurate Kundli", "Pandit Rahul Bali", "Astrology Chart"
   ],
-  openGraph: {
-    title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
-    description: "Get your detailed Janam Kundali instantly. Accurate Vedic calculations and divisional charts by Pandit Rahul Bali.",
-    url: "https://astro.rahulbali.in/free-horoscope",
-    type: "website",
-  },
   alternates: {
     canonical: "https://astro.rahulbali.in/free-horoscope",
+  },
+  openGraph: {
+    title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
+    description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9), and planetary positions.",
+    url: "https://astro.rahulbali.in/free-horoscope",
+    siteName: "Rahul Bali Astrology",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Free Kundli Online - Rahul Bali Astrology",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
+    description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9).",
+    images: ["/og-image.png"],
   },
 };
 
@@ -117,7 +133,7 @@ export default function FreeHoroscopePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-center max-w-4xl mx-auto">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
-                <span className="material-symbols-outlined">auto_awesome</span>
+                <span className="material-symbols-outlined text-accent" aria-hidden="true">auto_awesome</span>
               </div>
               <h3 className="text-xl font-normal font-headline text-on-surface">Scientific Precision</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">
@@ -126,7 +142,7 @@ export default function FreeHoroscopePage() {
             </div>
             <div className="space-y-4">
               <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
-                <span className="material-symbols-outlined">grid_view</span>
+                <span className="material-symbols-outlined text-accent" aria-hidden="true">grid_view</span>
               </div>
               <h3 className="text-xl font-normal font-headline text-on-surface">Divisional Analysis</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">
