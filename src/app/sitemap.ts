@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/biorhythm',
     '/panch-pakshi',
     '/donate',
+    '/privacy',
+    '/terms',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

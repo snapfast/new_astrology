@@ -82,8 +82,8 @@ const Footer = () => {
             lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
           }`}>{t.company}</h6>
           <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
-            <li><a className="text-on-surface font-normal" href="/about">{t.aboutUs}</a></li>
-            <li><a className="text-on-surface font-normal" href="/contact">{t.contact}</a></li>
+            <li><Link className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
+            <li><Link className="text-on-surface font-normal" href="/contact">{t.contact}</Link></li>
           </ul>
         </div>
       </div>
@@ -92,8 +92,8 @@ const Footer = () => {
       }`}>
         <Link href="/" className="text-center md:text-left">{t.rights}</Link>
         <div className="flex gap-10">
-          <a href="#">{t.privacy}</a>
-          <a href="#">{t.terms}</a>
+          <Link href="/privacy">{t.privacy}</Link>
+          <Link href="/terms">{t.terms}</Link>
         </div>
       </div>
 
