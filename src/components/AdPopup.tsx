@@ -27,9 +27,26 @@ export default function AdPopup() {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   useEffect(() => {
+    // Check if we already showed it within the last 24 hours
+    if (typeof window !== 'undefined') {
+      const lastShown = localStorage.getItem('moonine_popup_last_shown');
+      const now = Date.now();
+      const ONE_DAY = 24 * 60 * 60 * 1000;
+
+      if (lastShown) {
+        const parsed = parseInt(lastShown, 10);
+        if (!isNaN(parsed) && now - parsed < ONE_DAY) {
+          return;
+        }
+      }
+    }
+
     // Show after a short delay to allow page load
     const showTimer = setTimeout(() => {
       setIsVisible(true);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('moonine_popup_last_shown', Date.now().toString());
+      }
     }, 2000);
 
     return () => clearTimeout(showTimer);
