@@ -17,7 +17,13 @@ const TRANSLATIONS = {
     suggestedPayments: "Pay after the session. No upfront payment needed.",
     meetBtn: "Schedule Now",
     viewPayments: "Support & Donate",
-    closeModal: "Close modal"
+    closeModal: "Close modal",
+    highlights: [
+      "Birth Chart (Kundli) Analysis",
+      "Career & Wealth Guidance",
+      "Relationships & Compatibility",
+      "Custom Remedies & Solutions"
+    ]
   },
   hi: {
     title: "परामर्श बुक करें",
@@ -28,7 +34,13 @@ const TRANSLATIONS = {
     suggestedPayments: "सत्र के बाद भुगतान करें। अग्रिम भुगतान की जरूरत नहीं।",
     meetBtn: "अभी शेड्यूल करें",
     viewPayments: "समर्थन और दान",
-    closeModal: "मोडल बंद करें"
+    closeModal: "मोडल बंद करें",
+    highlights: [
+      "जन्म कुंडली विश्लेषण",
+      "करियर और धन मार्गदर्शन",
+      "संबंध और अनुकूलता",
+      "व्यक्तिगत उपाय और समाधान"
+    ]
   }
 };
 
@@ -39,7 +51,7 @@ interface BookConsultationModalProps {
 
 const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   return (
     <BaseModal
@@ -47,27 +59,27 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
       onClose={onClose}
       maxWidth="max-w-lg lg:max-w-4xl"
     >
-      <div className="p-4 md:p-8">
+      <div className="p-4 md:p-6">
           {/* Header */}
-          <div className="flex justify-between items-center mb-4 md:mb-8">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
+          <div className="flex justify-between items-center mb-3 md:mb-5">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
                 onClose();
               }}
-              className="w-12 h-12 flex items-center justify-center rounded-full border border-outline/20 hover:bg-on-surface/5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-on-surface/5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.closeModal}
             >
-              <span className="material-symbols-outlined text-on-surface text-2xl">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8">
             {/* Left Column: Service Details */}
             <div className="lg:col-span-7">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-white shadow-sm border border-outline/10 rounded-2xl flex items-center justify-center mb-4 md:mb-8">
-                <svg viewBox="0 0 622 512" className="w-6 h-6 md:w-8 md:h-8">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-white shadow-sm border border-outline/10 rounded-xl flex items-center justify-center mb-3 md:mb-5">
+                <svg viewBox="0 0 622 512" className="w-5 h-5 md:w-6 md:h-6">
                   <path d="M351.419 255.568L411.978 324.79L493.418 376.827L507.584 256.005L493.418 137.908L410.418 183.621L351.419 255.568Z" fill="#00832D"/>
                   <path d="M0.00283051 365.583V468.541C0.00283051 492.049 19.0851 511.136 42.5983 511.136H145.556L166.876 433.344L145.556 365.583L74.9198 344.263L0.00283051 365.583Z" fill="#0066DA"/>
                   <path d="M145.556 -7.62939e-06L0.00283051 145.554L74.9247 166.822L145.556 145.554L166.488 78.7145L145.556 -7.62939e-06Z" fill="#E94235"/>
@@ -78,35 +90,47 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 </svg>
               </div>
 
-              <div className="space-y-4 mb-4 md:mb-6">
-                <div className="flex flex-wrap items-center gap-4">
-                  <h3 className={`font-normal text-on-surface font-headline tracking-tight ${lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl lg:text-3xl'}`}>{t.meetTitle}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <span className={`px-3 py-1 bg-accent/10 text-accent font-bold uppercase rounded-full ${
-                      lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
+              <div className="space-y-3 mb-3 md:mb-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className={`font-normal text-on-surface font-headline tracking-tight ${lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl lg:text-2xl'}`}>{t.meetTitle}</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className={`px-2.5 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full ${
+                      lang === 'hi' ? 'text-[9px] md:text-[10px] tracking-normal' : 'text-[8px] md:text-[9px] tracking-widest'
                     }`}>{t.durationBadge}</span>
-                    <span className={`px-3 py-1 bg-accent/10 text-accent font-bold uppercase rounded-full ${
-                      lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
+                    <span className={`px-2.5 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full ${
+                      lang === 'hi' ? 'text-[9px] md:text-[10px] tracking-normal' : 'text-[8px] md:text-[9px] tracking-widest'
                     }`}>{t.videoBadge}</span>
                   </div>
                 </div>
-                <p className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetDesc}</p>
+                <p className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-base' : 'text-sm md:text-base'}`}>{t.meetDesc}</p>
+
+                {/* Compact, Info-Rich Highlights */}
+                <div className="mt-4 pt-3 border-t border-outline/5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {t.highlights.map((highlight: string, index: number) => (
+                      <div key={index} className="flex items-center gap-2 text-on-surface/90">
+                        <span className="material-symbols-outlined text-accent text-base" aria-hidden="true">check_circle</span>
+                        <span className="text-xs md:text-sm font-body font-medium">{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
             </div>
 
             {/* Right Column: Pricing & Action */}
             <div className="lg:col-span-5">
-              <div className="bg-surface-bright/50 border border-outline/10 rounded-[2rem] p-5 md:p-8">
-                <p className={`bg-accent/20 p-4 rounded-xl text-on-surface/90 font-body mb-8 leading-relaxed ${lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm'}`}>
+              <div className="bg-surface-bright/50 border border-outline/10 rounded-2xl p-4 md:p-6">
+                <p className={`bg-accent/20 p-3.5 rounded-xl text-on-surface/90 font-body mb-4 md:mb-5 leading-relaxed ${lang === 'hi' ? 'text-xs md:text-sm' : 'text-[11px] md:text-xs'}`}>
                   {t.suggestedPayments}
                 </p>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <AnimatedScheduleButton
                     href="https://calendly.com/rahulbaliastrology/kundli/"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                    className={`flex items-center justify-center w-full py-4 md:py-5 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase shadow-lg shadow-primary/10 hover:border-accent hover:shadow-accent/20 transition-all ${
+                    className={`flex items-center justify-center w-full py-3 md:py-3.5 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase shadow-lg shadow-primary/10 hover:border-accent hover:shadow-accent/20 transition-all ${
                       lang === 'hi' ? 'text-[11px] md:text-[12px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.2em]'
                     }`}
                   >
@@ -120,7 +144,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                       onClose();
                     }}
                     className={`block w-full text-center font-medium transition-colors ${
-                      lang === 'hi' ? 'text-sm text-on-surface/70 hover:text-primary' : 'text-[10px] uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
+                      lang === 'hi' ? 'text-xs text-on-surface/70 hover:text-primary' : 'text-[9px] uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
                     }`}
                   >
                     {t.viewPayments}
@@ -131,7 +155,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           {/* Footer */}
-          <div className="mt-6 md:mt-12 pt-6 border-t border-outline/10 flex flex-col md:flex-row justify-center items-center gap-6">
+          <div className="mt-5 md:mt-6 pt-4 border-t border-outline/10 flex flex-col md:flex-row justify-center items-center gap-4">
             <div className={`flex items-center gap-2 text-on-surface/40 font-body uppercase ${
                lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[9px] md:text-[10px] tracking-widest'
             }`}>

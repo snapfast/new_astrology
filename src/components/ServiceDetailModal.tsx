@@ -47,10 +47,10 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
       zIndex={110}
       maxWidth="max-w-5xl"
       containerClassName="p-2 md:p-6"
-      wrapperClassName="rounded-[2.5rem] md:rounded-[3.5rem] border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[80vh] md:max-h-[90vh]"
+      wrapperClassName="rounded-2xl md:rounded-3xl border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[80vh] md:max-h-[90vh]"
     >
       {/* Image Section */}
-        <div className="relative w-full md:w-2/5 min-h-[300px] md:h-auto bg-surface-bright">
+        <div className="relative w-full md:w-1/3 h-40 md:h-auto bg-surface-bright">
           <Image
             src={service.image}
             alt={service.alt}
@@ -63,7 +63,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 active:scale-95"
+            className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 active:scale-95"
             aria-label={t.close}
           >
             <span className="material-symbols-outlined">close</span>
@@ -71,56 +71,56 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 p-4 md:p-8 overflow-y-auto custom-scrollbar bg-white">
-          <div className="flex justify-between items-start mb-4 md:mb-8">
+        <div className="flex-1 p-4 md:p-6 overflow-y-auto custom-scrollbar bg-white w-full md:w-2/3">
+          <div className="flex justify-between items-start mb-3 md:mb-5">
             <div>
-              <span className={`font-medium text-accent mb-3 block font-label ${
-                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'
+              <span className={`font-medium text-accent mb-1 block font-label ${
+                lang === 'hi' ? 'text-xs tracking-normal' : 'text-[9px] tracking-[0.3em] uppercase'
               }`}>{t.serviceDetail}</span>
               <h2 className={`font-normal text-on-surface font-headline tracking-tight ${
-                lang === 'hi' ? 'text-3xl md:text-5xl' : 'text-4xl md:text-5xl'
+                lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-2xl md:text-3xl lg:text-4xl'
               }`}>
                 {service.title}
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="hidden md:flex w-12 h-12 items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
+              className="hidden md:flex w-10 h-10 items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.close}
             >
-              <span className="material-symbols-outlined text-on-surface">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
             </button>
           </div>
 
-          <p className={`text-on-surface/80 leading-relaxed font-body mb-6 md:mb-12 max-w-2xl ${
-            lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg'
+          <p className={`text-on-surface/80 leading-relaxed font-body mb-4 md:mb-6 max-w-2xl ${
+            lang === 'hi' ? 'text-base' : 'text-xs md:text-sm'
           }`}>
             {service.description}
           </p>
 
-          <div className="grid grid-cols-1 gap-3 md:gap-4 mb-6 md:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 md:mb-5">
             {service.portions.map((portion, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 md:gap-4 p-4 md:p-6 bg-surface-bright border border-outline/10 rounded-3xl text-left"
+                className="flex items-start gap-2.5 p-3.5 bg-surface-bright border border-outline/10 rounded-2xl text-left"
               >
-                <div className="w-10 h-10 shrink-0 rounded-xl bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
-                  <span className="material-symbols-outlined text-xl font-variation-fill">{portion.icon}</span>
+                <div className="w-8 h-8 shrink-0 rounded-lg bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
+                  <span className="material-symbols-outlined text-lg font-variation-fill">{portion.icon}</span>
                 </div>
-                <div>
-                  <h4 className="text-lg font-medium text-on-surface font-headline mb-2">{portion.title}</h4>
-                  <p className="text-sm md:text-base text-on-surface/70 font-body leading-relaxed">{portion.expandedDetail}</p>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-base font-medium text-on-surface font-headline mb-1">{portion.title}</h4>
+                  <p className="text-xs md:text-sm text-on-surface/70 font-body leading-relaxed">{portion.expandedDetail}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-outline/10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-outline/10">
             <AnimatedScheduleButton
               href="https://calendly.com/rahulbaliastrology/kundli/"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
-              className={`w-full sm:w-auto px-12 py-6 md:py-8 bg-gradient-to-r from-primary via-[#4A3B2C] to-primary text-white rounded-full font-bold uppercase text-center shadow-lg shadow-primary/10 transition-all ${
-                lang === 'hi' ? 'text-lg md:text-xl tracking-normal' : 'text-base md:text-lg tracking-wider'
+              className={`w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-primary via-[#4A3B2C] to-primary text-white rounded-full font-bold uppercase text-center shadow-lg shadow-primary/10 transition-all ${
+                lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm tracking-wider'
               }`}
             >
               {t.schedule}
