@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
-    title: "Generate Your Free Chart",
+    title: "Generate your Horoscope",
     desc: "Enter your details to unlock a precise map of the stars at the moment of your birth.",
     labelName: "Full Name",
     labelDob: "Date of Birth",
