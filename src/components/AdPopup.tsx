@@ -81,15 +81,15 @@ export default function AdPopup() {
           </button>
         </div>
 
-        <div className="p-6 md:p-8 text-center flex flex-col items-center">
+        <div className="p-4 sm:p-6 text-center flex flex-col items-center">
           {/* Icon/Decoration */}
-          <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 text-accent">
-            <span className="material-symbols-outlined text-3xl" aria-hidden="true">favorite</span>
+          <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-3 text-accent">
+            <span className="material-symbols-outlined text-2xl" aria-hidden="true">favorite</span>
           </div>
 
-          <h3 className="text-xl md:text-2xl font-headline text-on-surface mb-2">{t.title}</h3>
-          <p className="text-accent text-sm md:text-base font-medium mb-3">{t.subtitle}</p>
-          <p className="text-on-surface/70 text-sm md:text-base mb-6 leading-relaxed">
+          <h3 className="text-lg md:text-xl font-headline text-on-surface mb-1">{t.title}</h3>
+          <p className="text-accent text-xs md:text-sm font-medium mb-2">{t.subtitle}</p>
+          <p className="text-on-surface/70 text-xs md:text-sm mb-4 leading-relaxed">
             {t.description}
           </p>
 
@@ -98,10 +98,10 @@ export default function AdPopup() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleClose}
-            className="w-full flex items-center justify-center gap-2 bg-on-surface text-white py-3.5 px-6 rounded-xl hover:bg-on-surface/90 transition-colors font-medium text-sm md:text-base group"
+            className="w-full flex items-center justify-center gap-1.5 bg-on-surface text-white py-2.5 px-4 rounded-xl hover:bg-on-surface/90 transition-colors font-medium text-xs md:text-sm group"
           >
             {t.button}
-            <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+            <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
           </a>
         </div>
       </div>
