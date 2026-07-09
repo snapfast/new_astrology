@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     description: 'Track your physical, emotional, and intellectual biorhythm cycles. Understand your natural energy peaks and troughs.',
     type: 'website',
   },
+  alternates: {
+    canonical: "https://astro.rahulbali.in/biorhythm",
+  },
 };
 
 export default function BiorhythmPage() {
