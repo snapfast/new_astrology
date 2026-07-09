@@ -196,7 +196,7 @@ const HoroscopeContent = () => {
             {showCopied && (
               <div
                 aria-live="polite"
-                className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
+                className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
               >
                 {t.linkCopied}
               </div>
@@ -207,7 +207,7 @@ const HoroscopeContent = () => {
               title="Switch to High-Density Compact Dashboard"
             >
               <span className="material-symbols-outlined text-[20px] mr-2">dashboard</span>
-              <span className={`text-[10px] font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.compactView}</span>
+              <span className={`text-xs font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.compactView}</span>
             </button>
             <button
               onClick={handleShare}
@@ -227,7 +227,7 @@ const HoroscopeContent = () => {
           <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
               <span className={cn(
-                "text-[10px] font-bold text-accent uppercase font-label block mb-2",
+                "text-xs font-bold text-accent uppercase font-label block mb-2",
                 lang === 'hi' ? "tracking-normal" : "tracking-[0.2em]"
               )}>{t.sunSignInsight}</span>
               <h3 className={`text-xl text-on-surface mb-3 ${lang === 'hi' ? 'font-hindi' : 'font-headline'}`}>{lang === 'en' ? sunSign : chartData.panchang.sunSignSanskrit}</h3>
@@ -238,7 +238,7 @@ const HoroscopeContent = () => {
           <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 text-left relative overflow-hidden group">
             <div className="relative z-10">
               <span className={cn(
-                "text-[10px] font-bold text-primary uppercase font-label block mb-2",
+                "text-xs font-bold text-primary uppercase font-label block mb-2",
                 lang === 'hi' ? "tracking-normal" : "tracking-[0.2em]"
               )}>{t.moonSignInsight}</span>
               <h3 className={`text-xl text-on-surface mb-3 ${lang === 'hi' ? 'font-hindi' : 'font-headline'}`}>{lang === 'en' ? moonSign : chartData.panchang.moonSignSanskrit}</h3>
@@ -253,25 +253,37 @@ const HoroscopeContent = () => {
           <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h2 className={cn(
-                "font-bold text-accent uppercase font-label",
-                lang === 'hi' ? "text-[12px] tracking-normal" : "text-[10px] tracking-[0.2em]"
+                "font-bold text-accent uppercase font-label text-xs md:text-sm",
+                lang === 'hi' ? "tracking-normal" : "tracking-[0.15em]"
               )}>{t.birthInfo}</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               <div className="space-y-1">
-                <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.name}</p>
+                <p className={cn(
+                  "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                  lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                )}>{t.name}</p>
                 <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">{name}</p>
               </div>
               <div className="space-y-1">
-                <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.date}</p>
+                <p className={cn(
+                  "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                  lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                )}>{t.date}</p>
                 <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">{formattedDob}</p>
               </div>
               <div className="space-y-1">
-                <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.time}</p>
+                <p className={cn(
+                  "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                  lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                )}>{t.time}</p>
                 <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">{tob}</p>
               </div>
               <div className="space-y-1">
-                <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.place}</p>
+                <p className={cn(
+                  "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                  lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                )}>{t.place}</p>
                 <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">{pob}</p>
               </div>
             </div>
@@ -281,49 +293,109 @@ const HoroscopeContent = () => {
             {/* Section: Vedic Panchang */}
             <div className="lg:col-span-2 bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
               <h2 className={cn(
-                "font-bold text-accent uppercase font-label mb-3",
-                lang === 'hi' ? "text-[12px] tracking-normal" : "text-[10px] tracking-[0.2em]"
+                "font-bold text-accent uppercase font-label mb-3 text-xs md:text-sm",
+                lang === 'hi' ? "tracking-normal" : "tracking-[0.15em]"
               )}>{t.panchang}</h2>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 gap-x-3">
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.tithi}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.tithi}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.paksha}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.paksha : chartData.panchang.pakshaSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.paksha}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.paksha : chartData.panchang.pakshaSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.vara}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.vara : chartData.panchang.varaSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.vara}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.vara : chartData.panchang.varaSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.nakshatra}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.nakshatra : chartData.panchang.nakshatraSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.nakshatra}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.nakshatra : chartData.panchang.nakshatraSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.yoga}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.yoga : chartData.panchang.yogaSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.yoga}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.yoga : chartData.panchang.yogaSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.karana}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.karana : chartData.panchang.karanaSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.karana}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.karana : chartData.panchang.karanaSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.sunSign}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.sunSign : chartData.panchang.sunSignSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.sunSign}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.sunSign : chartData.panchang.sunSignSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.moonSign}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.moonSign : chartData.panchang.moonSignSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.moonSign}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.moonSign : chartData.panchang.moonSignSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.ritu}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.ritu : chartData.panchang.rituSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.ritu}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.ritu : chartData.panchang.rituSanskrit}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.ayana}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center ${lang === 'hi' ? 'text-[14px] font-bold font-hindi' : 'text-[12px] font-medium'}`}>{lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.ayana}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit}</p>
                 </div>
               </div>
             </div>
@@ -331,25 +403,49 @@ const HoroscopeContent = () => {
             {/* Section: Time Divisions */}
             <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
               <h2 className={cn(
-                "font-bold text-accent uppercase font-label mb-3",
-                lang === 'hi' ? "text-[12px] tracking-normal" : "text-[10px] tracking-[0.2em]"
+                "font-bold text-accent uppercase font-label mb-3 text-xs md:text-sm",
+                lang === 'hi' ? "tracking-normal" : "tracking-[0.15em]"
               )}>{t.timings}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-3">
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.abhijit}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center tabular-nums ${lang === 'hi' ? 'text-[14px] font-bold' : 'text-[12px] font-medium'}`}>{chartData.panchang.abhijitMuhurta}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.abhijit}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{chartData.panchang.abhijitMuhurta}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.rahu}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center tabular-nums ${lang === 'hi' ? 'text-[14px] font-bold' : 'text-[12px] font-medium'}`}>{chartData.panchang.rahuKaal}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.rahu}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{chartData.panchang.rahuKaal}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.gulika}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center tabular-nums ${lang === 'hi' ? 'text-[14px] font-bold' : 'text-[12px] font-medium'}`}>{chartData.panchang.gulikaKaal}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.gulika}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{chartData.panchang.gulikaKaal}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className={`text-on-surface uppercase font-label leading-none flex items-center ${lang === 'hi' ? 'text-[11px] font-bold h-4' : 'text-[9px] font-medium h-3 tracking-widest'}`}>{t.yamaganda}</p>
-                  <p className={`text-on-surface leading-tight min-h-[1rem] flex items-center tabular-nums ${lang === 'hi' ? 'text-[14px] font-bold' : 'text-[12px] font-medium'}`}>{chartData.panchang.yamagandaKaal}</p>
+                  <p className={cn(
+                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                    lang === 'hi' ? "tracking-normal" : "tracking-wider"
+                  )}>{t.yamaganda}</p>
+                  <p className={cn(
+                    "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
+                    lang === 'hi' ? "font-hindi font-bold" : ""
+                  )}>{chartData.panchang.yamagandaKaal}</p>
                 </div>
               </div>
             </div>

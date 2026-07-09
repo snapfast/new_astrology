@@ -178,8 +178,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   ) => {
     return (
       <div className="flex-shrink-0 w-64 md:w-72 border-r border-outline flex flex-col bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl">
-        <div className="bg-white border-b border-outline px-4 py-2 shrink-0">
-          <h3 className="text-[10px] font-bold text-on-surface uppercase tracking-[0.2em] font-label">
+        <div className="bg-white border-b border-outline px-4 py-3 shrink-0">
+          <h3 className="text-xs font-bold text-on-surface uppercase tracking-[0.15em] font-label">
             {title}
           </h3>
         </div>
@@ -198,7 +198,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                 key={idx}
                 onClick={() => onItemClick?.(item)}
                 className={`
-                  relative px-4 py-3 cursor-pointer transition-colors duration-150 group/item
+                  relative px-4 py-3.5 cursor-pointer transition-colors duration-150 group/item
                   ${isSelected ? 'bg-accent text-on-surface' : 'hover:bg-surface-container-lowest text-on-surface'}
                 `}
               >
@@ -220,7 +220,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                     )}
                   </div>
                 </div>
-                <div className={`text-[11px] font-medium mt-0.5 tabular-nums ${isSelected ? 'text-on-surface' : 'text-on-surface'}`}>
+                <div className={`text-xs font-medium mt-1 tabular-nums ${isSelected ? 'text-on-surface' : 'text-on-surface/70'}`}>
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
                   {t.to}
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
@@ -238,7 +238,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
       <div className="flex items-center justify-end">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
-           <span className={`text-[9px] font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
+           <span className={`text-xs font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
         </div>
       </div>
 
