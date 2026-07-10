@@ -40,3 +40,6 @@
 ## 2025-06-25 - Avoid Redundant Sequence Generation
 **Learning:** In React components that display both a full data series and a smaller subset (like `BiorhythmClientPage.tsx` showing a 60-day chart and 7-day mini-charts), generating both sequences independently using `useMemo` duplicates expensive math calculations (e.g., sine waves over the exact same mid-points).
 **Action:** Generate the largest required range first, then use array slicing (e.g., `seriesData.slice(27, 34)`) to derive the smaller subset. This eliminates redundant mathematical effort and maintains data parity.
+## 2025-06-25 - Astrological Calculation Performance (Trigonometric Optimization)
+**Learning:** The `Ast.Rotation_EQJ_ECT(time)` matrix computation (for nutation and precession) is expensive. Calling it redundantly for each planet at the same time instance (e.g., inside `calculatePlanetaryAndDivisionalData` or `calculatePanchang` interpolation loops) significantly degrades performance.
+**Action:** When computing planetary longitudes for multiple bodies at the exact same `AstroTime`, pre-calculate the rotation matrix once using `Ast.Rotation_EQJ_ECT(time)` and pass it down as an optional parameter to functions like `getTrueEclipticLongitude` to avoid redundant trigonometric calculations.
