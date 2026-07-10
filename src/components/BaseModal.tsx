@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, FC, ReactNode } from 'react';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 interface BaseModalProps {
   isOpen: boolean;
@@ -23,6 +24,8 @@ const BaseModal: FC<BaseModalProps> = ({
   containerClassName = 'p-2 md:p-4',
   wrapperClassName = 'rounded-2xl md:rounded-3xl border-white/20 duration-500',
 }) => {
+  const containerRef = useFocusTrap(isOpen);
+
   useEffect(() => {
     if (isOpen) {
       const handleEscape = (e: KeyboardEvent) => {
@@ -64,7 +67,10 @@ const BaseModal: FC<BaseModalProps> = ({
       ></div>
 
       {/* Modal Content Wrapper */}
-      <div className={`flex min-h-full items-center justify-center pointer-events-none ${containerClassName}`}>
+      <div
+        ref={containerRef}
+        className={`flex min-h-full items-center justify-center pointer-events-none ${containerClassName}`}
+      >
         <div
           className={`relative w-full ${maxWidth} bg-white shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300 border border-outline/10 pointer-events-auto ${wrapperClassName} max-h-[80vh] md:max-h-[90vh] overflow-y-auto`}
         >

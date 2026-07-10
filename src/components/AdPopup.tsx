@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 const TRANSLATIONS = {
   en: {
@@ -25,6 +26,7 @@ export default function AdPopup() {
   const [timeLeft, setTimeLeft] = useState(15);
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const containerRef = useFocusTrap(isVisible);
 
   useEffect(() => {
     // Check if we already showed it within the last 24 hours
@@ -67,6 +69,17 @@ export default function AdPopup() {
     return () => clearInterval(timer);
   }, [isVisible, timeLeft]);
 
+  useEffect(() => {
+    if (!isVisible) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsVisible(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isVisible]);
+
   const handleClose = () => {
     setIsVisible(false);
   };
@@ -74,7 +87,12 @@ export default function AdPopup() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 pointer-events-none"
+      ref={containerRef}
+      role="dialog"
+      aria-modal="true"
+    >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-on-surface/40 backdrop-blur-sm pointer-events-auto transition-opacity"
