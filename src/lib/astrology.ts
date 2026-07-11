@@ -408,14 +408,14 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
 /**
  * Determines if a planet is in retrograde motion.
  */
-function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: number): boolean {
+function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: number, rotEqjEct?: Ast.RotationMatrix): boolean {
     // Sun and Moon are never retrograde
     if (body === Ast.Body.Sun || body === Ast.Body.Moon) return false;
 
     const t1 = time;
     const t2 = Ast.MakeTime(time.ut + 1 / 24); // +1 hour in days
 
-    const lon1 = currentLong ?? getTrueEclipticLongitude(body, t1);
+    const lon1 = currentLong ?? getTrueEclipticLongitude(body, t1, rotEqjEct);
     const lon2 = getTrueEclipticLongitude(body, t2);
 
     let diff = (lon2 - lon1 + 360) % 360;
@@ -431,17 +431,17 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
 
 
 
-function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime): number {
+function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
     const geoJ2000 = Ast.GeoVector(body, time, true);
-    const rotEqjEct = Ast.Rotation_EQJ_ECT(time);
-    const eclDateVec = Ast.RotateVector(rotEqjEct, geoJ2000);
+    const rot = rotEqjEct || Ast.Rotation_EQJ_ECT(time);
+    const eclDateVec = Ast.RotateVector(rot, geoJ2000);
     return (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
 }
 
-function getTrueMoonEclipticLongitude(time: Ast.AstroTime): number {
+function getTrueMoonEclipticLongitude(time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
     const geoJ2000 = Ast.GeoMoon(time);
-    const rotEqjEct = Ast.Rotation_EQJ_ECT(time);
-    const eclDateVec = Ast.RotateVector(rotEqjEct, geoJ2000);
+    const rot = rotEqjEct || Ast.Rotation_EQJ_ECT(time);
+    const eclDateVec = Ast.RotateVector(rot, geoJ2000);
     return (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
 }
 
@@ -583,6 +583,7 @@ function calculatePlanetaryAndDivisionalData(
     }
 
     // 2. Calculate Planets
+    const rotEqjEct = Ast.Rotation_EQJ_ECT(time);
     for (let i = 0; i < PLANET_MAP.length; i++) {
         const p = PLANET_MAP[i];
         let long: number;
@@ -591,10 +592,10 @@ function calculatePlanetaryAndDivisionalData(
         } else if (p.name === "Moon") {
             long = tropicalMoonLong;
         } else {
-            long = getTrueEclipticLongitude(p.body, time);
+            long = getTrueEclipticLongitude(p.body, time, rotEqjEct);
         }
 
-        const isRetro = isPlanetRetrograde(p.body, time, long);
+        const isRetro = isPlanetRetrograde(p.body, time, long, rotEqjEct);
         const siderealLong = (long - ayanamsa + 360) % 360;
         const planetRasiIdx = Math.floor(siderealLong / 30);
         const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
@@ -656,16 +657,22 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     let tropicalSunLong: number | undefined;
     let tropicalMoonLong: number | undefined;
 
+    let rotEqjEct: Ast.RotationMatrix | undefined;
+    const getRotEqjEct = () => {
+        if (!rotEqjEct) rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+        return rotEqjEct;
+    };
+
     const getTropicalSunLong = () => {
         if (tropicalSunLong === undefined) {
-            tropicalSunLong = getTrueEclipticLongitude(Ast.Body.Sun, time);
+            tropicalSunLong = getTrueEclipticLongitude(Ast.Body.Sun, time, getRotEqjEct());
         }
         return tropicalSunLong;
     };
 
     const getTropicalMoonLong = () => {
         if (tropicalMoonLong === undefined) {
-            tropicalMoonLong = getTrueMoonEclipticLongitude(time);
+            tropicalMoonLong = getTrueMoonEclipticLongitude(time, getRotEqjEct());
         }
         return tropicalMoonLong;
     };
