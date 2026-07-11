@@ -357,6 +357,96 @@ const BiorhythmContent = () => {
             </p>
           </div>
         </div>
+
+        {/* Explore More Vedic Tools Section to Reduce Bounce Rate */}
+        <section className="py-8 bg-surface-bright relative overflow-hidden border-t border-outline/30 rounded-[3rem] mt-8">
+          <div className="max-w-5xl mx-auto px-4 md:px-8 text-center relative z-10">
+            <h3 className="text-xl md:text-2xl font-normal mb-2 font-headline text-on-surface">
+              {lang === 'en' ? "Explore More Vedic Astrology Tools" : "अन्य वैदिक ज्योतिष उपकरण देखें"}
+            </h3>
+            <p className="text-xs md:text-sm text-on-surface/90 font-body mb-8 max-w-xl mx-auto">
+              {lang === 'en'
+                ? "Align your lifestyle and cosmic energies further. Try our precise astronomical tools and personalized services."
+                : "अपनी जीवनशैली और ब्रह्मांडीय ऊर्जाओं को और बेहतर बनाएं। हमारे सटीक खगोलीय उपकरणों और व्यक्तिगत सेवाओं का उपयोग करें।"}
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+              {/* Card 1: Free Kundli */}
+              <a
+                href="/free-horoscope"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'biorhythm_page_explore_kundli' })}
+                className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="material-symbols-outlined text-accent text-3xl mb-3 block">auto_stories</span>
+                  <h4 className="text-sm font-headline text-on-surface mb-1">{lang === 'en' ? "Free Kundli Online" : "मुफ्त ऑनलाइन कुंडली"}</h4>
+                  <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                    {lang === 'en' ? "Get accurate Janam Kundli charts and astrological calculations." : "सटीक जन्म कुंडली चार्ट और ज्योतिषीय गणना प्राप्त करें।"}
+                  </p>
+                </div>
+                <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  {lang === 'en' ? "Generate Chart" : "कुंडली बनाएं"} →
+                </span>
+              </a>
+
+              {/* Card 2: Daily Panchang */}
+              <a
+                href="/panchang"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'biorhythm_page_explore_panchang' })}
+                className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="material-symbols-outlined text-accent text-3xl mb-3 block">wb_sunny</span>
+                  <h4 className="text-sm font-headline text-on-surface mb-1">{lang === 'en' ? "Daily Panchang" : "दैनिक पंचांग"}</h4>
+                  <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                    {lang === 'en' ? "View today's Tithi, Nakshatra, Yoga, and Auspicious Muhurtas." : "आज की तिथि, नक्षत्र, योग और शुभ मुहूर्त देखें।"}
+                  </p>
+                </div>
+                <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  {lang === 'en' ? "Check Panchang" : "पंचांग देखें"} →
+                </span>
+              </a>
+
+              {/* Card 3: Panch Pakshi */}
+              <a
+                href="/panch-pakshi"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'biorhythm_page_explore_pakshi' })}
+                className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="material-symbols-outlined text-accent text-3xl mb-3 block">flight</span>
+                  <h4 className="text-sm font-headline text-on-surface mb-1">{lang === 'en' ? "Panch Pakshi" : "पंच पक्षी"}</h4>
+                  <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                    {lang === 'en' ? "Find your birth bird and understand daily peak activity times." : "अपने जन्म पक्षी का पता लगाएं और दैनिक शिखर गतिविधि समय को समझें।"}
+                  </p>
+                </div>
+                <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  {lang === 'en' ? "Find Birth Bird" : "पक्षी खोजें"} →
+                </span>
+              </a>
+
+              {/* Card 4: Book Consultation */}
+              <button
+                onClick={() => {
+                  sendGAEvent({ event: 'action_click', action_name: 'biorhythm_page_explore_booking' });
+                  window.dispatchEvent(new CustomEvent('openBookingModal'));
+                }}
+                className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow text-left group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="material-symbols-outlined text-accent text-3xl mb-3 block">chat_bubble</span>
+                  <h4 className="text-sm font-headline text-on-surface mb-1">{lang === 'en' ? "Book 1-on-1 Session" : "परामर्श सत्र बुक करें"}</h4>
+                  <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                    {lang === 'en' ? "Get solutions for career, relationships, remedies & spiritual path." : "करियर, रिश्तों, उपायों और आध्यात्मिक मार्ग के लिए समाधान प्राप्त करें।"}
+                  </p>
+                </div>
+                <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  {lang === 'en' ? "Connect Now" : "जुड़ें"} →
+                </span>
+              </button>
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
