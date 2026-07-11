@@ -7,6 +7,7 @@ import { REVIEWS } from '@/lib/reviews';
 import JsonLd from '@/components/JsonLd';
 import StarRating from '@/components/StarRating';
 import { useLanguage } from '@/context/LanguageContext';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
@@ -114,7 +115,7 @@ export default function ReviewsClientPage() {
         </p>
       </div>
 
-      <div className="py-16">
+      <div className="pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline flex flex-col shadow-sm">
@@ -135,6 +136,42 @@ export default function ReviewsClientPage() {
           ))}
         </div>
       </div>
+
+      {/* CTA Section to Reduce Bounce Rate */}
+      <section className="py-16 bg-surface-bright relative overflow-hidden border-t border-outline/30">
+        <div className="max-w-4xl mx-auto px-8 text-center relative z-10">
+          <div className="bg-white border border-outline/80 rounded-[3rem] p-8 md:p-12 shadow-sm">
+            <h2 className="text-2xl md:text-3xl font-normal mb-4 font-headline text-on-surface">
+              {lang === 'en' ? "Experience the Guidance Yourself" : "स्वयं मार्गदर्शन का अनुभव करें"}
+            </h2>
+            <p className="text-sm md:text-base text-on-surface/90 font-body mb-8 leading-relaxed max-w-2xl mx-auto">
+              {lang === 'en'
+                ? "Join hundreds of satisfied clients. Get clarity on your career, relationships, wealth, and wellness with an in-depth Vedic consultation."
+                : "संतुष्ट ग्राहकों में शामिल हों। गहन वैदिक परामर्श के साथ अपने करियर, रिश्तों, धन और कल्याण पर स्पष्टता प्राप्त करें।"}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => {
+                  sendGAEvent({ event: 'action_click', action_name: 'reviews_page_book_now' });
+                  window.dispatchEvent(new CustomEvent('openBookingModal'));
+                }}
+                className={`px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+              >
+                {lang === 'en' ? 'Book 1-on-1 Session' : 'परामर्श सत्र बुक करें'}
+              </button>
+              <a
+                href="/donate"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reviews_page_donate_link' })}
+                className={`px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+              >
+                {lang === 'en' ? 'Support & Donate' : 'सहयोग और दान दें'}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border-[0.5px] border-outline/5 rounded-full -z-0"></div>
+      </section>
+
       <Footer />
     </main>
   );

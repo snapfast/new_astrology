@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, FormEvent, useMemo, KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
@@ -312,6 +313,8 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
     setCoords(item.coords);
     setShowHistory(false);
     setActiveHistoryIndex(-1);
+
+    sendGAEvent({ event: 'action_click', action_name: 'horoscope_history_select' });
   };
 
   const handleHistoryKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -378,6 +381,8 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
     if (typeof window !== 'undefined') {
       localStorage.setItem(HOROSCOPE_HISTORY_KEY, JSON.stringify(updatedHistory));
     }
+
+    sendGAEvent({ event: 'action_click', action_name: 'generate_horoscope_submit' });
 
     const isoDob = `${year}-${month}-${day}`;
 

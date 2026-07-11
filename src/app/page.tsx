@@ -10,7 +10,7 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Rahul Bali Astrology | Expert Vedic Astrologer in Gurugram & Gurgaon",
+  title: "Rahul Bali Astrology | Expert Vedic Astrologer in Gurugram & Online",
   description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram (Gurgaon). Get accurate Janam Kundli readings, career guidance, relationship advice, and spiritual remedies.",
   alternates: {
     canonical: "https://astro.rahulbali.in",
