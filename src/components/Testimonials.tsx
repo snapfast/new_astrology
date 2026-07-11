@@ -106,7 +106,7 @@ const Testimonials = () => {
                 href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center justify-center gap-2.5 bg-transparent text-on-surface border border-outline/60 px-6 py-3.5 rounded-full font-medium text-[10px] uppercase font-label transition-colors hover:bg-on-surface/5 self-start ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                className={`inline-flex items-center justify-center gap-2.5 bg-transparent text-on-surface border border-outline/60 px-6 py-3.5 rounded-full font-medium text-[10px] uppercase font-label transition-colors hover:bg-on-surface/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 self-start ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
               >
                 <GoogleIcon />
                 {t.viewOnGoogle}
@@ -121,14 +121,14 @@ const Testimonials = () => {
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => { prevSlide(); setIsAutoPlaying(false); }}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   aria-label={t.prev}
                 >
                   <span className="material-symbols-outlined">chevron_left</span>
                 </button>
                 <button
                   onClick={() => { nextSlide(); setIsAutoPlaying(false); }}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   aria-label={t.next}
                 >
                   <span className="material-symbols-outlined">chevron_right</span>
@@ -170,8 +170,9 @@ const Testimonials = () => {
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
-                  className={`w-1.5 h-1.5 rounded-full ${i === currentIndex ? 'bg-accent w-6' : 'bg-outline/30'}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${i === currentIndex ? 'bg-accent w-6' : 'bg-outline/30 w-1.5 hover:bg-outline/50'}`}
                   aria-label={`${t.goToSlide} ${i + 1}`}
+                  aria-current={i === currentIndex ? "true" : undefined}
                 />
               ))}
             </div>
