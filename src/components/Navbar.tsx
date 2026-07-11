@@ -120,6 +120,8 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(true)}
             className="md:hidden p-2 -ml-2 mr-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label={t.openMenu}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             <span className="material-symbols-outlined !text-2xl">menu</span>
           </button>
@@ -231,6 +233,7 @@ const Navbar = () => {
 
     {/* Mobile Menu Overlay - Moved outside nav for better stacking and background control */}
     <div
+      id="mobile-menu"
       className={`fixed inset-0 bg-surface z-[100] transition-transform duration-300 ease-in-out md:hidden ${
         isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
