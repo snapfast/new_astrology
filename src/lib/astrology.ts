@@ -555,25 +555,12 @@ function calculatePlanetaryAndDivisionalData(
     };
 
     const assignToCharts = (symbol: string, siderealLong: number, isRetro: boolean) => {
-        for (let k = 0; k < chartKeys.length; k++) {
-            const key = chartKeys[k];
-            let chartRasiIdx: number;
-            switch (key) {
-                case 'd1': chartRasiIdx = Math.floor(siderealLong / 30); break;
-                case 'd3': chartRasiIdx = getD3Rasi(siderealLong); break;
-                case 'd7': chartRasiIdx = getD7Rasi(siderealLong); break;
-                case 'd9': chartRasiIdx = getD9Rasi(siderealLong); break;
-                case 'd10': chartRasiIdx = getD10Rasi(siderealLong); break;
-                case 'd60': chartRasiIdx = getD60Rasi(siderealLong); break;
-                default: chartRasiIdx = 0;
-            }
-
-            const lagnaRasi = lagnaRasis[key];
-            const house = ((chartRasiIdx - lagnaRasi + 12) % 12) + 1;
-            const divLong = (siderealLong * divisions[key]) % 30;
-            const degree = formatDegree(divLong);
-            assignments[key][house].push({ symbol, isRetrograde: isRetro, degree });
-        }
+        assignments.d1[((Math.floor(siderealLong / 30) - lagnaRasis.d1 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 1) % 30) });
+        assignments.d3[((getD3Rasi(siderealLong) - lagnaRasis.d3 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 3) % 30) });
+        assignments.d7[((getD7Rasi(siderealLong) - lagnaRasis.d7 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 7) % 30) });
+        assignments.d9[((getD9Rasi(siderealLong) - lagnaRasis.d9 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 9) % 30) });
+        assignments.d10[((getD10Rasi(siderealLong) - lagnaRasis.d10 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 10) % 30) });
+        assignments.d60[((getD60Rasi(siderealLong) - lagnaRasis.d60 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 60) % 30) });
     };
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
