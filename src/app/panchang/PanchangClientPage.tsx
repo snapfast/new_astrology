@@ -48,6 +48,9 @@ const TRANSLATIONS = {
     selectDate: "Select Date",
     selectedDate: "Selected Date",
     switchLanguage: "Switch Language / भाषा बदलें",
+    shareableTitle: "Shareable Daily Panchang",
+    copyBtn: "Copy Text",
+    copied: "Copied!",
     eduTitle: "Understanding Panchang",
     eduPara1: "The Panchang is a traditional Vedic calendar that serves as an essential guide for daily life in Indian culture. Derived from the Sanskrit words 'Pancha' (five) and 'Anga' (limbs), it consists of five key astronomical elements: Tithi, Vara, Nakshatra, Yoga, and Karana.",
     tithiTitle: "1. Tithi",
@@ -102,8 +105,11 @@ const TRANSLATIONS = {
     selectDate: "तारीख चुनें",
     selectedDate: "चुनी हुई तारीख",
     switchLanguage: "भाषा बदलें / Switch Language",
+    shareableTitle: "साझा करने योग्य दैनिक पंचांग",
+    copyBtn: "पाठ कॉपी करें",
+    copied: "कॉपी किया गया!",
     eduTitle: "पंचांग को समझना",
-    eduPara1: "पंचांग एक पारंपरिक वैदिक कैलेंडर है जो भारतीय संस्कृति में दैनिक जीवन के लिए एक आवश्यक मार्गदर्शक के रूप में कार्य करता है। संस्कृत शब्दों 'पंच' (पांच) और 'अंग' से बना, इसमें पांच प्रमुख खगोलीय तत्व शामिल हैं: तिथि, वार, नक्षत्र, योग और करण।",
+    eduPara1: "पंचांग एक पारंपरिक वैदिक कैलेंडर है जो भारतीय संस्कृति में दैनिक जीवन के लिए एक आवश्यक मार्गदर्शक के रूप में कार्य करता है। संस्कृत शब्दों 'पंच' (पांच) और 'अंग' से बना, इसमें पंचांग का उपयोग होता है।",
     tithiTitle: "1. तिथि",
     tithiDesc: "सूर्य और चंद्रमा के बीच की कोणीय दूरी के आधार पर चंद्र दिवस। यह त्योहारों और अनुष्ठानों के निर्धारण के लिए महत्वपूर्ण है।",
     varaTitle: "2. वार",
@@ -122,7 +128,7 @@ const TRANSLATIONS = {
 
 const PanchangPage = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-US', {
     weekday: 'long',
@@ -137,6 +143,15 @@ const PanchangPage = () => {
     const istOffset = 5.5 * 60 * 60 * 1000;
     return new Date(now.getTime() + istOffset);
   });
+
+  const [copied, setCopied] = useState(false);
+  const handleCopyText = () => {
+    if (panchang.formattedText) {
+      navigator.clipboard.writeText(panchang.formattedText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const handlePrevDay = () => {
     setSelectedDate(prev => {
@@ -276,38 +291,70 @@ const PanchangPage = () => {
           <div className="lg:col-span-2 bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
             <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">{t.elementsTitle}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.tithi}</p>
-                <p className="text-xl font-headline text-on-surface">
-                  {lang === 'en'
-                    ? `${panchang.paksha} ${panchang.tithi}`
-                    : `${panchang.pakshaSanskrit} ${panchang.tithiSanskrit}`}
-                </p>
-                <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.tithiEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.pakshaSanskrit} {panchang.tithiSanskrit}</p>}
+                {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd }]).map((item, idx) => (
+                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
+                    <p className="text-xl font-headline text-on-surface">
+                      {lang === 'en'
+                        ? `${panchang.paksha} ${item.name}`
+                        : `${panchang.pakshaSanskrit} ${item.sanskrit}`}
+                    </p>
+                    <p className="text-xs text-accent font-medium tabular-nums">
+                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                    </p>
+                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.pakshaSanskrit} {item.sanskrit}</p>}
+                  </div>
+                ))}
               </div>
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.nakshatra}</p>
-                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.nakshatra : panchang.nakshatraSanskrit}</p>
-                <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.nakshatraEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.nakshatraSanskrit}</p>}
+                {(panchang.nakshatrasList || [{ name: panchang.nakshatra, sanskrit: panchang.nakshatraSanskrit, end: panchang.nakshatraEnd }]).map((item, idx) => (
+                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
+                    <p className="text-xl font-headline text-on-surface">
+                      {lang === 'en' ? item.name : item.sanskrit}
+                    </p>
+                    <p className="text-xs text-accent font-medium tabular-nums">
+                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                    </p>
+                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{item.sanskrit}</p>}
+                  </div>
+                ))}
               </div>
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.yoga}</p>
-                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.yoga : panchang.yogaSanskrit}</p>
-                <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.yogaEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.yogaSanskrit}</p>}
+                {(panchang.yogasList || [{ name: panchang.yoga, sanskrit: panchang.yogaSanskrit, end: panchang.yogaEnd }]).map((item, idx) => (
+                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
+                    <p className="text-xl font-headline text-on-surface">
+                      {lang === 'en' ? item.name : item.sanskrit}
+                    </p>
+                    <p className="text-xs text-accent font-medium tabular-nums">
+                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                    </p>
+                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{item.sanskrit}</p>}
+                  </div>
+                ))}
               </div>
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.karana}</p>
-                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.karana : panchang.karanaSanskrit}</p>
-                <p className="text-xs text-accent font-medium tabular-nums">{t.endsAt}: {panchang.karanaEnd}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.karanaSanskrit}</p>}
+                {(panchang.karanasList || [{ name: panchang.karana, sanskrit: panchang.karanaSanskrit, end: panchang.karanaEnd }]).map((item, idx) => (
+                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
+                    <p className="text-xl font-headline text-on-surface">
+                      {lang === 'en' ? item.name : item.sanskrit}
+                    </p>
+                    <p className="text-xs text-accent font-medium tabular-nums">
+                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                    </p>
+                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{item.sanskrit}</p>}
+                  </div>
+                ))}
               </div>
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.vara}</p>
-                <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.varaSanskrit}</p>}
+                <div className="border-l-2 border-accent/20 pl-2 space-y-0.5">
+                  <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
+                  {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.varaSanskrit}</p>}
+                </div>
               </div>
             </div>
 
@@ -383,6 +430,27 @@ const PanchangPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Shareable Plain-Text Card */}
+        {panchang.formattedText && (
+          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-outline/10 pb-4">
+              <div>
+                <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label">{t.shareableTitle}</h2>
+              </div>
+              <button
+                onClick={handleCopyText}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white rounded-full text-xs uppercase font-label tracking-wider hover:bg-accent/90 active:scale-[0.98] transition-all"
+              >
+                <span className="material-symbols-outlined text-sm">{copied ? "done" : "content_copy"}</span>
+                {copied ? t.copied : t.copyBtn}
+              </button>
+            </div>
+            <pre className="bg-surface p-6 rounded-2xl font-mono text-sm text-on-surface whitespace-pre-wrap leading-relaxed select-all border border-outline/30">
+              {panchang.formattedText}
+            </pre>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
            {/* Celestial Timings Card */}

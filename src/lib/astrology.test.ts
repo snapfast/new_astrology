@@ -166,3 +166,31 @@ test('generateAstrologyData handles empty inputs', () => {
   assert.ok(data.panchang);
   assert.strictEqual(data.panchang.tithi, "");
 });
+
+test('calculatePanchang multiple elements transition verification (July 10, 2026)', () => {
+  const dob = "2026-07-10";
+  const tob = "12:00";
+  const lat = "28.6139";
+  const lon = "77.2090";
+
+  const data = generateAstrologyData(dob, tob, lat, lon);
+  const panchang = data.panchang;
+
+  // Verify multiple list items exist and are populated
+  assert.ok(panchang.tithisList && panchang.tithisList.length > 0, 'tithisList should not be empty');
+  assert.ok(panchang.karanasList && panchang.karanasList.length > 0, 'karanasList should not be empty');
+  assert.ok(panchang.nakshatrasList && panchang.nakshatrasList.length > 0, 'nakshatrasList should not be empty');
+  assert.ok(panchang.yogasList && panchang.yogasList.length > 0, 'yogasList should not be empty');
+  assert.ok(panchang.moonsignsList && panchang.moonsignsList.length > 0, 'moonsignsList should not be empty');
+
+  // Verify formattedText matches the user's layout structure
+  assert.ok(panchang.formattedText, 'formattedText should be present');
+  assert.ok(panchang.formattedText.includes("New Delhi, India"), 'Location should be correct');
+  assert.ok(panchang.formattedText.includes("Friday, July 10, 2026"), 'Date should be correct');
+  assert.ok(panchang.formattedText.includes("Tithi: Dashami"), 'Should list Dashami');
+  assert.ok(panchang.formattedText.includes("Tithi: Ekadashi"), 'Should list Ekadashi');
+  assert.ok(panchang.formattedText.includes("Paksha: Krishna Paksha"), 'Should list Krishna Paksha');
+  assert.ok(panchang.formattedText.includes("Weekday: Shukrawara"), 'Should list Shukrawara');
+  assert.ok(panchang.formattedText.includes("Amanta Month: Jyeshtha"), 'Should list Amanta Month');
+  assert.ok(panchang.formattedText.includes("Purnimanta Month: Ashadha"), 'Should list Purnimanta Month');
+});
