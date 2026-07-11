@@ -50,6 +50,12 @@ export interface DivisionalChartData {
     houseRasis: { [key: number]: number };
 }
 
+export interface PanchangElementOccur {
+    name: string;
+    sanskrit: string;
+    end: string | null;
+}
+
 export interface PanchangData {
     tithi: string;
     tithiSanskrit: string;
@@ -90,6 +96,14 @@ export interface PanchangData {
     lunarMonthSanskrit: string;
     samvatsara: string;
     samvatsaraSanskrit: string;
+    tithisList?: PanchangElementOccur[];
+    nakshatrasList?: PanchangElementOccur[];
+    yogasList?: PanchangElementOccur[];
+    karanasList?: PanchangElementOccur[];
+    moonsignsList?: PanchangElementOccur[];
+    amantaMonth?: string;
+    purnimantaMonth?: string;
+    formattedText?: string;
 }
 
 export interface ChartData {
@@ -666,7 +680,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     let panchang: PanchangData | undefined;
     Object.defineProperty(result, 'panchang', {
         get: () => {
-            if (!panchang) panchang = calculatePanchang(time, lat, lon, ayanamsa, getTropicalSunLong(), getTropicalMoonLong());
+            if (!panchang) panchang = calculatePanchang(time, lat, lon);
             return panchang;
         },
         enumerable: true
@@ -765,167 +779,335 @@ const RAHU_KAAL_PARTS = [8, 2, 7, 5, 6, 4, 3]; // Sun to Sat
 const GULIKA_KAAL_PARTS = [7, 6, 5, 4, 3, 2, 1]; // Sun to Sat
 const YAMAGANDA_KAAL_PARTS = [5, 4, 3, 2, 1, 7, 6]; // Sun to Sat
 
-function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanamsa: number, sunLong: number, moonLong: number): PanchangData {
-    const siderealSunLong = (sunLong - ayanamsa + 360) % 360;
-    const siderealMoonLong = (moonLong - ayanamsa + 360) % 360;
+const RASI_TRANSLITERATIONS: Record<string, string> = {
+    "Aries": "Mesha",
+    "Taurus": "Vrishabha",
+    "Gemini": "Mithuna",
+    "Cancer": "Karka",
+    "Leo": "Simha",
+    "Virgo": "Kanya",
+    "Libra": "Tula",
+    "Scorpio": "Vrishchika",
+    "Sagittarius": "Dhanu",
+    "Capricorn": "Makara",
+    "Aquarius": "Kumbha",
+    "Pisces": "Meena"
+};
 
-    const diff = (moonLong - sunLong + 360) % 360;
-    const tithiIdx = Math.floor(diff / 12);
-    const tithi = TITHIS[tithiIdx];
-    const paksha = tithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
+const WEEKDAY_TRANSLITERATIONS: Record<string, string> = {
+    "Sunday": "Ravivara",
+    "Monday": "Somavara",
+    "Tuesday": "Mangalavara",
+    "Wednesday": "Budhavara",
+    "Thursday": "Guruvara",
+    "Friday": "Shukrawara",
+    "Saturday": "Shanivara"
+};
 
-    const nakIdx = Math.floor(siderealMoonLong / NAKSHATRA_WIDTH);
-    const nak = NAKSHATRA_NAMES[nakIdx];
-
-    const siderealYogaLong = (siderealSunLong + siderealMoonLong) % 360;
-    const yogaIdx = Math.floor(siderealYogaLong / NAKSHATRA_WIDTH);
-    const yoga = YOGAS[yogaIdx];
-
-    const karanaIdxTotal = Math.floor(diff / 6);
-    let karana;
-    if (karanaIdxTotal === 0) {
-        karana = KARANAS[10];
-    } else if (karanaIdxTotal >= 57) {
-        karana = KARANAS[7 + (karanaIdxTotal - 57)];
-    } else {
-        karana = KARANAS[(karanaIdxTotal - 1) % 7];
-    }
-
+function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): PanchangData {
     const observer = new Ast.Observer(lat, lon, 0);
     const varaData = getVedicVara(time, lat, lon);
 
     const sunrise = varaData.sunrise;
-    let sunset: Date | null = null;
+    const sunriseDate = sunrise || time.date;
+
+    const nextSunriseResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, 1, Ast.MakeTime(new Date(sunriseDate.getTime() + 2 * 60 * 60 * 1000)), 30);
+    const nextSunriseDate = nextSunriseResult ? nextSunriseResult.date : new Date(sunriseDate.getTime() + 24 * 60 * 60 * 1000);
+
     const getSunset = () => {
-        if (sunset === null && sunrise) {
-            const sunsetResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, -1, Ast.MakeTime(sunrise), 24);
-            sunset = sunsetResult ? sunsetResult.date : null;
-        }
-        return sunset;
+        const sunsetResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, -1, Ast.MakeTime(sunriseDate), 24);
+        return sunsetResult ? sunsetResult.date : null;
     };
 
-    const sunSignIdx = Math.floor(siderealSunLong / 30);
-    const moonSignIdx = Math.floor(siderealMoonLong / 30);
-    const sunSign = RASI_FULL_NAMES[sunSignIdx];
-    const moonSign = RASI_FULL_NAMES[moonSignIdx];
+    // Calculate parameters at Sunrise to initialize state correctly
+    const startAstroTime = Ast.MakeTime(sunriseDate);
+    const startAy = getLahiriAyanamsa(startAstroTime);
+    const startSunLong = getTrueEclipticLongitude(Ast.Body.Sun, startAstroTime);
+    const startMoonLong = getTrueMoonEclipticLongitude(startAstroTime);
 
-    const ritu = getRitu(siderealSunLong);
-    const ayana = getAyana(siderealSunLong);
+    const startDiff = (startMoonLong - startSunLong + 360) % 360;
+    const startSidMoon = (startMoonLong - startAy + 360) % 360;
+    const startSidSun = (startSunLong - startAy + 360) % 360;
+    const startSidYoga = (startSidSun + startSidMoon) % 360;
+
+    const initialTithiIdx = Math.floor(startDiff / 12);
+    const paksha = initialTithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
+
+    const initialNakIdx = Math.floor(startSidMoon / NAKSHATRA_WIDTH);
+    const initialYogaIdx = Math.floor(startSidYoga / NAKSHATRA_WIDTH);
+    const initialKaranaIdxTotal = Math.floor(startDiff / 6);
+    const initialMoonSignIdx = Math.floor(startSidMoon / 30);
+
+    const sunSignIdx = Math.floor(startSidSun / 30);
+    const sunSign = RASI_FULL_NAMES[sunSignIdx];
+
+    const ritu = getRitu(startSidSun);
+    const ayana = getAyana(startSidSun);
 
     const year = time.date.getUTCFullYear();
     const vikramSamvat = year + 57;
     const shakaSamvat = year - 78;
     const samvatsara = SAMVATSARAS[(shakaSamvat + 11) % 60];
 
+    const formatISTTime = (date: Date, showDateSuffix: boolean = false, baseDate?: Date): string => {
+        const istTime = new Date(date.getTime() + (5.5 * 60 * 60 * 1000));
+        let hours = istTime.getUTCHours();
+        const minutes = istTime.getUTCMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        const minutesStr = minutes.toString().padStart(2, '0');
+        let timeStr = `${hours.toString().padStart(2, '0')}:${minutesStr} ${ampm}`;
+
+        if (showDateSuffix && baseDate) {
+            const baseIST = new Date(baseDate.getTime() + (5.5 * 60 * 60 * 1000));
+            if (istTime.getUTCDate() !== baseIST.getUTCDate()) {
+                const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const monthStr = monthsShort[istTime.getUTCMonth()];
+                timeStr += `, ${monthStr} ${istTime.getUTCDate()}`;
+            }
+        }
+        return timeStr;
+    };
+
+    function getKaranaItem(idxTotal: number) {
+        if (idxTotal === 0) {
+            return KARANAS[10];
+        } else if (idxTotal >= 57) {
+            return KARANAS[7 + (idxTotal - 57)];
+        } else {
+            return KARANAS[(idxTotal - 1) % 7];
+        }
+    }
+
+    // High precision scans to track multiple elements ending before next Sunrise
+    const startMs = sunriseDate.getTime();
+    const endMs = nextSunriseDate.getTime();
+    const stepMs = 15 * 60 * 1000;
+
+    const tithiTransitions: Array<{ idx: number, time: Date }> = [];
+    const nakTransitions: Array<{ idx: number, time: Date }> = [];
+    const yogaTransitions: Array<{ idx: number, time: Date }> = [];
+    const karanaTransitions: Array<{ idx: number, time: Date }> = [];
+    const moonSignTransitions: Array<{ idx: number, time: Date }> = [];
+
+    const interpolate = (low: number, high: number, threshold: number, valLow: number, valHigh: number) => {
+        const vL = valLow;
+        let vH = valHigh;
+        let thresh = threshold;
+        if (vH < vL) {
+            vH += 360;
+            if (thresh < vL) thresh += 360;
+        }
+        const fraction = (thresh - vL) / (vH - vL);
+        const targetMs = low + fraction * (high - low);
+        return new Date(targetMs);
+    };
+
+    let prevMs = startMs;
+    let prevTithiIdx = initialTithiIdx;
+    let prevNakIdx = initialNakIdx;
+    let prevYogaIdx = initialYogaIdx;
+    let prevKaranaIdxTotal = initialKaranaIdxTotal;
+    let prevMoonSignIdx = initialMoonSignIdx;
+
+    let prevDiff = startDiff;
+    let prevSiderealMoon = startSidMoon;
+    let prevSiderealYoga = startSidYoga;
+
+    for (let currentMs = startMs + stepMs; currentMs <= endMs + stepMs; currentMs += stepMs) {
+        const actualMs = Math.min(currentMs, endMs);
+        if (actualMs === prevMs) break;
+
+        const stepTime = new Date(actualMs);
+        const astTime = Ast.MakeTime(stepTime);
+        const ay = getLahiriAyanamsa(astTime);
+        const sl = getTrueEclipticLongitude(Ast.Body.Sun, astTime);
+        const ml = getTrueMoonEclipticLongitude(astTime);
+
+        const d = (ml - sl + 360) % 360;
+        const sidMoon = (ml - ay + 360) % 360;
+        const sidSun = (sl - ay + 360) % 360;
+        const sidYoga = (sidSun + sidMoon) % 360;
+
+        const tithiIdx = Math.floor(d / 12);
+        const nakIdx = Math.floor(sidMoon / NAKSHATRA_WIDTH);
+        const yogaIdx = Math.floor(sidYoga / NAKSHATRA_WIDTH);
+        const karanaIdxTotal = Math.floor(d / 6);
+        const moonSignIdx = Math.floor(sidMoon / 30);
+
+        if (tithiIdx !== prevTithiIdx) {
+            const threshold = Math.max(prevTithiIdx, tithiIdx) * 12;
+            const tDate = interpolate(prevMs, actualMs, threshold, prevDiff, d);
+            if (tDate <= nextSunriseDate) {
+                tithiTransitions.push({ idx: prevTithiIdx, time: tDate });
+            }
+        }
+
+        if (karanaIdxTotal !== prevKaranaIdxTotal) {
+            const threshold = Math.max(prevKaranaIdxTotal, karanaIdxTotal) * 6;
+            const tDate = interpolate(prevMs, actualMs, threshold, prevDiff, d);
+            if (tDate <= nextSunriseDate) {
+                karanaTransitions.push({ idx: prevKaranaIdxTotal, time: tDate });
+            }
+        }
+
+        if (nakIdx !== prevNakIdx) {
+            const threshold = Math.max(prevNakIdx, nakIdx) * NAKSHATRA_WIDTH;
+            const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealMoon, sidMoon);
+            if (tDate <= nextSunriseDate) {
+                nakTransitions.push({ idx: prevNakIdx, time: tDate });
+            }
+        }
+
+        if (yogaIdx !== prevYogaIdx) {
+            const threshold = Math.max(prevYogaIdx, yogaIdx) * NAKSHATRA_WIDTH;
+            const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealYoga, sidYoga);
+            if (tDate <= nextSunriseDate) {
+                yogaTransitions.push({ idx: prevYogaIdx, time: tDate });
+            }
+        }
+
+        if (moonSignIdx !== prevMoonSignIdx) {
+            const threshold = Math.max(prevMoonSignIdx, moonSignIdx) * 30;
+            const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealMoon, sidMoon);
+            if (tDate <= nextSunriseDate) {
+                moonSignTransitions.push({ idx: prevMoonSignIdx, time: tDate });
+            }
+        }
+
+        prevMs = actualMs;
+        prevTithiIdx = tithiIdx;
+        prevNakIdx = nakIdx;
+        prevYogaIdx = yogaIdx;
+        prevKaranaIdxTotal = karanaIdxTotal;
+        prevMoonSignIdx = moonSignIdx;
+        prevDiff = d;
+        prevSiderealMoon = sidMoon;
+        prevSiderealYoga = sidYoga;
+
+        if (actualMs === endMs) break;
+    }
+
+    const finalTithisList: PanchangElementOccur[] = tithiTransitions.length > 0
+        ? tithiTransitions.map(t => ({
+            name: TITHIS[t.idx].name,
+            sanskrit: TITHIS[t.idx].sanskrit,
+            end: formatISTTime(t.time, true, sunriseDate)
+          }))
+        : [{
+            name: TITHIS[initialTithiIdx].name,
+            sanskrit: TITHIS[initialTithiIdx].sanskrit,
+            end: null
+          }];
+
+    const finalNakshatrasList: PanchangElementOccur[] = nakTransitions.length > 0
+        ? nakTransitions.map(t => ({
+            name: NAKSHATRA_NAMES[t.idx].name,
+            sanskrit: NAKSHATRA_NAMES[t.idx].sanskrit,
+            end: formatISTTime(t.time, true, sunriseDate)
+          }))
+        : [{
+            name: NAKSHATRA_NAMES[initialNakIdx].name,
+            sanskrit: NAKSHATRA_NAMES[initialNakIdx].sanskrit,
+            end: null
+          }];
+
+    const finalYogasList: PanchangElementOccur[] = yogaTransitions.length > 0
+        ? yogaTransitions.map(t => ({
+            name: YOGAS[t.idx].name,
+            sanskrit: YOGAS[t.idx].sanskrit,
+            end: formatISTTime(t.time, true, sunriseDate)
+          }))
+        : [{
+            name: YOGAS[initialYogaIdx].name,
+            sanskrit: YOGAS[initialYogaIdx].sanskrit,
+            end: null
+          }];
+
+    const finalKaranasList: PanchangElementOccur[] = karanaTransitions.length > 0
+        ? karanaTransitions.map(t => ({
+            name: getKaranaItem(t.idx).name,
+            sanskrit: getKaranaItem(t.idx).sanskrit,
+            end: formatISTTime(t.time, true, sunriseDate)
+          }))
+        : [{
+            name: getKaranaItem(initialKaranaIdxTotal).name,
+            sanskrit: getKaranaItem(initialKaranaIdxTotal).sanskrit,
+            end: null
+          }];
+
+    const finalMoonsignsList: PanchangElementOccur[] = moonSignTransitions.length > 0
+        ? moonSignTransitions.map(t => ({
+            name: RASI_FULL_NAMES[t.idx].name,
+            sanskrit: RASI_FULL_NAMES[t.idx].sanskrit,
+            end: formatISTTime(t.time, true, sunriseDate)
+          }))
+        : [{
+            name: RASI_FULL_NAMES[initialMoonSignIdx].name,
+            sanskrit: RASI_FULL_NAMES[initialMoonSignIdx].sanskrit,
+            end: null
+          }];
+
+    let lunarMonthName = "Chaitra";
+    let lunarMonthSanskritName = "चैत्र";
+    const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
+    let monthIdx = 0;
+    if (prevNewMoon) {
+        const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon);
+        const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
+        monthIdx = Math.floor(nmSiderealSunLong / 30);
+    }
+    const lunarMonthItem = LUNAR_MONTHS[(monthIdx + 1) % 12];
+    lunarMonthName = lunarMonthItem.name;
+    lunarMonthSanskritName = lunarMonthItem.sanskrit;
+
+    const amanta = lunarMonthName;
+    const purnimanta = paksha.name === "Krishna"
+        ? LUNAR_MONTHS[(LUNAR_MONTHS.findIndex(m => m.name === amanta) + 1) % 12].name
+        : amanta;
+
     const result = {
-        tithi: tithi.name,
-        tithiSanskrit: tithi.sanskrit,
+        tithi: TITHIS[initialTithiIdx].name,
+        tithiSanskrit: TITHIS[initialTithiIdx].sanskrit,
         paksha: paksha.name,
         pakshaSanskrit: paksha.sanskrit,
-        nakshatra: nak.name,
-        nakshatraSanskrit: nak.sanskrit,
-        yoga: yoga.name,
-        yogaSanskrit: yoga.sanskrit,
-        karana: karana.name,
-        karanaSanskrit: karana.sanskrit,
+        nakshatra: NAKSHATRA_NAMES[initialNakIdx].name,
+        nakshatraSanskrit: NAKSHATRA_NAMES[initialNakIdx].sanskrit,
+        yoga: YOGAS[initialYogaIdx].name,
+        yogaSanskrit: YOGAS[initialYogaIdx].sanskrit,
+        karana: getKaranaItem(initialKaranaIdxTotal).name,
+        karanaSanskrit: getKaranaItem(initialKaranaIdxTotal).sanskrit,
         vara: varaData.name,
         varaSanskrit: varaData.sanskrit,
         sunSign: sunSign.name,
         sunSignSanskrit: sunSign.sanskrit,
-        moonSign: moonSign.name,
-        moonSignSanskrit: moonSign.sanskrit,
+        moonSign: RASI_FULL_NAMES[initialMoonSignIdx].name,
+        moonSignSanskrit: RASI_FULL_NAMES[initialMoonSignIdx].sanskrit,
         ritu: ritu.name,
         rituSanskrit: ritu.sanskrit,
         ayana: ayana.name,
         ayanaSanskrit: ayana.sanskrit,
-        sunrise: formatTime(sunrise),
+        sunrise: formatISTTime(sunriseDate),
         vikramSamvat,
         shakaSamvat,
         samvatsara: samvatsara.name,
-        samvatsaraSanskrit: samvatsara.sanskrit
+        samvatsaraSanskrit: samvatsara.sanskrit,
+        tithisList: finalTithisList,
+        nakshatrasList: finalNakshatrasList,
+        yogasList: finalYogasList,
+        karanasList: finalKaranasList,
+        moonsignsList: finalMoonsignsList,
+        amantaMonth: amanta,
+        purnimantaMonth: purnimanta
     } as PanchangData;
 
-    // Performance Optimization: Lazy evaluation for expensive search-based properties
-    let endTimes: { tithi: Date | null, nak: Date | null, yoga: Date | null, karana: Date | null } | undefined;
-    const calculateEndTimes = () => {
-        if (endTimes) return endTimes;
+    Object.defineProperty(result, 'tithiEnd', { get: () => tithiTransitions.length > 0 ? formatISTTime(tithiTransitions[0].time) : "--:--", enumerable: true });
+    Object.defineProperty(result, 'nakshatraEnd', { get: () => nakTransitions.length > 0 ? formatISTTime(nakTransitions[0].time) : "--:--", enumerable: true });
+    Object.defineProperty(result, 'yogaEnd', { get: () => yogaTransitions.length > 0 ? formatISTTime(yogaTransitions[0].time) : "--:--", enumerable: true });
+    Object.defineProperty(result, 'karanaEnd', { get: () => karanaTransitions.length > 0 ? formatISTTime(karanaTransitions[0].time) : "--:--", enumerable: true });
 
-        let tithiEnd: Date | null = null;
-        let nakEnd: Date | null = null;
-        let yogaEnd: Date | null = null;
-        let karanaEnd: Date | null = null;
-
-        const tithiThreshold = (tithiIdx + 1) * 12;
-        const nakThreshold = (nakIdx + 1) * NAKSHATRA_WIDTH;
-        const yogaThreshold = (yogaIdx + 1) * NAKSHATRA_WIDTH;
-        const karanaThreshold = (karanaIdxTotal + 1) * 6;
-
-        const stepDays = 120 / (24 * 60); // 2 hours in days
-        const maxDays = 30 / 24; // 30 hours in days
-
-        // Performance Optimization: Replace expensive 10-step binary search (which re-calculates exact solar/lunar positions)
-        // with linear interpolation. Planetary movement is highly linear over a 2-hour window, and this saves ~10x computation overhead.
-        const interpolate = (low: number, high: number, threshold: number, valLow: number, valHigh: number) => {
-            const vL = valLow;
-            let vH = valHigh;
-            let thresh = threshold;
-            if (vH < vL) {
-                vH += 360;
-                if (thresh < vL) thresh += 360;
-            }
-            const fraction = (thresh - vL) / (vH - vL);
-            const targetUT = low + fraction * (high - low);
-            return Ast.MakeTime(targetUT).date;
-        };
-
-        let prevUT = time.ut;
-        let prevDiff = diff;
-        let prevSiderealMoon = siderealMoonLong;
-        let prevSiderealYoga = siderealYogaLong;
-
-        for (let d = stepDays; d <= maxDays + 0.0001; d += stepDays) {
-            if (tithiEnd && nakEnd && yogaEnd && karanaEnd) break;
-
-            const nextUT = time.ut + d;
-            const nextT = Ast.MakeTime(nextUT);
-            const ay = getLahiriAyanamsa(nextT);
-
-            const rot = Ast.Rotation_EQJ_ECT(nextT);
-            const sl = getTrueEclipticLongitude(Ast.Body.Sun, nextT, rot);
-            const ml = getTrueMoonEclipticLongitude(nextT, rot);
-
-            const nextDiff = (ml - sl + 360) % 360;
-            const nextSiderealMoon = (ml - ay + 360) % 360;
-            const nextSiderealSun = (sl - ay + 360) % 360;
-            const nextYogaLong = (nextSiderealSun + nextSiderealMoon) % 360;
-
-            if (!tithiEnd && ((prevDiff < tithiThreshold && nextDiff >= tithiThreshold) || (prevDiff > nextDiff && (prevDiff < tithiThreshold || nextDiff >= tithiThreshold)))) {
-                tithiEnd = interpolate(prevUT, nextUT, tithiThreshold, prevDiff, nextDiff);
-            }
-            if (!karanaEnd && ((prevDiff < karanaThreshold && nextDiff >= karanaThreshold) || (prevDiff > nextDiff && (prevDiff < karanaThreshold || nextDiff >= karanaThreshold)))) {
-                karanaEnd = interpolate(prevUT, nextUT, karanaThreshold, prevDiff, nextDiff);
-            }
-            if (!nakEnd && ((prevSiderealMoon < nakThreshold && nextSiderealMoon >= nakThreshold) || (prevSiderealMoon > nextSiderealMoon && (prevSiderealMoon < nakThreshold || nextSiderealMoon >= nakThreshold)))) {
-                nakEnd = interpolate(prevUT, nextUT, nakThreshold, prevSiderealMoon, nextSiderealMoon);
-            }
-            if (!yogaEnd && ((prevSiderealYoga < yogaThreshold && nextYogaLong >= yogaThreshold) || (prevSiderealYoga > nextYogaLong && (prevSiderealYoga < yogaThreshold || nextYogaLong >= yogaThreshold)))) {
-                yogaEnd = interpolate(prevUT, nextUT, yogaThreshold, prevSiderealYoga, nextYogaLong);
-            }
-            prevUT = nextUT;
-            prevDiff = nextDiff;
-            prevSiderealMoon = nextSiderealMoon;
-            prevSiderealYoga = nextYogaLong;
-        }
-        endTimes = { tithi: tithiEnd, nak: nakEnd, yoga: yogaEnd, karana: karanaEnd };
-        return endTimes;
-    };
-
-    Object.defineProperty(result, 'tithiEnd', { get: () => formatTime(calculateEndTimes().tithi), enumerable: true });
-    Object.defineProperty(result, 'nakshatraEnd', { get: () => formatTime(calculateEndTimes().nak), enumerable: true });
-    Object.defineProperty(result, 'yogaEnd', { get: () => formatTime(calculateEndTimes().yoga), enumerable: true });
-    Object.defineProperty(result, 'karanaEnd', { get: () => formatTime(calculateEndTimes().karana), enumerable: true });
-
-    Object.defineProperty(result, 'sunset', { get: () => formatTime(getSunset()), enumerable: true });
+    Object.defineProperty(result, 'sunset', { get: () => formatISTTime(getSunset() || new Date(sunriseDate.getTime() + 14 * 60 * 60 * 1000)), enumerable: true });
 
     let moonTimings: { rise: Date | null, set: Date | null } | undefined;
     const calculateMoonTimings = () => {
@@ -938,8 +1120,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         };
         return moonTimings;
     };
-    Object.defineProperty(result, 'moonrise', { get: () => formatTime(calculateMoonTimings().rise), enumerable: true });
-    Object.defineProperty(result, 'moonset', { get: () => formatTime(calculateMoonTimings().set), enumerable: true });
+    Object.defineProperty(result, 'moonrise', { get: () => formatISTTime(calculateMoonTimings().rise || new Date(sunriseDate.getTime() + 12 * 60 * 60 * 1000)), enumerable: true });
+    Object.defineProperty(result, 'moonset', { get: () => formatISTTime(calculateMoonTimings().set || new Date(sunriseDate.getTime() + 24 * 60 * 60 * 1000)), enumerable: true });
 
     let muhurtas: { rahu: string, gulika: string, yama: string, abhijit: string, brahma: string } | undefined;
     const calculateMuhurtas = () => {
@@ -947,20 +1129,21 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
         const ss = getSunset();
         let rk = "--:--", gk = "--:--", yk = "--:--", am = "--:--", bm = "--:--";
 
-        if (sunrise && ss) {
-            const istSunrise = new Date(sunrise.getTime() + (5.5 * 60 * 60 * 1000));
+        const sunsetVal = ss || new Date(sunriseDate.getTime() + 14 * 60 * 60 * 1000);
+        if (sunriseDate && sunsetVal) {
+            const istSunrise = new Date(sunriseDate.getTime() + (5.5 * 60 * 60 * 1000));
             const dayOfWeek = istSunrise.getUTCDay();
-            rk = getMuhurtaRange(sunrise, ss, RAHU_KAAL_PARTS[dayOfWeek], 8);
-            gk = getMuhurtaRange(sunrise, ss, GULIKA_KAAL_PARTS[dayOfWeek], 8);
-            yk = getMuhurtaRange(sunrise, ss, YAMAGANDA_KAAL_PARTS[dayOfWeek], 8);
-            am = getMuhurtaRange(sunrise, ss, 8, 15);
+            rk = getMuhurtaRange(sunriseDate, sunsetVal, RAHU_KAAL_PARTS[dayOfWeek], 8);
+            gk = getMuhurtaRange(sunriseDate, sunsetVal, GULIKA_KAAL_PARTS[dayOfWeek], 8);
+            yk = getMuhurtaRange(sunriseDate, sunsetVal, YAMAGANDA_KAAL_PARTS[dayOfWeek], 8);
+            am = getMuhurtaRange(sunriseDate, sunsetVal, 8, 15);
 
-            const dayDuration = ss.getTime() - sunrise.getTime();
+            const dayDuration = sunsetVal.getTime() - sunriseDate.getTime();
             const nightDuration = (24 * 60 * 60 * 1000) - dayDuration;
             const muhurtaLength = nightDuration / 15;
-            const brahmaStart = new Date(sunrise.getTime() - 2 * muhurtaLength);
-            const brahmaEnd = new Date(sunrise.getTime() - muhurtaLength);
-            bm = `${formatTime(brahmaStart)} - ${formatTime(brahmaEnd)}`;
+            const brahmaStart = new Date(sunriseDate.getTime() - 2 * muhurtaLength);
+            const brahmaEnd = new Date(sunriseDate.getTime() - muhurtaLength);
+            bm = `${formatISTTime(brahmaStart)} - ${formatISTTime(brahmaEnd)}`;
         }
         muhurtas = { rahu: rk, gulika: gk, yama: yk, abhijit: am, brahma: bm };
         return muhurtas;
@@ -971,22 +1154,67 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number, ayanam
     Object.defineProperty(result, 'abhijitMuhurta', { get: () => calculateMuhurtas().abhijit, enumerable: true });
     Object.defineProperty(result, 'brahmaMuhurta', { get: () => calculateMuhurtas().brahma, enumerable: true });
 
-    let month: { name: string, sanskrit: string } | undefined;
-    const calculateLunarMonth = () => {
-        if (month) return month;
-        const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
-        let monthIdx = 0;
-        if (prevNewMoon) {
-            const rot = Ast.Rotation_EQJ_ECT(prevNewMoon);
-            const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon, rot);
-            const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
-            monthIdx = Math.floor(nmSiderealSunLong / 30);
+    Object.defineProperty(result, 'lunarMonth', { get: () => lunarMonthName, enumerable: true });
+    Object.defineProperty(result, 'lunarMonthSanskrit', { get: () => lunarMonthSanskritName, enumerable: true });
+
+    // Build Formatted Shareable plain-text block
+    const baseIST = new Date(sunriseDate.getTime() + (5.5 * 60 * 60 * 1000));
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const monthsName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const weekdayName = weekdays[baseIST.getUTCDay()];
+    const monthName = monthsName[baseIST.getUTCMonth()];
+    const dateStr = `${weekdayName}, ${monthName} ${baseIST.getUTCDate()}, ${baseIST.getUTCFullYear()}`;
+
+    const lines: string[] = [];
+    lines.push("New Delhi, India");
+    lines.push(dateStr);
+    lines.push(`Sunrise: ${formatISTTime(sunriseDate)}`);
+    lines.push(`Sunset: ${formatISTTime(getSunset() || new Date(sunriseDate.getTime() + 14 * 60 * 60 * 1000))}`);
+
+    for (const t of finalTithisList) {
+        if (t.end) {
+            lines.push(`Tithi: ${t.name} upto ${t.end}`);
+        } else {
+            lines.push(`Tithi: ${t.name}`);
         }
-        month = LUNAR_MONTHS[(monthIdx + 1) % 12];
-        return month;
-    };
-    Object.defineProperty(result, 'lunarMonth', { get: () => calculateLunarMonth().name, enumerable: true });
-    Object.defineProperty(result, 'lunarMonthSanskrit', { get: () => calculateLunarMonth().sanskrit, enumerable: true });
+    }
+    for (const n of finalNakshatrasList) {
+        if (n.end) {
+            lines.push(`Nakshatra: ${n.name} upto ${n.end}`);
+        } else {
+            lines.push(`Nakshatra: ${n.name}`);
+        }
+    }
+    for (const y of finalYogasList) {
+        if (y.end) {
+            lines.push(`Yoga: ${y.name} upto ${y.end}`);
+        } else {
+            lines.push(`Yoga: ${y.name}`);
+        }
+    }
+    for (const k of finalKaranasList) {
+        if (k.end) {
+            lines.push(`Karana: ${k.name} upto ${k.end}`);
+        } else {
+            lines.push(`Karana: ${k.name}`);
+        }
+    }
+    lines.push(`Paksha: ${paksha.name} Paksha`);
+    lines.push(`Weekday: ${WEEKDAY_TRANSLITERATIONS[varaData.name] || varaData.name}`);
+    lines.push(`Amanta Month: ${amanta}`);
+    lines.push(`Purnimanta Month: ${purnimanta}`);
+
+    for (const m of finalMoonsignsList) {
+        const translit = RASI_TRANSLITERATIONS[m.name] || m.name;
+        if (m.end) {
+            lines.push(`Moonsign: ${translit} upto ${m.end}`);
+        } else {
+            lines.push(`Moonsign: ${translit}`);
+        }
+    }
+    lines.push(`Sunsign: ${RASI_TRANSLITERATIONS[sunSign.name] || sunSign.name}`);
+
+    result.formattedText = lines.join("\n");
 
     return result;
 }
