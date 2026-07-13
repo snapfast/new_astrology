@@ -126,6 +126,113 @@ test('getD60Rasi logic', () => {
     assert.strictEqual(getD60Rasi(29.7), 11);
 });
 
+import {
+    getD2Rasi,
+    getD2UmaShambhuRasi,
+    getD4Rasi,
+    getD12Rasi,
+    getD16Rasi,
+    getD20Rasi,
+    getD24Rasi,
+    getD27Rasi,
+    getD30Rasi,
+    getD40Rasi,
+    getD45Rasi
+} from './astrology.ts';
+
+test('getD2Rasi Parashara logic', () => {
+    // Odd sign: Aries (0)
+    assert.strictEqual(getD2Rasi(5), 4); // First 15deg -> Leo (4)
+    assert.strictEqual(getD2Rasi(20), 3); // Second 15deg -> Cancer (3)
+
+    // Even sign: Taurus (1)
+    assert.strictEqual(getD2Rasi(35), 3); // First 15deg -> Cancer (3)
+    assert.strictEqual(getD2Rasi(50), 4); // Second 15deg -> Leo (4)
+});
+
+test('getD2UmaShambhuRasi logic', () => {
+    // Aries (0), first half (0-15) -> Aries (0)
+    assert.strictEqual(getD2UmaShambhuRasi(5), 0);
+    // Aries (0), second half (15-30) -> Taurus (1)
+    assert.strictEqual(getD2UmaShambhuRasi(20), 1);
+
+    // Taurus (1), first half (0-15) -> Cancer (3)
+    assert.strictEqual(getD2UmaShambhuRasi(35), 3);
+    // Taurus (1), second half (15-30) -> Gemini (2)
+    assert.strictEqual(getD2UmaShambhuRasi(50), 2);
+});
+
+test('getD4Rasi logic', () => {
+    // 0 to 7.5 deg is same sign
+    assert.strictEqual(getD4Rasi(2), 0); // Aries 2 -> Aries (0)
+    // 7.5 to 15 deg is 4th sign
+    assert.strictEqual(getD4Rasi(10), 3); // Aries 10 -> Cancer (3)
+    // 15 to 22.5 deg is 7th sign
+    assert.strictEqual(getD4Rasi(18), 6); // Aries 18 -> Libra (6)
+    // 22.5 to 30 deg is 10th sign
+    assert.strictEqual(getD4Rasi(25), 9); // Aries 25 -> Capricorn (9)
+});
+
+test('getD12Rasi logic', () => {
+    // 2.5 deg per division
+    assert.strictEqual(getD12Rasi(1), 0); // Aries 1deg -> Aries (0)
+    assert.strictEqual(getD12Rasi(4), 1); // Aries 4deg -> Taurus (1)
+    assert.strictEqual(getD12Rasi(29), 11); // Aries 29deg -> Pisces (11)
+});
+
+test('getD16Rasi logic', () => {
+    // Shodashamsa: 1.875 deg per division. Odd signs starts from specific elements.
+    // Aries (0): movable/fire -> starts Aries (0)
+    assert.strictEqual(getD16Rasi(1), 0); // first division -> Aries (0)
+    assert.strictEqual(getD16Rasi(3), 1); // second division -> Taurus (1)
+});
+
+test('getD20Rasi logic', () => {
+    // Movable sign: Aries (0) -> starts Aries (0)
+    assert.strictEqual(getD20Rasi(1), 0);
+    // Fixed sign: Taurus (1) -> starts Sagittarius (8)
+    assert.strictEqual(getD20Rasi(31), 8);
+    // Dual sign: Gemini (2) -> starts Leo (4)
+    assert.strictEqual(getD20Rasi(61), 4);
+});
+
+test('getD24Rasi logic', () => {
+    // Odd sign: Aries (0) -> starts Leo (4)
+    assert.strictEqual(getD24Rasi(1), 4);
+    // Even sign: Taurus (1) -> starts Cancer (3)
+    assert.strictEqual(getD24Rasi(31), 3);
+});
+
+test('getD27Rasi logic', () => {
+    // Aries (0): Fire -> starts Aries (0)
+    assert.strictEqual(getD27Rasi(1), 0);
+    // Taurus (1): Earth -> starts Cancer (3)
+    assert.strictEqual(getD27Rasi(31), 3);
+});
+
+test('getD30Rasi logic', () => {
+    // Odd sign: Aries (0)
+    assert.strictEqual(getD30Rasi(4), 0); // Aries (0)
+    assert.strictEqual(getD30Rasi(9), 10); // Aquarius (10)
+    assert.strictEqual(getD30Rasi(15), 8); // Sagittarius (8)
+    assert.strictEqual(getD30Rasi(22), 5); // Virgo (5)
+    assert.strictEqual(getD30Rasi(28), 6); // Libra (6)
+});
+
+test('getD40Rasi logic', () => {
+    // Odd sign: Aries (0) -> starts Aries (0)
+    assert.strictEqual(getD40Rasi(0.5), 0);
+    // Even sign: Taurus (1) -> starts Libra (6)
+    assert.strictEqual(getD40Rasi(30.5), 6);
+});
+
+test('getD45Rasi logic', () => {
+    // Movable: Aries (0) -> starts Aries (0)
+    assert.strictEqual(getD45Rasi(0.5), 0);
+    // Fixed: Taurus (1) -> starts (Taurus(1) + 8) % 12 = Capricorn (9)
+    assert.strictEqual(getD45Rasi(30.5), 9);
+});
+
 test('generateAstrologyData returns complete and valid data structure', () => {
   const dob = "1990-01-01";
   const tob = "12:00";
