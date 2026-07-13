@@ -10,8 +10,14 @@ test('Panchang page lists multiple transitions and has copy text card', async ({
   const dateInput = page.locator('input[type="date"]');
   await expect(dateInput).toBeVisible();
 
+  // Wait for hydration to complete fully
+  await page.waitForTimeout(3000);
+
+  // Explicitly set the date to July 11, 2026 to make the test date-independent
+  await dateInput.fill('2026-07-11');
+
   // Wait for calculations to update
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(3000);
 
   // Assert Tithi, Nakshatra, Yoga, and Karana elements are visible for Saturday, July 11, 2026
   await expect(page.locator('text=Dwadashi').first()).toBeVisible();

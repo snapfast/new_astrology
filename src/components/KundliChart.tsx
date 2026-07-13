@@ -19,7 +19,7 @@ interface HouseConfig {
 const HOUSE_CONFIGS: Record<number, HouseConfig> = {
   1: {
     rasiX: 200,
-    rasiY: 175,
+    rasiY: 180,
     rasiAnchor: 'middle',
     pX: 125,
     pY: 50,
@@ -28,9 +28,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'diamond'
   },
   2: {
-    rasiX: 115,
-    rasiY: 90,
-    rasiAnchor: 'start',
+    rasiX: 100,
+    rasiY: 82,
+    rasiAnchor: 'middle',
     pX: 45,
     pY: 15,
     pWidth: 110,
@@ -38,9 +38,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'horizontal'
   },
   3: {
-    rasiX: 90,
-    rasiY: 115,
-    rasiAnchor: 'end',
+    rasiX: 82,
+    rasiY: 104,
+    rasiAnchor: 'middle',
     pX: 10,
     pY: 55,
     pWidth: 55,
@@ -48,7 +48,7 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'vertical'
   },
   4: {
-    rasiX: 175,
+    rasiX: 180,
     rasiY: 204,
     rasiAnchor: 'end',
     pX: 25,
@@ -58,9 +58,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'diamond'
   },
   5: {
-    rasiX: 85,
-    rasiY: 295,
-    rasiAnchor: 'end',
+    rasiX: 82,
+    rasiY: 304,
+    rasiAnchor: 'middle',
     pX: 10,
     pY: 255,
     pWidth: 55,
@@ -68,9 +68,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'vertical'
   },
   6: {
-    rasiX: 110,
-    rasiY: 330,
-    rasiAnchor: 'start',
+    rasiX: 100,
+    rasiY: 322,
+    rasiAnchor: 'middle',
     pX: 45,
     pY: 335,
     pWidth: 110,
@@ -79,7 +79,7 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
   },
   7: {
     rasiX: 200,
-    rasiY: 228,
+    rasiY: 220,
     rasiAnchor: 'middle',
     pX: 125,
     pY: 280,
@@ -88,9 +88,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'diamond'
   },
   8: {
-    rasiX: 285,
-    rasiY: 310,
-    rasiAnchor: 'end',
+    rasiX: 300,
+    rasiY: 322,
+    rasiAnchor: 'middle',
     pX: 245,
     pY: 335,
     pWidth: 110,
@@ -98,9 +98,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'horizontal'
   },
   9: {
-    rasiX: 310,
-    rasiY: 285,
-    rasiAnchor: 'start',
+    rasiX: 318,
+    rasiY: 304,
+    rasiAnchor: 'middle',
     pX: 335,
     pY: 255,
     pWidth: 55,
@@ -108,7 +108,7 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'vertical'
   },
   10: {
-    rasiX: 225,
+    rasiX: 220,
     rasiY: 204,
     rasiAnchor: 'start',
     pX: 255,
@@ -118,9 +118,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'diamond'
   },
   11: {
-    rasiX: 315,
-    rasiY: 110,
-    rasiAnchor: 'start',
+    rasiX: 318,
+    rasiY: 104,
+    rasiAnchor: 'middle',
     pX: 335,
     pY: 55,
     pWidth: 55,
@@ -128,9 +128,9 @@ const HOUSE_CONFIGS: Record<number, HouseConfig> = {
     orientation: 'vertical'
   },
   12: {
-    rasiX: 285,
-    rasiY: 70,
-    rasiAnchor: 'end',
+    rasiX: 300,
+    rasiY: 82,
+    rasiAnchor: 'middle',
     pX: 245,
     pY: 15,
     pWidth: 110,
