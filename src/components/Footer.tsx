@@ -21,7 +21,8 @@ const TRANSLATIONS = {
     contact: 'Contact',
     rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
     privacy: 'Privacy',
-    terms: 'Terms'
+    terms: 'Terms',
+    faq: 'FAQ'
   },
   hi: {
     desc: 'तारों द्वारा निर्देशित, प्राचीन ज्ञान में निहित। आध्यात्मिक स्पष्टता और संरेखण के लिए पेशेवर वैदिक ज्योतिष सेवाएं।',
@@ -36,7 +37,8 @@ const TRANSLATIONS = {
     contact: 'संपर्क करें',
     rights: 'राहुल बाली ज्योतिष सेवाएं © 2025. सर्वाधिकार सुरक्षित।',
     privacy: 'गोपनीयता',
-    terms: 'शर्तें'
+    terms: 'शर्तें',
+    faq: 'FAQ (अक्सर पूछे जाने वाले प्रश्न)'
   }
 };
 
@@ -84,6 +86,7 @@ const Footer = () => {
           <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
             <li><Link className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
             <li><Link className="text-on-surface font-normal" href="/contact">{t.contact}</Link></li>
+            <li><Link className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
           </ul>
         </div>
       </div>

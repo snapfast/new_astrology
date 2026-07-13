@@ -3,10 +3,11 @@ import BiorhythmClientPage from './BiorhythmClientPage';
 
 export const metadata: Metadata = {
   title: 'Personal Biorhythm Calculator | Pandit Rahul Bali',
-  description: 'Track your physical, emotional, and intellectual biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date.',
+  description: 'Track your physical, emotional, and intellectual biorhythm (Biothytm) cycles. Understand your natural energy peaks and troughs based on your birth date, alongside Panch Pakshi (Panch Oakshi) and Vedic Varga charts analysis.',
   keywords: [
-    "Biorhythm Calculator", "physical emotional intellectual cycles", "energy cycle tracker",
-    "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools"
+    "Biorhythm Calculator", "Biothytm system", "physical emotional intellectual cycles", "energy cycle tracker",
+    "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools",
+    "Panch Pakshi", "Panch Oakshi", "all 17 varga charts", "body biorhythms", "energy flow"
   ],
   alternates: {
     canonical: "https://astro.rahulbali.in/biorhythm",

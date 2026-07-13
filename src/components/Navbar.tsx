@@ -25,7 +25,8 @@ const TRANSLATIONS = {
     location: 'Gurugram, India',
     switchLanguage: 'Switch Language / भाषा बदलें',
     openMenu: 'Open Menu',
-    closeMenu: 'Close Menu'
+    closeMenu: 'Close Menu',
+    faq: 'FAQ'
   },
   hi: {
     home: 'होम',
@@ -43,7 +44,8 @@ const TRANSLATIONS = {
     location: 'गुरुग्राम, भारत',
     switchLanguage: 'भाषा बदलें / Switch Language',
     openMenu: 'मेन्यू खोलें',
-    closeMenu: 'मेन्यू बंद करें'
+    closeMenu: 'मेन्यू बंद करें',
+    faq: 'FAQ (प्रश्न)'
   }
 };
 
@@ -101,7 +103,8 @@ const Navbar = () => {
       name: t.tools,
       subLinks: [
         { name: t.biorhythm, href: '/biorhythm' },
-        { name: t.panchPakshi, href: '/panch-pakshi' }
+        { name: t.panchPakshi, href: '/panch-pakshi' },
+        { name: t.faq, href: '/faq' }
       ]
     },
     { name: t.about, href: '/about' },
