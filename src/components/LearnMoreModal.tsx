@@ -86,7 +86,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             {/* Sample Reports */}
             <div className="p-3.5 md:p-4 bg-surface-bright border border-outline/10 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 text-center sm:text-left">
               <div className="w-10 h-10 md:w-11 md:h-11 bg-white rounded-xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-on-surface text-xl">folder_open</span>
+                <span className="material-symbols-outlined text-on-surface text-xl" aria-hidden="true">folder_open</span>
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg lg:text-xl'}`}>{t.sampleTitle}</h3>
@@ -112,7 +112,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   }`}
                 >
                   {t.sampleBtn}
-                  <span className="material-symbols-outlined text-xs">open_in_new</span>
+                  <span className="material-symbols-outlined text-xs" aria-hidden="true">open_in_new</span>
                 </a>
               </div>
             </div>
@@ -120,7 +120,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             {/* Spiritual Insights */}
             <div className="p-3.5 md:p-4 bg-surface-bright border border-outline/10 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 text-center sm:text-left">
               <div className="w-10 h-10 md:w-11 md:h-11 bg-white rounded-xl border border-outline/10 flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-on-surface text-xl">alternate_email</span>
+                <span className="material-symbols-outlined text-on-surface text-xl" aria-hidden="true">alternate_email</span>
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg lg:text-xl'}`}>{t.socialTitle}</h3>
@@ -146,7 +146,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   }`}
                 >
                   {t.socialBtn}
-                  <span className="material-symbols-outlined text-xs">open_in_new</span>
+                  <span className="material-symbols-outlined text-xs" aria-hidden="true">open_in_new</span>
                 </a>
               </div>
             </div>

@@ -126,7 +126,7 @@ const Navbar = () => {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
-            <span className="material-symbols-outlined !text-2xl">menu</span>
+            <span className="material-symbols-outlined !text-2xl" aria-hidden="true">menu</span>
           </button>
 
           {/* Logo */}
@@ -251,7 +251,7 @@ const Navbar = () => {
             className="p-2 -mr-2 text-on-surface hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label={t.closeMenu}
           >
-            <span className="material-symbols-outlined !text-2xl">close</span>
+            <span className="material-symbols-outlined !text-2xl" aria-hidden="true">close</span>
           </button>
         </div>
 

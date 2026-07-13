@@ -110,7 +110,7 @@ const Testimonials = () => {
               >
                 <GoogleIcon />
                 {t.viewOnGoogle}
-                <span className="material-symbols-outlined text-sm">open_in_new</span>
+                <span className="material-symbols-outlined text-sm" aria-hidden="true">open_in_new</span>
               </a>
 
               <div className="flex flex-col gap-1.5">
@@ -124,14 +124,14 @@ const Testimonials = () => {
                   className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   aria-label={t.prev}
                 >
-                  <span className="material-symbols-outlined">chevron_left</span>
+                  <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
                 </button>
                 <button
                   onClick={() => { nextSlide(); setIsAutoPlaying(false); }}
                   className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   aria-label={t.next}
                 >
-                  <span className="material-symbols-outlined">chevron_right</span>
+                  <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
                 </button>
               </div>
             </div>
