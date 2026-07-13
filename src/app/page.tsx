@@ -11,7 +11,12 @@ import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
   title: "Rahul Bali Astrology | Expert Vedic Astrologer in Gurugram & Online",
-  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram (Gurgaon). Get accurate Janam Kundli readings, career guidance, relationship advice, and spiritual remedies.",
+  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram (Gurgaon). Get accurate Janam Kundli readings, all 17 divisional varga charts, Panch Pakshi (Panch Oakshi) analysis, and Biorhythm (Biothytm) cycles.",
+  keywords: [
+    "Rahul Bali Astrology", "Vedic Astrologer Gurugram", "Astrologer Gurgaon", "Janam Kundli",
+    "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
+    "Panch Pakshi system", "Panch Oakshi calculator", "Biorhythm system", "Biothytm tracker"
+  ],
   alternates: {
     canonical: "https://astro.rahulbali.in",
   },
