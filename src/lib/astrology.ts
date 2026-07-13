@@ -109,10 +109,21 @@ export interface PanchangData {
 export interface ChartData {
     planets: PlanetData[];
     d1: DivisionalChartData;
+    d2: DivisionalChartData;
+    d2us: DivisionalChartData;
     d3: DivisionalChartData;
+    d4: DivisionalChartData;
     d7: DivisionalChartData;
     d9: DivisionalChartData;
     d10: DivisionalChartData;
+    d12: DivisionalChartData;
+    d16: DivisionalChartData;
+    d20: DivisionalChartData;
+    d24: DivisionalChartData;
+    d27: DivisionalChartData;
+    d30: DivisionalChartData;
+    d40: DivisionalChartData;
+    d45: DivisionalChartData;
     d60: DivisionalChartData;
     mahadashas: Mahadasha[];
     panchang: PanchangData;
@@ -469,7 +480,10 @@ function getEmptyChartData(): ChartData {
     };
     return {
         planets: [],
-        d1: emptyChart, d3: emptyChart, d7: emptyChart, d9: emptyChart, d10: emptyChart, d60: emptyChart,
+        d1: emptyChart, d2: emptyChart, d2us: emptyChart, d3: emptyChart, d4: emptyChart,
+        d7: emptyChart, d9: emptyChart, d10: emptyChart, d12: emptyChart, d16: emptyChart,
+        d20: emptyChart, d24: emptyChart, d27: emptyChart, d30: emptyChart, d40: emptyChart,
+        d45: emptyChart, d60: emptyChart,
         mahadashas: [],
         panchang: emptyPanchang
     };
@@ -514,12 +528,16 @@ function calculatePlanetaryAndDivisionalData(
     tropicalMoonLong: number
 ) {
     const planetData: PlanetData[] = [];
-    const chartKeys = ['d1', 'd3', 'd7', 'd9', 'd10', 'd60'] as const;
-    const divisions: Record<ChartKey, number> = { d1: 1, d3: 3, d7: 7, d9: 9, d10: 10, d60: 60 };
+    const chartKeys = ['d1', 'd2', 'd2us', 'd3', 'd4', 'd7', 'd9', 'd10', 'd12', 'd16', 'd20', 'd24', 'd27', 'd30', 'd40', 'd45', 'd60'] as const;
+    const divisions: Record<ChartKey, number> = {
+        d1: 1, d2: 2, d2us: 2, d3: 3, d4: 4, d7: 7, d9: 9, d10: 10,
+        d12: 12, d16: 16, d20: 20, d24: 24, d27: 27, d30: 30, d40: 40, d45: 45, d60: 60
+    };
     type ChartKey = typeof chartKeys[number];
 
     const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> }> = {
-        d1: {}, d3: {}, d7: {}, d9: {}, d10: {}, d60: {}
+        d1: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
+        d12: {}, d16: {}, d20: {}, d24: {}, d27: {}, d30: {}, d40: {}, d45: {}, d60: {}
     };
 
     for (let k = 0; k < chartKeys.length; k++) {
@@ -547,19 +565,41 @@ function calculatePlanetaryAndDivisionalData(
 
     const lagnaRasis: Record<ChartKey, number> = {
         d1: lagnaRasiIdx,
+        d2: getD2Rasi(lagnaSidereal),
+        d2us: getD2UmaShambhuRasi(lagnaSidereal),
         d3: getD3Rasi(lagnaSidereal),
+        d4: getD4Rasi(lagnaSidereal),
         d7: getD7Rasi(lagnaSidereal),
         d9: getD9Rasi(lagnaSidereal),
         d10: getD10Rasi(lagnaSidereal),
+        d12: getD12Rasi(lagnaSidereal),
+        d16: getD16Rasi(lagnaSidereal),
+        d20: getD20Rasi(lagnaSidereal),
+        d24: getD24Rasi(lagnaSidereal),
+        d27: getD27Rasi(lagnaSidereal),
+        d30: getD30Rasi(lagnaSidereal),
+        d40: getD40Rasi(lagnaSidereal),
+        d45: getD45Rasi(lagnaSidereal),
         d60: getD60Rasi(lagnaSidereal)
     };
 
     const assignToCharts = (symbol: string, siderealLong: number, isRetro: boolean) => {
         assignments.d1[((Math.floor(siderealLong / 30) - lagnaRasis.d1 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 1) % 30) });
+        assignments.d2[((getD2Rasi(siderealLong) - lagnaRasis.d2 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 2) % 30) });
+        assignments.d2us[((getD2UmaShambhuRasi(siderealLong) - lagnaRasis.d2us + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 2) % 30) });
         assignments.d3[((getD3Rasi(siderealLong) - lagnaRasis.d3 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 3) % 30) });
+        assignments.d4[((getD4Rasi(siderealLong) - lagnaRasis.d4 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 4) % 30) });
         assignments.d7[((getD7Rasi(siderealLong) - lagnaRasis.d7 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 7) % 30) });
         assignments.d9[((getD9Rasi(siderealLong) - lagnaRasis.d9 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 9) % 30) });
         assignments.d10[((getD10Rasi(siderealLong) - lagnaRasis.d10 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 10) % 30) });
+        assignments.d12[((getD12Rasi(siderealLong) - lagnaRasis.d12 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 12) % 30) });
+        assignments.d16[((getD16Rasi(siderealLong) - lagnaRasis.d16 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 16) % 30) });
+        assignments.d20[((getD20Rasi(siderealLong) - lagnaRasis.d20 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 20) % 30) });
+        assignments.d24[((getD24Rasi(siderealLong) - lagnaRasis.d24 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 24) % 30) });
+        assignments.d27[((getD27Rasi(siderealLong) - lagnaRasis.d27 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 27) % 30) });
+        assignments.d30[((getD30Rasi(siderealLong) - lagnaRasis.d30 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 30) % 30) });
+        assignments.d40[((getD40Rasi(siderealLong) - lagnaRasis.d40 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 40) % 30) });
+        assignments.d45[((getD45Rasi(siderealLong) - lagnaRasis.d45 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 45) % 30) });
         assignments.d60[((getD60Rasi(siderealLong) - lagnaRasis.d60 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 60) % 30) });
     };
 
@@ -606,7 +646,8 @@ function calculatePlanetaryAndDivisionalData(
     assignToCharts("Ke", ketuSidereal, true);
 
     const houseRasis: Record<ChartKey, { [key: number]: number }> = {
-        d1: {}, d3: {}, d7: {}, d9: {}, d10: {}, d60: {}
+        d1: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
+        d12: {}, d16: {}, d20: {}, d24: {}, d27: {}, d30: {}, d40: {}, d45: {}, d60: {}
     };
 
     for (let k = 0; k < chartKeys.length; k++) {
@@ -621,10 +662,21 @@ function calculatePlanetaryAndDivisionalData(
     return {
         planets: planetData,
         d1: { houses: assignments.d1, houseRasis: houseRasis.d1 },
+        d2: { houses: assignments.d2, houseRasis: houseRasis.d2 },
+        d2us: { houses: assignments.d2us, houseRasis: houseRasis.d2us },
         d3: { houses: assignments.d3, houseRasis: houseRasis.d3 },
+        d4: { houses: assignments.d4, houseRasis: houseRasis.d4 },
         d7: { houses: assignments.d7, houseRasis: houseRasis.d7 },
         d9: { houses: assignments.d9, houseRasis: houseRasis.d9 },
         d10: { houses: assignments.d10, houseRasis: houseRasis.d10 },
+        d12: { houses: assignments.d12, houseRasis: houseRasis.d12 },
+        d16: { houses: assignments.d16, houseRasis: houseRasis.d16 },
+        d20: { houses: assignments.d20, houseRasis: houseRasis.d20 },
+        d24: { houses: assignments.d24, houseRasis: houseRasis.d24 },
+        d27: { houses: assignments.d27, houseRasis: houseRasis.d27 },
+        d30: { houses: assignments.d30, houseRasis: houseRasis.d30 },
+        d40: { houses: assignments.d40, houseRasis: houseRasis.d40 },
+        d45: { houses: assignments.d45, houseRasis: houseRasis.d45 },
         d60: { houses: assignments.d60, houseRasis: houseRasis.d60 }
     };
 }
@@ -698,10 +750,21 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
     Object.defineProperty(result, 'planets', { get: () => getCoreData().planets, enumerable: true });
     Object.defineProperty(result, 'd1', { get: () => getCoreData().d1, enumerable: true });
+    Object.defineProperty(result, 'd2', { get: () => getCoreData().d2, enumerable: true });
+    Object.defineProperty(result, 'd2us', { get: () => getCoreData().d2us, enumerable: true });
     Object.defineProperty(result, 'd3', { get: () => getCoreData().d3, enumerable: true });
+    Object.defineProperty(result, 'd4', { get: () => getCoreData().d4, enumerable: true });
     Object.defineProperty(result, 'd7', { get: () => getCoreData().d7, enumerable: true });
     Object.defineProperty(result, 'd9', { get: () => getCoreData().d9, enumerable: true });
     Object.defineProperty(result, 'd10', { get: () => getCoreData().d10, enumerable: true });
+    Object.defineProperty(result, 'd12', { get: () => getCoreData().d12, enumerable: true });
+    Object.defineProperty(result, 'd16', { get: () => getCoreData().d16, enumerable: true });
+    Object.defineProperty(result, 'd20', { get: () => getCoreData().d20, enumerable: true });
+    Object.defineProperty(result, 'd24', { get: () => getCoreData().d24, enumerable: true });
+    Object.defineProperty(result, 'd27', { get: () => getCoreData().d27, enumerable: true });
+    Object.defineProperty(result, 'd30', { get: () => getCoreData().d30, enumerable: true });
+    Object.defineProperty(result, 'd40', { get: () => getCoreData().d40, enumerable: true });
+    Object.defineProperty(result, 'd45', { get: () => getCoreData().d45, enumerable: true });
     Object.defineProperty(result, 'd60', { get: () => getCoreData().d60, enumerable: true });
 
     return result;
@@ -1355,11 +1418,53 @@ export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Ma
     return mahadashas;
 }
 
+export function getD2Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const isOdd = rasiIdx % 2 === 0; // Aries=0 (Odd), Taurus=1 (Even) etc. in 0-indexed rasis
+    if (isOdd) {
+        return degInRasi < 15 ? 4 : 3; // 4: Leo (Sun), 3: Cancer (Moon)
+    } else {
+        return degInRasi < 15 ? 3 : 4; // 3: Cancer (Moon), 4: Leo (Sun)
+    }
+}
+
+// Uma Shambhu Hora (D2 US)
+// Aries=0, Taurus=1, Gemini=2, Cancer=3, Leo=4, Virgo=5, Libra=6, Scorpio=7, Sagittarius=8, Capricorn=9, Aquarius=10, Pisces=11
+export function getD2UmaShambhuRasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const isFirstHalf = degInRasi < 15;
+
+    switch (rasiIdx) {
+        case 0: return isFirstHalf ? 0 : 1; // Aries -> Aries/Taurus
+        case 1: return isFirstHalf ? 3 : 2; // Taurus -> Cancer/Gemini
+        case 2: return isFirstHalf ? 4 : 5; // Gemini -> Leo/Virgo
+        case 3: return isFirstHalf ? 7 : 6; // Cancer -> Scorpio/Libra
+        case 4: return isFirstHalf ? 8 : 9; // Leo -> Sagittarius/Capricorn
+        case 5: return isFirstHalf ? 11 : 10; // Virgo -> Pisces/Aquarius
+        case 6: return isFirstHalf ? 0 : 1; // Libra -> Aries/Taurus
+        case 7: return isFirstHalf ? 3 : 2; // Scorpio -> Cancer/Gemini
+        case 8: return isFirstHalf ? 4 : 5; // Sagittarius -> Leo/Virgo
+        case 9: return isFirstHalf ? 7 : 6; // Capricorn -> Scorpio/Libra
+        case 10: return isFirstHalf ? 8 : 9; // Aquarius -> Sagittarius/Capricorn
+        case 11: return isFirstHalf ? 11 : 10; // Pisces -> Pisces/Aquarius
+        default: return 0;
+    }
+}
+
 export function getD3Rasi(long: number): number {
     const rasiIdx = Math.floor(long / 30);
     const degInRasi = long % 30;
     const drekkanaIdx = Math.floor(degInRasi / DREKKANA_WIDTH); // 0, 1, 2
     return (rasiIdx + drekkanaIdx * 4) % 12;
+}
+
+export function getD4Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const partIdx = Math.floor(degInRasi / 7.5); // 0 to 3
+    return (rasiIdx + partIdx * 3) % 12; // 1st is same, 2nd is 4th, 3rd is 7th, 4th is 10th
 }
 
 export function getD7Rasi(long: number): number {
@@ -1401,6 +1506,102 @@ export function getD10Rasi(long: number): number {
     }
 
     return (startSign + dashamshaIdx) % 12;
+}
+
+export function getD12Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const dwadashamsaIdx = Math.floor(degInRasi / 2.5); // 0 to 11
+    return (rasiIdx + dwadashamsaIdx) % 12;
+}
+
+export function getD16Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const shodashamsaIdx = Math.floor(degInRasi / (30 / 16)); // 0 to 15
+    const elementsStart = [0, 3, 8, 11]; // Aries (0), Cancer (3), Sagittarius (8), Pisces (11) for Fire, Earth, Air, Water
+    const startSign = elementsStart[rasiIdx % 4];
+    return (startSign + shodashamsaIdx) % 12;
+}
+
+export function getD20Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const vimshamsaIdx = Math.floor(degInRasi / 1.5); // 0 to 19
+    let startSign = 0;
+    if (rasiIdx % 3 === 0) { // Movable signs (Aries, Cancer, Libra, Capricorn)
+        startSign = 0; // Aries
+    } else if (rasiIdx % 3 === 1) { // Fixed signs (Taurus, Leo, Scorpio, Aquarius)
+        startSign = 8; // Sagittarius (9th sign, 0-indexed is 8)
+    } else { // Dual signs (Gemini, Virgo, Sagittarius, Pisces)
+        startSign = 4; // Leo (5th sign, 0-indexed is 4)
+    }
+    return (startSign + vimshamsaIdx) % 12;
+}
+
+export function getD24Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const chaturvimshamsaIdx = Math.floor(degInRasi / 1.25); // 0 to 23
+    let startSign = 4; // odd signs start from Leo (4)
+    if (rasiIdx % 2 !== 0) { // even signs
+        startSign = 10; // start from Cancer (Cancer is 4th sign, 0-indexed is 3... Wait, Parashara says: "For even signs, starting from Cancer" -> Cancer is index 3. Let's check: "Odd signs from Leo, Even signs from Cancer". Yes! Cancer is index 3.)
+        startSign = 3;
+    }
+    return (startSign + chaturvimshamsaIdx) % 12;
+}
+
+export function getD27Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const nakshatramsaIdx = Math.floor(degInRasi / (30 / 27)); // 0 to 26
+    const starts = [0, 3, 6, 9]; // Fire=Aries (0), Earth=Cancer (3), Air=Libra (6), Water=Capricorn (9)
+    const startSign = starts[rasiIdx % 4];
+    return (startSign + nakshatramsaIdx) % 12;
+}
+
+export function getD30Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const isOdd = rasiIdx % 2 === 0;
+
+    if (isOdd) {
+        if (degInRasi < 5) return 0; // Aries (0)
+        if (degInRasi < 10) return 10; // Aquarius (10)
+        if (degInRasi < 18) return 8; // Sagittarius (8)
+        if (degInRasi < 25) return 5; // Virgo (5)
+        return 6; // Libra (6)
+    } else {
+        if (degInRasi < 5) return 1; // Taurus (1)
+        if (degInRasi < 12) return 5; // Virgo (5)
+        if (degInRasi < 20) return 8; // Sagittarius (8)
+        if (degInRasi < 25) return 10; // Aquarius (10)
+        return 0; // Aries (0)
+    }
+}
+
+export function getD40Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const khavedamsaIdx = Math.floor(degInRasi / 0.75); // 0 to 39
+    let startSign = 0; // odd signs start from Aries (0)
+    if (rasiIdx % 2 !== 0) { // even signs
+        startSign = 6; // start from Libra (6)
+    }
+    return (startSign + khavedamsaIdx) % 12;
+}
+
+export function getD45Rasi(long: number): number {
+    const rasiIdx = Math.floor(long / 30);
+    const degInRasi = long % 30;
+    const akshavedamsaIdx = Math.floor(degInRasi / (30 / 45)); // 0 to 44
+    let startSign = rasiIdx; // movable start from rasi itself (for movable rasis rasiIdx % 3 === 0)
+    if (rasiIdx % 3 === 1) { // fixed signs start from 9th from it
+        startSign = (rasiIdx + 8) % 12;
+    } else if (rasiIdx % 3 === 2) { // dual signs start from 5th from it
+        startSign = (rasiIdx + 4) % 12;
+    }
+    return (startSign + akshavedamsaIdx) % 12;
 }
 
 export function getD60Rasi(long: number): number {

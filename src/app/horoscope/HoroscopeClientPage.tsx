@@ -37,11 +37,23 @@ const TRANSLATIONS = {
     gulika: "Gulika Kaal",
     yamaganda: "Yamaganda Kaal",
     d1Chart: "Lagna Chart (D1)",
+    d2Chart: "Parashara Hora Chart (D2)",
+    d2usChart: "Uma Shambhu Hora Chart (D2-US)",
     d3Chart: "Drekkana Chart (D3)",
+    d4Chart: "Chaturthamsa Chart (D4)",
     d7Chart: "Saptamsha Chart (D7)",
     d9Chart: "Navamsha Chart (D9)",
     d10Chart: "Dashamsha Chart (D10)",
+    d12Chart: "Dwadashamsa Chart (D12)",
+    d16Chart: "Shodashamsa Chart (D16)",
+    d20Chart: "Vimshamsa Chart (D20)",
+    d24Chart: "Siddhamsa Chart (D24)",
+    d27Chart: "Saptavimshamsa Chart (D27)",
+    d30Chart: "Trimsamsa Chart (D30)",
+    d40Chart: "Khavedamsa Chart (D40)",
+    d45Chart: "Akshavedamsa Chart (D45)",
     d60Chart: "Shashtiamsha Chart (D60)",
+    moreVargas: "More Divisional Charts (Vargas)",
     planet: "Planet",
     house: "House",
     rasi: "Rasi",
@@ -88,11 +100,23 @@ const TRANSLATIONS = {
     gulika: "गुलिक काल",
     yamaganda: "यमगण्ड काल",
     d1Chart: "लग्न चार्ट (D1)",
+    d2Chart: "पराशर होरा चार्ट (D2)",
+    d2usChart: "उमा शंभू होरा चार्ट (D2-US)",
     d3Chart: "द्रेष्काण चार्ट (D3)",
+    d4Chart: "चतुर्थांश चार्ट (D4)",
     d7Chart: "सप्तमंश चार्ट (D7)",
     d9Chart: "नवांश चार्ट (D9)",
     d10Chart: "दशमांश चार्ट (D10)",
+    d12Chart: "द्वादशांश चार्ट (D12)",
+    d16Chart: "षोडशांश चार्ट (D16)",
+    d20Chart: "विंशांश चार्ट (D20)",
+    d24Chart: "सिद्धांश चार्ट (D24)",
+    d27Chart: "सप्तविंशांश चार्ट (D27)",
+    d30Chart: "त्रिशांश चार्ट (D30)",
+    d40Chart: "खवेदांश चार्ट (D40)",
+    d45Chart: "अक्षवेदांश चार्ट (D45)",
     d60Chart: "षष्ट्यंश चार्ट (D60)",
+    moreVargas: "अन्य विभागीय कुंडली (वर्ग)",
     planet: "ग्रह",
     house: "भाव",
     rasi: "राशि",
@@ -121,6 +145,7 @@ const TRANSLATIONS = {
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [showCopied, setShowCopied] = useState(false);
+  const [moreVargasExpanded, setMoreVargasExpanded] = useState(false);
 
   const goToCompact = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_go_compact' });
@@ -489,6 +514,86 @@ const HoroscopeContent = () => {
             <KundliChart data={chartData.d60} />
           </div>
         </div>
+
+        {/* Collapsible: More Divisional Charts (Vargas) */}
+        <div className="border border-outline/50 rounded-3xl overflow-hidden shadow-sm bg-white mt-8 print:hidden">
+          <button
+            onClick={() => {
+              sendGAEvent({ event: 'action_click', action_name: 'horoscope_toggle_more_vargas' });
+              setMoreVargasExpanded(!moreVargasExpanded);
+            }}
+            aria-expanded={moreVargasExpanded}
+            aria-controls="more-vargas-container"
+            className="w-full flex items-center justify-between px-6 py-4 bg-surface-container-low text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-200"
+          >
+            <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface flex items-center gap-2">
+              <span className="material-symbols-outlined text-accent">view_quilt</span>
+              {t.moreVargas}
+            </h3>
+            <span className={cn(
+              "material-symbols-outlined text-2xl transition-transform duration-300",
+              moreVargasExpanded ? "rotate-180" : ""
+            )}>
+              expand_more
+            </span>
+          </button>
+
+          <div
+            id="more-vargas-container"
+            className={cn(
+              "transition-all duration-500 ease-in-out",
+              moreVargasExpanded ? "max-h-[8000px] border-t border-outline/30 p-6 md:p-8" : "max-h-0 overflow-hidden"
+            )}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d2Chart}</h2>
+                <KundliChart data={chartData.d2} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d2usChart}</h2>
+                <KundliChart data={chartData.d2us} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d4Chart}</h2>
+                <KundliChart data={chartData.d4} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d12Chart}</h2>
+                <KundliChart data={chartData.d12} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d16Chart}</h2>
+                <KundliChart data={chartData.d16} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d20Chart}</h2>
+                <KundliChart data={chartData.d20} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d24Chart}</h2>
+                <KundliChart data={chartData.d24} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d27Chart}</h2>
+                <KundliChart data={chartData.d27} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d30Chart}</h2>
+                <KundliChart data={chartData.d30} />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d40Chart}</h2>
+                <KundliChart data={chartData.d40} />
+              </div>
+              <div className="space-y-6 md:col-span-2 md:max-w-2xl md:mx-auto md:w-full">
+                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d45Chart}</h2>
+                <KundliChart data={chartData.d45} />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <p className={`text-xs text-on-surface text-center pt-4 ${lang === 'hi' ? 'font-hindi' : ''}`}>{t.northIndianStyle}</p>
       </div>
 
