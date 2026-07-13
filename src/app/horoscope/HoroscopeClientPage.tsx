@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
-import { generateAstrologyData, getSignInsight } from '@/lib/astrology';
+import { generateAstrologyData } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -63,8 +63,6 @@ const TRANSLATIONS = {
     pada: "Pada",
     planetaryPositions: "Planetary Positions",
     vimshottariDasha: "Vimshottari Dasha",
-    sunSignInsight: "Sun Sign Insight",
-    moonSignInsight: "Moon Sign Insight",
     generateNew: "Generate New Chart",
     pageTitle: "Your Birth Chart",
     compactView: "Compact Dashboard",
@@ -126,8 +124,6 @@ const TRANSLATIONS = {
     pada: "पद",
     planetaryPositions: "ग्रहों की स्थिति",
     vimshottariDasha: "विंशोत्तरी दशा",
-    sunSignInsight: "सूर्य राशि अंतर्दृष्टि",
-    moonSignInsight: "चंद्र राशि अंतर्दृष्टि",
     generateNew: "नई कुंडली बनाएं",
     pageTitle: "आपकी जन्म कुंडली",
     compactView: "कॉम्पैक्ट डैशबोर्ड",
@@ -247,32 +243,6 @@ const HoroscopeContent = () => {
       </PageHeader>
 
       <div className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16">
-        {/* New: Personality Insights Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-accent/5 border border-accent/20 rounded-3xl p-6 text-left relative overflow-hidden group">
-            <div className="relative z-10">
-              <span className={cn(
-                "text-xs font-bold text-accent uppercase font-label block mb-2",
-                lang === 'hi' ? "tracking-normal" : "tracking-[0.2em]"
-              )}>{t.sunSignInsight}</span>
-              <h3 className={`text-xl text-on-surface mb-3 ${lang === 'hi' ? 'font-hindi' : 'font-headline'}`}>{lang === 'en' ? sunSign : chartData.panchang.sunSignSanskrit}</h3>
-              <p className="text-sm text-on-surface font-body leading-relaxed">{getSignInsight(sunSign, lang)}</p>
-            </div>
-            <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-accent select-none group-hover:scale-110 transition-transform duration-700">light_mode</span>
-          </div>
-          <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 text-left relative overflow-hidden group">
-            <div className="relative z-10">
-              <span className={cn(
-                "text-xs font-bold text-primary uppercase font-label block mb-2",
-                lang === 'hi' ? "tracking-normal" : "tracking-[0.2em]"
-              )}>{t.moonSignInsight}</span>
-              <h3 className={`text-xl text-on-surface mb-3 ${lang === 'hi' ? 'font-hindi' : 'font-headline'}`}>{lang === 'en' ? moonSign : chartData.panchang.moonSignSanskrit}</h3>
-              <p className="text-sm text-on-surface font-body leading-relaxed">{getSignInsight(moonSign, lang)}</p>
-            </div>
-            <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-primary select-none group-hover:scale-110 transition-transform duration-700">dark_mode</span>
-          </div>
-        </div>
-
         <div className="space-y-3 text-left">
           {/* Section: Birth Information */}
           <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm">
