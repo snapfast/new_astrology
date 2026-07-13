@@ -58,11 +58,13 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
       isOpen={isOpen}
       onClose={onClose}
       maxWidth="max-w-lg lg:max-w-4xl"
+      ariaLabelledBy="book-consultation-title"
+      ariaDescribedBy="book-consultation-desc"
     >
       <div className="p-4 md:p-6">
           {/* Header */}
           <div className="flex justify-between items-center mb-3 md:mb-5">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
+            <h2 id="book-consultation-title" className="text-2xl md:text-3xl lg:text-4xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
@@ -71,7 +73,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-on-surface/5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.closeModal}
             >
-              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl" aria-hidden="true">close</span>
             </button>
           </div>
 
@@ -102,7 +104,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     }`}>{t.videoBadge}</span>
                   </div>
                 </div>
-                <p className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-base' : 'text-sm md:text-base'}`}>{t.meetDesc}</p>
+                <p id="book-consultation-desc" className={`text-on-surface/80 font-body leading-relaxed max-w-xl ${lang === 'hi' ? 'text-base' : 'text-sm md:text-base'}`}>{t.meetDesc}</p>
 
                 {/* Compact, Info-Rich Highlights */}
                 <div className="mt-4 pt-3 border-t border-outline/5">

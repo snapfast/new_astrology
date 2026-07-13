@@ -64,10 +64,12 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       maxWidth="max-w-lg md:max-w-2xl"
+      ariaLabelledBy="learn-more-title"
+      ariaDescribedBy="learn-more-desc"
     >
       <div className="p-4 md:p-5">
           <div className="flex justify-between items-center mb-3 md:mb-4">
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
+            <h2 id="learn-more-title" className="text-xl md:text-2xl lg:text-3xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'learn_modal_close' });
@@ -76,7 +78,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               className="w-10 h-10 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.closeModal}
             >
-              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl" aria-hidden="true">close</span>
             </button>
           </div>
 
@@ -88,7 +90,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-lg md:text-xl' : 'text-base md:text-lg lg:text-xl'}`}>{t.sampleTitle}</h3>
-                <p className={`text-on-surface/70 font-body mb-3 max-w-lg leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-[13px]'}`}>{t.sampleDesc}</p>
+                <p id="learn-more-desc" className={`text-on-surface/70 font-body mb-3 max-w-lg leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-[13px]'}`}>{t.sampleDesc}</p>
 
                 {/* Highlights */}
                 <ul className="mb-3.5 space-y-1 text-left">

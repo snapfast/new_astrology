@@ -48,6 +48,8 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
       maxWidth="max-w-5xl"
       containerClassName="p-2 md:p-6"
       wrapperClassName="rounded-2xl md:rounded-3xl border-white/20 duration-500 overflow-hidden flex flex-col md:flex-row max-h-[80vh] md:max-h-[90vh]"
+      ariaLabelledBy="service-detail-title"
+      ariaDescribedBy="service-detail-desc"
     >
       {/* Image Section */}
         <div className="relative w-full md:w-1/3 h-40 md:h-auto bg-surface-bright">
@@ -66,7 +68,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10  border border-white/20 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 active:scale-95"
             aria-label={t.close}
           >
-            <span className="material-symbols-outlined">close</span>
+            <span className="material-symbols-outlined" aria-hidden="true">close</span>
           </button>
         </div>
 
@@ -77,7 +79,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               <span className={`font-medium text-accent mb-1 block font-label ${
                 lang === 'hi' ? 'text-xs tracking-normal' : 'text-[9px] tracking-[0.3em] uppercase'
               }`}>{t.serviceDetail}</span>
-              <h2 className={`font-normal text-on-surface font-headline tracking-tight ${
+              <h2 id="service-detail-title" className={`font-normal text-on-surface font-headline tracking-tight ${
                 lang === 'hi' ? 'text-2xl md:text-3xl' : 'text-2xl md:text-3xl lg:text-4xl'
               }`}>
                 {service.title}
@@ -88,11 +90,11 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               className="hidden md:flex w-10 h-10 items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
               aria-label={t.close}
             >
-              <span className="material-symbols-outlined text-on-surface text-xl">close</span>
+              <span className="material-symbols-outlined text-on-surface text-xl" aria-hidden="true">close</span>
             </button>
           </div>
 
-          <p className={`text-on-surface/80 leading-relaxed font-body mb-4 md:mb-6 max-w-2xl ${
+          <p id="service-detail-desc" className={`text-on-surface/80 leading-relaxed font-body mb-4 md:mb-6 max-w-2xl ${
             lang === 'hi' ? 'text-base' : 'text-xs md:text-sm'
           }`}>
             {service.description}

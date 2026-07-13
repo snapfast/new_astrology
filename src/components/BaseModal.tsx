@@ -12,6 +12,8 @@ interface BaseModalProps {
   backdropClassName?: string;
   containerClassName?: string;
   wrapperClassName?: string;
+  ariaLabelledBy?: string;
+  ariaDescribedBy?: string;
 }
 
 const BaseModal: FC<BaseModalProps> = ({
@@ -23,6 +25,8 @@ const BaseModal: FC<BaseModalProps> = ({
   backdropClassName = 'bg-on-surface/60 ',
   containerClassName = 'p-2 md:p-4',
   wrapperClassName = 'rounded-2xl md:rounded-3xl border-white/20 duration-500',
+  ariaLabelledBy,
+  ariaDescribedBy,
 }) => {
   const containerRef = useFocusTrap(isOpen);
 
@@ -59,6 +63,8 @@ const BaseModal: FC<BaseModalProps> = ({
       data-base-modal="true"
       role="dialog"
       aria-modal="true"
+      aria-labelledby={ariaLabelledBy}
+      aria-describedby={ariaDescribedBy}
     >
       {/* Backdrop */}
       <div

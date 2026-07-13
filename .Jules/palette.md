@@ -1,3 +1,3 @@
-## 2025-02-12 - [Modal Accessibility]
-**Learning:** The `BaseModal` component, which underpins the majority of modals in the application (`LearnMoreModal`, `BookConsultationModal`, `ServiceDetailModal`), lacked a global `Escape` key dismiss handler. This is a fundamental keyboard accessibility expectation for modals.
-**Action:** Always verify that foundational UI container components (like `BaseModal`, `Sheet`, `Drawer`) implement comprehensive keyboard navigation support (Escape to close, focus trapping) to propagate these accessibility wins globally across the application.
+## 2024-05-14 - Modal Screen Reader Context
+**Learning:** For floating modals and dialogs containing complex sub-text descriptions (e.g., promotional popups or detailed service modals), simply having `role="dialog"` is insufficient. Screen reader users can get lost without explicit context.
+**Action:** Always link a `role="dialog"` modal directly to its content by mapping `aria-labelledby` to its heading ID and `aria-describedby` to its descriptive paragraph ID. Also ensure decorative Material icons inside icon-buttons with an `aria-label` receive `aria-hidden="true"` so that the literal string (e.g. "close") isn't double-read by accessibility trees.
