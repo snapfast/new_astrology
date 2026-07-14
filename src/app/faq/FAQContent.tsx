@@ -40,19 +40,19 @@ const TRANSLATIONS = {
     faqs: [
       {
         q: "What are Varga charts and why are they important in Vedic Astrology?",
-        a: "Varga charts, also known as divisional charts, are mathematically-divided segments of a primary zodiac sign (30°). Each subdivision highlights specialized dimensions of human life—such as marriage (D9 Navamsha), career (D10 Dashamsha), or health/debts (D30 Trimsamsa). While the Lagna (D1) chart shows the physical potential, Varga charts reveal the hidden strength and sub-conscious alignment of planets to provide precise predictions."
+        a: "Varga charts are divisional charts. We divide a Rashi (30° zodiac sign) into smaller parts. Each part shows a different area of your life. For example, D9 Navamsha shows marriage and spouse characteristics, D10 Dashamsha shows career and public fame, and D30 Trimsamsa shows health and obstacles. While your main D1 Lagna Kundli shows your physical life, these Varga charts show the inner strength of the Grahas (planets) to give very deep and accurate predictions."
       },
       {
         q: "What is the Panch Pakshi (or Panch Oakshi) Astrology system?",
-        a: "The Panch Pakshi (sometimes searched or referred to as the Panch Oakshi system) is a highly reliable five-fold biological and astrological cycle system of South India. Based on five elemental birds (Falcon, Owl, Crow, Rooster, Peacock), it automatically determines your personal bird using your Janam Nakshatra and Paksha. It forecasts five major states: Ruling (strongest), Eating, Walking, Sleeping, and Dying (weakest) for highly customized daily time election."
+        a: "The Panch Pakshi (sometimes called Panch Oakshi) system is a very powerful five-bird astrology system from South India. It is based on the five main elements (Pancha Mahabhutas). Your birth Nakshatra (lunar mansion) and the Paksha (waxing or waning phase of the Moon) decide which of the 5 birds is your personal bird (Falcon/Vulture, Owl, Crow, Rooster, Peacock). Each bird goes through 5 activities every day: Ruling, Eating, Walking, Sleeping, and Dying. 'Ruling' is when you are strongest, and 'Dying' is when you should avoid starting new work. This is highly useful for picking the best time (Muhurta) for daily activities."
       },
       {
         q: "How does the Biorhythm (or Biothytm) tracker assist in self-awareness?",
-        a: "The Biorhythm (often searched as Biothytm) tracker charts three major evolutionary energy waves starting from your birth: Physical (23-day cycle for stamina/vitality), Emotional (28-day cycle for mood/sensitivity), and Intellectual (33-day cycle for analytical focus). Understanding where you are in these sinusoidal waves empowers you to sync daily planning with your natural biological peaks and troughs."
+        a: "The Biorhythm (often searched as Biothytm) tracker is a way to map your natural life cycles from birth. Just like the Moon has its waxing and waning phases (Shukla and Krishna Paksha), your body and mind also have cycles. The physical cycle is 23 days (good for stamina), the emotional cycle is 28 days (good for feelings and creativity), and the intellectual cycle is 33 days (good for mental focus). By tracking these rising and falling waves, you can plan your important work during peak days and rest when your energies are low."
       },
       {
-        q: "How accurate are the astronomical calculations on this platform?",
-        a: "All birth charts and astronomical datasets (like Daily Panchang, Tithi, Nakshatra, and Vimshottari Dashas) are computed using precise astronomical frameworks synchronized with the traditional Chitra Paksha Lahiri Ayanamsa, maintaining a high mathematical accuracy limit."
+        q: "How are the planet positions (Grahas) and charts calculated on this platform?",
+        a: "We calculate the positions of all Grahas (Planets) using a highly precise astronomical library called 'astronomy-engine' from the open internet. This library uses advanced mathematical models to find the real physical positions of the celestial bodies in space (using Tropical or Sayana coordinates). To make this information useful for Vedic Astrology, we convert these coordinates into the Sidereal (Nirayana) system. We do this by applying the traditional Chitra Paksha Lahiri Ayanamsa, which corrects for the earth's natural wobble (precession of the equinoxes). This accurate math is what generates your correct Janam Kundli, all 17 Varga (divisional) charts, precise Vimshottari Dasha timings, and Daily Panchang elements (like Tithi, Nakshatra, Yoga, and Karana)."
       },
       {
         q: "How can I book a personal verified consultation?",
@@ -91,19 +91,19 @@ const TRANSLATIONS = {
     faqs: [
       {
         q: "वर्ग कुंडली (विभागीय कुंडली) क्या हैं और वैदिक ज्योतिष में इनका क्या महत्व है?",
-        a: "वर्ग कुंडलियां, जिन्हें विभागीय कुंडली भी कहा जाता है, मुख्य राशि (30°) के गणितीय रूप से विभाजित भाग हैं। प्रत्येक उप-विभाग मानव जीवन के विशिष्ट आयामों पर प्रकाश डालता है—जैसे विवाह (D9 नवांश), करियर (D10 दशमांश), या स्वास्थ्य/ऋण (D30 त्रिषांश)। लग्न (D1) कुंडली जहां भौतिक क्षमता दिखाती है, वहीं वर्ग कुंडलियां सटीक भविष्यवाणियां प्रदान करने के लिए ग्रहों की छिपी हुई शक्ति और अवचेतन संरेखण को प्रकट करती हैं।"
+        a: "वर्ग कुंडलियां विभागीय कुंडलियां हैं। हम एक राशि (30° राशि चक्र) को छोटे भागों में विभाजित करते हैं। प्रत्येक भाग आपके जीवन के एक अलग क्षेत्र को दिखाता है। उदाहरण के लिए, D9 नवांश विवाह और जीवनसाथी के गुणों को दिखाता है, D10 दशमांश करियर और सार्वजनिक प्रसिद्धि को दिखाता है, और D30 त्रिषांश स्वास्थ्य और बाधाओं को दिखाता है। जबकि आपकी मुख्य D1 लग्न कुंडली आपके भौतिक जीवन को दर्शाती है, ये वर्ग कुंडलियां बहुत गहरी और सटीक भविष्यवाणियां देने के लिए ग्रहों की आंतरिक शक्ति को दिखाती हैं।"
       },
       {
         q: "पंच पक्षी (या पंच ओकशी) ज्योतिष प्रणाली क्या है?",
-        a: "पंच पक्षी (जिसे कभी-कभी पंच ओकशी प्रणाली भी खोजा जाता है) दक्षिण भारत की एक अत्यधिक विश्वसनीय पांच-गुना जैविक और ज्योतिषीय चक्र प्रणाली है। पांच मूल तत्वों के पक्षियों (बाज, उल्लू, कौआ, मुर्गा, मयूर) पर आधारित, यह आपके जन्म नक्षत्र और पक्ष का उपयोग करके आपके व्यक्तिगत पक्षी को स्वचालित रूप से निर्धारित करती है। यह दैनिक शुभ समय चुनने के लिए पांच प्रमुख स्थितियों: शासन (सबसे मजबूत), भोजन, गमन, शयन और मरण (सबसे कमजोर) का पूर्वानुमान लगाती है।"
+        a: "पंच पक्षी (जिसे कभी-कभी पंच ओकशी भी कहा जाता है) प्रणाली दक्षिण भारत की एक बहुत ही शक्तिशाली पांच-पक्षी ज्योतिष प्रणाली है। यह पांच मुख्य तत्वों (पंच महाभूतों) पर आधारित है। आपका जन्म नक्षत्र और पक्ष (शुक्ल या कृष्ण पक्ष) यह तय करते हैं कि 5 पक्षियों (गिद्ध, उल्लू, कौआ, मुर्गा, मोर) में से कौन सा आपका व्यक्तिगत पक्षी है। प्रत्येक पक्षी हर दिन 5 गतिविधियों से गुजरता है: शासन (Ruling), भोजन (Eating), गमन (Walking), शयन (Sleeping), और मरण (Dying)। 'शासन' वह समय है जब आप सबसे मजबूत होते हैं, और 'मरण' वह समय है जब आपको नया काम शुरू करने से बचना चाहिए। यह दैनिक गतिविधियों के लिए सबसे अच्छा समय (मुहूर्त) चुनने के लिए अत्यधिक उपयोगी है।"
       },
       {
         q: "बायोरिदम (या बायोथायम) ट्रैकर आत्म-जागरूकता में कैसे मदद करता है?",
-        a: "बायोरिदम (अक्सर बायोथायम के रूप में खोजा जाता है) ट्रैकर आपके जन्म से शुरू होने वाली तीन प्रमुख ऊर्जा तरंगों को दर्शाता है: शारीरिक (सहनशक्ति/ऊर्जा के लिए 23-दिवसीय चक्र), भावनात्मक (मूड/संवेदनशीलता के लिए 28-दिवसीय चक्र), और बौद्धिक (विश्लेषणात्मक ध्यान के लिए 33-दिवसीय चक्र)। इन तरंगों में अपनी वर्तमान स्थिति को समझकर, आप अपने दैनिक नियोजन को अपनी प्राकृतिक जैविक चोटियों और गर्तों के साथ सिंक्रनाइज़ कर सकते हैं।"
+        a: "बायोरिदम (जिसे अक्सर बायोथायम के रूप में खोजा जाता है) ट्रैकर जन्म से आपके प्राकृतिक जीवन चक्रों को मानचित्रित करने का एक तरीका है। जैसे चंद्रमा के शुक्ल और कृष्ण पक्ष होते हैं, वैसे ही आपके शरीर और मन के भी चक्र होते हैं। शारीरिक चक्र 23 दिनों का होता है (सहनशक्ति के लिए अच्छा), भावनात्मक चक्र 28 दिनों का होता है (भावनाओं और रचनात्मकता के लिए अच्छा), और बौद्धिक चक्र 33 दिनों का होता है (मानसिक ध्यान के लिए अच्छा)। इन उठती और गिरती लहरों को ट्रैक करके, आप शिखर के दिनों में अपने महत्वपूर्ण काम की योजना बना सकते हैं और ऊर्जा कम होने पर आराम कर सकते हैं।"
       },
       {
-        q: "इस प्लेटफॉर्म पर खगोलीय गणनाएं कितनी सटीक हैं?",
-        a: "सभी जन्म कुंडलियां और खगोलीय डेटा (जैसे दैनिक पंचांग, तिथि, नक्षत्र और विंशोत्तरी दशा) पारंपरिक चित्रा पक्ष लाहिरी अयनांश के साथ सिंक्रनाइज़ किए गए सटीक खगोलीय पुस्तकालयों का उपयोग करके गणना की जाती हैं, जो एक उच्च गणितीय सटीकता बनाए रखती हैं।"
+        q: "इस प्लेटफॉर्म पर ग्रहों (Grahas) की स्थिति और कुंडलियों की गणना कैसे की जाती है?",
+        a: "हम खुले इंटरनेट (ओपन इंटरनेट) से 'astronomy-engine' नामक एक अत्यधिक सटीक लाइब्रेरी का उपयोग करके सभी ग्रहों (Grahas) की स्थिति की गणना करते हैं। यह लाइब्रेरी अंतरिक्ष में खगोलीय पिंडों की वास्तविक भौतिक स्थितियों (सायन या Tropical निर्देशांक) को खोजने के लिए उन्नत गणितीय मॉडल का उपयोग करती है। इस जानकारी को वैदिक ज्योतिष के लिए उपयोगी बनाने के लिए, हम इन निर्देशांकों को निरयण (Sidereal) प्रणाली में परिवर्तित करते हैं। हम ऐसा पारंपरिक चित्रा पक्ष लाहिड़ी अयनांश लागू करके करते हैं, जो पृथ्वी के प्राकृतिक डोलन (अयनांश/precession of equinoxes) को ठीक करता है। यही सटीक गणित आपकी सही जन्म कुंडली, सभी 17 वर्ग (विभागीय) कुंडलियां, सटीक विंशोत्तरी दशा समय और दैनिक पंचांग तत्व (जैसे तिथि, नक्षत्र, योग और करण) उत्पन्न करता है।"
       },
       {
         q: "मैं व्यक्तिगत सत्यापित परामर्श कैसे बुक कर सकता हूं?",
