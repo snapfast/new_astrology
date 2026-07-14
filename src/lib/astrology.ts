@@ -427,7 +427,8 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
     const t2 = Ast.MakeTime(time.ut + 1 / 24); // +1 hour in days
 
     const lon1 = currentLong ?? getTrueEclipticLongitude(body, t1, rotEqjEct);
-    const lon2 = getTrueEclipticLongitude(body, t2);
+    const rot2 = rotEqjEct ? Ast.Rotation_EQJ_ECT(t2) : undefined;
+    const lon2 = getTrueEclipticLongitude(body, t2, rot2);
 
     let diff = (lon2 - lon1 + 360) % 360;
     if (diff > 180) diff -= 360;
@@ -525,7 +526,8 @@ function calculatePlanetaryAndDivisionalData(
     lon: number,
     ayanamsa: number,
     tropicalSunLong: number,
-    tropicalMoonLong: number
+    tropicalMoonLong: number,
+    rotEqjEct?: Ast.RotationMatrix
 ) {
     const planetData: PlanetData[] = [];
     const chartKeys = ['d1', 'd2', 'd2us', 'd3', 'd4', 'd7', 'd9', 'd10', 'd12', 'd16', 'd20', 'd24', 'd27', 'd30', 'd40', 'd45', 'd60'] as const;
@@ -556,6 +558,7 @@ function calculatePlanetaryAndDivisionalData(
     const RAMC = (siderealTime * 15 + lon) % 360;
     const rad = Math.PI / 180;
     const phi = lat * rad;
+    // Ast.Rotation_ECL_EQD is separate from rotEqjEct, let's keep it as is.
     const rot = Ast.Rotation_ECL_EQD(time);
     const eps = Math.acos(rot.rot[2][2]);
     const alpha = RAMC * rad;
@@ -610,7 +613,7 @@ function calculatePlanetaryAndDivisionalData(
     }
 
     // 2. Calculate Planets
-    const rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+    if (!rotEqjEct) rotEqjEct = Ast.Rotation_EQJ_ECT(time);
     for (let i = 0; i < PLANET_MAP.length; i++) {
         const p = PLANET_MAP[i];
         let long: number;
@@ -744,7 +747,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
     let coreData: ReturnType<typeof calculatePlanetaryAndDivisionalData> | undefined;
     const getCoreData = () => {
-        if (!coreData) coreData = calculatePlanetaryAndDivisionalData(time, lat, lon, ayanamsa, getTropicalSunLong(), getTropicalMoonLong());
+        if (!coreData) coreData = calculatePlanetaryAndDivisionalData(time, lat, lon, ayanamsa, getTropicalSunLong(), getTropicalMoonLong(), getRotEqjEct());
         return coreData;
     };
 
@@ -872,8 +875,9 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
     // Calculate parameters at Sunrise to initialize state correctly
     const startAstroTime = Ast.MakeTime(sunriseDate);
     const startAy = getLahiriAyanamsa(startAstroTime);
-    const startSunLong = getTrueEclipticLongitude(Ast.Body.Sun, startAstroTime);
-    const startMoonLong = getTrueMoonEclipticLongitude(startAstroTime);
+    const r = Ast.Rotation_EQJ_ECT(startAstroTime);
+    const startSunLong = getTrueEclipticLongitude(Ast.Body.Sun, startAstroTime, r);
+    const startMoonLong = getTrueMoonEclipticLongitude(startAstroTime, r);
 
     const startDiff = (startMoonLong - startSunLong + 360) % 360;
     const startSidMoon = (startMoonLong - startAy + 360) % 360;
@@ -972,8 +976,9 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         const stepTime = new Date(actualMs);
         const astTime = Ast.MakeTime(stepTime);
         const ay = getLahiriAyanamsa(astTime);
-        const sl = getTrueEclipticLongitude(Ast.Body.Sun, astTime);
-        const ml = getTrueMoonEclipticLongitude(astTime);
+        const r = Ast.Rotation_EQJ_ECT(astTime);
+        const sl = getTrueEclipticLongitude(Ast.Body.Sun, astTime, r);
+        const ml = getTrueMoonEclipticLongitude(astTime, r);
 
         const d = (ml - sl + 360) % 360;
         const sidMoon = (ml - ay + 360) % 360;
@@ -1104,7 +1109,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
     const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
     let monthIdx = 0;
     if (prevNewMoon) {
-        const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon);
+        const rot = Ast.Rotation_EQJ_ECT(prevNewMoon);
+        const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon, rot);
         const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
         monthIdx = Math.floor(nmSiderealSunLong / 30);
     }
