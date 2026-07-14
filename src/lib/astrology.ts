@@ -2023,3 +2023,143 @@ export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTr
         future
     };
 }
+
+export interface CombustionPeriod {
+    planet: string;
+    start: Date;
+    end: Date;
+    isCurrent: boolean;
+}
+
+function isPlanetCombustAt(planet: string, body: Ast.Body, time: Ast.AstroTime): boolean {
+    const sunLong = getPlanetLongAndMotion("Sun", null, time).long;
+    const { long: planetLong, isRetro } = getPlanetLongAndMotion(planet, body, time);
+
+    const diff = Math.min(Math.abs(planetLong - sunLong), 360 - Math.abs(planetLong - sunLong));
+
+    let limit = 0;
+    if (planet === "Mars") limit = 17;
+    else if (planet === "Mercury") limit = isRetro ? 12 : 14;
+    else if (planet === "Jupiter") limit = 11;
+    else if (planet === "Venus") limit = isRetro ? 8 : 10;
+    else if (planet === "Saturn") limit = 15;
+    else return false;
+
+    return diff <= limit;
+}
+
+function findCombustionBoundary(
+    planet: string,
+    body: Ast.Body,
+    t1: Date,
+    t2: Date,
+    targetState: boolean
+): Date {
+    let low = t1.getTime();
+    let high = t2.getTime();
+    for (let i = 0; i < 10; i++) {
+        const mid = (low + high) / 2;
+        const midDate = new Date(mid);
+        const midTime = Ast.MakeTime(midDate);
+        const midState = isPlanetCombustAt(planet, body, midTime);
+        if (midState === targetState) {
+            high = mid;
+        } else {
+            low = mid;
+        }
+    }
+    return new Date((low + high) / 2);
+}
+
+export function getFutureCombustions(referenceDate: Date): CombustionPeriod[] {
+    const planets = [
+        { name: "Mercury", body: Ast.Body.Mercury },
+        { name: "Venus", body: Ast.Body.Venus },
+        { name: "Mars", body: Ast.Body.Mars },
+        { name: "Jupiter", body: Ast.Body.Jupiter },
+        { name: "Saturn", body: Ast.Body.Saturn }
+    ];
+
+    const results: CombustionPeriod[] = [];
+    const scanDays = 1100;
+    const stepSize = 3;
+
+    for (const p of planets) {
+        const isCombust = isPlanetCombustAt(p.name, p.body, Ast.MakeTime(referenceDate));
+
+        let foundPeriod: CombustionPeriod | null = null;
+        let lastState = isCombust;
+        let lastDate = new Date(referenceDate);
+
+        for (let d = stepSize; d <= scanDays; d += stepSize) {
+            const currDate = new Date(referenceDate.getTime() + d * 24 * 60 * 60 * 1000);
+            const currState = isPlanetCombustAt(p.name, p.body, Ast.MakeTime(currDate));
+
+            if (currState !== lastState) {
+                if (currState === true) {
+                    const boundary = findCombustionBoundary(p.name, p.body, lastDate, currDate, true);
+                    if (!isCombust) {
+                        let endBoundary: Date | null = null;
+                        let lastExitDate = new Date(currDate);
+
+                        for (let d2 = d + stepSize; d2 <= scanDays; d2 += stepSize) {
+                            const exitDate = new Date(referenceDate.getTime() + d2 * 24 * 60 * 60 * 1000);
+                            const exitState = isPlanetCombustAt(p.name, p.body, Ast.MakeTime(exitDate));
+                            if (exitState === false) {
+                                endBoundary = findCombustionBoundary(p.name, p.body, lastExitDate, exitDate, false);
+                                break;
+                            }
+                            lastExitDate = exitDate;
+                        }
+
+                        if (endBoundary) {
+                            foundPeriod = {
+                                planet: p.name,
+                                start: boundary,
+                                end: endBoundary,
+                                isCurrent: false
+                            };
+                        } else {
+                            foundPeriod = {
+                                planet: p.name,
+                                start: boundary,
+                                end: new Date(referenceDate.getTime() + scanDays * 24 * 60 * 60 * 1000),
+                                isCurrent: false
+                            };
+                        }
+                        break;
+                    }
+                } else {
+                    const boundary = findCombustionBoundary(p.name, p.body, lastDate, currDate, false);
+                    if (isCombust) {
+                        foundPeriod = {
+                            planet: p.name,
+                            start: referenceDate,
+                            end: boundary,
+                            isCurrent: true
+                        };
+                        break;
+                    }
+                }
+            }
+
+            lastState = currState;
+            lastDate = currDate;
+        }
+
+        if (isCombust && !foundPeriod) {
+            foundPeriod = {
+                planet: p.name,
+                start: referenceDate,
+                end: new Date(referenceDate.getTime() + scanDays * 24 * 60 * 60 * 1000),
+                isCurrent: true
+            };
+        }
+
+        if (foundPeriod) {
+            results.push(foundPeriod);
+        }
+    }
+
+    return results;
+}
