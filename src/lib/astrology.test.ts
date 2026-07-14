@@ -346,3 +346,20 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     assert.strictEqual(saturnTransits.past.length, 3, "Should have exactly 3 past transits for Saturn");
     assert.strictEqual(saturnTransits.future.length, 3, "Should have exactly 3 future transits for Saturn");
 });
+
+import { getFutureCombustions } from './astrology.ts';
+
+test('getFutureCombustions returns calculated combustion periods', () => {
+    const refDate = new Date("2026-07-10T12:00:00Z");
+    const combustions = getFutureCombustions(refDate);
+
+    assert.ok(Array.isArray(combustions), "Combustions should be an array");
+    assert.ok(combustions.length > 0, "Should find at least some combustion periods");
+
+    for (const c of combustions) {
+        assert.ok(c.planet, "Should have planet name");
+        assert.ok(c.start instanceof Date, "Start should be a Date");
+        assert.ok(c.end instanceof Date, "End should be a Date");
+        assert.ok(c.start.getTime() <= c.end.getTime(), "Start date must be before or equal to end date");
+    }
+});
