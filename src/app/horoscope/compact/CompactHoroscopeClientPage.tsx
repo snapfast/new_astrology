@@ -123,8 +123,15 @@ const CompactHoroscopeContent = () => {
     const parts = dob.split('-');
     if (parts.length !== 3) return '';
     const [year, month, day] = parts;
-    return `${day}/${month}/${year}`;
-  }, [dob]);
+    const monthIdx = parseInt(month, 10) - 1;
+    if (monthIdx < 0 || monthIdx > 11) return '';
+
+    const monthsEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthsHi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+    const months = lang === 'hi' ? monthsHi : monthsEn;
+
+    return `${day} ${months[monthIdx]} ${year}`;
+  }, [dob, lang]);
   const tob = sanitizeTime(searchParams.get('tob')) || '';
   const pob = sanitize(searchParams.get('pob'), 100) || '';
   const lat = sanitizeCoord(searchParams.get('lat')) || '';
