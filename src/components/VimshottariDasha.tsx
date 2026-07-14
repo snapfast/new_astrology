@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useMemo, useEffect, useRef, memo } from 'react';
-import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PLANET_NAMES } from '@/lib/astrology';
+import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PLANET_NAMES, DashaBalance } from '@/lib/astrology';
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
   lang?: 'en' | 'hi';
+  dashaBalance?: DashaBalance;
 }
 
 const TRANSLATIONS = {
@@ -16,7 +17,11 @@ const TRANSLATIONS = {
     sookshmaDasha: "Sookshma Dasha",
     activeDasha: "Active Dasha",
     selectMd: "Select a Mahadasha to drill down",
-    to: " to "
+    to: " to ",
+    dashaBalance: "Remaining Dasha Balance at Birth",
+    years: "Years",
+    months: "Months",
+    days: "Days"
   },
   hi: {
     mahadasha: "महादशा",
@@ -25,7 +30,11 @@ const TRANSLATIONS = {
     sookshmaDasha: "सूक्ष्म दशा",
     activeDasha: "सक्रिय दशा",
     selectMd: "विस्तृत विवरण के लिए महादशा चुनें",
-    to: " से "
+    to: " से ",
+    dashaBalance: "जन्म के समय शेष दशा",
+    years: "वर्ष",
+    months: "महीने",
+    days: "दिन"
   }
 };
 
@@ -52,8 +61,8 @@ function findCurrentDasha<T extends { start: number; end: number }>(items: T[], 
   return undefined;
 }
 
-const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en' }: VimshottariDashaProps) {
-  const t = TRANSLATIONS[lang];
+const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en', dashaBalance }: VimshottariDashaProps) {
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   // Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
   const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), [lang]);
@@ -234,7 +243,39 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {dashaBalance && (
+        <div className="bg-surface-container-low border border-outline/50 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-accent text-2xl" aria-hidden="true">history</span>
+            <div>
+              <p className="text-[10px] font-bold text-on-surface/60 uppercase tracking-wider font-label">
+                {t.dashaBalance}
+              </p>
+              <h4 className="text-sm font-bold text-on-surface leading-tight font-headline">
+                <span className={lang === 'hi' ? 'font-hindi' : ''}>
+                  {lang === 'hi' ? PLANET_NAMES[dashaBalance.lord]?.sanskrit || dashaBalance.lord : dashaBalance.lord}
+                </span>
+              </h4>
+            </div>
+          </div>
+          <div className="flex gap-4 font-body text-sm font-medium text-on-surface">
+            <div className="text-center">
+              <span className="block text-lg font-bold text-accent font-hindi tabular-nums">{dashaBalance.years}</span>
+              <span className="text-[9px] uppercase tracking-wider font-label text-on-surface/60">{t.years}</span>
+            </div>
+            <div className="text-center border-l border-outline/50 pl-4">
+              <span className="block text-lg font-bold text-accent font-hindi tabular-nums">{dashaBalance.months}</span>
+              <span className="text-[9px] uppercase tracking-wider font-label text-on-surface/60">{t.months}</span>
+            </div>
+            <div className="text-center border-l border-outline/50 pl-4">
+              <span className="block text-lg font-bold text-accent font-hindi tabular-nums">{dashaBalance.days}</span>
+              <span className="text-[9px] uppercase tracking-wider font-label text-on-surface/60">{t.days}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center justify-end">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>

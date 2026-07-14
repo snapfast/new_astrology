@@ -263,6 +263,13 @@ test('generateAstrologyData returns complete and valid data structure', () => {
   // Verify divisional charts have houses and houseRasis
   assert.ok(data.d1.houses[1], 'D1 should have house 1');
   assert.ok(data.d1.houseRasis[1], 'D1 should have houseRasis for house 1');
+
+  // Verify lazy evaluation of dasha balance
+  assert.ok(data.dashaBalance, 'Dasha balance should exist');
+  assert.strictEqual(typeof data.dashaBalance.lord, 'string', 'Dasha balance lord should be a string');
+  assert.ok(data.dashaBalance.years >= 0, 'Dasha balance years should be non-negative');
+  assert.ok(data.dashaBalance.months >= 0 && data.dashaBalance.months < 12, 'Dasha balance months should be valid');
+  assert.ok(data.dashaBalance.days >= 0 && data.dashaBalance.days < 32, 'Dasha balance days should be valid');
 });
 
 test('generateAstrologyData handles empty inputs', () => {

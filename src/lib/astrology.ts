@@ -45,6 +45,13 @@ export interface Mahadasha {
     antardashas: Antardasha[];
 }
 
+export interface DashaBalance {
+    lord: string;
+    years: number;
+    months: number;
+    days: number;
+}
+
 export interface DivisionalChartData {
     houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> };
     houseRasis: { [key: number]: number };
@@ -127,6 +134,7 @@ export interface ChartData {
     d60: DivisionalChartData;
     mahadashas: Mahadasha[];
     panchang: PanchangData;
+    dashaBalance?: DashaBalance;
 }
 
 export const NAKSHATRA_NAMES = [
@@ -741,6 +749,38 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
         get: () => {
             if (!mahadashas) mahadashas = calculateVimshottariDasha(getMoonSiderealLong(), istDate);
             return mahadashas;
+        },
+        enumerable: true
+    });
+
+    let dashaBalance: DashaBalance | undefined;
+    Object.defineProperty(result, 'dashaBalance', {
+        get: () => {
+            if (!dashaBalance) {
+                const mds = result.mahadashas;
+                if (mds && mds.length > 0) {
+                    const firstMd = mds[0];
+                    const diffMs = firstMd.end - istDate.getTime();
+                    const yearsDecimal = diffMs / MS_PER_YEAR;
+                    const years = Math.floor(yearsDecimal);
+
+                    const remainingMsAfterYears = diffMs - years * MS_PER_YEAR;
+                    const monthsDecimal = (remainingMsAfterYears / MS_PER_YEAR) * 12;
+                    const months = Math.floor(monthsDecimal);
+
+                    const remainingMsAfterMonths = remainingMsAfterYears - (months / 12) * MS_PER_YEAR;
+                    const daysDecimal = (remainingMsAfterMonths / MS_PER_YEAR) * 365.24219;
+                    const days = Math.floor(daysDecimal);
+
+                    dashaBalance = {
+                        lord: firstMd.lord,
+                        years,
+                        months,
+                        days
+                    };
+                }
+            }
+            return dashaBalance;
         },
         enumerable: true
     });

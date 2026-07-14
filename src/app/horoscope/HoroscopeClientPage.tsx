@@ -642,7 +642,7 @@ const HoroscopeContent = () => {
         <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.vimshottariDasha}</h2>
 
         {/* Interactive Vimshottari Dasha System */}
-        <VimshottariDasha mahadashas={chartData.mahadashas} lang={lang} />
+        <VimshottariDasha mahadashas={chartData.mahadashas} dashaBalance={chartData.dashaBalance} lang={lang} />
       </div>
 
       {/* Verification CTA Section */}
