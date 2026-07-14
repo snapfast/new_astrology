@@ -739,10 +739,23 @@ const PanchangPage = () => {
                 type="date"
                 value={selectedDate.toISOString().split('T')[0]}
                 onChange={handleDateChange}
-                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label={t.selectDate}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">calendar_month</span>
+              <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body">
+                {(() => {
+                  const dateStr = selectedDate.toISOString().split('T')[0];
+                  if (!dateStr) return '';
+                  const [y, m, d] = dateStr.split('-');
+                  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  const monthIdx = parseInt(m, 10) - 1;
+                  if (monthIdx >= 0 && monthIdx < 12) {
+                    return `${parseInt(d, 10)} ${months[monthIdx]} ${y}`;
+                  }
+                  return dateStr;
+                })()}
+              </div>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl z-20">calendar_month</span>
             </div>
             <div className="hidden sm:block sm:w-60 shrink-0">
               <p className={`text-xs font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.selectedDate}</p>
