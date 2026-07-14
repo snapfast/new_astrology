@@ -495,7 +495,7 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
               <span>{t.d1Chart}</span>
-              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+              <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                 {t.d1Desc}
               </span>
             </h2>
@@ -504,7 +504,7 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
               <span>{t.d9Chart}</span>
-              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+              <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                 {t.d9Desc}
               </span>
             </h2>
@@ -517,7 +517,7 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
               <span>{t.d3Chart}</span>
-              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+              <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                 {t.d3Desc}
               </span>
             </h2>
@@ -526,7 +526,7 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
               <span>{t.d10Chart}</span>
-              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+              <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                 {t.d10Desc}
               </span>
             </h2>
@@ -539,7 +539,7 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
               <span>{t.d7Chart}</span>
-              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+              <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                 {t.d7Desc}
               </span>
             </h2>
@@ -548,7 +548,7 @@ const HoroscopeContent = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
               <span>{t.d60Chart}</span>
-              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+              <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                 {t.d60Desc}
               </span>
             </h2>
@@ -590,7 +590,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d2Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d2Desc}
                   </span>
                 </h2>
@@ -599,7 +599,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d2usChart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d2usDesc}
                   </span>
                 </h2>
@@ -608,7 +608,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d4Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d4Desc}
                   </span>
                 </h2>
@@ -617,7 +617,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d12Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d12Desc}
                   </span>
                 </h2>
@@ -626,7 +626,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d16Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d16Desc}
                   </span>
                 </h2>
@@ -635,7 +635,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d20Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d20Desc}
                   </span>
                 </h2>
@@ -644,7 +644,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d24Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d24Desc}
                   </span>
                 </h2>
@@ -653,7 +653,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d27Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d27Desc}
                   </span>
                 </h2>
@@ -662,7 +662,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d30Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d30Desc}
                   </span>
                 </h2>
@@ -671,7 +671,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d40Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d40Desc}
                   </span>
                 </h2>
@@ -680,7 +680,7 @@ const HoroscopeContent = () => {
               <div className="space-y-6 lg:col-span-2 lg:max-w-2xl lg:mx-auto lg:w-full">
                 <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                   <span>{t.d45Chart}</span>
-                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                  <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
                     {t.d45Desc}
                   </span>
                 </h2>
