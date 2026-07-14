@@ -1690,3 +1690,336 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
         isRetrograde
     };
 }
+
+export interface TransitEvent {
+    type: 'rashi' | 'nakshatra' | 'motion';
+    planet: string;
+    fromValue: string;
+    fromValueSanskrit: string;
+    toValue: string;
+    toValueSanskrit: string;
+    date: Date;
+}
+
+export interface PlanetTransits {
+    planet: string;
+    past: TransitEvent[];
+    future: TransitEvent[];
+}
+
+interface PlanetState {
+    rashi: number;
+    nakshatra: number;
+    isRetro: boolean;
+}
+
+function getPlanetLongAndMotion(planet: string, body: Ast.Body | null, time: Ast.AstroTime): { long: number, isRetro: boolean } {
+    const ayanamsa = getLahiriAyanamsa(time);
+    let long = 0;
+    let isRetro = false;
+
+    if (planet === "Sun") {
+        long = getTrueEclipticLongitude(Ast.Body.Sun, time);
+    } else if (planet === "Moon") {
+        long = getTrueMoonEclipticLongitude(time);
+    } else if (planet === "Rahu") {
+        long = getMeanRahu(time);
+        isRetro = true;
+    } else if (planet === "Ketu") {
+        long = (getMeanRahu(time) + 180) % 360;
+        isRetro = true;
+    } else if (body !== null) {
+        long = getTrueEclipticLongitude(body, time);
+        isRetro = isPlanetRetrograde(body, time, long);
+    }
+
+    const siderealLong = (long - ayanamsa + 360) % 360;
+    return { long: siderealLong, isRetro };
+}
+
+function getPlanetStateAt(planet: string, body: Ast.Body | null, time: Ast.AstroTime): PlanetState {
+    const { long, isRetro } = getPlanetLongAndMotion(planet, body, time);
+    const rashi = Math.floor(long / 30);
+    const nakshatra = Math.floor(long / NAKSHATRA_WIDTH);
+    return { rashi, nakshatra, isRetro };
+}
+
+function bisectTransit(
+    planet: string,
+    body: Ast.Body | null,
+    type: 'rashi' | 'nakshatra' | 'motion',
+    t1: Date,
+    t2: Date,
+    val1: number | boolean
+): Date {
+    let low = t1.getTime();
+    let high = t2.getTime();
+    for (let i = 0; i < 12; i++) {
+        if (high - low < 15 * 60 * 1000) break;
+        const mid = (low + high) / 2;
+        const midDate = new Date(mid);
+        const midTime = Ast.MakeTime(midDate);
+        const midVal = getPlanetStateAt(planet, body, midTime);
+        const midMetric = type === 'rashi' ? midVal.rashi : type === 'nakshatra' ? midVal.nakshatra : midVal.isRetro;
+        if (midMetric === val1) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+    return new Date((low + high) / 2);
+}
+
+function getFutureTransitsForPlanet(
+    planet: string,
+    body: Ast.Body | null,
+    refDate: Date,
+    stepDays: number,
+    maxSteps: number
+): TransitEvent[] {
+    const events: TransitEvent[] = [];
+    let prevDate = new Date(refDate);
+    let prevTime = Ast.MakeTime(prevDate);
+    let prevState = getPlanetStateAt(planet, body, prevTime);
+
+    for (let step = 1; step <= maxSteps && events.length < 3; step++) {
+        const currDate = new Date(refDate.getTime() + step * stepDays * 24 * 60 * 60 * 1000);
+        const currTime = Ast.MakeTime(currDate);
+        const currState = getPlanetStateAt(planet, body, currTime);
+
+        const stepEvents: TransitEvent[] = [];
+
+        if (currState.rashi !== prevState.rashi) {
+            const exactDate = bisectTransit(planet, body, 'rashi', prevDate, currDate, prevState.rashi);
+            const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
+            const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
+            const sMinus = getPlanetStateAt(planet, body, tMinus);
+            const sPlus = getPlanetStateAt(planet, body, tPlus);
+
+            if (sMinus.rashi !== sPlus.rashi) {
+                stepEvents.push({
+                    type: 'rashi',
+                    planet,
+                    fromValue: RASI_FULL_NAMES[sMinus.rashi].name,
+                    fromValueSanskrit: RASI_FULL_NAMES[sMinus.rashi].sanskrit,
+                    toValue: RASI_FULL_NAMES[sPlus.rashi].name,
+                    toValueSanskrit: RASI_FULL_NAMES[sPlus.rashi].sanskrit,
+                    date: exactDate
+                });
+            }
+        }
+
+        if (currState.nakshatra !== prevState.nakshatra) {
+            const exactDate = bisectTransit(planet, body, 'nakshatra', prevDate, currDate, prevState.nakshatra);
+            const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
+            const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
+            const sMinus = getPlanetStateAt(planet, body, tMinus);
+            const sPlus = getPlanetStateAt(planet, body, tPlus);
+
+            if (sMinus.nakshatra !== sPlus.nakshatra) {
+                stepEvents.push({
+                    type: 'nakshatra',
+                    planet,
+                    fromValue: NAKSHATRA_NAMES[sMinus.nakshatra].name,
+                    fromValueSanskrit: NAKSHATRA_NAMES[sMinus.nakshatra].sanskrit,
+                    toValue: NAKSHATRA_NAMES[sPlus.nakshatra].name,
+                    toValueSanskrit: NAKSHATRA_NAMES[sPlus.nakshatra].sanskrit,
+                    date: exactDate
+                });
+            }
+        }
+
+        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu") {
+            if (currState.isRetro !== prevState.isRetro) {
+                const exactDate = bisectTransit(planet, body, 'motion', prevDate, currDate, prevState.isRetro);
+                const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
+                const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
+                const sMinus = getPlanetStateAt(planet, body, tMinus);
+                const sPlus = getPlanetStateAt(planet, body, tPlus);
+
+                if (sMinus.isRetro !== sPlus.isRetro) {
+                    stepEvents.push({
+                        type: 'motion',
+                        planet,
+                        fromValue: sMinus.isRetro ? "Retrograde" : "Direct",
+                        fromValueSanskrit: sMinus.isRetro ? "वक्री" : "मार्गी",
+                        toValue: sPlus.isRetro ? "Retrograde" : "Direct",
+                        toValueSanskrit: sPlus.isRetro ? "वक्री" : "मार्गी",
+                        date: exactDate
+                    });
+                }
+            }
+        }
+
+        if (stepEvents.length > 0) {
+            stepEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
+            for (const ev of stepEvents) {
+                if (events.length < 3) {
+                    events.push(ev);
+                }
+            }
+        }
+
+        prevDate = currDate;
+        prevTime = currTime;
+        prevState = currState;
+    }
+
+    return events;
+}
+
+function getPastTransitsForPlanet(
+    planet: string,
+    body: Ast.Body | null,
+    refDate: Date,
+    stepDays: number,
+    maxSteps: number
+): TransitEvent[] {
+    const events: TransitEvent[] = [];
+    let prevDate = new Date(refDate);
+    let prevTime = Ast.MakeTime(prevDate);
+    let prevState = getPlanetStateAt(planet, body, prevTime);
+
+    for (let step = 1; step <= maxSteps && events.length < 3; step++) {
+        const currDate = new Date(refDate.getTime() - step * stepDays * 24 * 60 * 60 * 1000);
+        const currTime = Ast.MakeTime(currDate);
+        const currState = getPlanetStateAt(planet, body, currTime);
+
+        const stepEvents: TransitEvent[] = [];
+
+        if (currState.rashi !== prevState.rashi) {
+            const exactDate = bisectTransit(planet, body, 'rashi', currDate, prevDate, currState.rashi);
+            const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
+            const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
+            const sMinus = getPlanetStateAt(planet, body, tMinus);
+            const sPlus = getPlanetStateAt(planet, body, tPlus);
+
+            if (sMinus.rashi !== sPlus.rashi) {
+                stepEvents.push({
+                    type: 'rashi',
+                    planet,
+                    fromValue: RASI_FULL_NAMES[sMinus.rashi].name,
+                    fromValueSanskrit: RASI_FULL_NAMES[sMinus.rashi].sanskrit,
+                    toValue: RASI_FULL_NAMES[sPlus.rashi].name,
+                    toValueSanskrit: RASI_FULL_NAMES[sPlus.rashi].sanskrit,
+                    date: exactDate
+                });
+            }
+        }
+
+        if (currState.nakshatra !== prevState.nakshatra) {
+            const exactDate = bisectTransit(planet, body, 'nakshatra', currDate, prevDate, currState.nakshatra);
+            const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
+            const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
+            const sMinus = getPlanetStateAt(planet, body, tMinus);
+            const sPlus = getPlanetStateAt(planet, body, tPlus);
+
+            if (sMinus.nakshatra !== sPlus.nakshatra) {
+                stepEvents.push({
+                    type: 'nakshatra',
+                    planet,
+                    fromValue: NAKSHATRA_NAMES[sMinus.nakshatra].name,
+                    fromValueSanskrit: NAKSHATRA_NAMES[sMinus.nakshatra].sanskrit,
+                    toValue: NAKSHATRA_NAMES[sPlus.nakshatra].name,
+                    toValueSanskrit: NAKSHATRA_NAMES[sPlus.nakshatra].sanskrit,
+                    date: exactDate
+                });
+            }
+        }
+
+        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu") {
+            if (currState.isRetro !== prevState.isRetro) {
+                const exactDate = bisectTransit(planet, body, 'motion', currDate, prevDate, currState.isRetro);
+                const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
+                const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
+                const sMinus = getPlanetStateAt(planet, body, tMinus);
+                const sPlus = getPlanetStateAt(planet, body, tPlus);
+
+                if (sMinus.isRetro !== sPlus.isRetro) {
+                    stepEvents.push({
+                        type: 'motion',
+                        planet,
+                        fromValue: sMinus.isRetro ? "Retrograde" : "Direct",
+                        fromValueSanskrit: sMinus.isRetro ? "वक्री" : "मार्गी",
+                        toValue: sPlus.isRetro ? "Retrograde" : "Direct",
+                        toValueSanskrit: sPlus.isRetro ? "वक्री" : "मार्गी",
+                        date: exactDate
+                    });
+                }
+            }
+        }
+
+        if (stepEvents.length > 0) {
+            stepEvents.sort((a, b) => b.date.getTime() - a.date.getTime());
+            for (const ev of stepEvents) {
+                if (events.length < 3) {
+                    events.push(ev);
+                }
+            }
+        }
+
+        prevDate = currDate;
+        prevTime = currTime;
+        prevState = currState;
+    }
+
+    return events;
+}
+
+export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTransits {
+    let body: Ast.Body | null = null;
+    let stepDays = 1;
+    let maxSteps = 100;
+
+    switch (planet) {
+        case "Sun":
+            body = Ast.Body.Sun;
+            stepDays = 1;
+            maxSteps = 120;
+            break;
+        case "Moon":
+            body = Ast.Body.Moon;
+            stepDays = 0.1;
+            maxSteps = 100;
+            break;
+        case "Mars":
+            body = Ast.Body.Mars;
+            stepDays = 3;
+            maxSteps = 120;
+            break;
+        case "Mercury":
+            body = Ast.Body.Mercury;
+            stepDays = 1;
+            maxSteps = 120;
+            break;
+        case "Jupiter":
+            body = Ast.Body.Jupiter;
+            stepDays = 10;
+            maxSteps = 120;
+            break;
+        case "Venus":
+            body = Ast.Body.Venus;
+            stepDays = 1;
+            maxSteps = 120;
+            break;
+        case "Saturn":
+            body = Ast.Body.Saturn;
+            stepDays = 20;
+            maxSteps = 120;
+            break;
+        case "Rahu":
+        case "Ketu":
+            stepDays = 15;
+            maxSteps = 120;
+            break;
+    }
+
+    const past = getPastTransitsForPlanet(planet, body, referenceDate, stepDays, maxSteps);
+    const future = getFutureTransitsForPlanet(planet, body, referenceDate, stepDays, maxSteps);
+
+    return {
+        planet,
+        past,
+        future
+    };
+}
