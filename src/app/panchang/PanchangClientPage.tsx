@@ -770,7 +770,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.pakshaSanskrit} {item.sanskrit}</p>}
+                    {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{panchang.pakshaSanskrit} {item.sanskrit}</p>}
                   </div>
                 ))}
               </div>
@@ -784,7 +784,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{item.sanskrit}</p>}
+                    {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{item.sanskrit}</p>}
                   </div>
                 ))}
               </div>
@@ -798,7 +798,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{item.sanskrit}</p>}
+                    {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{item.sanskrit}</p>}
                   </div>
                 ))}
               </div>
@@ -812,7 +812,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{item.sanskrit}</p>}
+                    {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{item.sanskrit}</p>}
                   </div>
                 ))}
               </div>
@@ -820,7 +820,7 @@ const PanchangPage = () => {
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.vara}</p>
                 <div className="border-l-2 border-accent/20 pl-2 space-y-0.5">
                   <p className="text-xl font-headline text-on-surface">{lang === 'en' ? panchang.vara : panchang.varaSanskrit}</p>
-                  {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.varaSanskrit}</p>}
+                  {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{panchang.varaSanskrit}</p>}
                 </div>
               </div>
             </div>
@@ -950,12 +950,12 @@ const PanchangPage = () => {
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.month}</p>
                 <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.lunarMonth : panchang.lunarMonthSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.lunarMonthSanskrit}</p>}
+                {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{panchang.lunarMonthSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.samvatsara}</p>
                 <p className="text-base font-headline text-on-surface">{lang === 'en' ? panchang.samvatsara : panchang.samvatsaraSanskrit}</p>
-                {lang === 'en' && <p className="text-[10px] text-on-surface font-hindi">{panchang.samvatsaraSanskrit}</p>}
+                {lang === 'en' && <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{panchang.samvatsaraSanskrit}</p>}
               </div>
               <div className="space-y-1">
                 <p className={`font-bold text-on-surface uppercase font-label ${lang === 'hi' ? 'text-[11px]' : 'text-[9px] tracking-widest'}`}>{t.vikram}</p>
