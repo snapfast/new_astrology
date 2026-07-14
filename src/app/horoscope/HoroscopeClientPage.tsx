@@ -37,22 +37,39 @@ const TRANSLATIONS = {
     gulika: "Gulika Kaal",
     yamaganda: "Yamaganda Kaal",
     d1Chart: "Lagna Chart (D1)",
+    d1Desc: "Physical body & life path",
     d2Chart: "Parashara Hora Chart (D2)",
+    d2Desc: "Wealth accumulation & liquid assets",
     d2usChart: "Uma Shambhu Hora Chart (D2-US)",
+    d2usDesc: "Spiritual wealth & divine grace",
     d3Chart: "Drekkana Chart (D3)",
+    d3Desc: "Siblings, courage & vitality",
     d4Chart: "Chaturthamsa Chart (D4)",
+    d4Desc: "Landed properties & home happiness",
     d7Chart: "Saptamsha Chart (D7)",
+    d7Desc: "Progeny, children & creative potential",
     d9Chart: "Navamsha Chart (D9)",
+    d9Desc: "Spouse, marriage & inner strength",
     d10Chart: "Dashamsha Chart (D10)",
+    d10Desc: "Career, profession & public status",
     d12Chart: "Dwadashamsa Chart (D12)",
+    d12Desc: "Parents, lineage & past karma",
     d16Chart: "Shodashamsa Chart (D16)",
+    d16Desc: "Vehicles, luxuries & comforts",
     d20Chart: "Vimshamsa Chart (D20)",
+    d20Desc: "Spiritual progress & devotion",
     d24Chart: "Siddhamsa Chart (D24)",
+    d24Desc: "Intellect, learning & education",
     d27Chart: "Saptavimshamsa Chart (D27)",
+    d27Desc: "Strength, stamina & subconscious blocks",
     d30Chart: "Trimsamsa Chart (D30)",
+    d30Desc: "Miseries, health & obstacles",
     d40Chart: "Khavedamsa Chart (D40)",
+    d40Desc: "Maternal legacy & karma fruits",
     d45Chart: "Akshavedamsa Chart (D45)",
+    d45Desc: "Paternal legacy & character ethics",
     d60Chart: "Shashtiamsha Chart (D60)",
+    d60Desc: "Past-life karma & planetary strength",
     moreVargas: "More Divisional Charts (Vargas)",
     planet: "Planet",
     house: "House",
@@ -98,22 +115,39 @@ const TRANSLATIONS = {
     gulika: "गुलिक काल",
     yamaganda: "यमगण्ड काल",
     d1Chart: "लग्न चार्ट (D1)",
+    d1Desc: "शारीरिक संरचना और जीवन पथ",
     d2Chart: "पराशर होरा चार्ट (D2)",
+    d2Desc: "धन संचय और संचित संपत्ति",
     d2usChart: "उमा शंभू होरा चार्ट (D2-US)",
+    d2usDesc: "आध्यात्मिक धन और दैवीय कृपा",
     d3Chart: "द्रेष्काण चार्ट (D3)",
+    d3Desc: "भाई-बहन, साहस और जीवन शक्ति",
     d4Chart: "चतुर्थांश चार्ट (D4)",
+    d4Desc: "अचल संपत्ति और सुख-सुविधाएं",
     d7Chart: "सप्तमंश चार्ट (D7)",
+    d7Desc: "संतान, वंश और रचनात्मकता",
     d9Chart: "नवांश चार्ट (D9)",
+    d9Desc: "जीवनसाथी, विवाह और आंतरिक शक्ति",
     d10Chart: "दशमांश चार्ट (D10)",
+    d10Desc: "करियर, व्यवसाय और सामाजिक प्रतिष्ठा",
     d12Chart: "द्वादशांश चार्ट (D12)",
+    d12Desc: "माता-पिता, वंश और पूर्व कर्म",
     d16Chart: "षोडशांश चार्ट (D16)",
+    d16Desc: "वाहन, सुख-साधन और विलासिता",
     d20Chart: "विंशांश चार्ट (D20)",
+    d20Desc: "आध्यात्मिक प्रगति और भक्ति",
     d24Chart: "सिद्धांश चार्ट (D24)",
+    d24Desc: "बुद्धि, ज्ञान और शिक्षा",
     d27Chart: "सप्तविंशांश चार्ट (D27)",
+    d27Desc: "बल, सहनशक्ति और अवचेतन ऊर्जा",
     d30Chart: "त्रिशांश चार्ट (D30)",
+    d30Desc: "कष्ट, स्वास्थ्य और बाधाएं",
     d40Chart: "खवेदांश चार्ट (D40)",
+    d40Desc: "मातृपक्ष की विरासत और कर्म फल",
     d45Chart: "अक्षवेदांश चार्ट (D45)",
+    d45Desc: "पितृपक्ष की विरासत और चरित्र",
     d60Chart: "षष्ट्यंश चार्ट (D60)",
+    d60Desc: "पूर्व जन्म के कर्म और ग्रह बल",
     moreVargas: "अन्य विभागीय कुंडली (वर्ग)",
     planet: "ग्रह",
     house: "भाव",
@@ -459,11 +493,21 @@ const HoroscopeContent = () => {
         {/* Row 1: D1 & D9 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d1Chart}</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+              <span>{t.d1Chart}</span>
+              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                {t.d1Desc}
+              </span>
+            </h2>
             <KundliChart data={chartData.d1} />
           </div>
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d9Chart}</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+              <span>{t.d9Chart}</span>
+              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                {t.d9Desc}
+              </span>
+            </h2>
             <KundliChart data={chartData.d9} />
           </div>
         </div>
@@ -471,11 +515,21 @@ const HoroscopeContent = () => {
         {/* Row 2: D3 & D10 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d3Chart}</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+              <span>{t.d3Chart}</span>
+              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                {t.d3Desc}
+              </span>
+            </h2>
             <KundliChart data={chartData.d3} />
           </div>
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d10Chart}</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+              <span>{t.d10Chart}</span>
+              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                {t.d10Desc}
+              </span>
+            </h2>
             <KundliChart data={chartData.d10} />
           </div>
         </div>
@@ -483,11 +537,21 @@ const HoroscopeContent = () => {
         {/* Row 3: D7 & D60 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d7Chart}</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+              <span>{t.d7Chart}</span>
+              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                {t.d7Desc}
+              </span>
+            </h2>
             <KundliChart data={chartData.d7} />
           </div>
           <div className="space-y-6">
-            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d60Chart}</h2>
+            <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+              <span>{t.d60Chart}</span>
+              <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                {t.d60Desc}
+              </span>
+            </h2>
             <KundliChart data={chartData.d60} />
           </div>
         </div>
@@ -501,7 +565,7 @@ const HoroscopeContent = () => {
             }}
             aria-expanded={moreVargasExpanded}
             aria-controls="more-vargas-container"
-            className="w-full flex items-center justify-between py-3 px-0 text-on-surface/70 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-200"
+            className="w-full flex items-center justify-between py-3 px-0 text-on-surface/70 hover:text-on-surface border-b border-outline pb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-200"
           >
             <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface/70 flex items-center gap-2">
               <span className="material-symbols-outlined text-on-surface/60">view_quilt</span>
@@ -524,47 +588,102 @@ const HoroscopeContent = () => {
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d2Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d2Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d2Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d2} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d2usChart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d2usChart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d2usDesc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d2us} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d4Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d4Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d4Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d4} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d12Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d12Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d12Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d12} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d16Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d16Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d16Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d16} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d20Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d20Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d20Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d20} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d24Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d24Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d24Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d24} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d27Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d27Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d27Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d27} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d30Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d30Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d30Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d30} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d40Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d40Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d40Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d40} />
               </div>
               <div className="space-y-6 lg:col-span-2 lg:max-w-2xl lg:mx-auto lg:w-full">
-                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d45Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                  <span>{t.d45Chart}</span>
+                  <span className={cn("text-xs text-on-surface/60 font-body font-normal normal-case", lang === 'hi' ? 'font-hindi' : '')}>
+                    {t.d45Desc}
+                  </span>
+                </h2>
                 <KundliChart data={chartData.d45} />
               </div>
             </div>
