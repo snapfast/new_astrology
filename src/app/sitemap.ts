@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/horoscope/compact',
     '/free-horoscope',
     '/panchang',
+    '/transits',
     '/biorhythm',
     '/panch-pakshi',
     '/donate',

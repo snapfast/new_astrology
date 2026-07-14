@@ -308,3 +308,41 @@ test('calculatePanchang multiple elements transition verification (July 10, 2026
   assert.ok(panchang.formattedText.includes("Amanta Month: Jyeshtha"), 'Should list Amanta Month');
   assert.ok(panchang.formattedText.includes("Purnimanta Month: Ashadha"), 'Should list Purnimanta Month');
 });
+
+import { getPlanetTransits } from './astrology.ts';
+
+test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
+    const refDate = new Date('2024-03-15T12:00:00Z');
+
+    // Test Sun
+    const sunTransits = getPlanetTransits("Sun", refDate);
+    assert.strictEqual(sunTransits.planet, "Sun");
+    assert.strictEqual(sunTransits.past.length, 3, "Should have exactly 3 past transits for Sun");
+    assert.strictEqual(sunTransits.future.length, 3, "Should have exactly 3 future transits for Sun");
+
+    // Verify order and boundaries
+    for (const p of sunTransits.past) {
+        assert.ok(p.date.getTime() < refDate.getTime(), "Past transit must occur before reference date");
+        assert.ok(p.fromValue, "Must have fromValue");
+        assert.ok(p.toValue, "Must have toValue");
+        assert.ok(p.fromValueSanskrit, "Must have fromValueSanskrit");
+        assert.ok(p.toValueSanskrit, "Must have toValueSanskrit");
+    }
+    for (const f of sunTransits.future) {
+        assert.ok(f.date.getTime() > refDate.getTime(), "Future transit must occur after reference date");
+        assert.ok(f.fromValue, "Must have fromValue");
+        assert.ok(f.toValue, "Must have toValue");
+        assert.ok(f.fromValueSanskrit, "Must have fromValueSanskrit");
+        assert.ok(f.toValueSanskrit, "Must have toValueSanskrit");
+    }
+
+    // Test Moon (very fast planet)
+    const moonTransits = getPlanetTransits("Moon", refDate);
+    assert.strictEqual(moonTransits.past.length, 3, "Should have exactly 3 past transits for Moon");
+    assert.strictEqual(moonTransits.future.length, 3, "Should have exactly 3 future transits for Moon");
+
+    // Test Saturn (very slow planet)
+    const saturnTransits = getPlanetTransits("Saturn", refDate);
+    assert.strictEqual(saturnTransits.past.length, 3, "Should have exactly 3 past transits for Saturn");
+    assert.strictEqual(saturnTransits.future.length, 3, "Should have exactly 3 future transits for Saturn");
+});
