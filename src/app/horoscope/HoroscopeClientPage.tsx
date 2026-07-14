@@ -486,7 +486,7 @@ const HoroscopeContent = () => {
         </div>
 
         {/* Collapsible: More Divisional Charts (Vargas) */}
-        <div className="border border-outline/50 rounded-3xl overflow-hidden shadow-sm bg-white mt-8 print:hidden">
+        <div className="w-full mt-8 print:hidden">
           <button
             onClick={() => {
               sendGAEvent({ event: 'action_click', action_name: 'horoscope_toggle_more_vargas' });
@@ -494,14 +494,14 @@ const HoroscopeContent = () => {
             }}
             aria-expanded={moreVargasExpanded}
             aria-controls="more-vargas-container"
-            className="w-full flex items-center justify-between px-6 py-4 bg-surface-container-low text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-200"
+            className="w-full flex items-center justify-between py-3 px-0 text-on-surface/70 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-200"
           >
-            <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface flex items-center gap-2">
-              <span className="material-symbols-outlined text-accent">view_quilt</span>
+            <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface/70 flex items-center gap-2">
+              <span className="material-symbols-outlined text-on-surface/60">view_quilt</span>
               {t.moreVargas}
             </h3>
             <span className={cn(
-              "material-symbols-outlined text-2xl transition-transform duration-300",
+              "material-symbols-outlined text-2xl text-on-surface/60 transition-transform duration-300",
               moreVargasExpanded ? "rotate-180" : ""
             )}>
               expand_more
@@ -512,52 +512,52 @@ const HoroscopeContent = () => {
             id="more-vargas-container"
             className={cn(
               "transition-all duration-500 ease-in-out",
-              moreVargasExpanded ? "max-h-[8000px] border-t border-outline/30 p-6 md:p-8" : "max-h-0 overflow-hidden"
+              moreVargasExpanded ? "max-h-[8000px] pt-6 pb-0 px-0" : "max-h-0 overflow-hidden"
             )}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d2Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d2Chart}</h2>
                 <KundliChart data={chartData.d2} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d2usChart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d2usChart}</h2>
                 <KundliChart data={chartData.d2us} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d4Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d4Chart}</h2>
                 <KundliChart data={chartData.d4} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d12Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d12Chart}</h2>
                 <KundliChart data={chartData.d12} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d16Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d16Chart}</h2>
                 <KundliChart data={chartData.d16} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d20Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d20Chart}</h2>
                 <KundliChart data={chartData.d20} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d24Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d24Chart}</h2>
                 <KundliChart data={chartData.d24} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d27Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d27Chart}</h2>
                 <KundliChart data={chartData.d27} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d30Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d30Chart}</h2>
                 <KundliChart data={chartData.d30} />
               </div>
               <div className="space-y-6">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d40Chart}</h2>
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d40Chart}</h2>
                 <KundliChart data={chartData.d40} />
               </div>
-              <div className="space-y-6 md:col-span-2 md:max-w-2xl md:mx-auto md:w-full">
-                <h2 className="text-xl font-normal font-headline text-on-surface border-b border-outline/30 pb-3">{t.d45Chart}</h2>
+              <div className="space-y-6 lg:col-span-2 lg:max-w-2xl lg:mx-auto lg:w-full">
+                <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">{t.d45Chart}</h2>
                 <KundliChart data={chartData.d45} />
               </div>
             </div>
