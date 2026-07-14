@@ -193,7 +193,7 @@ const HouseContent: FC<HouseContentProps> = ({ houseNum, rasi, planets }) => {
   if (!config) return null;
 
   // Choose the dynamic container layout class
-  let containerClassName = "w-fit mx-auto h-full font-medium text-[14px] ";
+  let containerClassName = "w-fit mx-auto h-full font-medium text-[15px] ";
   if (config.orientation === 'diamond') {
     if (planets?.length >= 3) {
       containerClassName += "grid grid-cols-3 gap-x-1 gap-y-0.5 place-items-center place-content-center leading-none";
@@ -245,7 +245,7 @@ const HouseContent: FC<HouseContentProps> = ({ houseNum, rasi, planets }) => {
                   {p.isRetrograde && '*'}
                 </div>
                 {p.degree && (
-                  <div className="text-[7px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
+                  <div className="text-[8px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
                     {trimDegree(p.degree)}
                   </div>
                 )}
