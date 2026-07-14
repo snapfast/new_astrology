@@ -99,6 +99,23 @@ if (typeof window !== 'undefined') {
   }
 }
 
+// formatDobDisplay formats the DOB string from history storage (which is in DD-MM-YYYY format)
+// to DD MMM YYYY (e.g., "24 Jul 1995" or "24 जुलाई 1995") for user display.
+const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
+  if (!dobStr) return '';
+  const parts = dobStr.split('-'); // dobStr is DD-MM-YYYY
+  if (parts.length !== 3) return dobStr;
+  const [d, m, y] = parts;
+  const monthIdx = parseInt(m, 10) - 1;
+  if (monthIdx < 0 || monthIdx > 11) return dobStr;
+
+  const monthsEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthsHi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+  const months = lang === 'hi' ? monthsHi : monthsEn;
+
+  return `${d} ${months[monthIdx]} ${y}`;
+};
+
 const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
   const router = useRouter();
   const { lang } = useLanguage();
@@ -460,7 +477,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                             <div className="flex flex-col gap-0.5">
                               <span className="text-xs md:text-sm text-white font-body font-medium transition-colors">{item.name}</span>
                               <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white font-body">
-                                <span>{item.dob}</span>
+                                <span>{formatDobDisplay(item.dob, lang)}</span>
                                 <span>•</span>
                                 <span className="truncate">{item.pob}</span>
                               </div>
