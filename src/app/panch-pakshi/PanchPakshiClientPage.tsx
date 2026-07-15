@@ -80,7 +80,7 @@ export default function PanchPakshiClientPage() {
                       className="w-full sm:w-40 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 transition-shadow pr-12 text-sm text-transparent font-medium tabular-nums relative z-10"
                       aria-label={datePlaceholder}
                     />
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-medium">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-medium z-20">
                       {(() => {
                         if (!dateStr) return '';
                         const [y, m, d] = dateStr.split('-');

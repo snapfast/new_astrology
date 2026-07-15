@@ -742,7 +742,7 @@ const PanchangPage = () => {
                 className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label={t.selectDate}
               />
-              <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
                 {(() => {
                   const dateStr = selectedDate.toISOString().split('T')[0];
                   if (!dateStr) return '';

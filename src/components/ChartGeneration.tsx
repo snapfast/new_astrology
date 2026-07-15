@@ -502,7 +502,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                     aria-invalid={!!errors.dob}
                     aria-describedby={errors.dob ? "dob-error" : undefined}
                   />
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-on-surface text-xs md:text-sm font-body">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-on-surface text-xs md:text-sm font-body z-20">
                     {(() => {
                       if (!dob) return '';
                       const [y, m, d] = dob.split('-');
