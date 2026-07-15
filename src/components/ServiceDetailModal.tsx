@@ -44,14 +44,15 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       zIndex={110}
-      maxWidth="max-w-md"
-      containerClassName="p-1.5 md:p-3"
-      wrapperClassName="rounded-2xl md:rounded-3xl border-white/20 duration-500 overflow-hidden bg-white max-h-[80vh] md:max-h-[90vh]"
+      maxWidth="max-w-2xl"
+      containerClassName="p-3 md:p-4"
+      wrapperClassName="rounded-2xl md:rounded-3xl border-white/20 duration-500 overflow-hidden bg-white max-h-[85vh] md:max-h-[90vh]"
       ariaLabelledBy="service-detail-title"
       ariaDescribedBy="service-detail-desc"
     >
-      <div className="p-3.5 md:p-4 bg-white w-full">
-        <div className="flex justify-between items-start mb-2 md:mb-3">
+      <div className="p-4 md:p-5 bg-white w-full">
+        {/* Header */}
+        <div className="flex justify-between items-start mb-3 md:mb-4">
           <div>
             <span className={`font-medium text-accent mb-0.5 block font-label ${
               lang === 'hi' ? 'text-[10px] tracking-normal' : 'text-[8px] tracking-wider uppercase'
@@ -71,12 +72,32 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
           </button>
         </div>
 
-        <p id="service-detail-desc" className={`text-on-surface/80 leading-relaxed font-body mb-4 max-w-md ${
+        {/* Description */}
+        <p id="service-detail-desc" className={`text-on-surface/80 leading-relaxed font-body mb-3.5 max-w-xl ${
           lang === 'hi' ? 'text-sm' : 'text-xs md:text-sm'
         }`}>
           {service.description}
         </p>
 
+        {/* Portions Grid (with material icons/logos) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+          {service.portions.map((portion, index) => (
+            <div
+              key={index}
+              className="flex items-start gap-2 p-2.5 bg-surface-bright border border-outline/10 rounded-xl text-left"
+            >
+              <div className="w-7 h-7 shrink-0 rounded-lg bg-white border border-outline/5 flex items-center justify-center text-accent shadow-sm">
+                <span className="material-symbols-outlined text-base font-variation-fill">{portion.icon}</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-medium text-on-surface font-headline mb-0.5">{portion.title}</h4>
+                <p className="text-[11px] md:text-xs text-on-surface/70 font-body leading-relaxed">{portion.expandedDetail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Action Button */}
         <div className="flex items-center gap-3 pt-3 border-t border-outline/10">
           <ScheduleButton
             href="https://calendly.com/rahulbaliastrology/kundli/"

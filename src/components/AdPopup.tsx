@@ -88,7 +88,7 @@ export default function AdPopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4.5 pointer-events-none"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 pointer-events-none"
       ref={containerRef}
       role="dialog"
       aria-modal="true"
@@ -116,8 +116,13 @@ export default function AdPopup() {
           </button>
         </div>
 
-        <div className="p-3.5 sm:p-5 text-center flex flex-col items-center">
-          <h3 className="text-base md:text-lg font-headline text-on-surface mb-0.5 mt-2">{t.title}</h3>
+        <div className="p-5 sm:p-6 text-center flex flex-col items-center">
+          {/* Heart Icon/Decoration */}
+          <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mb-2.5 mt-1 text-accent">
+            <span className="material-symbols-outlined text-xl" aria-hidden="true">favorite</span>
+          </div>
+
+          <h3 className="text-base md:text-lg font-headline text-on-surface mb-0.5">{t.title}</h3>
           <p className="text-accent text-[11px] md:text-xs font-medium mb-1.5">{t.subtitle}</p>
           <p className="text-on-surface/70 text-[11px] md:text-xs mb-3.5 leading-relaxed max-w-sm">
             {t.description}
@@ -128,7 +133,7 @@ export default function AdPopup() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleClose}
-            className="w-full flex items-center justify-center gap-1 bg-on-surface text-white py-2 px-3.5 rounded-xl hover:bg-on-surface/90 transition-colors font-medium text-xs md:text-sm group"
+            className="w-full flex items-center justify-center gap-1.5 bg-on-surface text-white py-2 px-3.5 rounded-xl hover:bg-on-surface/90 transition-colors font-medium text-xs md:text-sm group"
           >
             {t.button}
             <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
