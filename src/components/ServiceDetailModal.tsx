@@ -6,7 +6,7 @@ import { Consultation } from '@/lib/consultations';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
-import AnimatedScheduleButton from './AnimatedScheduleButton';
+import ScheduleButton from './ScheduleButton';
 
 const TRANSLATIONS = {
   en: {
@@ -118,15 +118,15 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-outline/10">
-            <AnimatedScheduleButton
+            <ScheduleButton
               href="https://calendly.com/rahulbaliastrology/kundli/"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
-              className={`w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-primary via-[#4A3B2C] to-primary text-white rounded-full font-bold uppercase text-center shadow-lg shadow-primary/10 transition-all ${
+              className={`w-full sm:w-auto px-6 py-3 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase text-center shadow-md shadow-primary/10 ${
                 lang === 'hi' ? 'text-sm md:text-base' : 'text-xs md:text-sm tracking-wider'
               }`}
             >
               {t.schedule}
-            </AnimatedScheduleButton>
+            </ScheduleButton>
 
             <div className="flex flex-col items-end text-right">
               <p className={`text-on-surface/40 font-label uppercase mb-1 ${
