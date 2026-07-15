@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
-import AnimatedScheduleButton from './AnimatedScheduleButton';
+import ScheduleButton from './ScheduleButton';
 
 const TRANSLATIONS = {
   en: {
@@ -129,15 +129,15 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 </p>
 
                 <div className="space-y-4">
-                  <AnimatedScheduleButton
+                  <ScheduleButton
                     href="https://calendly.com/rahulbaliastrology/kundli/"
                     onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
-                    className={`flex items-center justify-center w-full py-3 md:py-3.5 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase shadow-lg shadow-primary/10 hover:border-accent hover:shadow-accent/20 transition-all ${
+                    className={`flex items-center justify-center w-full py-3 md:py-3.5 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase shadow-md shadow-primary/10 ${
                       lang === 'hi' ? 'text-[11px] md:text-[12px] tracking-normal' : 'text-[9px] md:text-[10px] tracking-[0.2em]'
                     }`}
                   >
                     {t.meetBtn}
-                  </AnimatedScheduleButton>
+                  </ScheduleButton>
 
                   <Link
                     href="/donate"
