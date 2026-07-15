@@ -497,12 +497,24 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
                     type="date"
                     value={dob}
                     onChange={(e) => setDob(e.target.value)}
-                    className={`w-full pl-6 pr-12 py-3 md:py-4 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                    className={`w-full pl-6 pr-12 py-3 md:py-4 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-transparent text-xs md:text-sm font-body cursor-pointer relative z-10`}
                     required
                     aria-invalid={!!errors.dob}
                     aria-describedby={errors.dob ? "dob-error" : undefined}
                   />
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">calendar_month</span>
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-on-surface text-xs md:text-sm font-body">
+                    {(() => {
+                      if (!dob) return '';
+                      const [y, m, d] = dob.split('-');
+                      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                      const monthIdx = parseInt(m, 10) - 1;
+                      if (monthIdx >= 0 && monthIdx < 12) {
+                        return `${parseInt(d, 10)} ${months[monthIdx]} ${y}`;
+                      }
+                      return dob;
+                    })()}
+                  </div>
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
                 </div>
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>

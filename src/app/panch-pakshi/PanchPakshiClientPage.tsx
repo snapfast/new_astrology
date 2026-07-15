@@ -77,10 +77,22 @@ export default function PanchPakshiClientPage() {
                       id="panch-pakshi-date"
                       value={dateStr}
                       onChange={(e) => setDateStr(e.target.value)}
-                      className="w-full sm:w-40 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 transition-shadow pr-12 text-sm font-medium tabular-nums"
+                      className="w-full sm:w-40 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 transition-shadow pr-12 text-sm text-transparent font-medium tabular-nums relative z-10"
                       aria-label={datePlaceholder}
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/50 pointer-events-none" aria-hidden="true">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-medium">
+                      {(() => {
+                        if (!dateStr) return '';
+                        const [y, m, d] = dateStr.split('-');
+                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        const monthIdx = parseInt(m, 10) - 1;
+                        if (monthIdx >= 0 && monthIdx < 12) {
+                          return `${parseInt(d, 10)} ${months[monthIdx]} ${y}`;
+                        }
+                        return dateStr;
+                      })()}
+                    </div>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/50 pointer-events-none z-20" aria-hidden="true">
                       calendar_today
                     </span>
                   </div>
