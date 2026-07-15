@@ -23,7 +23,7 @@ const BaseModal: FC<BaseModalProps> = ({
   zIndex = 100,
   maxWidth = 'max-w-lg',
   backdropClassName = 'bg-on-surface/60 ',
-  containerClassName = 'p-2 md:p-4',
+  containerClassName = 'p-3 md:p-4',
   wrapperClassName = 'rounded-2xl md:rounded-3xl border-white/20 duration-500',
   ariaLabelledBy,
   ariaDescribedBy,

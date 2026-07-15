@@ -103,28 +103,28 @@ export default function AdPopup() {
       <div className="relative w-full max-w-md bg-surface border border-outline/10 shadow-2xl rounded-3xl overflow-hidden pointer-events-auto animate-in fade-in zoom-in-95 duration-300">
 
         {/* Close Button & Timer */}
-        <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-surface-bright/80 backdrop-blur border border-outline/10 text-on-surface/70 text-xs font-medium">
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+          <div className="flex items-center justify-center w-7 h-7 rounded-full bg-surface-bright/80 backdrop-blur border border-outline/10 text-on-surface/70 text-[10px] font-medium">
             {timeLeft}s
           </div>
           <button
             onClick={handleClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-bright/80 backdrop-blur border border-outline/10 hover:bg-surface-bright transition-colors text-on-surface focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            className="w-7 h-7 flex items-center justify-center rounded-full bg-surface-bright/80 backdrop-blur border border-outline/10 hover:bg-surface-bright transition-colors text-on-surface focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
             aria-label={t.close}
           >
-            <span className="material-symbols-outlined text-[18px]" aria-hidden="true">close</span>
+            <span className="material-symbols-outlined text-[16px]" aria-hidden="true">close</span>
           </button>
         </div>
 
-        <div className="p-4 sm:p-6 text-center flex flex-col items-center">
-          {/* Icon/Decoration */}
-          <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-3 text-accent">
-            <span className="material-symbols-outlined text-2xl" aria-hidden="true">favorite</span>
+        <div className="p-5 sm:p-6 text-center flex flex-col items-center">
+          {/* Heart Icon/Decoration */}
+          <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mb-2.5 mt-1 text-accent">
+            <span className="material-symbols-outlined text-xl" aria-hidden="true">favorite</span>
           </div>
 
-          <h3 className="text-lg md:text-xl font-headline text-on-surface mb-1">{t.title}</h3>
-          <p className="text-accent text-xs md:text-sm font-medium mb-2">{t.subtitle}</p>
-          <p className="text-on-surface/70 text-xs md:text-sm mb-4 leading-relaxed">
+          <h3 className="text-base md:text-lg font-headline text-on-surface mb-0.5">{t.title}</h3>
+          <p className="text-accent text-[11px] md:text-xs font-medium mb-1.5">{t.subtitle}</p>
+          <p className="text-on-surface/70 text-[11px] md:text-xs mb-3.5 leading-relaxed max-w-sm">
             {t.description}
           </p>
 
@@ -133,10 +133,10 @@ export default function AdPopup() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleClose}
-            className="w-full flex items-center justify-center gap-1.5 bg-on-surface text-white py-2.5 px-4 rounded-xl hover:bg-on-surface/90 transition-colors font-medium text-xs md:text-sm group"
+            className="w-full flex items-center justify-center gap-1.5 bg-on-surface text-white py-2 px-3.5 rounded-xl hover:bg-on-surface/90 transition-colors font-medium text-xs md:text-sm group"
           >
             {t.button}
-            <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+            <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
           </a>
         </div>
       </div>
