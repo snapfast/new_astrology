@@ -1,8 +1,14 @@
 import { test, expect } from '@playwright/test';
 
 test('Transits page renders all twelve planets and future transits', async ({ page }) => {
+  // Prevent matchmaking popup
+  await page.addInitScript("window.localStorage.setItem('moonine_popup_last_shown', Date.now().toString())");
+
   // Navigate to transits page
-  await page.goto('http://localhost:3000/transits');
+  await page.goto('/transits');
+
+  // Wait for hydration to complete fully
+  await page.waitForTimeout(3000);
 
   // Verify PageHeader titles
   await expect(page.locator('h1')).toContainText('Planetary Transits');
