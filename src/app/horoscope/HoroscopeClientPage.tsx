@@ -740,7 +740,7 @@ const HoroscopeContent = () => {
                   <td className={`px-4 py-2.5 text-sm font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
                     {lang === 'hi' ? p.nameSanskrit : p.name}
                     {p.isRetrograde && <span className="ml-1">*</span>}
-                    {p.isCombust && <span className="ml-1.5 text-xs text-error font-medium">{lang === 'hi' ? '(अस्त)' : '(Combust)'}</span>}
+                    {p.isCombust && <span className="ml-0.5 text-xs text-error font-medium">#</span>}
                   </td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center tabular-nums">{p.house}</td>
                   <td className={`px-4 py-2.5 text-sm text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
@@ -757,8 +757,8 @@ const HoroscopeContent = () => {
         <div className={`flex flex-wrap gap-x-6 gap-y-2 text-xs text-on-surface/60 px-4 mt-3 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
           <span>* {lang === 'hi' ? 'वक्री (Retrograde)' : 'Retrograde'}</span>
           <span className="flex items-center gap-1">
-            <span className="text-error font-medium">{lang === 'hi' ? '(अस्त)' : '(Combust)'}</span>
-            <span>{lang === 'hi' ? 'सूर्य के अत्यंत निकट होने के कारण अस्त' : 'Combust/Asta due to closeness with Sun'}</span>
+            <span className="text-error font-medium">#</span>
+            <span>{lang === 'hi' ? 'अस्त (Combust)' : 'Combust'}</span>
           </span>
         </div>
       </div>

@@ -54,7 +54,7 @@ export interface DashaBalance {
 }
 
 export interface DivisionalChartData {
-    houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> };
+    houses: { [key: number]: Array<{ symbol: string, isRetrograde: boolean, isCombust?: boolean, degree?: string }> };
     houseRasis: { [key: number]: number };
 }
 
@@ -546,7 +546,7 @@ function calculatePlanetaryAndDivisionalData(
     };
     type ChartKey = typeof chartKeys[number];
 
-    const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, degree?: string }> }> = {
+    const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, isCombust?: boolean, degree?: string }> }> = {
         d1: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
         d12: {}, d16: {}, d20: {}, d24: {}, d27: {}, d30: {}, d40: {}, d45: {}, d60: {}
     };
@@ -595,30 +595,30 @@ function calculatePlanetaryAndDivisionalData(
         d60: getD60Rasi(lagnaSidereal)
     };
 
-    const assignToCharts = (symbol: string, siderealLong: number, isRetro: boolean) => {
-        assignments.d1[((Math.floor(siderealLong / 30) - lagnaRasis.d1 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 1) % 30) });
-        assignments.d2[((getD2Rasi(siderealLong) - lagnaRasis.d2 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 2) % 30) });
-        assignments.d2us[((getD2UmaShambhuRasi(siderealLong) - lagnaRasis.d2us + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 2) % 30) });
-        assignments.d3[((getD3Rasi(siderealLong) - lagnaRasis.d3 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 3) % 30) });
-        assignments.d4[((getD4Rasi(siderealLong) - lagnaRasis.d4 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 4) % 30) });
-        assignments.d7[((getD7Rasi(siderealLong) - lagnaRasis.d7 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 7) % 30) });
-        assignments.d9[((getD9Rasi(siderealLong) - lagnaRasis.d9 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 9) % 30) });
-        assignments.d10[((getD10Rasi(siderealLong) - lagnaRasis.d10 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 10) % 30) });
-        assignments.d12[((getD12Rasi(siderealLong) - lagnaRasis.d12 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 12) % 30) });
-        assignments.d16[((getD16Rasi(siderealLong) - lagnaRasis.d16 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 16) % 30) });
-        assignments.d20[((getD20Rasi(siderealLong) - lagnaRasis.d20 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 20) % 30) });
-        assignments.d24[((getD24Rasi(siderealLong) - lagnaRasis.d24 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 24) % 30) });
-        assignments.d27[((getD27Rasi(siderealLong) - lagnaRasis.d27 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 27) % 30) });
-        assignments.d30[((getD30Rasi(siderealLong) - lagnaRasis.d30 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 30) % 30) });
-        assignments.d40[((getD40Rasi(siderealLong) - lagnaRasis.d40 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 40) % 30) });
-        assignments.d45[((getD45Rasi(siderealLong) - lagnaRasis.d45 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 45) % 30) });
-        assignments.d60[((getD60Rasi(siderealLong) - lagnaRasis.d60 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 60) % 30) });
+    const assignToCharts = (symbol: string, siderealLong: number, isRetro: boolean, isComb: boolean = false) => {
+        assignments.d1[((Math.floor(siderealLong / 30) - lagnaRasis.d1 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 1) % 30) });
+        assignments.d2[((getD2Rasi(siderealLong) - lagnaRasis.d2 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 2) % 30) });
+        assignments.d2us[((getD2UmaShambhuRasi(siderealLong) - lagnaRasis.d2us + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 2) % 30) });
+        assignments.d3[((getD3Rasi(siderealLong) - lagnaRasis.d3 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 3) % 30) });
+        assignments.d4[((getD4Rasi(siderealLong) - lagnaRasis.d4 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 4) % 30) });
+        assignments.d7[((getD7Rasi(siderealLong) - lagnaRasis.d7 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 7) % 30) });
+        assignments.d9[((getD9Rasi(siderealLong) - lagnaRasis.d9 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 9) % 30) });
+        assignments.d10[((getD10Rasi(siderealLong) - lagnaRasis.d10 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 10) % 30) });
+        assignments.d12[((getD12Rasi(siderealLong) - lagnaRasis.d12 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 12) % 30) });
+        assignments.d16[((getD16Rasi(siderealLong) - lagnaRasis.d16 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 16) % 30) });
+        assignments.d20[((getD20Rasi(siderealLong) - lagnaRasis.d20 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 20) % 30) });
+        assignments.d24[((getD24Rasi(siderealLong) - lagnaRasis.d24 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 24) % 30) });
+        assignments.d27[((getD27Rasi(siderealLong) - lagnaRasis.d27 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 27) % 30) });
+        assignments.d30[((getD30Rasi(siderealLong) - lagnaRasis.d30 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 30) % 30) });
+        assignments.d40[((getD40Rasi(siderealLong) - lagnaRasis.d40 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 40) % 30) });
+        assignments.d45[((getD45Rasi(siderealLong) - lagnaRasis.d45 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 45) % 30) });
+        assignments.d60[((getD60Rasi(siderealLong) - lagnaRasis.d60 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 60) % 30) });
     };
 
     planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false, false));
     for (let k = 0; k < chartKeys.length; k++) {
         const key = chartKeys[k];
-        assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) });
+        assignments[key][1].push({ symbol: "As", isRetrograde: false, isCombust: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) });
     }
 
     // 2. Calculate Planets
@@ -642,7 +642,7 @@ function calculatePlanetaryAndDivisionalData(
         const isCombust = (p.name !== "Sun" && p.name !== "Moon") ? isPlanetCombustAt(p.name, p.body, time) : false;
 
         planetData.push(createPlanet(p.name, p.symbol, siderealLong, house, isRetro, isCombust));
-        assignToCharts(p.symbol, siderealLong, isRetro);
+        assignToCharts(p.symbol, siderealLong, isRetro, isCombust);
     }
 
     // 3. Rahu & Ketu
@@ -656,8 +656,8 @@ function calculatePlanetaryAndDivisionalData(
 
     planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, rahuHouse, true, false));
     planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ketuHouse, true, false));
-    assignToCharts("Ra", rahuSidereal, true);
-    assignToCharts("Ke", ketuSidereal, true);
+    assignToCharts("Ra", rahuSidereal, true, false);
+    assignToCharts("Ke", ketuSidereal, true, false);
 
     const houseRasis: Record<ChartKey, { [key: number]: number }> = {
         d1: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
