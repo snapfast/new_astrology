@@ -399,7 +399,7 @@ test('generateAstrologyData includes isCombust property on planets', () => {
     assert.ok(Array.isArray(combustPlanets), "Combust planets should be a valid array");
 });
 
-import { Ayanamsa, setAyanamsa, setDashaYearDays, getAyanamsa } from './astrology.ts';
+import { Ayanamsa, setAyanamsa, setDashaYearDays } from './astrology.ts';
 
 test('Traditional Dasha Year configuration correctness', () => {
     const moonLongitude = 306.475;
@@ -468,6 +468,8 @@ test('Zero cumulative drift in nested dasha calculations', () => {
     const lastAntar = antardashas[antardashas.length - 1];
 
     assert.strictEqual(lastAntar.end, firstMahadasha.end, "Nested Antardashas should perfectly sum up to the parent Mahadasha end with zero cumulative drift");
+});
+
 test('getRetrogradeDetails returns correct transition structures for Mercury and Saturn', () => {
     const refDate = new Date("2024-03-15T12:00:00Z");
 
