@@ -185,7 +185,7 @@ const KundliChartComponent: FC<KundliChartProps> = ({ data }) => {
 interface HouseContentProps {
   houseNum: number;
   rasi: number;
-  planets: Array<{ symbol: string, isRetrograde: boolean, degree?: string }>;
+  planets: Array<{ symbol: string, isRetrograde: boolean, isCombust?: boolean, degree?: string }>;
 }
 
 const HouseContent: FC<HouseContentProps> = ({ houseNum, rasi, planets }) => {
@@ -243,6 +243,7 @@ const HouseContent: FC<HouseContentProps> = ({ houseNum, rasi, planets }) => {
                 <div style={{ color }}>
                   {p.symbol}
                   {p.isRetrograde && '*'}
+                  {p.isCombust && '#'}
                 </div>
                 {p.degree && (
                   <div className="text-[8px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>

@@ -325,6 +325,7 @@ const CompactHoroscopeContent = () => {
                     <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
                       <td className={`px-2 py-1.5 text-[11px] font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
                         {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && '*'}
+                        {p.isCombust && <span className="ml-0.5 text-[10px] text-error font-medium">#</span>}
                       </td>
                       <td className="px-1 py-1.5 text-[11px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
                       <td className={`px-2 py-1.5 text-[11px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
@@ -334,6 +335,10 @@ const CompactHoroscopeContent = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className={`bg-surface-container-lowest px-3 py-1 border-t border-outline/20 flex gap-4 text-[9px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+              <span>* {lang === 'hi' ? 'वक्र' : 'Retrograde'}</span>
+              <span><span className="text-error font-medium">#</span> {lang === 'hi' ? 'अस्त' : 'Combust'}</span>
             </div>
           </section>
 
