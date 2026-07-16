@@ -490,19 +490,6 @@ const HoroscopeContent = () => {
 
       {/* Charts Section */}
       <div className="space-y-8">
-        {/* Top Chart Legend */}
-        <div className={`flex items-center justify-center gap-6 text-xs md:text-sm text-on-surface/80 bg-white border border-outline/80 rounded-2xl py-2.5 px-6 w-fit mx-auto font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
-          <span className="flex items-center gap-1.5">
-            <span className="text-accent font-bold text-sm md:text-base">*</span>
-            <span>{lang === 'hi' ? 'वक्री (Retrograde)' : 'Retrograde'}</span>
-          </span>
-          <div className="w-px h-4 bg-outline/30"></div>
-          <span className="flex items-center gap-1.5">
-            <span className="text-error font-bold text-sm md:text-base">^</span>
-            <span>{lang === 'hi' ? 'अस्त (Combust)' : 'Combust'}</span>
-          </span>
-        </div>
-
         {/* Row 1: D1 & D9 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
@@ -513,6 +500,16 @@ const HoroscopeContent = () => {
               </span>
             </h2>
             <KundliChart data={chartData.d1} />
+            <div className={`flex justify-center gap-x-6 gap-y-2 text-xs text-on-surface/60 mt-3 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+              <span className="flex items-center gap-1">
+                <span className="text-black font-normal">*</span>
+                <span>{lang === 'hi' ? 'वक्री (Retrograde)' : 'Retrograde'}</span>
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="text-black font-normal">^</span>
+                <span>{lang === 'hi' ? 'अस्त (Combust)' : 'Combust'}</span>
+              </span>
+            </div>
           </div>
           <div className="space-y-6">
             <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
@@ -752,8 +749,8 @@ const HoroscopeContent = () => {
                 <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
                   <td className={`px-4 py-2.5 text-sm font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
                     {lang === 'hi' ? p.nameSanskrit : p.name}
-                    {p.isRetrograde && <span className="ml-1">*</span>}
-                    {p.isCombust && <span className="ml-0.5 text-xs text-error font-medium">^</span>}
+                    {p.isRetrograde && <span className="ml-1 text-black font-normal">*</span>}
+                    {p.isCombust && <span className="ml-0.5 text-xs text-black font-normal">^</span>}
                   </td>
                   <td className="px-4 py-2.5 text-sm text-on-surface text-center tabular-nums">{p.house}</td>
                   <td className={`px-4 py-2.5 text-sm text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
@@ -768,9 +765,12 @@ const HoroscopeContent = () => {
           </table>
         </div>
         <div className={`flex flex-wrap gap-x-6 gap-y-2 text-xs text-on-surface/60 px-4 mt-3 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
-          <span>* {lang === 'hi' ? 'वक्री (Retrograde)' : 'Retrograde'}</span>
           <span className="flex items-center gap-1">
-            <span className="text-error font-medium">^</span>
+            <span className="text-black font-normal">*</span>
+            <span>{lang === 'hi' ? 'वक्री (Retrograde)' : 'Retrograde'}</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="text-black font-normal">^</span>
             <span>{lang === 'hi' ? 'अस्त (Combust)' : 'Combust'}</span>
           </span>
         </div>
