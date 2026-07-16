@@ -345,6 +345,21 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     const saturnTransits = getPlanetTransits("Saturn", refDate);
     assert.strictEqual(saturnTransits.past.length, 3, "Should have exactly 3 past transits for Saturn");
     assert.strictEqual(saturnTransits.future.length, 3, "Should have exactly 3 future transits for Saturn");
+
+    // Test Uranus (outer planet)
+    const uranusTransits = getPlanetTransits("Uranus", refDate);
+    assert.strictEqual(uranusTransits.planet, "Uranus");
+    assert.ok(uranusTransits.future.length > 0, "Should compute future transits for Uranus");
+
+    // Test Neptune (outer planet)
+    const neptuneTransits = getPlanetTransits("Neptune", refDate);
+    assert.strictEqual(neptuneTransits.planet, "Neptune");
+    assert.ok(neptuneTransits.future.length > 0, "Should compute future transits for Neptune");
+
+    // Test Pluto (outer planet)
+    const plutoTransits = getPlanetTransits("Pluto", refDate);
+    assert.strictEqual(plutoTransits.planet, "Pluto");
+    assert.ok(plutoTransits.future.length > 0, "Should compute future transits for Pluto");
 });
 
 import { getFutureCombustions } from './astrology.ts';

@@ -180,6 +180,9 @@ export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string } }
     "Saturn": { name: "Saturn", sanskrit: "शनि" },
     "Rahu": { name: "Rahu", sanskrit: "राहु" },
     "Ketu": { name: "Ketu", sanskrit: "केतु" },
+    "Uranus": { name: "Uranus", sanskrit: "अरुण" },
+    "Neptune": { name: "Neptune", sanskrit: "वरुण" },
+    "Pluto": { name: "Pluto", sanskrit: "यम" },
     "Ascendant": { name: "Ascendant", sanskrit: "लग्न" }
 };
 
@@ -1758,8 +1761,8 @@ function bisectTransit(
 ): Date {
     let low = t1.getTime();
     let high = t2.getTime();
-    for (let i = 0; i < 12; i++) {
-        if (high - low < 15 * 60 * 1000) break;
+    for (let i = 0; i < 24; i++) {
+        if (high - low < 1000) break;
         const mid = (low + high) / 2;
         const midDate = new Date(mid);
         const midTime = Ast.MakeTime(midDate);
@@ -2015,6 +2018,21 @@ export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTr
         case "Ketu":
             stepDays = 15;
             maxSteps = 120;
+            break;
+        case "Uranus":
+            body = Ast.Body.Uranus;
+            stepDays = 30;
+            maxSteps = 150;
+            break;
+        case "Neptune":
+            body = Ast.Body.Neptune;
+            stepDays = 60;
+            maxSteps = 150;
+            break;
+        case "Pluto":
+            body = Ast.Body.Pluto;
+            stepDays = 90;
+            maxSteps = 150;
             break;
     }
 
