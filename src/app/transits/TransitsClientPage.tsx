@@ -59,7 +59,9 @@ const TRANSLATIONS = {
     upcomingCombustion: "Upcoming Combustion",
     combustFrom: "From",
     combustTo: "To",
-    noCombustions: "No upcoming combustion periods found in the near future."
+    noCombustions: "No upcoming combustion periods found in the near future.",
+    retrogradeLabel: "Retrograde Transit Time",
+    combustLabel: "Next Combust Transit Time"
   },
   hi: {
     heroTitle: "ग्रह गोचर",
@@ -112,7 +114,9 @@ const TRANSLATIONS = {
     upcomingCombustion: "आगामी अस्त काल",
     combustFrom: "से",
     combustTo: "तक",
-    noCombustions: "निकट भविष्य में कोई आगामी अस्त काल नहीं मिला।"
+    noCombustions: "निकट भविष्य में कोई आगामी अस्त काल नहीं मिला।",
+    retrogradeLabel: "वक्री गोचर समय",
+    combustLabel: "आगामी अस्त गोचर समय"
   }
 };
 
@@ -233,34 +237,75 @@ const TransitsClientPage = () => {
             const planetSanskrit = PLANET_NAMES[planetName]?.sanskrit || planetName;
             const nameDisplay = lang === 'en' ? planetName : planetSanskrit;
 
+            // Find next retrograde transit time
+            const nextRetroEvent = transit.future.find(ev => ev.type === 'motion' && (ev.toValue === 'Retrograde' || ev.toValue === 'वक्री'));
+            const nextRetroTime = nextRetroEvent ? formatISTDate(nextRetroEvent.date) : "--";
+
+            // Find next combust transit time
+            const nextCombustEvent = combustionPeriods.find(cp => cp.planet === planetName);
+            const nextCombustTime = nextCombustEvent ? formatCombustionDate(nextCombustEvent.start) : "--";
+
             return (
-              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm space-y-4">
-                <div className="border-b border-outline/10 pb-3">
-                  <h3 className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
-                    {nameDisplay}
-                    {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">{planetSanskrit}</span>}
-                  </h3>
+              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+                <div className="space-y-4">
+                  <div className="border-b border-outline/10 pb-3">
+                    <h3 className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
+                      {nameDisplay}
+                      {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">{planetSanskrit}</span>}
+                    </h3>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider">
+                      {t.futureTransits}
+                    </h4>
+                    {transit.future.length === 0 ? (
+                      <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
+                    ) : (
+                      <ul className="space-y-3 text-sm text-on-surface/80 font-body">
+                        {transit.future.map((ev, index) => {
+                          const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
+                          const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+
+                          let labelText = "";
+                          if (ev.type === 'rashi') {
+                            labelText = lang === 'en' ? "Sign Transit" : "राशि गोचर";
+                          } else if (ev.type === 'nakshatra') {
+                            labelText = lang === 'en' ? "Nakshatra Transit" : "नक्षत्र गोचर";
+                          } else if (ev.type === 'motion') {
+                            labelText = lang === 'en' ? "Direction Transit" : "चाल बदलाव";
+                          }
+
+                          return (
+                            <li key={index} className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                              <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                                {labelText}
+                              </span>
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">{fromDisp}</span> &rarr; <span className="font-medium text-on-surface">{toDisp}</span>
+                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(ev.date)})</span>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider mb-2">
-                    {t.futureTransits}
-                  </h4>
-                  {transit.future.length === 0 ? (
-                    <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
-                  ) : (
-                    <ul className="space-y-1.5 text-sm text-on-surface/80 list-disc list-inside font-body">
-                      {transit.future.map((ev, index) => {
-                        const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                        const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                        return (
-                          <li key={index}>
-                            <span className="font-medium text-accent">{fromDisp}</span> &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
+                <div className="pt-3 mt-3 border-t border-outline/10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-body">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                      {t.retrogradeLabel}
+                    </span>
+                    <span className="text-on-surface/80 font-medium">{nextRetroTime}</span>
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                      {t.combustLabel}
+                    </span>
+                    <span className="text-on-surface/80 font-medium">{nextCombustTime}</span>
+                  </div>
                 </div>
               </div>
             );
