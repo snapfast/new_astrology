@@ -18,7 +18,7 @@ test('Compact Kundli Chart renders correctly and trims degrees inside the chart 
   await expect(svgCharts.first()).toBeVisible();
 
   // Find the small degree text elements inside the chart SVG using the tailwind class
-  const degreeElements = page.locator('svg foreignObject .text-\\[8px\\].text-on-surface');
+  const degreeElements = page.locator('svg foreignObject .text-\\[8px\\]');
   const degreeTexts = await degreeElements.allTextContents();
 
   console.log('Chart degree texts:', degreeTexts);
