@@ -75,6 +75,10 @@
     @apply w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin;
   }
 
+  .btn-secondary {
+    @apply border border-secondary/40 bg-transparent text-on-surface rounded-full transition-all active:scale-95 hover:bg-on-surface/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
+  }
+
   .font-body {
     font-family: var(--font-poppins), sans-serif;
   }
