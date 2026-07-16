@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, TransitEvent } from '@/lib/astrology';
+import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, getRetrogradeDetails, getCombustionDetails, TransitEvent } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
@@ -14,11 +14,10 @@ const TRANSLATIONS = {
     heroDesc: "Track past and future planetary movements across signs (Rashi) and asterisms (Nakshatra). Predict shift in cosmic energies.",
     referenceTime: "Reference Date & Time (IST)",
     pastMovements: "Past 3 Movements",
-    futureTransits: "Future 3 Transits",
+    futureTransits: "Upcoming Transits",
     planet: "Planet",
     rashiTransit: "Sign Transit",
     nakshatraTransit: "Nakshatra Transit",
-    motionTransit: "Direction Transit",
     from: "From",
     to: "To",
     date: "Date & Time (IST)",
@@ -46,6 +45,12 @@ const TRANSLATIONS = {
     saturnDesc: "The slowest major planet, transiting a sign in 2.5 years. Demands discipline, focus, structured lessons, and persistence.",
     rahuKetuTitle: "Rahu & Ketu",
     rahuKetuDesc: "The shadow nodes transit a sign in 1.5 years. Rahu triggers intense desires and innovation, while Ketu drives detachment and spiritual liberation.",
+    uranusTitle: "Uranus (Aruna)",
+    uranusDesc: "A slow-moving planet transiting a sign in about 7 years. Governs revolution, sudden shifts, innovation, and technological breakthroughs.",
+    neptuneTitle: "Neptune (Varuna)",
+    neptuneDesc: "Transits a sign in roughly 14 years. Influences mass consciousness, dreams, spiritual alignment, illusion, and artistic expression.",
+    plutoTitle: "Pluto (Yama)",
+    plutoDesc: "The slowest outer planet, transiting a sign in 12-30 years. Rules transformation, rebirth, deep psychological shifts, and generational changes.",
     combustionTitle: "Planetary Combustion (Asta) Periods",
     combustionSubtitle: "Combustion occurs when a planet transits too close to the Sun, temporarily weakening its material expression and highlighting internal or spiritual lessons.",
     combustionLabel: "Combustion Period",
@@ -53,7 +58,13 @@ const TRANSLATIONS = {
     upcomingCombustion: "Upcoming Combustion",
     combustFrom: "From",
     combustTo: "To",
-    noCombustions: "No upcoming combustion periods found in the near future."
+    noCombustions: "No upcoming combustion periods found in the near future.",
+    retrogradeLabel: "Retrograde Transit Time",
+    combustLabel: "Combust Transit Time",
+    currentOrUpcoming: "Current / Next",
+    previousPeriod: "Previous",
+    noRashiTransit: "No upcoming sign transit found in search window.",
+    noNakshatraTransit: "No upcoming nakshatra transit found in search window."
   },
   hi: {
     heroTitle: "ग्रह गोचर",
@@ -61,11 +72,10 @@ const TRANSLATIONS = {
     heroDesc: "राशियों और नक्षत्रों में ग्रहों के पिछले और भविष्य के गोचर को ट्रैक करें। ब्रह्मांडीय ऊर्जा के बदलाव का पूर्वानुमान लगाएं।",
     referenceTime: "संदर्भ तिथि और समय (IST)",
     pastMovements: "पिछले 3 गोचर",
-    futureTransits: "भविष्य के 3 गोचर",
+    futureTransits: "आगामी गोचर",
     planet: "ग्रह",
     rashiTransit: "राशि गोचर",
     nakshatraTransit: "नक्षत्र गोचर",
-    motionTransit: "चाल बदलाव",
     from: "से",
     to: "तक",
     date: "तिथि और समय (IST)",
@@ -93,6 +103,12 @@ const TRANSLATIONS = {
     saturnDesc: "सबसे धीमा ग्रह, 2.5 वर्ष में राशि बदलता है। अनुशासन, ध्यान, संरचनात्मक सबक और दृढ़ता की मांग करता है।",
     rahuKetuTitle: "राहु और केतु",
     rahuKetuDesc: "छाया ग्रह 1.5 वर्ष में राशि बदलते हैं। राहु तीव्र इच्छाओं को बढ़ाता है, जबकि केतु वैराग्य और मोक्ष की ओर ले जाता है।",
+    uranusTitle: "अरुण (Uranus)",
+    uranusDesc: "लगभग 7 वर्षों में एक राशि बदलता है। क्रांति, अचानक बदलाव, नवाचार और तकनीकी विकास को नियंत्रित करता है।",
+    neptuneTitle: "वरुण (Neptune)",
+    neptuneDesc: "लगभग 14 वर्षों में एक राशि बदलता है। जन चेतना, सपनों, आध्यात्मिक झुकाव, भ्रम और कलात्मक अभिव्यक्ति को प्रभावित करता है।",
+    plutoTitle: "यम (Pluto)",
+    plutoDesc: "सबसे धीमा बाहरी ग्रह, 12-30 वर्षों में राशि बदलता है। परिवर्तन, पुनर्जन्म, गहन मनोवैज्ञानिक बदलाव और पीढ़ीगत सुधारों को नियंत्रित करता है।",
     combustionTitle: "ग्रह अस्त (Asta) अवधि",
     combustionSubtitle: "जब कोई ग्रह सूर्य के अत्यंत निकट आ जाता है, तो वह अस्त हो जाता है। इससे उसकी बाहरी और भौतिक शक्ति कम हो जाती है, जबकि आंतरिक या आध्यात्मिक ऊर्जा जागृत होती है।",
     combustionLabel: "अस्त अवधि",
@@ -100,11 +116,17 @@ const TRANSLATIONS = {
     upcomingCombustion: "आगामी अस्त काल",
     combustFrom: "से",
     combustTo: "तक",
-    noCombustions: "निकट भविष्य में कोई आगामी अस्त काल नहीं मिला।"
+    noCombustions: "निकट भविष्य में कोई आगामी अस्त काल नहीं मिला।",
+    retrogradeLabel: "वक्री गोचर समय",
+    combustLabel: "अस्त गोचर समय",
+    currentOrUpcoming: "वर्तमान / आगामी",
+    previousPeriod: "पिछला",
+    noRashiTransit: "सर्च विंडो में कोई आगामी राशि गोचर नहीं मिला।",
+    noNakshatraTransit: "सर्च विंडो में कोई आगामी नक्षत्र गोचर नहीं मिला।"
   }
 };
 
-const PLANETS_ORDER = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu"];
+const PLANETS_ORDER = ["Moon", "Mercury", "Venus", "Sun", "Mars", "Jupiter", "Rahu", "Ketu", "Saturn", "Uranus", "Neptune", "Pluto"];
 
 const TransitsClientPage = () => {
   const { lang } = useLanguage();
@@ -120,15 +142,6 @@ const TransitsClientPage = () => {
     return now.toTimeString().substring(0, 5);
   });
 
-  const [collapsedPlanets, setCollapsedPlanets] = useState<Record<string, boolean>>({});
-
-  const togglePlanet = (planetName: string) => {
-    setCollapsedPlanets(prev => ({
-      ...prev,
-      [planetName]: !prev[planetName]
-    }));
-  };
-
   const referenceDate = useMemo(() => {
     const [year, month, day] = selectedDate.split('-').map(Number);
     const [hour, minute] = selectedTime.split(':').map(Number);
@@ -143,8 +156,20 @@ const TransitsClientPage = () => {
     });
   }, [referenceDate]);
 
+  const retroAndCombustDetails = useMemo(() => {
+    const detailsMap: Record<string, { retroDetails: ReturnType<typeof getRetrogradeDetails>, combustDetails: ReturnType<typeof getCombustionDetails> }> = {};
+    for (const planet of PLANETS_ORDER) {
+      detailsMap[planet] = {
+        retroDetails: getRetrogradeDetails(planet, referenceDate),
+        combustDetails: getCombustionDetails(planet, referenceDate)
+      };
+    }
+    return detailsMap;
+  }, [referenceDate]);
+
   const combustionPeriods: CombustionPeriod[] = useMemo(() => {
-    return getFutureCombustions(referenceDate);
+    const list = getFutureCombustions(referenceDate);
+    return [...list].sort((a, b) => a.start.getTime() - b.start.getTime());
   }, [referenceDate]);
 
   const formatISTDate = (date: Date) => {
@@ -171,66 +196,21 @@ const TransitsClientPage = () => {
     return `${d} ${m} ${y}`;
   };
 
-  const getTransitIcon = (type: 'rashi' | 'nakshatra' | 'motion') => {
-    switch (type) {
-      case 'rashi':
-        return <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">swap_horiz</span>;
-      case 'nakshatra':
-        return <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">star</span>;
-      case 'motion':
-        return <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">sync_alt</span>;
-    }
-  };
-
-  type RenderEvent =
-    | {
-        type: 'single';
-        event: TransitEvent;
-      }
-    | {
-        type: 'grouped_nakshatra';
-        events: TransitEvent[];
-      };
-
-  const getRenderEvents = (events: TransitEvent[]): RenderEvent[] => {
-    const result: RenderEvent[] = [];
-    const nakshatras = events.filter(e => e.type === 'nakshatra');
-    const others = events.filter(e => e.type !== 'nakshatra');
-
-    for (const ev of others) {
-      result.push({ type: 'single', event: ev });
-    }
-
-    if (nakshatras.length > 0) {
-      result.push({
-        type: 'grouped_nakshatra',
-        events: nakshatras
-      });
-    }
-
-    return result.sort((a, b) => {
-      const dateA = a.type === 'single' ? a.event.date.getTime() : a.events[0].date.getTime();
-      const dateB = b.type === 'single' ? b.event.date.getTime() : b.events[0].date.getTime();
-      return dateA - dateB;
-    });
-  };
-
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
 
       <PageHeader
         title={t.heroTitle}
-        subtitle={t.heroSubtitle}
         description={t.heroDesc}
       />
 
       <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
         {/* Input Parameters Card */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline rounded-2xl p-6 shadow-sm">
           <div className="flex flex-col gap-1 w-full md:w-auto">
             <h2 className="text-xs uppercase font-label text-accent font-bold tracking-widest">{t.referenceTime}</h2>
-            <p className="text-sm text-on-surface/70 font-body">Change date or time to view movements relative to a specific moment.</p>
+            <p className="text-sm text-on-surface font-body">Change date or time to view movements relative to a specific moment.</p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
             <div className="relative w-full sm:w-auto">
@@ -268,180 +248,152 @@ const TransitsClientPage = () => {
           </div>
         </div>
 
-        {/* Transits Dashboard Grid */}
+        {/* Transits List */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {transitsData.map((transit) => {
             const planetName = transit.planet;
             const planetSanskrit = PLANET_NAMES[planetName]?.sanskrit || planetName;
             const nameDisplay = lang === 'en' ? planetName : planetSanskrit;
-            const isCollapsed = collapsedPlanets[planetName] === true;
 
-            const renderedPast = getRenderEvents(transit.past);
-            const renderedFuture = getRenderEvents(transit.future);
+            // Find retrograde and combust details from pre-calculated useMemo map
+            const { retroDetails, combustDetails } = retroAndCombustDetails[planetName] || { retroDetails: null, combustDetails: null };
 
             return (
-              <div key={planetName} className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <button
-                    onClick={() => togglePlanet(planetName)}
-                    className="w-full text-left flex items-center justify-between gap-3 border-b border-outline/10 pb-4 mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
-                    aria-expanded={!isCollapsed}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                        <span className="material-symbols-outlined text-xl">public</span>
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-headline font-semibold text-on-surface">{nameDisplay}</h3>
-                        {lang === 'en' && <p className="text-xs text-on-surface/60 font-hindi">{planetSanskrit}</p>}
-                      </div>
+              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+                <div className="space-y-4">
+                  <div className="border-b border-outline/10 pb-3">
+                    <h3 className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
+                      {nameDisplay}
+                      {lang === 'en' && <span className="font-hindi font-normal">{planetSanskrit}</span>}
+                    </h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider">
+                      {t.futureTransits}
+                    </h4>
+                    <div className="space-y-4">
+                      {(() => {
+                        const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
+                        const nakshatraTransit = transit.future.find(ev => ev.type === 'nakshatra');
+
+                        const sections = [
+                          {
+                            type: 'rashi' as const,
+                            transit: rashiTransit,
+                            label: t.rashiTransit,
+                            noTransitText: t.noRashiTransit,
+                            render: (transitItem: TransitEvent) => (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? transitItem.fromValue : transitItem.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? transitItem.toValue : transitItem.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(transitItem.date)})</span>
+                              </div>
+                            )
+                          },
+                          {
+                            type: 'nakshatra' as const,
+                            transit: nakshatraTransit,
+                            label: t.nakshatraTransit,
+                            noTransitText: t.noNakshatraTransit,
+                            render: (transitItem: TransitEvent) => (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? transitItem.fromValue : transitItem.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? transitItem.toValue : transitItem.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(transitItem.date)})</span>
+                              </div>
+                            )
+                          }
+                        ];
+
+                        // Sort sections chronologically (earlier first). Missing transits (no date) placed at the bottom.
+                        sections.sort((a, b) => {
+                          const timeA = a.transit ? a.transit.date.getTime() : Infinity;
+                          const timeB = b.transit ? b.transit.date.getTime() : Infinity;
+                          return timeA - timeB;
+                        });
+
+                        return (
+                          <>
+                            {sections.map((sec) => (
+                              <div key={sec.type} className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                                <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                                  {sec.label}
+                                </span>
+                                {sec.transit ? (
+                                  sec.render(sec.transit)
+                                ) : (
+                                  <p className="text-sm text-on-surface italic">{sec.noTransitText}</p>
+                                )}
+                              </div>
+                            ))}
+                          </>
+                        );
+                      })()}
                     </div>
-                    <span className="material-symbols-outlined text-on-surface/60 shrink-0 select-none transition-transform duration-0">
-                      {isCollapsed ? 'expand_more' : 'expand_less'}
+                  </div>
+                </div>
+
+                <div className="pt-3 mt-3 border-t border-outline/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
+                  {/* Retrograde Details */}
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                      {t.retrogradeLabel}
                     </span>
-                  </button>
-
-                  {!isCollapsed && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-none">
-                      {/* Past Transits */}
-                      <div>
-                        <h4 className="text-xs font-label font-bold text-on-surface/60 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-sm text-on-surface/40">arrow_back</span>
-                          {t.pastMovements}
-                        </h4>
-                        <div className="space-y-4">
-                          {transit.past.length === 0 ? (
-                            <p className="text-xs text-on-surface/40 italic">{t.noTransits}</p>
-                          ) : (
-                            renderedPast.map((item, index) => {
-                              if (item.type === 'single') {
-                                const ev = item.event;
-                                const isRashi = ev.type === 'rashi';
-                                const title = isRashi ? t.rashiTransit : t.motionTransit;
-                                const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{title}</span>
-                                      {getTransitIcon(ev.type)}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                      <span>{fromDisp}</span>
-                                      <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                      <span className="font-semibold text-accent">{toDisp}</span>
-                                    </div>
-                                    <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                      <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                      {formatISTDate(ev.date)}
-                                    </div>
-                                  </div>
-                                );
-                              } else {
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between border-b border-outline/10 pb-2">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{t.nakshatraTransit}</span>
-                                      <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">star</span>
-                                    </div>
-                                    <div className="space-y-3">
-                                      {item.events.map((ev, sIdx) => {
-                                        const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                        const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                                        return (
-                                          <div key={sIdx} className="flex flex-col gap-2 border-b border-outline/5 last:border-0 pb-3 last:pb-0">
-                                            <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                              <span>{fromDisp}</span>
-                                              <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                              <span className="font-semibold text-accent">{toDisp}</span>
-                                            </div>
-                                            <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                              <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                              {formatISTDate(ev.date)}
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            })
-                          )}
+                    {retroDetails ? (
+                      <div className="space-y-1 text-on-surface">
+                        <div>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
+                          <span className="font-medium">
+                            {retroDetails.previous.start ? formatCombustionDate(retroDetails.previous.start) : "--"} &rarr; {retroDetails.previous.end ? formatCombustionDate(retroDetails.previous.end) : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="font-medium">
+                            {retroDetails.currentOrNext.start ? formatCombustionDate(retroDetails.currentOrNext.start) : "--"} &rarr; {retroDetails.currentOrNext.end ? formatCombustionDate(retroDetails.currentOrNext.end) : "--"}
+                          </span>
                         </div>
                       </div>
+                    ) : (
+                      <span className="text-on-surface italic">--</span>
+                    )}
+                  </div>
 
-                      {/* Future Transits */}
-                      <div>
-                        <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-sm text-accent/60">arrow_forward</span>
-                          {t.futureTransits}
-                        </h4>
-                        <div className="space-y-4">
-                          {transit.future.length === 0 ? (
-                            <p className="text-xs text-on-surface/40 italic">{t.noTransits}</p>
-                          ) : (
-                            renderedFuture.map((item, index) => {
-                              if (item.type === 'single') {
-                                const ev = item.event;
-                                const isRashi = ev.type === 'rashi';
-                                const title = isRashi ? t.rashiTransit : t.motionTransit;
-                                const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{title}</span>
-                                      {getTransitIcon(ev.type)}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                      <span>{fromDisp}</span>
-                                      <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                      <span className="font-semibold text-accent">{toDisp}</span>
-                                    </div>
-                                    <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                      <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                      {formatISTDate(ev.date)}
-                                    </div>
-                                  </div>
-                                );
-                              } else {
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between border-b border-outline/10 pb-2">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{t.nakshatraTransit}</span>
-                                      <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">star</span>
-                                    </div>
-                                    <div className="space-y-3">
-                                      {item.events.map((ev, sIdx) => {
-                                        const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                        const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                                        return (
-                                          <div key={sIdx} className="flex flex-col gap-2 border-b border-outline/5 last:border-0 pb-3 last:pb-0">
-                                            <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                              <span>{fromDisp}</span>
-                                              <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                              <span className="font-semibold text-accent">{toDisp}</span>
-                                            </div>
-                                            <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                              <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                              {formatISTDate(ev.date)}
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            })
-                          )}
+                  {/* Combustion Details */}
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                      {t.combustLabel}
+                    </span>
+                    {combustDetails ? (
+                      <div className="space-y-1 text-on-surface">
+                        <div>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
+                          <span className="font-medium">
+                            {combustDetails.previous.start ? formatCombustionDate(combustDetails.previous.start) : "--"} &rarr; {combustDetails.previous.end ? formatCombustionDate(combustDetails.previous.end) : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="font-medium">
+                            {combustDetails.currentOrNext.start ? formatCombustionDate(combustDetails.currentOrNext.start) : "--"} &rarr; {combustDetails.currentOrNext.end ? formatCombustionDate(combustDetails.currentOrNext.end) : "--"}
+                          </span>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      <span className="text-on-surface italic">--</span>
+                    )}
+                  </div>
                 </div>
               </div>
             );
@@ -451,14 +403,14 @@ const TransitsClientPage = () => {
 
       {/* Planetary Combustion Section */}
       <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm">
-          <div className="border-b border-outline/10 pb-4 mb-6">
-            <h2 className="text-2xl md:text-3xl font-headline font-semibold text-on-surface">{t.combustionTitle}</h2>
-            <p className="text-sm text-on-surface/70 font-body mt-1">{t.combustionSubtitle}</p>
+        <div className="bg-white border border-outline rounded-2xl p-6 shadow-sm space-y-6">
+          <div className="border-b border-outline/10 pb-4">
+            <h2 className="text-2xl font-headline font-semibold text-on-surface">{t.combustionTitle}</h2>
+            <p className="text-sm text-on-surface font-body mt-1">{t.combustionSubtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {combustionPeriods.length === 0 ? (
-              <p className="text-sm text-on-surface/60 italic col-span-full">{t.noCombustions}</p>
+              <p className="text-sm text-on-surface italic col-span-full">{t.noCombustions}</p>
             ) : (
               combustionPeriods.map((period) => {
                 const planetName = period.planet;
@@ -466,32 +418,19 @@ const TransitsClientPage = () => {
                 const nameDisplay = lang === 'en' ? planetName : planetSanskrit;
 
                 return (
-                  <div key={planetName} className="bg-surface p-5 rounded-3xl border border-outline/20 flex flex-col justify-between space-y-4">
+                  <div key={planetName} className="bg-surface border border-outline/40 rounded-xl p-4 space-y-2">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-lg font-headline font-semibold text-on-surface">{nameDisplay}</h3>
-                        {lang === 'en' && <p className="text-xs text-on-surface/50 font-hindi">{planetSanskrit}</p>}
-                      </div>
-                      {period.isCurrent ? (
-                        <span className="px-2.5 py-1 rounded-full bg-error/10 text-error font-medium text-xs font-body border border-error/20 shadow-sm">
-                          {t.currentlyCombust}
-                        </span>
-                      ) : (
-                        <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent font-medium text-xs font-body border border-accent/20 shadow-sm">
-                          {t.upcomingCombustion}
-                        </span>
-                      )}
+                      <h3 className="text-base font-semibold text-on-surface">
+                        {nameDisplay} {lang === 'en' && <span className="font-hindi font-normal">({planetSanskrit})</span>}
+                      </h3>
+                      <span className={`text-xs font-semibold ${period.isCurrent ? 'text-error' : 'text-accent'}`}>
+                        {period.isCurrent ? t.currentlyCombust : t.upcomingCombustion}
+                      </span>
                     </div>
 
-                    <div className="space-y-2 border-t border-outline/5 pt-3">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-on-surface/60 font-body">{t.combustFrom}:</span>
-                        <span className="font-semibold text-on-surface font-body tabular-nums">{formatCombustionDate(period.start)}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-on-surface/60 font-body">{t.combustTo}:</span>
-                        <span className="font-semibold text-on-surface font-body tabular-nums">{formatCombustionDate(period.end)}</span>
-                      </div>
+                    <div className="text-sm text-on-surface space-y-1 pt-1 border-t border-outline/10">
+                      <div>{t.combustFrom}: <span className="font-medium text-on-surface">{formatCombustionDate(period.start)}</span></div>
+                      <div>{t.combustTo}: <span className="font-medium text-on-surface">{formatCombustionDate(period.end)}</span></div>
                     </div>
                   </div>
                 );
@@ -504,43 +443,55 @@ const TransitsClientPage = () => {
       {/* Educational Section */}
       <section className="py-8 md:py-16 bg-white border-y border-outline/30">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-8">
-          <h2 className="text-3xl md:text-4xl font-headline text-on-surface">{t.eduTitle}</h2>
-          <p className="text-sm md:text-base text-on-surface/80 font-body leading-relaxed max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-headline text-on-surface">{t.eduTitle}</h2>
+          <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto">
             {t.eduIntro}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left not-prose pt-4">
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.sunTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.sunDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.sunTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.sunDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.moonTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.moonDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.moonTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.moonDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.marsTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.marsDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.marsTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.marsDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.mercuryTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.mercuryDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.mercuryTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.mercuryDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.jupiterTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.jupiterDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.jupiterTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.jupiterDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.venusTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.venusDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.venusTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.venusDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.saturnTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.saturnDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.saturnTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.saturnDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2 col-span-1 md:col-span-2 md:max-w-xl md:mx-auto">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.rahuKetuDesc}</p>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.rahuKetuDesc}</p>
+            </div>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.uranusTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.uranusDesc}</p>
+            </div>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.neptuneTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.neptuneDesc}</p>
+            </div>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1 md:col-span-2 md:max-w-xl md:mx-auto md:w-full">
+              <h3 className="text-base font-semibold text-on-surface">{t.plutoTitle}</h3>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.plutoDesc}</p>
             </div>
           </div>
         </div>

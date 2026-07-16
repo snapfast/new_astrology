@@ -306,8 +306,18 @@ const CompactHoroscopeContent = () => {
         <div className="col-span-4 row-span-12 flex flex-col gap-3">
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="bg-white px-3 py-1.5 border-b border-outline/50">
+            <div className="bg-white px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
               <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
+              <div className={`flex items-center gap-3 text-[9px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
+                <span className="flex items-center gap-0.5">
+                  <span className="text-black font-normal">*</span>
+                  <span>{lang === 'hi' ? 'वक्री' : 'Retro'}</span>
+                </span>
+                <span className="flex items-center gap-0.5">
+                  <span className="text-black font-normal">^</span>
+                  <span>{lang === 'hi' ? 'अस्त' : 'Combust'}</span>
+                </span>
+              </div>
             </div>
             <div className="flex-grow overflow-y-auto no-scrollbar">
               <table className="w-full text-left border-collapse">
@@ -324,8 +334,8 @@ const CompactHoroscopeContent = () => {
                   {chartData.planets.map((p, idx) => (
                     <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
                       <td className={`px-2 py-1.5 text-[11px] font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                        {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && '*'}
-                        {p.isCombust && <span className="ml-0.5 text-[10px] text-error font-medium">^</span>}
+                        {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && <span className="ml-0.5 text-black font-normal">*</span>}
+                        {p.isCombust && <span className="ml-0.5 text-[10px] text-black font-normal">^</span>}
                       </td>
                       <td className="px-1 py-1.5 text-[11px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
                       <td className={`px-2 py-1.5 text-[11px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
@@ -337,8 +347,14 @@ const CompactHoroscopeContent = () => {
               </table>
             </div>
             <div className={`bg-surface-container-lowest px-3 py-1 border-t border-outline/20 flex gap-4 text-[9px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
-              <span>* {lang === 'hi' ? 'वक्र' : 'Retrograde'}</span>
-              <span><span className="text-error font-medium">^</span> {lang === 'hi' ? 'अस्त' : 'Combust'}</span>
+              <span className="flex items-center gap-0.5">
+                <span className="text-black font-normal">*</span>
+                <span>{lang === 'hi' ? 'वक्र' : 'Retrograde'}</span>
+              </span>
+              <span className="flex items-center gap-0.5">
+                <span className="text-black font-normal">^</span>
+                <span>{lang === 'hi' ? 'अस्त' : 'Combust'}</span>
+              </span>
             </div>
           </section>
 

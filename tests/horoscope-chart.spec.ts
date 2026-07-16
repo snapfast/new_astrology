@@ -44,4 +44,22 @@ test('Compact Kundli Chart renders correctly and trims degrees inside the chart 
       expect(text).toMatch(/^\d+°\s*\d+'\s*\d+"$/);
     }
   }
+
+  // Verify retrograde asterisk size (should be increased to text-[14px])
+  const retroElements = page.locator('svg foreignObject span:has-text("*")');
+  const retroCount = await retroElements.count();
+  console.log(`Found ${retroCount} retrograde planet markers in chart`);
+  for (let i = 0; i < retroCount; i++) {
+    const retroClass = await retroElements.nth(i).getAttribute('class');
+    expect(retroClass).toContain('text-[14px]');
+  }
+
+  // Verify combust caret size (should remain text-[10px])
+  const combustElements = page.locator('svg foreignObject span:has-text("^")');
+  const combustCount = await combustElements.count();
+  console.log(`Found ${combustCount} combust planet markers in chart`);
+  for (let i = 0; i < combustCount; i++) {
+    const combustClass = await combustElements.nth(i).getAttribute('class');
+    expect(combustClass).toContain('text-[10px]');
+  }
 });

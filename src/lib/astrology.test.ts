@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData } from './astrology.ts';
+import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -345,6 +345,21 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     const saturnTransits = getPlanetTransits("Saturn", refDate);
     assert.strictEqual(saturnTransits.past.length, 3, "Should have exactly 3 past transits for Saturn");
     assert.strictEqual(saturnTransits.future.length, 3, "Should have exactly 3 future transits for Saturn");
+
+    // Test Uranus (outer planet)
+    const uranusTransits = getPlanetTransits("Uranus", refDate);
+    assert.strictEqual(uranusTransits.planet, "Uranus");
+    assert.ok(uranusTransits.future.length > 0, "Should compute future transits for Uranus");
+
+    // Test Neptune (outer planet)
+    const neptuneTransits = getPlanetTransits("Neptune", refDate);
+    assert.strictEqual(neptuneTransits.planet, "Neptune");
+    assert.ok(neptuneTransits.future.length > 0, "Should compute future transits for Neptune");
+
+    // Test Pluto (outer planet)
+    const plutoTransits = getPlanetTransits("Pluto", refDate);
+    assert.strictEqual(plutoTransits.planet, "Pluto");
+    assert.ok(plutoTransits.future.length > 0, "Should compute future transits for Pluto");
 });
 
 import { getFutureCombustions } from './astrology.ts';
@@ -453,4 +468,42 @@ test('Zero cumulative drift in nested dasha calculations', () => {
     const lastAntar = antardashas[antardashas.length - 1];
 
     assert.strictEqual(lastAntar.end, firstMahadasha.end, "Nested Antardashas should perfectly sum up to the parent Mahadasha end with zero cumulative drift");
+test('getRetrogradeDetails returns correct transition structures for Mercury and Saturn', () => {
+    const refDate = new Date("2024-03-15T12:00:00Z");
+
+    // Saturn
+    const saturnRetro = getRetrogradeDetails("Saturn", refDate);
+    assert.ok(saturnRetro, "Should return retrograde details for Saturn");
+    assert.ok(saturnRetro.currentOrNext, "Should contain currentOrNext details");
+    assert.ok(saturnRetro.previous, "Should contain previous details");
+
+    // Mercury
+    const mercuryRetro = getRetrogradeDetails("Mercury", refDate);
+    assert.ok(mercuryRetro, "Should return retrograde details for Mercury");
+    if (mercuryRetro.currentOrNext.start) {
+        assert.ok(mercuryRetro.currentOrNext.start instanceof Date, "Current/next start must be a Date");
+    }
+    if (mercuryRetro.previous.start) {
+        assert.ok(mercuryRetro.previous.start instanceof Date, "Previous start must be a Date");
+    }
+});
+
+test('getCombustionDetails returns correct transition structures for Mercury and Saturn', () => {
+    const refDate = new Date("2024-03-15T12:00:00Z");
+
+    // Saturn
+    const saturnCombust = getCombustionDetails("Saturn", refDate);
+    assert.ok(saturnCombust, "Should return combustion details for Saturn");
+    assert.ok(saturnCombust.currentOrNext, "Should contain currentOrNext details");
+    assert.ok(saturnCombust.previous, "Should contain previous details");
+
+    // Mercury
+    const mercuryCombust = getCombustionDetails("Mercury", refDate);
+    assert.ok(mercuryCombust, "Should return combustion details for Mercury");
+    if (mercuryCombust.currentOrNext.start) {
+        assert.ok(mercuryCombust.currentOrNext.start instanceof Date, "Current/next start must be a Date");
+    }
+    if (mercuryCombust.previous.start) {
+        assert.ok(mercuryCombust.previous.start instanceof Date, "Previous start must be a Date");
+    }
 });
