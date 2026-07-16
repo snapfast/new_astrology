@@ -172,7 +172,8 @@ const TransitsClientPage = () => {
   }, [referenceDate]);
 
   const combustionPeriods: CombustionPeriod[] = useMemo(() => {
-    return getFutureCombustions(referenceDate);
+    const list = getFutureCombustions(referenceDate);
+    return [...list].sort((a, b) => a.start.getTime() - b.start.getTime());
   }, [referenceDate]);
 
   const formatISTDate = (date: Date) => {
@@ -276,7 +277,6 @@ const TransitsClientPage = () => {
                       {t.futureTransits}
                     </h4>
                     <div className="space-y-4">
-                      {/* Sign Transit Section */}
                       {(() => {
                         const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
                         return (
