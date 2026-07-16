@@ -243,7 +243,7 @@ const HouseContent: FC<HouseContentProps> = ({ houseNum, rasi, planets }) => {
                 <div style={{ color }}>
                   {p.symbol}
                   {p.isRetrograde && '*'}
-                  {p.isCombust && '#'}
+                  {p.isCombust && '^'}
                 </div>
                 {p.degree && (
                   <div className="text-[8px] text-on-surface whitespace-nowrap" style={{ lineHeight: '1' }}>
