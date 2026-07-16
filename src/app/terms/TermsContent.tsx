@@ -143,8 +143,8 @@ export default function TermsContent() {
               </p>
             </div>
 
-            <p className="text-center pt-8 text-sm text-on-surface/60 font-hindi">
-              ।। ॐ नमो भगवते वासुदेवाय नम: ।।
+            <p className="text-center pt-8 text-sm text-accent font-hindi">
+              ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>
 
           </div>

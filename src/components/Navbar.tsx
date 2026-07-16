@@ -352,7 +352,7 @@ const Navbar = () => {
               {t.location}
             </p>
             <p className="text-lg text-accent font-hindi">
-              ।। ॐ नमो भगवते वासुदेवाय नम: ।।
+              ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>
           </div>
         </div>
