@@ -490,6 +490,19 @@ const HoroscopeContent = () => {
 
       {/* Charts Section */}
       <div className="space-y-8">
+        {/* Top Chart Legend */}
+        <div className={`flex items-center justify-center gap-6 text-xs md:text-sm text-on-surface/80 bg-white border border-outline/80 rounded-2xl py-2.5 px-6 w-fit mx-auto font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
+          <span className="flex items-center gap-1.5">
+            <span className="text-accent font-bold text-sm md:text-base">*</span>
+            <span>{lang === 'hi' ? 'वक्री (Retrograde)' : 'Retrograde'}</span>
+          </span>
+          <div className="w-px h-4 bg-outline/30"></div>
+          <span className="flex items-center gap-1.5">
+            <span className="text-error font-bold text-sm md:text-base">^</span>
+            <span>{lang === 'hi' ? 'अस्त (Combust)' : 'Combust'}</span>
+          </span>
+        </div>
+
         {/* Row 1: D1 & D9 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">

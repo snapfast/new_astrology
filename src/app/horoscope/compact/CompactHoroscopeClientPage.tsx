@@ -306,8 +306,18 @@ const CompactHoroscopeContent = () => {
         <div className="col-span-4 row-span-12 flex flex-col gap-3">
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="bg-white px-3 py-1.5 border-b border-outline/50">
+            <div className="bg-white px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
               <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
+              <div className={`flex items-center gap-3 text-[9px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
+                <span className="flex items-center gap-0.5">
+                  <span className="text-accent font-bold">*</span>
+                  <span>{lang === 'hi' ? 'वक्री' : 'Retro'}</span>
+                </span>
+                <span className="flex items-center gap-0.5">
+                  <span className="text-error font-bold">^</span>
+                  <span>{lang === 'hi' ? 'अस्त' : 'Combust'}</span>
+                </span>
+              </div>
             </div>
             <div className="flex-grow overflow-y-auto no-scrollbar">
               <table className="w-full text-left border-collapse">
