@@ -6,9 +6,12 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, getRetrogradeDetails, getCombustionDetails, TransitEvent } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
+    filterPlanet: "Filter by Planet",
+    allPlanets: "All Planets",
     heroTitle: "Planetary Transits",
     heroSubtitle: "Gochar Tracker",
     heroDesc: "Track past and future planetary movements across signs (Rashi) and asterisms (Nakshatra). Predict shift in cosmic energies.",
@@ -67,6 +70,8 @@ const TRANSLATIONS = {
     noNakshatraTransit: "No upcoming nakshatra transit found in search window."
   },
   hi: {
+    filterPlanet: "ग्रह से फ़िल्टर करें",
+    allPlanets: "सभी ग्रह",
     heroTitle: "ग्रह गोचर",
     heroSubtitle: "गोचर ट्रैकर",
     heroDesc: "राशियों और नक्षत्रों में ग्रहों के पिछले और भविष्य के गोचर को ट्रैक करें। ब्रह्मांडीय ऊर्जा के बदलाव का पूर्वानुमान लगाएं।",
@@ -142,6 +147,8 @@ const TransitsClientPage = () => {
     return now.toTimeString().substring(0, 5);
   });
 
+  const [selectedPlanet, setSelectedPlanet] = useState("all");
+
   const referenceDate = useMemo(() => {
     const [year, month, day] = selectedDate.split('-').map(Number);
     const [hour, minute] = selectedTime.split(':').map(Number);
@@ -150,27 +157,33 @@ const TransitsClientPage = () => {
   }, [selectedDate, selectedTime]);
 
   const transitsData = useMemo(() => {
-    return PLANETS_ORDER.map(planet => {
+    const planetsToCalc = selectedPlanet === "all" ? PLANETS_ORDER : [selectedPlanet];
+    return planetsToCalc.map(planet => {
       const result = getPlanetTransits(planet, referenceDate);
       return result;
     });
-  }, [referenceDate]);
+  }, [referenceDate, selectedPlanet]);
 
   const retroAndCombustDetails = useMemo(() => {
     const detailsMap: Record<string, { retroDetails: ReturnType<typeof getRetrogradeDetails>, combustDetails: ReturnType<typeof getCombustionDetails> }> = {};
-    for (const planet of PLANETS_ORDER) {
+    const planetsToCalc = selectedPlanet === "all" ? PLANETS_ORDER : [selectedPlanet];
+    for (const planet of planetsToCalc) {
       detailsMap[planet] = {
         retroDetails: getRetrogradeDetails(planet, referenceDate),
         combustDetails: getCombustionDetails(planet, referenceDate)
       };
     }
     return detailsMap;
-  }, [referenceDate]);
+  }, [referenceDate, selectedPlanet]);
 
   const combustionPeriods: CombustionPeriod[] = useMemo(() => {
     const list = getFutureCombustions(referenceDate);
-    return [...list].sort((a, b) => a.start.getTime() - b.start.getTime());
-  }, [referenceDate]);
+    const sorted = [...list].sort((a, b) => a.start.getTime() - b.start.getTime());
+    if (selectedPlanet !== "all") {
+      return sorted.filter(p => p.planet === selectedPlanet);
+    }
+    return sorted;
+  }, [referenceDate, selectedPlanet]);
 
   const formatISTDate = (date: Date) => {
     const istMs = date.getTime() + 5.5 * 60 * 60 * 1000;
@@ -213,6 +226,31 @@ const TransitsClientPage = () => {
             <p className="text-sm text-on-surface font-body">Change date or time to view movements relative to a specific moment.</p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+            {/* Filter by Planet Dropdown */}
+            <div className="relative w-full sm:w-auto">
+              <select
+                value={selectedPlanet}
+                onChange={(e) => {
+                  setSelectedPlanet(e.target.value);
+                  sendGAEvent({ event: 'action_click', action_name: 'transits_filter_planet', planet: e.target.value });
+                }}
+                className="w-full sm:w-48 pl-4 pr-10 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                aria-label={t.filterPlanet}
+              >
+                <option value="all">{t.allPlanets}</option>
+                {PLANETS_ORDER.map((planet) => {
+                  const planetSanskrit = PLANET_NAMES[planet]?.sanskrit || planet;
+                  const nameDisplay = lang === 'en' ? planet : planetSanskrit;
+                  return (
+                    <option key={planet} value={planet}>
+                      {nameDisplay}
+                    </option>
+                  );
+                })}
+              </select>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">expand_more</span>
+            </div>
+
             <div className="relative w-full sm:w-auto">
               <input
                 type="date"
@@ -249,7 +287,7 @@ const TransitsClientPage = () => {
         </div>
 
         {/* Transits List */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <div data-testid="transits-grid" className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {transitsData.map((transit) => {
             const planetName = transit.planet;
             const planetSanskrit = PLANET_NAMES[planetName]?.sanskrit || planetName;
@@ -262,7 +300,7 @@ const TransitsClientPage = () => {
               <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
                 <div className="space-y-4">
                   <div className="border-b border-outline/10 pb-3">
-                    <h3 className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
+                    <h3 data-testid="transit-card-title" className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
                       {nameDisplay}
                       {lang === 'en' && <span className="font-hindi font-normal">{planetSanskrit}</span>}
                     </h3>
