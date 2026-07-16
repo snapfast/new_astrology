@@ -253,10 +253,9 @@ const TransitsClientPage = () => {
                       {transit.future.map((ev, index) => {
                         const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
                         const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                        const label = ev.type === 'rashi' ? t.rashiTransit : (ev.type === 'nakshatra' ? t.nakshatraTransit : t.motionTransit);
                         return (
                           <li key={index}>
-                            <span className="font-medium text-accent">{label}:</span> {fromDisp} &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
+                            <span className="font-medium text-accent">{fromDisp}</span> &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
                           </li>
                         );
                       })}
