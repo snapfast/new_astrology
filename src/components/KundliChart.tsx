@@ -242,7 +242,7 @@ const HouseContent: FC<HouseContentProps> = ({ houseNum, rasi, planets }) => {
               <div key={i} className="flex flex-col items-center">
                 <div style={{ color }}>
                   {p.symbol}
-                  {p.isRetrograde && <span className="text-[10px] font-normal ml-0.5 select-none">*</span>}
+                  {p.isRetrograde && <span className="text-[14px] font-normal ml-0.5 select-none">*</span>}
                   {p.isCombust && <span className="text-[10px] font-normal ml-0.5 select-none">^</span>}
                 </div>
                 {p.degree && (
