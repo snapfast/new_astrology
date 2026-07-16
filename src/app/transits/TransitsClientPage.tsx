@@ -14,7 +14,7 @@ const TRANSLATIONS = {
     heroDesc: "Track past and future planetary movements across signs (Rashi) and asterisms (Nakshatra). Predict shift in cosmic energies.",
     referenceTime: "Reference Date & Time (IST)",
     pastMovements: "Past 3 Movements",
-    futureTransits: "Future 3 Transits",
+    futureTransits: "Upcoming Transits",
     planet: "Planet",
     rashiTransit: "Sign Transit",
     nakshatraTransit: "Nakshatra Transit",
@@ -69,7 +69,7 @@ const TRANSLATIONS = {
     heroDesc: "राशियों और नक्षत्रों में ग्रहों के पिछले और भविष्य के गोचर को ट्रैक करें। ब्रह्मांडीय ऊर्जा के बदलाव का पूर्वानुमान लगाएं।",
     referenceTime: "संदर्भ तिथि और समय (IST)",
     pastMovements: "पिछले 3 गोचर",
-    futureTransits: "भविष्य के 3 गोचर",
+    futureTransits: "आगामी गोचर",
     planet: "ग्रह",
     rashiTransit: "राशि गोचर",
     nakshatraTransit: "नक्षत्र गोचर",
@@ -259,37 +259,50 @@ const TransitsClientPage = () => {
                     <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider">
                       {t.futureTransits}
                     </h4>
-                    {transit.future.length === 0 ? (
-                      <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
-                    ) : (
-                      <ul className="space-y-3 text-sm text-on-surface/80 font-body">
-                        {transit.future.map((ev, index) => {
-                          const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                          const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+                    {(() => {
+                      const seenTypes = new Set<string>();
+                      const uniqueFuture = transit.future.filter(ev => {
+                        if (seenTypes.has(ev.type)) {
+                          return false;
+                        }
+                        seenTypes.add(ev.type);
+                        return true;
+                      });
 
-                          let labelText = "";
-                          if (ev.type === 'rashi') {
-                            labelText = lang === 'en' ? "Sign Transit" : "राशि गोचर";
-                          } else if (ev.type === 'nakshatra') {
-                            labelText = lang === 'en' ? "Nakshatra Transit" : "नक्षत्र गोचर";
-                          } else if (ev.type === 'motion') {
-                            labelText = lang === 'en' ? "Direction Transit" : "चाल बदलाव";
-                          }
+                      if (uniqueFuture.length === 0) {
+                        return <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>;
+                      }
 
-                          return (
-                            <li key={index} className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                              <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                                {labelText}
-                              </span>
-                              <div className="text-on-surface font-body text-sm">
-                                <span className="font-medium text-accent">{fromDisp}</span> &rarr; <span className="font-medium text-on-surface">{toDisp}</span>
-                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(ev.date)})</span>
-                              </div>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
+                      return (
+                        <ul className="space-y-3 text-sm text-on-surface/80 font-body">
+                          {uniqueFuture.map((ev, index) => {
+                            const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
+                            const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+
+                            let labelText = "";
+                            if (ev.type === 'rashi') {
+                              labelText = lang === 'en' ? "Sign Transit" : "राशि गोचर";
+                            } else if (ev.type === 'nakshatra') {
+                              labelText = lang === 'en' ? "Nakshatra Transit" : "नक्षत्र गोचर";
+                            } else if (ev.type === 'motion') {
+                              labelText = lang === 'en' ? "Direction Transit" : "चाल बदलाव";
+                            }
+
+                            return (
+                              <li key={index} className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                                <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                                  {labelText}
+                                </span>
+                                <div className="text-on-surface font-body text-sm">
+                                  <span className="font-medium text-accent">{fromDisp}</span> &rarr; <span className="font-medium text-on-surface">{toDisp}</span>
+                                  <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(ev.date)})</span>
+                                </div>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      );
+                    })()}
                   </div>
                 </div>
 

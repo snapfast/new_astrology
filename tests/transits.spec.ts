@@ -24,7 +24,7 @@ test('Transits page renders all twelve planets and future transits', async ({ pa
   await timeInput.fill('10:30');
 
   // Verify that future transits label exists
-  await expect(page.locator('h4')).toContainText(['Future 3 Transits']);
+  await expect(page.locator('h4')).toContainText(['Upcoming Transits']);
 
   // Verify that past movements label does NOT exist
   await expect(page.locator('h4')).not.toContainText(['Past 3 Movements']);
