@@ -106,7 +106,7 @@ const Testimonials = () => {
                 href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center justify-center gap-2.5 bg-transparent text-on-surface border border-outline/60 px-6 py-3.5 rounded-full font-medium text-[10px] uppercase font-label transition-colors hover:bg-on-surface/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 self-start ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                className={`btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 font-medium text-[10px] uppercase font-label self-start ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
               >
                 <GoogleIcon />
                 {t.viewOnGoogle}

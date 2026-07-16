@@ -80,7 +80,7 @@ export default function ReviewsClientPage() {
               href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center gap-3 bg-transparent text-on-surface border border-outline/60 px-10 py-4 rounded-full font-medium text-[10px] md:text-xs uppercase w-full md:w-auto font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+              className={`btn-secondary inline-flex items-center justify-center gap-3 px-10 py-4 font-medium text-[10px] md:text-xs uppercase w-full md:w-auto font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
             >
               <GoogleIcon />
               {t.googleReviews}

@@ -56,7 +56,7 @@ export default function Error({
           </button>
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-8 py-3 bg-surface text-on-surface border border-outline/30 rounded-full font-medium text-sm tracking-widest uppercase transition-all hover:bg-on-surface/[0.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shadow-sm"
+            className="btn-secondary inline-flex items-center justify-center px-8 py-3 font-medium text-sm tracking-widest uppercase shadow-sm"
           >
             {t.backToHome}
           </Link>
