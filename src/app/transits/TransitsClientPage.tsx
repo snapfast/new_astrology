@@ -63,7 +63,10 @@ const TRANSLATIONS = {
     retrogradeLabel: "Retrograde Transit Time",
     combustLabel: "Combust Transit Time",
     currentOrUpcoming: "Current / Next",
-    previousPeriod: "Previous"
+    previousPeriod: "Previous",
+    noRashiTransit: "No upcoming sign transit found in search window.",
+    noNakshatraTransit: "No upcoming nakshatra transit found in search window.",
+    noMotionTransit: "No upcoming direction transit found in search window."
   },
   hi: {
     heroTitle: "ग्रह गोचर",
@@ -120,7 +123,10 @@ const TRANSLATIONS = {
     retrogradeLabel: "वक्री गोचर समय",
     combustLabel: "अस्त गोचर समय",
     currentOrUpcoming: "वर्तमान / आगामी",
-    previousPeriod: "पिछला"
+    previousPeriod: "पिछला",
+    noRashiTransit: "सर्च विंडो में कोई आगामी राशि गोचर नहीं मिला।",
+    noNakshatraTransit: "सर्च विंडो में कोई आगामी नक्षत्र गोचर नहीं मिला।",
+    noMotionTransit: "सर्च विंडो में कोई आगामी दिशा गोचर नहीं मिला।"
   }
 };
 
@@ -265,54 +271,91 @@ const TransitsClientPage = () => {
                     </h3>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider">
                       {t.futureTransits}
                     </h4>
-                    {(() => {
-                      const seenTypes = new Set<string>();
-                      const uniqueFuture = transit.future.filter(ev => {
-                        if (seenTypes.has(ev.type)) {
-                          return false;
-                        }
-                        seenTypes.add(ev.type);
-                        return true;
-                      });
-
-                      if (uniqueFuture.length === 0) {
-                        return <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>;
-                      }
-
-                      return (
-                        <ul className="space-y-3 text-sm text-on-surface/80 font-body">
-                          {uniqueFuture.map((ev, index) => {
-                            const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                            const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-
-                            let labelText = "";
-                            if (ev.type === 'rashi') {
-                              labelText = lang === 'en' ? "Sign Transit" : "राशि गोचर";
-                            } else if (ev.type === 'nakshatra') {
-                              labelText = lang === 'en' ? "Nakshatra Transit" : "नक्षत्र गोचर";
-                            } else if (ev.type === 'motion') {
-                              labelText = lang === 'en' ? "Direction Transit" : "चाल बदलाव";
-                            }
-
-                            return (
-                              <li key={index} className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                                <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                                  {labelText}
+                    <div className="space-y-4">
+                      {/* Sign Transit Section */}
+                      {(() => {
+                        const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
+                        return (
+                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                            <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                              {t.rashiTransit}
+                            </span>
+                            {rashiTransit ? (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? rashiTransit.fromValue : rashiTransit.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? rashiTransit.toValue : rashiTransit.toValueSanskrit}
                                 </span>
-                                <div className="text-on-surface font-body text-sm">
-                                  <span className="font-medium text-accent">{fromDisp}</span> &rarr; <span className="font-medium text-on-surface">{toDisp}</span>
-                                  <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(ev.date)})</span>
-                                </div>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      );
-                    })()}
+                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(rashiTransit.date)})</span>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-on-surface/40 italic">{t.noRashiTransit}</p>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {/* Nakshatra Transit Section */}
+                      {(() => {
+                        const nakshatraTransit = transit.future.find(ev => ev.type === 'nakshatra');
+                        return (
+                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                            <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                              {t.nakshatraTransit}
+                            </span>
+                            {nakshatraTransit ? (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? nakshatraTransit.fromValue : nakshatraTransit.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? nakshatraTransit.toValue : nakshatraTransit.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(nakshatraTransit.date)})</span>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-on-surface/40 italic">{t.noNakshatraTransit}</p>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {/* Direction Transit Section (if applicable) */}
+                      {(() => {
+                        const hasMotion = planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu";
+                        if (!hasMotion) return null;
+                        const motionTransit = transit.future.find(ev => ev.type === 'motion');
+                        return (
+                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                            <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                              {t.motionTransit}
+                            </span>
+                            {motionTransit ? (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? motionTransit.fromValue : motionTransit.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? motionTransit.toValue : motionTransit.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(motionTransit.date)})</span>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-on-surface/40 italic">{t.noMotionTransit}</p>
+                            )}
+                          </div>
+                        );
+                      })()}
+                    </div>
                   </div>
                 </div>
 
