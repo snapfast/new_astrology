@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, getRetrogradeDetails, getCombustionDetails } from '@/lib/astrology';
+import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, getRetrogradeDetails, getCombustionDetails, TransitEvent } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
@@ -18,7 +18,6 @@ const TRANSLATIONS = {
     planet: "Planet",
     rashiTransit: "Sign Transit",
     nakshatraTransit: "Nakshatra Transit",
-    motionTransit: "Direction Transit",
     from: "From",
     to: "To",
     date: "Date & Time (IST)",
@@ -65,8 +64,7 @@ const TRANSLATIONS = {
     currentOrUpcoming: "Current / Next",
     previousPeriod: "Previous",
     noRashiTransit: "No upcoming sign transit found in search window.",
-    noNakshatraTransit: "No upcoming nakshatra transit found in search window.",
-    noMotionTransit: "No upcoming direction transit found in search window."
+    noNakshatraTransit: "No upcoming nakshatra transit found in search window."
   },
   hi: {
     heroTitle: "ग्रह गोचर",
@@ -78,7 +76,6 @@ const TRANSLATIONS = {
     planet: "ग्रह",
     rashiTransit: "राशि गोचर",
     nakshatraTransit: "नक्षत्र गोचर",
-    motionTransit: "चाल बदलाव",
     from: "से",
     to: "तक",
     date: "तिथि और समय (IST)",
@@ -125,8 +122,7 @@ const TRANSLATIONS = {
     currentOrUpcoming: "वर्तमान / आगामी",
     previousPeriod: "पिछला",
     noRashiTransit: "सर्च विंडो में कोई आगामी राशि गोचर नहीं मिला।",
-    noNakshatraTransit: "सर्च विंडो में कोई आगामी नक्षत्र गोचर नहीं मिला।",
-    noMotionTransit: "सर्च विंडो में कोई आगामी दिशा गोचर नहीं मिला।"
+    noNakshatraTransit: "सर्च विंडो में कोई आगामी नक्षत्र गोचर नहीं मिला।"
   }
 };
 
@@ -279,80 +275,69 @@ const TransitsClientPage = () => {
                     <div className="space-y-4">
                       {(() => {
                         const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
-                        return (
-                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
-                              {t.rashiTransit}
-                            </span>
-                            {rashiTransit ? (
-                              <div className="text-on-surface font-body text-sm">
-                                <span className="font-medium text-accent">
-                                  {lang === 'en' ? rashiTransit.fromValue : rashiTransit.fromValueSanskrit}
-                                </span>{' '}
-                                &rarr;{' '}
-                                <span className="font-medium text-on-surface">
-                                  {lang === 'en' ? rashiTransit.toValue : rashiTransit.toValueSanskrit}
-                                </span>
-                                <span className="text-xs text-on-surface ml-2">({formatISTDate(rashiTransit.date)})</span>
-                              </div>
-                            ) : (
-                              <p className="text-sm text-on-surface italic">{t.noRashiTransit}</p>
-                            )}
-                          </div>
-                        );
-                      })()}
-
-                      {/* Nakshatra Transit Section */}
-                      {(() => {
                         const nakshatraTransit = transit.future.find(ev => ev.type === 'nakshatra');
-                        return (
-                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
-                              {t.nakshatraTransit}
-                            </span>
-                            {nakshatraTransit ? (
-                              <div className="text-on-surface font-body text-sm">
-                                <span className="font-medium text-accent">
-                                  {lang === 'en' ? nakshatraTransit.fromValue : nakshatraTransit.fromValueSanskrit}
-                                </span>{' '}
-                                &rarr;{' '}
-                                <span className="font-medium text-on-surface">
-                                  {lang === 'en' ? nakshatraTransit.toValue : nakshatraTransit.toValueSanskrit}
-                                </span>
-                                <span className="text-xs text-on-surface ml-2">({formatISTDate(nakshatraTransit.date)})</span>
-                              </div>
-                            ) : (
-                              <p className="text-sm text-on-surface italic">{t.noNakshatraTransit}</p>
-                            )}
-                          </div>
-                        );
-                      })()}
 
-                      {/* Direction Transit Section (if applicable) */}
-                      {(() => {
-                        const hasMotion = planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu";
-                        if (!hasMotion) return null;
-                        const motionTransit = transit.future.find(ev => ev.type === 'motion');
-                        return (
-                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
-                              {t.motionTransit}
-                            </span>
-                            {motionTransit ? (
+                        const sections = [
+                          {
+                            type: 'rashi' as const,
+                            transit: rashiTransit,
+                            label: t.rashiTransit,
+                            noTransitText: t.noRashiTransit,
+                            render: (transitItem: TransitEvent) => (
                               <div className="text-on-surface font-body text-sm">
                                 <span className="font-medium text-accent">
-                                  {lang === 'en' ? motionTransit.fromValue : motionTransit.fromValueSanskrit}
+                                  {lang === 'en' ? transitItem.fromValue : transitItem.fromValueSanskrit}
                                 </span>{' '}
                                 &rarr;{' '}
                                 <span className="font-medium text-on-surface">
-                                  {lang === 'en' ? motionTransit.toValue : motionTransit.toValueSanskrit}
+                                  {lang === 'en' ? transitItem.toValue : transitItem.toValueSanskrit}
                                 </span>
-                                <span className="text-xs text-on-surface ml-2">({formatISTDate(motionTransit.date)})</span>
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(transitItem.date)})</span>
                               </div>
-                            ) : (
-                              <p className="text-sm text-on-surface italic">{t.noMotionTransit}</p>
-                            )}
-                          </div>
+                            )
+                          },
+                          {
+                            type: 'nakshatra' as const,
+                            transit: nakshatraTransit,
+                            label: t.nakshatraTransit,
+                            noTransitText: t.noNakshatraTransit,
+                            render: (transitItem: TransitEvent) => (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? transitItem.fromValue : transitItem.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? transitItem.toValue : transitItem.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(transitItem.date)})</span>
+                              </div>
+                            )
+                          }
+                        ];
+
+                        // Sort sections chronologically (earlier first). Missing transits (no date) placed at the bottom.
+                        sections.sort((a, b) => {
+                          const timeA = a.transit ? a.transit.date.getTime() : Infinity;
+                          const timeB = b.transit ? b.transit.date.getTime() : Infinity;
+                          return timeA - timeB;
+                        });
+
+                        return (
+                          <>
+                            {sections.map((sec) => (
+                              <div key={sec.type} className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                                <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                                  {sec.label}
+                                </span>
+                                {sec.transit ? (
+                                  sec.render(sec.transit)
+                                ) : (
+                                  <p className="text-sm text-on-surface italic">{sec.noTransitText}</p>
+                                )}
+                              </div>
+                            ))}
+                          </>
                         );
                       })()}
                     </div>
@@ -368,15 +353,15 @@ const TransitsClientPage = () => {
                     {retroDetails ? (
                       <div className="space-y-1 text-on-surface">
                         <div>
-                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
-                          <span className="font-medium">
-                            {retroDetails.currentOrNext.start ? formatCombustionDate(retroDetails.currentOrNext.start) : "--"} &rarr; {retroDetails.currentOrNext.end ? formatCombustionDate(retroDetails.currentOrNext.end) : "--"}
-                          </span>
-                        </div>
-                        <div>
                           <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
                           <span className="font-medium">
                             {retroDetails.previous.start ? formatCombustionDate(retroDetails.previous.start) : "--"} &rarr; {retroDetails.previous.end ? formatCombustionDate(retroDetails.previous.end) : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="font-medium">
+                            {retroDetails.currentOrNext.start ? formatCombustionDate(retroDetails.currentOrNext.start) : "--"} &rarr; {retroDetails.currentOrNext.end ? formatCombustionDate(retroDetails.currentOrNext.end) : "--"}
                           </span>
                         </div>
                       </div>
@@ -393,15 +378,15 @@ const TransitsClientPage = () => {
                     {combustDetails ? (
                       <div className="space-y-1 text-on-surface">
                         <div>
-                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
-                          <span className="font-medium">
-                            {combustDetails.currentOrNext.start ? formatCombustionDate(combustDetails.currentOrNext.start) : "--"} &rarr; {combustDetails.currentOrNext.end ? formatCombustionDate(combustDetails.currentOrNext.end) : "--"}
-                          </span>
-                        </div>
-                        <div>
                           <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
                           <span className="font-medium">
                             {combustDetails.previous.start ? formatCombustionDate(combustDetails.previous.start) : "--"} &rarr; {combustDetails.previous.end ? formatCombustionDate(combustDetails.previous.end) : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="font-medium">
+                            {combustDetails.currentOrNext.start ? formatCombustionDate(combustDetails.currentOrNext.start) : "--"} &rarr; {combustDetails.currentOrNext.end ? formatCombustionDate(combustDetails.currentOrNext.end) : "--"}
                           </span>
                         </div>
                       </div>
