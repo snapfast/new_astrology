@@ -251,7 +251,7 @@ const TransitsClientPage = () => {
                   <div className="border-b border-outline/10 pb-3">
                     <h3 className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
                       {nameDisplay}
-                      {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">{planetSanskrit}</span>}
+                      {lang === 'en' && <span className="font-hindi font-normal">{planetSanskrit}</span>}
                     </h3>
                   </div>
 
@@ -346,7 +346,7 @@ const TransitsClientPage = () => {
                   <div key={planetName} className="bg-surface border border-outline/40 rounded-xl p-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <h3 className="text-base font-semibold text-on-surface">
-                        {nameDisplay} {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">({planetSanskrit})</span>}
+                        {nameDisplay} {lang === 'en' && <span className="font-hindi font-normal">({planetSanskrit})</span>}
                       </h3>
                       <span className={`text-xs font-semibold ${period.isCurrent ? 'text-error' : 'text-accent'}`}>
                         {period.isCurrent ? t.currentlyCombust : t.upcomingCombustion}
