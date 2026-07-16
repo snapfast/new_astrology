@@ -54,7 +54,7 @@ const Hero = () => {
             {t.subtitle}
           </span>
           <span className="text-lg md:text-2xl text-accent font-hindi">
-            ।। ॐ नमो भगवते वासुदेवाय नम: ।।
+            ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
         </div>
 

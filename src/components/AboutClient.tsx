@@ -87,7 +87,7 @@ export default function AboutClient() {
             </p>
 
             <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
-              ।। ॐ नमो भगवते वासुदेवाय नम: ।।
+              ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>
           </div>
         </div>

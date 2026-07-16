@@ -219,8 +219,8 @@ export default function FAQContent() {
           )}
 
           <div className="text-center pt-16">
-            <p className="text-sm text-on-surface/60 font-hindi">
-              ।। ॐ नमो भगवते वासुदेवाय नम: ।।
+            <p className="text-sm text-accent font-hindi">
+              ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>
           </div>
 
