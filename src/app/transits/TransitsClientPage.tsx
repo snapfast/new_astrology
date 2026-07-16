@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod } from '@/lib/astrology';
+import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, getRetrogradeDetails, getCombustionDetails } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
@@ -61,7 +61,9 @@ const TRANSLATIONS = {
     combustTo: "To",
     noCombustions: "No upcoming combustion periods found in the near future.",
     retrogradeLabel: "Retrograde Transit Time",
-    combustLabel: "Next Combust Transit Time"
+    combustLabel: "Combust Transit Time",
+    currentOrUpcoming: "Current / Next",
+    previousPeriod: "Previous"
   },
   hi: {
     heroTitle: "ग्रह गोचर",
@@ -116,7 +118,9 @@ const TRANSLATIONS = {
     combustTo: "तक",
     noCombustions: "निकट भविष्य में कोई आगामी अस्त काल नहीं मिला।",
     retrogradeLabel: "वक्री गोचर समय",
-    combustLabel: "आगामी अस्त गोचर समय"
+    combustLabel: "अस्त गोचर समय",
+    currentOrUpcoming: "वर्तमान / आगामी",
+    previousPeriod: "पिछला"
   }
 };
 
@@ -148,6 +152,17 @@ const TransitsClientPage = () => {
       const result = getPlanetTransits(planet, referenceDate);
       return result;
     });
+  }, [referenceDate]);
+
+  const retroAndCombustDetails = useMemo(() => {
+    const detailsMap: Record<string, { retroDetails: ReturnType<typeof getRetrogradeDetails>, combustDetails: ReturnType<typeof getCombustionDetails> }> = {};
+    for (const planet of PLANETS_ORDER) {
+      detailsMap[planet] = {
+        retroDetails: getRetrogradeDetails(planet, referenceDate),
+        combustDetails: getCombustionDetails(planet, referenceDate)
+      };
+    }
+    return detailsMap;
   }, [referenceDate]);
 
   const combustionPeriods: CombustionPeriod[] = useMemo(() => {
@@ -237,13 +252,8 @@ const TransitsClientPage = () => {
             const planetSanskrit = PLANET_NAMES[planetName]?.sanskrit || planetName;
             const nameDisplay = lang === 'en' ? planetName : planetSanskrit;
 
-            // Find next retrograde transit time
-            const nextRetroEvent = transit.future.find(ev => ev.type === 'motion' && (ev.toValue === 'Retrograde' || ev.toValue === 'वक्री'));
-            const nextRetroTime = nextRetroEvent ? formatISTDate(nextRetroEvent.date) : "--";
-
-            // Find next combust transit time
-            const nextCombustEvent = combustionPeriods.find(cp => cp.planet === planetName);
-            const nextCombustTime = nextCombustEvent ? formatCombustionDate(nextCombustEvent.start) : "--";
+            // Find retrograde and combust details from pre-calculated useMemo map
+            const { retroDetails, combustDetails } = retroAndCombustDetails[planetName] || { retroDetails: null, combustDetails: null };
 
             return (
               <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
@@ -306,18 +316,55 @@ const TransitsClientPage = () => {
                   </div>
                 </div>
 
-                <div className="pt-3 mt-3 border-t border-outline/10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-body">
-                  <div className="space-y-0.5">
+                <div className="pt-3 mt-3 border-t border-outline/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
+                  {/* Retrograde Details */}
+                  <div className="space-y-1">
                     <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
                       {t.retrogradeLabel}
                     </span>
-                    <span className="text-on-surface/80 font-medium">{nextRetroTime}</span>
+                    {retroDetails ? (
+                      <div className="space-y-1 text-on-surface/80">
+                        <div>
+                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="font-medium">
+                            {retroDetails.currentOrNext.start ? formatCombustionDate(retroDetails.currentOrNext.start) : "--"} &rarr; {retroDetails.currentOrNext.end ? formatCombustionDate(retroDetails.currentOrNext.end) : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
+                          <span className="font-medium">
+                            {retroDetails.previous.start ? formatCombustionDate(retroDetails.previous.start) : "--"} &rarr; {retroDetails.previous.end ? formatCombustionDate(retroDetails.previous.end) : "--"}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-on-surface/40 italic">--</span>
+                    )}
                   </div>
-                  <div className="space-y-0.5">
+
+                  {/* Combustion Details */}
+                  <div className="space-y-1">
                     <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
                       {t.combustLabel}
                     </span>
-                    <span className="text-on-surface/80 font-medium">{nextCombustTime}</span>
+                    {combustDetails ? (
+                      <div className="space-y-1 text-on-surface/80">
+                        <div>
+                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="font-medium">
+                            {combustDetails.currentOrNext.start ? formatCombustionDate(combustDetails.currentOrNext.start) : "--"} &rarr; {combustDetails.currentOrNext.end ? formatCombustionDate(combustDetails.currentOrNext.end) : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
+                          <span className="font-medium">
+                            {combustDetails.previous.start ? formatCombustionDate(combustDetails.previous.start) : "--"} &rarr; {combustDetails.previous.end ? formatCombustionDate(combustDetails.previous.end) : "--"}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-on-surface/40 italic">--</span>
+                    )}
                   </div>
                 </div>
               </div>
