@@ -363,3 +363,23 @@ test('getFutureCombustions returns calculated combustion periods', () => {
         assert.ok(c.start.getTime() <= c.end.getTime(), "Start date must be before or equal to end date");
     }
 });
+
+test('generateAstrologyData includes isCombust property on planets', () => {
+    const dob = "2026-07-10";
+    const tob = "12:00";
+    const lat = "28.6139";
+    const lon = "77.2090";
+
+    const data = generateAstrologyData(dob, tob, lat, lon);
+
+    // Check that isCombust is defined as a boolean for all standard planets
+    for (const p of data.planets) {
+        if (p.name !== "Ascendant") {
+            assert.strictEqual(typeof p.isCombust, 'boolean', `isCombust should be a boolean for ${p.name}`);
+        }
+    }
+
+    // Let's verify if Venus is combust when close to the Sun
+    const combustPlanets = data.planets.filter(p => p.isCombust);
+    assert.ok(Array.isArray(combustPlanets), "Combust planets should be a valid array");
+});

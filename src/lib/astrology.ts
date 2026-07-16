@@ -16,6 +16,7 @@ export interface PlanetData {
     nakshatraLord: string;
     nakshatraLordSanskrit: string;
     isRetrograde: boolean;
+    isCombust?: boolean;
 }
 
 export interface SookshmaDasha {
@@ -614,7 +615,7 @@ function calculatePlanetaryAndDivisionalData(
         assignments.d60[((getD60Rasi(siderealLong) - lagnaRasis.d60 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, degree: formatDegree((siderealLong * 60) % 30) });
     };
 
-    planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false));
+    planetData.push(createPlanet("Ascendant", "As", lagnaSidereal, 1, false, false));
     for (let k = 0; k < chartKeys.length; k++) {
         const key = chartKeys[k];
         assignments[key][1].push({ symbol: "As", isRetrograde: false, degree: formatDegree((lagnaSidereal * divisions[key]) % 30) });
@@ -638,7 +639,9 @@ function calculatePlanetaryAndDivisionalData(
         const planetRasiIdx = Math.floor(siderealLong / 30);
         const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
-        planetData.push(createPlanet(p.name, p.symbol, siderealLong, house, isRetro));
+        const isCombust = (p.name !== "Sun" && p.name !== "Moon") ? isPlanetCombustAt(p.name, p.body, time) : false;
+
+        planetData.push(createPlanet(p.name, p.symbol, siderealLong, house, isRetro, isCombust));
         assignToCharts(p.symbol, siderealLong, isRetro);
     }
 
@@ -651,8 +654,8 @@ function calculatePlanetaryAndDivisionalData(
     const rahuHouse = ((rahuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
     const ketuHouse = ((ketuRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
-    planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, rahuHouse, true));
-    planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ketuHouse, true));
+    planetData.push(createPlanet("Rahu", "Ra", rahuSidereal, rahuHouse, true, false));
+    planetData.push(createPlanet("Ketu", "Ke", ketuSidereal, ketuHouse, true, false));
     assignToCharts("Ra", rahuSidereal, true);
     assignToCharts("Ke", ketuSidereal, true);
 
@@ -1664,7 +1667,7 @@ export function getSignInsight(signName: string, lang: 'en' | 'hi' = 'en'): stri
     return insight[lang];
 }
 
-function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean): PlanetData {
+function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean, isCombust: boolean = false): PlanetData {
     const rasiIdx = Math.floor(siderealLong / 30);
     const nakshatraIdx = Math.floor(siderealLong / NAKSHATRA_WIDTH);
     const pada = Math.floor((siderealLong % NAKSHATRA_WIDTH) / PADA_WIDTH) + 1;
@@ -1687,7 +1690,8 @@ function createPlanet(name: string, symbol: string, siderealLong: number, house:
         rasiLordSanskrit: PLANET_NAMES[rasiLordName]?.sanskrit || rasiLordName,
         nakshatraLord: nakLordName,
         nakshatraLordSanskrit: PLANET_NAMES[nakLordName]?.sanskrit || nakLordName,
-        isRetrograde
+        isRetrograde,
+        isCombust
     };
 }
 
