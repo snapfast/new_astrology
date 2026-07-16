@@ -214,7 +214,7 @@ const TransitsClientPage = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline rounded-2xl p-6 shadow-sm">
           <div className="flex flex-col gap-1 w-full md:w-auto">
             <h2 className="text-xs uppercase font-label text-accent font-bold tracking-widest">{t.referenceTime}</h2>
-            <p className="text-sm text-on-surface/70 font-body">Change date or time to view movements relative to a specific moment.</p>
+            <p className="text-sm text-on-surface font-body">Change date or time to view movements relative to a specific moment.</p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
             <div className="relative w-full sm:w-auto">
@@ -279,76 +279,81 @@ const TransitsClientPage = () => {
                     <div className="space-y-4">
                       {(() => {
                         const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
+                        return (
+                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                            <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                              {t.rashiTransit}
+                            </span>
+                            {rashiTransit ? (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? rashiTransit.fromValue : rashiTransit.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? rashiTransit.toValue : rashiTransit.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(rashiTransit.date)})</span>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-on-surface italic">{t.noRashiTransit}</p>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {/* Nakshatra Transit Section */}
+                      {(() => {
                         const nakshatraTransit = transit.future.find(ev => ev.type === 'nakshatra');
-
-                        const items = [];
-                        if (rashiTransit) {
-                          items.push({ type: 'rashi', date: rashiTransit.date, data: rashiTransit });
-                        }
-                        if (nakshatraTransit) {
-                          items.push({ type: 'nakshatra', date: nakshatraTransit.date, data: nakshatraTransit });
-                        }
-
-                        // Sort the active transits ascending by date
-                        items.sort((a, b) => (a.date?.getTime() || 0) - (b.date?.getTime() || 0));
-
-                        // Add missing transits at the bottom
-                        if (!rashiTransit) {
-                          items.push({ type: 'rashi', date: null, data: null });
-                        }
-                        if (!nakshatraTransit) {
-                          items.push({ type: 'nakshatra', date: null, data: null });
-                        }
-
-                        return items.map((item) => {
-                          if (item.type === 'rashi') {
-                            const rashiTransit = item.data;
-                            return (
-                              <div key="rashi" className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                                <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                                  {t.rashiTransit}
+                        return (
+                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                            <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                              {t.nakshatraTransit}
+                            </span>
+                            {nakshatraTransit ? (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? nakshatraTransit.fromValue : nakshatraTransit.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? nakshatraTransit.toValue : nakshatraTransit.toValueSanskrit}
                                 </span>
-                                {rashiTransit ? (
-                                  <div className="text-on-surface font-body text-sm">
-                                    <span className="font-medium text-accent">
-                                      {lang === 'en' ? rashiTransit.fromValue : rashiTransit.fromValueSanskrit}
-                                    </span>{' '}
-                                    &rarr;{' '}
-                                    <span className="font-medium text-on-surface">
-                                      {lang === 'en' ? rashiTransit.toValue : rashiTransit.toValueSanskrit}
-                                    </span>
-                                    <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(rashiTransit.date)})</span>
-                                  </div>
-                                ) : (
-                                  <p className="text-sm text-on-surface/40 italic">{t.noRashiTransit}</p>
-                                )}
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(nakshatraTransit.date)})</span>
                               </div>
-                            );
-                          } else {
-                            const nakshatraTransit = item.data;
-                            return (
-                              <div key="nakshatra" className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                                <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                                  {t.nakshatraTransit}
+                            ) : (
+                              <p className="text-sm text-on-surface italic">{t.noNakshatraTransit}</p>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {/* Direction Transit Section (if applicable) */}
+                      {(() => {
+                        const hasMotion = planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu";
+                        if (!hasMotion) return null;
+                        const motionTransit = transit.future.find(ev => ev.type === 'motion');
+                        return (
+                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                            <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
+                              {t.motionTransit}
+                            </span>
+                            {motionTransit ? (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? motionTransit.fromValue : motionTransit.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? motionTransit.toValue : motionTransit.toValueSanskrit}
                                 </span>
-                                {nakshatraTransit ? (
-                                  <div className="text-on-surface font-body text-sm">
-                                    <span className="font-medium text-accent">
-                                      {lang === 'en' ? nakshatraTransit.fromValue : nakshatraTransit.fromValueSanskrit}
-                                    </span>{' '}
-                                    &rarr;{' '}
-                                    <span className="font-medium text-on-surface">
-                                      {lang === 'en' ? nakshatraTransit.toValue : nakshatraTransit.toValueSanskrit}
-                                    </span>
-                                    <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(nakshatraTransit.date)})</span>
-                                  </div>
-                                ) : (
-                                  <p className="text-sm text-on-surface/40 italic">{t.noNakshatraTransit}</p>
-                                )}
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(motionTransit.date)})</span>
                               </div>
-                            );
-                          }
-                        });
+                            ) : (
+                              <p className="text-sm text-on-surface italic">{t.noMotionTransit}</p>
+                            )}
+                          </div>
+                        );
                       })()}
                     </div>
                   </div>
@@ -357,51 +362,51 @@ const TransitsClientPage = () => {
                 <div className="pt-3 mt-3 border-t border-outline/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
                   {/* Retrograde Details */}
                   <div className="space-y-1">
-                    <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
                       {t.retrogradeLabel}
                     </span>
                     {retroDetails ? (
-                      <div className="space-y-1 text-on-surface/80">
+                      <div className="space-y-1 text-on-surface">
                         <div>
-                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
                           <span className="font-medium">
                             {retroDetails.currentOrNext.start ? formatCombustionDate(retroDetails.currentOrNext.start) : "--"} &rarr; {retroDetails.currentOrNext.end ? formatCombustionDate(retroDetails.currentOrNext.end) : "--"}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
                           <span className="font-medium">
                             {retroDetails.previous.start ? formatCombustionDate(retroDetails.previous.start) : "--"} &rarr; {retroDetails.previous.end ? formatCombustionDate(retroDetails.previous.end) : "--"}
                           </span>
                         </div>
                       </div>
                     ) : (
-                      <span className="text-on-surface/40 italic">--</span>
+                      <span className="text-on-surface italic">--</span>
                     )}
                   </div>
 
                   {/* Combustion Details */}
                   <div className="space-y-1">
-                    <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface font-label block font-semibold">
                       {t.combustLabel}
                     </span>
                     {combustDetails ? (
-                      <div className="space-y-1 text-on-surface/80">
+                      <div className="space-y-1 text-on-surface">
                         <div>
-                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.currentOrUpcoming}</span>
                           <span className="font-medium">
                             {combustDetails.currentOrNext.start ? formatCombustionDate(combustDetails.currentOrNext.start) : "--"} &rarr; {combustDetails.currentOrNext.end ? formatCombustionDate(combustDetails.currentOrNext.end) : "--"}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-on-surface/50 block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
+                          <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wide">{t.previousPeriod}</span>
                           <span className="font-medium">
                             {combustDetails.previous.start ? formatCombustionDate(combustDetails.previous.start) : "--"} &rarr; {combustDetails.previous.end ? formatCombustionDate(combustDetails.previous.end) : "--"}
                           </span>
                         </div>
                       </div>
                     ) : (
-                      <span className="text-on-surface/40 italic">--</span>
+                      <span className="text-on-surface italic">--</span>
                     )}
                   </div>
                 </div>
@@ -416,11 +421,11 @@ const TransitsClientPage = () => {
         <div className="bg-white border border-outline rounded-2xl p-6 shadow-sm space-y-6">
           <div className="border-b border-outline/10 pb-4">
             <h2 className="text-2xl font-headline font-semibold text-on-surface">{t.combustionTitle}</h2>
-            <p className="text-sm text-on-surface/70 font-body mt-1">{t.combustionSubtitle}</p>
+            <p className="text-sm text-on-surface font-body mt-1">{t.combustionSubtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {combustionPeriods.length === 0 ? (
-              <p className="text-sm text-on-surface/60 italic col-span-full">{t.noCombustions}</p>
+              <p className="text-sm text-on-surface italic col-span-full">{t.noCombustions}</p>
             ) : (
               combustionPeriods.map((period) => {
                 const planetName = period.planet;
@@ -438,7 +443,7 @@ const TransitsClientPage = () => {
                       </span>
                     </div>
 
-                    <div className="text-sm text-on-surface/70 space-y-1 pt-1 border-t border-outline/10">
+                    <div className="text-sm text-on-surface space-y-1 pt-1 border-t border-outline/10">
                       <div>{t.combustFrom}: <span className="font-medium text-on-surface">{formatCombustionDate(period.start)}</span></div>
                       <div>{t.combustTo}: <span className="font-medium text-on-surface">{formatCombustionDate(period.end)}</span></div>
                     </div>
@@ -454,54 +459,54 @@ const TransitsClientPage = () => {
       <section className="py-8 md:py-16 bg-white border-y border-outline/30">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-8">
           <h2 className="text-2xl md:text-3xl font-headline text-on-surface">{t.eduTitle}</h2>
-          <p className="text-sm md:text-base text-on-surface/80 font-body leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto">
             {t.eduIntro}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left not-prose pt-4">
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.sunTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.sunDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.sunDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.moonTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.moonDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.moonDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.marsTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.marsDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.marsDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.mercuryTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.mercuryDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.mercuryDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.jupiterTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.jupiterDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.jupiterDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.venusTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.venusDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.venusDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.saturnTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.saturnDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.saturnDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.rahuKetuDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.rahuKetuDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.uranusTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.uranusDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.uranusDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.neptuneTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.neptuneDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.neptuneDesc}</p>
             </div>
             <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1 md:col-span-2 md:max-w-xl md:mx-auto md:w-full">
               <h3 className="text-base font-semibold text-on-surface">{t.plutoTitle}</h3>
-              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.plutoDesc}</p>
+              <p className="text-sm text-on-surface font-body leading-relaxed">{t.plutoDesc}</p>
             </div>
           </div>
         </div>
