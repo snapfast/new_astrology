@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
@@ -137,15 +137,26 @@ const TransitsClientPage = () => {
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const now = new Date();
-    return now.toISOString().split('T')[0];
-  });
+  // Use a deterministic default to completely eliminate SSR/hydration mismatches.
+  // Immediately updated on mount in useEffect.
+  const [selectedDate, setSelectedDate] = useState("2026-07-16");
+  const [selectedTime, setSelectedTime] = useState("17:11");
 
-  const [selectedTime, setSelectedTime] = useState(() => {
+  useEffect(() => {
     const now = new Date();
-    return now.toTimeString().substring(0, 5);
-  });
+    // Convert current time to IST offset (UTC + 5.5 hours)
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istDate = new Date(now.getTime() + istOffset);
+
+    const y = istDate.getUTCFullYear();
+    const m = String(istDate.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(istDate.getUTCDate()).padStart(2, '0');
+    const hrs = String(istDate.getUTCHours()).padStart(2, '0');
+    const mins = String(istDate.getUTCMinutes()).padStart(2, '0');
+
+    setSelectedDate(`${y}-${m}-${d}`);
+    setSelectedTime(`${hrs}:${mins}`);
+  }, []);
 
   const [selectedPlanet, setSelectedPlanet] = useState("all");
 
@@ -264,9 +275,18 @@ const TransitsClientPage = () => {
                   if (!selectedDate) return '';
                   const [y, m, d] = selectedDate.split('-');
                   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  const monthsHi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
                   const monthIdx = parseInt(m, 10) - 1;
                   if (monthIdx >= 0 && monthIdx < 12) {
-                    return `${parseInt(d, 10)} ${months[monthIdx]} ${y}`;
+                    const dNum = parseInt(d, 10);
+                    if (lang === 'hi') {
+                      return (
+                        <span className="font-hindi">
+                          {dNum} {monthsHi[monthIdx]} {y}
+                        </span>
+                      );
+                    }
+                    return `${dNum} ${months[monthIdx]} ${y}`;
                   }
                   return selectedDate;
                 })()}
