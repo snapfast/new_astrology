@@ -46,6 +46,12 @@ const TRANSLATIONS = {
     saturnDesc: "The slowest major planet, transiting a sign in 2.5 years. Demands discipline, focus, structured lessons, and persistence.",
     rahuKetuTitle: "Rahu & Ketu",
     rahuKetuDesc: "The shadow nodes transit a sign in 1.5 years. Rahu triggers intense desires and innovation, while Ketu drives detachment and spiritual liberation.",
+    uranusTitle: "Uranus (Aruna)",
+    uranusDesc: "A slow-moving planet transiting a sign in about 7 years. Governs revolution, sudden shifts, innovation, and technological breakthroughs.",
+    neptuneTitle: "Neptune (Varuna)",
+    neptuneDesc: "Transits a sign in roughly 14 years. Influences mass consciousness, dreams, spiritual alignment, illusion, and artistic expression.",
+    plutoTitle: "Pluto (Yama)",
+    plutoDesc: "The slowest outer planet, transiting a sign in 12-30 years. Rules transformation, rebirth, deep psychological shifts, and generational changes.",
     combustionTitle: "Planetary Combustion (Asta) Periods",
     combustionSubtitle: "Combustion occurs when a planet transits too close to the Sun, temporarily weakening its material expression and highlighting internal or spiritual lessons.",
     combustionLabel: "Combustion Period",
@@ -93,6 +99,12 @@ const TRANSLATIONS = {
     saturnDesc: "सबसे धीमा ग्रह, 2.5 वर्ष में राशि बदलता है। अनुशासन, ध्यान, संरचनात्मक सबक और दृढ़ता की मांग करता है।",
     rahuKetuTitle: "राहु और केतु",
     rahuKetuDesc: "छाया ग्रह 1.5 वर्ष में राशि बदलते हैं। राहु तीव्र इच्छाओं को बढ़ाता है, जबकि केतु वैराग्य और मोक्ष की ओर ले जाता है।",
+    uranusTitle: "अरुण (Uranus)",
+    uranusDesc: "लगभग 7 वर्षों में एक राशि बदलता है। क्रांति, अचानक बदलाव, नवाचार और तकनीकी विकास को नियंत्रित करता है।",
+    neptuneTitle: "वरुण (Neptune)",
+    neptuneDesc: "लगभग 14 वर्षों में एक राशि बदलता है। जन चेतना, सपनों, आध्यात्मिक झुकाव, भ्रम और कलात्मक अभिव्यक्ति को प्रभावित करता है।",
+    plutoTitle: "यम (Pluto)",
+    plutoDesc: "सबसे धीमा बाहरी ग्रह, 12-30 वर्षों में राशि बदलता है। परिवर्तन, पुनर्जन्म, गहन मनोवैज्ञानिक बदलाव और पीढ़ीगत सुधारों को नियंत्रित करता है।",
     combustionTitle: "ग्रह अस्त (Asta) अवधि",
     combustionSubtitle: "जब कोई ग्रह सूर्य के अत्यंत निकट आ जाता है, तो वह अस्त हो जाता है। इससे उसकी बाहरी और भौतिक शक्ति कम हो जाती है, जबकि आंतरिक या आध्यात्मिक ऊर्जा जागृत होती है।",
     combustionLabel: "अस्त अवधि",
@@ -104,7 +116,7 @@ const TRANSLATIONS = {
   }
 };
 
-const PLANETS_ORDER = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu"];
+const PLANETS_ORDER = ["Moon", "Mercury", "Venus", "Sun", "Mars", "Jupiter", "Rahu", "Ketu", "Saturn", "Uranus", "Neptune", "Pluto"];
 
 const TransitsClientPage = () => {
   const { lang } = useLanguage();
@@ -168,7 +180,6 @@ const TransitsClientPage = () => {
 
       <PageHeader
         title={t.heroTitle}
-        subtitle={t.heroSubtitle}
         description={t.heroDesc}
       />
 
@@ -225,58 +236,32 @@ const TransitsClientPage = () => {
             return (
               <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm space-y-4">
                 <div className="border-b border-outline/10 pb-3">
-                  <h3 className="text-xl font-headline font-semibold text-on-surface flex items-baseline gap-2">
+                  <h3 className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
                     {nameDisplay}
                     {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">{planetSanskrit}</span>}
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Past Movements */}
-                  <div>
-                    <h4 className="text-xs font-label font-bold text-on-surface/60 uppercase tracking-wider mb-2">
-                      {t.pastMovements}
-                    </h4>
-                    {transit.past.length === 0 ? (
-                      <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
-                    ) : (
-                      <ul className="space-y-1.5 text-sm text-on-surface/80 list-disc list-inside font-body">
-                        {transit.past.map((ev, index) => {
-                          const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                          const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                          const label = ev.type === 'rashi' ? t.rashiTransit : (ev.type === 'nakshatra' ? t.nakshatraTransit : t.motionTransit);
-                          return (
-                            <li key={index}>
-                              <span className="font-medium text-accent">{label}:</span> {fromDisp} &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
-
-                  {/* Future Transits */}
-                  <div>
-                    <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider mb-2">
-                      {t.futureTransits}
-                    </h4>
-                    {transit.future.length === 0 ? (
-                      <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
-                    ) : (
-                      <ul className="space-y-1.5 text-sm text-on-surface/80 list-disc list-inside font-body">
-                        {transit.future.map((ev, index) => {
-                          const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                          const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                          const label = ev.type === 'rashi' ? t.rashiTransit : (ev.type === 'nakshatra' ? t.nakshatraTransit : t.motionTransit);
-                          return (
-                            <li key={index}>
-                              <span className="font-medium text-accent">{label}:</span> {fromDisp} &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
+                <div className="space-y-2">
+                  <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider mb-2">
+                    {t.futureTransits}
+                  </h4>
+                  {transit.future.length === 0 ? (
+                    <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
+                  ) : (
+                    <ul className="space-y-1.5 text-sm text-on-surface/80 list-disc list-inside font-body">
+                      {transit.future.map((ev, index) => {
+                        const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
+                        const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+                        const label = ev.type === 'rashi' ? t.rashiTransit : (ev.type === 'nakshatra' ? t.nakshatraTransit : t.motionTransit);
+                        return (
+                          <li key={index}>
+                            <span className="font-medium text-accent">{label}:</span> {fromDisp} &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </div>
               </div>
             );
@@ -326,7 +311,7 @@ const TransitsClientPage = () => {
       {/* Educational Section */}
       <section className="py-8 md:py-16 bg-white border-y border-outline/30">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-8">
-          <h2 className="text-3xl md:text-4xl font-headline text-on-surface">{t.eduTitle}</h2>
+          <h2 className="text-2xl md:text-3xl font-headline text-on-surface">{t.eduTitle}</h2>
           <p className="text-sm md:text-base text-on-surface/80 font-body leading-relaxed max-w-2xl mx-auto">
             {t.eduIntro}
           </p>
@@ -360,9 +345,21 @@ const TransitsClientPage = () => {
               <h3 className="text-base font-semibold text-on-surface">{t.saturnTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.saturnDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1 col-span-1 md:col-span-2 md:max-w-xl md:mx-auto">
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.rahuKetuDesc}</p>
+            </div>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.uranusTitle}</h3>
+              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.uranusDesc}</p>
+            </div>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.neptuneTitle}</h3>
+              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.neptuneDesc}</p>
+            </div>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1 md:col-span-2 md:max-w-xl md:mx-auto md:w-full">
+              <h3 className="text-base font-semibold text-on-surface">{t.plutoTitle}</h3>
+              <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.plutoDesc}</p>
             </div>
           </div>
         </div>
