@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, TransitEvent } from '@/lib/astrology';
+import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
@@ -120,15 +120,6 @@ const TransitsClientPage = () => {
     return now.toTimeString().substring(0, 5);
   });
 
-  const [collapsedPlanets, setCollapsedPlanets] = useState<Record<string, boolean>>({});
-
-  const togglePlanet = (planetName: string) => {
-    setCollapsedPlanets(prev => ({
-      ...prev,
-      [planetName]: !prev[planetName]
-    }));
-  };
-
   const referenceDate = useMemo(() => {
     const [year, month, day] = selectedDate.split('-').map(Number);
     const [hour, minute] = selectedTime.split(':').map(Number);
@@ -171,50 +162,6 @@ const TransitsClientPage = () => {
     return `${d} ${m} ${y}`;
   };
 
-  const getTransitIcon = (type: 'rashi' | 'nakshatra' | 'motion') => {
-    switch (type) {
-      case 'rashi':
-        return <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">swap_horiz</span>;
-      case 'nakshatra':
-        return <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">star</span>;
-      case 'motion':
-        return <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">sync_alt</span>;
-    }
-  };
-
-  type RenderEvent =
-    | {
-        type: 'single';
-        event: TransitEvent;
-      }
-    | {
-        type: 'grouped_nakshatra';
-        events: TransitEvent[];
-      };
-
-  const getRenderEvents = (events: TransitEvent[]): RenderEvent[] => {
-    const result: RenderEvent[] = [];
-    const nakshatras = events.filter(e => e.type === 'nakshatra');
-    const others = events.filter(e => e.type !== 'nakshatra');
-
-    for (const ev of others) {
-      result.push({ type: 'single', event: ev });
-    }
-
-    if (nakshatras.length > 0) {
-      result.push({
-        type: 'grouped_nakshatra',
-        events: nakshatras
-      });
-    }
-
-    return result.sort((a, b) => {
-      const dateA = a.type === 'single' ? a.event.date.getTime() : a.events[0].date.getTime();
-      const dateB = b.type === 'single' ? b.event.date.getTime() : b.events[0].date.getTime();
-      return dateA - dateB;
-    });
-  };
-
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
@@ -227,7 +174,7 @@ const TransitsClientPage = () => {
 
       <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
         {/* Input Parameters Card */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline rounded-2xl p-6 shadow-sm">
           <div className="flex flex-col gap-1 w-full md:w-auto">
             <h2 className="text-xs uppercase font-label text-accent font-bold tracking-widest">{t.referenceTime}</h2>
             <p className="text-sm text-on-surface/70 font-body">Change date or time to view movements relative to a specific moment.</p>
@@ -268,180 +215,68 @@ const TransitsClientPage = () => {
           </div>
         </div>
 
-        {/* Transits Dashboard Grid */}
+        {/* Transits List */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {transitsData.map((transit) => {
             const planetName = transit.planet;
             const planetSanskrit = PLANET_NAMES[planetName]?.sanskrit || planetName;
             const nameDisplay = lang === 'en' ? planetName : planetSanskrit;
-            const isCollapsed = collapsedPlanets[planetName] === true;
-
-            const renderedPast = getRenderEvents(transit.past);
-            const renderedFuture = getRenderEvents(transit.future);
 
             return (
-              <div key={planetName} className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <button
-                    onClick={() => togglePlanet(planetName)}
-                    className="w-full text-left flex items-center justify-between gap-3 border-b border-outline/10 pb-4 mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
-                    aria-expanded={!isCollapsed}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                        <span className="material-symbols-outlined text-xl">public</span>
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-headline font-semibold text-on-surface">{nameDisplay}</h3>
-                        {lang === 'en' && <p className="text-xs text-on-surface/60 font-hindi">{planetSanskrit}</p>}
-                      </div>
-                    </div>
-                    <span className="material-symbols-outlined text-on-surface/60 shrink-0 select-none transition-transform duration-0">
-                      {isCollapsed ? 'expand_more' : 'expand_less'}
-                    </span>
-                  </button>
+              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm space-y-4">
+                <div className="border-b border-outline/10 pb-3">
+                  <h3 className="text-xl font-headline font-semibold text-on-surface flex items-baseline gap-2">
+                    {nameDisplay}
+                    {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">{planetSanskrit}</span>}
+                  </h3>
+                </div>
 
-                  {!isCollapsed && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-none">
-                      {/* Past Transits */}
-                      <div>
-                        <h4 className="text-xs font-label font-bold text-on-surface/60 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-sm text-on-surface/40">arrow_back</span>
-                          {t.pastMovements}
-                        </h4>
-                        <div className="space-y-4">
-                          {transit.past.length === 0 ? (
-                            <p className="text-xs text-on-surface/40 italic">{t.noTransits}</p>
-                          ) : (
-                            renderedPast.map((item, index) => {
-                              if (item.type === 'single') {
-                                const ev = item.event;
-                                const isRashi = ev.type === 'rashi';
-                                const title = isRashi ? t.rashiTransit : t.motionTransit;
-                                const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Past Movements */}
+                  <div>
+                    <h4 className="text-xs font-label font-bold text-on-surface/60 uppercase tracking-wider mb-2">
+                      {t.pastMovements}
+                    </h4>
+                    {transit.past.length === 0 ? (
+                      <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
+                    ) : (
+                      <ul className="space-y-1.5 text-sm text-on-surface/80 list-disc list-inside font-body">
+                        {transit.past.map((ev, index) => {
+                          const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
+                          const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+                          const label = ev.type === 'rashi' ? t.rashiTransit : (ev.type === 'nakshatra' ? t.nakshatraTransit : t.motionTransit);
+                          return (
+                            <li key={index}>
+                              <span className="font-medium text-accent">{label}:</span> {fromDisp} &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
 
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{title}</span>
-                                      {getTransitIcon(ev.type)}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                      <span>{fromDisp}</span>
-                                      <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                      <span className="font-semibold text-accent">{toDisp}</span>
-                                    </div>
-                                    <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                      <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                      {formatISTDate(ev.date)}
-                                    </div>
-                                  </div>
-                                );
-                              } else {
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between border-b border-outline/10 pb-2">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{t.nakshatraTransit}</span>
-                                      <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">star</span>
-                                    </div>
-                                    <div className="space-y-3">
-                                      {item.events.map((ev, sIdx) => {
-                                        const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                        const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                                        return (
-                                          <div key={sIdx} className="flex flex-col gap-2 border-b border-outline/5 last:border-0 pb-3 last:pb-0">
-                                            <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                              <span>{fromDisp}</span>
-                                              <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                              <span className="font-semibold text-accent">{toDisp}</span>
-                                            </div>
-                                            <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                              <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                              {formatISTDate(ev.date)}
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            })
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Future Transits */}
-                      <div>
-                        <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-sm text-accent/60">arrow_forward</span>
-                          {t.futureTransits}
-                        </h4>
-                        <div className="space-y-4">
-                          {transit.future.length === 0 ? (
-                            <p className="text-xs text-on-surface/40 italic">{t.noTransits}</p>
-                          ) : (
-                            renderedFuture.map((item, index) => {
-                              if (item.type === 'single') {
-                                const ev = item.event;
-                                const isRashi = ev.type === 'rashi';
-                                const title = isRashi ? t.rashiTransit : t.motionTransit;
-                                const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{title}</span>
-                                      {getTransitIcon(ev.type)}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                      <span>{fromDisp}</span>
-                                      <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                      <span className="font-semibold text-accent">{toDisp}</span>
-                                    </div>
-                                    <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                      <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                      {formatISTDate(ev.date)}
-                                    </div>
-                                  </div>
-                                );
-                              } else {
-                                return (
-                                  <div key={index} className="bg-surface p-4 rounded-2xl border border-outline/20 space-y-3">
-                                    <div className="flex items-center justify-between border-b border-outline/10 pb-2">
-                                      <span className="text-[10px] font-label font-bold text-accent uppercase tracking-wider">{t.nakshatraTransit}</span>
-                                      <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">star</span>
-                                    </div>
-                                    <div className="space-y-3">
-                                      {item.events.map((ev, sIdx) => {
-                                        const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
-                                        const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
-                                        return (
-                                          <div key={sIdx} className="flex flex-col gap-2 border-b border-outline/5 last:border-0 pb-3 last:pb-0">
-                                            <div className="flex items-center gap-2 text-sm font-headline text-on-surface">
-                                              <span>{fromDisp}</span>
-                                              <span className="material-symbols-outlined text-xs text-on-surface/30">arrow_forward</span>
-                                              <span className="font-semibold text-accent">{toDisp}</span>
-                                            </div>
-                                            <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-accent/10 border border-accent/20 text-accent font-medium text-[11px] tabular-nums w-fit shadow-sm">
-                                              <span className="material-symbols-outlined text-[13px]" aria-hidden="true">calendar_month</span>
-                                              {formatISTDate(ev.date)}
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            })
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  {/* Future Transits */}
+                  <div>
+                    <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider mb-2">
+                      {t.futureTransits}
+                    </h4>
+                    {transit.future.length === 0 ? (
+                      <p className="text-sm text-on-surface/40 italic">{t.noTransits}</p>
+                    ) : (
+                      <ul className="space-y-1.5 text-sm text-on-surface/80 list-disc list-inside font-body">
+                        {transit.future.map((ev, index) => {
+                          const fromDisp = lang === 'en' ? ev.fromValue : ev.fromValueSanskrit;
+                          const toDisp = lang === 'en' ? ev.toValue : ev.toValueSanskrit;
+                          const label = ev.type === 'rashi' ? t.rashiTransit : (ev.type === 'nakshatra' ? t.nakshatraTransit : t.motionTransit);
+                          return (
+                            <li key={index}>
+                              <span className="font-medium text-accent">{label}:</span> {fromDisp} &rarr; <span className="font-medium text-on-surface">{toDisp}</span> ({formatISTDate(ev.date)})
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
             );
@@ -451,9 +286,9 @@ const TransitsClientPage = () => {
 
       {/* Planetary Combustion Section */}
       <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm">
-          <div className="border-b border-outline/10 pb-4 mb-6">
-            <h2 className="text-2xl md:text-3xl font-headline font-semibold text-on-surface">{t.combustionTitle}</h2>
+        <div className="bg-white border border-outline rounded-2xl p-6 shadow-sm space-y-6">
+          <div className="border-b border-outline/10 pb-4">
+            <h2 className="text-2xl font-headline font-semibold text-on-surface">{t.combustionTitle}</h2>
             <p className="text-sm text-on-surface/70 font-body mt-1">{t.combustionSubtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -466,32 +301,19 @@ const TransitsClientPage = () => {
                 const nameDisplay = lang === 'en' ? planetName : planetSanskrit;
 
                 return (
-                  <div key={planetName} className="bg-surface p-5 rounded-3xl border border-outline/20 flex flex-col justify-between space-y-4">
+                  <div key={planetName} className="bg-surface border border-outline/40 rounded-xl p-4 space-y-2">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-lg font-headline font-semibold text-on-surface">{nameDisplay}</h3>
-                        {lang === 'en' && <p className="text-xs text-on-surface/50 font-hindi">{planetSanskrit}</p>}
-                      </div>
-                      {period.isCurrent ? (
-                        <span className="px-2.5 py-1 rounded-full bg-error/10 text-error font-medium text-xs font-body border border-error/20 shadow-sm">
-                          {t.currentlyCombust}
-                        </span>
-                      ) : (
-                        <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent font-medium text-xs font-body border border-accent/20 shadow-sm">
-                          {t.upcomingCombustion}
-                        </span>
-                      )}
+                      <h3 className="text-base font-semibold text-on-surface">
+                        {nameDisplay} {lang === 'en' && <span className="text-xs text-on-surface/50 font-hindi font-normal">({planetSanskrit})</span>}
+                      </h3>
+                      <span className={`text-xs font-semibold ${period.isCurrent ? 'text-error' : 'text-accent'}`}>
+                        {period.isCurrent ? t.currentlyCombust : t.upcomingCombustion}
+                      </span>
                     </div>
 
-                    <div className="space-y-2 border-t border-outline/5 pt-3">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-on-surface/60 font-body">{t.combustFrom}:</span>
-                        <span className="font-semibold text-on-surface font-body tabular-nums">{formatCombustionDate(period.start)}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-on-surface/60 font-body">{t.combustTo}:</span>
-                        <span className="font-semibold text-on-surface font-body tabular-nums">{formatCombustionDate(period.end)}</span>
-                      </div>
+                    <div className="text-sm text-on-surface/70 space-y-1 pt-1 border-t border-outline/10">
+                      <div>{t.combustFrom}: <span className="font-medium text-on-surface">{formatCombustionDate(period.start)}</span></div>
+                      <div>{t.combustTo}: <span className="font-medium text-on-surface">{formatCombustionDate(period.end)}</span></div>
                     </div>
                   </div>
                 );
@@ -510,36 +332,36 @@ const TransitsClientPage = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left not-prose pt-4">
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.sunTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.sunTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.sunDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.moonTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.moonTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.moonDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.marsTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.marsTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.marsDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.mercuryTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.mercuryTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.mercuryDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.jupiterTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.jupiterTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.jupiterDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.venusTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.venusTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.venusDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.saturnTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+              <h3 className="text-base font-semibold text-on-surface">{t.saturnTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.saturnDesc}</p>
             </div>
-            <div className="p-6 bg-surface rounded-3xl border border-outline/20 space-y-2 col-span-1 md:col-span-2 md:max-w-xl md:mx-auto">
-              <h3 className="text-lg font-headline font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
+            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1 col-span-1 md:col-span-2 md:max-w-xl md:mx-auto">
+              <h3 className="text-base font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
               <p className="text-sm text-on-surface/70 font-body leading-relaxed">{t.rahuKetuDesc}</p>
             </div>
           </div>
