@@ -2189,3 +2189,345 @@ export function getFutureCombustions(referenceDate: Date): CombustionPeriod[] {
 
     return results;
 }
+
+export interface PeriodDetails {
+    start: Date | null;
+    end: Date | null;
+}
+
+export interface TransitPeriodGroup {
+    currentOrNext: PeriodDetails;
+    previous: PeriodDetails;
+}
+
+function getRetroStepDays(planet: string): number {
+    switch (planet) {
+        case "Mercury": return 2;
+        case "Venus": return 4;
+        case "Mars": return 6;
+        case "Jupiter": return 12;
+        case "Saturn": return 15;
+        case "Uranus": return 20;
+        case "Neptune": return 30;
+        case "Pluto": return 40;
+        default: return 10;
+    }
+}
+
+function getRetroStateAt(planet: string, body: Ast.Body, date: Date): boolean {
+    const time = Ast.MakeTime(date);
+    return isPlanetRetrograde(body, time);
+}
+
+function bisectRetrogradeSwitch(planet: string, body: Ast.Body, d1: Date, d2: Date): Date {
+    let low = d1.getTime();
+    let high = d2.getTime();
+    const s1 = getRetroStateAt(planet, body, d1);
+    for (let i = 0; i < 24; i++) {
+        const mid = (low + high) / 2;
+        const sMid = getRetroStateAt(planet, body, new Date(mid));
+        if (sMid === s1) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+    return new Date((low + high) / 2);
+}
+
+export function getRetrogradeDetails(planet: string, refDate: Date): TransitPeriodGroup | null {
+    let body: Ast.Body | null = null;
+    switch (planet) {
+        case "Mercury": body = Ast.Body.Mercury; break;
+        case "Venus": body = Ast.Body.Venus; break;
+        case "Mars": body = Ast.Body.Mars; break;
+        case "Jupiter": body = Ast.Body.Jupiter; break;
+        case "Saturn": body = Ast.Body.Saturn; break;
+        case "Uranus": body = Ast.Body.Uranus; break;
+        case "Neptune": body = Ast.Body.Neptune; break;
+        case "Pluto": body = Ast.Body.Pluto; break;
+        default: return null;
+    }
+
+    const stepDays = getRetroStepDays(planet);
+    const stepMs = stepDays * 24 * 60 * 60 * 1000;
+    const initialRetro = getRetroStateAt(planet, body, refDate);
+
+    let currentOrNextStart: Date | null = null;
+    let currentOrNextEnd: Date | null = null;
+    let previousStart: Date | null = null;
+    let previousEnd: Date | null = null;
+
+    if (initialRetro) {
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() - i * stepMs);
+            const state = getRetroStateAt(planet, body, currDate);
+            if (!state) {
+                const boundaryDate = new Date(currDate.getTime() + stepMs);
+                currentOrNextStart = bisectRetrogradeSwitch(planet, body, currDate, boundaryDate);
+                break;
+            }
+        }
+
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() + i * stepMs);
+            const state = getRetroStateAt(planet, body, currDate);
+            if (!state) {
+                const prevScannedDate = new Date(currDate.getTime() - stepMs);
+                currentOrNextEnd = bisectRetrogradeSwitch(planet, body, prevScannedDate, currDate);
+                break;
+            }
+        }
+
+        if (currentOrNextStart) {
+            const startSearchDate = new Date(currentOrNextStart.getTime() - 60 * 60 * 1000);
+            let foundEnd = false;
+            let lastRetroDate: Date | null = null;
+
+            for (let i = 1; i <= 300; i++) {
+                const currDate = new Date(startSearchDate.getTime() - i * stepMs);
+                const state = getRetroStateAt(planet, body, currDate);
+                if (state) {
+                    const boundaryDate = new Date(currDate.getTime() + stepMs);
+                    previousEnd = bisectRetrogradeSwitch(planet, body, currDate, boundaryDate);
+                    lastRetroDate = currDate;
+                    foundEnd = true;
+                    break;
+                }
+            }
+
+            if (foundEnd && lastRetroDate) {
+                for (let i = 1; i <= 300; i++) {
+                    const currDate = new Date(lastRetroDate.getTime() - i * stepMs);
+                    const state = getRetroStateAt(planet, body, currDate);
+                    if (!state) {
+                        const boundaryDate = new Date(currDate.getTime() + stepMs);
+                        previousStart = bisectRetrogradeSwitch(planet, body, currDate, boundaryDate);
+                        break;
+                    }
+                }
+            }
+        }
+
+    } else {
+        let foundNextStart = false;
+        let lastRetroDate: Date | null = null;
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() + i * stepMs);
+            const state = getRetroStateAt(planet, body, currDate);
+            if (state) {
+                const prevScannedDate = new Date(currDate.getTime() - stepMs);
+                currentOrNextStart = bisectRetrogradeSwitch(planet, body, prevScannedDate, currDate);
+                lastRetroDate = currDate;
+                foundNextStart = true;
+                break;
+            }
+        }
+
+        if (foundNextStart && lastRetroDate) {
+            for (let i = 1; i <= 300; i++) {
+                const currDate = new Date(lastRetroDate.getTime() + i * stepMs);
+                const state = getRetroStateAt(planet, body, currDate);
+                if (!state) {
+                    const prevScannedDate = new Date(currDate.getTime() - stepMs);
+                    currentOrNextEnd = bisectRetrogradeSwitch(planet, body, prevScannedDate, currDate);
+                    break;
+                }
+            }
+        }
+
+        let foundEnd = false;
+        let lastRetroPastDate: Date | null = null;
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() - i * stepMs);
+            const state = getRetroStateAt(planet, body, currDate);
+            if (state) {
+                const boundaryDate = new Date(currDate.getTime() + stepMs);
+                previousEnd = bisectRetrogradeSwitch(planet, body, currDate, boundaryDate);
+                lastRetroPastDate = currDate;
+                foundEnd = true;
+                break;
+            }
+        }
+
+        if (foundEnd && lastRetroPastDate) {
+            for (let i = 1; i <= 300; i++) {
+                const currDate = new Date(lastRetroPastDate.getTime() - i * stepMs);
+                const state = getRetroStateAt(planet, body, currDate);
+                if (!state) {
+                    const boundaryDate = new Date(currDate.getTime() + stepMs);
+                    previousStart = bisectRetrogradeSwitch(planet, body, currDate, boundaryDate);
+                    break;
+                }
+            }
+        }
+    }
+
+    return {
+        currentOrNext: { start: currentOrNextStart, end: currentOrNextEnd },
+        previous: { start: previousStart, end: previousEnd }
+    };
+}
+
+function getCombustStepDays(planet: string): number {
+    switch (planet) {
+        case "Mercury": return 2;
+        case "Venus": return 4;
+        case "Mars": return 10;
+        case "Jupiter": return 5;
+        case "Saturn": return 5;
+        default: return 5;
+    }
+}
+
+function getCombustStateAt(planet: string, body: Ast.Body, date: Date): boolean {
+    const time = Ast.MakeTime(date);
+    return isPlanetCombustAt(planet, body, time);
+}
+
+function bisectCombustionSwitch(planet: string, body: Ast.Body, d1: Date, d2: Date): Date {
+    let low = d1.getTime();
+    let high = d2.getTime();
+    const s1 = getCombustStateAt(planet, body, d1);
+    for (let i = 0; i < 24; i++) {
+        const mid = (low + high) / 2;
+        const sMid = getCombustStateAt(planet, body, new Date(mid));
+        if (sMid === s1) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+    return new Date((low + high) / 2);
+}
+
+export function getCombustionDetails(planet: string, refDate: Date): TransitPeriodGroup | null {
+    let body: Ast.Body | null = null;
+    switch (planet) {
+        case "Mercury": body = Ast.Body.Mercury; break;
+        case "Venus": body = Ast.Body.Venus; break;
+        case "Mars": body = Ast.Body.Mars; break;
+        case "Jupiter": body = Ast.Body.Jupiter; break;
+        case "Saturn": body = Ast.Body.Saturn; break;
+        default: return null;
+    }
+
+    const stepDays = getCombustStepDays(planet);
+    const stepMs = stepDays * 24 * 60 * 60 * 1000;
+    const initialCombust = getCombustStateAt(planet, body, refDate);
+
+    let currentOrNextStart: Date | null = null;
+    let currentOrNextEnd: Date | null = null;
+    let previousStart: Date | null = null;
+    let previousEnd: Date | null = null;
+
+    if (initialCombust) {
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() - i * stepMs);
+            const state = getCombustStateAt(planet, body, currDate);
+            if (!state) {
+                const boundaryDate = new Date(currDate.getTime() + stepMs);
+                currentOrNextStart = bisectCombustionSwitch(planet, body, currDate, boundaryDate);
+                break;
+            }
+        }
+
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() + i * stepMs);
+            const state = getCombustStateAt(planet, body, currDate);
+            if (!state) {
+                const prevScannedDate = new Date(currDate.getTime() - stepMs);
+                currentOrNextEnd = bisectCombustionSwitch(planet, body, prevScannedDate, currDate);
+                break;
+            }
+        }
+
+        if (currentOrNextStart) {
+            const startSearchDate = new Date(currentOrNextStart.getTime() - 60 * 60 * 1000);
+            let foundEnd = false;
+            let lastCombustDate: Date | null = null;
+
+            for (let i = 1; i <= 300; i++) {
+                const currDate = new Date(startSearchDate.getTime() - i * stepMs);
+                const state = getCombustStateAt(planet, body, currDate);
+                if (state) {
+                    const boundaryDate = new Date(currDate.getTime() + stepMs);
+                    previousEnd = bisectCombustionSwitch(planet, body, currDate, boundaryDate);
+                    lastCombustDate = currDate;
+                    foundEnd = true;
+                    break;
+                }
+            }
+
+            if (foundEnd && lastCombustDate) {
+                for (let i = 1; i <= 300; i++) {
+                    const currDate = new Date(lastCombustDate.getTime() - i * stepMs);
+                    const state = getCombustStateAt(planet, body, currDate);
+                    if (!state) {
+                        const boundaryDate = new Date(currDate.getTime() + stepMs);
+                        previousStart = bisectCombustionSwitch(planet, body, currDate, boundaryDate);
+                        break;
+                    }
+                }
+            }
+        }
+
+    } else {
+        let foundNextStart = false;
+        let lastCombustDate: Date | null = null;
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() + i * stepMs);
+            const state = getCombustStateAt(planet, body, currDate);
+            if (state) {
+                const prevScannedDate = new Date(currDate.getTime() - stepMs);
+                currentOrNextStart = bisectCombustionSwitch(planet, body, prevScannedDate, currDate);
+                lastCombustDate = currDate;
+                foundNextStart = true;
+                break;
+            }
+        }
+
+        if (foundNextStart && lastCombustDate) {
+            for (let i = 1; i <= 300; i++) {
+                const currDate = new Date(lastCombustDate.getTime() + i * stepMs);
+                const state = getCombustStateAt(planet, body, currDate);
+                if (!state) {
+                    const prevScannedDate = new Date(currDate.getTime() - stepMs);
+                    currentOrNextEnd = bisectCombustionSwitch(planet, body, prevScannedDate, currDate);
+                    break;
+                }
+            }
+        }
+
+        let foundEnd = false;
+        let lastCombustPastDate: Date | null = null;
+        for (let i = 1; i <= 300; i++) {
+            const currDate = new Date(refDate.getTime() - i * stepMs);
+            const state = getCombustStateAt(planet, body, currDate);
+            if (state) {
+                const boundaryDate = new Date(currDate.getTime() + stepMs);
+                previousEnd = bisectCombustionSwitch(planet, body, currDate, boundaryDate);
+                lastCombustPastDate = currDate;
+                foundEnd = true;
+                break;
+            }
+        }
+
+        if (foundEnd && lastCombustPastDate) {
+            for (let i = 1; i <= 300; i++) {
+                const currDate = new Date(lastCombustPastDate.getTime() - i * stepMs);
+                const state = getCombustStateAt(planet, body, currDate);
+                if (!state) {
+                    const boundaryDate = new Date(currDate.getTime() + stepMs);
+                    previousStart = bisectCombustionSwitch(planet, body, currDate, boundaryDate);
+                    break;
+                }
+            }
+        }
+    }
+
+    return {
+        currentOrNext: { start: currentOrNextStart, end: currentOrNextEnd },
+        previous: { start: previousStart, end: previousEnd }
+    };
+}
