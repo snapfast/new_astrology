@@ -2021,6 +2021,10 @@ export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTr
     const past = getPastTransitsForPlanet(planet, body, referenceDate, stepDays, maxSteps);
     const future = getFutureTransitsForPlanet(planet, body, referenceDate, stepDays, maxSteps);
 
+    // Sort both past and future arrays by date ascending (earlier first)
+    past.sort((a, b) => a.date.getTime() - b.date.getTime());
+    future.sort((a, b) => a.date.getTime() - b.date.getTime());
+
     return {
         planet,
         past,
