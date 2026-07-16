@@ -172,7 +172,8 @@ const TransitsClientPage = () => {
   }, [referenceDate]);
 
   const combustionPeriods: CombustionPeriod[] = useMemo(() => {
-    return getFutureCombustions(referenceDate);
+    const list = getFutureCombustions(referenceDate);
+    return [...list].sort((a, b) => a.start.getTime() - b.start.getTime());
   }, [referenceDate]);
 
   const formatISTDate = (date: Date) => {
@@ -276,84 +277,78 @@ const TransitsClientPage = () => {
                       {t.futureTransits}
                     </h4>
                     <div className="space-y-4">
-                      {/* Sign Transit Section */}
                       {(() => {
                         const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
-                        return (
-                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                              {t.rashiTransit}
-                            </span>
-                            {rashiTransit ? (
-                              <div className="text-on-surface font-body text-sm">
-                                <span className="font-medium text-accent">
-                                  {lang === 'en' ? rashiTransit.fromValue : rashiTransit.fromValueSanskrit}
-                                </span>{' '}
-                                &rarr;{' '}
-                                <span className="font-medium text-on-surface">
-                                  {lang === 'en' ? rashiTransit.toValue : rashiTransit.toValueSanskrit}
-                                </span>
-                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(rashiTransit.date)})</span>
-                              </div>
-                            ) : (
-                              <p className="text-sm text-on-surface/40 italic">{t.noRashiTransit}</p>
-                            )}
-                          </div>
-                        );
-                      })()}
-
-                      {/* Nakshatra Transit Section */}
-                      {(() => {
                         const nakshatraTransit = transit.future.find(ev => ev.type === 'nakshatra');
-                        return (
-                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                              {t.nakshatraTransit}
-                            </span>
-                            {nakshatraTransit ? (
-                              <div className="text-on-surface font-body text-sm">
-                                <span className="font-medium text-accent">
-                                  {lang === 'en' ? nakshatraTransit.fromValue : nakshatraTransit.fromValueSanskrit}
-                                </span>{' '}
-                                &rarr;{' '}
-                                <span className="font-medium text-on-surface">
-                                  {lang === 'en' ? nakshatraTransit.toValue : nakshatraTransit.toValueSanskrit}
-                                </span>
-                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(nakshatraTransit.date)})</span>
-                              </div>
-                            ) : (
-                              <p className="text-sm text-on-surface/40 italic">{t.noNakshatraTransit}</p>
-                            )}
-                          </div>
-                        );
-                      })()}
 
-                      {/* Direction Transit Section (if applicable) */}
-                      {(() => {
-                        const hasMotion = planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu";
-                        if (!hasMotion) return null;
-                        const motionTransit = transit.future.find(ev => ev.type === 'motion');
-                        return (
-                          <div className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
-                              {t.motionTransit}
-                            </span>
-                            {motionTransit ? (
-                              <div className="text-on-surface font-body text-sm">
-                                <span className="font-medium text-accent">
-                                  {lang === 'en' ? motionTransit.fromValue : motionTransit.fromValueSanskrit}
-                                </span>{' '}
-                                &rarr;{' '}
-                                <span className="font-medium text-on-surface">
-                                  {lang === 'en' ? motionTransit.toValue : motionTransit.toValueSanskrit}
+                        const items = [];
+                        if (rashiTransit) {
+                          items.push({ type: 'rashi', date: rashiTransit.date, data: rashiTransit });
+                        }
+                        if (nakshatraTransit) {
+                          items.push({ type: 'nakshatra', date: nakshatraTransit.date, data: nakshatraTransit });
+                        }
+
+                        // Sort the active transits ascending by date
+                        items.sort((a, b) => (a.date?.getTime() || 0) - (b.date?.getTime() || 0));
+
+                        // Add missing transits at the bottom
+                        if (!rashiTransit) {
+                          items.push({ type: 'rashi', date: null, data: null });
+                        }
+                        if (!nakshatraTransit) {
+                          items.push({ type: 'nakshatra', date: null, data: null });
+                        }
+
+                        return items.map((item) => {
+                          if (item.type === 'rashi') {
+                            const rashiTransit = item.data;
+                            return (
+                              <div key="rashi" className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                                <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                                  {t.rashiTransit}
                                 </span>
-                                <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(motionTransit.date)})</span>
+                                {rashiTransit ? (
+                                  <div className="text-on-surface font-body text-sm">
+                                    <span className="font-medium text-accent">
+                                      {lang === 'en' ? rashiTransit.fromValue : rashiTransit.fromValueSanskrit}
+                                    </span>{' '}
+                                    &rarr;{' '}
+                                    <span className="font-medium text-on-surface">
+                                      {lang === 'en' ? rashiTransit.toValue : rashiTransit.toValueSanskrit}
+                                    </span>
+                                    <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(rashiTransit.date)})</span>
+                                  </div>
+                                ) : (
+                                  <p className="text-sm text-on-surface/40 italic">{t.noRashiTransit}</p>
+                                )}
                               </div>
-                            ) : (
-                              <p className="text-sm text-on-surface/40 italic">{t.noMotionTransit}</p>
-                            )}
-                          </div>
-                        );
+                            );
+                          } else {
+                            const nakshatraTransit = item.data;
+                            return (
+                              <div key="nakshatra" className="border-l-2 border-accent/20 pl-3 py-0.5 space-y-0.5">
+                                <span className="text-[10px] uppercase tracking-wider text-on-surface/50 font-label block font-semibold">
+                                  {t.nakshatraTransit}
+                                </span>
+                                {nakshatraTransit ? (
+                                  <div className="text-on-surface font-body text-sm">
+                                    <span className="font-medium text-accent">
+                                      {lang === 'en' ? nakshatraTransit.fromValue : nakshatraTransit.fromValueSanskrit}
+                                    </span>{' '}
+                                    &rarr;{' '}
+                                    <span className="font-medium text-on-surface">
+                                      {lang === 'en' ? nakshatraTransit.toValue : nakshatraTransit.toValueSanskrit}
+                                    </span>
+                                    <span className="text-xs text-on-surface/60 ml-2">({formatISTDate(nakshatraTransit.date)})</span>
+                                  </div>
+                                ) : (
+                                  <p className="text-sm text-on-surface/40 italic">{t.noNakshatraTransit}</p>
+                                )}
+                              </div>
+                            );
+                          }
+                        });
                       })()}
                     </div>
                   </div>
