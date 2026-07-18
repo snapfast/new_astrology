@@ -911,27 +911,6 @@ const PanchangPage = () => {
           </div>
         </div>
 
-        {/* Shareable Plain-Text Card */}
-        {panchang.formattedText && (
-          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-outline/10 pb-4">
-              <div>
-                <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label">{t.shareableTitle}</h2>
-              </div>
-              <button
-                onClick={handleCopyText}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white rounded-full text-xs uppercase font-label tracking-wider hover:bg-accent/90 active:scale-[0.98] transition-all"
-              >
-                <span className="material-symbols-outlined text-sm">{copied ? "done" : "content_copy"}</span>
-                {copied ? t.copied : t.copyBtn}
-              </button>
-            </div>
-            <pre className="bg-surface p-6 rounded-2xl font-mono text-sm text-on-surface whitespace-pre-wrap leading-relaxed select-all border border-outline/30">
-              {panchang.formattedText}
-            </pre>
-          </div>
-        )}
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
            {/* Celestial Timings Card */}
            <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
@@ -981,6 +960,27 @@ const PanchangPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Shareable Plain-Text Card */}
+        {panchang.formattedText && (
+          <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-outline/10 pb-4">
+              <div>
+                <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label">{t.shareableTitle}</h2>
+              </div>
+              <button
+                onClick={handleCopyText}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white rounded-full text-xs uppercase font-label tracking-wider hover:bg-accent/90 active:scale-[0.98] transition-all"
+              >
+                <span className="material-symbols-outlined text-sm">{copied ? "done" : "content_copy"}</span>
+                {copied ? t.copied : t.copyBtn}
+              </button>
+            </div>
+            <pre className="bg-surface p-6 rounded-2xl font-mono text-sm text-on-surface whitespace-pre-wrap leading-relaxed select-all border border-outline/30">
+              {panchang.formattedText}
+            </pre>
+          </div>
+        )}
       </section>
 
       {/* Educational Content Section */}
