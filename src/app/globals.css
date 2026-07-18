@@ -164,6 +164,65 @@
   transform: translateY(-2px) scale(1.02);
 }
 
+/* Override text color opacities to ensure all grey font is turned to black font and has high visibility/contrast */
+.text-on-surface\/95,
+.text-on-surface\/90,
+.text-on-surface\/85,
+.text-on-surface\/80,
+.text-on-surface\/75,
+.text-on-surface\/70,
+.text-on-surface\/65,
+.text-on-surface\/60,
+.text-on-surface\/55,
+.text-on-surface\/50,
+.text-on-surface\/45,
+.text-on-surface\/40,
+.text-on-surface\/30,
+.text-on-surface\/25,
+.text-on-surface\/20,
+.text-on-surface\/15,
+.text-on-surface\/10,
+.text-secondary,
+.text-secondary\/95,
+.text-secondary\/90,
+.text-secondary\/85,
+.text-secondary\/80,
+.text-secondary\/75,
+.text-secondary\/70,
+.text-secondary\/65,
+.text-secondary\/60,
+.text-secondary\/55,
+.text-secondary\/50,
+.text-secondary\/45,
+.text-secondary\/40,
+.text-secondary\/30,
+.text-secondary\/20,
+.text-primary,
+.text-primary\/95,
+.text-primary\/90,
+.text-primary\/85,
+.text-primary\/80,
+.text-primary\/75,
+.text-primary\/70,
+.text-primary\/65,
+.text-primary\/60,
+.text-primary\/55,
+.text-primary\/50,
+.text-primary\/45,
+.text-primary\/40,
+.text-primary\/30,
+.text-primary\/20 {
+  color: #000000 !important;
+}
+
+/* Ensure placeholder texts have full contrast and visibility */
+::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
 @keyframes expandToScreen {
   0% { transform: scale(1); opacity: 0; }
   10% { opacity: 0.9; }
