@@ -63,3 +63,46 @@ test('Compact Kundli Chart renders correctly and trims degrees inside the chart 
     expect(combustClass).toContain('text-[10px]');
   }
 });
+
+test('Compact page Vimshottari Dasha section arrangement and keyboard accessibility', async ({ page }) => {
+  // Prevent matchmaking popup
+  await page.addInitScript(() => {
+    window.localStorage.setItem('moonine_popup_last_shown', String(Date.now()));
+  });
+
+  // Set desktop viewport to avoid mobile blocker overlay
+  await page.setViewportSize({ width: 1280, height: 800 });
+
+  // Navigate directly using populated query parameters (Delhi coords)
+  await page.goto('/horoscope/compact?name=Rahul&dob=1990-10-15&tob=12:30&pob=Delhi&lat=28.6139&lon=77.2090');
+  await page.waitForLoadState('networkidle');
+
+  // Verify Vimshottari Dasha card title is visible
+  const dashaHeader = page.locator('section:has-text("Vimshottari Dasha")');
+  await expect(dashaHeader.first()).toBeVisible();
+
+  // Verify dasha columns are rendered as buttons for keyboard accessibility
+  const dashaButtons = page.locator('.condensed-dasha .miller-container button');
+  await expect(dashaButtons.first()).toBeVisible();
+
+  // Inspect the first dasha button attributes
+  const firstButton = dashaButtons.first();
+  await expect(firstButton).toHaveAttribute('type', 'button');
+  await expect(firstButton).toHaveAttribute('aria-pressed');
+
+  // Verify that the right scroll button is visible since 4 columns of 142px each (568px) exceed the 400px container width
+  const scrollRightBtn = page.locator('button[aria-label="Scroll right"]');
+  await expect(scrollRightBtn).toBeVisible();
+
+  // Click the scroll right button and verify we can scroll
+  await scrollRightBtn.click();
+  await page.waitForTimeout(500); // Wait for smooth scroll
+
+  // Verify that the left scroll button is now visible after scrolling right
+  const scrollLeftBtn = page.locator('button[aria-label="Scroll left"]');
+  await expect(scrollLeftBtn).toBeVisible();
+
+  // Click scroll left to go back
+  await scrollLeftBtn.click();
+  await page.waitForTimeout(500); // Wait for smooth scroll
+});
