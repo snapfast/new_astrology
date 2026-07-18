@@ -7,6 +7,7 @@ import PageHeader from '@/components/PageHeader';
 import { getPlanetTransits, PLANET_NAMES, getFutureCombustions, CombustionPeriod, getRetrogradeDetails, getCombustionDetails, TransitEvent } from '@/lib/astrology';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
+import ExploreTools from '@/components/ExploreTools';
 
 const TRANSLATIONS = {
   en: {
@@ -554,6 +555,8 @@ const TransitsClientPage = () => {
           </div>
         </div>
       </section>
+
+      <ExploreTools currentPath="/transits" className="my-12" />
 
       <Footer />
     </main>

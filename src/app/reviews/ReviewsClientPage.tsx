@@ -8,6 +8,7 @@ import JsonLd from '@/components/JsonLd';
 import StarRating from '@/components/StarRating';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
+import ExploreTools from '@/components/ExploreTools';
 
 const TRANSLATIONS = {
   en: {
@@ -171,6 +172,8 @@ export default function ReviewsClientPage() {
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border-[0.5px] border-outline/5 rounded-full -z-0"></div>
       </section>
+
+      <ExploreTools currentPath="/reviews" className="mb-12" />
 
       <Footer />
     </main>

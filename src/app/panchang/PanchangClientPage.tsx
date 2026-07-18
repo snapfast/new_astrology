@@ -7,6 +7,7 @@ import PageHeader from '@/components/PageHeader';
 import { generateAstrologyData } from '@/lib/astrology';
 import JsonLd from '@/components/JsonLd';
 import { useLanguage } from '@/context/LanguageContext';
+import ExploreTools from '@/components/ExploreTools';
 
 
 const TITHI_MAPPING: Record<string, string> = {
@@ -1047,6 +1048,8 @@ const PanchangPage = () => {
           </div>
         </div>
       </section>
+
+      <ExploreTools currentPath="/panchang" className="mb-12" />
 
       <Footer />
     </main>

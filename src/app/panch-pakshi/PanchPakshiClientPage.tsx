@@ -5,6 +5,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { BIRD_TRANSLATIONS, getPanchPakshiSchedule, NAKSHATRA_BIRD_MAPPING } from '@/lib/panchPakshi';
+import ExploreTools from '@/components/ExploreTools';
 import { NAKSHATRA_NAMES } from '@/lib/astrology';
 
 export default function PanchPakshiClientPage() {
@@ -196,6 +197,7 @@ export default function PanchPakshiClientPage() {
           </div>
         </div>
 
+        <ExploreTools currentPath="/panch-pakshi" className="mt-8" />
       </main>
       <Footer />
     </div>

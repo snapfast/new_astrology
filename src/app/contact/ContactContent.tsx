@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { SOCIAL_PROFILES } from '@/lib/social-data';
 import { useLanguage } from '@/context/LanguageContext';
+import ExploreTools from '@/components/ExploreTools';
 
 const TRANSLATIONS = {
   en: {
@@ -121,6 +122,9 @@ export default function ContactContent() {
           </div>
         </div>
       </div>
+
+      <ExploreTools currentPath="/contact" className="mb-12" />
+
       <Footer />
     </main>
   );

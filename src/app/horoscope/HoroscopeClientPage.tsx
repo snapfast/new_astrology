@@ -8,6 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import { generateAstrologyData } from '@/lib/astrology';
+import ExploreTools from '@/components/ExploreTools';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -806,6 +807,8 @@ const HoroscopeContent = () => {
         {/* Subtle Decorative Element */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
       </div>
+
+      <ExploreTools currentPath="/horoscope" className="mt-12 print:hidden" />
     </div>
     </>
   );

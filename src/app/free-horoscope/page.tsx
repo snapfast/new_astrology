@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import ChartGeneration from '@/components/ChartGeneration';
 import JsonLd from '@/components/JsonLd';
+import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
@@ -191,6 +192,8 @@ export default function FreeHoroscopePage() {
           </div>
         </div>
       </section>
+
+      <ExploreTools currentPath="/free-horoscope" className="mb-12" />
 
       <Footer />
     </main>

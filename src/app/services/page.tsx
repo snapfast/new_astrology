@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import ServicesContent from '@/components/ServicesContent';
 import { SPECIALIZED_SERVICES } from '@/lib/consultations';
+import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "Vedic Astrology Services in Gurugram & Gurgaon | Rahul Bali Astrology",
@@ -57,6 +58,7 @@ export default function ServicesPage() {
       <JsonLd data={servicesSchema} />
       <Navbar />
       <ServicesContent />
+      <ExploreTools currentPath="/services" className="mb-12" />
       <Footer />
     </main>
   );

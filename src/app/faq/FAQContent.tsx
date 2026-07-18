@@ -7,6 +7,7 @@ import PageHeader from '@/components/PageHeader';
 import JsonLd from '@/components/JsonLd';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
+import ExploreTools from '@/components/ExploreTools';
 
 const TRANSLATIONS = {
   en: {
@@ -226,6 +227,8 @@ export default function FAQContent() {
 
         </div>
       </section>
+
+      <ExploreTools currentPath="/faq" className="mb-12" />
 
       <Footer />
     </main>
