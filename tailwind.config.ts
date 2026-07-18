@@ -9,17 +9,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary": "#1A1C1D",
+        "primary": "#000000",
         "on-primary": "#FFFFFF",
         "accent": "#ffae42",
         "on-accent": "#FFFFFF",
         "surface": "#FFFFFF",
-        "on-surface": "#1A1C1D",
+        "on-surface": "#000000",
         "surface-bright": "#F9F9FB",
         "surface-container-low": "#F0F1F3",
         "surface-container-lowest": "#F7F8F9",
         "surface-container-high": "#EBECEE",
-        "secondary": "#474747",
+        "secondary": "#000000",
         "outline": "#E2E2E2",
         "background": "#F9F9FB"
       },
