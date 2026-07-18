@@ -248,11 +248,11 @@ const CompactHoroscopeContent = () => {
       <main className="flex-grow overflow-hidden p-3 grid grid-cols-12 grid-rows-12 gap-3">
 
         {/* Left Column: Panchang & Muhurtas */}
-        <div className="col-span-2 row-span-12 flex flex-col gap-3">
+        <div className="col-span-3 row-span-12 flex flex-col gap-3">
           {/* Panchang */}
-          <section className="flex-grow bg-white border border-outline/80 rounded-2xl p-3 shadow-sm overflow-y-auto no-scrollbar">
-            <h2 className={`text-[10px] font-bold text-accent uppercase font-label mb-3 border-b border-outline/30 pb-1 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
-            <div className="space-y-2.5">
+          <section className="flex-grow bg-white border border-outline/80 rounded-2xl p-4 shadow-sm overflow-y-auto no-scrollbar">
+            <h2 className={`text-xs font-bold text-accent uppercase font-label mb-4 border-b border-outline/30 pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3.5">
               {[
                 { label: t.tithi, val: lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit },
                 { label: t.paksha, val: lang === 'en' ? chartData.panchang.paksha : chartData.panchang.pakshaSanskrit },
@@ -266,17 +266,17 @@ const CompactHoroscopeContent = () => {
                 { label: t.ayana, val: lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-[9px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
-                  <span className={`text-xs font-bold leading-tight ${lang === 'hi' || (i <= 9 && item.val.match(/[अ-ह]/)) ? 'font-hindi' : ''}`}>{item.val}</span>
+                  <span className="text-[10px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1.5">{item.label}</span>
+                  <span className={`text-xs md:text-[13px] font-bold leading-snug ${lang === 'hi' || (i <= 9 && item.val.match(/[अ-ह]/)) ? 'font-hindi' : ''}`}>{item.val}</span>
                 </div>
               ))}
             </div>
           </section>
 
           {/* Muhurtas */}
-          <section className="bg-white border border-outline/80 rounded-2xl p-3 shadow-sm">
-            <h2 className={`text-[10px] font-bold text-accent uppercase font-label mb-3 border-b border-outline/30 pb-1 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
-            <div className="grid grid-cols-1 gap-2.5">
+          <section className="bg-white border border-outline/80 rounded-2xl p-4 shadow-sm">
+            <h2 className={`text-xs font-bold text-accent uppercase font-label mb-4 border-b border-outline/30 pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3.5">
               {[
                 { label: t.abhijit, val: chartData.panchang.abhijitMuhurta, color: 'text-success' },
                 { label: t.rahu, val: chartData.panchang.rahuKaal, color: 'text-error' },
@@ -284,8 +284,8 @@ const CompactHoroscopeContent = () => {
                 { label: t.yamaganda, val: chartData.panchang.yamagandaKaal, color: 'text-on-surface' },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-[9px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1">{item.label}</span>
-                  <span className={`text-[11px] font-bold leading-tight tabular-nums font-body ${item.color}`}>{item.val}</span>
+                  <span className="text-[10px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1.5">{item.label}</span>
+                  <span className={`text-xs md:text-[13px] font-bold leading-snug tabular-nums font-body ${item.color}`}>{item.val}</span>
                 </div>
               ))}
             </div>
@@ -293,7 +293,7 @@ const CompactHoroscopeContent = () => {
         </div>
 
         {/* Middle: 6 Charts Grid */}
-        <div className="col-span-6 row-span-12 grid grid-cols-3 grid-rows-2 gap-3">
+        <div className="col-span-5 row-span-12 grid grid-cols-2 grid-rows-3 gap-3">
           <ChartBox title={t.d1Chart} data={chartData.d1} lang={lang} />
           <ChartBox title={t.d9Chart} data={chartData.d9} lang={lang} />
           <ChartBox title={t.d3Chart} data={chartData.d3} lang={lang} />
@@ -306,9 +306,9 @@ const CompactHoroscopeContent = () => {
         <div className="col-span-4 row-span-12 flex flex-col gap-3">
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="bg-white px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
-              <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
-              <div className={`flex items-center gap-3 text-[9px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
+            <div className="bg-white px-4 py-2 border-b border-outline/50 flex justify-between items-center">
+              <h2 className={`text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
+              <div className={`flex items-center gap-3 text-[10px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
                 <span className="flex items-center gap-0.5">
                   <span className="text-black font-normal">*</span>
                   <span>{lang === 'hi' ? 'वक्री' : 'Retro'}</span>
@@ -323,30 +323,30 @@ const CompactHoroscopeContent = () => {
               <table className="w-full text-left border-collapse">
                 <thead className="sticky top-0 bg-white shadow-sm z-10">
                   <tr className="border-b border-outline/30">
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.planet}</th>
-                    <th className="px-1 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label text-center">{t.house}</th>
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.rasi}</th>
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.degree}</th>
-                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{t.nakshatra}</th>
+                    <th className="px-3 py-2 text-[10px] font-bold text-on-surface uppercase font-label">{t.planet}</th>
+                    <th className="px-2 py-2 text-[10px] font-bold text-on-surface uppercase font-label text-center">{t.house}</th>
+                    <th className="px-3 py-2 text-[10px] font-bold text-on-surface uppercase font-label">{t.rasi}</th>
+                    <th className="px-3 py-2 text-[10px] font-bold text-on-surface uppercase font-label">{t.degree}</th>
+                    <th className="px-3 py-2 text-[10px] font-bold text-on-surface uppercase font-label">{t.nakshatra}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline/10">
                   {chartData.planets.map((p, idx) => (
                     <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
-                      <td className={`px-2 py-1.5 text-[11px] font-medium text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                      <td className={`px-3 py-2 text-[12px] font-semibold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
                         {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && <span className="ml-0.5 text-black font-normal">*</span>}
                         {p.isCombust && <span className="ml-0.5 text-[10px] text-black font-normal">^</span>}
                       </td>
-                      <td className="px-1 py-1.5 text-[11px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
-                      <td className={`px-2 py-1.5 text-[11px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
-                      <td className="px-2 py-1.5 text-[10px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
-                      <td className={`px-2 py-1.5 text-[10px] text-on-surface truncate max-w-[80px] ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
+                      <td className="px-2 py-2 text-[12px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
+                      <td className={`px-3 py-2 text-[12px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
+                      <td className="px-3 py-2 text-[11px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
+                      <td className={`px-3 py-2 text-[11px] text-on-surface truncate max-w-[100px] ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <div className={`bg-surface-container-lowest px-3 py-1 border-t border-outline/20 flex gap-4 text-[9px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+            <div className={`bg-surface-container-lowest px-4 py-1.5 border-t border-outline/20 flex gap-4 text-[10px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
               <span className="flex items-center gap-0.5">
                 <span className="text-black font-normal">*</span>
                 <span>{lang === 'hi' ? 'वक्र' : 'Retrograde'}</span>
@@ -360,11 +360,11 @@ const CompactHoroscopeContent = () => {
 
           {/* Dasha (Condensed) */}
           <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
-             <div className="bg-white px-3 py-1.5 border-b border-outline/50 flex justify-between items-center">
-              <h2 className={`text-[10px] font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.vimshottariDasha}</h2>
+             <div className="bg-white px-4 py-2 border-b border-outline/50 flex justify-between items-center">
+              <h2 className={`text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.vimshottariDasha}</h2>
               <div className="flex items-center gap-1">
                  <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                 <span className={`text-[8px] font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-tighter' : ''}`}>{t.activeDasha}</span>
+                 <span className={`text-[10px] font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-tighter' : ''}`}>{t.activeDasha}</span>
               </div>
             </div>
             <div className="flex-grow overflow-hidden condensed-dasha">
@@ -392,8 +392,11 @@ const CompactHoroscopeContent = () => {
           width: 140px; /* Force smaller width for columns */
           font-size: 10px;
         }
+        .condensed-dasha .dasha-active-indicator {
+          display: none !important;
+        }
         .condensed-dasha h3 {
-           font-size: 8px !important;
+           font-size: 9px !important;
            padding: 4px 8px !important;
         }
         .condensed-dasha .px-4 {
@@ -417,11 +420,11 @@ const CompactHoroscopeContent = () => {
 
 const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartData, lang: string }) => (
   <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden">
-    <div className="bg-white px-3 py-1 border-b border-outline/30">
-      <h2 className={`text-[9px] font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
+    <div className="bg-white px-3 py-1.5 border-b border-outline/30">
+      <h2 className={`text-xs md:text-sm font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
     <div className="flex-grow flex items-center justify-center p-1 overflow-hidden">
-      <div className="w-full h-full max-w-[280px] max-h-[280px]">
+      <div className="w-full h-full max-w-[400px] max-h-[400px]">
         <KundliChart data={data} />
       </div>
     </div>

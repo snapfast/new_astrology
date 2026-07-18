@@ -276,7 +276,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
         </div>
       )}
 
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end dasha-active-indicator">
         <div className="flex gap-2">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
            <span className={`text-xs font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
