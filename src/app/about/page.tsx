@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import AboutClient from '@/components/AboutClient';
 import PageHeader from '@/components/PageHeader';
 import JsonLd from '@/components/JsonLd';
+import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram & Gurgaon",
@@ -75,6 +76,9 @@ export default function AboutPage() {
       <div className="py-16 max-w-5xl mx-auto px-8">
         <AboutClient />
       </div>
+
+      <ExploreTools currentPath="/about" className="mb-12" />
+
       <Footer />
     </main>
   );

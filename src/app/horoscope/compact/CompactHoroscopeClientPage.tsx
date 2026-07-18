@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import { generateAstrologyData, DivisionalChartData } from '@/lib/astrology';
+import ExploreTools from '@/components/ExploreTools';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
 import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from '@/lib/security';
@@ -168,7 +169,7 @@ const CompactHoroscopeContent = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-surface text-on-surface overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-surface text-on-surface overflow-y-auto">
       {/* Mobile Blocker Overlay */}
       <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-8 text-center">
         <span className="material-symbols-outlined text-6xl text-accent mb-4">desktop_windows</span>
@@ -373,6 +374,10 @@ const CompactHoroscopeContent = () => {
           </section>
         </div>
       </main>
+
+      <div className="p-4 mt-8 shrink-0">
+        <ExploreTools currentPath="/horoscope/compact" />
+      </div>
 
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar {
