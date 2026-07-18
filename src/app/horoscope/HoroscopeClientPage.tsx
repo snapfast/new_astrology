@@ -245,41 +245,42 @@ const HoroscopeContent = () => {
       <PageHeader
         title={t.pageTitle}
       >
-        <div className="flex flex-col items-center gap-6 w-full">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-3 relative w-full">
+          {showCopied && (
+            <div
+              aria-live="polite"
+              className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
+            >
+              {t.linkCopied}
+            </div>
+          )}
+
           <a
             href="/free-horoscope"
-            className={`flex items-center gap-2 text-xs font-medium text-accent hover:text-accent transition-colors uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+            className={`h-10 inline-flex items-center justify-center px-4 rounded-full border border-on-surface bg-white text-on-surface font-bold hover:bg-on-surface/5 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
           >
-            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-            {t.generateNew}
+            <span className="material-symbols-outlined text-[20px] mr-2" aria-hidden="true">arrow_back</span>
+            <span>{t.generateNew}</span>
           </a>
 
-          <div className="flex items-center gap-2 relative">
-            {showCopied && (
-              <div
-                aria-live="polite"
-                className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
-              >
-                {t.linkCopied}
-              </div>
-            )}
-            <button
-              onClick={goToCompact}
-              className="hidden lg:flex h-10 items-center justify-center px-4 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors active:scale-95 border border-accent/20 shadow-sm mr-2"
-              title="Switch to High-Density Compact Dashboard"
-            >
-              <span className="material-symbols-outlined text-[20px] mr-2">dashboard</span>
-              <span className={`text-xs font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.compactView}</span>
-            </button>
-            <button
-              onClick={handleShare}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95 border border-outline/50 shadow-sm"
-              title={t.shareReport}
-              aria-label={t.shareReport}
-            >
-              <span className="material-symbols-outlined text-[20px]">share</span>
-            </button>
-          </div>
+          <button
+            onClick={goToCompact}
+            className={`h-10 inline-flex items-center justify-center px-4 rounded-full border border-on-surface bg-white text-on-surface font-bold hover:bg-on-surface/5 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+            title="Switch to High-Density Compact Dashboard"
+          >
+            <span className="material-symbols-outlined text-[20px] mr-2" aria-hidden="true">dashboard</span>
+            <span>{t.compactView}</span>
+          </button>
+
+          <button
+            onClick={handleShare}
+            className={`h-10 inline-flex items-center justify-center px-4 rounded-full border border-on-surface bg-white text-on-surface font-bold hover:bg-on-surface/5 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+            title={t.shareReport}
+            aria-label={t.shareReport}
+          >
+            <span className="material-symbols-outlined text-[20px] mr-2" aria-hidden="true">share</span>
+            <span>{t.shareReport}</span>
+          </button>
         </div>
       </PageHeader>
 
