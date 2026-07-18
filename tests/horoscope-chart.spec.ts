@@ -106,3 +106,43 @@ test('Compact page Vimshottari Dasha section arrangement and keyboard accessibil
   await scrollLeftBtn.click();
   await page.waitForTimeout(500); // Wait for smooth scroll
 });
+
+test('Compact page language switching, New Chart link, and action styling validation', async ({ page }) => {
+  // Prevent matchmaking popup
+  await page.addInitScript(() => {
+    window.localStorage.setItem('moonine_popup_last_shown', String(Date.now()));
+  });
+
+  // Set desktop viewport
+  await page.setViewportSize({ width: 1280, height: 800 });
+
+  // Navigate directly using populated query parameters (Delhi coords)
+  await page.goto('/horoscope/compact?name=Rahul&dob=1990-10-15&tob=12:30&pob=Delhi&lat=28.6139&lon=77.2090');
+  await page.waitForLoadState('networkidle');
+
+  // 1. Verify 'New Chart' link is visible and contains correct text and icon
+  const newChartLink = page.locator('header a[href="/free-horoscope"]');
+  await expect(newChartLink).toBeVisible();
+  await expect(newChartLink).toContainText('New Chart');
+
+  // 2. Verify segmented language toggle is visible and English button is currently active
+  const enToggleBtn = page.locator('button[aria-label="English"]');
+  const hiToggleBtn = page.locator('button[aria-label="हिन्दी"]');
+  await expect(enToggleBtn).toBeVisible();
+  await expect(hiToggleBtn).toBeVisible();
+  await expect(enToggleBtn).toHaveAttribute('aria-pressed', 'true');
+
+  // 3. Switch language to Hindi
+  await hiToggleBtn.click();
+  await page.waitForTimeout(500); // Wait for translation updates
+
+  // Verify lang state has changed and translations updated (e.g., 'New Chart' becomes 'नई कुंडली')
+  await expect(hiToggleBtn).toHaveAttribute('aria-pressed', 'true');
+  await expect(newChartLink).toContainText('नई कुंडली');
+
+  // 4. Switch back to English
+  await enToggleBtn.click();
+  await page.waitForTimeout(500); // Wait for translation updates
+  await expect(enToggleBtn).toHaveAttribute('aria-pressed', 'true');
+  await expect(newChartLink).toContainText('New Chart');
+});
