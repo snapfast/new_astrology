@@ -382,22 +382,43 @@ const CompactHoroscopeContent = () => {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
+        .condensed-dasha {
+          height: 100%;
+        }
+        .condensed-dasha > div {
+          height: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 0 !important;
+        }
+        .condensed-dasha .relative.group\/miller {
+          height: 100% !important;
+          flex-grow: 1 !important;
+          min-height: 0 !important;
+        }
         .condensed-dasha .miller-container {
           border: none;
           border-radius: 0;
           box-shadow: none;
-          height: 100%;
+          height: 100% !important;
         }
         .condensed-dasha .miller-container > div {
-          width: 140px; /* Force smaller width for columns */
+          width: 142px; /* Force smaller width for columns */
           font-size: 10px;
         }
         .condensed-dasha .dasha-active-indicator {
           display: none !important;
         }
+        .condensed-dasha .miller-container > div > div:first-child {
+          padding: 6px 8px !important;
+        }
         .condensed-dasha h3 {
            font-size: 9px !important;
-           padding: 4px 8px !important;
+           padding: 0 !important;
+           margin: 0 !important;
+           line-height: 1.2 !important;
         }
         .condensed-dasha .px-4 {
           padding-left: 0.5rem !important;

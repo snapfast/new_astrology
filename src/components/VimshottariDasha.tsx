@@ -114,6 +114,52 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
     setSelectedSd(currentPath.sd);
   }, [currentPath]);
 
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScrollLimits = () => {
+    if (containerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+      setCanScrollLeft(scrollLeft > 1);
+      // Use 2px tolerance for float subpixel rendering
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+    }
+  };
+
+  const scrollContainer = (direction: 'left' | 'right') => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const scrollAmount = direction === 'left' ? -200 : 200;
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('scroll', checkScrollLimits);
+
+      checkScrollLimits();
+
+      const observer = new MutationObserver(checkScrollLimits);
+      observer.observe(container, { childList: true, subtree: true });
+
+      window.addEventListener('resize', checkScrollLimits);
+
+      const timeoutId = setTimeout(checkScrollLimits, 300);
+
+      return () => {
+        container.removeEventListener('scroll', checkScrollLimits);
+        observer.disconnect();
+        window.removeEventListener('resize', checkScrollLimits);
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [selectedMd, selectedAd, selectedPd, selectedSd]);
+
   const getStatus = (start: number, end: number) => {
     if (nowTime >= start && nowTime <= end) return 'Current';
     if (nowTime > end) return 'Past';
@@ -203,13 +249,17 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                              selectedItem.start === itemStartTime;
 
             return (
-              <div
+              <button
+                type="button"
                 key={idx}
                 onClick={() => onItemClick?.(item)}
                 className={`
-                  relative px-4 py-3.5 cursor-pointer transition-colors duration-150 group/item
-                  ${isSelected ? 'bg-accent text-on-surface' : 'hover:bg-surface-container-lowest text-on-surface'}
+                  relative w-full text-left block px-4 py-3.5 transition-colors duration-150 group/item border-none
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset
+                  ${isSelected ? 'bg-accent text-on-surface' : 'bg-transparent hover:bg-surface-container-lowest text-on-surface'}
                 `}
+                aria-current={isCurrent ? 'true' : undefined}
+                aria-pressed={isSelected ? 'true' : 'false'}
               >
                 {/* Black arrow head for selected dasha box */}
                 {isSelected && !isSookshma && (
@@ -234,7 +284,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                   {t.to}
                   {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -283,24 +333,46 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
         </div>
       </div>
 
-      <div
-        ref={containerRef}
-        className="miller-container flex overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm scroll-smooth no-scrollbar"
-      >
-        {renderColumn(t.mahadasha, mahadashas, selectedMd, handleMdClick)}
-        {selectedMd && renderColumn(t.antardasha, selectedMd.antardashas, selectedAd, handleAdClick)}
-        {selectedAd && renderColumn(t.pratyantardasha, selectedAd.pratyantardashas, selectedPd, handlePdClick)}
-        {selectedPd && renderColumn(t.sookshmaDasha, selectedPd.sookshmaDashas, selectedSd, handleSdClick, true)}
-
-        {/* Placeholder for empty state when no MD is selected */}
-        {!selectedMd && (
-          <div className="flex-grow flex items-center justify-center p-12 text-center border-l border-outline bg-white">
-            <div className="max-w-xs">
-              <span className="material-symbols-outlined text-4xl text-outline mb-4">account_tree</span>
-              <p className={`text-xs text-on-surface font-medium uppercase tracking-widest ${lang === 'hi' ? 'font-hindi' : ''}`}>{t.selectMd}</p>
-            </div>
-          </div>
+      <div className="relative group/miller">
+        {canScrollLeft && (
+          <button
+            type="button"
+            onClick={() => scrollContainer('left')}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-8 h-8 rounded-full bg-white border border-on-surface shadow-md hover:bg-surface-container-lowest active:scale-95 transition-all text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            aria-label={lang === 'hi' ? 'बाएँ स्क्रॉल करें' : 'Scroll left'}
+          >
+            <span className="material-symbols-outlined text-[18px]" aria-hidden="true">chevron_left</span>
+          </button>
         )}
+        {canScrollRight && (
+          <button
+            type="button"
+            onClick={() => scrollContainer('right')}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-8 h-8 rounded-full bg-white border border-on-surface shadow-md hover:bg-surface-container-lowest active:scale-95 transition-all text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            aria-label={lang === 'hi' ? 'दाएँ स्क्रॉल करें' : 'Scroll right'}
+          >
+            <span className="material-symbols-outlined text-[18px]" aria-hidden="true">chevron_right</span>
+          </button>
+        )}
+        <div
+          ref={containerRef}
+          className="miller-container flex overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm scroll-smooth no-scrollbar"
+        >
+          {renderColumn(t.mahadasha, mahadashas, selectedMd, handleMdClick)}
+          {selectedMd && renderColumn(t.antardasha, selectedMd.antardashas, selectedAd, handleAdClick)}
+          {selectedAd && renderColumn(t.pratyantardasha, selectedAd.pratyantardashas, selectedPd, handlePdClick)}
+          {selectedPd && renderColumn(t.sookshmaDasha, selectedPd.sookshmaDashas, selectedSd, handleSdClick, true)}
+
+          {/* Placeholder for empty state when no MD is selected */}
+          {!selectedMd && (
+            <div className="flex-grow flex items-center justify-center p-12 text-center border-l border-outline bg-white">
+              <div className="max-w-xs">
+                <span className="material-symbols-outlined text-4xl text-outline mb-4">account_tree</span>
+                <p className={`text-xs text-on-surface font-medium uppercase tracking-widest ${lang === 'hi' ? 'font-hindi' : ''}`}>{t.selectMd}</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <style jsx>{`
