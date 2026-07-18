@@ -415,50 +415,17 @@ const SHASHTIAMSHA_WIDTH = 0.5;
 const NAKSHATRA_WIDTH = 360 / 27;
 const PADA_WIDTH = 360 / 108;
 const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
+const MS_PER_YEAR = 365.24219 * 24 * 60 * 60 * 1000;
 
-export const Ayanamsa = {
-    Lahiri: "Lahiri",
-    Raman: "Raman",
-    Krishnamurti: "Krishnamurti",
-    FaganBradley: "FaganBradley"
-} as const;
-
-export type Ayanamsa = typeof Ayanamsa[keyof typeof Ayanamsa];
-
-export let SELECTED_AYANAMSA: Ayanamsa = Ayanamsa.Lahiri;
-
-export function setAyanamsa(mode: Ayanamsa) {
-    SELECTED_AYANAMSA = mode;
-}
-
-export let DASHA_YEAR_DAYS = 360;
-export let MS_PER_DASHA_YEAR = DASHA_YEAR_DAYS * 24 * 60 * 60 * 1000;
-
-export function setDashaYearDays(days: number) {
-    DASHA_YEAR_DAYS = days;
-    MS_PER_DASHA_YEAR = days * 24 * 60 * 60 * 1000;
-}
-
-export function getAyanamsa(time: Ast.AstroTime, mode: Ayanamsa = SELECTED_AYANAMSA): number {
+/**
+ * Calculates the Chitra Paksha Lahiri Ayanamsa for a given date.
+ * Based on the J2000.0 epoch with a base value of 23.85°.
+ */
+function getLahiriAyanamsa(time: Ast.AstroTime): number {
+    // T is centuries from J2000.0
     const T = time.tt / 36525.0;
-
-    switch (mode) {
-        case Ayanamsa.Raman: {
-            const year = 2000.0 + time.tt / 365.25;
-            return ((year - 397) * 50.333333333) / 3600;
-        }
-        case Ayanamsa.Krishnamurti: {
-            const year = 2000.0 + time.tt / 365.25;
-            return ((year - 291) * 50.2388475) / 3600;
-        }
-        case Ayanamsa.FaganBradley: {
-            const T_1950 = T + 0.5;
-            return 24.042044 + T_1950 * 1.39638 + T_1950 * T_1950 * 0.000308;
-        }
-        case Ayanamsa.Lahiri:
-        default:
-            return 23.85709 + 1.39638 * T + 0.000308 * T * T;
-    }
+    // Lahiri Ayanamsa at J2000.0 is 23° 51' 25.53" = 23.857091666...
+    return 23.85709 + 1.39638 * T + 0.000308 * T * T;
 }
 
 /**
@@ -740,7 +707,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     const lat = parseFloat(latStr || "28.6139");
     const lon = parseFloat(lonStr || "77.2090");
 
-    const ayanamsa = getAyanamsa(time);
+    const ayanamsa = getLahiriAyanamsa(time);
     const result = {} as ChartData;
 
     let tropicalSunLong: number | undefined;
@@ -800,15 +767,15 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
                 if (mds && mds.length > 0) {
                     const firstMd = mds[0];
                     const diffMs = firstMd.end - istDate.getTime();
-                    const yearsDecimal = diffMs / MS_PER_DASHA_YEAR;
+                    const yearsDecimal = diffMs / MS_PER_YEAR;
                     const years = Math.floor(yearsDecimal);
 
-                    const remainingMsAfterYears = diffMs - years * MS_PER_DASHA_YEAR;
-                    const monthsDecimal = (remainingMsAfterYears / MS_PER_DASHA_YEAR) * 12;
+                    const remainingMsAfterYears = diffMs - years * MS_PER_YEAR;
+                    const monthsDecimal = (remainingMsAfterYears / MS_PER_YEAR) * 12;
                     const months = Math.floor(monthsDecimal);
 
-                    const remainingMsAfterMonths = remainingMsAfterYears - (months / 12) * MS_PER_DASHA_YEAR;
-                    const daysDecimal = (remainingMsAfterMonths / MS_PER_DASHA_YEAR) * DASHA_YEAR_DAYS;
+                    const remainingMsAfterMonths = remainingMsAfterYears - (months / 12) * MS_PER_YEAR;
+                    const daysDecimal = (remainingMsAfterMonths / MS_PER_YEAR) * 365.25;
                     const days = Math.floor(daysDecimal);
 
                     dashaBalance = {
@@ -953,7 +920,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
 
     // Calculate parameters at Sunrise to initialize state correctly
     const startAstroTime = Ast.MakeTime(sunriseDate);
-    const startAy = getAyanamsa(startAstroTime);
+    const startAy = getLahiriAyanamsa(startAstroTime);
     const r = Ast.Rotation_EQJ_ECT(startAstroTime);
     const startSunLong = getTrueEclipticLongitude(Ast.Body.Sun, startAstroTime, r);
     const startMoonLong = getTrueMoonEclipticLongitude(startAstroTime, r);
@@ -1054,7 +1021,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
 
         const stepTime = new Date(actualMs);
         const astTime = Ast.MakeTime(stepTime);
-        const ay = getAyanamsa(astTime);
+        const ay = getLahiriAyanamsa(astTime);
         const r = Ast.Rotation_EQJ_ECT(astTime);
         const sl = getTrueEclipticLongitude(Ast.Body.Sun, astTime, r);
         const ml = getTrueMoonEclipticLongitude(astTime, r);
@@ -1190,7 +1157,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
     if (prevNewMoon) {
         const rot = Ast.Rotation_EQJ_ECT(prevNewMoon);
         const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon, rot);
-        const nmSiderealSunLong = (nmSunLong - getAyanamsa(prevNewMoon) + 360) % 360;
+        const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
         monthIdx = Math.floor(nmSiderealSunLong / 30);
     }
     const lunarMonthItem = LUNAR_MONTHS[(monthIdx + 1) % 12];
@@ -1363,48 +1330,48 @@ export function parseDegree(degreeStr: string): number {
     return d + m / 60 + s / 3600;
 }
 
-function calculateSookshmaDashas(mdDurationYears: number, adDurationYears: number, pdLordIdx: number, pdDurationYears: number, pdStartHigh: number): SookshmaDasha[] {
+function calculateSookshmaDashas(mdDurationYears: number, adDurationYears: number, pdLordIdx: number, pdDurationYears: number, pdStart: number): SookshmaDasha[] {
     const sds: SookshmaDasha[] = [];
-    let currentSdStartHigh = pdStartHigh;
+    let currentSdStart = pdStart;
     for (let l = 0; l < 9; l++) {
         const sdLordIdx = (pdLordIdx + l) % 9;
         const sdLord = NAKSHATRA_LORDS[sdLordIdx];
-        const sdDuration = (mdDurationYears * adDurationYears * pdDurationYears * DASHA_DURATIONS[sdLord] * MS_PER_DASHA_YEAR) / (120 * 120 * 120);
-        const sdStartHigh = currentSdStartHigh;
-        const sdEndHigh = sdStartHigh + sdDuration;
+        const sdDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * DASHA_DURATIONS[sdLord] * MS_PER_YEAR) / (120 * 120 * 120));
+        const sdStart = currentSdStart;
+        const sdEnd = sdStart + sdDuration;
 
         sds.push({
             lord: sdLord,
-            start: Math.round(sdStartHigh),
-            end: Math.round(sdEndHigh)
+            start: sdStart,
+            end: sdEnd
         });
-        currentSdStartHigh = sdEndHigh;
+        currentSdStart = sdEnd;
     }
     return sds;
 }
 
-function calculatePratyantardashas(mdDurationYears: number, adLordIdx: number, adDurationYears: number, adStartHigh: number): Pratyantardasha[] {
+function calculatePratyantardashas(mdDurationYears: number, adLordIdx: number, adDurationYears: number, adStart: number): Pratyantardasha[] {
     const pds: Pratyantardasha[] = [];
-    let currentPdStartHigh = adStartHigh;
+    let currentPdStart = adStart;
     for (let k = 0; k < 9; k++) {
         const pdLordIdx = (adLordIdx + k) % 9;
         const pdLord = NAKSHATRA_LORDS[pdLordIdx];
         const pdDurationYears = DASHA_DURATIONS[pdLord];
-        const pdDuration = (mdDurationYears * adDurationYears * pdDurationYears * MS_PER_DASHA_YEAR) / (120 * 120);
-        const pdStartHigh = currentPdStartHigh;
-        const pdEndHigh = pdStartHigh + pdDuration;
+        const pdDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * MS_PER_YEAR) / (120 * 120));
+        const pdStart = currentPdStart;
+        const pdEnd = pdStart + pdDuration;
 
         const pratyantardasha = {
             lord: pdLord,
-            start: Math.round(pdStartHigh),
-            end: Math.round(pdEndHigh)
+            start: pdStart,
+            end: pdEnd
         } as Pratyantardasha;
 
         let sds: SookshmaDasha[] | undefined;
         Object.defineProperty(pratyantardasha, 'sookshmaDashas', {
             get: () => {
                 if (!sds) {
-                    sds = calculateSookshmaDashas(mdDurationYears, adDurationYears, pdLordIdx, pdDurationYears, pdStartHigh);
+                    sds = calculateSookshmaDashas(mdDurationYears, adDurationYears, pdLordIdx, pdDurationYears, pdStart);
                 }
                 return sds;
             },
@@ -1413,33 +1380,33 @@ function calculatePratyantardashas(mdDurationYears: number, adLordIdx: number, a
         });
 
         pds.push(pratyantardasha);
-        currentPdStartHigh = pdEndHigh;
+        currentPdStart = pdEnd;
     }
     return pds;
 }
 
-function calculateAntardashas(mdLordIdx: number, mdStartHigh: number, mdDurationYears: number): Antardasha[] {
+function calculateAntardashas(mdLordIdx: number, mdStart: number, mdDurationYears: number): Antardasha[] {
     const ads: Antardasha[] = [];
-    let currentAdStartHigh = mdStartHigh;
+    let currentAdStart = mdStart;
     for (let j = 0; j < 9; j++) {
         const adLordIdx = (mdLordIdx + j) % 9;
         const adLord = NAKSHATRA_LORDS[adLordIdx];
         const adDurationYears = DASHA_DURATIONS[adLord];
-        const adDuration = (mdDurationYears * adDurationYears * MS_PER_DASHA_YEAR) / 120;
-        const adStartHigh = currentAdStartHigh;
-        const adEndHigh = adStartHigh + adDuration;
+        const adDuration = Math.trunc((mdDurationYears * adDurationYears * MS_PER_YEAR) / 120);
+        const adStart = currentAdStart;
+        const adEnd = adStart + adDuration;
 
         const antardasha = {
             lord: adLord,
-            start: Math.round(adStartHigh),
-            end: Math.round(adEndHigh)
+            start: adStart,
+            end: adEnd
         } as Antardasha;
 
         let pds: Pratyantardasha[] | undefined;
         Object.defineProperty(antardasha, 'pratyantardashas', {
             get: () => {
                 if (!pds) {
-                    pds = calculatePratyantardashas(mdDurationYears, adLordIdx, adDurationYears, adStartHigh);
+                    pds = calculatePratyantardashas(mdDurationYears, adLordIdx, adDurationYears, adStart);
                 }
                 return pds;
             },
@@ -1448,54 +1415,46 @@ function calculateAntardashas(mdLordIdx: number, mdStartHigh: number, mdDuration
         });
 
         ads.push(antardasha);
-        currentAdStartHigh = adEndHigh;
+        currentAdStart = adEnd;
     }
     return ads;
 }
 
 export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Mahadasha[] {
     const nakshatraWidth = 360 / 27;
-    // Normalize Moon Longitude
-    const normalizedMoonLong = ((moonLong % 360) + 360) % 360;
-    const EPSILON = 1e-10;
-    const nakshatraIdx = Math.floor((normalizedMoonLong + EPSILON) / nakshatraWidth);
+    const nakshatraIdx = Math.floor(moonLong / nakshatraWidth);
     const firstLordIdx = nakshatraIdx % 9;
-    const elapsedInNakshatra = normalizedMoonLong % nakshatraWidth;
+    const elapsedInNakshatra = moonLong % nakshatraWidth;
     const fractionElapsed = elapsedInNakshatra / nakshatraWidth;
 
     const mahadashas: Mahadasha[] = [];
     const birthTime = birthDate.getTime();
 
-    // Compute Dasha Balance Using Remaining Fraction directly to prevent timing errors
+    // Calculate the start of the first Mahadasha (it started before birth)
     const firstLord = NAKSHATRA_LORDS[firstLordIdx];
     const firstFullDuration = DASHA_DURATIONS[firstLord];
-    const fullMahadashaDuration = firstFullDuration * MS_PER_DASHA_YEAR;
-
-    const fractionRemaining = 1 - fractionElapsed;
-    const remainingDuration = fullMahadashaDuration * fractionRemaining;
-    const mahadashaStart = birthTime - (fullMahadashaDuration - remainingDuration);
-
-    let currentDashaStartHigh = mahadashaStart;
+    const timeElapsedInFirstDasha = Math.trunc(firstFullDuration * fractionElapsed * MS_PER_YEAR);
+    let currentDashaStart = birthTime - timeElapsedInFirstDasha;
 
     for (let i = 0; i < 9; i++) {
         const currentLordIdx = (firstLordIdx + i) % 9;
         const lord = NAKSHATRA_LORDS[currentLordIdx];
         const durationYears = DASHA_DURATIONS[lord];
-        const mahadashaDuration = durationYears * MS_PER_DASHA_YEAR;
-        const mdStartHigh = currentDashaStartHigh;
-        const mdEndHigh = mdStartHigh + mahadashaDuration;
+        const mahadashaDuration = Math.trunc(durationYears * MS_PER_YEAR);
+        const mdStart = currentDashaStart;
+        const mdEnd = mdStart + mahadashaDuration;
 
         const mahadasha = {
             lord,
-            start: Math.round(mdStartHigh),
-            end: Math.round(mdEndHigh)
+            start: mdStart,
+            end: mdEnd
         } as Mahadasha;
 
         let ads: Antardasha[] | undefined;
         Object.defineProperty(mahadasha, 'antardashas', {
             get: () => {
                 if (!ads) {
-                    ads = calculateAntardashas(currentLordIdx, mdStartHigh, durationYears);
+                    ads = calculateAntardashas(currentLordIdx, mdStart, durationYears);
                 }
                 return ads;
             },
@@ -1505,7 +1464,7 @@ export function calculateVimshottariDasha(moonLong: number, birthDate: Date): Ma
 
         mahadashas.push(mahadasha);
 
-        currentDashaStartHigh = mdEndHigh;
+        currentDashaStart = mdEnd;
     }
 
     return mahadashas;
@@ -1763,7 +1722,7 @@ interface PlanetState {
 }
 
 function getPlanetLongAndMotion(planet: string, body: Ast.Body | null, time: Ast.AstroTime): { long: number, isRetro: boolean } {
-    const ayanamsa = getAyanamsa(time);
+    const ayanamsa = getLahiriAyanamsa(time);
     let long = 0;
     let isRetro = false;
 
