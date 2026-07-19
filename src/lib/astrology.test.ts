@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails } from './astrology.ts';
+import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -92,7 +92,7 @@ test('calculateVimshottariDasha balance of dasha', () => {
 
   // Since it's near the end, Mars dasha should end soon after birth
   const marsEnd = result[0].end;
-  const diffYears = (marsEnd - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+  const diffYears = (marsEnd - birthDate.getTime()) / (1000 * 60 * 60 * 24 * SIDEREAL_YEAR_DAYS);
 
   // Total Mars dasha is 7 years. 306 is near 306.66.
   assert.ok(diffYears < 1.0, 'Mars dasha should be nearly finished');
