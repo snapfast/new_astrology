@@ -2,6 +2,7 @@
 
 import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
@@ -58,7 +59,9 @@ const TRANSLATIONS = {
     linkCopied: "Link Copied!",
     bookBtn: "Book Consultation",
     activeDasha: "Active",
-    loading: "Loading Dashboard..."
+    loading: "Loading Dashboard...",
+    generateNew: "New Chart",
+    switchLanguage: "Language / भाषा"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -106,13 +109,15 @@ const TRANSLATIONS = {
     linkCopied: "लिंक कॉपी किया गया!",
     bookBtn: "परामर्श बुक करें",
     activeDasha: "सक्रिय",
-    loading: "डैशबोर्ड लोड हो रहा है..."
+    loading: "डैशबोर्ड लोड हो रहा है...",
+    generateNew: "नई कुंडली",
+    switchLanguage: "भाषा / Language"
   }
 };
 
 const CompactHoroscopeContent = () => {
   const router = useRouter();
-  const { lang } = useLanguage();
+  const { lang, toggleLang } = useLanguage();
   const [showCopied, setShowCopied] = useState(false);
 
   const t = TRANSLATIONS[lang];
@@ -178,7 +183,7 @@ const CompactHoroscopeContent = () => {
         <button
           onClick={goToStandard}
           className={cn(
-            "bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase",
+            "bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-primary/90",
             lang === 'hi' ? "tracking-normal text-base" : "tracking-wider"
           )}
         >
@@ -187,18 +192,32 @@ const CompactHoroscopeContent = () => {
       </div>
 
       {/* Header */}
-      <header className="flex-none bg-white border-b border-outline/50 px-4 py-2 flex items-center justify-between shadow-sm z-10">
-        <div className="flex items-center gap-6">
+      <header className="flex-none bg-white border-b border-outline/50 px-4 py-2 flex items-center justify-between shadow-sm z-10 print:hidden">
+        <div className="flex items-center gap-4">
           <button
             onClick={goToStandard}
             className={cn(
-              "flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase font-label hover:text-accent",
+              "flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase font-label hover:text-accent rounded-full px-2.5 py-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-on-surface/5",
               lang === 'hi' ? "tracking-normal text-[11px]" : "tracking-wider"
             )}
+            aria-label={t.backToStandard}
           >
-            <span className="material-symbols-outlined text-[14px]">arrow_back</span>
+            <span className="material-symbols-outlined text-[14px]" aria-hidden="true">arrow_back</span>
             {t.backToStandard}
           </button>
+
+          <Link
+            href="/free-horoscope"
+            className={cn(
+              "flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase font-label hover:text-accent rounded-full px-2.5 py-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-on-surface/5",
+              lang === 'hi' ? "tracking-normal text-[11px]" : "tracking-wider"
+            )}
+            aria-label={t.generateNew}
+          >
+            <span className="material-symbols-outlined text-[14px]" aria-hidden="true">add_circle</span>
+            {t.generateNew}
+          </Link>
+
           <div className="h-4 w-px bg-outline/30"></div>
           <div className="flex items-center gap-4 text-xs">
             <div className="flex gap-2">
@@ -220,7 +239,7 @@ const CompactHoroscopeContent = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 relative">
+        <div className="flex items-center gap-3 relative">
           {showCopied && (
             <div
               aria-live="polite"
@@ -229,16 +248,55 @@ const CompactHoroscopeContent = () => {
               {t.linkCopied}
             </div>
           )}
+
+          {/* Segmented Language Toggle */}
+          <div
+            className="flex items-center bg-surface-container-high/50 p-0.5 rounded-full border border-outline/30 shadow-sm h-7"
+            role="group"
+            aria-label={t.switchLanguage}
+          >
+            <button
+              onClick={() => lang !== 'en' && toggleLang()}
+              aria-pressed={lang === 'en'}
+              aria-label="English"
+              className={cn(
+                "w-8 h-6 rounded-full transition-all duration-300 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 active:scale-95",
+                lang === 'en'
+                  ? 'bg-white text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.08)] font-bold'
+                  : 'text-on-surface/40 hover:text-on-surface hover:bg-black/[0.03]'
+              )}
+            >
+              <span className="text-[9px] font-bold tracking-tight">EN</span>
+            </button>
+            <button
+              onClick={() => lang !== 'hi' && toggleLang()}
+              aria-pressed={lang === 'hi'}
+              aria-label="हिन्दी"
+              className={cn(
+                "w-8 h-6 rounded-full transition-all duration-300 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 active:scale-95",
+                lang === 'hi'
+                  ? 'bg-white text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.08)] font-bold'
+                  : 'text-on-surface/40 hover:text-on-surface hover:bg-black/[0.03]'
+              )}
+            >
+              <span className="text-[12px] font-hindi font-bold leading-none translate-y-[0.5px]">हि</span>
+            </button>
+          </div>
+
           <button
             onClick={handleShare}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors border border-outline/50"
-            title="Share"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all border border-outline/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
+            title={t.shareReport}
+            aria-label={t.shareReport}
           >
-            <span className="material-symbols-outlined text-[18px]">share</span>
+            <span className="material-symbols-outlined text-[18px]" aria-hidden="true">share</span>
           </button>
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('openBookingModal'))}
-            className={`ml-2 bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+            className={cn(
+              "ml-1 bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase font-label transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-primary/90",
+              lang === 'en' ? 'tracking-widest' : ''
+            )}
           >
             {t.bookBtn}
           </button>
@@ -246,10 +304,10 @@ const CompactHoroscopeContent = () => {
       </header>
 
       {/* Main Content Dashboard */}
-      <main className="flex-grow overflow-hidden p-3 grid grid-cols-12 grid-rows-12 gap-3">
+      <main className="flex-grow overflow-hidden p-3 grid grid-cols-12 grid-rows-12 gap-3 md:h-[calc(100vh-56px)] md:max-h-[calc(100vh-56px)] md:min-h-[680px]">
 
         {/* Left Column: Panchang & Muhurtas */}
-        <div className="col-span-3 row-span-12 flex flex-col gap-3">
+        <div className="col-span-3 row-span-12 flex flex-col gap-3 md:h-full md:overflow-hidden">
           {/* Panchang */}
           <section className="flex-grow bg-white border border-outline/80 rounded-2xl p-4 shadow-sm overflow-y-auto no-scrollbar">
             <h2 className={`text-xs font-bold text-accent uppercase font-label mb-4 border-b border-outline/30 pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
@@ -294,7 +352,7 @@ const CompactHoroscopeContent = () => {
         </div>
 
         {/* Middle: 6 Charts Grid */}
-        <div className="col-span-5 row-span-12 grid grid-cols-2 grid-rows-3 gap-3">
+        <div className="col-span-5 row-span-12 grid grid-cols-2 grid-rows-3 gap-3 md:h-full md:overflow-hidden">
           <ChartBox title={t.d1Chart} data={chartData.d1} lang={lang} />
           <ChartBox title={t.d9Chart} data={chartData.d9} lang={lang} />
           <ChartBox title={t.d3Chart} data={chartData.d3} lang={lang} />
@@ -304,7 +362,7 @@ const CompactHoroscopeContent = () => {
         </div>
 
         {/* Right Column: Table & Dasha */}
-        <div className="col-span-4 row-span-12 flex flex-col gap-3">
+        <div className="col-span-4 row-span-12 flex flex-col gap-3 md:h-full md:overflow-hidden">
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
             <div className="bg-white px-4 py-2 border-b border-outline/50 flex justify-between items-center">
