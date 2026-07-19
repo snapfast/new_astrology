@@ -61,7 +61,8 @@ const TRANSLATIONS = {
     activeDasha: "Active",
     loading: "Loading Dashboard...",
     generateNew: "New Chart",
-    switchLanguage: "Language / भाषा"
+    switchLanguage: "Language / भाषा",
+    shareReport: "Share Report"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -111,7 +112,8 @@ const TRANSLATIONS = {
     activeDasha: "सक्रिय",
     loading: "डैशबोर्ड लोड हो रहा है...",
     generateNew: "नई कुंडली",
-    switchLanguage: "भाषा / Language"
+    switchLanguage: "भाषा / Language",
+    shareReport: "रिपोर्ट साझा करें"
   }
 };
 
