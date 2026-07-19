@@ -326,13 +326,10 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
         </div>
       )}
 
-      <div className="flex justify-between items-end mb-4">
-        <div className="flex items-center justify-end dasha-active-indicator w-full">
-          <span className="text-[10px] text-on-surface/40 uppercase tracking-widest font-sans italic ml-auto mr-4 select-none" title="Vimshottari lengths calculated using exact Sidereal Year (365.25636 days) to align with standard classical/JHora expectations.">Sidereal Year</span>
-          <div className="flex gap-2">
-             <div className="w-2 h-2 rounded-full bg-accent"></div>
-             <span className={`text-xs font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
-          </div>
+      <div className="flex items-center justify-end dasha-active-indicator">
+        <div className="flex gap-2">
+           <div className="w-2 h-2 rounded-full bg-accent"></div>
+           <span className={`text-xs font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
         </div>
       </div>
 
