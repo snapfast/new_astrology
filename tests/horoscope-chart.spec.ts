@@ -124,6 +124,7 @@ test('Compact page language switching, New Chart link, and action styling valida
   const newChartLink = page.locator('header a[href="/free-horoscope"]');
   await expect(newChartLink).toBeVisible();
   await expect(newChartLink).toContainText('New Chart');
+  await expect(newChartLink).toHaveClass(/bg-accent/);
 
   // 2. Verify segmented language toggle is visible and English button is currently active
   const enToggleBtn = page.locator('button[aria-label="English"]');

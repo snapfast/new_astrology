@@ -199,7 +199,7 @@ const CompactHoroscopeContent = () => {
           <button
             onClick={goToStandard}
             className={cn(
-              "flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase font-label hover:text-accent rounded-full px-2.5 py-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-on-surface/5",
+              "flex items-center gap-1.5 text-[10px] font-bold bg-accent text-on-accent uppercase font-label hover:bg-accent/90 rounded-full px-2.5 py-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95",
               lang === 'hi' ? "tracking-normal text-[11px]" : "tracking-wider"
             )}
             aria-label={t.backToStandard}
@@ -211,7 +211,7 @@ const CompactHoroscopeContent = () => {
           <Link
             href="/free-horoscope"
             className={cn(
-              "flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase font-label hover:text-accent rounded-full px-2.5 py-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-on-surface/5",
+              "flex items-center gap-1.5 text-[10px] font-bold bg-accent text-on-accent uppercase font-label hover:bg-accent/90 rounded-full px-2.5 py-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95",
               lang === 'hi' ? "tracking-normal text-[11px]" : "tracking-wider"
             )}
             aria-label={t.generateNew}

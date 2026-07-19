@@ -177,6 +177,7 @@ const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [showCopied, setShowCopied] = useState(false);
   const [moreVargasExpanded, setMoreVargasExpanded] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const goToCompact = () => {
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_go_compact' });
@@ -256,17 +257,19 @@ const HoroscopeContent = () => {
             </div>
           )}
 
-          <a
-            href="/free-horoscope"
-            className={`h-10 inline-flex items-center justify-center px-4 rounded-full border border-on-surface bg-white text-on-surface font-bold hover:bg-on-surface/5 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+          <button
+            onClick={() => setShowEditForm(!showEditForm)}
+            className={`h-10 inline-flex items-center justify-center px-4 rounded-full bg-accent text-on-accent font-bold hover:bg-accent/90 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
           >
-            <span className="material-symbols-outlined text-[20px] mr-2" aria-hidden="true">arrow_back</span>
-            <span>{t.generateNew}</span>
-          </a>
+            <span className="material-symbols-outlined text-[20px] mr-2" aria-hidden="true">
+              {showEditForm ? 'close' : 'edit'}
+            </span>
+            <span>{showEditForm ? (lang === 'en' ? 'Close Form' : 'फॉर्म बंद करें') : t.generateNew}</span>
+          </button>
 
           <button
             onClick={goToCompact}
-            className={`h-10 inline-flex items-center justify-center px-4 rounded-full border border-on-surface bg-white text-on-surface font-bold hover:bg-on-surface/5 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+            className={`h-10 inline-flex items-center justify-center px-4 rounded-full bg-accent text-on-accent font-bold hover:bg-accent/90 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
             title="Switch to High-Density Compact Dashboard"
           >
             <span className="material-symbols-outlined text-[20px] mr-2" aria-hidden="true">dashboard</span>
@@ -275,7 +278,7 @@ const HoroscopeContent = () => {
 
           <button
             onClick={handleShare}
-            className={`h-10 inline-flex items-center justify-center px-4 rounded-full border border-on-surface bg-white text-on-surface font-bold hover:bg-on-surface/5 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
+            className={`h-10 inline-flex items-center justify-center px-4 rounded-full bg-accent text-on-accent font-bold hover:bg-accent/90 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}
             title={t.shareReport}
             aria-label={t.shareReport}
           >
