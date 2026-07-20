@@ -167,7 +167,12 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   };
 
   // Automatically scroll to the right when a new column is opened
+  const isInitialMount = useRef(true);
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     if (containerRef.current) {
       containerRef.current.scrollTo({
         left: containerRef.current.scrollWidth,
