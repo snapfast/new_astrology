@@ -9,7 +9,6 @@ import KundliChart from "@/components/KundliChart";
 import VimshottariDasha from "@/components/VimshottariDasha";
 import { generateAstrologyData } from "@/lib/astrology";
 import ExploreTools from "@/components/ExploreTools";
-import ChartGeneration from "@/components/ChartGeneration";
 import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -187,7 +186,7 @@ const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [showCopied, setShowCopied] = useState(false);
   const [moreVargasExpanded, setMoreVargasExpanded] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(false);
+  const [birthDetailsExpanded, setBirthDetailsExpanded] = useState(false);
 
   const goToCompact = () => {
     sendGAEvent({ event: "action_click", action_name: "horoscope_go_compact" });
@@ -301,31 +300,12 @@ const HoroscopeContent = () => {
           )}
 
           <button
-            onClick={() => setShowEditForm(!showEditForm)}
-            className={`h-10 inline-flex items-center justify-center px-4 rounded-full bg-accent text-on-accent font-bold hover:bg-accent/90 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === "en" ? "tracking-widest" : ""}`}
-          >
-            <span
-              className="material-symbols-outlined text-[20px] mr-2"
-              aria-hidden="true"
-            >
-              {showEditForm ? "close" : "edit"}
-            </span>
-            <span>
-              {showEditForm
-                ? lang === "en"
-                  ? "Close Form"
-                  : "फॉर्म बंद करें"
-                : t.generateNew}
-            </span>
-          </button>
-
-          <button
             onClick={goToCompact}
-            className={`h-10 inline-flex items-center justify-center px-4 rounded-full bg-accent text-on-accent font-bold hover:bg-accent/90 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title="Switch to High-Density Compact Dashboard"
           >
             <span
-              className="material-symbols-outlined text-[20px] mr-2"
+              className="material-symbols-outlined text-[16px]"
               aria-hidden="true"
             >
               dashboard
@@ -335,12 +315,12 @@ const HoroscopeContent = () => {
 
           <button
             onClick={handleShare}
-            className={`h-10 inline-flex items-center justify-center px-4 rounded-full bg-accent text-on-accent font-bold hover:bg-accent/90 transition-all active:scale-95 shadow-sm text-xs uppercase font-label ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title={t.shareReport}
             aria-label={t.shareReport}
           >
             <span
-              className="material-symbols-outlined text-[20px] mr-2"
+              className="material-symbols-outlined text-[16px]"
               aria-hidden="true"
             >
               share
@@ -351,16 +331,22 @@ const HoroscopeContent = () => {
       </PageHeader>
 
       <div className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16">
-        {showEditForm && (
-          <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-8 shadow-sm">
-            <ChartGeneration />
-          </div>
-        )}
-
         <div className="space-y-3 text-left">
           {/* Section: Birth Information */}
-          <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm">
-            <div className="flex justify-between items-center mb-4">
+          <div
+            className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm cursor-pointer hover:bg-surface-container-lowest transition-colors"
+            onClick={() => setBirthDetailsExpanded(!birthDetailsExpanded)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setBirthDetailsExpanded(!birthDetailsExpanded);
+              }
+            }}
+            aria-expanded={birthDetailsExpanded}
+          >
+            <div className="flex justify-between items-center">
               <h2
                 className={cn(
                   "font-bold text-accent uppercase font-label text-xs md:text-sm",
@@ -369,61 +355,77 @@ const HoroscopeContent = () => {
               >
                 {t.birthInfo}
               </h2>
+              <span className="material-symbols-outlined text-on-surface/60 transition-transform duration-300" style={{ transform: birthDetailsExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                expand_more
+              </span>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
-              <div className="space-y-1">
-                <p
-                  className={cn(
-                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                    lang === "hi" ? "tracking-normal" : "tracking-wider",
-                  )}
-                >
-                  {t.name}
-                </p>
-                <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">
-                  {name}
-                </p>
+
+            {!birthDetailsExpanded ? (
+              <div className="mt-2 text-sm text-on-surface/80 font-body flex flex-wrap items-center gap-2">
+                <span className="font-medium">{name}</span>
+                <span className="text-on-surface/40 text-[10px]">•</span>
+                <span className="tabular-nums">{formattedDob}</span>
+                <span className="text-on-surface/40 text-[10px]">•</span>
+                <span className="tabular-nums">{tob}</span>
+                <span className="text-on-surface/40 text-[10px]">•</span>
+                <span>{pob}</span>
               </div>
-              <div className="space-y-1">
-                <p
-                  className={cn(
-                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                    lang === "hi" ? "tracking-normal" : "tracking-wider",
-                  )}
-                >
-                  {t.date}
-                </p>
-                <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">
-                  {formattedDob}
-                </p>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-4 pt-4 border-t border-outline/50 animate-in slide-in-from-top-2 fade-in duration-300">
+                <div className="space-y-1">
+                  <p
+                    className={cn(
+                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                      lang === "hi" ? "tracking-normal" : "tracking-wider",
+                    )}
+                  >
+                    {t.name}
+                  </p>
+                  <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">
+                    {name}
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <p
+                    className={cn(
+                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                      lang === "hi" ? "tracking-normal" : "tracking-wider",
+                    )}
+                  >
+                    {t.date}
+                  </p>
+                  <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">
+                    {formattedDob}
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <p
+                    className={cn(
+                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                      lang === "hi" ? "tracking-normal" : "tracking-wider",
+                    )}
+                  >
+                    {t.time}
+                  </p>
+                  <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">
+                    {tob}
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <p
+                    className={cn(
+                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
+                      lang === "hi" ? "tracking-normal" : "tracking-wider",
+                    )}
+                  >
+                    {t.place}
+                  </p>
+                  <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">
+                    {pob}
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <p
-                  className={cn(
-                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                    lang === "hi" ? "tracking-normal" : "tracking-wider",
-                  )}
-                >
-                  {t.time}
-                </p>
-                <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">
-                  {tob}
-                </p>
-              </div>
-              <div className="space-y-1">
-                <p
-                  className={cn(
-                    "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                    lang === "hi" ? "tracking-normal" : "tracking-wider",
-                  )}
-                >
-                  {t.place}
-                </p>
-                <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">
-                  {pob}
-                </p>
-              </div>
-            </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
