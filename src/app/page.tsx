@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import Hero from '@/components/Hero';
 import ChartGeneration from '@/components/ChartGeneration';
 import ExpertConsultations from '@/components/ExpertConsultations';
@@ -96,7 +97,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <DailyPanchang className="-mt-20 z-20" />
-      <ChartGeneration className="mt-8" />
+      <Suspense fallback={<div className="h-32" />}>
+        <ChartGeneration className="mt-8" />
+      </Suspense>
       <Testimonials />
       <ExpertConsultations />
       <Footer />
