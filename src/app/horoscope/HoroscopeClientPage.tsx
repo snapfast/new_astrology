@@ -380,7 +380,7 @@ const HoroscopeContent = () => {
             ) : (
               <div className="mt-4 pt-4 border-t border-outline/50 animate-in slide-in-from-top-2 fade-in duration-300">
                 <div onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
-                  <ChartGeneration isUpdate={true} initialValues={{ name, dob, tob, pob, lat, lon }} className="py-4 bg-transparent p-0 m-0 [&>div]:p-0 [&>div]:border-none [&>div]:shadow-none [&_.text-center]:hidden" />
+                  <ChartGeneration isUpdate={true} initialValues={{ name, dob, tob, pob, lat, lon }} onClose={() => setBirthDetailsExpanded(false)} className="py-4 bg-transparent p-0 m-0 [&>div]:p-0 [&>div]:border-none [&>div]:shadow-none [&_.text-center]:hidden" />
                 </div>
               </div>
             )}
