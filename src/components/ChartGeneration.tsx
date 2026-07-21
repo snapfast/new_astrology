@@ -397,8 +397,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submitForm = () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
@@ -442,6 +441,43 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
     }
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitForm();
+  };
+
+  const handleFormBlur = (e: React.FocusEvent<HTMLFormElement>) => {
+    if (!isUpdate) return;
+
+    // Check if the new focused element is outside the form
+    const currentTarget = e.currentTarget;
+
+    // e.relatedTarget is the element that received focus
+    if (!e.relatedTarget || !currentTarget.contains(e.relatedTarget as Node)) {
+      if (name && dob && tob && pob && coords) {
+        let hasChanged = false;
+        if (initialValues) {
+           const initialIsoDob = initialValues.dob;
+
+           if (name !== initialValues.name ||
+               dob !== initialIsoDob ||
+               tob !== initialValues.tob ||
+               pob !== initialValues.pob ||
+               coords.lat !== initialValues.lat ||
+               coords.lon !== initialValues.lon) {
+               hasChanged = true;
+           }
+        } else {
+           hasChanged = true;
+        }
+
+        if (hasChanged) {
+           submitForm();
+        }
+      }
+    }
+  };
+
   return (
     <section className={`py-16 bg-background relative z-20 ${className}`}>
       <div className="max-w-4xl mx-auto px-8">
@@ -453,6 +489,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
             </div>
             <form
               onSubmit={handleSubmit}
+              onBlur={handleFormBlur}
               action="/horoscope"
               method="GET"
               className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
@@ -619,21 +656,23 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                   </div>
                 )}
               </div>
-              <div className="md:col-span-2 pt-2 md:pt-4">
-                <button
-                  className={`w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
-                  type="submit"
-                  disabled={isSubmitting}
-                  aria-busy={isSubmitting}
-                  aria-label={isSubmitting ? t.loading : (isUpdate ? t.updateBtn : t.submitBtn)}
-                >
-                  {isSubmitting ? (
-                    <div className="loading-spinner text-accent"></div>
-                  ) : (
-                    (isUpdate ? t.updateBtn : t.submitBtn)
-                  )}
-                </button>
-              </div>
+              {!isUpdate && (
+                <div className="md:col-span-2 pt-2 md:pt-4">
+                  <button
+                    className={`w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                    type="submit"
+                    disabled={isSubmitting}
+                    aria-busy={isSubmitting}
+                    aria-label={isSubmitting ? t.loading : t.submitBtn}
+                  >
+                    {isSubmitting ? (
+                      <div className="loading-spinner text-accent"></div>
+                    ) : (
+                      t.submitBtn
+                    )}
+                  </button>
+                </div>
+              )}
             </form>
           </div>
         </div>
