@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, FormEvent, useMemo, KeyboardEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
 
@@ -129,6 +129,7 @@ const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
 
 const ChartGeneration = ({ className = "", initialValues, isUpdate = false }: ChartGenerationProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
   const [name, setName] = useState(initialValues?.name || '');
@@ -164,6 +165,11 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false }: Ch
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const suggestionRef = useRef<HTMLDivElement>(null);
   const historyRef = useRef<HTMLDivElement>(null);
+
+  // Reset submitting state if the URL parameters change (e.g. after soft navigation)
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [searchParams]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
