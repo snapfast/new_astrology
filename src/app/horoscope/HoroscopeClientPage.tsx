@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useMemo } from "react";
+import { Suspense, useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -197,6 +197,12 @@ const HoroscopeContent = () => {
 
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
+
+  // Close the edit section automatically when navigation completes and params change
+  useEffect(() => {
+    setBirthDetailsExpanded(false);
+  }, [searchParams]);
+
   const name = sanitize(searchParams.get("name"), 100) || "Guest";
   const dob = sanitizeDate(searchParams.get("dob")) || "";
   const formattedDob = useMemo(() => {
