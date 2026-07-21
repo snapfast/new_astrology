@@ -73,6 +73,7 @@ interface ChartGenerationProps {
     lon: string;
   };
   isUpdate?: boolean;
+  onClose?: () => void;
 }
 
 const isValidHistoryItem = (item: unknown): item is StoredChartData => {
@@ -127,7 +128,7 @@ const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
   return `${d} ${months[monthIdx]} ${y}`;
 };
 
-const ChartGeneration = ({ className = "", initialValues, isUpdate = false }: ChartGenerationProps) => {
+const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onClose }: ChartGenerationProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { lang } = useLanguage();
@@ -435,6 +436,10 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false }: Ch
     });
 
     router.push(`/horoscope?${params.toString()}`);
+
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (
