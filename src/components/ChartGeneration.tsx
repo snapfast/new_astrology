@@ -62,6 +62,14 @@ const HOROSCOPE_HISTORY_KEY = 'HOROSCOPE_FORM_HISTORY';
 
 interface ChartGenerationProps {
   className?: string;
+  initialValues?: {
+    name: string;
+    dob: string;
+    tob: string;
+    pob: string;
+    lat: string;
+    lon: string;
+  };
 }
 
 const isValidHistoryItem = (item: unknown): item is StoredChartData => {
@@ -116,15 +124,19 @@ const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
   return `${d} ${months[monthIdx]} ${y}`;
 };
 
-const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
+const ChartGeneration = ({ className = "", initialValues }: ChartGenerationProps) => {
   const router = useRouter();
   const { lang } = useLanguage();
   const t = TRANSLATIONS[lang];
-  const [name, setName] = useState('');
-  const [dob, setDob] = useState('');
-  const [tob, setTob] = useState('');
-  const [pob, setPob] = useState('New Delhi, Delhi, India');
-  const [coords, setCoords] = useState<{ lat: string; lon: string } | null>({ lat: '28.6139', lon: '77.2090' });
+  const [name, setName] = useState(initialValues?.name || '');
+  const [dob, setDob] = useState(initialValues?.dob || '');
+  const [tob, setTob] = useState(initialValues?.tob || '');
+  const [pob, setPob] = useState(initialValues?.pob || 'New Delhi, Delhi, India');
+  const [coords, setCoords] = useState<{ lat: string; lon: string } | null>(
+    initialValues?.lat && initialValues?.lon
+      ? { lat: initialValues.lat, lon: initialValues.lon }
+      : { lat: '28.6139', lon: '77.2090' }
+  );
   const [suggestions, setSuggestions] = useState<{ name: string; lat: string; lon: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -168,6 +180,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
   }, []);
 
   useEffect(() => {
+    if (initialValues) return;
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -177,7 +190,7 @@ const ChartGeneration = ({ className = "" }: ChartGenerationProps) => {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     setTob(`${hours}:${minutes}`);
-  }, []);
+  }, [initialValues]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

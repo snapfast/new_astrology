@@ -9,6 +9,7 @@ import KundliChart from "@/components/KundliChart";
 import VimshottariDasha from "@/components/VimshottariDasha";
 import { generateAstrologyData } from "@/lib/astrology";
 import ExploreTools from "@/components/ExploreTools";
+import ChartGeneration from "@/components/ChartGeneration";
 import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -88,14 +89,14 @@ const TRANSLATIONS = {
     vimshottariDasha: "Vimshottari Dasha",
     generateNew: "Generate New Chart",
     pageTitle: "Your Birth Chart",
-    compactView: "Compact Dashboard",
+    compactView: "Compact",
     ctaTitle: "Seeking Verified Information?",
     ctaDesc:
       "This digital chart provides a visualization based on standard algorithms. For high-precision verified information—including exact planetary degrees, specific Ayanamsa, and personalized karmic insights—a manual expert review is essential.",
     ctaBtn: "Book Verified Personal Consultation",
     linkCopied: "Link Copied!",
     switchLanguage: "Switch Language / भाषा बदलें",
-    shareReport: "Share Report",
+    shareReport: "Share",
     northIndianStyle:
       "Traditional North Indian Style Representation of Divisional Charts",
     loading: "Loading your destiny...",
@@ -371,58 +372,9 @@ const HoroscopeContent = () => {
                 <span>{pob}</span>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-4 pt-4 border-t border-outline/50 animate-in slide-in-from-top-2 fade-in duration-300">
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.name}
-                  </p>
-                  <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">
-                    {name}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.date}
-                  </p>
-                  <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">
-                    {formattedDob}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.time}
-                  </p>
-                  <p className="text-sm md:text-base font-body text-on-surface leading-tight min-h-[1.5rem] flex items-center tabular-nums">
-                    {tob}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.place}
-                  </p>
-                  <p className="text-sm md:text-base font-headline text-on-surface leading-tight min-h-[1.5rem] flex items-center">
-                    {pob}
-                  </p>
+              <div className="mt-4 pt-4 border-t border-outline/50 animate-in slide-in-from-top-2 fade-in duration-300">
+                <div onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
+                  <ChartGeneration initialValues={{ name, dob, tob, pob, lat, lon }} className="py-4 bg-transparent p-0 m-0 [&>div]:p-0 [&>div]:border-none [&>div]:shadow-none [&>div>div:first-child]:hidden" />
                 </div>
               </div>
             )}
