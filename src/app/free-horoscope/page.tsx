@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -100,7 +100,9 @@ export default function FreeHoroscopePage() {
       />
 
       <div className="mt-12">
-        <ChartGeneration className="-mt-32" />
+        <Suspense fallback={<div className="h-32" />}>
+          <ChartGeneration className="-mt-32" />
+        </Suspense>
       </div>
 
       {/* SEO Content Section: Why Kundli Matters */}
