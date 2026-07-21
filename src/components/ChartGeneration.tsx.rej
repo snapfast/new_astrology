@@ -1,0 +1,14 @@
+--- src/components/ChartGeneration.tsx
++++ src/components/ChartGeneration.tsx
+@@ -614,9 +614,9 @@
+                   type="submit"
+                   disabled={isSubmitting}
+                   aria-busy={isSubmitting}
+-                  aria-label={isSubmitting ? t.loading : t.submitBtn}
++                  aria-label={isSubmitting ? t.loading : (isUpdate ? t.updateBtn : t.submitBtn)}
+                 >
+                   {isSubmitting ? (
+                     <div className="loading-spinner text-accent"></div>
+                   ) : (
+-                    t.submitBtn
++                    isUpdate ? t.updateBtn : t.submitBtn

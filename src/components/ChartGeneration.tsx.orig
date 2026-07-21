@@ -614,12 +614,12 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false }: Ch
                   type="submit"
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}
-                  aria-label={isSubmitting ? t.loading : (isUpdate ? t.updateBtn : t.submitBtn)}
+                  aria-label={isSubmitting ? t.loading : t.submitBtn}
                 >
                   {isSubmitting ? (
                     <div className="loading-spinner text-accent"></div>
                   ) : (
-                    (isUpdate ? t.updateBtn : t.submitBtn)
+                    t.submitBtn
                   )}
                 </button>
               </div>
