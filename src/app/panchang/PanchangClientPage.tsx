@@ -258,6 +258,8 @@ const PanchangPage = () => {
   }, [currentMonth, currentYear]);
 
   interface MonthlyDayPanchang {
+    sunSignEn: string;
+    sunSignHi: string;
     tithiEn: string;
     tithiHi: string;
     pakshaEn: string;
@@ -273,6 +275,8 @@ const PanchangPage = () => {
     moonsignEn: string;
     moonsignHi: string;
     tithisList?: { name: string; sanskrit: string; end: string | null }[];
+    yogasList?: { name: string; sanskrit: string; end: string | null }[];
+    karanasList?: { name: string; sanskrit: string; end: string | null }[];
     nakshatrasList?: { name: string; sanskrit: string; end: string | null }[];
     moonsignsList?: { name: string; sanskrit: string; end: string | null }[];
     varaEn: string;
@@ -298,6 +302,8 @@ const PanchangPage = () => {
       const numCodeHi = TITHI_MAPPING_HI[p.tithi] || "१";
 
       dataCache[item.dateKey] = {
+        sunSignEn: p.sunSign,
+        sunSignHi: p.sunSignSanskrit,
         tithiEn: p.tithi,
         tithiHi: p.tithiSanskrit,
         pakshaEn: p.paksha,
@@ -314,6 +320,8 @@ const PanchangPage = () => {
         moonsignHi: p.moonSignSanskrit,
         tithisList: p.tithisList,
         nakshatrasList: p.nakshatrasList,
+        yogasList: p.yogasList,
+        karanasList: p.karanasList,
         moonsignsList: p.moonsignsList,
         varaEn: p.vara,
         varaHi: p.varaSanskrit
@@ -441,269 +449,6 @@ const PanchangPage = () => {
         subtitle={t.heroSubtitle}
         description={t.heroDesc}
       />
-
-      {/* Monthly Vedic Calendar / Switcher Section */}
-      <section className="py-4 md:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm">
-          {/* Header Actions */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-outline/10">
-            <div>
-              <h2 className="text-2xl font-bold text-accent uppercase tracking-wider font-label">{t.monthlyCalendarTitle}</h2>
-              <p className="text-xs text-on-surface/60 font-body mt-1">New Delhi, India (12:00 PM Standalone Calculations)</p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              {/* Month/Year Nav */}
-              <div className="flex items-center gap-2 bg-surface p-1 rounded-full border border-outline/30">
-                <button
-                  onClick={handlePrevMonth}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  title={t.prevMonth}
-                  aria-label={t.prevMonth}
-                >
-                  <span className="material-symbols-outlined text-lg">chevron_left</span>
-                </button>
-
-                <select
-                  value={currentMonth}
-                  onChange={handleMonthSelect}
-                  className="bg-transparent border-none text-sm font-label uppercase font-bold text-on-surface focus:outline-none px-2 cursor-pointer appearance-none text-center"
-                  aria-label="Select Month"
-                >
-                  {t.monthNames.map((name, i) => (
-                    <option key={i} value={i} className="normal-case text-on-surface">{name}</option>
-                  ))}
-                </select>
-
-                <select
-                  value={currentYear}
-                  onChange={handleYearSelect}
-                  className="bg-transparent border-none text-sm font-label uppercase font-bold text-on-surface focus:outline-none px-2 cursor-pointer appearance-none text-center"
-                  aria-label="Select Year"
-                >
-                  {Array.from({ length: 201 }, (_, i) => 1900 + i).map((year) => (
-                    <option key={year} value={year} className="text-on-surface">{year}</option>
-                  ))}
-                </select>
-
-                <button
-                  onClick={handleNextMonth}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  title={t.nextMonth}
-                  aria-label={t.nextMonth}
-                >
-                  <span className="material-symbols-outlined text-lg">chevron_right</span>
-                </button>
-              </div>
-
-              {/* View Tab Switcher */}
-              <div className="flex items-center bg-surface p-1 rounded-full border border-outline/30">
-                <button
-                  onClick={() => setActiveTab('grid')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
-                    activeTab === 'grid'
-                      ? 'bg-accent text-white shadow-sm'
-                      : 'text-on-surface/70 hover:text-on-surface'
-                  }`}
-                >
-                  {t.viewGrid}
-                </button>
-                <button
-                  onClick={() => setActiveTab('list')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
-                    activeTab === 'list'
-                      ? 'bg-accent text-white shadow-sm'
-                      : 'text-on-surface/70 hover:text-on-surface'
-                  }`}
-                >
-                  {t.viewList}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Render Calendar Grid or List depending on activeTab */}
-          <div className="mt-6">
-            {activeTab === 'grid' ? (
-              <div className="space-y-4">
-                {/* Weekday headers */}
-                <div className="grid grid-cols-7 gap-1 text-center border-b border-outline/10 pb-2">
-                  {t.weekdayShort.map((day, idx) => (
-                    <div key={idx} className="text-xs font-label font-bold uppercase text-accent/80 tracking-widest">
-                      {day}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Grid cells */}
-                <div className="grid grid-cols-7 gap-2">
-                  {calendarDays.map((cell) => {
-                    const cellData = monthlyPanchangData[cell.dateKey];
-                    const isSelected = selectedDate.getUTCFullYear() === cell.year &&
-                      selectedDate.getUTCMonth() === cell.month &&
-                      selectedDate.getUTCDate() === cell.day;
-
-                    const today = new Date();
-                    const isToday = today.getFullYear() === cell.year &&
-                      today.getMonth() === cell.month &&
-                      today.getDate() === cell.day;
-
-                    return (
-                      <button
-                        key={cell.dateKey}
-                        onClick={() => {
-                          const targetDate = new Date(Date.UTC(cell.year, cell.month, cell.day));
-                          setSelectedDate(targetDate);
-                        }}
-                        className={`min-h-[100px] flex flex-col justify-between p-2.5 rounded-2xl border text-left transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                          cell.isPadding
-                            ? 'bg-surface/40 border-outline/10 opacity-40'
-                            : isSelected
-                            ? 'bg-accent/10 border-accent/60 shadow-inner'
-                            : isToday
-                            ? 'bg-primary/5 border-primary/40'
-                            : 'bg-white border-outline/40 hover:bg-surface-container-low'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between w-full">
-                          <span className={`text-sm font-bold font-body ${isToday ? 'text-primary' : 'text-on-surface'}`}>
-                            {cell.day}
-                          </span>
-                          {isToday && (
-                            <span className="text-[10px] bg-primary text-white font-label uppercase px-1.5 py-0.5 rounded">
-                              {lang === 'en' ? 'Today' : 'आज'}
-                            </span>
-                          )}
-                        </div>
-
-                        {cellData && (
-                          <div className="mt-1 space-y-0.5 w-full overflow-hidden text-ellipsis">
-                            {/* Compact Tithi indicator */}
-                            <p className={`text-xs font-label font-extrabold leading-none ${
-                              isSelected ? 'text-accent' : 'text-on-surface/90'
-                            } ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                              {lang === 'hi' ? cellData.compactHi : cellData.compactEn}
-                            </p>
-                            {/* Tithi name and Nakshatra */}
-                            <p className={`text-[10px] leading-tight truncate text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                              {lang === 'hi' ? cellData.tithiHi : cellData.tithiEn}
-                            </p>
-                            <p className={`text-[10px] leading-tight truncate text-on-surface/50 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                              ★ {lang === 'hi' ? cellData.nakshatraHi : cellData.nakshatraEn}
-                            </p>
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              /* Monthly List View */
-              <div className="overflow-x-auto rounded-2xl border border-outline/30">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-surface border-b border-outline/20 text-xs font-label uppercase tracking-wider text-accent/80">
-                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Date' : 'दिनांक'}</th>
-                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Weekday' : 'दिन'}</th>
-                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Tithi' : 'तिथि'}</th>
-                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Nakshatra' : 'नक्षत्र'}</th>
-                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Moonsign' : 'चंद्र राशि'}</th>
-                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Sun / Moon' : 'सूर्य / चंद्र'}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {calendarDays
-                      .filter(cell => !cell.isPadding)
-                      .map((cell) => {
-                        const cellData = monthlyPanchangData[cell.dateKey];
-                        const isSelected = selectedDate.getUTCFullYear() === cell.year &&
-                          selectedDate.getUTCMonth() === cell.month &&
-                          selectedDate.getUTCDate() === cell.day;
-
-                        if (!cellData) return null;
-
-                        const dateString = `${cell.day} ${t.monthNames[cell.month]}`;
-
-                        // Extract ending times for multi-transitions
-                        const tithis = cellData.tithisList || [];
-                        const nakshatras = cellData.nakshatrasList || [];
-                        const moonsigns = cellData.moonsignsList || [];
-
-                        return (
-                          <tr
-                            key={cell.dateKey}
-                            onClick={() => {
-                              const targetDate = new Date(Date.UTC(cell.year, cell.month, cell.day));
-                              setSelectedDate(targetDate);
-                            }}
-                            className={`border-b border-outline/10 text-sm font-body cursor-pointer transition-all hover:bg-surface-container-low ${
-                              isSelected ? 'bg-accent/5 font-semibold border-l-4 border-l-accent' : 'odd:bg-surface/20'
-                            }`}
-                          >
-                            <td className="py-3 px-4 font-bold text-on-surface">
-                              {dateString}
-                            </td>
-                            <td className={`py-3 px-4 text-on-surface/80 ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                              {lang === 'hi' ? cellData.varaHi : cellData.varaEn}
-                            </td>
-                            <td className="py-3 px-4 space-y-1">
-                              {tithis.map((item, idx: number) => (
-                                <div key={idx} className="flex flex-col">
-                                  <span className={`font-bold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                                    {lang === 'hi' ? item.sanskrit : item.name}
-                                  </span>
-                                  {item.end && (
-                                    <span className="text-[11px] text-accent/80 tabular-nums">
-                                      {item.end}
-                                    </span>
-                                  )}
-                                </div>
-                              ))}
-                            </td>
-                            <td className="py-3 px-4 space-y-1">
-                              {nakshatras.map((item, idx: number) => (
-                                <div key={idx} className="flex flex-col">
-                                  <span className={`text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                                    {lang === 'hi' ? item.sanskrit : item.name}
-                                  </span>
-                                  {item.end && (
-                                    <span className="text-[11px] text-accent/70 tabular-nums">
-                                      {item.end}
-                                    </span>
-                                  )}
-                                </div>
-                              ))}
-                            </td>
-                            <td className="py-3 px-4 space-y-1">
-                              {moonsigns.map((item, idx: number) => (
-                                <div key={idx} className="flex flex-col">
-                                  <span className={`text-on-surface/85 ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                                    {lang === 'hi' ? item.sanskrit : item.name}
-                                  </span>
-                                  {item.end && (
-                                    <span className="text-[11px] text-on-surface/50 tabular-nums">
-                                      {item.end}
-                                    </span>
-                                  )}
-                                </div>
-                              ))}
-                            </td>
-                            <td className="py-3 px-4 text-xs tabular-nums text-on-surface/70 space-y-1 leading-relaxed">
-                              <div>🌅 {cellData.sunrise}</div>
-                              <div>🌇 {cellData.sunset}</div>
-                              <div>🌙 {cellData.moonrise} / {cellData.moonset}</div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Panchang Details */}
       <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 md:space-y-12">
@@ -982,6 +727,310 @@ const PanchangPage = () => {
             </pre>
           </div>
         )}
+      </section>
+
+      {/* Monthly Vedic Calendar / Switcher Section */}
+      <section className="py-4 md:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
+        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-6 md:p-8 shadow-sm">
+          {/* Header Actions */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-outline/10">
+            <div>
+              <h2 className="text-2xl font-bold text-accent uppercase tracking-wider font-label">{t.monthlyCalendarTitle}</h2>
+              <p className="text-xs text-on-surface/60 font-body mt-1">New Delhi, India (12:00 PM Standalone Calculations)</p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {/* Month/Year Nav */}
+              <div className="flex items-center gap-2 bg-surface p-1 rounded-full border border-outline/30">
+                <button
+                  onClick={handlePrevMonth}
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  title={t.prevMonth}
+                  aria-label={t.prevMonth}
+                >
+                  <span className="material-symbols-outlined text-lg">chevron_left</span>
+                </button>
+
+                <select
+                  value={currentMonth}
+                  onChange={handleMonthSelect}
+                  className="bg-transparent border-none text-sm font-label uppercase font-bold text-on-surface focus:outline-none px-2 cursor-pointer appearance-none text-center"
+                  aria-label="Select Month"
+                >
+                  {t.monthNames.map((name, i) => (
+                    <option key={i} value={i} className="normal-case text-on-surface">{name}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={currentYear}
+                  onChange={handleYearSelect}
+                  className="bg-transparent border-none text-sm font-label uppercase font-bold text-on-surface focus:outline-none px-2 cursor-pointer appearance-none text-center"
+                  aria-label="Select Year"
+                >
+                  {Array.from({ length: 201 }, (_, i) => 1900 + i).map((year) => (
+                    <option key={year} value={year} className="text-on-surface">{year}</option>
+                  ))}
+                </select>
+
+                <button
+                  onClick={handleNextMonth}
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  title={t.nextMonth}
+                  aria-label={t.nextMonth}
+                >
+                  <span className="material-symbols-outlined text-lg">chevron_right</span>
+                </button>
+              </div>
+
+              {/* View Tab Switcher */}
+              <div className="flex items-center bg-surface p-1 rounded-full border border-outline/30">
+                <button
+                  onClick={() => setActiveTab('grid')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                    activeTab === 'grid'
+                      ? 'bg-accent text-white shadow-sm'
+                      : 'text-on-surface/70 hover:text-on-surface'
+                  }`}
+                >
+                  {t.viewGrid}
+                </button>
+                <button
+                  onClick={() => setActiveTab('list')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                    activeTab === 'list'
+                      ? 'bg-accent text-white shadow-sm'
+                      : 'text-on-surface/70 hover:text-on-surface'
+                  }`}
+                >
+                  {t.viewList}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Render Calendar Grid or List depending on activeTab */}
+          <div className="mt-6">
+            {activeTab === 'grid' ? (
+              <div className="space-y-4">
+                {/* Weekday headers */}
+                <div className="grid grid-cols-7 gap-1 text-center border-b border-outline/10 pb-2">
+                  {t.weekdayShort.map((day, idx) => (
+                    <div key={idx} className="text-xs font-label font-bold uppercase text-accent/80 tracking-widest">
+                      {day}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Grid cells */}
+                <div className="grid grid-cols-7 gap-2">
+                  {calendarDays.map((cell) => {
+                    const cellData = monthlyPanchangData[cell.dateKey];
+                    const isSelected = selectedDate.getUTCFullYear() === cell.year &&
+                      selectedDate.getUTCMonth() === cell.month &&
+                      selectedDate.getUTCDate() === cell.day;
+
+                    const today = new Date();
+                    const isToday = today.getFullYear() === cell.year &&
+                      today.getMonth() === cell.month &&
+                      today.getDate() === cell.day;
+
+                    return (
+                      <button
+                        key={cell.dateKey}
+                        onClick={() => {
+                          const targetDate = new Date(Date.UTC(cell.year, cell.month, cell.day));
+                          setSelectedDate(targetDate);
+                        }}
+                        className={`min-h-[100px] flex flex-col justify-between p-2.5 rounded-2xl border text-left transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                          cell.isPadding
+                            ? 'bg-surface/40 border-outline/10 opacity-40'
+                            : isSelected
+                            ? 'bg-accent/10 border-accent/60 shadow-inner'
+                            : isToday
+                            ? 'bg-primary/5 border-primary/40'
+                            : 'bg-white border-outline/40 hover:bg-surface-container-low'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <span className={`text-sm font-bold font-body ${isToday ? 'text-primary' : 'text-on-surface'}`}>
+                            {cell.day}
+                          </span>
+                          {isToday && (
+                            <span className="text-[10px] bg-primary text-white font-label uppercase px-1.5 py-0.5 rounded">
+                              {lang === 'en' ? 'Today' : 'आज'}
+                            </span>
+                          )}
+                        </div>
+
+                        {cellData && (
+                          <div className="mt-1 space-y-0.5 w-full overflow-hidden text-ellipsis">
+                            {/* Compact Tithi indicator */}
+                            <p className={`text-xs font-label font-extrabold leading-none ${
+                              isSelected ? 'text-accent' : 'text-on-surface/90'
+                            } ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                              {lang === 'hi' ? cellData.compactHi : cellData.compactEn}
+                            </p>
+                            {/* Tithi name and Nakshatra */}
+                            <p className={`text-[10px] leading-tight truncate text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                              {lang === 'hi' ? cellData.tithiHi : cellData.tithiEn}
+                            </p>
+                            <p className={`text-[10px] leading-tight truncate text-on-surface/50 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                              ★ {lang === 'hi' ? cellData.nakshatraHi : cellData.nakshatraEn}
+                            </p>
+                            <p className={`text-[10px] leading-tight truncate text-on-surface/40 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                              ☀ {lang === 'hi' ? cellData.sunSignHi : cellData.sunSignEn}
+                            </p>
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              /* Monthly List View */
+              <div className="overflow-x-auto rounded-2xl border border-outline/30">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-surface border-b border-outline/20 text-xs font-label uppercase tracking-wider text-accent/80">
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Date' : 'दिनांक'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Weekday' : 'दिन'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Tithi' : 'तिथि'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Nakshatra' : 'नक्षत्र'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Yoga' : 'योग'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Karana' : 'करण'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Moonsign' : 'चंद्र राशि'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Sun Sign' : 'सूर्य राशि'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Sun / Moon' : 'सूर्य / चंद्र'}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {calendarDays
+                      .filter(cell => !cell.isPadding)
+                      .map((cell) => {
+                        const cellData = monthlyPanchangData[cell.dateKey];
+                        const isSelected = selectedDate.getUTCFullYear() === cell.year &&
+                          selectedDate.getUTCMonth() === cell.month &&
+                          selectedDate.getUTCDate() === cell.day;
+
+                        if (!cellData) return null;
+
+                        const dateString = `${cell.day} ${t.monthNames[cell.month]}`;
+
+                        // Extract ending times for multi-transitions
+                        const tithis = cellData.tithisList || [];
+                        const nakshatras = cellData.nakshatrasList || [];
+                        const yogas = cellData.yogasList || [];
+                        const karanas = cellData.karanasList || [];
+                        const moonsigns = cellData.moonsignsList || [];
+
+                        return (
+                          <tr
+                            key={cell.dateKey}
+                            onClick={() => {
+                              const targetDate = new Date(Date.UTC(cell.year, cell.month, cell.day));
+                              setSelectedDate(targetDate);
+                            }}
+                            className={`border-b border-outline/10 text-sm font-body cursor-pointer transition-all hover:bg-surface-container-low ${
+                              isSelected ? 'bg-accent/5 font-semibold border-l-4 border-l-accent' : 'odd:bg-surface/20'
+                            }`}
+                          >
+                            <td className="py-3 px-4 font-bold text-on-surface">
+                              {dateString}
+                            </td>
+                            <td className={`py-3 px-4 text-on-surface/80 ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                              {lang === 'hi' ? cellData.varaHi : cellData.varaEn}
+                            </td>
+                            <td className="py-3 px-4 space-y-1">
+                              {tithis.map((item, idx: number) => (
+                                <div key={idx} className="flex flex-col">
+                                  <span className={`font-bold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                                    {lang === 'hi' ? item.sanskrit : item.name}
+                                  </span>
+                                  {item.end && (
+                                    <span className="text-[11px] text-accent/80 tabular-nums">
+                                      {item.end}
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </td>
+                            <td className="py-3 px-4 space-y-1">
+                              {nakshatras.map((item, idx: number) => (
+                                <div key={idx} className="flex flex-col">
+                                  <span className={`text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                                    {lang === 'hi' ? item.sanskrit : item.name}
+                                  </span>
+                                  {item.end && (
+                                    <span className="text-[11px] text-accent/70 tabular-nums">
+                                      {item.end}
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </td>
+                            <td className="py-3 px-4 space-y-1">
+                              {yogas.map((item, idx: number) => (
+                                <div key={idx} className="flex flex-col">
+                                  <span className={`text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                                    {lang === 'hi' ? item.sanskrit : item.name}
+                                  </span>
+                                  {item.end && (
+                                    <span className="text-[11px] text-accent/70 tabular-nums">
+                                      {item.end}
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </td>
+                            <td className="py-3 px-4 space-y-1">
+                              {karanas.map((item, idx: number) => (
+                                <div key={idx} className="flex flex-col">
+                                  <span className={`text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                                    {lang === 'hi' ? item.sanskrit : item.name}
+                                  </span>
+                                  {item.end && (
+                                    <span className="text-[11px] text-accent/70 tabular-nums">
+                                      {item.end}
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </td>
+                            <td className="py-3 px-4 space-y-1">
+                              {moonsigns.map((item, idx: number) => (
+                                <div key={idx} className="flex flex-col">
+                                  <span className={`text-on-surface/85 ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                                    {lang === 'hi' ? item.sanskrit : item.name}
+                                  </span>
+                                  {item.end && (
+                                    <span className="text-[11px] text-on-surface/50 tabular-nums">
+                                      {item.end}
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </td>
+                            <td className="py-3 px-4 text-on-surface/85 font-body">
+                              <span className={lang === 'hi' ? 'font-hindi' : ''}>
+                                {lang === 'hi' ? cellData.sunSignHi : cellData.sunSignEn}
+                              </span>
+                            </td>
+                            <td className="py-3 px-4 text-xs tabular-nums text-on-surface/70 space-y-1 leading-relaxed">
+                              <div>🌅 {cellData.sunrise}</div>
+                              <div>🌇 {cellData.sunset}</div>
+                              <div>🌙 {cellData.moonrise} / {cellData.moonset}</div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Educational Content Section */}
