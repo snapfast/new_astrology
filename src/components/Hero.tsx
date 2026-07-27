@@ -9,9 +9,9 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
-    subtitle: 'VEDIC ASTROLOGY · JYOTISH SHASTRA',
+    subtitle: 'SACRED VEDIC ASTROLOGY · JYOTISH SHASTRA',
     title: 'Pandit Rahul Bali Ji',
-    desc1: 'Personalized Vedic astrology readings and spiritual consultations rooted in classical Astrology tradition.',
+    desc1: 'Profound Vedic astrology readings and authoritative spiritual consultations rooted in an esteemed Brahmin lineage and sacred astrological traditions.',
     desc2: 'Gurugram, India.',
     bookBtn: 'Book a Consultation',
     learnBtn: 'Learn More',
@@ -19,9 +19,9 @@ const TRANSLATIONS = {
     rating: 'Rating'
   },
   hi: {
-    subtitle: 'वैदिक ज्योतिष · ज्योतिष शास्त्र',
+    subtitle: 'पवित्र वैदिक ज्योतिष · ज्योतिष शास्त्र',
     title: 'पंडित राहुल बाली जी',
-    desc1: 'शास्त्रीय ज्योतिष परंपरा में निहित व्यक्तिगत वैदिक ज्योतिष रीडिंग और आध्यात्मिक परामर्श।',
+    desc1: 'एक सम्मानित ब्राह्मण वंशावली और पवित्र ज्योतिषीय परंपराओं में निहित गहन वैदिक ज्योतिष रीडिंग और आधिकारिक आध्यात्मिक परामर्श।',
     desc2: 'गुरुग्राम, भारत।',
     bookBtn: 'परामर्श बुक करें',
     learnBtn: 'और जानें',
@@ -97,9 +97,9 @@ const Hero = () => {
         </div>
 
         {/* Trust Signals */}
-        <div className="flex flex-row items-center justify-center gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-outline/20">
+        <div className="flex flex-row items-center justify-center gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-accent/30">
           <div className="flex flex-col items-center flex-1">
-            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">200+</span>
+            <span className="text-xl md:text-2xl font-headline text-accent tabular-nums mb-1">200+</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Consultations</span>
           </div>
 
@@ -107,14 +107,14 @@ const Hero = () => {
 
           <div className="flex flex-col items-center flex-1">
             <StarRating className="mb-1" starClassName="text-[14px] md:text-[16px]" />
-            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">5.0</span>
+            <span className="text-xl md:text-2xl font-headline text-accent tabular-nums mb-1">5.0</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Google Rating</span>
           </div>
 
           <div className="w-px h-8 bg-outline/20 shrink-0"></div>
 
           <div className="flex flex-col items-center flex-1">
-            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">10+</span>
+            <span className="text-xl md:text-2xl font-headline text-accent tabular-nums mb-1">10+</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Countries Reach</span>
           </div>
         </div>
