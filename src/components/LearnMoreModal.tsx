@@ -90,7 +90,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>{t.sampleTitle}</h3>
-                <p id="learn-more-desc" className={`text-on-surface/70 font-body mb-2.5 max-w-lg leading-relaxed ${lang === 'hi' ? 'text-xs' : 'text-[12px] md:text-[13px]'}`}>{t.sampleDesc}</p>
+                <p id="learn-more-desc" className={`text-on-surface/70 font-body mb-2.5 max-w-lg leading-relaxed ${lang === 'hi' ? 'text-xs md:text-sm' : 'text-xs md:text-sm'}`}>{t.sampleDesc}</p>
 
                 <a
                   href="https://drive.google.com/drive/u/0/folders/1xlyzqP8CEUx11Lh3U14UmBa2Os600SHQ"
@@ -98,11 +98,11 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   rel="noopener noreferrer"
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_samples_redirect' })}
                   className={`inline-flex items-center gap-1.5 px-4.5 py-1.5 bg-on-surface text-white rounded-full font-medium uppercase transition-all hover:bg-on-surface/90 ${
-                    lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[8px] md:text-[9px] tracking-wider'
+                    lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider'
                   }`}
                 >
                   {t.sampleBtn}
-                  <span className="material-symbols-outlined text-[10px]" aria-hidden="true">open_in_new</span>
+                  <span className="material-symbols-outlined text-xs" aria-hidden="true">open_in_new</span>
                 </a>
               </div>
             </div>
@@ -114,7 +114,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>{t.socialTitle}</h3>
-                <p className={`text-on-surface/70 font-body mb-2.5 max-w-lg leading-relaxed ${lang === 'hi' ? 'text-xs' : 'text-[12px] md:text-[13px]'}`}>{t.socialDesc}</p>
+                <p className={`text-on-surface/70 font-body mb-2.5 max-w-lg leading-relaxed ${lang === 'hi' ? 'text-xs md:text-sm' : 'text-xs md:text-sm'}`}>{t.socialDesc}</p>
 
                 <a
                   href="https://www.threads.net/@rahulbaliastro"
@@ -122,11 +122,11 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                   rel="noopener noreferrer"
                   onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads_redirect' })}
                   className={`inline-flex items-center gap-1.5 px-4.5 py-1.5 bg-on-surface text-white rounded-full font-medium uppercase transition-all hover:bg-on-surface/90 ${
-                    lang === 'hi' ? 'text-[10px] md:text-[11px] tracking-normal' : 'text-[8px] md:text-[9px] tracking-wider'
+                    lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider'
                   }`}
                 >
                   {t.socialBtn}
-                  <span className="material-symbols-outlined text-[10px]" aria-hidden="true">open_in_new</span>
+                  <span className="material-symbols-outlined text-xs" aria-hidden="true">open_in_new</span>
                 </a>
               </div>
             </div>
