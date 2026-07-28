@@ -76,7 +76,7 @@
   }
 
   .btn-secondary {
-    @apply border border-secondary/40 bg-transparent text-on-surface rounded-full transition-all active:scale-95 hover:bg-on-surface/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
+    @apply border border-accent bg-transparent text-accent rounded-full transition-all active:scale-95 hover:bg-accent hover:text-on-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
   }
 
   .font-body {

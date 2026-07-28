@@ -7,14 +7,14 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
-    title: "Vedic Astrology Services",
-    subtitle: "Spiritual Guidance",
-    description: "Professional consultations grounded in the ancient principles of Jyotish Shastra, providing clarity on your life's unique karmic path."
+    title: "Sacred Vedic Astrology Services",
+    subtitle: "Authoritative Spiritual Guidance",
+    description: "Esteemed professional consultations deeply grounded in the ancient Brahmin principles of Jyotish Shastra, providing profound clarity on your life's unique karmic path."
   },
   hi: {
-    title: "वैदिक ज्योतिष सेवाएं",
-    subtitle: "आध्यात्मिक मार्गदर्शन",
-    description: "ज्योतिष शास्त्र के प्राचीन सिद्धांतों पर आधारित पेशेवर परामर्श, जो आपके जीवन के अनूठे कर्म पथ पर स्पष्टता प्रदान करते हैं।"
+    title: "पवित्र वैदिक ज्योतिष सेवाएं",
+    subtitle: "आधिकारिक आध्यात्मिक मार्गदर्शन",
+    description: "ज्योतिष शास्त्र के प्राचीन ब्राह्मण सिद्धांतों पर गहराई से आधारित सम्मानित पेशेवर परामर्श, जो आपके जीवन के अनूठे कर्म पथ पर गहन स्पष्टता प्रदान करते हैं।"
   }
 };
 
@@ -35,12 +35,12 @@ export default function ServicesContent() {
         <div className="max-w-5xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
             {SPECIALIZED_SERVICES.map((service) => (
-              <div key={service.id} className="space-y-4">
-                <h3 className="text-xl font-normal font-headline text-on-surface tracking-tight flex items-center gap-3">
+              <div key={service.id} className="group space-y-4 p-4 -mx-4 rounded-xl border border-transparent hover:bg-accent/5 hover:border-accent/20 transition-all duration-300">
+                <h3 className="text-xl font-normal font-headline text-on-surface group-hover:text-accent transition-colors tracking-tight flex items-center gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                   {service.title[lang]}
                 </h3>
-                <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30">
+                <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30 group-hover:border-accent/50 transition-colors">
                   {service.description[lang]}
                 </p>
               </div>
