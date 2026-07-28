@@ -57,7 +57,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-md"
+      maxWidth="max-w-md md:max-w-lg"
       ariaLabelledBy="book-consultation-title"
       ariaDescribedBy="book-consultation-desc"
     >
