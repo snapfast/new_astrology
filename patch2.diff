@@ -1,0 +1,52 @@
+--- src/components/ChartGeneration.tsx
++++ src/components/ChartGeneration.tsx
+@@ -16,7 +16,8 @@
+     placeholderPob: "City, Country",
+     recentProfiles: "Recent Profiles",
+     searching: "Searching cities...",
+     submitBtn: "Generate Horoscope Chart",
++    updateBtn: "Update Kundli",
+     loading: "Generating horoscope chart...",
+     errorName: "Please enter a valid name (min 2 characters)",
+     errorHistory: "This name already exists in your history. Please use a unique name.",
+@@ -34,7 +35,8 @@
+     placeholderPob: "शहर, देश",
+     recentProfiles: "हाल के प्रोफाइल",
+     searching: "शहर खोजे जा रहे हैं...",
+     submitBtn: "कुंडली बनाएं",
++    updateBtn: "कुंडली अपडेट करें",
+     loading: "कुंडली बनाई जा रही है...",
+     errorName: "कृपया एक वैध नाम दर्ज करें (न्यूनतम 2 वर्ण)",
+     errorHistory: "यह नाम आपकी हिस्ट्री में पहले से मौजूद है। कृपया एक अनूठा नाम उपयोग करें।",
+@@ -93,6 +95,7 @@
+     lat: string;
+     lon: string;
+   };
++  isUpdate?: boolean;
+ }
+
+ const isValidHistoryItem = (item: unknown): item is StoredChartData => {
+@@ -140,7 +143,7 @@
+   return `${d} ${months[monthIdx]} ${y}`;
+ };
+
+-const ChartGeneration = ({ className = "", initialValues }: ChartGenerationProps) => {
++const ChartGeneration = ({ className = "", initialValues, isUpdate = false }: ChartGenerationProps) => {
+   const router = useRouter();
+   const { lang } = useLanguage();
+   const t = TRANSLATIONS[lang];
+@@ -616,9 +619,9 @@
+                   type="submit"
+                   disabled={isSubmitting}
+                   aria-busy={isSubmitting}
+-                  aria-label={isSubmitting ? t.loading : t.submitBtn}
++                  aria-label={isSubmitting ? t.loading : (isUpdate ? t.updateBtn : t.submitBtn)}
+                 >
+                   {isSubmitting ? (
+                     <div className="loading-spinner text-accent"></div>
+                   ) : (
+-                    t.submitBtn
++                    isUpdate ? t.updateBtn : t.submitBtn
+                   )}
+                 </button>
+               </div>

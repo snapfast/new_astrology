@@ -1,46 +1,71 @@
-import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { Metadata } from 'next';
+import ContactContent from './ContactContent';
+import JsonLd from '@/components/JsonLd';
+
+export const metadata: Metadata = {
+  title: "Contact | Rahul Bali Astrology",
+  description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online. Connect for accurate Kundli readings and remedies.",
+  keywords: [
+    "Contact Rahul Bali", "Astrologer phone number", "book astrology consultation",
+    "Rahul Bali Gurgaon address", "Gurugram astrologer contact", "astrology email support"
+  ],
+  alternates: {
+    canonical: "https://astro.rahulbali.in/contact",
+  },
+  openGraph: {
+    title: "Contact | Rahul Bali Astrology",
+    description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online.",
+    url: "https://astro.rahulbali.in/contact",
+    siteName: "Rahul Bali Astrology",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact Pandit Rahul Bali - Rahul Bali Astrology",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact | Rahul Bali Astrology",
+    description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online.",
+    images: ["/og-image.png"],
+  },
+};
 
 export default function ContactPage() {
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "ProfessionalService",
+      "name": "Rahul Bali Astrology",
+      "image": "https://astro.rahulbali.in/og-image.png",
+      "url": "https://astro.rahulbali.in",
+      "email": "rahulbaliastrology@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Gurugram",
+        "addressLocality": "Gurugram",
+        "addressRegion": "Haryana",
+        "postalCode": "122001",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 28.4595,
+        "longitude": 77.0266
+      }
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-surface">
-      <Navbar />
-      <div className="pt-32 pb-24 max-w-4xl mx-auto px-8">
-        <h1 className="text-5xl font-normal mb-8 font-headline text-on-surface text-center">Contact Us</h1>
-        <div className="bg-white p-12 rounded-[3rem] shadow-sm border border-surface-container-high grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-normal mb-6 font-headline">Location</h3>
-            <p className="text-secondary font-body mb-8">
-              Gurugram, Haryana, India
-            </p>
-            <h3 className="text-2xl font-normal mb-6 font-headline">Online Presence</h3>
-            <div className="space-y-4 font-label text-[11px] tracking-widest uppercase font-bold">
-              <a href="https://www.instagram.com/RahulBaliAstro" className="block text-primary">Instagram</a>
-              <a href="https://www.youtube.com/@RahulBaliAstrology" className="block text-primary">YouTube</a>
-              <a href="https://www.linkedin.com/in/rahulbaliastrology/" className="block text-primary">LinkedIn</a>
-            </div>
-          </div>
-          <div>
-            <form className="space-y-6">
-              <div>
-                <label className="block text-[10px] font-semibold text-secondary uppercase tracking-widest mb-2 font-label">Name</label>
-                <input type="text" className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl text-sm font-body" />
-              </div>
-              <div>
-                <label className="block text-[10px] font-semibold text-secondary uppercase tracking-widest mb-2 font-label">Email</label>
-                <input type="email" className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl text-sm font-body" />
-              </div>
-              <div>
-                <label className="block text-[10px] font-semibold text-secondary uppercase tracking-widest mb-2 font-label">Message</label>
-                <textarea className="w-full px-6 py-4 bg-surface-container-low border-none rounded-xl text-sm font-body h-32"></textarea>
-              </div>
-              <button className="w-full py-4 bg-primary text-white rounded-xl font-medium text-xs tracking-widest uppercase font-label">Send Message</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </main>
+    <>
+      <JsonLd data={contactSchema} />
+      <ContactContent />
+    </>
   );
 }
