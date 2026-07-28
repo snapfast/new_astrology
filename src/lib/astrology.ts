@@ -114,6 +114,21 @@ export interface PanchangData {
     formattedText?: string;
 }
 
+export interface ShadBalaData {
+    planet: string;
+    planetSanskrit: string;
+    sthanaBala: number;
+    dikBala: number;
+    kalaBala: number;
+    cheshtaBala: number;
+    naisargikaBala: number;
+    drigBala: number;
+    totalBala: number;
+    rupas: number;
+    requirement: number;
+    status: 'Strong' | 'Moderate';
+}
+
 export interface ChartData {
     planets: PlanetData[];
     d1: DivisionalChartData;
@@ -136,6 +151,8 @@ export interface ChartData {
     mahadashas: Mahadasha[];
     panchang: PanchangData;
     dashaBalance?: DashaBalance;
+    shadbala?: ShadBalaData[];
+    ashtakvarga?: number[];
 }
 
 export const NAKSHATRA_NAMES = [
@@ -499,7 +516,9 @@ function getEmptyChartData(): ChartData {
         d20: emptyChart, d24: emptyChart, d27: emptyChart, d30: emptyChart, d40: emptyChart,
         d45: emptyChart, d60: emptyChart,
         mahadashas: [],
-        panchang: emptyPanchang
+        panchang: emptyPanchang,
+        shadbala: [],
+        ashtakvarga: []
     };
 }
 
@@ -699,6 +718,312 @@ function calculatePlanetaryAndDivisionalData(
     };
 }
 
+const SUN_BAV_RULES = [
+    { source: "Sun", offsets: [1, 2, 4, 7, 8, 9, 10, 11] },
+    { source: "Moon", offsets: [3, 6, 10, 11] },
+    { source: "Mars", offsets: [1, 2, 4, 7, 8, 9, 10, 11] },
+    { source: "Mercury", offsets: [3, 5, 6, 9, 10, 11, 12] },
+    { source: "Jupiter", offsets: [5, 6, 9, 11] },
+    { source: "Venus", offsets: [6, 7, 12] },
+    { source: "Saturn", offsets: [1, 2, 4, 7, 8, 9, 10, 11] },
+    { source: "Ascendant", offsets: [3, 4, 6, 10, 11, 12] }
+];
+
+const MOON_BAV_RULES = [
+    { source: "Sun", offsets: [3, 6, 7, 8, 10, 11] },
+    { source: "Moon", offsets: [1, 3, 6, 7, 10, 11] },
+    { source: "Mars", offsets: [2, 3, 5, 6, 9, 10, 11] },
+    { source: "Mercury", offsets: [1, 3, 4, 5, 7, 8, 10, 11] },
+    { source: "Jupiter", offsets: [1, 4, 7, 8, 10, 11, 12] },
+    { source: "Venus", offsets: [3, 4, 5, 7, 9, 10, 11] },
+    { source: "Saturn", offsets: [3, 5, 6, 11] },
+    { source: "Ascendant", offsets: [3, 6, 10, 11] }
+];
+
+const MARS_BAV_RULES = [
+    { source: "Sun", offsets: [3, 5, 6, 10, 11, 12] },
+    { source: "Moon", offsets: [3, 6, 11] },
+    { source: "Mars", offsets: [1, 2, 4, 8, 10, 11] },
+    { source: "Mercury", offsets: [3, 5, 6, 11] },
+    { source: "Jupiter", offsets: [6, 10, 11, 12] },
+    { source: "Venus", offsets: [6, 8, 11, 12] },
+    { source: "Saturn", offsets: [1, 4, 7, 8, 9, 10, 11] },
+    { source: "Ascendant", offsets: [1, 3, 6, 10, 11] }
+];
+
+const MERCURY_BAV_RULES = [
+    { source: "Sun", offsets: [5, 6, 9, 11, 12] },
+    { source: "Moon", offsets: [2, 4, 6, 8, 10, 11] },
+    { source: "Mars", offsets: [1, 2, 4, 7, 8, 9, 10, 11] },
+    { source: "Mercury", offsets: [1, 3, 5, 6, 9, 10, 11, 12] },
+    { source: "Jupiter", offsets: [6, 8, 11, 12] },
+    { source: "Venus", offsets: [1, 2, 3, 4, 5, 8, 9, 11] },
+    { source: "Saturn", offsets: [1, 2, 4, 7, 8, 9, 10, 11] },
+    { source: "Ascendant", offsets: [1, 2, 4, 6, 8, 10, 11] }
+];
+
+const JUPITER_BAV_RULES = [
+    { source: "Sun", offsets: [1, 2, 3, 4, 7, 8, 9, 10, 11] },
+    { source: "Moon", offsets: [2, 5, 7, 9, 11] },
+    { source: "Mars", offsets: [1, 2, 4, 7, 8, 10, 11] },
+    { source: "Mercury", offsets: [1, 2, 4, 5, 6, 9, 10, 11] },
+    { source: "Jupiter", offsets: [1, 2, 3, 4, 7, 8, 10, 11] },
+    { source: "Venus", offsets: [2, 5, 6, 9, 10, 11] },
+    { source: "Saturn", offsets: [3, 5, 6, 12] },
+    { source: "Ascendant", offsets: [1, 2, 4, 5, 6, 7, 9, 10, 11] }
+];
+
+const VENUS_BAV_RULES = [
+    { source: "Sun", offsets: [8, 11, 12] },
+    { source: "Moon", offsets: [1, 2, 3, 4, 5, 8, 9, 11, 12] },
+    { source: "Mars", offsets: [3, 5, 6, 9, 11, 12] },
+    { source: "Mercury", offsets: [3, 5, 6, 9, 11] },
+    { source: "Jupiter", offsets: [5, 8, 9, 10, 11] },
+    { source: "Venus", offsets: [1, 2, 3, 4, 5, 8, 9, 10, 11] },
+    { source: "Saturn", offsets: [3, 4, 5, 8, 9, 10, 11] },
+    { source: "Ascendant", offsets: [1, 2, 3, 4, 5, 8, 9, 11] }
+];
+
+const SATURN_BAV_RULES = [
+    { source: "Sun", offsets: [1, 2, 4, 7, 8, 10, 11] },
+    { source: "Moon", offsets: [3, 6, 11] },
+    { source: "Mars", offsets: [3, 5, 6, 10, 11, 12] },
+    { source: "Mercury", offsets: [6, 8, 9, 10, 11, 12] },
+    { source: "Jupiter", offsets: [5, 6, 11, 12] },
+    { source: "Venus", offsets: [6, 11, 12] },
+    { source: "Saturn", offsets: [3, 5, 6, 11] },
+    { source: "Ascendant", offsets: [1, 3, 4, 6, 10, 11] }
+];
+
+const getRasiIdxByName = (name: string, planets: PlanetData[]): number => {
+    const p = planets.find(pl => pl.name === name);
+    if (!p) return 0;
+    return RASIS.indexOf(p.rasi);
+};
+
+export function calculateSarvaAshtakvarga(planets: PlanetData[]): number[] {
+    const sav = new Array(12).fill(0);
+
+    const rasisOfPlanets: Record<string, number> = {
+        "Sun": getRasiIdxByName("Sun", planets),
+        "Moon": getRasiIdxByName("Moon", planets),
+        "Mars": getRasiIdxByName("Mars", planets),
+        "Mercury": getRasiIdxByName("Mercury", planets),
+        "Jupiter": getRasiIdxByName("Jupiter", planets),
+        "Venus": getRasiIdxByName("Venus", planets),
+        "Saturn": getRasiIdxByName("Saturn", planets),
+        "Ascendant": getRasiIdxByName("Ascendant", planets)
+    };
+
+    const allBavRules = [
+        SUN_BAV_RULES,
+        MOON_BAV_RULES,
+        MARS_BAV_RULES,
+        MERCURY_BAV_RULES,
+        JUPITER_BAV_RULES,
+        VENUS_BAV_RULES,
+        SATURN_BAV_RULES
+    ];
+
+    for (const rules of allBavRules) {
+        for (const rule of rules) {
+            const sourceRasi = rasisOfPlanets[rule.source];
+            if (sourceRasi === -1 || sourceRasi === undefined) continue;
+            for (const offset of rule.offsets) {
+                const targetRasi = (sourceRasi + offset - 1) % 12;
+                sav[targetRasi] += 1;
+            }
+        }
+    }
+
+    return sav;
+}
+
+export function calculateAllShadBala(
+    planets: PlanetData[],
+    dob: string,
+    tob: string,
+    panchang: PanchangData
+): ShadBalaData[] {
+    const shadbalaList: ShadBalaData[] = [];
+
+    let isDay = true;
+    try {
+        const [bH, bM] = tob.split(':').map(Number);
+        const [srH, srM] = panchang.sunrise.split(':').map(Number);
+        const [ssH, ssM] = panchang.sunset.split(':').map(Number);
+        const birthMin = bH * 60 + bM;
+        const srMin = srH * 60 + srM;
+        const ssMin = ssH * 60 + ssM;
+        isDay = birthMin >= srMin && birthMin <= ssMin;
+    } catch {
+        const [bH, bM] = tob.split(':').map(Number);
+        const birthMin = bH * 60 + bM;
+        isDay = birthMin >= 360 && birthMin <= 1110;
+    }
+
+    const getPlanetObj = (name: string) => planets.find(p => p.name === name);
+
+    const debLongitudes: Record<string, number> = {
+        "Sun": 190,
+        "Moon": 213,
+        "Mars": 118,
+        "Mercury": 345,
+        "Jupiter": 275,
+        "Venus": 177,
+        "Saturn": 20
+    };
+
+    const dikFavoriteHouses: Record<string, number> = {
+        "Sun": 10,
+        "Mars": 10,
+        "Jupiter": 1,
+        "Mercury": 1,
+        "Moon": 4,
+        "Venus": 4,
+        "Saturn": 7
+    };
+
+    const naturalStrengths: Record<string, number> = {
+        "Sun": 60.00,
+        "Moon": 51.43,
+        "Mars": 17.14,
+        "Mercury": 25.71,
+        "Jupiter": 34.29,
+        "Venus": 42.86,
+        "Saturn": 8.57
+    };
+
+    const minRequirements: Record<string, number> = {
+        "Sun": 390,
+        "Moon": 360,
+        "Mars": 300,
+        "Mercury": 420,
+        "Jupiter": 390,
+        "Venus": 330,
+        "Saturn": 300
+    };
+
+    const targetPlanets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"];
+
+    for (const pName of targetPlanets) {
+        const p = getPlanetObj(pName);
+        if (!p) continue;
+
+        const pRasiIdx = RASIS.indexOf(p.rasi);
+        const pDeg = parseDegree(p.degree);
+        const long = pRasiIdx * 30 + pDeg;
+
+        // A. Sthana Bala
+        const debLong = debLongitudes[pName];
+        const uchchaDiff = Math.min(Math.abs(long - debLong), 360 - Math.abs(long - debLong));
+        const uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
+
+        let kendradiBala = 15;
+        if ([1, 4, 7, 10].includes(p.house)) kendradiBala = 60;
+        else if ([2, 5, 8, 11].includes(p.house)) kendradiBala = 30;
+
+        const sthanaBala = Number((uchchaBala + kendradiBala + 30).toFixed(2));
+
+        // B. Dik Bala
+        const favHouse = dikFavoriteHouses[pName];
+        const hDiff = Math.min(Math.abs(p.house - favHouse), 12 - Math.abs(p.house - favHouse));
+        const dikBala = Number((60 * (6 - hDiff) / 6).toFixed(2));
+
+        // C. Kala Bala
+        let drBala = 0;
+        if (pName === "Mercury") {
+            drBala = 60;
+        } else if (["Sun", "Jupiter", "Venus"].includes(pName)) {
+            drBala = isDay ? 60 : 0;
+        } else {
+            drBala = isDay ? 0 : 60;
+        }
+
+        let tIdx = 0;
+        try {
+            const tithiName = panchang.tithi;
+            const foundIdx = TITHIS.findIndex(t => t.name === tithiName);
+            if (foundIdx !== -1) tIdx = foundIdx % 15;
+        } catch {
+            tIdx = 7;
+        }
+
+        const isBright = panchang.paksha === "Shukla";
+        const isBenefic = ["Moon", "Mercury", "Venus", "Jupiter"].includes(pName);
+
+        let pakshaBala = 30;
+        if (isBright) {
+            pakshaBala = isBenefic ? (30 + tIdx * 2) : (60 - tIdx * 2);
+        } else {
+            pakshaBala = isBenefic ? (60 - tIdx * 2) : (30 + tIdx * 2);
+        }
+
+        const kalaBala = Number((drBala + pakshaBala).toFixed(2));
+
+        // D. Cheshta Bala
+        let cheshtaBala = 30;
+        if (pName === "Sun") {
+            cheshtaBala = panchang.ayana === "Uttarayana" ? 50 : 25;
+        } else if (pName === "Moon") {
+            const moonSunDiff = Math.abs(long - (RASIS.indexOf(panchang.sunSign) * 30));
+            cheshtaBala = Number((20 + (moonSunDiff / 360) * 40).toFixed(2));
+        } else {
+            cheshtaBala = p.isRetrograde ? 60 : 20;
+        }
+
+        // E. Naisargika Bala
+        const naisargikaBala = naturalStrengths[pName];
+
+        // F. Drig Bala
+        let drigBala = 30;
+        const jup = getPlanetObj("Jupiter");
+        const ven = getPlanetObj("Venus");
+        const sat = getPlanetObj("Saturn");
+        const mar = getPlanetObj("Mars");
+
+        if (jup) {
+            const diff = (pRasiIdx - RASIS.indexOf(jup.rasi) + 12) % 12 + 1;
+            if ([1, 5, 9].includes(diff)) drigBala += 15;
+        }
+        if (ven) {
+            const diff = (pRasiIdx - RASIS.indexOf(ven.rasi) + 12) % 12 + 1;
+            if ([1, 4, 7, 10].includes(diff)) drigBala += 10;
+        }
+        if (sat) {
+            const diff = (pRasiIdx - RASIS.indexOf(sat.rasi) + 12) % 12 + 1;
+            if ([1, 4, 7, 8, 10].includes(diff)) drigBala -= 5;
+        }
+        if (mar) {
+            const diff = (pRasiIdx - RASIS.indexOf(mar.rasi) + 12) % 12 + 1;
+            if ([1, 4, 7, 8, 10].includes(diff)) drigBala -= 5;
+        }
+        drigBala = Math.max(10, Math.min(60, drigBala));
+
+        const totalBala = Number((sthanaBala + dikBala + kalaBala + cheshtaBala + naisargikaBala + drigBala).toFixed(2));
+        const rupas = Number((totalBala / 60).toFixed(2));
+        const requirement = minRequirements[pName];
+        const status = totalBala >= requirement ? 'Strong' : 'Moderate';
+
+        shadbalaList.push({
+            planet: pName,
+            planetSanskrit: p.nameSanskrit,
+            sthanaBala,
+            dikBala,
+            kalaBala,
+            cheshtaBala,
+            naisargikaBala,
+            drigBala,
+            totalBala,
+            rupas,
+            requirement,
+            status
+        });
+    }
+
+    return shadbalaList;
+}
+
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     if (!dob || !tob) return getEmptyChartData();
 
@@ -816,6 +1141,28 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     Object.defineProperty(result, 'd40', { get: () => getCoreData().d40, enumerable: true });
     Object.defineProperty(result, 'd45', { get: () => getCoreData().d45, enumerable: true });
     Object.defineProperty(result, 'd60', { get: () => getCoreData().d60, enumerable: true });
+
+    let shadbala: ShadBalaData[] | undefined;
+    Object.defineProperty(result, 'shadbala', {
+        get: () => {
+            if (!shadbala) {
+                shadbala = calculateAllShadBala(getCoreData().planets, dob, tob, result.panchang);
+            }
+            return shadbala;
+        },
+        enumerable: true
+    });
+
+    let ashtakvarga: number[] | undefined;
+    Object.defineProperty(result, 'ashtakvarga', {
+        get: () => {
+            if (!ashtakvarga) {
+                ashtakvarga = calculateSarvaAshtakvarga(getCoreData().planets);
+            }
+            return ashtakvarga;
+        },
+        enumerable: true
+    });
 
     return result;
 }
