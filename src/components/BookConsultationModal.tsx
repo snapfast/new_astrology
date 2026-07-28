@@ -97,10 +97,10 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 <h3 className={`font-normal text-on-surface font-headline tracking-tight ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetTitle}</h3>
                 <div className="flex flex-wrap gap-1.5">
                   <span className={`px-2 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full ${
-                    lang === 'hi' ? 'text-[8px] md:text-[9px] tracking-normal' : 'text-[8px] tracking-wider'
+                    lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider'
                   }`}>{t.durationBadge}</span>
                   <span className={`px-2 py-0.5 bg-accent/10 text-accent font-bold uppercase rounded-full ${
-                    lang === 'hi' ? 'text-[8px] md:text-[9px] tracking-normal' : 'text-[8px] tracking-wider'
+                    lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider'
                   }`}>{t.videoBadge}</span>
                 </div>
               </div>
@@ -119,7 +119,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               href="https://calendly.com/rahulbaliastrology/kundli/"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' })}
               className={`flex items-center justify-center w-full py-2.5 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase shadow-sm shadow-primary/10 ${
-                lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[9px] tracking-[0.15em]'
+                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-[0.15em]'
               }`}
             >
               {t.meetBtn}
@@ -132,7 +132,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 onClose();
               }}
               className={`block w-full text-center font-medium transition-colors ${
-                lang === 'hi' ? 'text-[11px] text-on-surface/70 hover:text-primary' : 'text-[9px] uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
+                lang === 'hi' ? 'text-xs text-on-surface/70 hover:text-primary' : 'text-xs uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
               }`}
             >
               {t.viewPayments}
@@ -143,7 +143,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
         {/* Footer */}
         <div className="mt-4 pt-3 border-t border-outline/10 flex justify-center items-center">
           <div className={`flex items-center gap-1.5 text-on-surface/40 font-body uppercase ${
-             lang === 'hi' ? 'text-[9px] tracking-normal' : 'text-[8px] tracking-wider'
+             lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider'
           }`}>
             <span className="material-symbols-outlined text-base">verified_user</span>
             <span>Secure via Calendly</span>

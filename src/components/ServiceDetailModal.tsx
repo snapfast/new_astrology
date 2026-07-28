@@ -55,7 +55,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
         <div className="flex justify-between items-start mb-3 md:mb-4">
           <div>
             <span className={`font-medium text-accent mb-0.5 block font-label ${
-              lang === 'hi' ? 'text-[10px] tracking-normal' : 'text-[8px] tracking-wider uppercase'
+              lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider uppercase'
             }`}>{t.serviceDetail}</span>
             <h2 id="service-detail-title" className={`font-normal text-on-surface font-headline tracking-tight ${
               lang === 'hi' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl lg:text-2xl'
@@ -91,7 +91,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-medium text-on-surface font-headline mb-0.5">{portion.title}</h4>
-                <p className="text-[11px] md:text-xs text-on-surface/70 font-body leading-relaxed">{portion.expandedDetail}</p>
+                <p className="text-xs md:text-sm text-on-surface/70 font-body leading-relaxed">{portion.expandedDetail}</p>
               </div>
             </div>
           ))}
@@ -103,7 +103,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
             href="https://calendly.com/rahulbaliastrology/kundli/"
             onClick={() => sendGAEvent({ event: 'action_click', action_name: 'detail_modal_google_meet' })}
             className={`w-full py-2 bg-primary text-white border border-accent/30 rounded-full font-bold uppercase text-center shadow-sm shadow-primary/10 ${
-              lang === 'hi' ? 'text-xs md:text-sm' : 'text-[9px] tracking-wider'
+              lang === 'hi' ? 'text-xs md:text-sm' : 'text-xs md:text-sm tracking-wider'
             }`}
           >
             {t.schedule}
