@@ -1,109 +1,47 @@
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
-import BookConsultationModal from './BookConsultationModal';
-import Logo from './Logo';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useLanguage } from '@/context/LanguageContext';
-
-const TRANSLATIONS = {
-  en: {
-    desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
-    services: 'Services',
-    dailyPanchang: 'Daily Panchang',
-    freeKundli: 'Free Kundli',
-    consultation: 'Consultation',
-    premium: 'Premium Appointment',
-    followUs: 'Follow Us',
-    company: 'Company',
-    aboutUs: 'About Us',
-    contact: 'Contact',
-    rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
-    privacy: 'Privacy',
-    terms: 'Terms',
-    faq: 'FAQ'
-  },
-  hi: {
-    desc: 'तारों द्वारा निर्देशित, प्राचीन ज्ञान में निहित। आध्यात्मिक स्पष्टता और संरेखण के लिए पेशेवर वैदिक ज्योतिष सेवाएं।',
-    services: 'सेवाएं',
-    dailyPanchang: 'दैनिक पंचांग',
-    freeKundli: 'मुफ्त कुंडली',
-    consultation: 'परामर्श',
-    premium: 'प्रीमियम अपॉइंटमेंट',
-    followUs: 'हमें फॉलो करें',
-    company: 'कंपनी',
-    aboutUs: 'मेरे बारे में',
-    contact: 'संपर्क करें',
-    rights: 'राहुल बाली ज्योतिष सेवाएं © 2025. सर्वाधिकार सुरक्षित।',
-    privacy: 'गोपनीयता',
-    terms: 'शर्तें',
-    faq: 'FAQ (अक्सर पूछे जाने वाले प्रश्न)'
-  }
-};
+import React from 'react';
 
 const Footer = () => {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-
   return (
-    <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/50 font-body print:hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
+    <footer className="w-full py-16 bg-white border-t border-slate-100 font-body text-[10px] tracking-widest uppercase font-medium">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-8">
         <div className="col-span-1 lg:col-span-1">
-          <Link href="/" className="mb-8 block">
-            <Logo />
-          </Link>
-          <p className="text-on-surface text-sm leading-relaxed mb-10 max-w-xs font-normal">
-            {t.desc}
+          <div className="text-lg font-normal tracking-tight text-slate-900 mb-6 font-headline capitalize">Rahul Bali Astrology</div>
+          <p className="text-slate-500 normal-case tracking-normal font-light mb-8 max-w-xs leading-relaxed font-body">
+            Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity.
           </p>
         </div>
         <div>
-          <h6 className={`text-on-surface mb-8 font-semibold uppercase font-label ${
-            lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
-          }`}>{t.services}</h6>
-          <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
-            <li><Link href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
-            <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.consultation}</button></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.premium}</button></li>
+          <h6 className="text-slate-900 mb-6 font-semibold font-label">Services</h6>
+          <ul className="space-y-4 font-label">
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="/consultation">Consultation</a></li>
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="/premium">Premium Appointment</a></li>
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="/research">Research</a></li>
           </ul>
         </div>
         <div>
-          <h6 className={`text-on-surface mb-8 font-semibold uppercase font-label ${
-            lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
-          }`}>{t.followUs}</h6>
-          <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
-            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_instagram' })} className="text-on-surface font-normal" href="https://www.instagram.com/RahulBaliAstro" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_youtube' })} className="text-on-surface font-normal" href="https://www.youtube.com/@RahulBaliAstrology" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_tumblr' })} className="text-on-surface font-normal" href="https://rahulbaliastrology.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr</a></li>
+          <h6 className="text-slate-900 mb-6 font-semibold font-label">Follow Us</h6>
+          <ul className="space-y-4 font-label">
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="https://www.instagram.com/RahulBaliAstro" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="https://www.youtube.com/@RahulBaliAstrology" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="https://rahulbaliastrology.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr</a></li>
           </ul>
         </div>
         <div>
-          <h6 className={`text-on-surface mb-8 font-semibold uppercase font-label ${
-            lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
-          }`}>{t.company}</h6>
-          <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
-            <li><Link className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
-            <li><Link className="text-on-surface font-normal" href="/contact">{t.contact}</Link></li>
-            <li><Link className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
+          <h6 className="text-slate-900 mb-6 font-semibold font-label">Company</h6>
+          <ul className="space-y-4 font-label">
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="/about">About Us</a></li>
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="/contact">Contact</a></li>
+            <li><a className="text-slate-500 hover:text-primary transition-colors" href="/donate">Donate</a></li>
           </ul>
         </div>
       </div>
-      <div className={`max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all ${
-        lang === 'hi' ? 'text-sm tracking-normal' : 'text-[10px] tracking-widest'
-      }`}>
-        <Link href="/" className="text-center md:text-left">{t.rights}</Link>
-        <div className="flex gap-10">
-          <Link href="/privacy">{t.privacy}</Link>
-          <Link href="/terms">{t.terms}</Link>
+      <div className="max-w-7xl mx-auto px-8 mt-16 pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 font-label">
+        <div>Rahul Bali Jyotish Services © 2025. All rights reserved.</div>
+        <div className="flex gap-6">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
         </div>
       </div>
-
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-      />
     </footer>
   );
 };
