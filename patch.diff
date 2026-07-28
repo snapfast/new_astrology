@@ -1,0 +1,12 @@
+--- src/app/horoscope/HoroscopeClientPage.tsx
++++ src/app/horoscope/HoroscopeClientPage.tsx
+@@ -356,9 +356,9 @@
+               >
+                 {t.birthInfo}
+               </h2>
+-              <span className="material-symbols-outlined text-on-surface/60 transition-transform duration-300" style={{ transform: birthDetailsExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+-                expand_more
++              <span className="material-symbols-outlined text-on-surface/60 transition-colors">
++                {birthDetailsExpanded ? 'close' : 'edit'}
+               </span>
+             </div>

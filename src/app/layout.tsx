@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
 import { Poppins, Akshar } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
@@ -7,41 +6,102 @@ import BackToTop from "@/components/BackToTop";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-lora",
+const akshar = Akshar({
+  subsets: ["latin", "devanagari"],
+  variable: "--font-akshar",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Rahul Bali Astrology | ।। ॐ नमो भगवते वासुदेवाय नम: ।।",
-  description: "Jyotish guidance of Pandit Rahul Bali Ji, providing personalized horoscopes, astrology readings, and spiritual consultations. Align with fortune and truth.",
+  metadataBase: new URL("https://astro.rahulbali.in"),
+  title: {
+    default: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
+    template: "%s | Rahul Bali Astrology",
+  },
+  description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations to align with your true purpose.",
+  keywords: ["Vedic Astrology", "Horoscope", "Birth Chart", "Spiritual Consultation", "Pandit Rahul Bali", "Astrology Readings", "Kundli", "Jyotish"],
+  authors: [{ name: "Pandit Rahul Bali" }],
+  creator: "Pandit Rahul Bali",
+  publisher: "Rahul Bali Astrology",
+  alternates: {
+    canonical: "https://astro.rahulbali.in",
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
+    description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
+    url: "https://astro.rahulbali.in",
+    siteName: "Rahul Bali Astrology",
+    images: [
+      {
+        url: "/og-image.png", // Assuming an OG image will be provided or exists
+        width: 1200,
+        height: 630,
+        alt: "Rahul Bali Astrology",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
+    description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = "";
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
+          nonce={nonce}
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+          nonce={nonce}
         />
       </head>
       <body
-        className={`${inter.variable} ${lora.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${poppins.variable} ${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
-        {children}
         <LanguageProvider>
           <JsonLd
             nonce={nonce}
@@ -69,6 +129,7 @@ export default function RootLayout({
           <BackToTop />
         </LanguageProvider>
       </body>
+      <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />
     </html>
   );
 }
