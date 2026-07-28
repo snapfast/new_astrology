@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ChartGeneration from '@/components/ChartGeneration';
@@ -13,9 +12,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <Suspense fallback={<div className="py-20 text-center">Loading Chart Generator...</div>}>
-        <ChartGeneration />
-      </Suspense>
+      <ChartGeneration />
       <CelestialForecasts />
       <ExpertConsultations />
       <VoicesOfInsight />

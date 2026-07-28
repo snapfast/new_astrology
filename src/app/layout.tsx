@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
+import { Poppins, Akshar } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -28,7 +30,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const nonce = "";
   return (
     <html lang="en" className="scroll-smooth">
       <head>
