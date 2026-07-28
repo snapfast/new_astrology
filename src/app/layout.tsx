@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
+import { Poppins, Akshar } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google'
+import JsonLd from "@/components/JsonLd";
+import BackToTop from "@/components/BackToTop";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,6 +42,32 @@ export default function RootLayout({
         className={`${inter.variable} ${lora.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         {children}
+        <LanguageProvider>
+          <JsonLd
+            nonce={nonce}
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Pandit Rahul Bali",
+              "url": "https://astro.rahulbali.in",
+              "image": "https://astro.rahulbali.in/og-image.png",
+              "sameAs": [
+                "https://www.instagram.com/RahulBaliAstro",
+                "https://www.youtube.com/@RahulBaliAstrology",
+                "https://www.linkedin.com/in/rahulbaliastrology/",
+                "https://www.threads.net/@rahulbaliastro"
+              ],
+              "jobTitle": "Vedic Astrologer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Rahul Bali Astrology"
+              },
+              "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology based in Gurugram, India, providing personalized horoscopes and spiritual consultations."
+            }}
+          />
+          {children}
+          <BackToTop />
+        </LanguageProvider>
       </body>
     </html>
   );
