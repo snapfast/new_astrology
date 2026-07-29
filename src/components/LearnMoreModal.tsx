@@ -63,7 +63,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-md md:max-w-xl"
+      maxWidth="max-w-md md:max-w-2xl"
       ariaLabelledBy="learn-more-title"
       ariaDescribedBy="learn-more-desc"
     >
