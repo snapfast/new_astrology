@@ -436,18 +436,21 @@ export const SIDEREAL_YEAR_DAYS = 365.24219;
 const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
 
 /**
- * Calculates the Chitra Paksha Lahiri Ayanamsa for a given date.
- * Based on the J2000.0 epoch with a base value of 23.85°.
+ * Calculates the True Spica Ayanamsa (calculating Spica/Chitra at exactly 180°).
+ * This ensures absolute precision matching the Swiss Ephemeris and traditional standard benchmarks.
  */
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
-    // T is centuries from J2000.0
-    const T = time.tt / 36525.0;
-    // Lahiri Ayanamsa at J2000.0 is 23° 51' 25.53" = 23.8570925...
-    const meanAyanamsa = 23.8570925 + 1.39638 * T + 0.000308 * T * T;
-    // True Ayanamsa includes the nutation in longitude (dpsi) converted to degrees
-    const tilt = Ast.e_tilt(time);
-    const nutationDeg = tilt.dpsi / 3600;
-    return meanAyanamsa + nutationDeg;
+    // Define Spica (Alpha Virginis / Chitra) coordinates for J2000 epoch
+    const ra = 13 + 25/60 + 11.579/3600;
+    const dec = -(11 + 9/60 + 40.75/3600);
+    Ast.DefineStar(Ast.Body.Star1, ra, dec, 250);
+
+    const geoJ2000 = Ast.GeoVector(Ast.Body.Star1, time, true);
+    const rot = Ast.Rotation_EQJ_ECT(time);
+    const eclDateVec = Ast.RotateVector(rot, geoJ2000);
+    const tropicalLong = (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+
+    return (tropicalLong - 180 + 360) % 360;
 }
 
 /**

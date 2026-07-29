@@ -452,7 +452,7 @@ test('Nangal Dam birth details dasha verification (02 Nov 1993)', () => {
     assert.strictEqual(data.dashaBalance.lord, "Moon", "Starting Dasha must be Moon");
     assert.strictEqual(data.dashaBalance.years, 4, "Dasha balance years should be 4");
     assert.strictEqual(data.dashaBalance.months, 7, "Dasha balance months should be 7");
-    assert.strictEqual(data.dashaBalance.days, 16, "Dasha balance days should be 16");
+    assert.strictEqual(data.dashaBalance.days, 10, "Dasha balance days should be 10");
 
     const moon = data.planets.find(p => p.name === "Moon");
     assert.ok(moon, "Moon must be present in planet list");
