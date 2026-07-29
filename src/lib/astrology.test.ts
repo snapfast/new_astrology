@@ -468,4 +468,21 @@ test('calculateSarvaAshtakvarga and calculateAllShadBala logic validations', () 
         assert.ok(item.totalBala > 0, `${item.planet} should have non-zero totalBala`);
         assert.strictEqual(item.rupas, Number((item.totalBala / 60).toFixed(2)), `${item.planet} rupas calculation is incorrect`);
     }
+
+    // 3. Assert Bhava Bala is computed for exactly 12 houses and values are valid
+    assert.ok(data.bhavabala, "Bhava Bala should be calculated");
+    assert.strictEqual(data.bhavabala.length, 12, "Bhava Bala must be computed for exactly 12 houses");
+    for (const bhava of data.bhavabala) {
+        assert.ok(bhava.house >= 1 && bhava.house <= 12, "House number must be 1 to 12");
+        assert.ok(bhava.rasi, "Rasi must be present");
+        assert.ok(bhava.rasiSanskrit, "Rasi Sanskrit must be present");
+        assert.ok(bhava.lord, "Lord must be present");
+        assert.ok(bhava.lordSanskrit, "Lord Sanskrit must be present");
+        assert.ok(bhava.adhipatiBala > 0, "Adhipati Bala must be non-zero");
+        assert.ok(bhava.digBala >= 0 && bhava.digBala <= 60, "Dig Bala must be between 0 and 60");
+        assert.ok(bhava.drishtiBala >= 10 && bhava.drishtiBala <= 60, "Drishti Bala must be between 10 and 60");
+        assert.ok(bhava.totalBala > 0, "Total Bala must be positive");
+        assert.strictEqual(bhava.rupas, Number((bhava.totalBala / 60).toFixed(2)), "Bhava rupas calculation is incorrect");
+        assert.ok(bhava.status === 'Strong' || bhava.status === 'Moderate', "Status must be Strong or Moderate");
+    }
 });

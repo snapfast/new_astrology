@@ -115,6 +115,11 @@ const TRANSLATIONS = {
     status: "Status",
     strong: "Strong",
     moderate: "Moderate",
+    bhavaBalaTitle: "Bhava Bala (House Strengths)",
+    bhavaBalaDesc: "Bhava Bala is a mathematical calculation of house strength including Lord Strength (Adhipati Bala), Directional Strength (Dig Bala), and Aspect Strength (Drishti Bala).",
+    adhipati: "Lord Strength",
+    bhavaDig: "Directional",
+    bhavaDrishti: "Aspect",
     ashtakvargaTitle: "Sarva Ashtakvarga (SAV)",
     ashtakvargaDesc: "Sarva Ashtakvarga is a composite strength map of the zodiac signs. Houses with 28+ points are highly auspicious, 25-27 are neutral, and under 25 are weaker zones.",
     rasiPoints: "SAV points",
@@ -212,6 +217,11 @@ const TRANSLATIONS = {
     status: "स्थिति",
     strong: "मजबूत",
     moderate: "सामान्य",
+    bhavaBalaTitle: "भाव बल (भावों की शक्ति)",
+    bhavaBalaDesc: "भाव बल कुंडली के १२ भावों की गणितीय शक्ति है, जिसमें भावाधिपति बल (स्वामी की शक्ति), दिग् बल (दिशात्मक शक्ति) और दृष्टि बल (ग्रहों की दृष्टि शक्ति) शामिल हैं।",
+    adhipati: "भावाधिपति बल",
+    bhavaDig: "दिग् बल",
+    bhavaDrishti: "दृष्टि बल",
     ashtakvargaTitle: "सर्वाष्टकवर्ग (SAV)",
     ashtakvargaDesc: "सर्वाष्टकवर्ग राशियों का एक समग्र शक्ति मानचित्र है। जिन भावों में 28+ बिंदु होते हैं वे अत्यधिक शुभ होते हैं, 25-27 सामान्य होते हैं, और 25 से कम बिंदु वाले भाव कमजोर क्षेत्र माने जाते हैं।",
     rasiPoints: "अष्टकवर्ग बिंदु",
@@ -1273,6 +1283,97 @@ const HoroscopeContent = () => {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Bhava Bala Section */}
+        <div className="space-y-6 pt-4">
+          <div className="border-b border-outline pb-3">
+            <h2 className="text-2xl font-normal font-headline text-on-surface">
+              {t.bhavaBalaTitle}
+            </h2>
+            <p className="text-sm text-on-surface/70 font-body mt-1 leading-relaxed">
+              {t.bhavaBalaDesc}
+            </p>
+          </div>
+
+          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm font-body">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-white border-b border-outline">
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.house}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.rasi}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.rasiLord}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.adhipati}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.bhavaDig}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.bhavaDrishti}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.total}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.rupas}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.minReq}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.status}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-outline">
+                {chartData.bhavabala?.map((item, idx) => {
+                  const getOrdinal = (n: number) => {
+                    const s = ["th", "st", "nd", "rd"];
+                    const v = n % 100;
+                    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+                  };
+                  const houseLabel = lang === "hi"
+                    ? `${item.house}`
+                    : getOrdinal(item.house);
+
+                  return (
+                    <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                      <td className="px-4 py-3 text-sm font-semibold text-on-surface">
+                        {houseLabel}
+                      </td>
+                      <td className={cn("px-4 py-3 text-sm text-on-surface text-center", lang === "hi" ? "font-hindi" : "")}>
+                        {lang === "hi" ? item.rasiSanskrit : item.rasi}
+                      </td>
+                      <td className={cn("px-4 py-3 text-sm text-on-surface text-center font-semibold", lang === "hi" ? "font-hindi" : "")}>
+                        {lang === "hi" ? item.lordSanskrit : item.lord}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.adhipatiBala}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.digBala}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.drishtiBala}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface text-center font-bold tabular-nums">{item.totalBala}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface text-center font-bold tabular-nums">{item.rupas}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.requirement}</td>
+                      <td className="px-4 py-3 text-sm text-center font-semibold">
+                        <span className={cn(
+                          "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase font-label",
+                          item.status === 'Strong' ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"
+                        )}>
+                          {item.status === 'Strong' ? t.strong : t.moderate}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
