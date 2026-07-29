@@ -129,21 +129,6 @@ export interface ShadBalaData {
     status: 'Strong' | 'Moderate';
 }
 
-export interface BhavaBalaData {
-    house: number;
-    rasi: string;
-    rasiSanskrit: string;
-    lord: string;
-    lordSanskrit: string;
-    adhipatiBala: number;
-    digBala: number;
-    drishtiBala: number;
-    totalBala: number;
-    rupas: number;
-    requirement: number;
-    status: 'Strong' | 'Moderate';
-}
-
 export interface ChartData {
     planets: PlanetData[];
     d1: DivisionalChartData;
@@ -168,7 +153,6 @@ export interface ChartData {
     dashaBalance?: DashaBalance;
     shadbala?: ShadBalaData[];
     ashtakvarga?: number[];
-    bhavabala?: BhavaBalaData[];
 }
 
 export const NAKSHATRA_NAMES = [
@@ -534,8 +518,7 @@ function getEmptyChartData(): ChartData {
         mahadashas: [],
         panchang: emptyPanchang,
         shadbala: [],
-        ashtakvarga: [],
-        bhavabala: []
+        ashtakvarga: []
     };
 }
 
@@ -1041,103 +1024,6 @@ export function calculateAllShadBala(
     return shadbalaList;
 }
 
-export function calculateAllBhavaBala(
-    planets: PlanetData[],
-    houseRasis: { [key: number]: number },
-    shadbalaList: ShadBalaData[]
-): BhavaBalaData[] {
-    const bhavaBalaList: BhavaBalaData[] = [];
-
-    const getRasiGroup = (rasiNum: number): 'Nara' | 'Jalachara' | 'Chatushpada' | 'Keeta' => {
-        if ([3, 6, 7, 11].includes(rasiNum)) return 'Nara';
-        if ([4, 10, 12].includes(rasiNum)) return 'Jalachara';
-        if ([1, 2, 5, 9].includes(rasiNum)) return 'Chatushpada';
-        if (rasiNum === 8) return 'Keeta';
-        return 'Nara';
-    };
-
-    const getPlanetObj = (name: string) => planets.find(p => p.name === name);
-
-    for (let h = 1; h <= 12; h++) {
-        const rasiNum = houseRasis[h];
-        if (!rasiNum) continue;
-
-        const rasiIdx = rasiNum - 1;
-        const rasiName = RASIS[rasiIdx];
-        const rasiSanskrit = RASI_FULL_NAMES[rasiIdx].sanskrit;
-
-        const lordName = RASI_LORDS[rasiIdx];
-        const lordSanskrit = PLANET_NAMES[lordName]?.sanskrit || lordName;
-
-        // 1. Adhipati Bala
-        const lordShadBala = shadbalaList.find(s => s.planet === lordName);
-        const adhipatiBala = lordShadBala ? lordShadBala.totalBala : 300; // default/fallback
-
-        // 2. Bhava Dig Bala
-        const group = getRasiGroup(rasiNum);
-        let favHouse = 1;
-        if (group === 'Nara') favHouse = 1;
-        else if (group === 'Jalachara') favHouse = 4;
-        else if (group === 'Chatushpada') favHouse = 10;
-        else if (group === 'Keeta') favHouse = 7;
-
-        const hDiff = Math.min(Math.abs(h - favHouse), 12 - Math.abs(h - favHouse));
-        const digBala = Number((60 * (6 - hDiff) / 6).toFixed(2));
-
-        // 3. Bhava Drishti Bala
-        let drishtiBala = 30; // base value
-        const jup = getPlanetObj("Jupiter");
-        const ven = getPlanetObj("Venus");
-        const merc = getPlanetObj("Mercury");
-        const moon = getPlanetObj("Moon");
-        const mar = getPlanetObj("Mars");
-        const sat = getPlanetObj("Saturn");
-        const sun = getPlanetObj("Sun");
-
-        // Helper to check aspect diff
-        const checkAspect = (planet: PlanetData | undefined, aspectDiffs: number[], score: number) => {
-            if (!planet) return;
-            const pRasiIdx = RASIS.indexOf(planet.rasi);
-            const diff = (rasiIdx - pRasiIdx + 12) % 12 + 1; // 1 to 12
-            if (aspectDiffs.includes(diff)) {
-                drishtiBala += score;
-            }
-        };
-
-        checkAspect(jup, [1, 5, 9], 15);
-        checkAspect(ven, [1, 4, 7, 10], 10);
-        checkAspect(merc, [1, 7], 10);
-        checkAspect(moon, [1, 7], 10);
-        checkAspect(mar, [1, 4, 7, 8], -5);
-        checkAspect(sat, [1, 3, 7, 10], -5);
-        checkAspect(sun, [1, 7], -5);
-
-        drishtiBala = Math.max(10, Math.min(60, drishtiBala));
-
-        const totalBala = Number((adhipatiBala + digBala + drishtiBala).toFixed(2));
-        const rupas = Number((totalBala / 60).toFixed(2));
-        const requirement = 400; // standardized minimum house requirement
-        const status = totalBala >= requirement ? 'Strong' : 'Moderate';
-
-        bhavaBalaList.push({
-            house: h,
-            rasi: rasiName,
-            rasiSanskrit,
-            lord: lordName,
-            lordSanskrit,
-            adhipatiBala,
-            digBala,
-            drishtiBala,
-            totalBala,
-            rupas,
-            requirement,
-            status
-        });
-    }
-
-    return bhavaBalaList;
-}
-
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string): ChartData {
     if (!dob || !tob) return getEmptyChartData();
 
@@ -1274,17 +1160,6 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
                 ashtakvarga = calculateSarvaAshtakvarga(getCoreData().planets);
             }
             return ashtakvarga;
-        },
-        enumerable: true
-    });
-
-    let bhavabala: BhavaBalaData[] | undefined;
-    Object.defineProperty(result, 'bhavabala', {
-        get: () => {
-            if (!bhavabala) {
-                bhavabala = calculateAllBhavaBala(getCoreData().planets, result.d1.houseRasis, result.shadbala || []);
-            }
-            return bhavabala;
         },
         enumerable: true
     });
