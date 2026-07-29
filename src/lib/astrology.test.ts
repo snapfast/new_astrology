@@ -440,6 +440,25 @@ test('getCombustionDetails returns correct transition structures for Mercury and
     }
 });
 
+test('Nangal Dam birth details dasha verification (02 Nov 1993)', () => {
+    const dob = "1993-11-02";
+    const tob = "13:10";
+    const lat = "31.3850";
+    const lon = "76.3750";
+
+    const data = generateAstrologyData(dob, tob, lat, lon);
+
+    assert.ok(data.dashaBalance, "Dasha balance must exist");
+    assert.strictEqual(data.dashaBalance.lord, "Moon", "Starting Dasha must be Moon");
+    assert.strictEqual(data.dashaBalance.years, 4, "Dasha balance years should be 4");
+    assert.strictEqual(data.dashaBalance.months, 7, "Dasha balance months should be 7");
+    assert.strictEqual(data.dashaBalance.days, 10, "Dasha balance days should be 10");
+
+    const moon = data.planets.find(p => p.name === "Moon");
+    assert.ok(moon, "Moon must be present in planet list");
+    assert.strictEqual(moon.nakshatra, "Rohini", "Moon nakshatra should be Rohini");
+});
+
 test('calculateSarvaAshtakvarga and calculateAllShadBala logic validations', () => {
     const dob = "1995-07-24";
     const tob = "17:11";
