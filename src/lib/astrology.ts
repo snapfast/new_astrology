@@ -432,7 +432,7 @@ const SHASHTIAMSHA_WIDTH = 0.5;
 const NAKSHATRA_WIDTH = 360 / 27;
 const PADA_WIDTH = 360 / 108;
 const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
-export const SIDEREAL_YEAR_DAYS = 365.25636;
+export const SIDEREAL_YEAR_DAYS = 365.24219;
 const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
 
 /**
@@ -442,8 +442,12 @@ const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
     // T is centuries from J2000.0
     const T = time.tt / 36525.0;
-    // Lahiri Ayanamsa at J2000.0 is 23° 51' 25.53" = 23.857091666...
-    return 23.85709 + 1.39638 * T + 0.000308 * T * T;
+    // Lahiri Ayanamsa at J2000.0 is 23° 51' 25.53" = 23.8570925...
+    const meanAyanamsa = 23.8570925 + 1.39638 * T + 0.000308 * T * T;
+    // True Ayanamsa includes the nutation in longitude (dpsi) converted to degrees
+    const tilt = Ast.e_tilt(time);
+    const nutationDeg = tilt.dpsi / 3600;
+    return meanAyanamsa + nutationDeg;
 }
 
 /**
