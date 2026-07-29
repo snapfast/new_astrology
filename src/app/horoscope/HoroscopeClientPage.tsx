@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import KundliChart from "@/components/KundliChart";
 import VimshottariDasha from "@/components/VimshottariDasha";
+import AshtakvargaChart from "@/components/AshtakvargaChart";
 import { generateAstrologyData } from "@/lib/astrology";
 import ExploreTools from "@/components/ExploreTools";
 import ChartGeneration from "@/components/ChartGeneration";
@@ -100,6 +101,23 @@ const TRANSLATIONS = {
     northIndianStyle:
       "Traditional North Indian Style Representation of Divisional Charts",
     loading: "Loading your destiny...",
+    shadBalaTitle: "Shad Bala (Planetary Strengths)",
+    shadBalaDesc: "Shad Bala is a comprehensive mathematical calculation of six-fold planetary strength including Positional, Directional, Temporal, Motional, Natural, and Aspect strengths.",
+    sthana: "Sthana",
+    dik: "Dik",
+    kala: "Kala",
+    cheshta: "Cheshta",
+    naisargika: "Naisargika",
+    drig: "Drig",
+    total: "Total",
+    rupas: "Rupas",
+    minReq: "Req.",
+    status: "Status",
+    strong: "Strong",
+    moderate: "Moderate",
+    ashtakvargaTitle: "Sarva Ashtakvarga (SAV)",
+    ashtakvargaDesc: "Sarva Ashtakvarga is a composite strength map of the zodiac signs. Houses with 28+ points are highly auspicious, 25-27 are neutral, and under 25 are weaker zones.",
+    rasiPoints: "SAV points",
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -180,6 +198,23 @@ const TRANSLATIONS = {
     northIndianStyle:
       "विभागीय चार्ट का पारंपरिक उत्तर भारतीय शैली प्रतिनिधित्व",
     loading: "आपका भाग्य लोड हो रहा है...",
+    shadBalaTitle: "षडबल (ग्रहों का बल)",
+    shadBalaDesc: "षडबल छह प्रकार के ग्रह बलों का एक व्यापक गणितीय विश्लेषण है, जिसमें स्थान बल, दिग बल, काल बल, चेष्टा बल, नैसर्गिक बल और दृग बल शामिल हैं।",
+    sthana: "स्थान बल",
+    dik: "दिग बल",
+    kala: "काल बल",
+    cheshta: "चेष्टा बल",
+    naisargika: "नैसर्गिक",
+    drig: "दृग बल",
+    total: "कुल",
+    rupas: "रुपा",
+    minReq: "आवश्यक",
+    status: "स्थिति",
+    strong: "मजबूत",
+    moderate: "सामान्य",
+    ashtakvargaTitle: "सर्वाष्टकवर्ग (SAV)",
+    ashtakvargaDesc: "सर्वाष्टकवर्ग राशियों का एक समग्र शक्ति मानचित्र है। जिन भावों में 28+ बिंदु होते हैं वे अत्यधिक शुभ होते हैं, 25-27 सामान्य होते हैं, और 25 से कम बिंदु वाले भाव कमजोर क्षेत्र माने जाते हैं।",
+    rasiPoints: "अष्टकवर्ग बिंदु",
   },
 };
 
@@ -1161,6 +1196,159 @@ const HoroscopeContent = () => {
             dashaBalance={chartData.dashaBalance}
             lang={lang}
           />
+        </div>
+
+        {/* Shad Bala Section */}
+        <div className="space-y-6 pt-4">
+          <div className="border-b border-outline pb-3">
+            <h2 className="text-2xl font-normal font-headline text-on-surface">
+              {t.shadBalaTitle}
+            </h2>
+            <p className="text-sm text-on-surface/70 font-body mt-1 leading-relaxed">
+              {t.shadBalaDesc}
+            </p>
+          </div>
+
+          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm font-body">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-white border-b border-outline">
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.planet}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.sthana}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.dik}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.kala}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.cheshta}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.naisargika}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.drig}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.total}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.rupas}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.minReq}
+                  </th>
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
+                    {t.status}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-outline">
+                {chartData.shadbala?.map((item, idx) => (
+                  <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                    <td className={cn("px-4 py-3 text-sm font-semibold text-on-surface", lang === "hi" ? "font-hindi" : "")}>
+                      {lang === "hi" ? item.planetSanskrit : item.planet}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.sthanaBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.dikBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.kalaBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.cheshtaBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.naisargikaBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.drigBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center font-bold tabular-nums">{item.totalBala}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center font-bold tabular-nums">{item.rupas}</td>
+                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.requirement}</td>
+                    <td className="px-4 py-3 text-sm text-center font-semibold">
+                      <span className={cn(
+                        "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase font-label",
+                        item.status === 'Strong' ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"
+                      )}>
+                        {item.status === 'Strong' ? t.strong : t.moderate}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Sarva Ashtakvarga Section */}
+        <div className="space-y-6 pt-4">
+          <div className="border-b border-outline pb-3">
+            <h2 className="text-2xl font-normal font-headline text-on-surface">
+              {t.ashtakvargaTitle}
+            </h2>
+            <p className="text-sm text-on-surface/70 font-body mt-1 leading-relaxed">
+              {t.ashtakvargaDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* SAV North Indian Chart */}
+            <div className="bg-white border border-outline rounded-3xl p-6 shadow-sm flex flex-col items-center">
+              <h3 className="text-lg font-bold text-accent uppercase font-label mb-4 text-center">
+                {lang === "hi" ? "सर्वाष्टकवर्ग चक्र" : "Sarva Ashtakvarga Kundli"}
+              </h3>
+              <AshtakvargaChart ashtakvarga={chartData.ashtakvarga || []} houseRasis={chartData.d1.houseRasis} />
+              <p className="text-[11px] text-on-surface/60 font-body mt-4 text-center max-w-sm">
+                {lang === "hi"
+                  ? "चक्र में दिए गए बिंदु प्रत्येक भाव/राशि की कुल क्षमता दर्शाते हैं। केंद्र स्थान में उच्च बिंदु शुभ फलदायक होते हैं।"
+                  : "The points in each house represent the total composite energy of that sign. High points in key houses yield powerful results."}
+              </p>
+            </div>
+
+            {/* SAV Points Table */}
+            <div className="bg-white border border-outline rounded-3xl p-6 shadow-sm overflow-hidden flex flex-col">
+              <h3 className="text-lg font-bold text-accent uppercase font-label mb-4">
+                {lang === "hi" ? "राशि अनुसार अष्टकवर्ग बिंदु" : "Ashtakvarga Points per Sign"}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {[
+                  { en: "Aries", hi: "मेष" },
+                  { en: "Taurus", hi: "वृषभ" },
+                  { en: "Gemini", hi: "मिथुन" },
+                  { en: "Cancer", hi: "कर्क" },
+                  { en: "Leo", hi: "सिंह" },
+                  { en: "Virgo", hi: "कन्या" },
+                  { en: "Libra", hi: "तुला" },
+                  { en: "Scorpio", hi: "वृश्चिक" },
+                  { en: "Sagittarius", hi: "धनु" },
+                  { en: "Capricorn", hi: "मकर" },
+                  { en: "Aquarius", hi: "कुम्भ" },
+                  { en: "Pisces", hi: "मीन" }
+                ].map((sign, idx) => {
+                  const pts = chartData.ashtakvarga ? chartData.ashtakvarga[idx] : 0;
+                  let bgClass = "bg-surface-container-low";
+                  let borderClass = "border-outline/50";
+                  if (pts >= 30) {
+                    bgClass = "bg-green-50/50";
+                    borderClass = "border-green-200";
+                  } else if (pts < 25) {
+                    bgClass = "bg-amber-50/50";
+                    borderClass = "border-amber-200";
+                  }
+
+                  return (
+                    <div key={idx} className={cn("p-3 rounded-2xl border flex flex-col justify-between transition-colors", bgClass, borderClass)}>
+                      <span className={cn("text-xs font-bold text-on-surface uppercase tracking-wider font-label", lang === "hi" ? "font-hindi" : "")}>
+                        {lang === "hi" ? sign.hi : sign.en}
+                      </span>
+                      <div className="flex justify-between items-baseline mt-2">
+                        <span className="text-[10px] text-on-surface/60 font-body">{t.rasiPoints}</span>
+                        <span className="text-xl font-extrabold text-on-surface font-headline tabular-nums">{pts}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Verification CTA Section */}

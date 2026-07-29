@@ -439,3 +439,33 @@ test('getCombustionDetails returns correct transition structures for Mercury and
         assert.ok(mercuryCombust.previous.start instanceof Date, "Previous start must be a Date");
     }
 });
+
+test('calculateSarvaAshtakvarga and calculateAllShadBala logic validations', () => {
+    const dob = "1995-07-24";
+    const tob = "17:11";
+    const lat = "28.6139";
+    const lon = "77.2090";
+
+    const data = generateAstrologyData(dob, tob, lat, lon);
+
+    // 1. Assert Sarva Ashtakvarga (SAV) points sum to exactly 337
+    assert.ok(data.ashtakvarga, "Ashtakvarga should be calculated");
+    assert.strictEqual(data.ashtakvarga.length, 12, "Ashtakvarga should have exactly 12 rasi scores");
+    const totalPoints = data.ashtakvarga.reduce((sum, val) => sum + val, 0);
+    assert.strictEqual(totalPoints, 337, "Sarva Ashtakvarga (SAV) grand total of points must equal exactly 337");
+
+    // 2. Assert each of the 7 planets has non-zero values for all 6 Shad Bala categories
+    assert.ok(data.shadbala, "Shad Bala should be calculated");
+    assert.strictEqual(data.shadbala.length, 7, "Shad Bala must be computed for exactly 7 planets");
+
+    for (const item of data.shadbala) {
+        assert.ok(item.sthanaBala > 0, `${item.planet} should have non-zero sthanaBala`);
+        assert.ok(item.dikBala >= 0, `${item.planet} should have a valid dikBala`);
+        assert.ok(item.kalaBala > 0, `${item.planet} should have non-zero kalaBala`);
+        assert.ok(item.cheshtaBala > 0, `${item.planet} should have non-zero cheshtaBala`);
+        assert.ok(item.naisargikaBala > 0, `${item.planet} should have non-zero naisargikaBala`);
+        assert.ok(item.drigBala > 0, `${item.planet} should have non-zero drigBala`);
+        assert.ok(item.totalBala > 0, `${item.planet} should have non-zero totalBala`);
+        assert.strictEqual(item.rupas, Number((item.totalBala / 60).toFixed(2)), `${item.planet} rupas calculation is incorrect`);
+    }
+});
