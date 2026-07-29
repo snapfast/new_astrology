@@ -432,7 +432,7 @@ const SHASHTIAMSHA_WIDTH = 0.5;
 const NAKSHATRA_WIDTH = 360 / 27;
 const PADA_WIDTH = 360 / 108;
 const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
-export const SIDEREAL_YEAR_DAYS = 365.25636;
+export const SIDEREAL_YEAR_DAYS = 365.24219;
 const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
 
 /**
