@@ -14,6 +14,7 @@ const TRANSLATIONS = {
     labelTob: "Time of Birth",
     labelPob: "Place of Birth",
     placeholderPob: "City, Country",
+    placeholderName: "The earthly name of the soul...",
     recentProfiles: "Recent Profiles",
     searching: "Searching cities...",
     submitBtn: "Generate Horoscope Chart",
@@ -33,6 +34,7 @@ const TRANSLATIONS = {
     labelTob: "जन्म समय",
     labelPob: "जन्म स्थान",
     placeholderPob: "शहर, देश",
+    placeholderName: "आत्मा का सांसारिक नाम...",
     recentProfiles: "हाल के प्रोफाइल",
     searching: "शहर खोजे जा रहे हैं...",
     submitBtn: "कुंडली बनाएं",
@@ -511,7 +513,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                     onFocus={() => setShowHistory(true)}
                     onKeyDown={handleHistoryKeyDown}
                     className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
-                    placeholder="Rahul Bali"
+                    placeholder={t.placeholderName}
                     type="text"
                     autoComplete="off"
                     maxLength={100}
