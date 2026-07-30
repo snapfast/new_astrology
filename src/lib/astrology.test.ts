@@ -483,8 +483,23 @@ test('calculateSarvaAshtakvarga and calculateAllShadBala logic validations', () 
         assert.ok(item.kalaBala > 0, `${item.planet} should have non-zero kalaBala`);
         assert.ok(item.cheshtaBala > 0, `${item.planet} should have non-zero cheshtaBala`);
         assert.ok(item.naisargikaBala > 0, `${item.planet} should have non-zero naisargikaBala`);
-        assert.ok(item.drigBala > 0, `${item.planet} should have non-zero drigBala`);
+        assert.ok(item.drigBala !== 0, `${item.planet} should have non-zero drigBala`);
         assert.ok(item.totalBala > 0, `${item.planet} should have non-zero totalBala`);
         assert.strictEqual(item.rupas, Number((item.totalBala / 60).toFixed(2)), `${item.planet} rupas calculation is incorrect`);
+
+        // Assert newly added sub-balas mathematical constraints
+        const expectedSthana = Number((item.uchchaBala + item.saptavargajaBala + item.ojhayugmarasiamsaBala + item.kendradiBala + item.drekkanaBala).toFixed(2));
+        assert.strictEqual(item.sthanaBala, expectedSthana, `${item.planet} sthanaBala sum mismatch`);
+
+        const expectedKala = Number((item.nathonnathaBala + item.pakshaBala + item.tribhagaBala + item.varshaBala + item.masaBala + item.dinaBala + item.horaBala + item.ayanaBala + item.yudhdhaBala).toFixed(2));
+        assert.strictEqual(item.kalaBala, expectedKala, `${item.planet} kalaBala sum mismatch`);
+
+        const expectedTotal = Number((item.sthanaBala + item.dikBala + item.kalaBala + item.cheshtaBala + item.naisargikaBala + item.drigBala).toFixed(2));
+        assert.strictEqual(item.totalBala, expectedTotal, `${item.planet} totalBala sum mismatch`);
+
+        assert.strictEqual(item.ratio, Number((item.rupas / item.requirement).toFixed(2)), `${item.planet} ratio mismatch`);
+
+        assert.strictEqual(item.ishtaPhala, Number(Math.sqrt(item.uchchaBala * item.cheshtaBala).toFixed(2)), `${item.planet} ishtaPhala mismatch`);
+        assert.strictEqual(item.kashtaPhala, Number(Math.sqrt((60 - item.uchchaBala) * (60 - item.cheshtaBala)).toFixed(2)), `${item.planet} kashtaPhala mismatch`);
     }
 });

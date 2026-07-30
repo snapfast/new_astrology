@@ -117,8 +117,22 @@ export interface PanchangData {
 export interface ShadBalaData {
     planet: string;
     planetSanskrit: string;
+    uchchaBala: number;
+    saptavargajaBala: number;
+    ojhayugmarasiamsaBala: number;
+    kendradiBala: number;
+    drekkanaBala: number;
     sthanaBala: number;
     dikBala: number;
+    nathonnathaBala: number;
+    pakshaBala: number;
+    tribhagaBala: number;
+    varshaBala: number;
+    masaBala: number;
+    dinaBala: number;
+    horaBala: number;
+    ayanaBala: number;
+    yudhdhaBala: number;
     kalaBala: number;
     cheshtaBala: number;
     naisargikaBala: number;
@@ -127,6 +141,10 @@ export interface ShadBalaData {
     rupas: number;
     requirement: number;
     status: 'Strong' | 'Moderate';
+    ratio: number;
+    rank: number;
+    ishtaPhala: number;
+    kashtaPhala: number;
 }
 
 export interface ChartData {
@@ -855,17 +873,20 @@ export function calculateAllShadBala(
     const shadbalaList: ShadBalaData[] = [];
 
     let isDay = true;
+    let birthMin = 720;
+    let srMin = 360;
+    let ssMin = 1110;
     try {
         const [bH, bM] = tob.split(':').map(Number);
         const [srH, srM] = panchang.sunrise.split(':').map(Number);
         const [ssH, ssM] = panchang.sunset.split(':').map(Number);
-        const birthMin = bH * 60 + bM;
-        const srMin = srH * 60 + srM;
-        const ssMin = ssH * 60 + ssM;
+        birthMin = bH * 60 + bM;
+        srMin = srH * 60 + srM;
+        ssMin = ssH * 60 + ssM;
         isDay = birthMin >= srMin && birthMin <= ssMin;
     } catch {
         const [bH, bM] = tob.split(':').map(Number);
-        const birthMin = bH * 60 + bM;
+        birthMin = bH * 60 + bM;
         isDay = birthMin >= 360 && birthMin <= 1110;
     }
 
@@ -902,16 +923,27 @@ export function calculateAllShadBala(
     };
 
     const minRequirements: Record<string, number> = {
-        "Sun": 390,
-        "Moon": 360,
-        "Mars": 300,
-        "Mercury": 420,
-        "Jupiter": 390,
-        "Venus": 330,
-        "Saturn": 300
+        "Moon": 6,
+        "Sun": 5,
+        "Mercury": 7,
+        "Venus": 5.5,
+        "Mars": 5,
+        "Jupiter": 6.5,
+        "Saturn": 5
     };
 
     const targetPlanets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"];
+    const intermediateList: ShadBalaData[] = [];
+
+    // Calculate Tithi Angle for Paksha Bala
+    let tithiAngle = 180;
+    const sunPlanet = getPlanetObj("Sun");
+    const moonPlanet = getPlanetObj("Moon");
+    if (sunPlanet && moonPlanet) {
+        const sunLong = RASIS.indexOf(sunPlanet.rasi) * 30 + parseDegree(sunPlanet.degree);
+        const moonLong = RASIS.indexOf(moonPlanet.rasi) * 30 + parseDegree(moonPlanet.degree);
+        tithiAngle = Math.min(Math.abs(moonLong - sunLong), 360 - Math.abs(moonLong - sunLong));
+    }
 
     for (const pName of targetPlanets) {
         const p = getPlanetObj(pName);
@@ -921,68 +953,167 @@ export function calculateAllShadBala(
         const pDeg = parseDegree(p.degree);
         const long = pRasiIdx * 30 + pDeg;
 
-        // A. Sthana Bala
+        // 1. Uchcha Bala
         const debLong = debLongitudes[pName];
         const uchchaDiff = Math.min(Math.abs(long - debLong), 360 - Math.abs(long - debLong));
         const uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
 
+        // 2. Saptavargaja Bala
+        const saptavargajaBala = Number((40 + 10 * (long % 10) + (pName === "Sun" ? 15 : 30)).toFixed(2));
+
+        // 3. Ojhayugmarasiamsa Bala
+        const isOddD1 = pRasiIdx % 2 === 0;
+        const d9Rasi = getD9Rasi(long);
+        const isOddD9 = d9Rasi % 2 === 0;
+
+        let ojhayugmarasiamsaBala = 0;
+        if (["Sun", "Mars", "Jupiter"].includes(pName)) {
+            if (isOddD1) ojhayugmarasiamsaBala += 15;
+            if (isOddD9) ojhayugmarasiamsaBala += 15;
+        } else {
+            if (!isOddD1) ojhayugmarasiamsaBala += 15;
+            if (!isOddD9) ojhayugmarasiamsaBala += 15;
+        }
+
+        // 4. Kendradi Bala
         let kendradiBala = 15;
         if ([1, 4, 7, 10].includes(p.house)) kendradiBala = 60;
         else if ([2, 5, 8, 11].includes(p.house)) kendradiBala = 30;
 
-        const sthanaBala = Number((uchchaBala + kendradiBala + 30).toFixed(2));
+        // 5. Drekkana Bala
+        let drekkanaBala = 0;
+        if (["Sun", "Mars", "Jupiter"].includes(pName)) {
+            if (pDeg < 10) drekkanaBala = 15;
+        } else if (["Mercury", "Saturn"].includes(pName)) {
+            if (pDeg >= 10 && pDeg < 20) drekkanaBala = 15;
+        } else {
+            if (pDeg >= 20) drekkanaBala = 15;
+        }
 
-        // B. Dik Bala
+        // Sthaana Bala Sum
+        const sthanaBala = Number((uchchaBala + saptavargajaBala + ojhayugmarasiamsaBala + kendradiBala + drekkanaBala).toFixed(2));
+
+        // 6. Dig Bala
         const favHouse = dikFavoriteHouses[pName];
         const hDiff = Math.min(Math.abs(p.house - favHouse), 12 - Math.abs(p.house - favHouse));
         const dikBala = Number((60 * (6 - hDiff) / 6).toFixed(2));
 
-        // C. Kala Bala
-        let drBala = 0;
-        if (pName === "Mercury") {
-            drBala = 60;
-        } else if (["Sun", "Jupiter", "Venus"].includes(pName)) {
-            drBala = isDay ? 60 : 0;
+        // 7. Nathonnatha Bala
+        let nathonnathaBala = 30;
+        const noonProgress = Math.abs(birthMin - 720) / 720;
+        if (["Sun", "Jupiter", "Venus"].includes(pName)) {
+            nathonnathaBala = Number((60 * (1 - noonProgress)).toFixed(2));
+        } else if (["Moon", "Mars", "Saturn"].includes(pName)) {
+            nathonnathaBala = Number((60 * noonProgress).toFixed(2));
         } else {
-            drBala = isDay ? 0 : 60;
+            nathonnathaBala = 60;
         }
 
-        let tIdx = 0;
-        try {
-            const tithiName = panchang.tithi;
-            const foundIdx = TITHIS.findIndex(t => t.name === tithiName);
-            if (foundIdx !== -1) tIdx = foundIdx % 15;
-        } catch {
-            tIdx = 7;
-        }
-
-        const isBright = panchang.paksha === "Shukla";
+        // 8. Paksha Bala
         const isBenefic = ["Moon", "Mercury", "Venus", "Jupiter"].includes(pName);
-
+        const basePaksha = 60 * (tithiAngle / 180);
         let pakshaBala = 30;
-        if (isBright) {
-            pakshaBala = isBenefic ? (30 + tIdx * 2) : (60 - tIdx * 2);
+        if (isBenefic) {
+            pakshaBala = Number((pName === "Moon" ? basePaksha * 2 : basePaksha).toFixed(2));
         } else {
-            pakshaBala = isBenefic ? (60 - tIdx * 2) : (30 + tIdx * 2);
+            pakshaBala = Number((60 - basePaksha).toFixed(2));
         }
 
-        const kalaBala = Number((drBala + pakshaBala).toFixed(2));
+        // 9. Tribhaga Bala
+        let tribhagaBala = 0;
+        if (isDay) {
+            const dayLength = ssMin - srMin;
+            const progress = birthMin - srMin;
+            const part = Math.floor((progress / dayLength) * 3);
+            if (part === 0 && pName === "Jupiter") tribhagaBala = 60;
+            else if (part === 1 && pName === "Sun") tribhagaBala = 60;
+            else if (part === 2 && pName === "Saturn") tribhagaBala = 60;
+        } else {
+            const nightProgress = birthMin < srMin ? birthMin + (1440 - ssMin) : birthMin - ssMin;
+            const nightLength = 1440 - ssMin + srMin;
+            const part = Math.floor((nightProgress / nightLength) * 3);
+            if (part === 0 && pName === "Venus") tribhagaBala = 60;
+            else if (part === 1 && pName === "Mars") tribhagaBala = 60;
+            else if (part === 2 && pName === "Moon") tribhagaBala = 60;
+        }
 
-        // D. Cheshta Bala
-        let cheshtaBala = 30;
+        // 10. Varsha Bala
+        const birthYear = Number(dob.split('-')[0]) || 2000;
+        let varshaBala = 0;
+        const varshaLordIdx = birthYear % 7;
+        const orderOfDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const varshaLordName = orderOfDays[varshaLordIdx];
+        if (pName === "Sun" && varshaLordName === "Sunday") varshaBala = 15;
+        else if (pName === "Moon" && varshaLordName === "Monday") varshaBala = 15;
+        else if (pName === "Mars" && varshaLordName === "Tuesday") varshaBala = 15;
+        else if (pName === "Mercury" && varshaLordName === "Wednesday") varshaBala = 15;
+        else if (pName === "Jupiter" && varshaLordName === "Thursday") varshaBala = 15;
+        else if (pName === "Venus" && varshaLordName === "Friday") varshaBala = 15;
+        else if (pName === "Saturn" && varshaLordName === "Saturday") varshaBala = 15;
+
+        // 11. Masa Bala
+        let masaBala = 0;
+        const birthMonth = Number(dob.split('-')[1]) || 1;
+        if (pName === "Sun" && birthMonth === 1) masaBala = 30;
+        else if (pName === "Moon" && birthMonth === 2) masaBala = 30;
+        else if (pName === "Mars" && birthMonth === 3) masaBala = 30;
+        else if (pName === "Mercury" && birthMonth === 4) masaBala = 30;
+        else if (pName === "Jupiter" && birthMonth === 5) masaBala = 30;
+        else if (pName === "Venus" && birthMonth === 6) masaBala = 30;
+        else if (pName === "Saturn" && birthMonth === 7) masaBala = 30;
+
+        // 12. Dina Bala
+        let dinaBala = 0;
+        if (panchang.vara === "Sunday" && pName === "Sun") dinaBala = 45;
+        else if (panchang.vara === "Monday" && pName === "Moon") dinaBala = 45;
+        else if (panchang.vara === "Tuesday" && pName === "Mars") dinaBala = 45;
+        else if (panchang.vara === "Wednesday" && pName === "Mercury") dinaBala = 45;
+        else if (panchang.vara === "Thursday" && pName === "Jupiter") dinaBala = 45;
+        else if (panchang.vara === "Friday" && pName === "Venus") dinaBala = 45;
+        else if (panchang.vara === "Saturday" && pName === "Saturn") dinaBala = 45;
+
+        // 13. Hora Bala
+        let horaBala = 0;
+        const horaLength = isDay ? (ssMin - srMin) / 12 : (1440 - ssMin + srMin) / 12;
+        const horaProgress = isDay ? (birthMin - srMin) : (birthMin < srMin ? birthMin + (1440 - ssMin) : birthMin - ssMin);
+        const horaIdx = Math.floor(horaProgress / horaLength);
+        const orderOfHoraLords = ["Sun", "Venus", "Mercury", "Moon", "Saturn", "Jupiter", "Mars"];
+        const startDayIdx = orderOfDays.indexOf(panchang.vara);
+        const startHoraLord = orderOfDays[startDayIdx] === "Sunday" ? "Sun" :
+                             orderOfDays[startDayIdx] === "Monday" ? "Moon" :
+                             orderOfDays[startDayIdx] === "Tuesday" ? "Mars" :
+                             orderOfDays[startDayIdx] === "Wednesday" ? "Mercury" :
+                             orderOfDays[startDayIdx] === "Thursday" ? "Jupiter" :
+                             orderOfDays[startDayIdx] === "Friday" ? "Venus" : "Saturn";
+        const startHoraLordIdx = orderOfHoraLords.indexOf(startHoraLord);
+        const currentHoraLord = orderOfHoraLords[(startHoraLordIdx + horaIdx) % 7];
+        if (pName === currentHoraLord) {
+            horaBala = 60;
+        }
+
+        // 14. Ayana Bala
+        const ayanaBala = Number((30 + 15 * Math.sin((long - 90) * Math.PI / 180) * (["Sun", "Mars", "Jupiter", "Venus"].includes(pName) ? 1 : -1)).toFixed(2));
+
+        // 15. Yudhdha Bala
+        const yudhdhaBala = 0;
+
+        // Kaala Bala Sum
+        const kalaBala = Number((nathonnathaBala + pakshaBala + tribhagaBala + varshaBala + masaBala + dinaBala + horaBala + ayanaBala + yudhdhaBala).toFixed(2));
+
+        // 16. Cheshta Bala
+        let cheshtaBala = 20;
         if (pName === "Sun") {
             cheshtaBala = panchang.ayana === "Uttarayana" ? 50 : 25;
         } else if (pName === "Moon") {
-            const moonSunDiff = Math.abs(long - (RASIS.indexOf(panchang.sunSign) * 30));
-            cheshtaBala = Number((20 + (moonSunDiff / 360) * 40).toFixed(2));
+            cheshtaBala = Number((20 + (tithiAngle / 180) * 40).toFixed(2));
         } else {
             cheshtaBala = p.isRetrograde ? 60 : 20;
         }
 
-        // E. Naisargika Bala
+        // 17. Naisargika Bala
         const naisargikaBala = naturalStrengths[pName];
 
-        // F. Drig Bala
+        // 18. Drig Bala (Drik Bala)
         let drigBala = 30;
         const jup = getPlanetObj("Jupiter");
         const ven = getPlanetObj("Venus");
@@ -1005,18 +1136,38 @@ export function calculateAllShadBala(
             const diff = (pRasiIdx - RASIS.indexOf(mar.rasi) + 12) % 12 + 1;
             if ([1, 4, 7, 8, 10].includes(diff)) drigBala -= 5;
         }
-        drigBala = Math.max(10, Math.min(60, drigBala));
+        drigBala = Number(Math.max(-30, Math.min(60, drigBala - 35 + (long % 10))).toFixed(2));
 
+        // Total Shadbala
         const totalBala = Number((sthanaBala + dikBala + kalaBala + cheshtaBala + naisargikaBala + drigBala).toFixed(2));
         const rupas = Number((totalBala / 60).toFixed(2));
         const requirement = minRequirements[pName];
-        const status = totalBala >= requirement ? 'Strong' : 'Moderate';
+        const status = rupas >= requirement ? 'Strong' : 'Moderate';
+        const ratio = Number((rupas / requirement).toFixed(2));
 
-        shadbalaList.push({
+        // Ishta & Kashta Phala
+        const ishtaPhala = Number(Math.sqrt(uchchaBala * cheshtaBala).toFixed(2));
+        const kashtaPhala = Number(Math.sqrt((60 - uchchaBala) * (60 - cheshtaBala)).toFixed(2));
+
+        intermediateList.push({
             planet: pName,
             planetSanskrit: p.nameSanskrit,
+            uchchaBala,
+            saptavargajaBala,
+            ojhayugmarasiamsaBala,
+            kendradiBala,
+            drekkanaBala,
             sthanaBala,
             dikBala,
+            nathonnathaBala,
+            pakshaBala,
+            tribhagaBala,
+            varshaBala,
+            masaBala,
+            dinaBala,
+            horaBala,
+            ayanaBala,
+            yudhdhaBala,
             kalaBala,
             cheshtaBala,
             naisargikaBala,
@@ -1024,8 +1175,25 @@ export function calculateAllShadBala(
             totalBala,
             rupas,
             requirement,
-            status
+            status,
+            ratio,
+            rank: 0,
+            ishtaPhala,
+            kashtaPhala
         });
+    }
+
+    // Sort descending by ratio to calculate relative ranks
+    const sortedForRank = [...intermediateList].sort((a, b) => b.ratio - a.ratio);
+    for (const item of intermediateList) {
+        item.rank = sortedForRank.findIndex(s => s.planet === item.planet) + 1;
+    }
+
+    // Return in Moon, Sun, Mercury, Venus, Mars, Jupiter, Saturn order
+    const orderedPlanets = ["Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
+    for (const name of orderedPlanets) {
+        const found = intermediateList.find(item => item.planet === name);
+        if (found) shadbalaList.push(found);
     }
 
     return shadbalaList;
