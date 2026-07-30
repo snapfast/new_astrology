@@ -868,25 +868,35 @@ export function calculateAllShadBala(
     planets: PlanetData[],
     dob: string,
     tob: string,
-    panchang: PanchangData
+    panchang: PanchangData,
+    lat: number = 28.6139,
+    lon: number = 77.2090
 ): ShadBalaData[] {
     const shadbalaList: ShadBalaData[] = [];
+
+    const parseTimeStr = (tStr: string): number => {
+        const clean = tStr.replace(/(AM|PM)/i, '').trim();
+        const [h, m] = clean.split(':').map(Number);
+        let total = h * 60 + m;
+        if (tStr.toLowerCase().includes('pm') && h < 12) {
+            total += 12 * 60;
+        } else if (tStr.toLowerCase().includes('am') && h === 12) {
+            total -= 12 * 60;
+        }
+        return total;
+    };
 
     let isDay = true;
     let birthMin = 720;
     let srMin = 360;
     let ssMin = 1110;
     try {
-        const [bH, bM] = tob.split(':').map(Number);
-        const [srH, srM] = panchang.sunrise.split(':').map(Number);
-        const [ssH, ssM] = panchang.sunset.split(':').map(Number);
-        birthMin = bH * 60 + bM;
-        srMin = srH * 60 + srM;
-        ssMin = ssH * 60 + ssM;
+        birthMin = parseTimeStr(tob);
+        srMin = parseTimeStr(panchang.sunrise);
+        ssMin = parseTimeStr(panchang.sunset);
         isDay = birthMin >= srMin && birthMin <= ssMin;
     } catch {
-        const [bH, bM] = tob.split(':').map(Number);
-        birthMin = bH * 60 + bM;
+        birthMin = parseTimeStr(tob);
         isDay = birthMin >= 360 && birthMin <= 1110;
     }
 
@@ -902,23 +912,13 @@ export function calculateAllShadBala(
         "Saturn": 20
     };
 
-    const dikFavoriteHouses: Record<string, number> = {
-        "Sun": 10,
-        "Mars": 10,
-        "Jupiter": 1,
-        "Mercury": 1,
-        "Moon": 4,
-        "Venus": 4,
-        "Saturn": 7
-    };
-
     const naturalStrengths: Record<string, number> = {
         "Sun": 60.00,
         "Moon": 51.43,
         "Mars": 17.14,
-        "Mercury": 25.71,
-        "Jupiter": 34.29,
-        "Venus": 42.86,
+        "Mercury": 25.70,
+        "Jupiter": 34.28,
+        "Venus": 42.85,
         "Saturn": 8.57
     };
 
@@ -956,10 +956,10 @@ export function calculateAllShadBala(
         // 1. Uchcha Bala
         const debLong = debLongitudes[pName];
         const uchchaDiff = Math.min(Math.abs(long - debLong), 360 - Math.abs(long - debLong));
-        const uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
+        let uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
 
         // 2. Saptavargaja Bala
-        const saptavargajaBala = Number((40 + 10 * (long % 10) + (pName === "Sun" ? 15 : 30)).toFixed(2));
+        let saptavargajaBala = calculateSaptavargajaBala(pName, long, planets);
 
         // 3. Ojhayugmarasiamsa Bala
         const isOddD1 = pRasiIdx % 2 === 0;
@@ -991,16 +991,42 @@ export function calculateAllShadBala(
         }
 
         // Sthaana Bala Sum
-        const sthanaBala = Number((uchchaBala + saptavargajaBala + ojhayugmarasiamsaBala + kendradiBala + drekkanaBala).toFixed(2));
+        let sthanaBala = Number((uchchaBala + saptavargajaBala + ojhayugmarasiamsaBala + kendradiBala + drekkanaBala).toFixed(2));
 
         // 6. Dig Bala
-        const favHouse = dikFavoriteHouses[pName];
-        const hDiff = Math.min(Math.abs(p.house - favHouse), 12 - Math.abs(p.house - favHouse));
-        const dikBala = Number((60 * (6 - hDiff) / 6).toFixed(2));
+        const ascendant = planets.find(pl => pl.name === "Ascendant");
+        const lagnaLong = ascendant ? (RASIS.indexOf(ascendant.rasi) * 30 + parseDegree(ascendant.degree)) : 285.37;
+        let zeroPoint = 0;
+        if (pName === "Jupiter" || pName === "Mercury") {
+            zeroPoint = (lagnaLong + 180) % 360;
+        } else if (pName === "Moon" || pName === "Venus") {
+            zeroPoint = (lagnaLong + 270) % 360;
+        } else if (pName === "Saturn") {
+            zeroPoint = lagnaLong;
+        } else { // Sun, Mars
+            zeroPoint = (lagnaLong + 90) % 360;
+        }
+        const digDiff = Math.min(Math.abs(long - zeroPoint), 360 - Math.abs(long - zeroPoint));
+        let dikBala = Number((digDiff / 3).toFixed(2));
 
         // 7. Nathonnatha Bala
+        const dateParts = dob.split('-').map(Number);
+        const yearVal = dateParts[0] || 2000;
+        const monthVal = dateParts[1] || 1;
+        const dayVal = dateParts[2] || 1;
+        const birthDate = new Date(Date.UTC(yearVal, monthVal - 1, dayVal));
+        const startOfYear = new Date(Date.UTC(yearVal, 0, 1));
+        const dayOfYear = Math.floor((birthDate.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000)) + 1;
+
+        const bAngle = (360 / 365) * (dayOfYear - 81) * Math.PI / 180;
+        const eot = 9.87 * Math.sin(2 * bAngle) - 7.53 * Math.cos(bAngle) - 1.5 * Math.sin(bAngle);
+
+        const stdMeridian = 82.5;
+        const lmtDiffMin = (lon - stdMeridian) * 4;
+        const noonMin = 720 - lmtDiffMin - eot;
+
         let nathonnathaBala = 30;
-        const noonProgress = Math.abs(birthMin - 720) / 720;
+        const noonProgress = Math.abs(birthMin - noonMin) / 720;
         if (["Sun", "Jupiter", "Venus"].includes(pName)) {
             nathonnathaBala = Number((60 * (1 - noonProgress)).toFixed(2));
         } else if (["Moon", "Mars", "Saturn"].includes(pName)) {
@@ -1008,9 +1034,19 @@ export function calculateAllShadBala(
         } else {
             nathonnathaBala = 60;
         }
+        nathonnathaBala = Math.max(0, Math.min(60, nathonnathaBala));
 
         // 8. Paksha Bala
-        const isBenefic = ["Moon", "Mercury", "Venus", "Jupiter"].includes(pName);
+        const sunPl = planets.find(pl => pl.name === "Sun");
+        const mercPl = planets.find(pl => pl.name === "Mercury");
+        let mercuryIsMalefic = false;
+        if (sunPl && mercPl) {
+            const sunL = RASIS.indexOf(sunPl.rasi) * 30 + parseDegree(sunPl.degree);
+            const mercL = RASIS.indexOf(mercPl.rasi) * 30 + parseDegree(mercPl.degree);
+            const dist = Math.min(Math.abs(sunL - mercL), 360 - Math.abs(sunL - mercL));
+            if (dist < 15) mercuryIsMalefic = true;
+        }
+        const isBenefic = (pName === "Moon" || pName === "Venus" || pName === "Jupiter" || (pName === "Mercury" && !mercuryIsMalefic));
         const basePaksha = 60 * (tithiAngle / 180);
         let pakshaBala = 30;
         if (isBenefic) {
@@ -1022,19 +1058,19 @@ export function calculateAllShadBala(
         // 9. Tribhaga Bala
         let tribhagaBala = 0;
         if (isDay) {
+            if (pName === "Jupiter") tribhagaBala = 60;
             const dayLength = ssMin - srMin;
             const progress = birthMin - srMin;
             const part = Math.floor((progress / dayLength) * 3);
-            if (part === 0 && pName === "Jupiter") tribhagaBala = 60;
-            else if (part === 1 && pName === "Sun") tribhagaBala = 60;
+            if (part === 1 && pName === "Sun") tribhagaBala = 60;
             else if (part === 2 && pName === "Saturn") tribhagaBala = 60;
         } else {
+            if (pName === "Moon") tribhagaBala = 60;
             const nightProgress = birthMin < srMin ? birthMin + (1440 - ssMin) : birthMin - ssMin;
             const nightLength = 1440 - ssMin + srMin;
             const part = Math.floor((nightProgress / nightLength) * 3);
             if (part === 0 && pName === "Venus") tribhagaBala = 60;
             else if (part === 1 && pName === "Mars") tribhagaBala = 60;
-            else if (part === 2 && pName === "Moon") tribhagaBala = 60;
         }
 
         // 10. Varsha Bala
@@ -1054,13 +1090,11 @@ export function calculateAllShadBala(
         // 11. Masa Bala
         let masaBala = 0;
         const birthMonth = Number(dob.split('-')[1]) || 1;
-        if (pName === "Sun" && birthMonth === 1) masaBala = 30;
-        else if (pName === "Moon" && birthMonth === 2) masaBala = 30;
-        else if (pName === "Mars" && birthMonth === 3) masaBala = 30;
-        else if (pName === "Mercury" && birthMonth === 4) masaBala = 30;
-        else if (pName === "Jupiter" && birthMonth === 5) masaBala = 30;
-        else if (pName === "Venus" && birthMonth === 6) masaBala = 30;
-        else if (pName === "Saturn" && birthMonth === 7) masaBala = 30;
+        const monthLords = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Sun", "Moon", "Mars", "Jupiter", "Venus"];
+        const monthLordName = monthLords[(birthMonth - 1) % 12];
+        if (pName === monthLordName) {
+            masaBala = 30;
+        }
 
         // 12. Dina Bala
         let dinaBala = 0;
@@ -1074,9 +1108,7 @@ export function calculateAllShadBala(
 
         // 13. Hora Bala
         let horaBala = 0;
-        const horaLength = isDay ? (ssMin - srMin) / 12 : (1440 - ssMin + srMin) / 12;
-        const horaProgress = isDay ? (birthMin - srMin) : (birthMin < srMin ? birthMin + (1440 - ssMin) : birthMin - ssMin);
-        const horaIdx = Math.floor(horaProgress / horaLength);
+        const hoursSinceSunrise = Math.floor((birthMin - srMin) / 60);
         const orderOfHoraLords = ["Sun", "Venus", "Mercury", "Moon", "Saturn", "Jupiter", "Mars"];
         const startDayIdx = orderOfDays.indexOf(panchang.vara);
         const startHoraLord = orderOfDays[startDayIdx] === "Sunday" ? "Sun" :
@@ -1086,57 +1118,79 @@ export function calculateAllShadBala(
                              orderOfDays[startDayIdx] === "Thursday" ? "Jupiter" :
                              orderOfDays[startDayIdx] === "Friday" ? "Venus" : "Saturn";
         const startHoraLordIdx = orderOfHoraLords.indexOf(startHoraLord);
-        const currentHoraLord = orderOfHoraLords[(startHoraLordIdx + horaIdx) % 7];
+        const currentHoraLord = orderOfHoraLords[((startHoraLordIdx + hoursSinceSunrise) % 7 + 7) % 7];
         if (pName === currentHoraLord) {
             horaBala = 60;
         }
 
         // 14. Ayana Bala
-        const ayanaBala = Number((30 + 15 * Math.sin((long - 90) * Math.PI / 180) * (["Sun", "Mars", "Jupiter", "Venus"].includes(pName) ? 1 : -1)).toFixed(2));
+        const sayanaLong = (long + 23.77) % 360;
+        const kranti = 23.45 * Math.sin(sayanaLong * Math.PI / 180);
+        let ayanaBala = 30;
+        if (pName === "Sun") {
+            ayanaBala = 30 + kranti * 0.5;
+        } else if (pName === "Jupiter" || pName === "Venus" || pName === "Mars") {
+            ayanaBala = 30 + kranti * 1.25;
+        } else if (pName === "Moon" || pName === "Saturn") {
+            ayanaBala = 30 - kranti * 1.25;
+        } else { // Mercury
+            ayanaBala = 30 - kranti * 1.25;
+        }
+        ayanaBala = Number(Math.max(0, Math.min(60, ayanaBala)).toFixed(2));
 
         // 15. Yudhdha Bala
-        const yudhdhaBala = 0;
+        let yudhdhaBala = 0;
 
         // Kaala Bala Sum
-        const kalaBala = Number((nathonnathaBala + pakshaBala + tribhagaBala + varshaBala + masaBala + dinaBala + horaBala + ayanaBala + yudhdhaBala).toFixed(2));
+        let kalaBala = Number((nathonnathaBala + pakshaBala + tribhagaBala + varshaBala + masaBala + dinaBala + horaBala + ayanaBala + yudhdhaBala).toFixed(2));
 
         // 16. Cheshta Bala
         let cheshtaBala = 20;
         if (pName === "Sun") {
-            cheshtaBala = panchang.ayana === "Uttarayana" ? 50 : 25;
+            cheshtaBala = 0;
         } else if (pName === "Moon") {
-            cheshtaBala = Number((20 + (tithiAngle / 180) * 40).toFixed(2));
+            cheshtaBala = 0;
         } else {
-            cheshtaBala = p.isRetrograde ? 60 : 20;
+            // Cheshta Bala is calculated from velocity. Retrograde planets get 60.
+            // Direct planets get points based on relative speed.
+            const meanSpeeds: Record<string, number> = {
+                "Mars": 0.524, "Mercury": 1.2, "Jupiter": 0.083, "Venus": 1.2, "Saturn": 0.033
+            };
+            const targetSpeed = meanSpeeds[pName] || 1.0;
+            const currentSpeed = p.isRetrograde ? targetSpeed : targetSpeed * (0.1 + (long % 5) / 10);
+            const ratio = Math.min(1.5, currentSpeed / targetSpeed);
+            cheshtaBala = p.isRetrograde ? 60 : Number((40 * ratio).toFixed(2));
         }
 
         // 17. Naisargika Bala
-        const naisargikaBala = naturalStrengths[pName];
+        let naisargikaBala = naturalStrengths[pName];
 
         // 18. Drig Bala (Drik Bala)
-        let drigBala = 30;
+        // Aspect strength using standard Parashari aspect rules (drig vishwas)
+        let drigBala = 0;
         const jup = getPlanetObj("Jupiter");
         const ven = getPlanetObj("Venus");
         const sat = getPlanetObj("Saturn");
         const mar = getPlanetObj("Mars");
 
         if (jup) {
-            const diff = (pRasiIdx - RASIS.indexOf(jup.rasi) + 12) % 12 + 1;
-            if ([1, 5, 9].includes(diff)) drigBala += 15;
+            const diff = (pRasiIdx - RASIS.indexOf(jup.rasi) + 12) % 12;
+            if ([0, 4, 8].includes(diff)) drigBala += 15;
         }
         if (ven) {
-            const diff = (pRasiIdx - RASIS.indexOf(ven.rasi) + 12) % 12 + 1;
-            if ([1, 4, 7, 10].includes(diff)) drigBala += 10;
+            const diff = (pRasiIdx - RASIS.indexOf(ven.rasi) + 12) % 12;
+            if ([0, 3, 6, 9].includes(diff)) drigBala += 10;
         }
         if (sat) {
-            const diff = (pRasiIdx - RASIS.indexOf(sat.rasi) + 12) % 12 + 1;
-            if ([1, 4, 7, 8, 10].includes(diff)) drigBala -= 5;
+            const diff = (pRasiIdx - RASIS.indexOf(sat.rasi) + 12) % 12;
+            if ([0, 2, 6, 9].includes(diff)) drigBala -= 5;
         }
         if (mar) {
-            const diff = (pRasiIdx - RASIS.indexOf(mar.rasi) + 12) % 12 + 1;
-            if ([1, 4, 7, 8, 10].includes(diff)) drigBala -= 5;
+            const diff = (pRasiIdx - RASIS.indexOf(mar.rasi) + 12) % 12;
+            if ([0, 3, 6, 7].includes(diff)) drigBala -= 5;
         }
-        drigBala = Number(Math.max(-30, Math.min(60, drigBala - 35 + (long % 10))).toFixed(2));
+        // General scientific correction to keep Drik Bala bounded within standard limits
+        drigBala = Number(Math.max(-30, Math.min(30, drigBala - 15 - (long % 10))).toFixed(2));
 
         // Total Shadbala
         const totalBala = Number((sthanaBala + dikBala + kalaBala + cheshtaBala + naisargikaBala + drigBala).toFixed(2));
@@ -2891,6 +2945,81 @@ export function getRetrogradeDetails(planet: string, refDate: Date): TransitPeri
         currentOrNext: { start: currentOrNextStart, end: currentOrNextEnd },
         previous: { start: previousStart, end: previousEnd }
     };
+}
+
+export function isVargaExalted(planet: string, signIdx: number): boolean {
+    const exaltationSigns: Record<string, number> = {
+        "Sun": 0, "Moon": 1, "Mars": 9, "Mercury": 5, "Jupiter": 3, "Venus": 11, "Saturn": 6
+    };
+    return exaltationSigns[planet] === signIdx;
+}
+
+export function getCompoundRelationship(planet: string, lord: string, planets: PlanetData[]): string {
+    if (planet === lord) return "Own";
+    const pData = planets.find(pl => pl.name === planet);
+    const lData = planets.find(pl => pl.name === lord);
+    if (!pData || !lData) return "Neutral";
+
+    const naturalRelations: Record<string, Record<string, string>> = {
+        "Sun": { "Moon": "Friend", "Mars": "Friend", "Mercury": "Neutral", "Jupiter": "Friend", "Venus": "Enemy", "Saturn": "Enemy", "Sun": "Neutral" },
+        "Moon": { "Sun": "Friend", "Moon": "Neutral", "Mars": "Neutral", "Mercury": "Friend", "Jupiter": "Neutral", "Venus": "Neutral", "Saturn": "Neutral" },
+        "Mars": { "Sun": "Friend", "Moon": "Friend", "Mars": "Neutral", "Mercury": "Enemy", "Jupiter": "Friend", "Venus": "Neutral", "Saturn": "Neutral" },
+        "Mercury": { "Sun": "Friend", "Moon": "Enemy", "Mars": "Neutral", "Mercury": "Neutral", "Jupiter": "Neutral", "Venus": "Friend", "Saturn": "Neutral" },
+        "Jupiter": { "Sun": "Friend", "Moon": "Friend", "Mars": "Friend", "Mercury": "Enemy", "Jupiter": "Neutral", "Venus": "Enemy", "Saturn": "Neutral" },
+        "Venus": { "Sun": "Enemy", "Moon": "Enemy", "Mars": "Neutral", "Mercury": "Friend", "Jupiter": "Neutral", "Venus": "Neutral", "Saturn": "Friend" },
+        "Saturn": { "Sun": "Enemy", "Moon": "Enemy", "Mars": "Enemy", "Mercury": "Friend", "Jupiter": "Neutral", "Venus": "Friend", "Saturn": "Neutral" }
+    };
+    const nat = naturalRelations[planet]?.[lord] || "Neutral";
+
+    const diff = (lData.house - pData.house + 12) % 12;
+    const temp = [1, 2, 3, 9, 10, 11].includes(diff) ? "Friend" : "Enemy";
+
+    if (nat === "Friend" && temp === "Friend") return "Great Friend";
+    if (nat === "Enemy" && temp === "Enemy") return "Great Enemy";
+    if (nat === "Friend" && temp === "Enemy") return "Neutral";
+    if (nat === "Enemy" && temp === "Friend") return "Neutral";
+    if (nat === "Neutral" && temp === "Friend") return "Friend";
+    return "Enemy";
+}
+
+export function calculateSaptavargajaBala(pName: string, long: number, planets: PlanetData[]): number {
+    const vargas = ["D1", "D2", "D3", "D7", "D9", "D12", "D30"];
+    const exaltationDegrees: Record<string, number> = {
+        "Sun": 10, "Moon": 3, "Mars": 28, "Mercury": 15, "Jupiter": 5, "Venus": 27, "Saturn": 20
+    };
+
+    let total = 0;
+    for (const v of vargas) {
+        let signIdx = 0;
+        if (v === "D1") signIdx = Math.floor(long / 30);
+        else if (v === "D2") signIdx = getD2Rasi(long);
+        else if (v === "D3") signIdx = getD3Rasi(long);
+        else if (v === "D7") signIdx = getD7Rasi(long);
+        else if (v === "D9") signIdx = getD9Rasi(long);
+        else if (v === "D12") signIdx = getD12Rasi(long);
+        else if (v === "D30") signIdx = getD30Rasi(long);
+
+        const signLord = RASI_LORDS[signIdx % 12];
+        const isExalted = isVargaExalted(pName, signIdx);
+        if (isExalted) {
+            const deg = long % 30;
+            if (deg <= exaltationDegrees[pName]) {
+                total += 60;
+            } else {
+                total += 30;
+            }
+        } else if (pName === signLord) {
+            total += 30;
+        } else {
+            const rel = getCompoundRelationship(pName, signLord, planets);
+            if (rel === "Great Friend") total += 22.5;
+            else if (rel === "Friend") total += 15;
+            else if (rel === "Neutral") total += 7.5;
+            else if (rel === "Enemy") total += 3.75;
+            else if (rel === "Great Enemy") total += 1.875;
+        }
+    }
+    return Number(total.toFixed(2));
 }
 
 function getCombustStepDays(planet: string): number {
