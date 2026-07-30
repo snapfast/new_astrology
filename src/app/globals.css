@@ -215,11 +215,11 @@
   color: #000000 !important;
 }
 
-/* Ensure placeholder texts have full contrast and visibility */
+/* Ensure placeholder texts look like placeholders (a legible grey) so users know they can click and edit them */
 ::placeholder,
 input::placeholder,
 textarea::placeholder {
-  color: #000000 !important;
+  color: rgba(0, 0, 0, 0.45) !important;
   opacity: 1 !important;
 }
 

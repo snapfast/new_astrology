@@ -35,7 +35,8 @@ test('Compact Kundli Chart renders correctly and trims degrees inside the chart 
   }
 
   // Ensure the planetary table on the right side STILL contains high-precision seconds
-  const tableDegrees = await page.locator('table tbody tr td:nth-child(4)').allTextContents();
+  // Narrow the locator specifically to the Planetary Positions table to avoid matching Shad Bala table cells
+  const tableDegrees = await page.locator('section:has-text("Planetary Positions") table tbody tr td:nth-child(4)').allTextContents();
   console.log('Table degree texts:', tableDegrees);
 
   // Each degree in the table must contain seconds (e.g., "11° 24' 45\"")
