@@ -1213,64 +1213,55 @@ const HoroscopeContent = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-white border-b border-outline">
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.planet}
+                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label", lang === "hi" ? "tracking-normal font-hindi" : "tracking-widest")}>
+                    {lang === "hi" ? "बल" : "Balas"}
                   </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.sthana}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.dik}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.kala}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.cheshta}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.naisargika}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.drig}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.total}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.rupas}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.minReq}
-                  </th>
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal" : "tracking-widest")}>
-                    {t.status}
-                  </th>
+                  {chartData.shadbala?.map((item, idx) => (
+                    <th key={idx} className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal font-hindi" : "tracking-widest")}>
+                      {lang === "hi" ? item.planetSanskrit : item.planet}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline">
-                {chartData.shadbala?.map((item, idx) => (
-                  <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
-                    <td className={cn("px-4 py-3 text-sm font-semibold text-on-surface", lang === "hi" ? "font-hindi" : "")}>
-                      {lang === "hi" ? item.planetSanskrit : item.planet}
+                {[
+                  { key: "uchchaBala", label: "Uchcha Bala", labelHi: "उच्च बल" },
+                  { key: "saptavargajaBala", label: "Saptavargaja Bala", labelHi: "सप्तवर्गज बल" },
+                  { key: "ojhayugmarasiamsaBala", label: "Ojhayugmarasiamsa Bala", labelHi: "ओजयुग्मराशिअंश बल" },
+                  { key: "kendradiBala", label: "Kendradi Bala", labelHi: "केन्द्रादि बल" },
+                  { key: "drekkanaBala", label: "Drekkana Bala", labelHi: "द्रेष्काण बल" },
+                  { key: "sthanaBala", label: "Sthaana Bala", labelHi: "स्थान बल", isBold: true },
+                  { key: "dikBala", label: "Dig Bala", labelHi: "दिग बल", isBold: true },
+                  { key: "nathonnathaBala", label: "Nathonnatha Bala", labelHi: "नथोन्नत बल" },
+                  { key: "pakshaBala", label: "Paksha Bala", labelHi: "पक्ष बल" },
+                  { key: "tribhagaBala", label: "Tribhaga Bala", labelHi: "त्रिभाग बल" },
+                  { key: "varshaBala", label: "Varsha Bala", labelHi: "वर्ष बल" },
+                  { key: "masaBala", label: "Masa Bala", labelHi: "मास बल" },
+                  { key: "dinaBala", label: "Dina Bala", labelHi: "दिन बल" },
+                  { key: "horaBala", label: "Hora Bala", labelHi: "होरा बल" },
+                  { key: "ayanaBala", label: "Ayana Bala", labelHi: "अयन बल" },
+                  { key: "yudhdhaBala", label: "Yudhdha Bala", labelHi: "युद्ध बल" },
+                  { key: "kalaBala", label: "Kaala Bala", labelHi: "काल बल", isBold: true },
+                  { key: "cheshtaBala", label: "Cheshta Bala", labelHi: "चेष्टा बल", isBold: true },
+                  { key: "naisargikaBala", label: "Naisargika Bala", labelHi: "नैसर्गिक बल", isBold: true },
+                  { key: "drigBala", label: "Drik Bala", labelHi: "दृग बल", isBold: true },
+                  { key: "totalBala", label: "Total shadbala Bala", labelHi: "कुल षडबल", isBold: true },
+                  { key: "rupas", label: "Shadbala in rupas", labelHi: "रूपा में षडबल", isBold: true },
+                  { key: "requirement", label: "minimum requirement", labelHi: "न्यूनतम आवश्यकता", isBold: true },
+                  { key: "ratio", label: "Ratio", labelHi: "अनुपात", isBold: true },
+                  { key: "rank", label: "Relative rank", labelHi: "सापेक्ष रैंक", isBold: true },
+                  { key: "ishtaPhala", label: "Ishta Phala", labelHi: "इष्ट फल", isBold: true },
+                  { key: "kashtaPhala", label: "Kashta Phala", labelHi: "कष्ट फल", isBold: true },
+                ].map((row, rIdx) => (
+                  <tr key={rIdx} className={cn("hover:bg-surface-container-lowest transition-colors", row.isBold ? "bg-surface-container-low/30" : "")}>
+                    <td className={cn("px-4 py-2.5 text-sm text-on-surface", row.isBold ? "font-semibold" : "", lang === "hi" ? "font-hindi" : "")}>
+                      {lang === "hi" ? row.labelHi : row.label}
                     </td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.sthanaBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.dikBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.kalaBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.cheshtaBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.naisargikaBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.drigBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center font-bold tabular-nums">{item.totalBala}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center font-bold tabular-nums">{item.rupas}</td>
-                    <td className="px-4 py-3 text-sm text-on-surface text-center tabular-nums">{item.requirement}</td>
-                    <td className="px-4 py-3 text-sm text-center font-semibold">
-                      <span className={cn(
-                        "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase font-label",
-                        item.status === 'Strong' ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"
-                      )}>
-                        {item.status === 'Strong' ? t.strong : t.moderate}
-                      </span>
-                    </td>
+                    {chartData.shadbala?.map((item, cIdx) => (
+                      <td key={cIdx} className={cn("px-4 py-2.5 text-sm text-center tabular-nums text-on-surface", row.isBold ? "font-bold" : "")}>
+                        {String(item[row.key as keyof typeof item] ?? "")}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>

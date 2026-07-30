@@ -62,7 +62,8 @@ const TRANSLATIONS = {
     loading: "Loading Dashboard...",
     generateNew: "New Chart",
     switchLanguage: "Language / भाषा",
-    shareReport: "Share Report"
+    shareReport: "Share Report",
+    shadBalaTitle: "Shad Bala"
   },
   hi: {
     birthInfo: "जन्म विवरण",
@@ -113,7 +114,8 @@ const TRANSLATIONS = {
     loading: "डैशबोर्ड लोड हो रहा है...",
     generateNew: "नई कुंडली",
     switchLanguage: "भाषा / Language",
-    shareReport: "रिपोर्ट साझा करें"
+    shareReport: "रिपोर्ट साझा करें",
+    shadBalaTitle: "षडबल"
   }
 };
 
@@ -366,7 +368,7 @@ const CompactHoroscopeContent = () => {
         {/* Right Column: Table & Dasha */}
         <div className="col-span-4 row-span-12 flex flex-col gap-3 md:h-full md:overflow-hidden">
           {/* Planetary Table */}
-          <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+          <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
             <div className="bg-white px-4 py-2 border-b border-outline/50 flex justify-between items-center">
               <h2 className={`text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
               <div className={`flex items-center gap-3 text-[10px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
@@ -416,6 +418,69 @@ const CompactHoroscopeContent = () => {
                 <span className="text-black font-normal">^</span>
                 <span>{lang === 'hi' ? 'अस्त' : 'Combust'}</span>
               </span>
+            </div>
+          </section>
+
+          {/* Shad Bala (Condensed Matrix) */}
+          <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
+            <div className="bg-white px-4 py-2 border-b border-outline/50 flex justify-between items-center">
+              <h2 className={`text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.shadBalaTitle}</h2>
+            </div>
+            <div className="flex-grow overflow-auto no-scrollbar">
+              <table className="w-full text-left border-collapse">
+                <thead className="sticky top-0 bg-white shadow-sm z-10">
+                  <tr className="border-b border-outline/30">
+                    <th className="px-2 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label">{lang === 'hi' ? 'बल' : 'Balas'}</th>
+                    {chartData.shadbala?.map((item, idx) => (
+                      <th key={idx} className="px-1 py-1.5 text-[9px] font-bold text-on-surface uppercase font-label text-center whitespace-nowrap">
+                        {lang === 'hi' ? item.planetSanskrit.slice(0, 2) : item.planet.slice(0, 2)}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-outline/10">
+                  {[
+                    { key: "uchchaBala", label: "Uchcha", labelHi: "उच्च" },
+                    { key: "saptavargajaBala", label: "Saptavargaja", labelHi: "सप्तवर्गज" },
+                    { key: "ojhayugmarasiamsaBala", label: "Ojhayugma", labelHi: "ओजयुग्म" },
+                    { key: "kendradiBala", label: "Kendradi", labelHi: "केन्द्रादि" },
+                    { key: "drekkanaBala", label: "Drekkana", labelHi: "द्रेष्काण" },
+                    { key: "sthanaBala", label: "Sthaana", labelHi: "स्थान बल", isBold: true },
+                    { key: "dikBala", label: "Dig Bala", labelHi: "दिग बल", isBold: true },
+                    { key: "nathonnathaBala", label: "Nathonnatha", labelHi: "नथोन्नत" },
+                    { key: "pakshaBala", label: "Paksha", labelHi: "पक्ष" },
+                    { key: "tribhagaBala", label: "Tribhaga", labelHi: "त्रिभाग" },
+                    { key: "varshaBala", label: "Varsha", labelHi: "वर्ष" },
+                    { key: "masaBala", label: "Masa", labelHi: "मास" },
+                    { key: "dinaBala", label: "Dina", labelHi: "दिन" },
+                    { key: "horaBala", label: "Hora", labelHi: "होरा" },
+                    { key: "ayanaBala", label: "Ayana", labelHi: "अयन" },
+                    { key: "yudhdhaBala", label: "Yudhdha", labelHi: "युद्ध" },
+                    { key: "kalaBala", label: "Kaala Bala", labelHi: "काल बल", isBold: true },
+                    { key: "cheshtaBala", label: "Cheshta Bala", labelHi: "चेष्टा बल", isBold: true },
+                    { key: "naisargikaBala", label: "Naisargika", labelHi: "नैसर्गिक", isBold: true },
+                    { key: "drigBala", label: "Drik Bala", labelHi: "दृग बल", isBold: true },
+                    { key: "totalBala", label: "Total", labelHi: "कुल", isBold: true },
+                    { key: "rupas", label: "Rupas", labelHi: "रूपा", isBold: true },
+                    { key: "requirement", label: "Req.", labelHi: "आवश्यकता", isBold: true },
+                    { key: "ratio", label: "Ratio", labelHi: "अनुपात", isBold: true },
+                    { key: "rank", label: "Rank", labelHi: "रैंक", isBold: true },
+                    { key: "ishtaPhala", label: "Ishta", labelHi: "इष्ट", isBold: true },
+                    { key: "kashtaPhala", label: "Kashta", labelHi: "कष्ट", isBold: true },
+                  ].map((row, rIdx) => (
+                    <tr key={rIdx} className={cn("hover:bg-surface-container-lowest transition-colors", row.isBold ? "bg-surface-container-low/30" : "")}>
+                      <td className={cn("px-2 py-1 text-[11px] text-on-surface truncate max-w-[85px]", row.isBold ? "font-bold" : "", lang === 'hi' ? 'font-hindi' : '')} title={lang === 'hi' ? row.labelHi : row.label}>
+                        {lang === 'hi' ? row.labelHi : row.label}
+                      </td>
+                      {chartData.shadbala?.map((item, cIdx) => (
+                        <td key={cIdx} className={cn("px-1 py-1 text-[11px] text-center tabular-nums text-on-surface", row.isBold ? "font-bold" : "")}>
+                          {String(item[row.key as keyof typeof item] ?? "")}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
 
