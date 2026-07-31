@@ -1245,7 +1245,7 @@ const HoroscopeContent = () => {
                   { key: "cheshtaBala", label: "Cheshta Bala", labelHi: "चेष्टा बल", isBold: true },
                   { key: "naisargikaBala", label: "Naisargika Bala", labelHi: "नैसर्गिक बल", isBold: true },
                   { key: "drigBala", label: "Drik Bala", labelHi: "दृग बल", isBold: true },
-                  { key: "totalBala", label: "Total shadbala Bala", labelHi: "कुल षडबल", isBold: true },
+                  { key: "totalBala", label: "Total Shadbala", labelHi: "कुल षडबल", isBold: true },
                   { key: "rupas", label: "Shadbala in rupas", labelHi: "रूपा में षडबल", isBold: true },
                   { key: "requirement", label: "minimum requirement", labelHi: "न्यूनतम आवश्यकता", isBold: true },
                   { key: "ratio", label: "Ratio", labelHi: "अनुपात", isBold: true },

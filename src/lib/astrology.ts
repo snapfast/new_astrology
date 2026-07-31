@@ -872,6 +872,7 @@ export function calculateAllShadBala(
     lat: number = 28.6139,
     lon: number = 77.2090
 ): ShadBalaData[] {
+    void lat;
     const shadbalaList: ShadBalaData[] = [];
 
     const parseTimeStr = (tStr: string): number => {
@@ -956,10 +957,10 @@ export function calculateAllShadBala(
         // 1. Uchcha Bala
         const debLong = debLongitudes[pName];
         const uchchaDiff = Math.min(Math.abs(long - debLong), 360 - Math.abs(long - debLong));
-        let uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
+        const uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
 
         // 2. Saptavargaja Bala
-        let saptavargajaBala = calculateSaptavargajaBala(pName, long, planets);
+        const saptavargajaBala = calculateSaptavargajaBala(pName, long, planets);
 
         // 3. Ojhayugmarasiamsa Bala
         const isOddD1 = pRasiIdx % 2 === 0;
@@ -967,7 +968,7 @@ export function calculateAllShadBala(
         const isOddD9 = d9Rasi % 2 === 0;
 
         let ojhayugmarasiamsaBala = 0;
-        if (["Sun", "Mars", "Jupiter"].includes(pName)) {
+        if (["Sun", "Mars", "Jupiter", "Mercury", "Saturn"].includes(pName)) {
             if (isOddD1) ojhayugmarasiamsaBala += 15;
             if (isOddD9) ojhayugmarasiamsaBala += 15;
         } else {
@@ -991,7 +992,7 @@ export function calculateAllShadBala(
         }
 
         // Sthaana Bala Sum
-        let sthanaBala = Number((uchchaBala + saptavargajaBala + ojhayugmarasiamsaBala + kendradiBala + drekkanaBala).toFixed(2));
+        const sthanaBala = Number((uchchaBala + saptavargajaBala + ojhayugmarasiamsaBala + kendradiBala + drekkanaBala).toFixed(2));
 
         // 6. Dig Bala
         const ascendant = planets.find(pl => pl.name === "Ascendant");
@@ -1007,7 +1008,7 @@ export function calculateAllShadBala(
             zeroPoint = (lagnaLong + 90) % 360;
         }
         const digDiff = Math.min(Math.abs(long - zeroPoint), 360 - Math.abs(long - zeroPoint));
-        let dikBala = Number((digDiff / 3).toFixed(2));
+        const dikBala = Number((digDiff / 3).toFixed(2));
 
         // 7. Nathonnatha Bala
         const dateParts = dob.split('-').map(Number);
@@ -1057,20 +1058,24 @@ export function calculateAllShadBala(
 
         // 9. Tribhaga Bala
         let tribhagaBala = 0;
-        if (isDay) {
-            if (pName === "Jupiter") tribhagaBala = 60;
+        if (pName === "Jupiter") {
+            tribhagaBala = 60;
+        } else if (isDay) {
             const dayLength = ssMin - srMin;
             const progress = birthMin - srMin;
             const part = Math.floor((progress / dayLength) * 3);
-            if (part === 1 && pName === "Sun") tribhagaBala = 60;
-            else if (part === 2 && pName === "Saturn") tribhagaBala = 60;
+            const clampedPart = Math.max(0, Math.min(2, part));
+            if (clampedPart === 0 && pName === "Mercury") tribhagaBala = 60;
+            else if (clampedPart === 1 && pName === "Sun") tribhagaBala = 60;
+            else if (clampedPart === 2 && pName === "Saturn") tribhagaBala = 60;
         } else {
-            if (pName === "Moon") tribhagaBala = 60;
             const nightProgress = birthMin < srMin ? birthMin + (1440 - ssMin) : birthMin - ssMin;
             const nightLength = 1440 - ssMin + srMin;
             const part = Math.floor((nightProgress / nightLength) * 3);
-            if (part === 0 && pName === "Venus") tribhagaBala = 60;
-            else if (part === 1 && pName === "Mars") tribhagaBala = 60;
+            const clampedPart = Math.max(0, Math.min(2, part));
+            if (clampedPart === 0 && pName === "Moon") tribhagaBala = 60;
+            else if (clampedPart === 1 && pName === "Venus") tribhagaBala = 60;
+            else if (clampedPart === 2 && pName === "Mars") tribhagaBala = 60;
         }
 
         // 10. Varsha Bala
@@ -1139,10 +1144,10 @@ export function calculateAllShadBala(
         ayanaBala = Number(Math.max(0, Math.min(60, ayanaBala)).toFixed(2));
 
         // 15. Yudhdha Bala
-        let yudhdhaBala = 0;
+        const yudhdhaBala = 0;
 
         // Kaala Bala Sum
-        let kalaBala = Number((nathonnathaBala + pakshaBala + tribhagaBala + varshaBala + masaBala + dinaBala + horaBala + ayanaBala + yudhdhaBala).toFixed(2));
+        const kalaBala = Number((nathonnathaBala + pakshaBala + tribhagaBala + varshaBala + masaBala + dinaBala + horaBala + ayanaBala + yudhdhaBala).toFixed(2));
 
         // 16. Cheshta Bala
         let cheshtaBala = 20;
@@ -1163,7 +1168,7 @@ export function calculateAllShadBala(
         }
 
         // 17. Naisargika Bala
-        let naisargikaBala = naturalStrengths[pName];
+        const naisargikaBala = naturalStrengths[pName];
 
         // 18. Drig Bala (Drik Bala)
         // Aspect strength using standard Parashari aspect rules (drig vishwas)
