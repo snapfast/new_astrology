@@ -153,7 +153,7 @@ const KundliChartComponent: FC<KundliChartProps> = ({ data }) => {
   const { houses, houseRasis } = data;
 
   return (
-    <div className="w-full aspect-square max-w-[500px] mx-auto relative p-4">
+    <div className="w-full aspect-square max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] mx-auto relative p-4">
       <svg viewBox="0 0 400 400" className="w-full h-full">
         {/* Main Outer Square */}
         <rect x="0" y="0" width="400" height="400" fill="none" stroke="#991B1B" strokeWidth="1.5" strokeOpacity="0.8" />
