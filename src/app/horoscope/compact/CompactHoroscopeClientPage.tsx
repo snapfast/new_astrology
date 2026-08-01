@@ -176,7 +176,7 @@ const CompactHoroscopeContent = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-surface text-on-surface overflow-y-auto">
+    <div className="min-h-screen flex flex-col bg-surface text-on-surface overflow-hidden relative">
       {/* Mobile Blocker Overlay */}
       <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-8 text-center">
         <span className="material-symbols-outlined text-6xl text-accent mb-4">desktop_windows</span>
@@ -434,6 +434,11 @@ const CompactHoroscopeContent = () => {
           </section>
         </div>
       </main>
+
+      {/* Bottom Right Adjustment Marker */}
+      <div className="fixed bottom-1.5 right-1.5 bg-black/5 text-black/40 text-[9px] font-mono select-none pointer-events-none z-50 px-1 py-0.5 rounded uppercase tracking-wider">
+        bom
+      </div>
 
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar {
