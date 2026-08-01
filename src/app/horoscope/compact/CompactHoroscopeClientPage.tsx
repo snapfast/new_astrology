@@ -435,10 +435,6 @@ const CompactHoroscopeContent = () => {
         </div>
       </main>
 
-      <div className="p-4 mt-8 shrink-0">
-        <ExploreTools currentPath="/horoscope/compact" />
-      </div>
-
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
