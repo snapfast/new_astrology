@@ -101,20 +101,6 @@ const TRANSLATIONS = {
     northIndianStyle:
       "Traditional North Indian Style Representation of Divisional Charts",
     loading: "Loading your destiny...",
-    shadBalaTitle: "Shad Bala (Planetary Strengths)",
-    shadBalaDesc: "Shad Bala is a comprehensive mathematical calculation of six-fold planetary strength including Positional, Directional, Temporal, Motional, Natural, and Aspect strengths.",
-    sthana: "Sthana",
-    dik: "Dik",
-    kala: "Kala",
-    cheshta: "Cheshta",
-    naisargika: "Naisargika",
-    drig: "Drig",
-    total: "Total",
-    rupas: "Rupas",
-    minReq: "Req.",
-    status: "Status",
-    strong: "Strong",
-    moderate: "Moderate",
     ashtakvargaTitle: "Sarva Ashtakvarga (SAV)",
     ashtakvargaDesc: "Sarva Ashtakvarga is a composite strength map of the zodiac signs. Houses with 28+ points are highly auspicious, 25-27 are neutral, and under 25 are weaker zones.",
     rasiPoints: "SAV points",
@@ -198,20 +184,6 @@ const TRANSLATIONS = {
     northIndianStyle:
       "विभागीय चार्ट का पारंपरिक उत्तर भारतीय शैली प्रतिनिधित्व",
     loading: "आपका भाग्य लोड हो रहा है...",
-    shadBalaTitle: "षडबल (ग्रहों का बल)",
-    shadBalaDesc: "षडबल छह प्रकार के ग्रह बलों का एक व्यापक गणितीय विश्लेषण है, जिसमें स्थान बल, दिग बल, काल बल, चेष्टा बल, नैसर्गिक बल और दृग बल शामिल हैं।",
-    sthana: "स्थान बल",
-    dik: "दिग बल",
-    kala: "काल बल",
-    cheshta: "चेष्टा बल",
-    naisargika: "नैसर्गिक",
-    drig: "दृग बल",
-    total: "कुल",
-    rupas: "रुपा",
-    minReq: "आवश्यक",
-    status: "स्थिति",
-    strong: "मजबूत",
-    moderate: "सामान्य",
     ashtakvargaTitle: "सर्वाष्टकवर्ग (SAV)",
     ashtakvargaDesc: "सर्वाष्टकवर्ग राशियों का एक समग्र शक्ति मानचित्र है। जिन भावों में 28+ बिंदु होते हैं वे अत्यधिक शुभ होते हैं, 25-27 सामान्य होते हैं, और 25 से कम बिंदु वाले भाव कमजोर क्षेत्र माने जाते हैं।",
     rasiPoints: "अष्टकवर्ग बिंदु",
@@ -1196,77 +1168,6 @@ const HoroscopeContent = () => {
             dashaBalance={chartData.dashaBalance}
             lang={lang}
           />
-        </div>
-
-        {/* Shad Bala Section */}
-        <div className="space-y-6 pt-4">
-          <div className="border-b border-outline pb-3">
-            <h2 className="text-2xl font-normal font-headline text-on-surface">
-              {t.shadBalaTitle}
-            </h2>
-            <p className="text-sm text-on-surface/70 font-body mt-1 leading-relaxed">
-              {t.shadBalaDesc}
-            </p>
-          </div>
-
-          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm font-body">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-white border-b border-outline">
-                  <th className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label", lang === "hi" ? "tracking-normal font-hindi" : "tracking-widest")}>
-                    {lang === "hi" ? "बल" : "Balas"}
-                  </th>
-                  {chartData.shadbala?.map((item, idx) => (
-                    <th key={idx} className={cn("px-4 py-3 text-xs font-bold text-on-surface uppercase font-label text-center", lang === "hi" ? "tracking-normal font-hindi" : "tracking-widest")}>
-                      {lang === "hi" ? item.planetSanskrit : item.planet}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline">
-                {[
-                  { key: "uchchaBala", label: "Uchcha Bala", labelHi: "उच्च बल" },
-                  { key: "saptavargajaBala", label: "Saptavargaja Bala", labelHi: "सप्तवर्गज बल" },
-                  { key: "ojhayugmarasiamsaBala", label: "Ojhayugmarasiamsa Bala", labelHi: "ओजयुग्मराशिअंश बल" },
-                  { key: "kendradiBala", label: "Kendradi Bala", labelHi: "केन्द्रादि बल" },
-                  { key: "drekkanaBala", label: "Drekkana Bala", labelHi: "द्रेष्काण बल" },
-                  { key: "sthanaBala", label: "Sthaana Bala", labelHi: "स्थान बल", isBold: true },
-                  { key: "dikBala", label: "Dig Bala", labelHi: "दिग बल", isBold: true },
-                  { key: "nathonnathaBala", label: "Nathonnatha Bala", labelHi: "नथोन्नत बल" },
-                  { key: "pakshaBala", label: "Paksha Bala", labelHi: "पक्ष बल" },
-                  { key: "tribhagaBala", label: "Tribhaga Bala", labelHi: "त्रिभाग बल" },
-                  { key: "varshaBala", label: "Varsha Bala", labelHi: "वर्ष बल" },
-                  { key: "masaBala", label: "Masa Bala", labelHi: "मास बल" },
-                  { key: "dinaBala", label: "Dina Bala", labelHi: "दिन बल" },
-                  { key: "horaBala", label: "Hora Bala", labelHi: "होरा बल" },
-                  { key: "ayanaBala", label: "Ayana Bala", labelHi: "अयन बल" },
-                  { key: "yudhdhaBala", label: "Yudhdha Bala", labelHi: "युद्ध बल" },
-                  { key: "kalaBala", label: "Kaala Bala", labelHi: "काल बल", isBold: true },
-                  { key: "cheshtaBala", label: "Cheshta Bala", labelHi: "चेष्टा बल", isBold: true },
-                  { key: "naisargikaBala", label: "Naisargika Bala", labelHi: "नैसर्गिक बल", isBold: true },
-                  { key: "drigBala", label: "Drik Bala", labelHi: "दृग बल", isBold: true },
-                  { key: "totalBala", label: "Total Shadbala", labelHi: "कुल षडबल", isBold: true },
-                  { key: "rupas", label: "Shadbala in rupas", labelHi: "रूपा में षडबल", isBold: true },
-                  { key: "requirement", label: "minimum requirement", labelHi: "न्यूनतम आवश्यकता", isBold: true },
-                  { key: "ratio", label: "Ratio", labelHi: "अनुपात", isBold: true },
-                  { key: "rank", label: "Relative rank", labelHi: "सापेक्ष रैंक", isBold: true },
-                  { key: "ishtaPhala", label: "Ishta Phala", labelHi: "इष्ट फल", isBold: true },
-                  { key: "kashtaPhala", label: "Kashta Phala", labelHi: "कष्ट फल", isBold: true },
-                ].map((row, rIdx) => (
-                  <tr key={rIdx} className={cn("hover:bg-surface-container-lowest transition-colors", row.isBold ? "bg-surface-container-low/30" : "")}>
-                    <td className={cn("px-4 py-2.5 text-sm text-on-surface", row.isBold ? "font-semibold" : "", lang === "hi" ? "font-hindi" : "")}>
-                      {lang === "hi" ? row.labelHi : row.label}
-                    </td>
-                    {chartData.shadbala?.map((item, cIdx) => (
-                      <td key={cIdx} className={cn("px-4 py-2.5 text-sm text-center tabular-nums text-on-surface", row.isBold ? "font-bold" : "")}>
-                        {String(item[row.key as keyof typeof item] ?? "")}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>
 
         {/* Sarva Ashtakvarga Section */}
