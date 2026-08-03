@@ -178,12 +178,12 @@ const CompactHoroscopeContent = () => {
       {/* Main Content Dashboard */}
       <main className="flex-grow overflow-hidden p-3 xl:p-4 2xl:p-6 grid grid-cols-12 grid-rows-12 gap-3 xl:gap-4 2xl:gap-5 md:h-[calc(100vh-56px)] xl:md:h-[calc(100vh-70px)] md:max-h-[calc(100vh-56px)] xl:md:max-h-[calc(100vh-70px)] md:min-h-[680px]">
 
-        {/* Left Column: Panchang & Muhurtas */}
+        {/* Left Column: Panchang & Muhurtas & Planetary Positions */}
         <div className="col-span-3 row-span-12 flex flex-col gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
           {/* Panchang */}
-          <section className="flex-grow bg-white border border-outline/80 rounded-2xl p-4 xl:p-6 shadow-sm overflow-y-auto no-scrollbar">
-            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-4 xl:mb-6 border-b border-outline/30 pb-1.5 xl:pb-2.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
-            <div className="grid grid-cols-2 gap-x-4 xl:gap-x-6 gap-y-3.5 xl:gap-y-5">
+          <section className="flex-[2] bg-white border border-outline/80 rounded-2xl p-3.5 xl:p-4.5 shadow-sm overflow-y-auto no-scrollbar">
+            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/30 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
+            <div className="grid grid-cols-2 gap-x-3 xl:gap-x-4 gap-y-2.5 xl:gap-y-3.5">
               {[
                 { label: t.tithi, val: lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit },
                 { label: t.paksha, val: lang === 'en' ? chartData.panchang.paksha : chartData.panchang.pakshaSanskrit },
@@ -197,17 +197,17 @@ const CompactHoroscopeContent = () => {
                 { label: t.ayana, val: lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1.5 xl:mb-2">{item.label}</span>
-                  <span className={`text-xs md:text-[13px] xl:text-[14px] 2xl:text-[16px] font-bold leading-snug ${lang === 'hi' || (i <= 9 && item.val.match(/[अ-ह]/)) ? 'font-hindi' : ''}`}>{item.val}</span>
+                  <span className="text-[9px] xl:text-[10px] 2xl:text-[11px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1 xl:mb-1.5">{item.label}</span>
+                  <span className={`text-[11px] md:text-xs xl:text-[13px] 2xl:text-[15px] font-bold leading-snug ${lang === 'hi' || (i <= 9 && item.val.match(/[अ-ह]/)) ? 'font-hindi' : ''}`}>{item.val}</span>
                 </div>
               ))}
             </div>
           </section>
 
           {/* Muhurtas */}
-          <section className="bg-white border border-outline/80 rounded-2xl p-4 xl:p-6 shadow-sm">
-            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-4 xl:mb-6 border-b border-outline/30 pb-1.5 xl:pb-2.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
-            <div className="grid grid-cols-2 gap-x-4 xl:gap-x-6 gap-y-3.5 xl:gap-y-5">
+          <section className="bg-white border border-outline/80 rounded-2xl p-3.5 xl:p-4.5 shadow-sm shrink-0">
+            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/30 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
+            <div className="grid grid-cols-2 gap-x-3 xl:gap-x-4 gap-y-2.5 xl:gap-y-3.5">
               {[
                 { label: t.abhijit, val: chartData.panchang.abhijitMuhurta, color: 'text-success' },
                 { label: t.rahu, val: chartData.panchang.rahuKaal, color: 'text-error' },
@@ -215,31 +215,18 @@ const CompactHoroscopeContent = () => {
                 { label: t.yamaganda, val: chartData.panchang.yamagandaKaal, color: 'text-on-surface' },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1.5 xl:mb-2">{item.label}</span>
-                  <span className={`text-xs md:text-[13px] xl:text-[14px] 2xl:text-[16px] font-bold leading-snug tabular-nums font-body ${item.color}`}>{item.val}</span>
+                  <span className="text-[9px] xl:text-[10px] 2xl:text-[11px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1 xl:mb-1.5">{item.label}</span>
+                  <span className={`text-[11px] md:text-xs xl:text-[13px] 2xl:text-[15px] font-bold leading-snug tabular-nums font-body ${item.color}`}>{item.val}</span>
                 </div>
               ))}
             </div>
           </section>
-        </div>
 
-        {/* Middle: 6 Charts Grid */}
-        <div className="col-span-5 row-span-12 grid grid-cols-2 grid-rows-3 gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
-          <ChartBox title={t.d1Chart} data={chartData.d1} lang={lang} />
-          <ChartBox title={t.d9Chart} data={chartData.d9} lang={lang} />
-          <ChartBox title={t.d3Chart} data={chartData.d3} lang={lang} />
-          <ChartBox title={t.d10Chart} data={chartData.d10} lang={lang} />
-          <ChartBox title={t.d7Chart} data={chartData.d7} lang={lang} />
-          <ChartBox title={t.d60Chart} data={chartData.d60} lang={lang} />
-        </div>
-
-        {/* Right Column: Table & Dasha */}
-        <div className="col-span-4 row-span-12 flex flex-col gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
           {/* Planetary Table */}
-          <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="bg-white px-4 py-2 xl:px-6 xl:py-3.5 border-b border-outline/50 flex justify-between items-center">
+          <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
+            <div className="bg-white px-3 py-1.5 xl:px-4.5 xl:py-2.5 border-b border-outline/50 flex justify-between items-center">
               <h2 className={`text-xs xl:text-sm font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
-              <div className={`flex items-center gap-3 text-[10px] xl:text-[11px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
+              <div className={`flex items-center gap-2 text-[9px] xl:text-[10px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
                 <span className="flex items-center gap-0.5">
                   <span className="text-black font-normal">*</span>
                   <span>{lang === 'hi' ? 'वक्री' : 'Retro'}</span>
@@ -254,30 +241,30 @@ const CompactHoroscopeContent = () => {
               <table className="w-full text-left border-collapse">
                 <thead className="sticky top-0 bg-white shadow-sm z-10">
                   <tr className="border-b border-outline/30">
-                    <th className="px-3 py-2 xl:px-4 xl:py-3.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold text-on-surface uppercase font-label">{t.planet}</th>
-                    <th className="px-2 py-2 xl:px-3 xl:py-3.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold text-on-surface uppercase font-label text-center">{t.house}</th>
-                    <th className="px-3 py-2 xl:px-4 xl:py-3.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold text-on-surface uppercase font-label">{t.rasi}</th>
-                    <th className="px-3 py-2 xl:px-4 xl:py-3.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold text-on-surface uppercase font-label">{t.degree}</th>
-                    <th className="px-3 py-2 xl:px-4 xl:py-3.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold text-on-surface uppercase font-label">{t.nakshatra}</th>
+                    <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.planet}</th>
+                    <th className="px-1 py-1.5 xl:px-1.5 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label text-center">{t.house}</th>
+                    <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.rasi}</th>
+                    <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.degree}</th>
+                    <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.nakshatra}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline/10">
                   {chartData.planets.map((p, idx) => (
                     <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
-                      <td className={`px-3 py-2 xl:px-4 xl:py-3 text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                      <td className={`px-2 py-1 xl:px-3 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
                         {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && <span className="ml-0.5 text-black font-normal">*</span>}
-                        {p.isCombust && <span className="ml-0.5 text-[10px] text-black font-normal">^</span>}
+                        {p.isCombust && <span className="ml-0.5 text-[9px] text-black font-normal">^</span>}
                       </td>
-                      <td className="px-2 py-2 xl:px-3 xl:py-3 text-[12px] xl:text-[13px] 2xl:text-[14px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
-                      <td className={`px-3 py-2 xl:px-4 xl:py-3 text-[12px] xl:text-[13px] 2xl:text-[14px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
-                      <td className="px-3 py-2 xl:px-4 xl:py-3 text-[11px] xl:text-[12px] 2xl:text-[13px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
-                      <td className={`px-3 py-2 xl:px-4 xl:py-3 text-[11px] xl:text-[12px] 2xl:text-[13px] text-on-surface truncate max-w-[100px] xl:max-w-[150px] ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
+                      <td className="px-1 py-1 xl:px-1.5 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] text-on-surface text-center font-bold tabular-nums">{p.house}</td>
+                      <td className={`px-2 py-1 xl:px-3 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
+                      <td className="px-2 py-1 xl:px-3 xl:py-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
+                      <td className={`px-2 py-1 xl:px-3 xl:py-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface truncate max-w-[70px] xl:max-w-[90px] ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <div className={`bg-surface-container-lowest px-4 py-1.5 xl:py-2.5 border-t border-outline/20 flex gap-4 text-[10px] xl:text-[11px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+            <div className={`bg-surface-container-lowest px-3 py-1 xl:py-2 border-t border-outline/20 flex gap-3 text-[9px] xl:text-[10px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
               <span className="flex items-center gap-0.5">
                 <span className="text-black font-normal">*</span>
                 <span>{lang === 'hi' ? 'वक्र' : 'Retrograde'}</span>
@@ -288,6 +275,23 @@ const CompactHoroscopeContent = () => {
               </span>
             </div>
           </section>
+        </div>
+
+        {/* Middle: 4 Charts Grid */}
+        <div className="col-span-5 row-span-12 grid grid-cols-2 grid-rows-2 gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
+          <ChartBox title={t.d1Chart} data={chartData.d1} lang={lang} />
+          <ChartBox title={t.d9Chart} data={chartData.d9} lang={lang} />
+          <ChartBox title={t.d3Chart} data={chartData.d3} lang={lang} />
+          <ChartBox title={t.d10Chart} data={chartData.d10} lang={lang} />
+        </div>
+
+        {/* Right Column: Two Charts & Dasha */}
+        <div className="col-span-4 row-span-12 flex flex-col gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
+          {/* Two Charts Section (Previously Planetary Positions) */}
+          <div className="flex-[2] grid grid-cols-2 gap-3 xl:gap-4 2xl:gap-5 md:h-full md:min-h-0">
+            <ChartBox title={t.d7Chart} data={chartData.d7} lang={lang} />
+            <ChartBox title={t.d60Chart} data={chartData.d60} lang={lang} />
+          </div>
 
           {/* Dasha (Condensed) */}
           <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
@@ -434,7 +438,7 @@ const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartD
       <h2 className={`text-[11px] md:text-xs xl:text-sm font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
     <div className="flex-grow flex items-center justify-center p-1.5 min-h-0 overflow-hidden">
-      <div className="w-full h-full max-w-[170px] max-h-[170px] md:max-w-[190px] md:max-h-[190px] lg:max-w-[210px] lg:max-h-[210px] xl:max-w-[260px] xl:max-h-[260px] 2xl:max-w-[290px] 2xl:max-h-[290px]">
+      <div className="w-full h-full max-w-[240px] max-h-[240px] md:max-w-[260px] md:max-h-[260px] lg:max-w-[320px] lg:max-h-[320px] xl:max-w-[380px] xl:max-h-[380px] 2xl:max-w-[450px] 2xl:max-h-[450px]">
         <KundliChart data={data} compact={true} />
       </div>
     </div>
