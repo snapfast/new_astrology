@@ -430,12 +430,12 @@ const CompactHoroscopeContent = () => {
 
 const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartData, lang: string }) => (
   <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden min-h-0">
-    <div className="bg-white px-3 py-1.5 border-b border-outline/30 xl:px-4 xl:py-2.5 shrink-0">
-      <h2 className={`text-xs md:text-sm xl:text-base font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
+    <div className="bg-white px-3 py-1 border-b border-outline/30 xl:px-4 xl:py-2 shrink-0">
+      <h2 className={`text-[11px] md:text-xs xl:text-sm font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
-    <div className="flex-grow flex items-center justify-center p-1 min-h-0 overflow-hidden">
-      <div className="w-full h-full max-w-[190px] max-h-[190px] md:max-w-[210px] md:max-h-[210px] lg:max-w-[230px] lg:max-h-[230px] xl:max-w-[280px] xl:max-h-[280px] 2xl:max-w-[320px] 2xl:max-h-[320px]">
-        <KundliChart data={data} />
+    <div className="flex-grow flex items-center justify-center p-1.5 min-h-0 overflow-hidden">
+      <div className="w-full h-full max-w-[170px] max-h-[170px] md:max-w-[190px] md:max-h-[190px] lg:max-w-[210px] lg:max-h-[210px] xl:max-w-[260px] xl:max-h-[260px] 2xl:max-w-[290px] 2xl:max-h-[290px]">
+        <KundliChart data={data} compact={true} />
       </div>
     </div>
   </section>
