@@ -7,6 +7,7 @@ interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
   lang?: 'en' | 'hi';
   dashaBalance?: DashaBalance;
+  isStatic?: boolean;
 }
 
 const TRANSLATIONS = {
@@ -61,7 +62,7 @@ function findCurrentDasha<T extends { start: number; end: number }>(items: T[], 
   return undefined;
 }
 
-const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en', dashaBalance }: VimshottariDashaProps) {
+const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en', dashaBalance, isStatic = false }: VimshottariDashaProps) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   // Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
@@ -252,6 +253,42 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
             const isSelected = selectedItem &&
                              selectedItem.lord === item.lord &&
                              selectedItem.start === itemStartTime;
+
+            if (isStatic) {
+              return (
+                <div
+                  key={idx}
+                  className={`
+                    relative w-full text-left block px-4 py-3.5 border-none
+                    ${isSelected ? 'bg-accent text-on-surface' : 'bg-transparent text-on-surface'}
+                  `}
+                >
+                  {/* Black arrow head for selected dasha box */}
+                  {isSelected && !isSookshma && (
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-on-surface border-y-[5px] border-y-transparent z-20"></div>
+                  )}
+
+                  <div className="flex justify-between items-center relative z-10">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-base font-bold ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                        {lang === 'hi' ? PLANET_NAMES[item.lord]?.sanskrit || item.lord : item.lord}
+                      </span>
+                      {isCurrent && !isSelected && (
+                        <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
+                      )}
+                      {isCurrent && isSelected && (
+                        <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-on-surface" />
+                      )}
+                    </div>
+                  </div>
+                  <div className={`text-xs font-medium mt-1 tabular-nums ${isSelected ? 'text-on-surface' : 'text-on-surface/70'}`}>
+                    {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
+                    {t.to}
+                    {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
+                  </div>
+                </div>
+              );
+            }
 
             return (
               <button
