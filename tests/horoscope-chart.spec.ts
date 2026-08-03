@@ -65,7 +65,7 @@ test('Compact Kundli Chart renders correctly and trims degrees inside the chart 
   }
 });
 
-test('Compact page Vimshottari Dasha section arrangement and keyboard accessibility', async ({ page }) => {
+test('Compact page Vimshottari Dasha section arrangement and static rendering', async ({ page }) => {
   // Prevent matchmaking popup
   await page.addInitScript(() => {
     window.localStorage.setItem('moonine_popup_last_shown', String(Date.now()));
@@ -82,69 +82,11 @@ test('Compact page Vimshottari Dasha section arrangement and keyboard accessibil
   const dashaHeader = page.locator('section:has-text("Vimshottari Dasha")');
   await expect(dashaHeader.first()).toBeVisible();
 
-  // Verify dasha columns are rendered as buttons for keyboard accessibility
+  // Verify dasha columns are rendered as static divs, not buttons
   const dashaButtons = page.locator('.condensed-dasha .miller-container button');
-  await expect(dashaButtons.first()).toBeVisible();
+  await expect(dashaButtons).toHaveCount(0);
 
-  // Inspect the first dasha button attributes
-  const firstButton = dashaButtons.first();
-  await expect(firstButton).toHaveAttribute('type', 'button');
-  await expect(firstButton).toHaveAttribute('aria-pressed');
-
-  // Verify that the right scroll button is visible since 4 columns of 142px each (568px) exceed the 400px container width
-  const scrollRightBtn = page.locator('button[aria-label="Scroll right"]');
-  await expect(scrollRightBtn).toBeVisible();
-
-  // Click the scroll right button and verify we can scroll
-  await scrollRightBtn.click();
-  await page.waitForTimeout(500); // Wait for smooth scroll
-
-  // Verify that the left scroll button is now visible after scrolling right
-  const scrollLeftBtn = page.locator('button[aria-label="Scroll left"]');
-  await expect(scrollLeftBtn).toBeVisible();
-
-  // Click scroll left to go back
-  await scrollLeftBtn.click();
-  await page.waitForTimeout(500); // Wait for smooth scroll
-});
-
-test('Compact page language switching, New Chart link, and action styling validation', async ({ page }) => {
-  // Prevent matchmaking popup
-  await page.addInitScript(() => {
-    window.localStorage.setItem('moonine_popup_last_shown', String(Date.now()));
-  });
-
-  // Set desktop viewport
-  await page.setViewportSize({ width: 1280, height: 800 });
-
-  // Navigate directly using populated query parameters (Delhi coords)
-  await page.goto('/horoscope/compact?name=Rahul&dob=1990-10-15&tob=12:30&pob=Delhi&lat=28.6139&lon=77.2090');
-  await page.waitForLoadState('networkidle');
-
-  // 1. Verify 'New Chart' link is visible and contains correct text and icon
-  const newChartLink = page.locator('header a[href="/free-horoscope"]');
-  await expect(newChartLink).toBeVisible();
-  await expect(newChartLink).toContainText('New Chart');
-  await expect(newChartLink).toHaveClass(/bg-accent/);
-
-  // 2. Verify segmented language toggle is visible and English button is currently active
-  const enToggleBtn = page.locator('button[aria-label="English"]');
-  const hiToggleBtn = page.locator('button[aria-label="हिन्दी"]');
-  await expect(enToggleBtn).toBeVisible();
-  await expect(hiToggleBtn).toBeVisible();
-  await expect(enToggleBtn).toHaveAttribute('aria-pressed', 'true');
-
-  // 3. Switch language to Hindi
-  await hiToggleBtn.click();
-  await page.waitForTimeout(500); // Wait for translation updates
-
-  // Verify lang state has changed and translations updated (e.g., 'New Chart' becomes 'नई कुंडली')
-  await expect(hiToggleBtn).toHaveAttribute('aria-pressed', 'true');
-  await expect(newChartLink).toContainText('नई कुंडली');
-
-  // 4. Switch back to English
-  await enToggleBtn.click();
-  await page.waitForTimeout(500); // Wait for translation updates
-  await expect(enToggleBtn).toHaveAttribute('aria-pressed', 'true');
-  await expect(newChartLink).toContainText('New Chart');
+  // Verify dasha columns contains some static items
+  const dashaItems = page.locator('.condensed-dasha .miller-container div');
+  await expect(dashaItems.first()).toBeVisible();
 });

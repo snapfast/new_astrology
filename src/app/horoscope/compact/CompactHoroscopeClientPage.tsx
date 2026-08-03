@@ -1,15 +1,11 @@
 'use client';
 
-import { Suspense, useState, useMemo } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { Suspense, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import KundliChart from '@/components/KundliChart';
 import VimshottariDasha from '@/components/VimshottariDasha';
 import { generateAstrologyData, DivisionalChartData } from '@/lib/astrology';
-import ExploreTools from '@/components/ExploreTools';
 import { useLanguage } from '@/context/LanguageContext';
-import { sendGAEvent } from '@next/third-parties/google';
 import { sanitize, sanitizeCoord, sanitizeDate, sanitizeTime } from '@/lib/security';
 
 const TRANSLATIONS = {
@@ -118,9 +114,7 @@ const TRANSLATIONS = {
 };
 
 const CompactHoroscopeContent = () => {
-  const router = useRouter();
-  const { lang, toggleLang } = useLanguage();
-  const [showCopied, setShowCopied] = useState(false);
+  const { lang } = useLanguage();
 
   const t = TRANSLATIONS[lang];
   const searchParams = useSearchParams();
@@ -147,34 +141,6 @@ const CompactHoroscopeContent = () => {
 
   const chartData = useMemo(() => generateAstrologyData(dob, tob, lat, lon), [dob, tob, lat, lon]);
 
-  const handleShare = async () => {
-    sendGAEvent({ event: 'action_click', action_name: 'horoscope_compact_share_click' });
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `Horoscope for ${name}`,
-          text: `Check out my Vedic birth chart compact dashboard!`,
-          url: window.location.href,
-        });
-      } catch (err) {
-        console.error('Error sharing:', err);
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        setShowCopied(true);
-        setTimeout(() => setShowCopied(false), 2000);
-      } catch (err) {
-        console.error('Error copying to clipboard:', err);
-      }
-    }
-  };
-
-  const goToStandard = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    router.push(`/horoscope?${params.toString()}`);
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-surface text-on-surface overflow-hidden relative">
       {/* Mobile Blocker Overlay */}
@@ -182,126 +148,30 @@ const CompactHoroscopeContent = () => {
         <span className="material-symbols-outlined text-6xl text-accent mb-4">desktop_windows</span>
         <h2 className={`text-2xl mb-4 ${lang === 'hi' ? 'font-hindi font-bold' : 'font-headline'}`}>{t.desktopOnly}</h2>
         <p className="text-on-surface font-body mb-8 text-sm">{t.mobileMsg}</p>
-        <button
-          onClick={goToStandard}
-          className={cn(
-            "bg-primary text-white px-8 py-3 rounded-full font-label text-sm uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-primary/90",
-            lang === 'hi' ? "tracking-normal text-base" : "tracking-wider"
-          )}
-        >
-          {t.goBackBtn}
-        </button>
       </div>
 
       {/* Header */}
-      <header className="flex-none bg-white border-b border-outline/50 px-4 py-2 xl:px-6 xl:py-3.5 flex items-center justify-between shadow-sm z-10 print:hidden">
-        <div className="flex items-center gap-4 xl:gap-6">
-          <button
-            onClick={goToStandard}
-            className={cn(
-              "flex items-center gap-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold bg-accent text-on-accent uppercase font-label hover:bg-accent/90 rounded-full px-2.5 py-1.5 xl:px-4 xl:py-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95",
-              lang === 'hi' ? "tracking-normal text-[11px] xl:text-[12px] 2xl:text-[13px]" : "tracking-wider"
-            )}
-            aria-label={t.backToStandard}
-          >
-            <span className="material-symbols-outlined text-[14px] xl:text-[16px] 2xl:text-[18px]" aria-hidden="true">arrow_back</span>
-            {t.backToStandard}
-          </button>
-
-          <Link
-            href="/free-horoscope"
-            className={cn(
-              "flex items-center gap-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold bg-accent text-on-accent uppercase font-label hover:bg-accent/90 rounded-full px-2.5 py-1.5 xl:px-4 xl:py-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95",
-              lang === 'hi' ? "tracking-normal text-[11px] xl:text-[12px] 2xl:text-[13px]" : "tracking-wider"
-            )}
-            aria-label={t.generateNew}
-          >
-            <span className="material-symbols-outlined text-[14px] xl:text-[16px] 2xl:text-[18px]" aria-hidden="true">add_circle</span>
-            {t.generateNew}
-          </Link>
-
-          <div className="h-4 xl:h-6 w-px bg-outline/30"></div>
-          <div className="flex items-center gap-4 xl:gap-6 text-xs xl:text-sm 2xl:text-base">
-            <div className="flex gap-2">
-              <span className="text-on-surface font-label uppercase tracking-tighter">{t.name}:</span>
-              <span className="font-bold">{name}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-on-surface font-label uppercase tracking-tighter">{t.date}:</span>
-              <span className="font-bold">{formattedDob}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-on-surface font-label uppercase tracking-tighter">{t.time}:</span>
-              <span className="font-bold">{tob}</span>
-            </div>
-            <div className="flex gap-2 max-w-[200px] xl:max-w-[300px] 2xl:max-w-[400px] truncate">
-              <span className="text-on-surface font-label uppercase tracking-tighter">{t.place}:</span>
-              <span className="font-bold truncate">{pob}</span>
-            </div>
+      <header className="flex-none bg-white border-b border-outline/50 px-4 py-3 xl:px-6 xl:py-4 flex items-center justify-center shadow-sm z-10 print:hidden">
+        <div className="flex items-center gap-4 xl:gap-8 text-xs xl:text-sm 2xl:text-base">
+          <div className="flex gap-2">
+            <span className="text-on-surface font-label uppercase tracking-tighter">{t.name}:</span>
+            <span className="font-bold">{name}</span>
           </div>
-        </div>
-
-        <div className="flex items-center gap-3 xl:gap-5 relative">
-          {showCopied && (
-            <div
-              aria-live="polite"
-              className={`absolute -bottom-10 right-0 bg-on-surface text-surface text-[9px] xl:text-[11px] px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-top-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === 'en' ? 'tracking-widest' : ''}`}
-            >
-              {t.linkCopied}
-            </div>
-          )}
-
-          {/* Segmented Language Toggle */}
-          <div
-            className="flex items-center bg-surface-container-high/50 p-0.5 rounded-full border border-outline/30 shadow-sm h-7 xl:h-9"
-            role="group"
-            aria-label={t.switchLanguage}
-          >
-            <button
-              onClick={() => lang !== 'en' && toggleLang()}
-              aria-pressed={lang === 'en'}
-              aria-label="English"
-              className={cn(
-                "w-8 h-6 xl:w-10 xl:h-8 rounded-full transition-all duration-300 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 active:scale-95",
-                lang === 'en'
-                  ? 'bg-white text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.08)] font-bold'
-                  : 'text-on-surface/40 hover:text-on-surface hover:bg-black/[0.03]'
-              )}
-            >
-              <span className="text-[9px] xl:text-[11px] font-bold tracking-tight">EN</span>
-            </button>
-            <button
-              onClick={() => lang !== 'hi' && toggleLang()}
-              aria-pressed={lang === 'hi'}
-              aria-label="हिन्दी"
-              className={cn(
-                "w-8 h-6 xl:w-10 xl:h-8 rounded-full transition-all duration-300 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 active:scale-95",
-                lang === 'hi'
-                  ? 'bg-white text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.08)] font-bold'
-                  : 'text-on-surface/40 hover:text-on-surface hover:bg-black/[0.03]'
-              )}
-            >
-              <span className="text-[12px] xl:text-[14px] font-hindi font-bold leading-none translate-y-[0.5px]">हि</span>
-            </button>
+          <div className="h-4 w-px bg-outline/30"></div>
+          <div className="flex gap-2">
+            <span className="text-on-surface font-label uppercase tracking-tighter">{t.date}:</span>
+            <span className="font-bold">{formattedDob}</span>
           </div>
-
-          <button
-            onClick={handleShare}
-            className="w-8 h-8 xl:w-10 xl:h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all border border-outline/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
-            title={t.shareReport}
-            aria-label={t.shareReport}
-          >
-            <span className="material-symbols-outlined text-[18px] xl:text-[22px]" aria-hidden="true">share</span>
-          </button>
-          <button
-            onClick={() => window.dispatchEvent(new CustomEvent('openBookingModal'))}
-            className={cn(
-              "ml-1 bg-primary text-white px-4 py-1.5 xl:px-6 xl:py-2.5 rounded-full text-[10px] xl:text-[11px] 2xl:text-[12px] font-bold uppercase font-label transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 hover:bg-primary/90",
-              lang === 'en' ? 'tracking-widest' : ''
-            )}
-          >
-            {t.bookBtn}
-          </button>
+          <div className="h-4 w-px bg-outline/30"></div>
+          <div className="flex gap-2">
+            <span className="text-on-surface font-label uppercase tracking-tighter">{t.time}:</span>
+            <span className="font-bold">{tob}</span>
+          </div>
+          <div className="h-4 w-px bg-outline/30"></div>
+          <div className="flex gap-2 max-w-[200px] xl:max-w-[300px] 2xl:max-w-[400px] truncate">
+            <span className="text-on-surface font-label uppercase tracking-tighter">{t.place}:</span>
+            <span className="font-bold truncate">{pob}</span>
+          </div>
         </div>
       </header>
 
@@ -429,7 +299,7 @@ const CompactHoroscopeContent = () => {
               </div>
             </div>
             <div className="flex-grow overflow-hidden condensed-dasha">
-               <VimshottariDasha mahadashas={chartData.mahadashas} lang={lang} />
+               <VimshottariDasha mahadashas={chartData.mahadashas} lang={lang} isStatic={true} />
             </div>
           </section>
         </div>
@@ -485,6 +355,10 @@ const CompactHoroscopeContent = () => {
             width: 220px;
             font-size: 13px;
           }
+        }
+        /* Overrides to prevent layout/charts cutoffs and allow proper scaling in high-density flex/grid */
+        main section {
+          min-height: 0;
         }
         .condensed-dasha .dasha-active-indicator {
           display: none !important;
@@ -555,13 +429,13 @@ const CompactHoroscopeContent = () => {
 };
 
 const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartData, lang: string }) => (
-  <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden">
-    <div className="bg-white px-3 py-1.5 border-b border-outline/30 xl:px-4 xl:py-2.5">
-      <h2 className={`text-xs md:text-sm xl:text-base font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
+  <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden min-h-0">
+    <div className="bg-white px-3 py-1 border-b border-outline/30 xl:px-4 xl:py-2 shrink-0">
+      <h2 className={`text-[11px] md:text-xs xl:text-sm font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
-    <div className="flex-grow flex items-center justify-center p-1 overflow-hidden">
-      <div className="w-full h-full max-w-[400px] max-h-[400px] xl:max-w-[480px] xl:max-h-[480px] 2xl:max-w-[550px] 2xl:max-h-[550px]">
-        <KundliChart data={data} />
+    <div className="flex-grow flex items-center justify-center p-1.5 min-h-0 overflow-hidden">
+      <div className="w-full h-full max-w-[170px] max-h-[170px] md:max-w-[190px] md:max-h-[190px] lg:max-w-[210px] lg:max-h-[210px] xl:max-w-[260px] xl:max-h-[260px] 2xl:max-w-[290px] 2xl:max-h-[290px]">
+        <KundliChart data={data} compact={true} />
       </div>
     </div>
   </section>
