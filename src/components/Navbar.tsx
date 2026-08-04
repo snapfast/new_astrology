@@ -102,11 +102,11 @@ const Navbar = () => {
     {
       name: t.tools,
       subLinks: [
-        { name: lang === 'en' ? 'Transits (Gochar)' : 'गोचर (Transits)', href: '/transits' },
-        { name: lang === 'en' ? 'Hora (Planetary Hours)' : 'होरा चक्र (Hora)', href: '/hora' },
-        { name: t.biorhythm, href: '/biorhythm' },
-        { name: t.panchPakshi, href: '/panch-pakshi' },
-        { name: t.faq, href: '/faq' }
+        { name: lang === 'en' ? 'Transits (Gochar)' : 'Transits (गोचर)', href: '/transits' },
+        { name: lang === 'en' ? 'Planetary Hours (Hora)' : 'Planetary Hours (होरा)', href: '/hora' },
+        { name: lang === 'en' ? 'Biorhythm' : 'Biorhythm (बायोरिदम)', href: '/biorhythm' },
+        { name: lang === 'en' ? 'Panch Pakshi' : 'Panch Pakshi (पंच पक्षी)', href: '/panch-pakshi' },
+        { name: lang === 'en' ? 'FAQ' : 'FAQ (प्रश्न)', href: '/faq' }
       ]
     },
     { name: t.about, href: '/about' },

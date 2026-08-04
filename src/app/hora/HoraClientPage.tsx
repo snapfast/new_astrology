@@ -409,7 +409,6 @@ const HoraClientPage = () => {
                       <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.lord}</th>
                       <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.time}</th>
                       <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.nature}</th>
-                      <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.actions}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -458,9 +457,6 @@ const HoraClientPage = () => {
                             <span className={hora.nature === 'benefic' ? 'text-success' : 'text-accent'}>
                               {hora.nature === 'benefic' ? (lang === 'en' ? 'Gentle' : 'सौम्य') : (lang === 'en' ? 'Cruel' : 'क्रूर')}
                             </span>
-                          </td>
-                          <td className="py-2 px-3 text-[10px] text-on-surface/85 max-w-[200px] truncate" title={(lang === 'en' ? hora.activities.en : hora.activities.hi).join(', ')}>
-                            {(lang === 'en' ? hora.activities.en : hora.activities.hi).slice(0, 2).join(', ')}...
                           </td>
                         </tr>
                       );
