@@ -176,7 +176,7 @@ const CompactHoroscopeContent = () => {
       </header>
 
       {/* Main Content Dashboard */}
-      <main className="flex-grow overflow-hidden p-3 xl:p-4 2xl:p-6 grid grid-cols-[1.1fr_2fr_2fr] grid-rows-12 gap-3 xl:gap-4 2xl:gap-5 md:h-[calc(100vh-56px)] xl:md:h-[calc(100vh-70px)] md:max-h-[calc(100vh-56px)] xl:md:max-h-[calc(100vh-70px)] md:min-h-[680px]">
+      <main className="flex-grow overflow-hidden p-3 xl:p-4 2xl:p-6 grid grid-cols-[1.1fr_2fr_1.5fr] grid-rows-12 gap-3 xl:gap-4 2xl:gap-5 md:h-[calc(100vh-56px)] xl:md:h-[calc(100vh-70px)] md:max-h-[calc(100vh-56px)] xl:md:max-h-[calc(100vh-70px)] md:min-h-[680px]">
 
         {/* Left Column: Panchang & Muhurtas & Planetary Positions */}
         <div className="col-span-1 row-span-12 flex flex-col gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
