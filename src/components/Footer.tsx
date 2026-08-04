@@ -12,6 +12,7 @@ const TRANSLATIONS = {
     desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
     services: 'Services',
     dailyPanchang: 'Daily Panchang',
+    hora: 'Planetary Hours (Hora)',
     freeKundli: 'Free Kundli',
     consultation: 'Consultation',
     premium: 'Premium Appointment',
@@ -28,6 +29,7 @@ const TRANSLATIONS = {
     desc: 'तारों द्वारा निर्देशित, प्राचीन ज्ञान में निहित। आध्यात्मिक स्पष्टता और संरेखण के लिए पेशेवर वैदिक ज्योतिष सेवाएं।',
     services: 'सेवाएं',
     dailyPanchang: 'दैनिक पंचांग',
+    hora: 'ग्रह होरा चक्र',
     freeKundli: 'मुफ्त कुंडली',
     consultation: 'परामर्श',
     premium: 'प्रीमियम अपॉइंटमेंट',
@@ -64,6 +66,7 @@ const Footer = () => {
           }`}>{t.services}</h6>
           <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
             <li><Link href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
+            <li><Link href="/hora" className="text-on-surface font-normal text-left">{t.hora}</Link></li>
             <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.consultation}</button></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.premium}</button></li>

@@ -102,6 +102,25 @@ const ALL_CARDS = [
     paths: ['/biorhythm']
   },
   {
+    id: 'hora',
+    href: '/hora',
+    icon: 'hourglass_empty',
+    title: {
+      en: 'Planetary Hours (Hora)',
+      hi: 'ग्रह होरा चक्र'
+    },
+    desc: {
+      en: 'Vedic planetary hours for choosing auspicious timings (muhurtas).',
+      hi: 'शुभ मुहूर्त और समय चुनने के लिए वैदिक ग्रह होरा चक्र।'
+    },
+    action: {
+      en: 'View Hora',
+      hi: 'होरा देखें'
+    },
+    gaAction: 'explore_hora',
+    paths: ['/hora']
+  },
+  {
     id: 'booking',
     isButton: true,
     icon: 'chat_bubble',
