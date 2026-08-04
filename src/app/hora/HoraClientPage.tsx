@@ -217,28 +217,28 @@ const HoraClientPage = () => {
         description={t.heroDesc}
       />
 
-      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 md:space-y-12">
-        {/* Unified Control Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline rounded-[2rem] p-5 shadow-sm">
+      <section className="py-4 md:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
+        {/* Unified Control Bar (Compact p-4) */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white border border-outline rounded-[1.5rem] p-4 shadow-sm">
           <div className="flex items-center gap-2">
             <button
               onClick={handleToday}
-              className={`px-6 py-2.5 rounded-full bg-accent text-white hover:bg-accent/95 transition-all text-xs font-label uppercase tracking-wider`}
+              className={`px-5 py-2 rounded-full bg-accent text-white hover:bg-accent/95 transition-all text-xs font-label uppercase tracking-wider`}
             >
               {t.today}
             </button>
           </div>
 
-          <div className="flex items-center gap-4 w-full md:w-auto border-t md:border-t-0 md:border-l border-outline/20 pt-6 md:pt-0 md:pl-8">
+          <div className="flex items-center gap-4 w-full md:w-auto border-t md:border-t-0 md:border-l border-outline/20 pt-4 md:pt-0 md:pl-6">
             <div className="relative flex-1 md:flex-none">
               <input
                 type="date"
                 value={selectedDateStr}
                 onChange={handleDateChange}
-                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                className="w-full md:w-44 px-3 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label={t.selectDate}
               />
-              <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-on-surface text-sm font-body z-20">
                 {(() => {
                   if (!selectedDateStr) return '';
                   const [y, m, d] = selectedDateStr.split('-');
@@ -250,11 +250,11 @@ const HoraClientPage = () => {
                   return selectedDateStr;
                 })()}
               </div>
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl z-20" aria-hidden="true">calendar_month</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
             </div>
-            <div className="hidden sm:block sm:w-60 shrink-0">
+            <div className="hidden sm:block sm:w-52 shrink-0">
               <p className="text-[10px] font-label text-accent uppercase mb-0.5 tracking-widest">{t.selectedDate}</p>
-              <p className={`text-sm font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
+              <p className={`text-xs font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
                 {formattedSelectedDate}
               </p>
             </div>
@@ -262,27 +262,27 @@ const HoraClientPage = () => {
         </div>
 
         {horaData && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Live Highlight Card or Date Info Card */}
-            <div className="lg:col-span-1 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Live Highlight Card or Date Info Card (Compact p-5) */}
+            <div className="lg:col-span-1 space-y-4">
               {isTodaySelected && liveActiveHora ? (
-                <div className="bg-white border-2 border-accent rounded-[2.5rem] p-6 md:p-8 shadow-md relative overflow-hidden flex flex-col justify-between space-y-6">
+                <div className="bg-white border-2 border-accent rounded-[2rem] p-5 shadow-sm relative overflow-hidden flex flex-col justify-between space-y-4">
                   <div>
-                    <span className="text-[10px] bg-accent text-white font-label uppercase px-2.5 py-1 rounded-full tracking-widest block w-fit mb-4">
+                    <span className="text-[9px] bg-accent text-white font-label uppercase px-2 py-0.5 rounded-full tracking-widest block w-fit mb-3">
                       {lang === 'en' ? 'LIVE NOW' : 'लाइव'}
                     </span>
-                    <h2 className="text-xl font-bold text-accent uppercase tracking-wider font-label">{t.currentHoraTitle}</h2>
-                    <p className="text-xs text-on-surface/70 font-body mt-1">{t.currentHoraDesc}</p>
+                    <h2 className="text-lg font-bold text-accent uppercase tracking-wider font-label">{t.currentHoraTitle}</h2>
+                    <p className="text-xs text-on-surface/70 font-body mt-0.5">{t.currentHoraDesc}</p>
                   </div>
 
-                  <div className="py-4 space-y-4">
+                  <div className="py-2 space-y-3">
                     <div className="flex justify-between items-baseline">
                       <div>
-                        <span className="text-3xl font-headline font-bold text-on-surface">
+                        <span className="text-2xl font-headline font-bold text-on-surface">
                           {lang === 'en' ? liveActiveHora.lord : liveActiveHora.lordSanskrit}
                         </span>
                         {lang === 'en' && (
-                          <span className="text-sm font-hindi text-on-surface/80 ml-2">
+                          <span className="text-xs font-hindi text-on-surface/80 ml-1.5">
                             {liveActiveHora.lordSanskrit}
                           </span>
                         )}
@@ -293,7 +293,7 @@ const HoraClientPage = () => {
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
                       <div
                         className="bg-accent h-full rounded-full transition-all duration-1000"
                         style={{ width: `${activeProgress}%` }}
@@ -306,16 +306,16 @@ const HoraClientPage = () => {
                     </div>
 
                     {activeTimeLeft && (
-                      <div className="bg-surface-container-low/30 rounded-2xl p-4 flex items-center justify-between">
+                      <div className="bg-surface-container-low/30 rounded-xl p-3 flex items-center justify-between">
                         <span className="text-xs font-label uppercase tracking-wider text-on-surface/80">{t.timeLeft}:</span>
-                        <span className="text-sm font-bold font-body tabular-nums text-accent">
+                        <span className="text-xs font-bold font-body tabular-nums text-accent">
                           {activeTimeLeft.minutes}m {activeTimeLeft.seconds}s
                         </span>
                       </div>
                     )}
                   </div>
 
-                  <div className="border-t border-outline/10 pt-4 space-y-2">
+                  <div className="border-t border-outline/10 pt-3 space-y-1">
                     <div className="flex justify-between items-center text-xs">
                       <span className="font-label uppercase text-on-surface/80">{t.type}:</span>
                       <span className="font-bold text-on-surface">{liveActiveHora.type === 'day' ? t.day : t.night}</span>
@@ -329,20 +329,20 @@ const HoraClientPage = () => {
                   </div>
                 </div>
               ) : (
-                <div className="bg-white border border-outline rounded-[2.5rem] p-6 md:p-8 shadow-sm space-y-6">
+                <div className="bg-white border border-outline rounded-[2rem] p-5 shadow-sm space-y-4">
                   <div>
-                    <span className="text-[10px] bg-primary/10 text-primary font-label uppercase px-2.5 py-1 rounded-full tracking-widest block w-fit mb-4 font-bold">
+                    <span className="text-[9px] bg-primary/10 text-primary font-label uppercase px-2 py-0.5 rounded-full tracking-widest block w-fit mb-3 font-bold">
                       {lang === 'en' ? 'HISTORICAL' : 'इतिहास'}
                     </span>
-                    <h2 className="text-xl font-bold text-accent uppercase tracking-wider font-label">{t.viewScheduledDate}</h2>
+                    <h2 className="text-lg font-bold text-accent uppercase tracking-wider font-label">{t.viewScheduledDate}</h2>
                   </div>
 
-                  <div className="space-y-4 text-xs font-body leading-relaxed text-on-surface/80">
-                    <div className="flex justify-between border-b border-outline/10 pb-2">
+                  <div className="space-y-3 text-xs font-body leading-relaxed text-on-surface/80">
+                    <div className="flex justify-between border-b border-outline/10 pb-1.5">
                       <span>{t.sunrise}:</span>
                       <span className="font-bold tabular-nums text-on-surface">{formatTimeStr(horaData.sunrise)}</span>
                     </div>
-                    <div className="flex justify-between border-b border-outline/10 pb-2">
+                    <div className="flex justify-between border-b border-outline/10 pb-1.5">
                       <span>{t.sunset}:</span>
                       <span className="font-bold tabular-nums text-on-surface">{formatTimeStr(horaData.sunset)}</span>
                     </div>
@@ -354,9 +354,9 @@ const HoraClientPage = () => {
                 </div>
               )}
 
-              {/* Activities details */}
+              {/* Activities details (Compact padding p-5) */}
               {((isTodaySelected && liveActiveHora) || horaData.horas[0]) && (
-                <div className="bg-white border border-outline rounded-[2.5rem] p-6 md:p-8 shadow-sm space-y-6">
+                <div className="bg-white border border-outline rounded-[2rem] p-5 shadow-sm space-y-4">
                   {(() => {
                     const active = isTodaySelected && liveActiveHora ? liveActiveHora : horaData.horas[0];
                     const acts = lang === 'en' ? active.activities.en : active.activities.hi;
@@ -365,23 +365,23 @@ const HoraClientPage = () => {
                     return (
                       <>
                         <div>
-                          <h3 className="text-base font-headline font-bold text-on-surface mb-3 flex items-center gap-2">
-                            <span className="material-symbols-outlined text-success" aria-hidden="true">task_alt</span>
+                          <h3 className="text-sm font-headline font-bold text-on-surface mb-2 flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-success !text-lg" aria-hidden="true">task_alt</span>
                             {t.activitiesTitle} ({lang === 'en' ? active.lord : active.lordSanskrit})
                           </h3>
-                          <ul className="space-y-2 text-xs font-body leading-relaxed text-on-surface/90 list-disc pl-5">
+                          <ul className="space-y-1 text-xs font-body leading-relaxed text-on-surface/90 list-disc pl-5">
                             {acts.map((act, i) => (
                               <li key={i}>{act}</li>
                             ))}
                           </ul>
                         </div>
 
-                        <div className="border-t border-outline/10 pt-4">
-                          <h3 className="text-base font-headline font-bold text-on-surface mb-3 flex items-center gap-2">
-                            <span className="material-symbols-outlined text-error" aria-hidden="true">cancel</span>
+                        <div className="border-t border-outline/10 pt-3">
+                          <h3 className="text-sm font-headline font-bold text-on-surface mb-2 flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-error !text-lg" aria-hidden="true">cancel</span>
                             {t.avoidTitle} ({lang === 'en' ? active.lord : active.lordSanskrit})
                           </h3>
-                          <ul className="space-y-2 text-xs font-body leading-relaxed text-on-surface/90 list-disc pl-5">
+                          <ul className="space-y-1 text-xs font-body leading-relaxed text-on-surface/90 list-disc pl-5">
                             {avoids.map((avoid, i) => (
                               <li key={i}>{avoid}</li>
                             ))}
@@ -394,22 +394,22 @@ const HoraClientPage = () => {
               )}
             </div>
 
-            {/* 24 Hours Timeline Schedule */}
-            <div className="lg:col-span-2 bg-white border border-outline rounded-[2.5rem] p-5 md:p-8 shadow-sm">
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-accent uppercase tracking-wider font-label">{t.hoursTitle}</h2>
-                <p className="text-xs text-on-surface/60 font-body mt-1">{t.hoursSubtitle}</p>
+            {/* 24 Hours Timeline Schedule (Compact paddings p-4 md:p-6, and compact table row paddings py-2 px-3) */}
+            <div className="lg:col-span-2 bg-white border border-outline rounded-[2rem] p-4 md:p-6 shadow-sm">
+              <div className="mb-4">
+                <h2 className="text-lg font-bold text-accent uppercase tracking-wider font-label">{t.hoursTitle}</h2>
+                <p className="text-xs text-on-surface/60 font-body mt-0.5">{t.hoursSubtitle}</p>
               </div>
 
-              <div className="overflow-x-auto rounded-2xl border border-outline/30">
+              <div className="overflow-x-auto rounded-xl border border-outline/30">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-surface border-b border-outline/20 text-xs font-label uppercase tracking-wider text-accent/80">
-                      <th className="py-4 px-4 font-bold">{t.scheduleHeader.num}</th>
-                      <th className="py-4 px-4 font-bold">{t.scheduleHeader.lord}</th>
-                      <th className="py-4 px-4 font-bold">{t.scheduleHeader.time}</th>
-                      <th className="py-4 px-4 font-bold">{t.scheduleHeader.nature}</th>
-                      <th className="py-4 px-4 font-bold">{t.scheduleHeader.actions}</th>
+                      <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.num}</th>
+                      <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.lord}</th>
+                      <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.time}</th>
+                      <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.nature}</th>
+                      <th className="py-2.5 px-3 font-bold">{t.scheduleHeader.actions}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -425,12 +425,12 @@ const HoraClientPage = () => {
                               : 'odd:bg-surface/20'
                           }`}
                         >
-                          <td className="py-4 px-4 font-bold text-on-surface">
+                          <td className="py-2 px-3 font-bold text-on-surface">
                             {hora.number}
                           </td>
-                          <td className="py-4 px-4">
-                            <div className="flex items-center gap-2">
-                              <span className="material-symbols-outlined text-lg" style={{ color: hora.nature === 'benefic' ? '#2e7d32' : '#ffae42' }}>
+                          <td className="py-2 px-3">
+                            <div className="flex items-center gap-1.5">
+                              <span className="material-symbols-outlined !text-base" style={{ color: hora.nature === 'benefic' ? '#2e7d32' : '#ffae42' }}>
                                 {hora.lord === "Sun" ? "sunny" :
                                  hora.lord === "Moon" ? "bedtime" :
                                  hora.lord === "Mars" ? "local_fire_department" :
@@ -438,28 +438,28 @@ const HoraClientPage = () => {
                                  hora.lord === "Jupiter" ? "school" :
                                  hora.lord === "Venus" ? "favorite" : "hourglass_empty"}
                               </span>
-                              <div className="flex flex-col">
+                              <div className="flex flex-col leading-tight">
                                 <span className="font-bold text-on-surface">
                                   {lang === 'en' ? hora.lord : hora.lordSanskrit}
                                 </span>
                                 {lang === 'en' && (
-                                  <span className="text-[10px] font-hindi text-on-surface/80">
+                                  <span className="text-[9px] font-hindi text-on-surface/80">
                                     {hora.lordSanskrit}
                                   </span>
                                 )}
                               </div>
                             </div>
                           </td>
-                          <td className="py-4 px-4 tabular-nums text-on-surface">
+                          <td className="py-2 px-3 tabular-nums text-on-surface leading-tight">
                             <div>{formatTimeStr(hora.start)} &rarr;</div>
                             <div className="text-on-surface/80">{formatTimeStr(hora.end)}</div>
                           </td>
-                          <td className="py-4 px-4 font-semibold">
+                          <td className="py-2 px-3 font-semibold">
                             <span className={hora.nature === 'benefic' ? 'text-success' : 'text-accent'}>
                               {hora.nature === 'benefic' ? (lang === 'en' ? 'Gentle' : 'सौम्य') : (lang === 'en' ? 'Cruel' : 'क्रूर')}
                             </span>
                           </td>
-                          <td className="py-4 px-4 text-[11px] text-on-surface/85 max-w-xs truncate" title={(lang === 'en' ? hora.activities.en : hora.activities.hi).join(', ')}>
+                          <td className="py-2 px-3 text-[10px] text-on-surface/85 max-w-[200px] truncate" title={(lang === 'en' ? hora.activities.en : hora.activities.hi).join(', ')}>
                             {(lang === 'en' ? hora.activities.en : hora.activities.hi).slice(0, 2).join(', ')}...
                           </td>
                         </tr>
@@ -472,12 +472,12 @@ const HoraClientPage = () => {
           </div>
         )}
 
-        {/* Educational Content Section */}
-        <div className="bg-white border border-outline rounded-[2.5rem] p-6 md:p-8 shadow-sm space-y-6 max-w-4xl mx-auto">
-          <h2 className="text-xl md:text-2xl font-bold text-accent uppercase tracking-wider font-label text-center">
+        {/* Educational Content Section (Compact padding p-5 md:p-6) */}
+        <div className="bg-white border border-outline rounded-[2rem] p-5 md:p-6 shadow-sm space-y-4 max-w-4xl mx-auto">
+          <h2 className="text-lg md:text-xl font-bold text-accent uppercase tracking-wider font-label text-center">
             {t.educationalTitle}
           </h2>
-          <div className="prose prose-sm max-w-none text-on-surface font-body leading-relaxed space-y-4">
+          <div className="prose prose-sm max-w-none text-on-surface font-body leading-relaxed space-y-3">
             <p>{t.educationalText1}</p>
             <p>{t.educationalText2}</p>
             <p>{t.educationalText3}</p>
