@@ -103,6 +103,7 @@ const Navbar = () => {
       name: t.tools,
       subLinks: [
         { name: lang === 'en' ? 'Transits (Gochar)' : 'गोचर (Transits)', href: '/transits' },
+        { name: lang === 'en' ? 'Hora (Planetary Hours)' : 'होरा चक्र (Hora)', href: '/hora' },
         { name: t.biorhythm, href: '/biorhythm' },
         { name: t.panchPakshi, href: '/panch-pakshi' },
         { name: t.faq, href: '/faq' }

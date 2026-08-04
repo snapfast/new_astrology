@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS } from './astrology.ts';
+import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -596,5 +596,49 @@ test('calculateSarvaAshtakvarga and calculateAllShadBala logic validations', () 
 
         assert.strictEqual(item.ishtaPhala, Number(Math.sqrt(item.uchchaBala * item.cheshtaBala).toFixed(2)), `${item.planet} ishtaPhala mismatch`);
         assert.strictEqual(item.kashtaPhala, Number(Math.sqrt((60 - item.uchchaBala) * (60 - item.cheshtaBala)).toFixed(2)), `${item.planet} kashtaPhala mismatch`);
+    }
+});
+
+test('getHoraData outputs 24 dynamic BPHS proportional Horas', () => {
+    // 2026-07-16 is a Thursday (Guruvara).
+    // The ruling planet of Thursday at Sunrise is Jupiter.
+    // The order of Hora lords is Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars.
+    // So the sequence starting from Jupiter should be:
+    // Hora 1: Jupiter, Hora 2: Mars, Hora 3: Sun, Hora 4: Venus, Hora 5: Mercury, Hora 6: Moon, Hora 7: Saturn, Hora 8: Jupiter...
+    const dob = '2026-07-16';
+    const result = getHoraData(dob, "28.6139", "77.2090"); // New Delhi coordinates
+
+    assert.ok(result.selectedDate instanceof Date, 'Should return selectedDate as Date');
+    assert.ok(result.sunrise instanceof Date, 'Should return sunrise as Date');
+    assert.ok(result.sunset instanceof Date, 'Should return sunset as Date');
+    assert.ok(result.nextSunrise instanceof Date, 'Should return nextSunrise as Date');
+    assert.strictEqual(result.horas.length, 24, 'Should have exactly 24 Horas');
+
+    // Check first Hora lord is Jupiter (lord of Thursday)
+    const firstHora = result.horas[0];
+    assert.strictEqual(firstHora.lord, 'Jupiter', 'The first Hora lord of Thursday must be Jupiter');
+    assert.strictEqual(firstHora.lordSanskrit, 'गुरु', 'The Sanskrit name for Jupiter should be गुरु');
+    assert.strictEqual(firstHora.type, 'day', 'The first Hora should be daytime');
+
+    // Check second Hora lord is Mars
+    const secondHora = result.horas[1];
+    assert.strictEqual(secondHora.lord, 'Mars', 'The second Hora lord of Thursday must be Mars');
+
+    // Check 13th Hora is nighttime and starts at sunset
+    const thirteenthHora = result.horas[12];
+    assert.strictEqual(thirteenthHora.type, 'night', 'The 13th Hora must be nighttime');
+    assert.strictEqual(thirteenthHora.start.getTime(), result.sunset.getTime(), 'The 13th Hora must start at sunset');
+
+    // Check last Hora ends at nextSunrise
+    const lastHora = result.horas[23];
+    assert.strictEqual(lastHora.end.getTime(), result.nextSunrise.getTime(), 'The last Hora must end at next Sunrise');
+
+    // Check continuity of all Horas
+    for (let i = 0; i < 23; i++) {
+        assert.strictEqual(
+            result.horas[i].end.getTime(),
+            result.horas[i + 1].start.getTime(),
+            `Hora ${i + 1} end time should match Hora ${i + 2} start time`
+        );
     }
 });

@@ -2952,6 +2952,353 @@ export function getRetrogradeDetails(planet: string, refDate: Date): TransitPeri
     };
 }
 
+export interface HoraInterval {
+    number: number;
+    start: Date;
+    end: Date;
+    lord: string;
+    lordSanskrit: string;
+    type: "day" | "night";
+    nature: "benefic" | "malefic";
+    activities: {
+        en: string[];
+        hi: string[];
+    };
+    avoid: {
+        en: string[];
+        hi: string[];
+    };
+}
+
+export interface HoraData {
+    selectedDate: Date;
+    sunrise: Date;
+    sunset: Date;
+    nextSunrise: Date;
+    horas: HoraInterval[];
+}
+
+export function getHoraData(dob: string, latStr?: string, lonStr?: string): HoraData {
+    const lat = parseFloat(latStr || "28.6139");
+    const lon = parseFloat(lonStr || "77.2090");
+    const observer = new Ast.Observer(lat, lon, 0);
+
+    const { time } = parseISTToUTC(dob, "12:00");
+    const varaData = getVedicVara(time, lat, lon);
+
+    const sunriseDate = varaData.sunrise || time.date;
+
+    const nextSunriseResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, 1, Ast.MakeTime(new Date(sunriseDate.getTime() + 2 * 60 * 60 * 1000)), 30);
+    const nextSunriseDate = nextSunriseResult ? nextSunriseResult.date : new Date(sunriseDate.getTime() + 24 * 60 * 60 * 1000);
+
+    const sunsetResult = Ast.SearchRiseSet(Ast.Body.Sun, observer, -1, Ast.MakeTime(sunriseDate), 24);
+    const sunsetDate = sunsetResult ? sunsetResult.date : new Date(sunriseDate.getTime() + 12 * 60 * 60 * 1000);
+
+    const dayDuration = sunsetDate.getTime() - sunriseDate.getTime();
+    const dayHoraLength = dayDuration / 12;
+
+    const nightDuration = nextSunriseDate.getTime() - sunsetDate.getTime();
+    const nightHoraLength = nightDuration / 12;
+
+    const VARA_LORDS: Record<string, string> = {
+        "Sunday": "Sun",
+        "Monday": "Moon",
+        "Tuesday": "Mars",
+        "Wednesday": "Mercury",
+        "Thursday": "Jupiter",
+        "Friday": "Venus",
+        "Saturday": "Saturn"
+    };
+
+    const orderOfHoraLords = ["Sun", "Venus", "Mercury", "Moon", "Saturn", "Jupiter", "Mars"];
+    const startLord = VARA_LORDS[varaData.name] || "Sun";
+    const startIdx = orderOfHoraLords.indexOf(startLord);
+
+    const PLANET_SANSKRIT: Record<string, string> = {
+        "Sun": "सूर्य",
+        "Moon": "चन्द्र",
+        "Mars": "मंगल",
+        "Mercury": "बुध",
+        "Jupiter": "गुरु",
+        "Venus": "शुक्र",
+        "Saturn": "शनि"
+    };
+
+    const PLANET_HORA_PROPERTIES: Record<string, {
+        nature: "benefic" | "malefic";
+        activities: { en: string[]; hi: string[] };
+        avoid: { en: string[]; hi: string[] };
+    }> = {
+        "Sun": {
+            nature: "malefic",
+            activities: {
+                en: [
+                    "Meeting politicians, government officials, or authorities",
+                    "Applying for government jobs, tenders, or services",
+                    "Buying gold, copper, ruby, or royal ornaments",
+                    "Taking charge of a leadership position or starting administration",
+                    "Performing religious fire rituals (Yagna) or Sun worship"
+                ],
+                hi: [
+                    "राजनेताओं, सरकारी अधिकारियों या वरिष्ठ अधिकारियों से मिलना",
+                    "सरकारी नौकरियों, निविदाओं या सेवाओं के लिए आवेदन करना",
+                    "सोना, तांबा, माणिक या शाही आभूषण खरीदना",
+                    "नेतृत्व की स्थिति संभालना या प्रशासन शुरू करना",
+                    "धार्मिक यज्ञ, हवन या सूर्य पूजा करना"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Starting travel towards the West direction",
+                    "Important financial investments or loan signings",
+                    "Marriages, engagements, or signing peace treaties"
+                ],
+                hi: [
+                    "पश्चिम दिशा की ओर यात्रा प्रारंभ करना",
+                    "महत्वपूर्ण वित्तीय निवेश या ऋण दस्तावेजों पर हस्ताक्षर करना",
+                    "विवाह, सगाई या शांति संधियों पर हस्ताक्षर करना"
+                ]
+            }
+        },
+        "Venus": {
+            nature: "benefic",
+            activities: {
+                en: [
+                    "Romance, dating, marriage, and proposal discussions",
+                    "Buying clothes, jewelry, perfumes, cosmetics, and luxury goods",
+                    "Creative projects, artistic writing, music, film, and design",
+                    "Buying new vehicles, starting journeys, and beauty treatments",
+                    "Performing social gatherings and entertainment ceremonies"
+                ],
+                hi: [
+                    "रोमांस, डेटिंग, विवाह और प्रेम प्रस्ताव की चर्चा",
+                    "कपड़े, आभूषण, इत्र, सौंदर्य प्रसाधन और विलासिता की वस्तुएं खरीदना",
+                    "रचनात्मक परियोजनाएं, कलात्मक लेखन, संगीत, फिल्म और डिजाइन",
+                    "नए वाहन खरीदना, यात्राएं शुरू करना और सौंदर्य उपचार",
+                    "सामाजिक समारोहों और मनोरंजन कार्यक्रमों का आयोजन"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Entering legal disputes, court battles, or arguments",
+                    "Performing hard physical labor or heavy machinery installation",
+                    "Conducting fire rituals (Yagna)"
+                ],
+                hi: [
+                    "कानूनी विवादों, अदालती लड़ाइयों या बहस में पड़ना",
+                    "कठिन शारीरिक श्रम या भारी मशीनरी स्थापित करना",
+                    "यज्ञ या उग्र अनुष्ठान करना"
+                ]
+            }
+        },
+        "Mercury": {
+            nature: "benefic",
+            activities: {
+                en: [
+                    "Writing, editing, and publishing documents or books",
+                    "Signing contracts, agreements, and trade deals",
+                    "Learning new skills, studying languages, or science courses",
+                    "Trading in stock markets, account management, and marketing",
+                    "Intellectual debates, starting educational programs, or short travels"
+                ],
+                hi: [
+                    "दस्तावेजों या पुस्तकों का लेखन, संपादन और प्रकाशन",
+                    "अनुबंधों, समझौतों और व्यापारिक सौदों पर हस्ताक्षर करना",
+                    "नए कौशल सीखना, भाषाओं का अध्ययन करना या विज्ञान के पाठ्यक्रम",
+                    "शेयर बाजारों में व्यापार, खाता प्रबंधन और विपणन",
+                    "बौद्धिक बहस, शैक्षणिक कार्यक्रम शुरू करना या छोटी यात्राएं"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Making decisions purely based on temporary emotions",
+                    "Starting long-term heavy construction projects",
+                    "Entering arguments with maternal relatives"
+                ],
+                hi: [
+                    "पूरी तरह से अस्थायी भावनाओं के आधार पर निर्णय लेना",
+                    "दीर्घकालिक भारी निर्माण कार्य शुरू करना",
+                    "मातृ पक्ष के रिश्तेदारों के साथ विवाद में पड़ना"
+                ]
+            }
+        },
+        "Moon": {
+            nature: "benefic",
+            activities: {
+                en: [
+                    "Gardening, agriculture, or planting seeds",
+                    "Meeting family, mothers, and close female relatives",
+                    "Emotional healing, meditation, and psychological self-care",
+                    "Traveling by water, purchasing silver, household or dairy goods",
+                    "Launching public-facing projects, speeches, and culinary trials"
+                ],
+                hi: [
+                    "बागवानी, कृषि, या बीज बोना",
+                    "परिवार, माता और करीबी महिला रिश्तेदारों से मिलना",
+                    "भावनात्मक उपचार, ध्यान और मनोवैज्ञानिक आत्म-देखभाल",
+                    "जल मार्ग से यात्रा, चांदी, घरेलू या डेयरी उत्पाद खरीदना",
+                    "जन-उन्मुख परियोजनाओं की शुरुआत, भाषण और पाक कला के परीक्षण"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Decisions requiring intense, non-emotional logical debates",
+                    "Signing highly detailed financial loans or deep contracts",
+                    "Undergoing major surgeries or operations"
+                ],
+                hi: [
+                    "तीव्र, गैर-भावनात्मक तार्किक बहस की आवश्यकता वाले निर्णय",
+                    "अत्यधिक विस्तृत वित्तीय ऋण या गहरे समझौतों पर हस्ताक्षर",
+                    "बड़ी सर्जरी या ऑपरेशन कराना"
+                ]
+            }
+        },
+        "Saturn": {
+            nature: "malefic",
+            activities: {
+                en: [
+                    "Buying land, property, houses, or mining rights",
+                    "Hiring labor, factory management, and physical construction",
+                    "Starting long-term, slow-paced endeavors requiring patience",
+                    "Planting long-lived trees, digging wells, or foundations",
+                    "Charity, visiting old-age homes, and deep spiritual solitude"
+                ],
+                hi: [
+                    "भूमि, संपत्ति, मकान या खनन अधिकार खरीदना",
+                    "श्रम की नियुक्ति, कारखाना प्रबंधन और भौतिक निर्माण",
+                    "धैर्य की आवश्यकता वाले दीर्घकालिक, धीमी गति के प्रयास शुरू करना",
+                    "दीर्घजीवी पेड़ लगाना, कुएं या नींव खोदना",
+                    "दान, वृद्धाश्रमों का दौरा करना और गहन आध्यात्मिक एकांत"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Buying new vehicles, luxury items, or clothes",
+                    "Initiating marriages, engagements, or romantic proposals",
+                    "Entering new partnerships, fast profit business, or long travels"
+                ],
+                hi: [
+                    "नए वाहन, विलासिता की वस्तुएं या कपड़े खरीदना",
+                    "विवाह, सगाई या रोमांटिक प्रस्ताव शुरू करना",
+                    "नई साझेदारी, त्वरित लाभ के व्यवसाय या लंबी यात्राएं शुरू करना"
+                ]
+            }
+        },
+        "Jupiter": {
+            nature: "benefic",
+            activities: {
+                en: [
+                    "Meeting spiritual gurus, teachers, mentors, or advisors",
+                    "Performing religious rituals, weddings, and sacred blessings",
+                    "Investing wealth, long-term savings, or banking deals",
+                    "Buying gold, yellow stones (topaz), and studying philosophy",
+                    "Starting long-distance travels, pilgrimages, and charities"
+                ],
+                hi: [
+                    "आध्यात्मिक गुरुओं, शिक्षकों, आकाओं या सलाहकारों से मिलना",
+                    "धार्मिक अनुष्ठान, विवाह और पवित्र मांगलिक कार्य करना",
+                    "धन निवेश, दीर्घकालिक बचत या बैंकिंग सौदे",
+                    "सोना, पीले रत्न (पुखराज) खरीदना और दर्शनशास्त्र का अध्ययन",
+                    "लंबी दूरी की यात्राएं, तीर्थयात्राएं और दान शुरू करना"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Taking out new financial loans or debts",
+                    "Aggressive debates, filing legal suits, or entering surgeries",
+                    "Starting low-level work or unethical deals"
+                ],
+                hi: [
+                    "नए वित्तीय ऋण या कर्ज लेना",
+                    "उग्र वाद-विवाद, कानूनी मुकदमे दायर करना या सर्जरी कराना",
+                    "निम्न स्तर का काम या अनैतिक सौदे शुरू करना"
+                ]
+            }
+        },
+        "Mars": {
+            nature: "malefic",
+            activities: {
+                en: [
+                    "Sports, physical workouts, martial arts, and competitions",
+                    "Undergoing surgeries, medical checkups, or dental work",
+                    "Administrative commands, security setup, and police/military operations",
+                    "Buying machinery, tools, vehicles, weapons, or land",
+                    "Managing fire-related works, furnaces, cooking, or engineering tasks"
+                ],
+                hi: [
+                    "खेल, शारीरिक कसरत, मार्शल आर्ट और प्रतियोगिताएं",
+                    "सर्जरी, चिकित्सा जांच या दंत चिकित्सा कार्य कराना",
+                    "प्रशासनिक आदेश, सुरक्षा व्यवस्था और पुलिस/सैन्य अभियान",
+                    "मशीनरी, उपकरण, वाहन, हथियार या भूमि खरीदना",
+                    "अग्नि से संबंधित कार्य, भट्टियां, खाना बनाना या इंजीनियरिंग कार्य"
+                ]
+            },
+            avoid: {
+                en: [
+                    "Commencing long journeys or traveling in vehicles",
+                    "Starting peaceful negotiations, weddings, or signing contracts",
+                    "Arguments with siblings or elder family members"
+                ],
+                hi: [
+                    "लंबी यात्राएं शुरू करना या वाहनों में यात्रा करना",
+                    "शांतिपूर्ण बातचीत, विवाह या समझौतों पर हस्ताक्षर करना",
+                    "भाई-बहनों या परिवार के बुजुर्ग सदस्यों के साथ बहस करना"
+                ]
+            }
+        }
+    };
+
+    const horas: HoraInterval[] = [];
+
+    // Calculate 12 Day Horas
+    for (let i = 0; i < 12; i++) {
+        const start = new Date(sunriseDate.getTime() + i * dayHoraLength);
+        const end = new Date(sunriseDate.getTime() + (i + 1) * dayHoraLength);
+        const lord = orderOfHoraLords[(startIdx + i) % 7];
+        const props = PLANET_HORA_PROPERTIES[lord] || { nature: "benefic" as const, activities: { en: [], hi: [] }, avoid: { en: [], hi: [] } };
+
+        horas.push({
+            number: i + 1,
+            start,
+            end,
+            lord,
+            lordSanskrit: PLANET_SANSKRIT[lord] || lord,
+            type: "day",
+            nature: props.nature,
+            activities: props.activities,
+            avoid: props.avoid
+        });
+    }
+
+    // Calculate 12 Night Horas
+    for (let i = 0; i < 12; i++) {
+        const start = new Date(sunsetDate.getTime() + i * nightHoraLength);
+        const end = new Date(sunsetDate.getTime() + (i + 1) * nightHoraLength);
+        const lord = orderOfHoraLords[(startIdx + 12 + i) % 7];
+        const props = PLANET_HORA_PROPERTIES[lord] || { nature: "benefic" as const, activities: { en: [], hi: [] }, avoid: { en: [], hi: [] } };
+
+        horas.push({
+            number: 12 + i + 1,
+            start,
+            end,
+            lord,
+            lordSanskrit: PLANET_SANSKRIT[lord] || lord,
+            type: "night",
+            nature: props.nature,
+            activities: props.activities,
+            avoid: props.avoid
+        });
+    }
+
+    return {
+        selectedDate: time.date,
+        sunrise: sunriseDate,
+        sunset: sunsetDate,
+        nextSunrise: nextSunriseDate,
+        horas
+    };
+}
+
 export function isVargaExalted(planet: string, signIdx: number): boolean {
     const exaltationSigns: Record<string, number> = {
         "Sun": 0, "Moon": 1, "Mars": 9, "Mercury": 5, "Jupiter": 3, "Venus": 11, "Saturn": 6
