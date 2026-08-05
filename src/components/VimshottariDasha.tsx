@@ -23,21 +23,7 @@ const TRANSLATIONS = {
     years: "Years",
     months: "Months",
     days: "Days"
-  },
-  hi: {
-    mahadasha: "महादशा",
-    antardasha: "अंतर्दशा",
-    pratyantardasha: "प्रत्यंतर्दशा",
-    sookshmaDasha: "सूक्ष्म दशा",
-    activeDasha: "सक्रिय दशा",
-    selectMd: "विस्तृत विवरण के लिए महादशा चुनें",
-    to: " से ",
-    dashaBalance: "जन्म के समय शेष दशा",
-    years: "वर्ष",
-    months: "महीने",
-    days: "दिन"
-  }
-};
+  }};
 
 // Helper to perform binary search for the active dasha period
 function findCurrentDasha<T extends { start: number; end: number }>(items: T[], targetTime: number): T | undefined {
@@ -63,7 +49,7 @@ function findCurrentDasha<T extends { start: number; end: number }>(items: T[], 
 }
 
 const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en', dashaBalance, isStatic = false }: VimshottariDashaProps) {
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   // Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
   const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), [lang]);

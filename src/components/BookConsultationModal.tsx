@@ -24,25 +24,7 @@ const TRANSLATIONS = {
       "Relationships & Compatibility",
       "Custom Remedies & Solutions"
     ]
-  },
-  hi: {
-    title: "परामर्श बुक करें",
-    meetTitle: "गूगल मीट सत्र",
-    durationBadge: "30 मिनट",
-    videoBadge: "वीडियो वैकल्पिक है",
-    meetDesc: "कुंडली विश्लेषण और उपायों के लिए 1-ऑन-1 सत्र।",
-    suggestedPayments: "सत्र के बाद भुगतान करें। अग्रिम भुगतान की जरूरत नहीं।",
-    meetBtn: "अभी शेड्यूल करें",
-    viewPayments: "समर्थन और दान",
-    closeModal: "मोडल बंद करें",
-    highlights: [
-      "जन्म कुंडली विश्लेषण",
-      "करियर और धन मार्गदर्शन",
-      "संबंध और अनुकूलता",
-      "व्यक्तिगत उपाय और समाधान"
-    ]
-  }
-};
+  }};
 
 interface BookConsultationModalProps {
   isOpen: boolean;
@@ -51,7 +33,7 @@ interface BookConsultationModalProps {
 
 const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   return (
     <BaseModal

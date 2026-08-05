@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 
 type Language = 'en' | 'hi';
 
@@ -13,42 +13,23 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [lang, setLangState] = useState<Language>('en');
+  const lang: Language = 'en';
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('preferred_lang') as Language;
-      if (saved && (saved === 'en' || saved === 'hi')) {
-        setLangState(saved);
-        document.documentElement.lang = saved;
-        if (saved === 'hi') {
-          document.body.classList.add('font-hindi');
-          document.body.classList.remove('font-body');
-        } else {
-          document.body.classList.add('font-body');
-          document.body.classList.remove('font-hindi');
-        }
-      }
+      localStorage.removeItem('preferred_lang');
+      document.documentElement.lang = 'en';
+      document.body.classList.add('font-body');
+      document.body.classList.remove('font-hindi');
     }
   }, []);
 
   const setLang = (newLang: Language) => {
-    setLangState(newLang);
-    localStorage.setItem('preferred_lang', newLang);
-    document.documentElement.lang = newLang;
-    if (newLang === 'hi') {
-      document.body.classList.add('font-hindi');
-      document.body.classList.remove('font-body');
-    } else {
-      document.body.classList.add('font-body');
-      document.body.classList.remove('font-hindi');
+    if (newLang) {
+      // No-op, single-language mode
     }
   };
-
-  const toggleLang = () => {
-    const newLang = lang === 'en' ? 'hi' : 'en';
-    setLang(newLang);
-  };
+  const toggleLang = () => {};
 
   return (
     <LanguageContext.Provider value={{ lang, toggleLang, setLang }}>

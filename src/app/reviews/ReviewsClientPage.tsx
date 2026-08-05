@@ -18,16 +18,7 @@ const TRANSLATIONS = {
     googleReviews: "Google Reviews",
     writeReview: "Write a Review on Google",
     latestReviewsNote: "The reviews below are from our old records. For the latest feedback, please check our Google profile above."
-  },
-  hi: {
-    title: "राहुल बाली ज्योतिष समीक्षाएं",
-    subtitle: "प्रशंसापत्र",
-    description: "पंडित राहुल बाली जी के लिए वास्तविक समीक्षाएं और प्रशंसापत्र, जो गुरुग्राम और गुड़गांव के एक प्रमुख वैदिक ज्योतिषी हैं।",
-    googleReviews: "गूगल समीक्षाएं",
-    writeReview: "गूगल पर समीक्षा लिखें",
-    latestReviewsNote: "नीचे दी गई समीक्षाएं हमारे पुराने अभिलेखागार से हैं। हमारे सबसे हालिया क्लाइंट फीडबैक के लिए, कृपया ऊपर हमारे गूगल प्रोफाइल पर जाएं।"
-  }
-};
+  }};
 
 const GoogleIcon = () => (
   <svg className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +31,7 @@ const GoogleIcon = () => (
 
 export default function ReviewsClientPage() {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
 
   const reviewsSchema = {
     "@context": "https://schema.org",

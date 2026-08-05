@@ -10,17 +10,11 @@ const TRANSLATIONS = {
     title: "Sacred Vedic Astrology Services",
     subtitle: "Authoritative Spiritual Guidance",
     description: "Esteemed professional consultations deeply grounded in the ancient Brahmin principles of Jyotish Shastra, providing profound clarity on your life's unique karmic path."
-  },
-  hi: {
-    title: "पवित्र वैदिक ज्योतिष सेवाएं",
-    subtitle: "आधिकारिक आध्यात्मिक मार्गदर्शन",
-    description: "ज्योतिष शास्त्र के प्राचीन ब्राह्मण सिद्धांतों पर गहराई से आधारित सम्मानित पेशेवर परामर्श, जो आपके जीवन के अनूठे कर्म पथ पर गहन स्पष्टता प्रदान करते हैं।"
-  }
-};
+  }};
 
 export default function ServicesContent() {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
 
   return (
     <>

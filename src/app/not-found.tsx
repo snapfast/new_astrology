@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
@@ -12,18 +11,10 @@ const TRANSLATIONS = {
     subtitle: "404 Error",
     description: "The cosmic path you're looking for doesn't seem to exist. Let's get you back on track.",
     backToHome: "Back to Home"
-  },
-  hi: {
-    title: "पृष्ठ नहीं मिला",
-    subtitle: "404 त्रुटि",
-    description: "आप जिस ब्रह्मांडीय पथ की तलाश कर रहे हैं वह मौजूद नहीं लगता। आइए आपको वापस ट्रैक पर लाते हैं।",
-    backToHome: "होम पर वापस जाएं"
-  }
-};
+  }};
 
 export default function NotFound() {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   return (
     <main className="min-h-screen bg-surface">

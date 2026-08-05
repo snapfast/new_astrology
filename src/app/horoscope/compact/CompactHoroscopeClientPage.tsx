@@ -59,64 +59,12 @@ const TRANSLATIONS = {
     generateNew: "New Chart",
     switchLanguage: "Language / भाषा",
     shareReport: "Share Report"
-  },
-  hi: {
-    birthInfo: "जन्म विवरण",
-    name: "नाम",
-    date: "दिनांक",
-    time: "समय",
-    place: "स्थान",
-    panchang: "पंचांग",
-    tithi: "तिथि",
-    paksha: "पक्ष",
-    vara: "वार",
-    nakshatra: "नक्षत्र",
-    yoga: "योग",
-    karana: "करण",
-    sunSign: "सूर्य राशि",
-    moonSign: "चंद्र राशि",
-    ritu: "ऋतु",
-    ayana: "अयन",
-    timings: "मुहूर्त",
-    abhijit: "अभिजीत",
-    rahu: "राहु काल",
-    gulika: "गुलिक",
-    yamaganda: "यमगण्ड",
-    d1Chart: "लग्न (D1)",
-    d3Chart: "द्रेष्काण (D3)",
-    d7Chart: "सप्तमंश (D7)",
-    d9Chart: "नवांश (D9)",
-    d10Chart: "दशमांश (D10)",
-    d60Chart: "षष्ट्यंश (D60)",
-    planet: "ग्रह",
-    house: "भाव",
-    rasi: "राशि",
-    rasiLord: "स्वामी",
-    degree: "अंश",
-    nakLord: "नक्षत्र स्वामी",
-    pada: "पद",
-    planetaryPositions: "ग्रह स्थिति",
-    vimshottariDasha: "विंशोत्तरी दशा",
-    sunSignInsight: "सूर्य राशि",
-    moonSignInsight: "चंद्र राशि",
-    backToStandard: "सामान्य दृश्य",
-    desktopOnly: "केवल डेस्कटॉप",
-    mobileMsg: "यह कॉम्पैक्ट डैशबोर्ड डेस्कटॉप स्क्रीन के लिए डिज़ाइन किया गया है। सर्वोत्तम अनुभव के लिए कृपया इसे पीसी या लैपटॉप पर देखें।",
-    goBackBtn: "सामान्य दृश्य पर जाएं",
-    linkCopied: "लिंक कॉपी किया गया!",
-    bookBtn: "परामर्श बुक करें",
-    activeDasha: "सक्रिय",
-    loading: "डैशबोर्ड लोड हो रहा है...",
-    generateNew: "नई कुंडली",
-    switchLanguage: "भाषा / Language",
-    shareReport: "रिपोर्ट साझा करें"
-  }
-};
+  }};
 
 const CompactHoroscopeContent = () => {
   const { lang } = useLanguage();
 
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   const searchParams = useSearchParams();
   const name = sanitize(searchParams.get('name'), 100) || 'Guest';
   const dob = sanitizeDate(searchParams.get('dob')) || '';
@@ -444,8 +392,7 @@ const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartD
 );
 
 export default function CompactHoroscopeClientPage() {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   return (
     <div className="font-body">
       <Suspense fallback={<div className="h-screen flex items-center justify-center bg-surface">{t.loading}</div>}>

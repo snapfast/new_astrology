@@ -115,79 +115,11 @@ const TRANSLATIONS = {
     eduPara2: "Beyond these five limbs, the Panchang also provides information on Auspicious Timings (Muhurtas) like Abhijit Muhurta, which is ideal for starting new ventures, and Inauspicious Periods like Rahu Kaal, during which significant new actions are traditionally avoided.",
     ctaTitle: "Plan Your Day with Expert Guidance",
     ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
-  },
-  hi: {
-    heroTitle: "दैनिक पंचांग",
-    heroSubtitle: "वैदिक काल गणना",
-    heroDesc: "अपनी दैनिक गतिविधियों को ब्रह्मांडीय लय के साथ जोड़ें। नई दिल्ली, भारत के लिए सटीक वैदिक पंचांग विवरण।",
-    elementsTitle: "पंचांग तत्व",
-    timingsTitle: "मुहूर्त और काल",
-    celestialTitle: "सूर्य और चंद्रमा का समय",
-    extraTitle: "वर्तमान काल विवरण",
-    tithi: "तिथि",
-    nakshatra: "नक्षत्र",
-    yoga: "योग",
-    karana: "करण",
-    vara: "वार",
-    paksha: "पक्ष",
-    sunSign: "सूर्य राशि",
-    moonSign: "चंद्र राशि",
-    ritu: "ऋतु",
-    ayana: "अयन",
-    abhijit: "अभिजीत मुहूर्त",
-    brahma: "ब्रह्म मुहूर्त",
-    rahu: "राहु काल",
-    gulika: "गुलिका काल",
-    yamaganda: "यमगण्ड काल",
-    sunrise: "सूर्योदय",
-    sunset: "सूर्यास्त",
-    moonrise: "चंद्रोदय",
-    moonset: "चंद्रास्त",
-    vikram: "विक्रम संवत",
-    shaka: "शक संवत",
-    month: "चंद्र मास",
-    samvatsara: "संवत्सर",
-    endsAt: "समाप्ति समय",
-    prevDay: "पिछला दिन",
-    nextDay: "अगला दिन",
-    today: "आज",
-    selectDate: "तारीख चुनें",
-    selectedDate: "चुनी हुई तारीख",
-    switchLanguage: "भाषा बदलें / Switch Language",
-    shareableTitle: "साझा करने योग्य दैनिक पंचांग",
-    copyBtn: "पाठ कॉपी करें",
-    copied: "कॉपी किया गया!",
-    viewGrid: "कैलेंडर ग्रिड",
-    viewList: "मासिक सूची",
-    prevMonth: "पिछला महीना",
-    nextMonth: "अगला महीना",
-    monthlyCalendarTitle: "मासिक वैदिक कैलेंडर",
-    monthNames: [
-      "जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून",
-      "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"
-    ],
-    weekdayShort: ["रवि", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"],
-    eduTitle: "पंचांग को समझना",
-    eduPara1: "पंचांग एक पारंपरिक वैदिक कैलेंडर है जो भारतीय संस्कृति में दैनिक जीवन के लिए एक आवश्यक मार्गदर्शक के रूप में कार्य करता है। संस्कृत शब्दों 'पंच' (पांच) और 'अंग' से बना, इसमें पंचांग का उपयोग होता है।",
-    tithiTitle: "1. तिथि",
-    tithiDesc: "सूर्य और चंद्रमा के बीच की कोणीय दूरी के आधार पर चंद्र दिवस। यह त्योहारों और अनुष्ठानों के निर्धारण के लिए महत्वपूर्ण है।",
-    varaTitle: "2. वार",
-    varaDesc: "सप्ताह का सौर दिन। प्रत्येक दिन एक विशिष्ट ग्रह द्वारा शासित होता है, जो किए गए कार्यों की ऊर्जा को प्रभावित करता है।",
-    nakshatraTitle: "3. नक्षत्र",
-    nakshatraDesc: "चंद्र नक्षत्र जहां चंद्रमा स्थित है। नक्षत्र समय के मनोवैज्ञानिक और भावनात्मक स्वभाव को परिभाषित करते हैं।",
-    yogaTitle: "4. योग",
-    yogaDesc: "सूर्य और चंद्रमा की स्थिति के बीच एक विशिष्ट संबंध जो सामान्य प्रचलित ऊर्जा या 'मिलन' को दर्शाता है।",
-    karanaTitle: "5. करण",
-    karanaDesc: "एक तिथि का आधा भाग। प्रत्येक तिथि में दो करण होते हैं। यह सक्रिय ऊर्जा का प्रतिनिधित्व करता है और सांसारिक कार्यों और कार्यों के परिणाम निर्धारित करने के लिए महत्वपूर्ण है।",
-    eduPara2: "इन पांच अंगों के अलावा, पंचांग अभिजीत मुहूर्त जैसे शुभ समय (मुहूर्त) की भी जानकारी प्रदान करता है, जो नए उद्यम शुरू करने के लिए आदर्श है, और राहु काल जैसे अशुभ काल की भी जानकारी देता है, जिसके दौरान पारंपरिक रूप से महत्वपूर्ण नए कार्यों से बचा जाता है।",
-    ctaTitle: "विशेषज्ञ मार्गदर्शन के साथ अपने दिन की योजना बनाएं",
-    ctaDesc: "जबकि दैनिक पंचांग सामान्य मार्गदर्शन प्रदान करता है, आपकी व्यक्तिगत जन्म कुंडली (कुण्डली) पर आधारित एक व्यक्तिगत मुहूर्त आपके विशिष्ट प्रयासों के लिए उच्चतम स्तर की सफलता सुनिश्चित करता है।"
-  }
-};
+  }};
 
 const PanchangPage = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-US', {
     weekday: 'long',

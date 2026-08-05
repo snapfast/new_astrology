@@ -25,28 +25,7 @@ const TRANSLATIONS = {
     errorDob: "Please select a date of birth",
     errorTob: "Please select a time of birth",
     errorPob: "Please select a location from the suggestions"
-  },
-  hi: {
-    title: "अपनी मुफ्त कुंडली बनाएं",
-    desc: "अपने जन्म के क्षण में सितारों के सटीक मानचित्र को अनलॉक करने के लिए अपना विवरण दर्ज करें।",
-    labelName: "पूरा नाम",
-    labelDob: "जन्म तिथि",
-    labelTob: "जन्म समय",
-    labelPob: "जन्म स्थान",
-    placeholderPob: "शहर, देश",
-    placeholderName: "आत्मा का सांसारिक नाम...",
-    recentProfiles: "हाल के प्रोफाइल",
-    searching: "शहर खोजे जा रहे हैं...",
-    submitBtn: "कुंडली बनाएं",
-    updateBtn: "कुंडली अपडेट करें",
-    loading: "कुंडली बनाई जा रही है...",
-    errorName: "कृपया एक वैध नाम दर्ज करें (न्यूनतम 2 वर्ण)",
-    errorHistory: "यह नाम आपकी हिस्ट्री में पहले से मौजूद है। कृपया एक अनूठा नाम उपयोग करें।",
-    errorDob: "कृपया जन्म तिथि चुनें",
-    errorTob: "कृपया जन्म का समय चुनें",
-    errorPob: "कृपया सुझावों में से एक स्थान चुनें"
-  }
-};
+  }};
 
 interface Suggestion {
   name: string;
@@ -134,7 +113,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
   const router = useRouter();
   const searchParams = useSearchParams();
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   const [name, setName] = useState(initialValues?.name || '');
   const [dob, setDob] = useState(initialValues?.dob || '');
   const [tob, setTob] = useState(initialValues?.tob || '');

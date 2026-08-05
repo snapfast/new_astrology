@@ -5,48 +5,27 @@ import Link from 'next/link';
 import BookConsultationModal from './BookConsultationModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
-  en: {
-    desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
-    services: 'Services',
-    dailyPanchang: 'Daily Panchang',
-    hora: 'Planetary Hours (Hora)',
-    freeKundli: 'Free Kundli',
-    consultation: 'Consultation',
-    premium: 'Premium Appointment',
-    followUs: 'Follow Us',
-    company: 'Company',
-    aboutUs: 'About Us',
-    contact: 'Contact',
-    rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
-    privacy: 'Privacy',
-    terms: 'Terms',
-    faq: 'FAQ'
-  },
-  hi: {
-    desc: 'तारों द्वारा निर्देशित, प्राचीन ज्ञान में निहित। आध्यात्मिक स्पष्टता और संरेखण के लिए पेशेवर वैदिक ज्योतिष सेवाएं।',
-    services: 'सेवाएं',
-    dailyPanchang: 'दैनिक पंचांग',
-    hora: 'ग्रह होरा चक्र',
-    freeKundli: 'मुफ्त कुंडली',
-    consultation: 'परामर्श',
-    premium: 'प्रीमियम अपॉइंटमेंट',
-    followUs: 'हमें फॉलो करें',
-    company: 'कंपनी',
-    aboutUs: 'मेरे बारे में',
-    contact: 'संपर्क करें',
-    rights: 'राहुल बाली ज्योतिष सेवाएं © 2025. सर्वाधिकार सुरक्षित।',
-    privacy: 'गोपनीयता',
-    terms: 'शर्तें',
-    faq: 'FAQ (अक्सर पूछे जाने वाले प्रश्न)'
-  }
+  desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
+  services: 'Services',
+  dailyPanchang: 'Daily Panchang',
+  hora: 'Planetary Hours (Hora)',
+  freeKundli: 'Free Kundli',
+  consultation: 'Consultation',
+  premium: 'Premium Appointment',
+  followUs: 'Follow Us',
+  company: 'Company',
+  aboutUs: 'About Us',
+  contact: 'Contact',
+  rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
+  privacy: 'Privacy',
+  terms: 'Terms',
+  faq: 'FAQ'
 };
 
 const Footer = () => {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS;
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
@@ -61,10 +40,8 @@ const Footer = () => {
           </p>
         </div>
         <div>
-          <h6 className={`text-on-surface mb-8 font-semibold uppercase font-label ${
-            lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
-          }`}>{t.services}</h6>
-          <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
+          <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.services}</h6>
+          <ul className="space-y-5 text-sm">
             <li><Link href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
             <li><Link href="/hora" className="text-on-surface font-normal text-left">{t.hora}</Link></li>
             <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
@@ -73,29 +50,23 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h6 className={`text-on-surface mb-8 font-semibold uppercase font-label ${
-            lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
-          }`}>{t.followUs}</h6>
-          <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
+          <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.followUs}</h6>
+          <ul className="space-y-5 text-sm">
             <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_instagram' })} className="text-on-surface font-normal" href="https://www.instagram.com/RahulBaliAstro" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_youtube' })} className="text-on-surface font-normal" href="https://www.youtube.com/@RahulBaliAstrology" target="_blank" rel="noopener noreferrer">YouTube</a></li>
             <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_social_tumblr' })} className="text-on-surface font-normal" href="https://rahulbaliastrology.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr</a></li>
           </ul>
         </div>
         <div>
-          <h6 className={`text-on-surface mb-8 font-semibold uppercase font-label ${
-            lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-widest'
-          }`}>{t.company}</h6>
-          <ul className={`space-y-5 ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
+          <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.company}</h6>
+          <ul className="space-y-5 text-sm">
             <li><Link className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
             <li><Link className="text-on-surface font-normal" href="/contact">{t.contact}</Link></li>
             <li><Link className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
           </ul>
         </div>
       </div>
-      <div className={`max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all ${
-        lang === 'hi' ? 'text-sm tracking-normal' : 'text-[10px] tracking-widest'
-      }`}>
+      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all text-[10px] tracking-widest">
         <Link href="/" className="text-center md:text-left">{t.rights}</Link>
         <div className="flex gap-10">
           <Link href="/privacy">{t.privacy}</Link>

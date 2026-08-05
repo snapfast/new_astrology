@@ -69,74 +69,13 @@ const TRANSLATIONS = {
     previousPeriod: "Previous",
     noRashiTransit: "No upcoming sign transit found in search window.",
     noNakshatraTransit: "No upcoming nakshatra transit found in search window."
-  },
-  hi: {
-    filterPlanet: "ग्रह से फ़िल्टर करें",
-    allPlanets: "सभी ग्रह",
-    heroTitle: "ग्रह गोचर",
-    heroSubtitle: "गोचर ट्रैकर",
-    heroDesc: "राशियों और नक्षत्रों में ग्रहों के पिछले और भविष्य के गोचर को ट्रैक करें। ब्रह्मांडीय ऊर्जा के बदलाव का पूर्वानुमान लगाएं।",
-    referenceTime: "संदर्भ तिथि और समय (IST)",
-    pastMovements: "पिछले 3 गोचर",
-    futureTransits: "आगामी गोचर",
-    planet: "ग्रह",
-    rashiTransit: "राशि गोचर",
-    nakshatraTransit: "नक्षत्र गोचर",
-    from: "से",
-    to: "तक",
-    date: "तिथि और समय (IST)",
-    noTransits: "सर्च विंडो में कोई गोचर नहीं मिला।",
-    selectDate: "तिथि चुनें",
-    selectTime: "समय चुनें",
-    calculating: "गोचर की गणना हो रही है...",
-    go: "पुनर्गणना",
-    movementDetails: "गोचर विवरण",
-    eduTitle: "वैदिक ग्रह गोचर (Gochara)",
-    eduIntro: "वैदिक ज्योतिष में, राशियों में ग्रहों के भ्रमण को गोचर कहा जाता है। जबकि आपकी जन्म कुंडली आपके जीवन का खाका दर्शाती है, गोचर घटनाओं के समय और वर्तमान ऊर्जा के प्रवाह को निर्धारित करते हैं।",
-    sunTitle: "सूर्य (Surya)",
-    sunDesc: "लगभग 30 दिनों में एक राशि पार करता है। करियर, जीवन शक्ति, अधिकार और प्रतिष्ठा में बदलाव लाता है।",
-    moonTitle: "चंद्र (Chandra)",
-    moonDesc: "सबसे तेज़ गति वाला ग्रह, 2.25 दिनों में एक राशि बदलता है। दैनिक मूड, अंतर्ज्ञान और मानसिक स्थिति को नियंत्रित करता।",
-    marsTitle: "मंगल (Mangala)",
-    marsDesc: "लगभग 45 दिनों में राशि बदलता है। कार्रवाई, महत्वाकांक्षा, साहस, शारीरिक ऊर्जा और संभावित संघर्षों को प्रेरित करता है।",
-    mercuryTitle: "बुध (Budha)",
-    mercuryDesc: "लगभग 15-20 दिनों में राशि बदलता है। वाणी, तर्क, व्यावसायिक सौदों और विश्लेषणात्मक निर्णयों को नियंत्रित करता है।",
-    jupiterTitle: "गुरु (Guru)",
-    jupiterDesc: "लगभग 1 वर्ष में एक राशि बदलता है। भारी प्रगति, भाग्य, ज्ञान और आध्यात्मिक उन्नति लाता है।",
-    venusTitle: "शुक्र (Shukra)",
-    venusDesc: "लगभग 30 दिनों में राशि पार करता है। रिश्तों, रचनात्मकता, विलासिता, धन और सुख-सुविधाओं को प्रभावित करता है।",
-    saturnTitle: "शनि (Shani)",
-    saturnDesc: "सबसे धीमा ग्रह, 2.5 वर्ष में राशि बदलता है। अनुशासन, ध्यान, संरचनात्मक सबक और दृढ़ता की मांग करता है।",
-    rahuKetuTitle: "राहु और केतु",
-    rahuKetuDesc: "छाया ग्रह 1.5 वर्ष में राशि बदलते हैं। राहु तीव्र इच्छाओं को बढ़ाता है, जबकि केतु वैराग्य और मोक्ष की ओर ले जाता है।",
-    uranusTitle: "अरुण (Uranus)",
-    uranusDesc: "लगभग 7 वर्षों में एक राशि बदलता है। क्रांति, अचानक बदलाव, नवाचार और तकनीकी विकास को नियंत्रित करता है।",
-    neptuneTitle: "वरुण (Neptune)",
-    neptuneDesc: "लगभग 14 वर्षों में एक राशि बदलता है। जन चेतना, सपनों, आध्यात्मिक झुकाव, भ्रम और कलात्मक अभिव्यक्ति को प्रभावित करता है।",
-    plutoTitle: "यम (Pluto)",
-    plutoDesc: "सबसे धीमा बाहरी ग्रह, 12-30 वर्षों में राशि बदलता है। परिवर्तन, पुनर्जन्म, गहन मनोवैज्ञानिक बदलाव और पीढ़ीगत सुधारों को नियंत्रित करता है।",
-    combustionTitle: "ग्रह अस्त (Asta) अवधि",
-    combustionSubtitle: "जब कोई ग्रह सूर्य के अत्यंत निकट आ जाता है, तो वह अस्त हो जाता है। इससे उसकी बाहरी और भौतिक शक्ति कम हो जाती है, जबकि आंतरिक या आध्यात्मिक ऊर्जा जागृत होती है।",
-    combustionLabel: "अस्त अवधि",
-    currentlyCombust: "वर्तमान में अस्त (Asta)",
-    upcomingCombustion: "आगामी अस्त काल",
-    combustFrom: "से",
-    combustTo: "तक",
-    noCombustions: "निकट भविष्य में कोई आगामी अस्त काल नहीं मिला।",
-    retrogradeLabel: "वक्री गोचर समय",
-    combustLabel: "अस्त गोचर समय",
-    currentOrUpcoming: "वर्तमान / आगामी",
-    previousPeriod: "पिछला",
-    noRashiTransit: "सर्च विंडो में कोई आगामी राशि गोचर नहीं मिला।",
-    noNakshatraTransit: "सर्च विंडो में कोई आगामी नक्षत्र गोचर नहीं मिला।"
-  }
-};
+  }};
 
 const PLANETS_ORDER = ["Moon", "Mercury", "Venus", "Sun", "Mars", "Jupiter", "Rahu", "Ketu", "Saturn", "Uranus", "Neptune", "Pluto"];
 
 const TransitsClientPage = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   // Use a deterministic default to completely eliminate SSR/hydration mismatches.
   // Immediately updated on mount in useEffect.

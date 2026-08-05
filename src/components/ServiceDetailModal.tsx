@@ -14,15 +14,7 @@ const TRANSLATIONS = {
     guided: 'Guided by the stars',
     grounded: 'Grounded in Truth',
     schedule: 'Schedule Consultation'
-  },
-  hi: {
-    serviceDetail: 'सेवा विवरण',
-    close: 'बंद करें',
-    guided: 'सितारों द्वारा निर्देशित',
-    grounded: 'सत्य में निहित',
-    schedule: 'परामर्श शेड्यूल करें'
-  }
-};
+  }};
 
 interface ServiceDetailModalProps {
   isOpen: boolean;
@@ -36,7 +28,7 @@ const ServiceDetailModal: FC<ServiceDetailModalProps> = ({
   service
 }) => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
   if (!service) return null;
 
   return (
