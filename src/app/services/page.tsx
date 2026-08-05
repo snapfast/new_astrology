@@ -8,7 +8,7 @@ import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology Services in Gurugram & Gurgaon | Rahul Bali Astrology",
+  title: "Services",
   description: "Expert Vedic Astrology services in Gurugram (Gurgaon) covering career, finance, relationships, health, and spiritual guidance through traditional Jyotish principles.",
   keywords: [
     "Vedic Astrology Services", "Kundli Reading Gurugram", "Career Astrology Gurgaon",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/services",
   },
   openGraph: {
-    title: "Vedic Astrology Services in Gurugram & Gurgaon | Rahul Bali Astrology",
+    title: "Services | Rahul Bali Astrology",
     description: "Expert Vedic Astrology services in Gurugram (Gurgaon) covering career, finance, relationships, health, and spiritual guidance through traditional Jyotish principles.",
     url: "https://astro.rahulbali.in/services",
     siteName: "Rahul Bali Astrology",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vedic Astrology Services in Gurugram & Gurgaon | Rahul Bali Astrology",
+    title: "Services | Rahul Bali Astrology",
     description: "Expert Vedic Astrology services in Gurugram (Gurgaon) covering career, finance, relationships, health, and spiritual guidance.",
     images: ["/og-image.png"],
   },

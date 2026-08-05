@@ -8,7 +8,7 @@ import JsonLd from '@/components/JsonLd';
 import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
-  title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
+  title: "Free Kundli",
   description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9), and planetary positions using precise Lahiri Ayanamsa.",
   keywords: [
     "Free Kundli", "Online Kundli", "Janam Kundali", "Vedic Horoscope", "Birth Chart",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/free-horoscope",
   },
   openGraph: {
-    title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
+    title: "Free Kundli | Rahul Bali Astrology",
     description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9), and planetary positions.",
     url: "https://astro.rahulbali.in/free-horoscope",
     siteName: "Rahul Bali Astrology",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Kundli Online - Accurate Vedic Horoscope & Janam Kundali",
+    title: "Free Kundli | Rahul Bali Astrology",
     description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9).",
     images: ["/og-image.png"],
   },

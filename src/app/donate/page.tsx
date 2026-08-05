@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import DonateClientPage from './DonateClientPage';
 
 export const metadata: Metadata = {
-  title: "Donate - Rahul Bali Astrology",
+  title: "Donate",
   description: "Support Pandit Rahul Bali Ji's work in Vedic Astrology. Your contributions help maintain this platform and provide free astrological tools to everyone.",
   keywords: [
     "Donate Rahul Bali Astrology", "support free astrology tools", "voluntary contributions",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/donate",
   },
   openGraph: {
-    title: "Donate - Rahul Bali Astrology",
+    title: "Donate | Rahul Bali Astrology",
     description: "Support Pandit Rahul Bali Ji's work in Vedic Astrology. Your contributions help maintain this platform and provide free astrological tools to everyone.",
     url: "https://astro.rahulbali.in/donate",
     siteName: "Rahul Bali Astrology",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Donate - Rahul Bali Astrology",
+    title: "Donate | Rahul Bali Astrology",
     description: "Support Pandit Rahul Bali Ji's work in Vedic Astrology.",
     images: ["/og-image.png"],
   },

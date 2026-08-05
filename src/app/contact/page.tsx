@@ -3,7 +3,7 @@ import ContactContent from './ContactContent';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: "Contact | Rahul Bali Astrology",
+  title: "Contact",
   description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online. Connect for accurate Kundli readings and remedies.",
   keywords: [
     "Contact Rahul Bali", "Astrologer phone number", "book astrology consultation",

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import PrivacyContent from './PrivacyContent';
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Rahul Bali Astrology",
+  title: "Privacy Policy",
   description: "Read our Privacy Policy. Learn how your birth details, names, and contact information are processed securely with absolute confidentiality.",
   keywords: [
     "Privacy Policy", "Rahul Bali Astrology privacy", "birth data security",

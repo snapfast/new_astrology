@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import BiorhythmClientPage from './BiorhythmClientPage';
 
 export const metadata: Metadata = {
-  title: 'Personal Biorhythm Calculator | Pandit Rahul Bali',
+  title: 'Biorhythm',
   description: 'Track your physical, emotional, and intellectual biorhythm (Biothytm) cycles. Understand your natural energy peaks and troughs based on your birth date, alongside Panch Pakshi (Panch Oakshi) and Vedic Varga charts analysis.',
   keywords: [
     "Biorhythm Calculator", "Biothytm system", "physical emotional intellectual cycles", "energy cycle tracker",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/biorhythm",
   },
   openGraph: {
-    title: 'Personal Biorhythm Calculator | Pandit Rahul Bali',
+    title: 'Biorhythm | Rahul Bali Astrology',
     description: 'Track your physical, emotional, and intellectual biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date.',
     url: "https://astro.rahulbali.in/biorhythm",
     siteName: "Rahul Bali Astrology",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: 'Personal Biorhythm Calculator | Pandit Rahul Bali',
+    title: 'Biorhythm | Rahul Bali Astrology',
     description: 'Track your physical, emotional, and intellectual biorhythm cycles. Understand your natural energy peaks and troughs.',
     images: ["/og-image.png"],
   },
