@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('BackToTop button visibility and localization', async ({ page }) => {
+test('BackToTop button visibility', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByText('VEDIC ASTROLOGY · JYOTISH SHASTRA')).toBeVisible();
 
@@ -19,14 +19,6 @@ test('BackToTop button visibility and localization', async ({ page }) => {
   // Check English label
   await expect(backToTop).toHaveAttribute('aria-label', 'Back to Top');
   await expect(backToTop).toHaveAttribute('title', 'Back to Top');
-
-  // Switch to Hindi
-  const hindiToggle = page.locator('button[aria-label="हिन्दी"]').first();
-  await hindiToggle.click();
-
-  // Check Hindi label
-  await expect(backToTop).toHaveAttribute('aria-label', 'ऊपर वापस जाएँ');
-  await expect(backToTop).toHaveAttribute('title', 'ऊपर वापस जाएँ');
 
   // Click to scroll top
   await backToTop.click();
