@@ -570,10 +570,13 @@ function parseISTToUTC(dob: string, tob: string): { istDate: Date, time: Ast.Ast
 }
 
 function formatDegree(siderealLong: number): string {
-    const degInRasi = siderealLong % 30;
-    const d = Math.floor(degInRasi);
-    const m = Math.floor((degInRasi - d) * 60);
-    const s = Math.floor(((degInRasi - d) * 60 - m) * 60);
+    const normLong = ((siderealLong % 360) + 360) % 360;
+    const degInRasi = normLong % 30;
+    let totalSeconds = Math.round(degInRasi * 3600);
+    const s = totalSeconds % 60;
+    totalSeconds = Math.floor(totalSeconds / 60);
+    const m = totalSeconds % 60;
+    const d = Math.floor(totalSeconds / 60);
     return `${d}° ${m}' ${s}"`;
 }
 
@@ -1620,7 +1623,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         const moonSignIdx = Math.floor(sidMoon / 30);
 
         if (tithiIdx !== prevTithiIdx) {
-            const threshold = Math.max(prevTithiIdx, tithiIdx) * 12;
+            const threshold = (tithiIdx < prevTithiIdx) ? 360 : Math.max(prevTithiIdx, tithiIdx) * 12;
             const tDate = interpolate(prevMs, actualMs, threshold, prevDiff, d);
             if (tDate <= nextSunriseDate) {
                 tithiTransitions.push({ idx: prevTithiIdx, time: tDate });
@@ -1628,7 +1631,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         }
 
         if (karanaIdxTotal !== prevKaranaIdxTotal) {
-            const threshold = Math.max(prevKaranaIdxTotal, karanaIdxTotal) * 6;
+            const threshold = (karanaIdxTotal < prevKaranaIdxTotal) ? 360 : Math.max(prevKaranaIdxTotal, karanaIdxTotal) * 6;
             const tDate = interpolate(prevMs, actualMs, threshold, prevDiff, d);
             if (tDate <= nextSunriseDate) {
                 karanaTransitions.push({ idx: prevKaranaIdxTotal, time: tDate });
@@ -1636,7 +1639,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         }
 
         if (nakIdx !== prevNakIdx) {
-            const threshold = Math.max(prevNakIdx, nakIdx) * NAKSHATRA_WIDTH;
+            const threshold = (nakIdx < prevNakIdx) ? 360 : Math.max(prevNakIdx, nakIdx) * NAKSHATRA_WIDTH;
             const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealMoon, sidMoon);
             if (tDate <= nextSunriseDate) {
                 nakTransitions.push({ idx: prevNakIdx, time: tDate });
@@ -1644,7 +1647,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         }
 
         if (yogaIdx !== prevYogaIdx) {
-            const threshold = Math.max(prevYogaIdx, yogaIdx) * NAKSHATRA_WIDTH;
+            const threshold = (yogaIdx < prevYogaIdx) ? 360 : Math.max(prevYogaIdx, yogaIdx) * NAKSHATRA_WIDTH;
             const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealYoga, sidYoga);
             if (tDate <= nextSunriseDate) {
                 yogaTransitions.push({ idx: prevYogaIdx, time: tDate });
@@ -1652,7 +1655,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         }
 
         if (moonSignIdx !== prevMoonSignIdx) {
-            const threshold = Math.max(prevMoonSignIdx, moonSignIdx) * 30;
+            const threshold = (moonSignIdx < prevMoonSignIdx) ? 360 : Math.max(prevMoonSignIdx, moonSignIdx) * 30;
             const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealMoon, sidMoon);
             if (tDate <= nextSunriseDate) {
                 moonSignTransitions.push({ idx: prevMoonSignIdx, time: tDate });
