@@ -12,7 +12,7 @@ const TRANSLATIONS = {
     title: "Donate",
     subtitle: "CONTRIBUTIONS & DONATIONS",
     description: (
-      <div className="font-akshar">
+      <div className="font-body">
         If you found our service valuable, we would be deeply grateful for any donation to support our mission, suggested amount <span className="font-hindi">₹701, ₹1100, ₹1200, ₹2100, ₹7100</span>, etc.
       </div>
     ),
