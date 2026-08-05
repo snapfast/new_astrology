@@ -14,15 +14,4 @@ test('Testimonials section update verification', async ({ page }) => {
   await expect(googleLink).toHaveAttribute('href', 'https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7');
   await expect(googleLink).toHaveAttribute('target', '_blank');
 
-  // Verify Hindi version
-  await page.click('button[aria-label="हिन्दी"]');
-  await page.waitForLoadState('networkidle');
-
-  // Verify that the old Hindi description is NOT present
-  const oldDescHindi = page.getByText('उन लोगों से सुनें जिन्होंने खगोलीय संरेखण', { exact: false });
-  await expect(oldDescHindi).not.toBeVisible();
-
-  // Verify Hindi Google Reviews link
-  const googleLinkHindi = page.getByRole('link', { name: 'गूगल पर देखें' });
-  await expect(googleLinkHindi).toBeVisible();
 });

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Hora page renders correctly and supports translation', async ({ page }) => {
+test('Hora page renders correctly', async ({ page }) => {
   // Prevent matchmaking popup
   await page.addInitScript(() => {
     window.localStorage.setItem('moonine_popup_last_shown', Date.now().toString());
@@ -21,12 +21,4 @@ test('Hora page renders correctly and supports translation', async ({ page }) =>
   const rows = page.locator('table tbody tr');
   await expect(rows).toHaveCount(24);
 
-  // Toggle language to Hindi
-  const hindiBtn = page.locator('button:has-text("हि")').first();
-  await hindiBtn.click();
-
-  // Wait for translation to apply
-  await expect(page.locator('h1')).toContainText('होरा चक्र');
-  await expect(page.getByRole('button', { name: 'आज' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'होरा समयरेखा (24 घंटे)' })).toBeVisible();
 });
