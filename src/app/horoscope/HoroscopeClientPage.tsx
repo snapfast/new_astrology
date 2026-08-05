@@ -103,92 +103,7 @@ const TRANSLATIONS = {
     loading: "Loading your destiny...",
     ashtakvargaTitle: "Sarva Ashtakvarga (SAV)",
     ashtakvargaDesc: "Sarva Ashtakvarga is a composite strength map of the zodiac signs. Houses with 28+ points are highly auspicious, 25-27 are neutral, and under 25 are weaker zones.",
-    rasiPoints: "SAV points",
-  },
-  hi: {
-    birthInfo: "जन्म विवरण",
-    name: "नाम",
-    date: "दिनांक",
-    time: "समय",
-    place: "स्थान",
-    panchang: "वैदिक पंचांग",
-    tithi: "तिथि",
-    paksha: "पक्ष",
-    vara: "वार",
-    nakshatra: "नक्षत्र",
-    yoga: "योग",
-    karana: "करण",
-    sunSign: "सूर्य राशि",
-    moonSign: "चंद्र राशि",
-    ritu: "ऋतु",
-    ayana: "अयन",
-    timings: "मुहूर्त और काल",
-    abhijit: "अभिजीत मुहूर्त",
-    rahu: "राहु काल",
-    gulika: "गुलिक काल",
-    yamaganda: "यमगण्ड काल",
-    d1Chart: "लग्न चार्ट (D1)",
-    d1Desc: "शारीरिक संरचना और जीवन पथ",
-    d2Chart: "पराशर होरा चार्ट (D2)",
-    d2Desc: "धन संचय और संचित संपत्ति",
-    d2usChart: "उमा शंभू होरा चार्ट (D2-US)",
-    d2usDesc: "आध्यात्मिक धन और दैवीय कृपा",
-    d3Chart: "द्रेष्काण चार्ट (D3)",
-    d3Desc: "भाई-बहन, साहस और जीवन शक्ति",
-    d4Chart: "चतुर्थांश चार्ट (D4)",
-    d4Desc: "अचल संपत्ति और सुख-सुविधाएं",
-    d7Chart: "सप्तमंश चार्ट (D7)",
-    d7Desc: "संतान, वंश और रचनात्मकता",
-    d9Chart: "नवांश चार्ट (D9)",
-    d9Desc: "जीवनसाथी, विवाह और आंतरिक शक्ति",
-    d10Chart: "दशमांश चार्ट (D10)",
-    d10Desc: "करियर, व्यवसाय और सामाजिक प्रतिष्ठा",
-    d12Chart: "द्वादशांश चार्ट (D12)",
-    d12Desc: "माता-पिता, वंश और पूर्व कर्म",
-    d16Chart: "षोडशांश चार्ट (D16)",
-    d16Desc: "वाहन, सुख-साधन और विलासिता",
-    d20Chart: "विंशांश चार्ट (D20)",
-    d20Desc: "आध्यात्मिक प्रगति और भक्ति",
-    d24Chart: "सिद्धांश चार्ट (D24)",
-    d24Desc: "बुद्धि, ज्ञान और शिक्षा",
-    d27Chart: "सप्तविंशांश चार्ट (D27)",
-    d27Desc: "बल, सहनशक्ति और अवचेतन ऊर्जा",
-    d30Chart: "त्रिशांश चार्ट (D30)",
-    d30Desc: "कष्ट, स्वास्थ्य और बाधाएं",
-    d40Chart: "खवेदांश चार्ट (D40)",
-    d40Desc: "मातृपक्ष की विरासत और कर्म फल",
-    d45Chart: "अक्षवेदांश चार्ट (D45)",
-    d45Desc: "पितृपक्ष की विरासत और चरित्र",
-    d60Chart: "षष्ट्यंश चार्ट (D60)",
-    d60Desc: "पूर्व जन्म के कर्म और ग्रह बल",
-    moreVargas: "अन्य विभागीय कुंडली (वर्ग)",
-    planet: "ग्रह",
-    house: "भाव",
-    rasi: "राशि",
-    rasiLord: "राशि स्वामी",
-    degree: "अंश",
-    nakLord: "नक्षत्र स्वामी",
-    pada: "पद",
-    planetaryPositions: "ग्रहों की स्थिति",
-    vimshottariDasha: "विंशोत्तरी दशा",
-    generateNew: "नई कुंडली बनाएं",
-    pageTitle: "आपकी जन्म कुंडली",
-    compactView: "कॉम्पैक्ट डैशबोर्ड",
-    ctaTitle: "सत्यापित जानकारी खोज रहे हैं?",
-    ctaDesc:
-      "यह डिजिटल चार्ट मानक एल्गोरिदम पर आधारित एक विज़ुअलाइज़ेशन प्रदान करता है। सटीक सत्यापित जानकारी के लिए—जिसमें सटीक ग्रह अंश, विशिष्ट अयनांश और व्यक्तिगत कर्म संबंधी अंतर्दृष्टि शामिल है—एक विशेषज्ञ समीक्षा आवश्यक है।",
-    ctaBtn: "सत्यापित व्यक्तिगत परामर्श बुक करें",
-    linkCopied: "लिंक कॉपी किया गया!",
-    switchLanguage: "भाषा बदलें / Switch Language",
-    shareReport: "रिपोर्ट साझा करें",
-    northIndianStyle:
-      "विभागीय चार्ट का पारंपरिक उत्तर भारतीय शैली प्रतिनिधित्व",
-    loading: "आपका भाग्य लोड हो रहा है...",
-    ashtakvargaTitle: "सर्वाष्टकवर्ग (SAV)",
-    ashtakvargaDesc: "सर्वाष्टकवर्ग राशियों का एक समग्र शक्ति मानचित्र है। जिन भावों में 28+ बिंदु होते हैं वे अत्यधिक शुभ होते हैं, 25-27 सामान्य होते हैं, और 25 से कम बिंदु वाले भाव कमजोर क्षेत्र माने जाते हैं।",
-    rasiPoints: "अष्टकवर्ग बिंदु",
-  },
-};
+    rasiPoints: "SAV points"}};
 
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
@@ -202,7 +117,7 @@ const HoroscopeContent = () => {
     window.location.href = `/horoscope/compact?${params.toString()}`;
   };
 
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   const searchParams = useSearchParams();
 
   // Close the edit section automatically when navigation completes and params change
@@ -1275,8 +1190,7 @@ const HoroscopeContent = () => {
 };
 
 export default function HoroscopeClientPage() {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />

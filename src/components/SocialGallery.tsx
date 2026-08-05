@@ -11,17 +11,11 @@ const TRANSLATIONS = {
     subtitle: "Social Insights",
     title: <>Latest Findings & <br className="hidden md:block" /> Celestial Wisdom</>,
     stayConnected: "Stay connected for daily astrological updates."
-  },
-  hi: {
-    subtitle: "सोशल अंतर्दृष्टि",
-    title: <>नवीनतम निष्कर्ष और <br className="hidden md:block" /> आकाशीय ज्ञान</>,
-    stayConnected: "दैनिक ज्योतिषीय अपडेट के लिए जुड़े रहें।"
-  }
-};
+  }};
 
 const SocialGallery = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   // Logic to refresh embeds when they are injected or when route changes
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

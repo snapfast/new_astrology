@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
@@ -14,15 +13,7 @@ const TRANSLATIONS = {
     description: "The celestial alignment seems disrupted. We've encountered an unexpected error.",
     tryAgain: "Try Again",
     backToHome: "Back to Home"
-  },
-  hi: {
-    title: "कुछ गलत हो गया",
-    subtitle: "सिस्टम त्रुटि",
-    description: "खगोलीय संरेखण बाधित लग रहा है। हमें एक अप्रत्याशित त्रुटि का सामना करना पड़ा है।",
-    tryAgain: "फिर से प्रयास करें",
-    backToHome: "होम पर वापस जाएं"
-  }
-};
+  }};
 
 export default function Error({
   error,
@@ -31,8 +22,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   useEffect(() => {
     // Log the error to an error reporting service

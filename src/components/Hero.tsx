@@ -17,22 +17,11 @@ const TRANSLATIONS = {
     learnBtn: 'Learn More',
     charts: 'Charts',
     rating: 'Rating'
-  },
-  hi: {
-    subtitle: 'पवित्र वैदिक ज्योतिष · ज्योतिष शास्त्र',
-    title: 'पंडित राहुल बाली जी',
-    desc1: 'एक सम्मानित ब्राह्मण वंशावली और पवित्र ज्योतिषीय परंपराओं में निहित गहन वैदिक ज्योतिष रीडिंग और आधिकारिक आध्यात्मिक परामर्श।',
-    desc2: 'गुरुग्राम, भारत।',
-    bookBtn: 'परामर्श बुक करें',
-    learnBtn: 'और जानें',
-    charts: 'कुंडलियां',
-    rating: 'रेटिंग'
-  }
-};
+  }};
 
 const Hero = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 

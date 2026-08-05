@@ -35,40 +35,11 @@ const TRANSLATIONS = {
         description: "Approach our session with an open heart. You will receive guidance that empowers you to navigate life's challenges with confidence."
       }
     ]
-  },
-  hi: {
-    prep: "स्पष्टता की यात्रा",
-    title: "यह कैसे काम करता है",
-    desc: "व्यक्तिगत आध्यात्मिक मार्गदर्शन और जीवन बदलने वाली ज्योतिषीय अंतर्दृष्टि प्राप्त करने का एक सहज मार्ग।",
-    bookNow: "अभी अपना सत्र बुक करें",
-    guidelines: [
-      {
-        id: "booking-process",
-        title: "तत्काल बुकिंग",
-        description: "हमारे एकीकृत कैलेंडर के माध्यम से अपना 30 मिनट का निजी सत्र तुरंत सुरक्षित करें। वह समय चुनें जो आपके लिए सबसे अच्छा हो।"
-      },
-      {
-        id: "required-details",
-        title: "जन्म विवरण",
-        description: "आपके कर्म मानचित्र को सटीक रूप से डिकोड करने के लिए, हमें शेड्यूलिंग प्रक्रिया के दौरान आपकी सटीक जन्म तिथि, समय और स्थान की आवश्यकता होती है।"
-      },
-      {
-        id: "prepare-questions",
-        title: "केंद्रित क्षेत्र",
-        description: "उन विशिष्ट क्षेत्रों—करियर, रिश्ते या स्वास्थ्य—के बारे में सोचें जहां आप सबसे अधिक स्पष्टता चाहते हैं ताकि हमारे सत्र को गहरा प्रभावशाली बनाया जा सके।"
-      },
-      {
-        id: "open-mindset",
-        title: "परिवर्तनकारी अंतर्दृष्टि",
-        description: "खुले दिल से हमारे सत्र में आएं। आपको वह मार्गदर्शन प्राप्त होगा जो आपको आत्मविश्वास के साथ जीवन की चुनौतियों का सामना करने के लिए सशक्त बनाएगा।"
-      }
-    ]
-  }
-};
+  }};
 
 const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsProps) => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
 
   return (
     <section className={`${showTitle ? 'py-16' : 'pb-16'} bg-white`}>

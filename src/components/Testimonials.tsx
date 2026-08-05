@@ -14,17 +14,7 @@ const TRANSLATIONS = {
     prev: "Previous review",
     next: "Next review",
     goToSlide: "Go to slide"
-  },
-  hi: {
-    subtitle: "समीक्षाएं",
-    title: "प्रशंसापत्र",
-    rating: "5/5 रेटिंग",
-    viewOnGoogle: "गूगल पर देखें",
-    prev: "पिछली समीक्षा",
-    next: "अगली समीक्षा",
-    goToSlide: "स्लाइड पर जाएं"
-  }
-};
+  }};
 
 const GoogleIcon = () => (
   <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +27,7 @@ const GoogleIcon = () => (
 
 const Testimonials = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   // Use a curated subset of reviews for the home page testimonials
   const featuredReviews = useMemo(() => {
     const featuredIds = [1, 2, 3, 4, 10, 8, 14]; // Aditi, Ishwar Goswami, Saurav Thapa, Ansh, Sanaa, Luis, Gomathi

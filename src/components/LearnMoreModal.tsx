@@ -26,29 +26,7 @@ const TRANSLATIONS = {
     ],
     motto: 'Guided by the stars, Grounded in Truth',
     closeModal: 'Close modal'
-  },
-  hi: {
-    title: 'और खोजें',
-    sampleTitle: 'नमूना रिपोर्ट और संसाधन',
-    sampleDesc: 'हमारे दृष्टिकोण को समझने के लिए नमूना ज्योतिष रिपोर्ट और शैक्षिक संसाधन देखें।',
-    sampleBtn: 'संसाधन देखें',
-    sampleHighlights: [
-      "विस्तृत जन्म कुंडली (कुंडली) नमूना",
-      "व्यापक अनुकूलता विश्लेषण",
-      "वैदिक उपाय  संदर्भ पत्रक"
-    ],
-    socialTitle: 'आध्यात्मिक अंतर्दृष्टि',
-    socialDesc: 'सोशल मीडिया पर दैनिक ज्योतिषीय ज्ञान, मंत्र और आध्यात्मिक मार्गदर्शन।',
-    socialBtn: 'थ्रेड्स पर फॉलो करें',
-    socialHighlights: [
-      "दैनिक ज्योतिषीय मार्गदर्शन और सुझाव",
-      "पवित्र मंत्र और उपचारात्मक पाठ",
-      "इंटरैक्टिव प्रश्नोत्तर और समुदाय"
-    ],
-    motto: 'सितारों द्वारा निर्देशित, सत्य में निहित',
-    closeModal: 'मोडल बंद करें'
-  }
-};
+  }};
 
 interface LearnMoreModalProps {
   isOpen: boolean;
@@ -57,7 +35,7 @@ interface LearnMoreModalProps {
 
 const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   return (
     <BaseModal

@@ -1,20 +1,15 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
     backToTop: 'Back to Top',
-  },
-  hi: {
-    backToTop: 'ऊपर वापस जाएँ',
-  },
+  }
 };
 
 const BackToTop = () => {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
   const [isVisible, setIsVisible] = useState(false);
   const isThrottled = useRef(false);
 

@@ -51,54 +51,11 @@ const TRANSLATIONS = {
     educationalText2: "Unlike standard 60-minute hours, a Vedic Hora is proportional. The daytime (Sunrise to Sunset) is divided into 12 equal hours, and the nighttime (Sunset to next Sunrise) is divided into 12 equal hours. Since day and night lengths change with seasons, the duration of day and night Horas fluctuates accordingly.",
     educationalText3: "The ruling planet of the first Hora of any day is the lord of the weekday (Vara) itself. The subsequent Hora lords are determined by counting backward every second planet in the Chaldean order of planetary speed (decreasing speed): Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars. Understanding and using these planetary hours provides a daily system of mini-muhurtas to ensure victory and peace in all worldly actions.",
     viewScheduledDate: "Viewing Hora chart for selected date"
-  },
-  hi: {
-    heroTitle: "होरा चक्र",
-    heroSubtitle: "वैदिक होरा कैलकुलेटर",
-    heroDesc: "वृहत् पाराशर होरा शास्त्र के अनुसार अपने कार्यों को दिव्य ऊर्जा के साथ संरेखित करें। दिन का प्रत्येक घंटा एक विशिष्ट ग्रह द्वारा शासित होता है, जो आपके प्रयासों की शुभता को निर्धारित करता है।",
-    selectDate: "तारीख चुनें",
-    selectedDate: "चुनी हुई तारीख",
-    today: "आज",
-    sunrise: "सूर्योदय",
-    sunset: "सूर्यास्त",
-    nextSunrise: "अगला सूर्योदय",
-    hoursTitle: "होरा समयरेखा (24 घंटे)",
-    hoursSubtitle: "सूर्योदय से अगले सूर्योदय तक",
-    noHoras: "कोई होरा गणना नहीं मिली।",
-    currentHoraTitle: "वर्तमान सक्रिय होरा",
-    currentHoraDesc: "वास्तविक समय ग्रह घंटा ट्रैकिंग",
-    lord: "होरा स्वामी",
-    type: "अवधि प्रकार",
-    nature: "प्रकृति",
-    timePeriod: "समय अवधि",
-    timeLeft: "शेष समय",
-    minutes: "मिनट",
-    seconds: "सेकंड",
-    completed: "पूर्ण",
-    benefic: "सौम्य (शुभ / सौम्य)",
-    malefic: "क्रूर (अशुभ / क्रूर)",
-    activitiesTitle: "अनुशंसित शुभ कार्य",
-    avoidTitle: "वर्जित कार्य",
-    day: "दिन का समय",
-    night: "रात्रि का समय",
-    scheduleHeader: {
-      num: "क्र.",
-      lord: "होरा स्वामी",
-      time: "समय अंतराल",
-      nature: "प्रकृति",
-      actions: "विशेषताएं"
-    },
-    educationalTitle: "वैदिक होरा (Planetary Hours) के बारे में",
-    educationalText1: "होरा शब्द की उत्पत्ति संस्कृत शब्द 'अहोरात्र' (अर्थात् दिन और रात) के पहले और आखिरी अक्षर को हटाने से हुई है। यह एक ग्रह के घंटे को दर्शाता है। कालजयी ग्रंथ वृहत् पाराशर होरा शास्त्र में, महर्षि पाराशर ने होरा की सटीक गणना और उपयोग का वर्णन किया है।",
-    educationalText2: "मानक 60 मिनट के घंटों के विपरीत, वैदिक होरा आनुपातिक होती है। दिन के समय (सूर्योदय से सूर्यास्त तक) को 12 समान होराओं में विभाजित किया जाता है, और रात के समय (सूर्यास्त से अगले सूर्योदय तक) को 12 समान होराओं में विभाजित किया जाता है। चूंकि मौसम के साथ दिन और रात की लंबाई बदलती है, इसलिए दिन और रात की होरा की अवधि तदनुसार घटती-बढ़ती रहती है।",
-    educationalText3: "किसी भी दिन की पहली होरा का शासक ग्रह स्वयं उस दिन का स्वामी (वारेश) होता है। इसके बाद के होरा स्वामी ग्रहों की गति (घटती गति) के चाल्डियन क्रम में पीछे की ओर से प्रत्येक दूसरे ग्रह की गणना करके निर्धारित किए जाते हैं: सूर्य, शुक्र, बुध, चंद्रमा, शनि, बृहस्पति, मंगल। इन होराओं के प्रभाव को समझकर कार्य करने से दैनिक जीवन में अद्भुत सफलता प्राप्त की जा सकती है।",
-    viewScheduledDate: "चुनी गई तिथि के लिए होरा चार्ट प्रदर्शित है"
-  }
-};
+  }};
 
 const HoraClientPage = () => {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t = TRANSLATIONS.en;
 
   const [selectedDateStr, setSelectedDateStr] = useState("");
   const [currentTime, setCurrentTime] = useState<Date | null>(null);

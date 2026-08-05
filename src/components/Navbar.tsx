@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import BookConsultationModal from './BookConsultationModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
@@ -27,31 +26,11 @@ const TRANSLATIONS = {
     openMenu: 'Open Menu',
     closeMenu: 'Close Menu',
     faq: 'FAQ'
-  },
-  hi: {
-    home: 'होम',
-    freeHoroscope: 'मुफ्त कुंडली',
-    panchang: 'पंचांग',
-    panchPakshi: 'पंच पक्षी',
-    biorhythm: 'बायोरिदम',
-    tools: 'उपकरण',
-    about: 'मेरे बारे में',
-    services: 'सेवाएं',
-    reviews: 'समीक्षाएं',
-    contact: 'संपर्क करें',
-    bookNow: 'अभी बुक करें',
-    bookConsultation: 'अभी परामर्श बुक करें',
-    location: 'गुरुग्राम, भारत',
-    switchLanguage: 'भाषा बदलें / Switch Language',
-    openMenu: 'मेन्यू खोलें',
-    closeMenu: 'मेन्यू बंद करें',
-    faq: 'FAQ (प्रश्न)'
   }
 };
 
 const Navbar = () => {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -102,11 +81,11 @@ const Navbar = () => {
     {
       name: t.tools,
       subLinks: [
-        { name: lang === 'en' ? 'Transits (Gochar)' : 'Transits (गोचर)', href: '/transits' },
-        { name: lang === 'en' ? 'Planetary Hours (Hora)' : 'Planetary Hours (होरा)', href: '/hora' },
-        { name: lang === 'en' ? 'Biorhythm' : 'Biorhythm (बायोरिदम)', href: '/biorhythm' },
-        { name: lang === 'en' ? 'Panch Pakshi' : 'Panch Pakshi (पंच पक्षी)', href: '/panch-pakshi' },
-        { name: lang === 'en' ? 'FAQ' : 'FAQ (प्रश्न)', href: '/faq' }
+        { name: 'Transits (Gochar)', href: '/transits' },
+        { name: 'Planetary Hours (Hora)', href: '/hora' },
+        { name: 'Biorhythm', href: '/biorhythm' },
+        { name: 'Panch Pakshi', href: '/panch-pakshi' },
+        { name: 'FAQ', href: '/faq' }
       ]
     },
     { name: t.about, href: '/about' },

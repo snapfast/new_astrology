@@ -16,20 +16,11 @@ const TRANSLATIONS = {
     city: "Gurugram (Gurgaon), Haryana, India",
     email: "Email Address",
     online: "Online Presence"
-  },
-  hi: {
-    title: "संपर्क करें",
-    subtitle: "जुड़ें",
-    location: "स्थान",
-    city: "गुरुग्राम (गुड़गांव), हरियाणा, भारत",
-    email: "ईमेल पता",
-    online: "ऑनलाइन उपस्थिति"
-  }
-};
+  }};
 
 export default function ContactContent() {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.en;
 
   return (
     <main className="min-h-screen bg-surface">
