@@ -8,7 +8,7 @@ import JsonLd from '@/components/JsonLd';
 import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
-  title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram & Gurgaon",
+  title: "About",
   description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram (Gurgaon), providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
   keywords: [
     "About Rahul Bali", "Vedic Astrologer Gurugram", "Vedic Astrologer Gurgaon",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/about",
   },
   openGraph: {
-    title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram & Gurgaon",
+    title: "About | Rahul Bali Astrology",
     description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram (Gurgaon), providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
     url: "https://astro.rahulbali.in/about",
     siteName: "Rahul Bali Astrology",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Pandit Rahul Bali Ji | Vedic Astrologer in Gurugram & Gurgaon",
+    title: "About | Rahul Bali Astrology",
     description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology based in Gurugram (Gurgaon), providing spiritual insights and practical life remedies.",
     images: ["/og-image.png"],
   },

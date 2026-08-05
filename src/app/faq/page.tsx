@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import FAQContent from './FAQContent';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology FAQ, Varga Charts & Systems | Rahul Bali Astrology",
+  title: "FAQ",
   description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional (Varga) charts, Panch Pakshi (Panch Oakshi) system, and physical, emotional, and intellectual Biorhythm (Biothytm) cycles.",
   keywords: [
     "Vedic Astrology FAQ", "all 17 varga charts", "divisional charts in hindi",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/faq",
   },
   openGraph: {
-    title: "Vedic Astrology FAQ, Varga Charts & Systems | Rahul Bali Astrology",
+    title: "FAQ | Rahul Bali Astrology",
     description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional (Varga) charts, Panch Pakshi (Panch Oakshi) system, and physical, emotional, and intellectual Biorhythm (Biothytm) cycles.",
     url: "https://astro.rahulbali.in/faq",
     siteName: "Rahul Bali Astrology",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vedic Astrology FAQ, Varga Charts & Systems | Rahul Bali Astrology",
+    title: "FAQ | Rahul Bali Astrology",
     description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional (Varga) charts, Panch Pakshi (Panch Oakshi) system, and physical, emotional, and intellectual Biorhythm (Biothytm) cycles.",
     images: ["/og-image.png"],
   },

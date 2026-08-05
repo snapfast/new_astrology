@@ -23,7 +23,7 @@ const akshar = Akshar({
 export const metadata: Metadata = {
   metadataBase: new URL("https://astro.rahulbali.in"),
   title: {
-    default: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
+    default: "Rahul Bali Astrology",
     template: "%s | Rahul Bali Astrology",
   },
   description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations to align with your true purpose.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
+    title: "Rahul Bali Astrology",
     description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
     url: "https://astro.rahulbali.in",
     siteName: "Rahul Bali Astrology",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rahul Bali Astrology | Vedic Astrology & Spiritual Guidance",
+    title: "Rahul Bali Astrology",
     description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
     images: ["/og-image.png"],
   },

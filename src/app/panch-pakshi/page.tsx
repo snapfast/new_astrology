@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import PanchPakshiClientPage from './PanchPakshiClientPage';
 
 export const metadata: Metadata = {
-  title: 'Panch Pakshi Calculator | Nakshatra Five Birds - Rahul Bali Astrology',
+  title: 'Panch Pakshi',
   description: 'Calculate your Panch Pakshi (also known as Panch Oakshi) bird based on your birth Nakshatra and Paksha. Understand the five astrological activity states (Ruling, Eating, Walking, Sleeping, Dying) of your personal bird, complementing Varga charts and Biorhythm (Biothytm) tracker for precise daily guidance.',
   keywords: [
     "Panch Pakshi", "Panch Oakshi", "Five Birds Astrology", "Nakshatra Bird", "Vedic Astrology Calculator",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     canonical: "https://astro.rahulbali.in/panch-pakshi",
   },
   openGraph: {
-    title: 'Panch Pakshi Calculator | Nakshatra Five Birds - Rahul Bali Astrology',
+    title: 'Panch Pakshi | Rahul Bali Astrology',
     description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra and Paksha. Learn the five astrological activity states for precise daily guidance.',
     url: 'https://astro.rahulbali.in/panch-pakshi',
     siteName: "Rahul Bali Astrology",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: 'Panch Pakshi Calculator | Nakshatra Five Birds - Rahul Bali Astrology',
+    title: 'Panch Pakshi | Rahul Bali Astrology',
     description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra and Paksha. Learn the five astrological activity states for precise daily guidance.',
     images: ["/og-image.png"],
   },

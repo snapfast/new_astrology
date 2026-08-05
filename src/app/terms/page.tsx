@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import TermsContent from './TermsContent';
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Rahul Bali Astrology",
+  title: "Terms of Service",
   description: "Read our Terms of Service. Learn about astrological disclaimers, accurate birth inputs, and voluntary contributions for Rahul Bali Astrology.",
   keywords: [
     "Terms of Service", "astrological disclaimers", "Rahul Bali Astrology terms",
