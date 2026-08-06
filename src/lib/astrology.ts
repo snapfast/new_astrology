@@ -19,10 +19,17 @@ export interface PlanetData {
     isCombust?: boolean;
 }
 
+export interface PranaDasha {
+    lord: string;
+    start: number;
+    end: number;
+}
+
 export interface SookshmaDasha {
     lord: string;
     start: number;
     end: number;
+    pranaDashas: PranaDasha[];
 }
 
 export interface Pratyantardasha {
@@ -1912,21 +1919,57 @@ export function parseDegree(degreeStr: string): number {
     return d + m / 60 + s / 3600;
 }
 
+function calculatePranaDashas(mdDurationYears: number, adDurationYears: number, pdDurationYears: number, sdLordIdx: number, sdDurationYears: number, sdStart: number): PranaDasha[] {
+    const pds: PranaDasha[] = [];
+    let currentPranaStart = sdStart;
+    for (let m = 0; m < 9; m++) {
+        const pranaLordIdx = (sdLordIdx + m) % 9;
+        const pranaLord = NAKSHATRA_LORDS[pranaLordIdx];
+        const pranaDurationYears = DASHA_DURATIONS[pranaLord];
+        const pranaDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * sdDurationYears * pranaDurationYears * MS_PER_YEAR) / (120 * 120 * 120 * 120));
+        const pranaStart = currentPranaStart;
+        const pranaEnd = pranaStart + pranaDuration;
+
+        pds.push({
+            lord: pranaLord,
+            start: pranaStart,
+            end: pranaEnd
+        });
+        currentPranaStart = pranaEnd;
+    }
+    return pds;
+}
+
 function calculateSookshmaDashas(mdDurationYears: number, adDurationYears: number, pdLordIdx: number, pdDurationYears: number, pdStart: number): SookshmaDasha[] {
     const sds: SookshmaDasha[] = [];
     let currentSdStart = pdStart;
     for (let l = 0; l < 9; l++) {
         const sdLordIdx = (pdLordIdx + l) % 9;
         const sdLord = NAKSHATRA_LORDS[sdLordIdx];
-        const sdDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * DASHA_DURATIONS[sdLord] * MS_PER_YEAR) / (120 * 120 * 120));
+        const sdDurationYears = DASHA_DURATIONS[sdLord];
+        const sdDuration = Math.trunc((mdDurationYears * adDurationYears * pdDurationYears * sdDurationYears * MS_PER_YEAR) / (120 * 120 * 120));
         const sdStart = currentSdStart;
         const sdEnd = sdStart + sdDuration;
 
-        sds.push({
+        const sookshmaDasha = {
             lord: sdLord,
             start: sdStart,
             end: sdEnd
+        } as SookshmaDasha;
+
+        let pranas: PranaDasha[] | undefined;
+        Object.defineProperty(sookshmaDasha, 'pranaDashas', {
+            get: () => {
+                if (!pranas) {
+                    pranas = calculatePranaDashas(mdDurationYears, adDurationYears, pdDurationYears, sdLordIdx, sdDurationYears, sdStart);
+                }
+                return pranas;
+            },
+            enumerable: true,
+            configurable: true
         });
+
+        sds.push(sookshmaDasha);
         currentSdStart = sdEnd;
     }
     return sds;

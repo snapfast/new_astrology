@@ -77,6 +77,10 @@ test('calculateVimshottariDasha basic structure', () => {
 
   const currentSookshma = currentPratyantar.sookshmaDashas.find(s => now >= s.start && now < s.end);
   assert.ok(currentSookshma, 'Should have a current sookshmadasha');
+  assert.ok(currentSookshma.pranaDashas, 'Current sookshmadasha should have pranaDashas');
+
+  const currentPrana = currentSookshma.pranaDashas.find(p => now >= p.start && now < p.end);
+  assert.ok(currentPrana, 'Should have a current pranadasha');
 });
 
 test('calculateVimshottariDasha balance of dasha', () => {
