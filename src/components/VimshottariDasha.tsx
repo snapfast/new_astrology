@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect, useRef, memo } from 'react';
-import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PLANET_NAMES, DashaBalance } from '@/lib/astrology';
+import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PranaDasha, PLANET_NAMES, DashaBalance } from '@/lib/astrology';
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
@@ -16,6 +16,7 @@ const TRANSLATIONS = {
     antardasha: "Antardasha",
     pratyantardasha: "Pratyantardasha",
     sookshmaDasha: "Sookshma Dasha",
+    pranaDasha: "Prana Dasha",
     activeDasha: "Active Dasha",
     selectMd: "Select a Mahadasha to drill down",
     to: " to ",
@@ -63,7 +64,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
       md: null as Mahadasha | null,
       ad: null as Antardasha | null,
       pd: null as Pratyantardasha | null,
-      sd: null as SookshmaDasha | null
+      sd: null as SookshmaDasha | null,
+      prana: null as PranaDasha | null
     };
 
     if (mahadashas.length === 0) return path;
@@ -80,6 +82,10 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
           const sd = findCurrentDasha(pd.sookshmaDashas, nowTime);
           if (sd) {
             path.sd = sd;
+            const prana = findCurrentDasha(sd.pranaDashas, nowTime);
+            if (prana) {
+              path.prana = prana;
+            }
           }
         }
       }
@@ -91,6 +97,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   const [selectedAd, setSelectedAd] = useState<Antardasha | null>(currentPath.ad);
   const [selectedPd, setSelectedPd] = useState<Pratyantardasha | null>(currentPath.pd);
   const [selectedSd, setSelectedSd] = useState<SookshmaDasha | null>(currentPath.sd);
+  const [selectedPrana, setSelectedPrana] = useState<PranaDasha | null>(currentPath.prana);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Sync selection if mahadashas change (e.g. new chart generation)
@@ -99,6 +106,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
     setSelectedAd(currentPath.ad);
     setSelectedPd(currentPath.pd);
     setSelectedSd(currentPath.sd);
+    setSelectedPrana(currentPath.prana);
   }, [currentPath]);
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -168,60 +176,78 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
     }
   }, [selectedMd, selectedAd, selectedPd, selectedSd]);
 
-  const handleMdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
+  const handleMdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha) => {
     const md = item as Mahadasha;
     if (selectedMd?.lord === md.lord && selectedMd?.start === md.start) {
       setSelectedMd(null);
       setSelectedAd(null);
       setSelectedPd(null);
       setSelectedSd(null);
+      setSelectedPrana(null);
     } else {
       setSelectedMd(md);
       setSelectedAd(null);
       setSelectedPd(null);
       setSelectedSd(null);
+      setSelectedPrana(null);
     }
   };
 
-  const handleAdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
+  const handleAdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha) => {
     const ad = item as Antardasha;
     if (selectedAd?.lord === ad.lord && selectedAd?.start === ad.start) {
       setSelectedAd(null);
       setSelectedPd(null);
       setSelectedSd(null);
+      setSelectedPrana(null);
     } else {
       setSelectedAd(ad);
       setSelectedPd(null);
       setSelectedSd(null);
+      setSelectedPrana(null);
     }
   };
 
-  const handlePdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
+  const handlePdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha) => {
     const pd = item as Pratyantardasha;
     if (selectedPd?.lord === pd.lord && selectedPd?.start === pd.start) {
       setSelectedPd(null);
       setSelectedSd(null);
+      setSelectedPrana(null);
     } else {
       setSelectedPd(pd);
       setSelectedSd(null);
+      setSelectedPrana(null);
     }
   };
 
-  const handleSdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => {
+  const handleSdClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha) => {
     const sd = item as SookshmaDasha;
     if (selectedSd?.lord === sd.lord && selectedSd?.start === sd.start) {
       setSelectedSd(null);
+      setSelectedPrana(null);
     } else {
       setSelectedSd(sd);
+      setSelectedPrana(null);
+    }
+  };
+
+  const handlePranaClick = (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha) => {
+    const prana = item as PranaDasha;
+    if (selectedPrana?.lord === prana.lord && selectedPrana?.start === prana.start) {
+      setSelectedPrana(null);
+    } else {
+      setSelectedPrana(prana);
     }
   };
 
   const renderColumn = (
     title: string,
-    items: (Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha)[],
-    selectedItem: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | null,
-    onItemClick?: (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha) => void,
-    isSookshma: boolean = false
+    items: (Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha)[],
+    selectedItem: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha | null,
+    onItemClick?: (item: Mahadasha | Antardasha | Pratyantardasha | SookshmaDasha | PranaDasha) => void,
+    isDetailedTime: boolean = false,
+    isDeepestLevel: boolean = false
   ) => {
     return (
       <div className="flex-shrink-0 w-64 md:w-72 border-r border-outline flex flex-col bg-white last:border-r-0 first:rounded-l-3xl last:rounded-r-3xl">
@@ -250,7 +276,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                   `}
                 >
                   {/* Black arrow head for selected dasha box */}
-                  {isSelected && !isSookshma && (
+                  {isSelected && !isDeepestLevel && (
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-on-surface border-y-[5px] border-y-transparent z-20"></div>
                   )}
 
@@ -268,9 +294,9 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                     </div>
                   </div>
                   <div className={`text-xs font-medium mt-1 tabular-nums ${isSelected ? 'text-on-surface' : 'text-on-surface/70'}`}>
-                    {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
+                    {isDetailedTime ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
                     {t.to}
-                    {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
+                    {isDetailedTime ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
                   </div>
                 </div>
               );
@@ -290,7 +316,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                 aria-pressed={isSelected ? 'true' : 'false'}
               >
                 {/* Black arrow head for selected dasha box */}
-                {isSelected && !isSookshma && (
+                {isSelected && !isDeepestLevel && (
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-on-surface border-y-[5px] border-y-transparent z-20"></div>
                 )}
 
@@ -308,9 +334,9 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                   </div>
                 </div>
                 <div className={`text-xs font-medium mt-1 tabular-nums ${isSelected ? 'text-on-surface' : 'text-on-surface/70'}`}>
-                  {isSookshma ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
+                  {isDetailedTime ? DATE_TIME_FORMATTER.format(item.start) : DATE_FORMATTER.format(item.start)}
                   {t.to}
-                  {isSookshma ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
+                  {isDetailedTime ? DATE_TIME_FORMATTER.format(item.end) : DATE_FORMATTER.format(item.end)}
                 </div>
               </button>
             );
@@ -389,7 +415,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
           {renderColumn(t.mahadasha, mahadashas, selectedMd, handleMdClick)}
           {selectedMd && renderColumn(t.antardasha, selectedMd.antardashas, selectedAd, handleAdClick)}
           {selectedAd && renderColumn(t.pratyantardasha, selectedAd.pratyantardashas, selectedPd, handlePdClick)}
-          {selectedPd && renderColumn(t.sookshmaDasha, selectedPd.sookshmaDashas, selectedSd, handleSdClick, true)}
+          {selectedPd && renderColumn(t.sookshmaDasha, selectedPd.sookshmaDashas, selectedSd, handleSdClick, true, false)}
+          {selectedSd && renderColumn(t.pranaDasha, selectedSd.pranaDashas, selectedPrana, handlePranaClick, true, true)}
 
           {/* Placeholder for empty state when no MD is selected */}
           {!selectedMd && (
