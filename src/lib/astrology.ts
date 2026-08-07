@@ -1608,7 +1608,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
 
         const stepTime = new Date(actualMs);
         const astTime = Ast.MakeTime(stepTime);
-        const ay = getLahiriAyanamsa(astTime);
+        const ay = startAy;
         const r = Ast.Rotation_EQJ_ECT(astTime);
         const sl = getTrueEclipticLongitude(Ast.Body.Sun, astTime, r);
         const ml = getTrueMoonEclipticLongitude(astTime, r);
