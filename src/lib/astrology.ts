@@ -464,7 +464,13 @@ const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
  * Calculates the True Spica Ayanamsa (calculating Spica/Chitra at exactly 180°).
  * This ensures absolute precision matching the Swiss Ephemeris and traditional standard benchmarks.
  */
+const ayanamsaCache = new Map<number, number>();
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
+    const key = time.ut;
+    if (ayanamsaCache.has(key)) {
+        return ayanamsaCache.get(key)!;
+    }
+
     // Define Spica (Alpha Virginis / Chitra) coordinates for J2000 epoch
     const ra = 13 + 25/60 + 11.579/3600;
     const dec = -(11 + 9/60 + 40.75/3600);
@@ -475,7 +481,14 @@ function getLahiriAyanamsa(time: Ast.AstroTime): number {
     const eclDateVec = Ast.RotateVector(rot, geoJ2000);
     const tropicalLong = (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
 
-    return (tropicalLong - 180 + 360) % 360;
+    const result = (tropicalLong - 180 + 360) % 360;
+
+    if (ayanamsaCache.size >= 100) {
+        const firstKey = ayanamsaCache.keys().next().value;
+        if (firstKey !== undefined) ayanamsaCache.delete(firstKey);
+    }
+    ayanamsaCache.set(key, result);
+    return result;
 }
 
 /**
@@ -678,6 +691,7 @@ function calculatePlanetaryAndDivisionalData(
 
     // 2. Calculate Planets
     if (!rotEqjEct) rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+    const sunSiderealLong = (tropicalSunLong - ayanamsa + 360) % 360;
     for (let i = 0; i < PLANET_MAP.length; i++) {
         const p = PLANET_MAP[i];
         let long: number;
@@ -694,7 +708,7 @@ function calculatePlanetaryAndDivisionalData(
         const planetRasiIdx = Math.floor(siderealLong / 30);
         const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
-        const isCombust = (p.name !== "Sun" && p.name !== "Moon") ? isPlanetCombustAt(p.name, p.body, time) : false;
+        const isCombust = (p.name !== "Sun" && p.name !== "Moon") ? isPlanetCombustAt(p.name, p.body, time, siderealLong, isRetro, sunSiderealLong) : false;
 
         planetData.push(createPlanet(p.name, p.symbol, siderealLong, house, isRetro, isCombust));
         assignToCharts(p.symbol, siderealLong, isRetro, isCombust);
@@ -2368,7 +2382,13 @@ interface PlanetState {
     isRetro: boolean;
 }
 
+const planetLongCache = new Map<string, { long: number, isRetro: boolean }>();
 function getPlanetLongAndMotion(planet: string, body: Ast.Body | null, time: Ast.AstroTime): { long: number, isRetro: boolean } {
+    const cacheKey = `${planet}_${time.ut}`;
+    if (planetLongCache.has(cacheKey)) {
+        return planetLongCache.get(cacheKey)!;
+    }
+
     const ayanamsa = getLahiriAyanamsa(time);
     let long = 0;
     let isRetro = false;
@@ -2389,7 +2409,14 @@ function getPlanetLongAndMotion(planet: string, body: Ast.Body | null, time: Ast
     }
 
     const siderealLong = (long - ayanamsa + 360) % 360;
-    return { long: siderealLong, isRetro };
+    const result = { long: siderealLong, isRetro };
+
+    if (planetLongCache.size >= 200) {
+        const firstKey = planetLongCache.keys().next().value;
+        if (firstKey !== undefined) planetLongCache.delete(firstKey);
+    }
+    planetLongCache.set(cacheKey, result);
+    return result;
 }
 
 function getPlanetStateAt(planet: string, body: Ast.Body | null, time: Ast.AstroTime): PlanetState {
@@ -2705,9 +2732,30 @@ export interface CombustionPeriod {
     isCurrent: boolean;
 }
 
-function isPlanetCombustAt(planet: string, body: Ast.Body, time: Ast.AstroTime): boolean {
-    const sunLong = getPlanetLongAndMotion("Sun", null, time).long;
-    const { long: planetLong, isRetro } = getPlanetLongAndMotion(planet, body, time);
+function isPlanetCombustAt(
+    planet: string,
+    body: Ast.Body,
+    time: Ast.AstroTime,
+    precomputedLong?: number,
+    precomputedIsRetro?: boolean,
+    precomputedSunLong?: number
+): boolean {
+    // Optimization: Skip expensive coordinate and retrograde recalculations if parameters are precomputed
+    const sunLong = precomputedSunLong !== undefined
+        ? precomputedSunLong
+        : getPlanetLongAndMotion("Sun", null, time).long;
+
+    let planetLong: number;
+    let isRetro: boolean;
+
+    if (precomputedLong !== undefined && precomputedIsRetro !== undefined) {
+        planetLong = precomputedLong;
+        isRetro = precomputedIsRetro;
+    } else {
+        const res = getPlanetLongAndMotion(planet, body, time);
+        planetLong = res.long;
+        isRetro = res.isRetro;
+    }
 
     const diff = Math.min(Math.abs(planetLong - sunLong), 360 - Math.abs(planetLong - sunLong));
 
