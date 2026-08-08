@@ -11,7 +11,7 @@ const TRANSLATIONS = {
   en: {
     subtitle: 'SACRED VEDIC ASTROLOGY · JYOTISH SHASTRA',
     title: 'Pandit Rahul Bali Ji',
-    desc1: 'Profound Vedic astrology and spiritual consultations rooted in sacred Brahmin traditions.',
+    desc1: 'Sacred Vedic astrology and timeless spiritual wisdom from an esteemed Brahmin tradition.',
     desc2: 'Gurugram, India.',
     bookBtn: 'Book a Consultation',
     learnBtn: 'Learn More',
