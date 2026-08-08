@@ -14,7 +14,7 @@ const TRANSLATIONS = {
     durationBadge: "30 Mins",
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
-    suggestedPayments: "Pay after the session. No upfront payment needed.",
+    suggestedPayments: "In honoring the profound wisdom of our ancestors and our esteemed Brahmin lineage, we kindly ask that you offer a donation to a temple. Such sacred acts of giving align cosmic energies and amplify the effectiveness of your astrological remedies.",
     meetBtn: "Schedule Now",
     viewPayments: "Support & Donate",
     closeModal: "Close modal",

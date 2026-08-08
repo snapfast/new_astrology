@@ -19,7 +19,7 @@ test('BookConsultationModal text reduction', async ({ page }) => {
   await expect(page.getByText('30 Mins', { exact: true })).toBeVisible();
   await expect(page.getByText('Video is optional')).toBeVisible();
   await expect(page.getByText('1-on-1 session for deep chart analysis and remedies.')).toBeVisible();
-  await expect(page.getByText('Pay after the session. No upfront payment needed.')).toBeVisible();
+  await expect(page.getByText('In honoring the profound wisdom of our ancestors and our esteemed Brahmin lineage, we kindly ask that you offer a donation to a temple. Such sacred acts of giving align cosmic energies and amplify the effectiveness of your astrological remedies.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Schedule Now' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Support & Donate' })).toBeVisible();
   await expect(page.getByText('Secure via Calendly')).toBeVisible();
