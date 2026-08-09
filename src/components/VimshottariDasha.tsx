@@ -349,32 +349,20 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   return (
     <div className="space-y-6">
       {dashaBalance && (
-        <div className="bg-surface-container-low border border-outline/50 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-accent text-2xl" aria-hidden="true">history</span>
-            <div>
-              <p className="text-[10px] font-bold text-on-surface/60 uppercase tracking-wider font-label">
-                {t.dashaBalance}
-              </p>
-              <h4 className="text-sm font-bold text-on-surface leading-tight font-headline">
-                <span className={lang === 'hi' ? 'font-hindi' : ''}>
-                  {lang === 'hi' ? PLANET_NAMES[dashaBalance.lord]?.sanskrit || dashaBalance.lord : dashaBalance.lord}
-                </span>
-              </h4>
-            </div>
+        <div className="bg-surface-container-low border border-outline/50 rounded-lg p-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+          <div className="flex items-center gap-1.5 text-on-surface/80">
+            <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">history</span>
+            <span className="font-medium text-xs md:text-sm">{t.dashaBalance}:</span>
           </div>
-          <div className="flex gap-4 font-body text-sm font-medium text-on-surface">
-            <div className="text-center">
-              <span className="block text-lg font-bold text-accent font-hindi tabular-nums">{dashaBalance.years}</span>
-              <span className="text-[9px] uppercase tracking-wider font-label text-on-surface/60">{t.years}</span>
-            </div>
-            <div className="text-center border-l border-outline/50 pl-4">
-              <span className="block text-lg font-bold text-accent font-hindi tabular-nums">{dashaBalance.months}</span>
-              <span className="text-[9px] uppercase tracking-wider font-label text-on-surface/60">{t.months}</span>
-            </div>
-            <div className="text-center border-l border-outline/50 pl-4">
-              <span className="block text-lg font-bold text-accent font-hindi tabular-nums">{dashaBalance.days}</span>
-              <span className="text-[9px] uppercase tracking-wider font-label text-on-surface/60">{t.days}</span>
+          <div className="flex items-center gap-2">
+            <span className={`font-bold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
+              {lang === 'hi' ? PLANET_NAMES[dashaBalance.lord]?.sanskrit || dashaBalance.lord : dashaBalance.lord}
+            </span>
+            <span className="text-on-surface/40 px-1">•</span>
+            <div className="flex items-center gap-1.5 font-medium tabular-nums text-on-surface text-xs md:text-sm">
+              <span>{dashaBalance.years} <span className="text-on-surface/60 text-xs lowercase">{t.years}</span></span>
+              <span>{dashaBalance.months} <span className="text-on-surface/60 text-xs lowercase">{t.months}</span></span>
+              <span>{dashaBalance.days} <span className="text-on-surface/60 text-xs lowercase">{t.days}</span></span>
             </div>
           </div>
         </div>
