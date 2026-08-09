@@ -348,30 +348,11 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
   return (
     <div className="space-y-6">
-      {dashaBalance && (
-        <div className="bg-surface-container-low border border-outline/50 rounded-lg p-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-          <div className="flex items-center gap-1.5 text-on-surface/80">
-            <span className="material-symbols-outlined text-accent text-lg" aria-hidden="true">history</span>
-            <span className="font-medium text-xs md:text-sm">{t.dashaBalance}:</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className={`font-bold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
-              {lang === 'hi' ? PLANET_NAMES[dashaBalance.lord]?.sanskrit || dashaBalance.lord : dashaBalance.lord}
-            </span>
-            <span className="text-on-surface/40 px-1">•</span>
-            <div className="flex items-center gap-1.5 font-medium tabular-nums text-on-surface text-xs md:text-sm">
-              <span>{dashaBalance.years} <span className="text-on-surface/60 text-xs lowercase">{t.years}</span></span>
-              <span>{dashaBalance.months} <span className="text-on-surface/60 text-xs lowercase">{t.months}</span></span>
-              <span>{dashaBalance.days} <span className="text-on-surface/60 text-xs lowercase">{t.days}</span></span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="flex items-center justify-between dasha-active-indicator mb-3">
-        {/* Breadcrumbs for Selected Dasha Path */}
-        <div className="flex flex-wrap items-center gap-2 text-sm font-medium">
-          {selectedMd ? (
+      <div className="flex flex-col md:flex-row md:items-center justify-between dasha-active-indicator mb-3 gap-3 md:gap-4">
+        <div className="flex flex-col md:flex-row md:items-center gap-3">
+          {/* Breadcrumbs for Selected Dasha Path */}
+          <div className="flex flex-wrap items-center gap-2 text-sm font-medium">
+            {selectedMd ? (
             <>
               <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/50 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
                 {lang === 'hi' ? PLANET_NAMES[selectedMd.lord]?.sanskrit || selectedMd.lord : selectedMd.lord}
@@ -412,9 +393,30 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
           ) : (
             <span className="text-on-surface/60 text-xs uppercase tracking-wider font-label px-1">{t.selectMd}</span>
           )}
+          </div>
+
+          {dashaBalance && (
+            <div className="bg-on-surface text-accent rounded-full px-3 py-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm shadow-sm">
+              <div className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-accent text-sm md:text-base" aria-hidden="true">history</span>
+                <span className="font-medium text-xs whitespace-nowrap">{t.dashaBalance}:</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className={`font-bold text-xs ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                  {lang === 'hi' ? PLANET_NAMES[dashaBalance.lord]?.sanskrit || dashaBalance.lord : dashaBalance.lord}
+                </span>
+                <span className="text-accent/60 text-xs">•</span>
+                <div className="flex items-center gap-1 font-medium tabular-nums text-xs">
+                  <span>{dashaBalance.years} <span className="text-accent/80 text-[10px] uppercase">{t.years}</span></span>
+                  <span>{dashaBalance.months} <span className="text-accent/80 text-[10px] uppercase">{t.months}</span></span>
+                  <span>{dashaBalance.days} <span className="text-accent/80 text-[10px] uppercase">{t.days}</span></span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="flex items-center gap-2 shrink-0 ml-4">
+        <div className="flex items-center gap-2 shrink-0 md:ml-4">
            <div className="w-2 h-2 rounded-full bg-accent"></div>
            <span className={`text-xs font-bold text-accent uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.activeDasha}</span>
         </div>
