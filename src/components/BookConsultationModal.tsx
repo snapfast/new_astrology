@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,9 +13,7 @@ const TRANSLATIONS = {
     durationBadge: "30 Mins",
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
-    suggestedPayments: "In honoring the profound wisdom of our ancestors and our esteemed Brahmin lineage, we kindly ask that you offer a donation to a temple. Such sacred acts of giving align cosmic energies and amplify the effectiveness of your astrological remedies.",
     meetBtn: "Schedule Now",
-    viewPayments: "Support & Donate",
     closeModal: "Close modal",
     highlights: [
       "Birth Chart (Kundli) Analysis",
@@ -90,11 +87,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             </div>
           </div>
 
-          {/* Pricing Disclaimer */}
-          <div className="bg-accent/20 p-3 rounded-xl text-on-surface/90 font-body leading-relaxed text-xs">
-            {t.suggestedPayments}
-          </div>
-
           {/* Actions */}
           <div className="space-y-2">
             <ScheduleButton
@@ -106,19 +98,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             >
               {t.meetBtn}
             </ScheduleButton>
-
-            <Link
-              href="/donate"
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'modal_view_donate' });
-                onClose();
-              }}
-              className={`block w-full text-center font-medium transition-colors ${
-                lang === 'hi' ? 'text-xs text-on-surface/70 hover:text-primary' : 'text-xs uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
-              }`}
-            >
-              {t.viewPayments}
-            </Link>
           </div>
         </div>
 
