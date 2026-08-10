@@ -151,13 +151,6 @@ export default function ReviewsClientPage() {
               >
                 {lang === 'en' ? 'Book 1-on-1 Session' : 'परामर्श सत्र बुक करें'}
               </button>
-              <a
-                href="/donate"
-                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reviews_page_donate_link' })}
-                className={`px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
-              >
-                {lang === 'en' ? 'Support & Donate' : 'सहयोग और दान दें'}
-              </a>
             </div>
           </div>
         </div>
