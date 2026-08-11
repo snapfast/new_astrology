@@ -22,6 +22,7 @@ const TRANSLATIONS = {
     planet: "Planet",
     rashiTransit: "Sign Transit",
     nakshatraTransit: "Nakshatra Transit",
+    motionTransit: "Motion Change",
     from: "From",
     to: "To",
     date: "Date & Time (IST)",
@@ -31,6 +32,10 @@ const TRANSLATIONS = {
     calculating: "Calculating transits...",
     go: "Recalculate",
     movementDetails: "Movement Details",
+    currentPosition: "Current Position",
+    retrograde: "Retrograde",
+    combust: "Combust",
+    direct: "Direct",
     eduTitle: "Vedic Planetary Transits (Gochara)",
     eduIntro: "In Vedic Astrology, the movement of planets across the zodiac is known as Gochara (Transits). While your birth chart (Kundli) represents your life's blueprint, transits trigger the timing of events and direct current environmental energies.",
     sunTitle: "Sun (Surya)",
@@ -99,6 +104,12 @@ const TransitsClientPage = () => {
   }, []);
 
   const [selectedPlanet, setSelectedPlanet] = useState("all");
+  // Manage tabs per planet card
+  const [activeTabs, setActiveTabs] = useState<Record<string, 'upcoming' | 'past'>>({});
+
+  const toggleTab = (planet: string, tab: 'upcoming' | 'past') => {
+    setActiveTabs(prev => ({ ...prev, [planet]: tab }));
+  };
 
   const referenceDate = useMemo(() => {
     const [year, month, day] = selectedDate.split('-').map(Number);
@@ -256,31 +267,102 @@ const TransitsClientPage = () => {
             // Find retrograde and combust details from pre-calculated useMemo map
             const { retroDetails, combustDetails } = retroAndCombustDetails[planetName] || { retroDetails: null, combustDetails: null };
 
+            const currentPos = transit.current;
+
             return (
-              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
-                  <div className="border-b border-outline/10 pb-3">
+                  <div className="border-b border-outline/10 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <h3 data-testid="transit-card-title" className="text-lg font-headline font-semibold text-on-surface flex items-baseline gap-2">
                       {nameDisplay}
                       {lang === 'en' && <span className="font-hindi font-normal">{planetSanskrit}</span>}
                     </h3>
+
+                    {/* Current Badges */}
+                    {currentPos && (
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {currentPos.isRetrograde && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+                            <span className="material-symbols-outlined text-[14px]">sync_alt</span>
+                            {t.retrograde}
+                          </span>
+                        )}
+                        {currentPos.isCombust && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error/10 text-error">
+                            <span className="material-symbols-outlined text-[14px]">local_fire_department</span>
+                            {t.combust}
+                          </span>
+                        )}
+                        {!currentPos.isRetrograde && !currentPos.isCombust && planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu" && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success">
+                            <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                            {t.direct}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
 
+                  {/* Current Position Highlights */}
+                  {currentPos && (
+                    <div className="p-3 bg-surface border border-outline/30 rounded-xl grid grid-cols-2 gap-3 text-xs">
+                      <div>
+                        <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wider">{t.currentPosition} Rashi</span>
+                        <span className="font-semibold text-sm text-on-surface">
+                          {currentPos.rasi} <span className="text-xs text-on-surface font-normal">({currentPos.degree})</span>
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-on-surface block font-medium uppercase tracking-wider">Nakshatra</span>
+                        <span className="font-semibold text-sm text-on-surface">
+                          {currentPos.nakshatra} <span className="text-xs text-on-surface font-normal">({currentPos.pada} Pada)</span>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="space-y-4">
-                    <h4 className="text-xs font-label font-bold text-accent uppercase tracking-wider">
-                      {t.futureTransits}
-                    </h4>
-                    <div className="space-y-4">
+                    {/* Tabs / Toggle Selector */}
+                    <div className="flex border-b border-outline/10">
+                      <button
+                        type="button"
+                        onClick={() => toggleTab(planetName, 'upcoming')}
+                        className={`flex-1 pb-2 text-xs font-label uppercase font-bold tracking-wider text-center border-b-2 transition-all ${
+                          (activeTabs[planetName] || 'upcoming') === 'upcoming'
+                            ? 'border-accent text-accent'
+                            : 'border-transparent text-on-surface/50 hover:text-on-surface'
+                        }`}
+                      >
+                        {t.futureTransits}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => toggleTab(planetName, 'past')}
+                        className={`flex-1 pb-2 text-xs font-label uppercase font-bold tracking-wider text-center border-b-2 transition-all ${
+                          activeTabs[planetName] === 'past'
+                            ? 'border-accent text-accent'
+                            : 'border-transparent text-on-surface/50 hover:text-on-surface'
+                        }`}
+                      >
+                        {t.pastMovements}
+                      </button>
+                    </div>
+
+                    <div className="space-y-4 min-h-[160px]">
                       {(() => {
-                        const rashiTransit = transit.future.find(ev => ev.type === 'rashi');
-                        const nakshatraTransit = transit.future.find(ev => ev.type === 'nakshatra');
+                        const isUpcoming = (activeTabs[planetName] || 'upcoming') === 'upcoming';
+                        const sourceList = isUpcoming ? transit.future : transit.past;
+
+                        const rashiTransit = sourceList.find(ev => ev.type === 'rashi');
+                        const nakshatraTransit = sourceList.find(ev => ev.type === 'nakshatra');
+                        const motionTransit = sourceList.find(ev => ev.type === 'motion');
 
                         const sections = [
                           {
                             type: 'rashi' as const,
                             transit: rashiTransit,
                             label: t.rashiTransit,
-                            noTransitText: t.noRashiTransit,
+                            noTransitText: isUpcoming ? t.noRashiTransit : "No recent sign transit found in search window.",
                             render: (transitItem: TransitEvent) => (
                               <div className="text-on-surface font-body text-sm">
                                 <span className="font-medium text-accent">
@@ -298,7 +380,25 @@ const TransitsClientPage = () => {
                             type: 'nakshatra' as const,
                             transit: nakshatraTransit,
                             label: t.nakshatraTransit,
-                            noTransitText: t.noNakshatraTransit,
+                            noTransitText: isUpcoming ? t.noNakshatraTransit : "No recent nakshatra transit found in search window.",
+                            render: (transitItem: TransitEvent) => (
+                              <div className="text-on-surface font-body text-sm">
+                                <span className="font-medium text-accent">
+                                  {lang === 'en' ? transitItem.fromValue : transitItem.fromValueSanskrit}
+                                </span>{' '}
+                                &rarr;{' '}
+                                <span className="font-medium text-on-surface">
+                                  {lang === 'en' ? transitItem.toValue : transitItem.toValueSanskrit}
+                                </span>
+                                <span className="text-xs text-on-surface ml-2">({formatISTDate(transitItem.date)})</span>
+                              </div>
+                            )
+                          },
+                          {
+                            type: 'motion' as const,
+                            transit: motionTransit,
+                            label: t.motionTransit,
+                            noTransitText: "--",
                             render: (transitItem: TransitEvent) => (
                               <div className="text-on-surface font-body text-sm">
                                 <span className="font-medium text-accent">
@@ -331,7 +431,9 @@ const TransitsClientPage = () => {
                                 {sec.transit ? (
                                   sec.render(sec.transit)
                                 ) : (
-                                  <p className="text-sm text-on-surface italic">{sec.noTransitText}</p>
+                                  sec.type !== 'motion' ? (
+                                    <p className="text-sm text-on-surface italic">{sec.noTransitText}</p>
+                                  ) : null
                                 )}
                               </div>
                             ))}
