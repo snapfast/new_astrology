@@ -21,7 +21,6 @@ const TRANSLATIONS = {
     contact: 'Contact',
     bookNow: 'Book Now',
     bookConsultation: 'Book a Consultation Now',
-    location: 'Gurugram, India',
     switchLanguage: 'Switch Language / भाषा बदलें',
     openMenu: 'Open Menu',
     closeMenu: 'Close Menu',
@@ -262,9 +261,6 @@ const Navbar = () => {
           </button>
 
           <div className="flex flex-col items-center mt-8 gap-2">
-            <p className="text-[11px] text-on-surface font-body tracking-wider uppercase">
-              {t.location}
-            </p>
             <p className="text-lg text-accent font-hindi">
               ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>
