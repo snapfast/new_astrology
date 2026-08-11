@@ -8,7 +8,7 @@ const TRANSLATIONS = {
     quote: '"Astrology is a sacred science of light; it is about illuminating the karmic blueprint of your soul through divine wisdom and ancient Brahmin traditions."',
     para1: 'Pandit Rahul Bali Ji is a highly revered Vedic Astrologer based in <strong>Gurugram (Gurgaon)</strong>, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Upholding a prestigious Brahmin heritage, he provides exceptionally precise birth chart analysis and profound spiritual remedies for career, relationships, and health.',
     para2: 'His masterful approach seamlessly unites ancient sacred wisdom with modern clarity, utilizing high-precision <strong>Lahiri Ayanamsa</strong> for every calculation. Every authoritative prediction and remedy is deeply rooted in authentic karmic patterns to empower you with absolute confidence and transformative insights.',
-    para3: 'With an esteemed global reach extending from <strong>India</strong> to <strong>Indonesia</strong> and beyond, his unparalleled expertise has guided countless souls toward ultimate clarity. Every shared testimonial reflects genuine, undeniable success. For those seeking absolute certainty, contact details for any reviewer can be provided privately for personal verification.',
+    para3: 'With an esteemed global reach extending from <strong>India</strong> to <strong>Indonesia</strong> and beyond, his unparalleled expertise has guided countless souls toward ultimate clarity. Every shared testimonial reflects genuine, undeniable success.',
     corePrinciples: 'Core Principles',
     values: [
       {
@@ -53,9 +53,7 @@ export default function AboutClient() {
 
             <p dangerouslySetInnerHTML={{ __html: t.para2 }} />
 
-            <p>
-              {t.para3}
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: t.para3 }} />
 
             <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
               ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
