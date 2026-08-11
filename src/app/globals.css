@@ -12,13 +12,13 @@
 
 @layer base {
   body {
-    --font-primary: var(--font-poppins);
+    --font-primary: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-secondary: var(--font-akshar);
   }
 
   html[lang="hi"] body {
     --font-primary: var(--font-akshar);
-    --font-secondary: var(--font-poppins);
+    --font-secondary: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 }
 
