@@ -2374,6 +2374,7 @@ export interface PlanetTransits {
     planet: string;
     past: TransitEvent[];
     future: TransitEvent[];
+    current?: PlanetData;
 }
 
 interface PlanetState {
@@ -2718,10 +2719,18 @@ export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTr
     past.sort((a, b) => a.date.getTime() - b.date.getTime());
     future.sort((a, b) => a.date.getTime() - b.date.getTime());
 
+    // Calculate detailed current position
+    const refAstroTime = Ast.MakeTime(referenceDate);
+    const { long: siderealLong, isRetro } = getPlanetLongAndMotion(planet, body, refAstroTime);
+    const sunLong = getPlanetLongAndMotion("Sun", null, refAstroTime).long;
+    const isComb = (planet !== "Sun" && planet !== "Moon" && body !== null) ? isPlanetCombustAt(planet, body, refAstroTime, siderealLong, isRetro, sunLong) : false;
+    const currentPlanetData = createPlanet(planet, PLANET_NAMES[planet]?.symbol || planet.slice(0, 2), siderealLong, 1, isRetro, isComb);
+
     return {
         planet,
         past,
-        future
+        future,
+        current: currentPlanetData
     };
 }
 
