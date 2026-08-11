@@ -17,7 +17,7 @@ const TRANSLATIONS = {
     description: "Authentic reviews and testimonials for Pandit Rahul Bali Ji, a leading Vedic Astrologer in Gurugram and Gurgaon.",
     googleReviews: "Google Reviews",
     writeReview: "Write a Review on Google",
-    latestReviewsNote: "Please check our Google profile above for the latest feedback."
+    latestReviewsNote: "Please check our Google profile above for the latest reviews."
   }};
 
 const GoogleIcon = () => (

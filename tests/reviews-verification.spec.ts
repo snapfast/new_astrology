@@ -12,6 +12,6 @@ test('Reviews page map and note verification', async ({ page }) => {
   expect(iframeSrc).toContain('google.com/maps/embed');
 
   // Verify Archival Note (English)
-  await expect(page.getByText('Please check our Google profile above for the latest feedback.', { exact: false })).toBeVisible();
+  await expect(page.getByText('Please check our Google profile above for the latest reviews.', { exact: false })).toBeVisible();
 
 });
