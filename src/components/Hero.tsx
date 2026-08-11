@@ -11,8 +11,6 @@ const TRANSLATIONS = {
   en: {
     subtitle: 'SACRED VEDIC ASTROLOGY · JYOTISH SHASTRA',
     title: 'Pandit Rahul Bali Ji',
-    desc1: 'Sacred Vedic astrology and timeless spiritual wisdom from an esteemed Brahmin tradition.',
-    desc2: 'Gurugram, India.',
     bookBtn: 'Book a Consultation',
     learnBtn: 'Learn More',
     charts: 'Charts',
@@ -45,15 +43,6 @@ const Hero = () => {
           <span className="text-lg md:text-2xl text-accent font-hindi">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
-        </div>
-
-        <div className="max-w-md mx-auto mb-12">
-          <p className={`text-on-surface font-body leading-relaxed mb-1 ${lang === 'hi' ? 'text-lg' : 'text-base'}`}>
-            {t.desc1}
-          </p>
-          <p className={`text-on-surface font-body ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
-            {t.desc2}
-          </p>
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
