@@ -212,20 +212,20 @@ export const NAKSHATRA_NAMES = [
 
 const NAKSHATRAS = NAKSHATRA_NAMES.map(n => n.name);
 
-export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string } } = {
-    "Sun": { name: "Sun", sanskrit: "सूर्य" },
-    "Moon": { name: "Moon", sanskrit: "चंद्र" },
-    "Mars": { name: "Mars", sanskrit: "मंगल" },
-    "Mercury": { name: "Mercury", sanskrit: "बुध" },
-    "Jupiter": { name: "Jupiter", sanskrit: "गुरु" },
-    "Venus": { name: "Venus", sanskrit: "शुक्र" },
-    "Saturn": { name: "Saturn", sanskrit: "शनि" },
-    "Rahu": { name: "Rahu", sanskrit: "राहु" },
-    "Ketu": { name: "Ketu", sanskrit: "केतु" },
-    "Uranus": { name: "Uranus", sanskrit: "अरुण" },
-    "Neptune": { name: "Neptune", sanskrit: "वरुण" },
-    "Pluto": { name: "Pluto", sanskrit: "यम" },
-    "Ascendant": { name: "Ascendant", sanskrit: "लग्न" }
+export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string, symbol?: string } } = {
+    "Sun": { name: "Sun", sanskrit: "सूर्य", symbol: "Su" },
+    "Moon": { name: "Moon", sanskrit: "चंद्र", symbol: "Mo" },
+    "Mars": { name: "Mars", sanskrit: "मंगल", symbol: "Ma" },
+    "Mercury": { name: "Mercury", sanskrit: "बुध", symbol: "Me" },
+    "Jupiter": { name: "Jupiter", sanskrit: "गुरु", symbol: "Ju" },
+    "Venus": { name: "Venus", sanskrit: "शुक्र", symbol: "Ve" },
+    "Saturn": { name: "Saturn", sanskrit: "शनि", symbol: "Sa" },
+    "Rahu": { name: "Rahu", sanskrit: "राहु", symbol: "Ra" },
+    "Ketu": { name: "Ketu", sanskrit: "केतु", symbol: "Ke" },
+    "Uranus": { name: "Uranus", sanskrit: "अरुण", symbol: "Ur" },
+    "Neptune": { name: "Neptune", sanskrit: "वरुण", symbol: "Ne" },
+    "Pluto": { name: "Pluto", sanskrit: "यम", symbol: "Pl" },
+    "Ascendant": { name: "Ascendant", sanskrit: "लग्न", symbol: "As" }
 };
 
 const TITHI_NAMES = [
