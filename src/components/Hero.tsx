@@ -26,12 +26,18 @@ const Hero = () => {
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
-      <div className="concentric-circles animate-slow-spin">
-        <div className="circle-dashed w-[400px] h-[400px]"></div>
-        <div className="circle-dashed w-[600px] h-[600px]"></div>
-        <div className="circle-dashed w-[800px] h-[800px]">
-           {/* Decorative dot on the outer circle */}
-           <div className="absolute top-1/2 -right-1.5 w-3 h-3 bg-accent rounded-full border-4 border-background"></div>
+      <div className="concentric-circles">
+        <div className="circle-dashed w-[400px] h-[400px] animate-spin-20s">
+          {/* Red dot on the inner circle at 9 o'clock */}
+          <div className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-3 h-3 bg-[#FF0000] rounded-full border-4 border-background"></div>
+        </div>
+        <div className="circle-dashed w-[600px] h-[600px] animate-spin-30s">
+          {/* Black dot on the middle circle at 6 o'clock */}
+          <div className="absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-3 h-3 bg-[#000000] rounded-full border-4 border-background"></div>
+        </div>
+        <div className="circle-dashed w-[800px] h-[800px] animate-spin-45s">
+          {/* Golden/accent dot on the outer circle at 3 o'clock */}
+          <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-accent rounded-full border-4 border-background"></div>
         </div>
       </div>
 
