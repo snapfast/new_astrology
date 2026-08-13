@@ -3,7 +3,7 @@ import ReviewsClientPage from './ReviewsClientPage';
 
 export const metadata: Metadata = {
   title: "Reviews",
-  description: "Read authentic reviews for Pandit Rahul Bali Ji, a trusted Vedic astrologer in Gurugram and Gurgaon. See what clients say about his accurate predictions and remedies.",
+  description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
   keywords: [
     "Rahul Bali reviews", "best astrologer in Gurugram", "trusted astrologer Gurgaon reviews",
     "client testimonials", "accurate astrology predictions", "astrologer Google rating"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Reviews | Rahul Bali Astrology",
-    description: "Read authentic reviews for Pandit Rahul Bali Ji, a trusted Vedic astrologer in Gurugram and Gurgaon.",
+    description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
     url: "https://astro.rahulbali.in/reviews",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Reviews | Rahul Bali Astrology",
-    description: "Read authentic reviews for Pandit Rahul Bali Ji, a trusted Vedic astrologer in Gurugram and Gurgaon.",
+    description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
     images: ["/og-image.png"],
   },
 };
