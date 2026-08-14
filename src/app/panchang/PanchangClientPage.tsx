@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { generateAstrologyData } from '@/lib/astrology';
+import { getFestivalsForDate, Festival } from '@/lib/festivals';
 import JsonLd from '@/components/JsonLd';
 import { useLanguage } from '@/context/LanguageContext';
 import ExploreTools from '@/components/ExploreTools';
@@ -95,6 +96,13 @@ const TRANSLATIONS = {
     prevMonth: "Previous Month",
     nextMonth: "Next Month",
     monthlyCalendarTitle: "Monthly Vedic Calendar",
+    festivalsTitle: "Hindu Festivals & Fasting",
+    festivalsSubtitle: "Auspicious Observances, Vrats & Holy Days",
+    festivalsTodayTitle: "Festivals & Fasting Today",
+    filterAll: "All Observances",
+    filterMajor: "Major Festivals",
+    filterVrat: "Vrat & Fasting",
+    noFestivalsMsg: "No major festivals or mandatory fasts recorded for this selected timeframe.",
     monthNames: [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
@@ -139,6 +147,7 @@ const PanchangPage = () => {
   const [currentMonth, setCurrentMonth] = useState<number>(() => selectedDate.getUTCMonth());
   const [currentYear, setCurrentYear] = useState<number>(() => selectedDate.getUTCFullYear());
   const [activeTab, setActiveTab] = useState<'grid' | 'list'>('grid');
+  const [festivalFilter, setFestivalFilter] = useState<'all' | 'major' | 'vrat'>('all');
 
   const [copied, setCopied] = useState(false);
 
@@ -213,6 +222,7 @@ const PanchangPage = () => {
     moonsignsList?: { name: string; sanskrit: string; end: string | null }[];
     varaEn: string;
     varaHi: string;
+    festivals: Festival[];
   }
 
   // Precalculate Panchang details for all days in calendarDays to keep page highly interactive
@@ -232,6 +242,8 @@ const PanchangPage = () => {
       // Match exact Tithi code to shorthand number
       const numCodeEn = TITHI_MAPPING[p.tithi] || "1";
       const numCodeHi = TITHI_MAPPING_HI[p.tithi] || "१";
+
+      const fList = getFestivalsForDate(item.dateKey, p);
 
       dataCache[item.dateKey] = {
         sunSignEn: p.sunSign,
@@ -256,7 +268,8 @@ const PanchangPage = () => {
         karanasList: p.karanasList,
         moonsignsList: p.moonsignsList,
         varaEn: p.vara,
-        varaHi: p.varaSanskrit
+        varaHi: p.varaSanskrit,
+        festivals: fList
       };
     }
     return dataCache;
@@ -356,6 +369,41 @@ const PanchangPage = () => {
     return data.panchang;
   }, [selectedDate]);
 
+  const selectedDateFestivals = useMemo(() => {
+    const dateKey = selectedDate.toISOString().split('T')[0];
+    return getFestivalsForDate(dateKey, panchang);
+  }, [selectedDate, panchang]);
+
+  const monthlyFestivalsList = useMemo(() => {
+    const list: Array<{ dateKey: string; day: number; month: number; year: number; festival: Festival }> = [];
+    for (const item of calendarDays) {
+      if (item.isPadding) continue;
+      const cellData = monthlyPanchangData[item.dateKey];
+      if (cellData && cellData.festivals.length > 0) {
+        for (const f of cellData.festivals) {
+          list.push({
+            dateKey: item.dateKey,
+            day: item.day,
+            month: item.month,
+            year: item.year,
+            festival: f
+          });
+        }
+      }
+    }
+    return list;
+  }, [calendarDays, monthlyPanchangData]);
+
+  const filteredMonthlyFestivals = useMemo(() => {
+    if (festivalFilter === 'major') {
+      return monthlyFestivalsList.filter(item => item.festival.category === 'major' || item.festival.category === 'jayanti');
+    }
+    if (festivalFilter === 'vrat') {
+      return monthlyFestivalsList.filter(item => item.festival.category === 'vrat');
+    }
+    return monthlyFestivalsList;
+  }, [monthlyFestivalsList, festivalFilter]);
+
   const panchangSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -447,6 +495,27 @@ const PanchangPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Panchang Card */}
           <div className="lg:col-span-2 bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+            {selectedDateFestivals.length > 0 && (
+              <div className="mb-6 p-4 rounded-2xl bg-accent/10 border border-accent/30 space-y-2">
+                <div className="flex items-center gap-2 text-accent font-bold font-label uppercase text-xs tracking-wider">
+                  <span className="material-symbols-outlined text-lg">festival</span>
+                  <span>{t.festivalsTodayTitle}</span>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {selectedDateFestivals.map((fest) => (
+                    <div key={fest.id} className="bg-white border border-accent/30 px-3 py-1.5 rounded-xl shadow-xs">
+                      <p className="text-sm font-headline text-on-surface font-bold">
+                        {lang === 'en' ? fest.nameEn : fest.nameHi}
+                      </p>
+                      <p className="text-xs text-on-surface/70 font-body">
+                        {lang === 'en' ? fest.descriptionEn : fest.descriptionHi}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label mb-6">{t.elementsTitle}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-3">
@@ -741,8 +810,117 @@ const PanchangPage = () => {
             </div>
           </div>
 
+          {/* Dedicated Hindu Festivals & Fasting Section */}
+          <div className="mt-8 pt-8 border-t border-outline/20 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold text-accent uppercase tracking-wider font-label flex items-center gap-2">
+                  <span className="material-symbols-outlined text-2xl">festival</span>
+                  <span>{t.festivalsTitle}</span>
+                </h3>
+                <p className="text-xs text-on-surface/70 font-body mt-0.5">
+                  {t.festivalsSubtitle} — {t.monthNames[currentMonth]} {currentYear}
+                </p>
+              </div>
+
+              {/* Filter Tabs */}
+              <div className="flex flex-wrap items-center gap-2 bg-surface p-1 rounded-full border border-outline/30">
+                <button
+                  onClick={() => setFestivalFilter('all')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                    festivalFilter === 'all'
+                      ? 'bg-accent text-white shadow-sm'
+                      : 'text-on-surface/70 hover:text-on-surface'
+                  }`}
+                >
+                  {t.filterAll}
+                </button>
+                <button
+                  onClick={() => setFestivalFilter('major')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                    festivalFilter === 'major'
+                      ? 'bg-accent text-white shadow-sm'
+                      : 'text-on-surface/70 hover:text-on-surface'
+                  }`}
+                >
+                  {t.filterMajor}
+                </button>
+                <button
+                  onClick={() => setFestivalFilter('vrat')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                    festivalFilter === 'vrat'
+                      ? 'bg-accent text-white shadow-sm'
+                      : 'text-on-surface/70 hover:text-on-surface'
+                  }`}
+                >
+                  {t.filterVrat}
+                </button>
+              </div>
+            </div>
+
+            {filteredMonthlyFestivals.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredMonthlyFestivals.map((item, idx) => (
+                  <button
+                    key={`${item.dateKey}-${item.festival.id}-${idx}`}
+                    onClick={() => {
+                      const targetDate = new Date(Date.UTC(item.year, item.month, item.day));
+                      setSelectedDate(targetDate);
+                      window.scrollTo({ top: 300, behavior: 'smooth' });
+                    }}
+                    className="p-5 rounded-3xl bg-surface/50 border border-outline/40 hover:border-accent/60 hover:bg-white transition-all text-left group flex flex-col justify-between space-y-3 shadow-xs hover:shadow-md"
+                  >
+                    <div className="flex items-start justify-between gap-3 w-full">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`text-[10px] font-label font-bold uppercase px-2 py-0.5 rounded-md ${
+                            item.festival.category === 'major'
+                              ? 'bg-accent text-white'
+                              : item.festival.category === 'jayanti'
+                              ? 'bg-primary text-white'
+                              : 'bg-secondary/20 text-on-surface'
+                          }`}>
+                            {item.festival.category === 'major'
+                              ? (lang === 'en' ? 'Major Festival' : 'प्रमुख पर्व')
+                              : item.festival.category === 'jayanti'
+                              ? (lang === 'en' ? 'Jayanti' : 'जयंती')
+                              : (lang === 'en' ? 'Vrat & Fasting' : 'व्रत एवं उपवास')}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-bold font-headline text-on-surface group-hover:text-accent transition-colors">
+                          {lang === 'en' ? item.festival.nameEn : item.festival.nameHi}
+                        </h4>
+                        <p className="text-xs font-hindi text-on-surface/70">
+                          {item.festival.nameHi}
+                        </p>
+                      </div>
+
+                      <div className="shrink-0 text-right bg-white px-3 py-1.5 rounded-2xl border border-outline/30 group-hover:border-accent/40">
+                        <p className="text-lg font-extrabold font-body text-accent leading-none">{item.day}</p>
+                        <p className="text-[10px] font-label uppercase text-on-surface/60 font-bold">{t.monthNames[item.month].substring(0, 3)}</p>
+                      </div>
+                    </div>
+
+                    <p className="text-xs font-body text-on-surface/70 leading-relaxed line-clamp-2">
+                      {lang === 'en' ? item.festival.descriptionEn : item.festival.descriptionHi}
+                    </p>
+
+                    <div className="pt-2 border-t border-outline/10 flex items-center justify-between text-[11px] text-accent font-label uppercase font-bold tracking-wider">
+                      <span>{t.selectedDate}: {item.day} {t.monthNames[item.month].substring(0, 3)}</span>
+                      <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="p-8 text-center rounded-2xl bg-surface border border-outline/20">
+                <p className="text-sm font-body text-on-surface/60">{t.noFestivalsMsg}</p>
+              </div>
+            )}
+          </div>
+
           {/* Render Calendar Grid or List depending on activeTab */}
-          <div className="mt-6">
+          <div className="mt-8 pt-6 border-t border-outline/20">
             {activeTab === 'grid' ? (
               <div className="space-y-4">
                 {/* Weekday headers */}
@@ -813,6 +991,28 @@ const PanchangPage = () => {
                             <p className={`text-[10px] leading-tight truncate text-on-surface/40 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
                               ☀ {lang === 'hi' ? cellData.sunSignHi : cellData.sunSignEn}
                             </p>
+                            {cellData.festivals && cellData.festivals.length > 0 && (
+                              <div className="mt-1 flex flex-col gap-0.5">
+                                {cellData.festivals.slice(0, 1).map((f, i) => (
+                                  <span
+                                    key={i}
+                                    className={`text-[9px] font-bold leading-tight truncate px-1 py-0.5 rounded ${
+                                      f.category === 'major'
+                                        ? 'bg-accent/20 text-accent'
+                                        : 'bg-primary/10 text-primary'
+                                    }`}
+                                    title={lang === 'en' ? f.nameEn : f.nameHi}
+                                  >
+                                    🎉 {lang === 'en' ? f.nameEn : f.nameHi}
+                                  </span>
+                                ))}
+                                {cellData.festivals.length > 1 && (
+                                  <span className="text-[8px] text-accent/70 font-semibold">
+                                    +{cellData.festivals.length - 1} more
+                                  </span>
+                                )}
+                              </div>
+                            )}
                           </div>
                         )}
                       </button>
@@ -834,6 +1034,7 @@ const PanchangPage = () => {
                       <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Karana' : 'करण'}</th>
                       <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Moonsign' : 'चंद्र राशि'}</th>
                       <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Sun Sign' : 'सूर्य राशि'}</th>
+                      <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Festivals & Vrat' : 'पर्व एवं व्रत'}</th>
                       <th className="py-4 px-4 font-bold">{lang === 'en' ? 'Sun / Moon' : 'सूर्य / चंद्र'}</th>
                     </tr>
                   </thead>
@@ -948,6 +1149,18 @@ const PanchangPage = () => {
                               <span className={lang === 'hi' ? 'font-hindi' : ''}>
                                 {lang === 'hi' ? cellData.sunSignHi : cellData.sunSignEn}
                               </span>
+                            </td>
+                            <td className="py-3 px-4 space-y-1">
+                              {cellData.festivals && cellData.festivals.length > 0 ? (
+                                cellData.festivals.map((f, fIdx) => (
+                                  <div key={fIdx} className="inline-flex items-center gap-1 bg-accent/10 border border-accent/20 px-2 py-0.5 rounded-full text-xs font-semibold text-accent mr-1 mb-1">
+                                    <span>🎉</span>
+                                    <span>{lang === 'en' ? f.nameEn : f.nameHi}</span>
+                                  </div>
+                                ))
+                              ) : (
+                                <span className="text-on-surface/40 text-xs">-</span>
+                              )}
                             </td>
                             <td className="py-3 px-4 text-xs tabular-nums text-on-surface/70 space-y-1 leading-relaxed">
                               <div>🌅 {cellData.sunrise}</div>
