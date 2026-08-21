@@ -44,6 +44,7 @@ const TRANSLATIONS = {
     month: "Lunar Month",
     samvatsara: "Samvatsara",
     endsAt: "Ends at",
+    fullDay: "Full Day",
     prevDay: "Previous Day",
     nextDay: "Next Day",
     today: "Today",
@@ -367,7 +368,7 @@ const PanchangPage = () => {
                       {`${panchang.paksha} ${item.name}`}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
                   </div>
                 ))}
@@ -380,7 +381,7 @@ const PanchangPage = () => {
                       {item.name}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
                   </div>
                 ))}
@@ -393,7 +394,7 @@ const PanchangPage = () => {
                       {item.name}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
                   </div>
                 ))}
@@ -406,7 +407,7 @@ const PanchangPage = () => {
                       {item.name}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
+                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
                   </div>
                 ))}
