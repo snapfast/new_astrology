@@ -1,25 +1,8 @@
-export interface Portion {
-  title: string;
-  icon: string;
-  expandedDetail: string;
-}
-
-export interface Consultation {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  alt: string;
-  portions: Portion[];
-}
-
 export interface SpecializedService {
   id: string;
   title: { en: string; hi: string };
   description: { en: string; hi: string };
 }
-
-export const CONSULTATIONS: Consultation[] = [];
 
 export const SPECIALIZED_SERVICES: SpecializedService[] = [
   {
