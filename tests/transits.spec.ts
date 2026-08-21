@@ -36,11 +36,9 @@ test('Transits page renders all twelve planets and future transits', async ({ pa
   await dateInput.fill('2025-05-15');
   await timeInput.fill('10:30');
 
-  // Verify that future transits label / tab button exists
-  await expect(page.locator('button')).toContainText(['Upcoming Transits']);
-
-  // Verify that past movements tab button exists
-  await expect(page.locator('button')).toContainText(['Past 3 Movements']);
+  // Verify 2-column transit headers exist (Rashi Transits & Nakshatra Transits)
+  await expect(page.locator('h4', { hasText: 'Rashi Transits' }).first()).toBeVisible();
+  await expect(page.locator('h4', { hasText: 'Nakshatra Transits' }).first()).toBeVisible();
 
   // Change filter to "Sun" and verify only Sun is displayed in transit cards
   await filterSelect.selectOption('Sun');
