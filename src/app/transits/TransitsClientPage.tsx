@@ -81,6 +81,8 @@ const TRANSLATIONS = {
     combustionOrb: "Combustion Orb Limit",
     astrologicalGuidance: "Astrological Guidance",
     keyRemedies: "Key Recommendation"
+    noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
+    noNakshatraTransit: "No nakshatra change near this reference date."
   }
 };
 

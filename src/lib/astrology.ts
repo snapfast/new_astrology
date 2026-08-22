@@ -2527,18 +2527,22 @@ function getFutureTransitsForPlanet(
     maxSteps: number
 ): TransitEvent[] {
     const events: TransitEvent[] = [];
+    let rashiCount = 0;
+    let nakshatraCount = 0;
+    let motionCount = 0;
+
     let prevDate = new Date(refDate);
     let prevTime = Ast.MakeTime(prevDate);
     let prevState = getPlanetStateAt(planet, body, prevTime);
 
-    for (let step = 1; step <= maxSteps && events.length < 3; step++) {
+    for (let step = 1; step <= maxSteps && (rashiCount < 3 || nakshatraCount < 3); step++) {
         const currDate = new Date(refDate.getTime() + step * stepDays * 24 * 60 * 60 * 1000);
         const currTime = Ast.MakeTime(currDate);
         const currState = getPlanetStateAt(planet, body, currTime);
 
         const stepEvents: TransitEvent[] = [];
 
-        if (currState.rashi !== prevState.rashi) {
+        if (currState.rashi !== prevState.rashi && rashiCount < 3) {
             const exactDate = bisectTransit(planet, body, 'rashi', prevDate, currDate, prevState.rashi);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2558,7 +2562,7 @@ function getFutureTransitsForPlanet(
             }
         }
 
-        if (currState.nakshatra !== prevState.nakshatra) {
+        if (currState.nakshatra !== prevState.nakshatra && nakshatraCount < 3) {
             const exactDate = bisectTransit(planet, body, 'nakshatra', prevDate, currDate, prevState.nakshatra);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2578,7 +2582,7 @@ function getFutureTransitsForPlanet(
             }
         }
 
-        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu") {
+        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu" && motionCount < 3) {
             if (currState.isRetro !== prevState.isRetro) {
                 const exactDate = bisectTransit(planet, body, 'motion', prevDate, currDate, prevState.isRetro);
                 const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
@@ -2603,8 +2607,15 @@ function getFutureTransitsForPlanet(
         if (stepEvents.length > 0) {
             stepEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
             for (const ev of stepEvents) {
-                if (events.length < 3) {
+                if (ev.type === 'rashi' && rashiCount < 3) {
                     events.push(ev);
+                    rashiCount++;
+                } else if (ev.type === 'nakshatra' && nakshatraCount < 3) {
+                    events.push(ev);
+                    nakshatraCount++;
+                } else if (ev.type === 'motion' && motionCount < 3) {
+                    events.push(ev);
+                    motionCount++;
                 }
             }
         }
@@ -2625,18 +2636,22 @@ function getPastTransitsForPlanet(
     maxSteps: number
 ): TransitEvent[] {
     const events: TransitEvent[] = [];
+    let rashiCount = 0;
+    let nakshatraCount = 0;
+    let motionCount = 0;
+
     let prevDate = new Date(refDate);
     let prevTime = Ast.MakeTime(prevDate);
     let prevState = getPlanetStateAt(planet, body, prevTime);
 
-    for (let step = 1; step <= maxSteps && events.length < 3; step++) {
+    for (let step = 1; step <= maxSteps && (rashiCount < 3 || nakshatraCount < 3); step++) {
         const currDate = new Date(refDate.getTime() - step * stepDays * 24 * 60 * 60 * 1000);
         const currTime = Ast.MakeTime(currDate);
         const currState = getPlanetStateAt(planet, body, currTime);
 
         const stepEvents: TransitEvent[] = [];
 
-        if (currState.rashi !== prevState.rashi) {
+        if (currState.rashi !== prevState.rashi && rashiCount < 3) {
             const exactDate = bisectTransit(planet, body, 'rashi', currDate, prevDate, currState.rashi);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2656,7 +2671,7 @@ function getPastTransitsForPlanet(
             }
         }
 
-        if (currState.nakshatra !== prevState.nakshatra) {
+        if (currState.nakshatra !== prevState.nakshatra && nakshatraCount < 3) {
             const exactDate = bisectTransit(planet, body, 'nakshatra', currDate, prevDate, currState.nakshatra);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2676,7 +2691,7 @@ function getPastTransitsForPlanet(
             }
         }
 
-        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu") {
+        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu" && motionCount < 3) {
             if (currState.isRetro !== prevState.isRetro) {
                 const exactDate = bisectTransit(planet, body, 'motion', currDate, prevDate, currState.isRetro);
                 const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
@@ -2701,8 +2716,15 @@ function getPastTransitsForPlanet(
         if (stepEvents.length > 0) {
             stepEvents.sort((a, b) => b.date.getTime() - a.date.getTime());
             for (const ev of stepEvents) {
-                if (events.length < 3) {
+                if (ev.type === 'rashi' && rashiCount < 3) {
                     events.push(ev);
+                    rashiCount++;
+                } else if (ev.type === 'nakshatra' && nakshatraCount < 3) {
+                    events.push(ev);
+                    nakshatraCount++;
+                } else if (ev.type === 'motion' && motionCount < 3) {
+                    events.push(ev);
+                    motionCount++;
                 }
             }
         }
