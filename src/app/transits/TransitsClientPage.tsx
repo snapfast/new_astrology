@@ -165,7 +165,7 @@ const TransitsClientPage = () => {
     return days;
   };
 
-  const getPhaseStatusBadge = (start: Date | null, end: Date | null, refDate: Date) => {
+  const getPhaseStatusBadge = (start: Date | null, end: Date | null, refDate: Date, type: "retro" | "combust" = "retro") => {
     if (!start || !end) return null;
     const refMs = refDate.getTime();
     const startMs = start.getTime();
@@ -174,18 +174,18 @@ const TransitsClientPage = () => {
     if (refMs >= startMs && refMs <= endMs) {
       return {
         label: t.activeNow,
-        className: "bg-error/10 text-error border-error/20"
+        className: type === "combust" ? "bg-red-100 text-red-700 border-red-300" : "bg-amber-100 text-amber-800 border-amber-300"
       };
     } else if (refMs < startMs) {
       const daysUntil = Math.ceil((startMs - refMs) / (1000 * 60 * 60 * 24));
       return {
         label: `${t.upcoming} (${daysUntil}d)`,
-        className: "bg-accent/10 text-accent border-accent/20"
+        className: type === "combust" ? "bg-red-50 text-red-600 border-red-200" : "bg-amber-50 text-amber-800 border-amber-200"
       };
     } else {
       return {
         label: t.ended,
-        className: "bg-on-surface/10 text-on-surface/70 border-outline/20"
+        className: "bg-gray-100 text-gray-600 border-gray-200"
       };
     }
   };
@@ -395,15 +395,20 @@ const TransitsClientPage = () => {
                       {/* Retrograde Box */}
                       {retroDetails && (() => {
                         const retroInsight = RETROGRADE_INSIGHTS[planetName];
-                        const currOrNextBadge = getPhaseStatusBadge(retroDetails.currentOrNext.start, retroDetails.currentOrNext.end, referenceDate);
+                        const currOrNextBadge = getPhaseStatusBadge(retroDetails.currentOrNext.start, retroDetails.currentOrNext.end, referenceDate, "retro");
                         const currOrNextDuration = getDaysDuration(retroDetails.currentOrNext.start, retroDetails.currentOrNext.end);
                         const prevDuration = getDaysDuration(retroDetails.previous.start, retroDetails.previous.end);
 
+                        const periods = [
+                          { ...retroDetails.currentOrNext, duration: currOrNextDuration },
+                          { ...retroDetails.previous, duration: prevDuration }
+                        ].filter(p => p.start && p.end);
+
                         return (
-                          <div className="bg-surface/80 border border-outline/30 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
+                          <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
                             <div className="space-y-2">
                               <div className="flex items-center justify-between gap-1">
-                                <span className="text-xs uppercase tracking-wider text-accent font-label font-bold flex items-center gap-1">
+                                <span className="text-xs uppercase tracking-wider text-amber-800 font-label font-bold flex items-center gap-1">
                                   <span className="material-symbols-outlined text-[15px]">sync_alt</span>
                                   {t.retrogradeTitle}
                                 </span>
@@ -414,37 +419,48 @@ const TransitsClientPage = () => {
                                 )}
                               </div>
 
-                              <div className="space-y-2 pt-1 border-t border-outline/10">
-                                {retroDetails.currentOrNext.start && retroDetails.currentOrNext.end && (
-                                  <div>
-                                    <div className="text-[10px] text-on-surface/70 uppercase tracking-wide font-medium flex items-center justify-between">
-                                      <span>{t.currentOrUpcoming}</span>
-                                      {currOrNextDuration && <span className="font-semibold text-on-surface/80">{currOrNextDuration} {t.durationDays}</span>}
-                                    </div>
-                                    <div className="font-semibold text-on-surface text-xs">
-                                      {formatCombustionDate(retroDetails.currentOrNext.start)} &rarr; {formatCombustionDate(retroDetails.currentOrNext.end)}
-                                    </div>
-                                  </div>
-                                )}
+                              <div className="space-y-1.5 pt-1 border-t border-amber-200/60">
+                                {periods.map((p, pIdx) => {
+                                  if (!p.start || !p.end) return null;
+                                  const refMs = referenceDate.getTime();
+                                  const isActive = refMs >= p.start.getTime() && refMs <= p.end.getTime();
 
-                                {retroDetails.previous.start && retroDetails.previous.end && (
-                                  <div>
-                                    <div className="text-[10px] text-on-surface/60 uppercase tracking-wide font-medium flex items-center justify-between">
-                                      <span>{t.previousPeriod}</span>
-                                      {prevDuration && <span>{prevDuration} {t.durationDays}</span>}
+                                  return (
+                                    <div
+                                      key={pIdx}
+                                      className={`p-2 rounded-lg transition-all ${
+                                        isActive
+                                          ? 'bg-amber-100/90 border border-amber-300/90 shadow-2xs font-semibold'
+                                          : 'bg-white/60 border border-amber-200/40'
+                                      }`}
+                                    >
+                                      <div className="flex items-center justify-between gap-2 text-xs">
+                                        <div className="flex items-center gap-1.5 flex-wrap">
+                                          <span className="text-on-surface">
+                                            {formatCombustionDate(p.start)} &rarr; {formatCombustionDate(p.end)}
+                                          </span>
+                                          {isActive && (
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-900 border border-amber-400/50">
+                                              {t.activeNow}
+                                            </span>
+                                          )}
+                                        </div>
+                                        {p.duration && (
+                                          <span className="text-[11px] text-amber-900 font-medium shrink-0">
+                                            {p.duration} {t.durationDays}
+                                          </span>
+                                        )}
+                                      </div>
                                     </div>
-                                    <div className="text-on-surface/80 font-medium text-xs">
-                                      {formatCombustionDate(retroDetails.previous.start)} &rarr; {formatCombustionDate(retroDetails.previous.end)}
-                                    </div>
-                                  </div>
-                                )}
+                                  );
+                                })}
                               </div>
                             </div>
 
                             {retroInsight && (
-                              <div className="pt-2 border-t border-outline/10 text-[11px] text-on-surface/80 space-y-1">
+                              <div className="pt-2 border-t border-amber-200/60 text-[11px] text-on-surface space-y-1">
                                 <p className="leading-snug">{retroInsight.summary}</p>
-                                <p className="text-[10px] text-accent font-medium leading-snug">💡 {retroInsight.guidance}</p>
+                                <p className="text-[10px] text-amber-800 font-medium leading-snug">💡 {retroInsight.guidance}</p>
                               </div>
                             )}
                           </div>
@@ -455,16 +471,21 @@ const TransitsClientPage = () => {
                       {combustDetails && (() => {
                         const combustInsight = COMBUSTION_INSIGHTS[planetName];
                         const orbInfo = COMBUSTION_ORB_LIMITS[planetName];
-                        const currOrNextBadge = getPhaseStatusBadge(combustDetails.currentOrNext.start, combustDetails.currentOrNext.end, referenceDate);
+                        const currOrNextBadge = getPhaseStatusBadge(combustDetails.currentOrNext.start, combustDetails.currentOrNext.end, referenceDate, "combust");
                         const currOrNextDuration = getDaysDuration(combustDetails.currentOrNext.start, combustDetails.currentOrNext.end);
                         const prevDuration = getDaysDuration(combustDetails.previous.start, combustDetails.previous.end);
 
+                        const periods = [
+                          { ...combustDetails.currentOrNext, duration: currOrNextDuration },
+                          { ...combustDetails.previous, duration: prevDuration }
+                        ].filter(p => p.start && p.end);
+
                         return (
-                          <div className="bg-surface/80 border border-outline/30 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
+                          <div className="bg-red-50/50 border border-red-200/80 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
                             <div className="space-y-2">
                               <div className="flex items-center justify-between gap-1">
-                                <span className="text-xs uppercase tracking-wider text-error font-label font-bold flex items-center gap-1">
-                                  <span className="material-symbols-outlined text-[15px]">local_fire_department</span>
+                                <span className="text-xs uppercase tracking-wider text-red-700 font-label font-bold flex items-center gap-1">
+                                  <span className="material-symbols-outlined text-[15px] text-red-600">local_fire_department</span>
                                   {t.combustTitle}
                                 </span>
                                 {currOrNextBadge && (
@@ -474,43 +495,54 @@ const TransitsClientPage = () => {
                                 )}
                               </div>
 
-                              <div className="space-y-2 pt-1 border-t border-outline/10">
-                                {combustDetails.currentOrNext.start && combustDetails.currentOrNext.end && (
-                                  <div>
-                                    <div className="text-[10px] text-on-surface/70 uppercase tracking-wide font-medium flex items-center justify-between">
-                                      <span>{t.currentOrUpcoming}</span>
-                                      {currOrNextDuration && <span className="font-semibold text-on-surface/80">{currOrNextDuration} {t.durationDays}</span>}
-                                    </div>
-                                    <div className="font-semibold text-on-surface text-xs">
-                                      {formatCombustionDate(combustDetails.currentOrNext.start)} &rarr; {formatCombustionDate(combustDetails.currentOrNext.end)}
-                                    </div>
-                                  </div>
-                                )}
+                              <div className="space-y-1.5 pt-1 border-t border-red-200/60">
+                                {periods.map((p, pIdx) => {
+                                  if (!p.start || !p.end) return null;
+                                  const refMs = referenceDate.getTime();
+                                  const isActive = refMs >= p.start.getTime() && refMs <= p.end.getTime();
 
-                                {combustDetails.previous.start && combustDetails.previous.end && (
-                                  <div>
-                                    <div className="text-[10px] text-on-surface/60 uppercase tracking-wide font-medium flex items-center justify-between">
-                                      <span>{t.previousPeriod}</span>
-                                      {prevDuration && <span>{prevDuration} {t.durationDays}</span>}
+                                  return (
+                                    <div
+                                      key={pIdx}
+                                      className={`p-2 rounded-lg transition-all ${
+                                        isActive
+                                          ? 'bg-red-100/90 border border-red-300/90 shadow-2xs font-semibold'
+                                          : 'bg-white/60 border border-red-200/40'
+                                      }`}
+                                    >
+                                      <div className="flex items-center justify-between gap-2 text-xs">
+                                        <div className="flex items-center gap-1.5 flex-wrap">
+                                          <span className="text-on-surface">
+                                            {formatCombustionDate(p.start)} &rarr; {formatCombustionDate(p.end)}
+                                          </span>
+                                          {isActive && (
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-200 text-red-900 border border-red-400/50">
+                                              {t.activeNow}
+                                            </span>
+                                          )}
+                                        </div>
+                                        {p.duration && (
+                                          <span className="text-[11px] text-red-900 font-medium shrink-0">
+                                            {p.duration} {t.durationDays}
+                                          </span>
+                                        )}
+                                      </div>
                                     </div>
-                                    <div className="text-on-surface/80 font-medium text-xs">
-                                      {formatCombustionDate(combustDetails.previous.start)} &rarr; {formatCombustionDate(combustDetails.previous.end)}
-                                    </div>
-                                  </div>
-                                )}
+                                  );
+                                })}
 
                                 {orbInfo && (
-                                  <div className="text-[10px] text-on-surface/70 font-medium pt-0.5">
-                                    {t.combustionOrb}: <span className="font-semibold text-on-surface">within {orbInfo.direct}° of Sun</span> {orbInfo.retro ? `(${orbInfo.retro}° in retro)` : ''}
+                                  <div className="text-[10px] text-red-800 font-medium pt-1">
+                                    {t.combustionOrb}: <span className="font-semibold text-red-950">within {orbInfo.direct}° of Sun</span> {orbInfo.retro ? `(${orbInfo.retro}° in retro)` : ''}
                                   </div>
                                 )}
                               </div>
                             </div>
 
                             {combustInsight && (
-                              <div className="pt-2 border-t border-outline/10 text-[11px] text-on-surface/80 space-y-1">
+                              <div className="pt-2 border-t border-red-200/60 text-[11px] text-on-surface space-y-1">
                                 <p className="leading-snug">{combustInsight.summary}</p>
-                                <p className="text-[10px] text-error font-medium leading-snug">🔥 {combustInsight.guidance}</p>
+                                <p className="text-[10px] text-red-700 font-medium leading-snug">🔥 {combustInsight.guidance}</p>
                               </div>
                             )}
                           </div>
@@ -610,15 +642,19 @@ const TransitsClientPage = () => {
               return filteredCards.map((card, idx) => {
                 const planetSanskrit = PLANET_NAMES[card.planet]?.sanskrit || card.planet;
                 const duration = getDaysDuration(card.start, card.end);
-                const statusBadge = getPhaseStatusBadge(card.start, card.end, referenceDate);
                 const isRetro = card.type === "retro";
+                const statusBadge = getPhaseStatusBadge(card.start, card.end, referenceDate, card.type);
                 const insight = isRetro ? RETROGRADE_INSIGHTS[card.planet] : COMBUSTION_INSIGHTS[card.planet];
                 const orbInfo = !isRetro ? COMBUSTION_ORB_LIMITS[card.planet] : null;
 
                 return (
                   <div
                     key={`${card.planet}-${card.type}-${idx}`}
-                    className="bg-surface border border-outline/40 rounded-xl p-5 space-y-3.5 flex flex-col justify-between hover:shadow-xs transition-all"
+                    className={`border rounded-xl p-5 space-y-3.5 flex flex-col justify-between hover:shadow-xs transition-all ${
+                      isRetro
+                        ? 'bg-amber-50/40 border-amber-200/70'
+                        : 'bg-red-50/40 border-red-200/70'
+                    }`}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between gap-2">
@@ -633,7 +669,7 @@ const TransitsClientPage = () => {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-md ${isRetro ? 'bg-accent/10 text-accent' : 'bg-error/10 text-error'}`}>
+                        <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-md ${isRetro ? 'bg-amber-100 text-amber-800 border border-amber-300/60' : 'bg-red-100 text-red-700 border border-red-300/60'}`}>
                           <span className="material-symbols-outlined text-[14px]">
                             {isRetro ? "sync_alt" : "local_fire_department"}
                           </span>
@@ -646,25 +682,36 @@ const TransitsClientPage = () => {
                         )}
                       </div>
 
-                      <div className="text-xs text-on-surface space-y-1 pt-2 border-t border-outline/10 font-body">
-                        <div>
-                          <span className="text-on-surface/70">{t.combustFrom}:</span> <span className="font-semibold text-on-surface">{formatCombustionDate(card.start)}</span>
+                      <div className={`text-xs text-on-surface p-2.5 rounded-lg border space-y-1 font-body ${
+                        card.isCurrent
+                          ? (isRetro ? 'bg-amber-100/80 border-amber-300 font-medium' : 'bg-red-100/80 border-red-300 font-medium')
+                          : (isRetro ? 'bg-white/60 border-amber-200/50' : 'bg-white/60 border-red-200/50')
+                      }`}>
+                        <div className="flex items-center justify-between">
+                          <span>
+                            <span className="text-on-surface/70">{t.combustFrom}:</span> <span className="font-semibold text-on-surface">{formatCombustionDate(card.start)}</span>
+                          </span>
+                          {card.isCurrent && (
+                            <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${isRetro ? 'bg-amber-200 text-amber-900' : 'bg-red-200 text-red-900'}`}>
+                              {t.activeNow}
+                            </span>
+                          )}
                         </div>
                         <div>
                           <span className="text-on-surface/70">{t.combustTo}:</span> <span className="font-semibold text-on-surface">{formatCombustionDate(card.end)}</span>
                         </div>
                         {orbInfo && (
-                          <div className="text-[11px] text-on-surface/70 pt-0.5">
-                            {t.combustionOrb}: <span className="font-medium text-on-surface">within {orbInfo.direct}° of Sun</span>
+                          <div className="text-[11px] text-red-800 font-medium pt-0.5">
+                            {t.combustionOrb}: <span className="font-semibold text-on-surface">within {orbInfo.direct}° of Sun</span>
                           </div>
                         )}
                       </div>
                     </div>
 
                     {insight && (
-                      <div className="pt-3 border-t border-outline/10 text-xs text-on-surface/80 space-y-1 font-body">
+                      <div className={`pt-3 border-t text-xs text-on-surface space-y-1 font-body ${isRetro ? 'border-amber-200/60' : 'border-red-200/60'}`}>
                         <p className="leading-relaxed">{insight.summary}</p>
-                        <p className={`text-[11px] font-medium leading-snug pt-0.5 ${isRetro ? 'text-accent' : 'text-error'}`}>
+                        <p className={`text-[11px] font-medium leading-snug pt-0.5 ${isRetro ? 'text-amber-800' : 'text-red-700'}`}>
                           {isRetro ? '💡' : '🔥'} {insight.guidance}
                         </p>
                       </div>

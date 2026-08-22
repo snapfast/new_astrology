@@ -21,7 +21,9 @@ export default {
         "surface-container-high": "#EBECEE",
         "secondary": "#000000",
         "outline": "#E2E2E2",
-        "background": "#F9F9FB"
+        "background": "#F9F9FB",
+        "error": "#DC2626",
+        "on-error": "#FFFFFF"
       },
       borderRadius: {
         "DEFAULT": "0.25rem",
