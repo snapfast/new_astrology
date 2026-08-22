@@ -228,6 +228,72 @@ export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string, sy
     "Ascendant": { name: "Ascendant", sanskrit: "लग्न", symbol: "As" }
 };
 
+export const COMBUSTION_ORB_LIMITS: Record<string, { direct: number; retro?: number }> = {
+    "Mercury": { direct: 14, retro: 12 },
+    "Venus": { direct: 10, retro: 8 },
+    "Mars": { direct: 17 },
+    "Jupiter": { direct: 11 },
+    "Saturn": { direct: 15 }
+};
+
+export const RETROGRADE_INSIGHTS: Record<string, { summary: string; guidance: string }> = {
+    "Mercury": {
+        summary: "Retrograde Budha urges slowing down mental speed, reviewing contracts, verifying communication, and backing up digital work.",
+        guidance: "Double-check travel plans, re-read documents before signing, and avoid hasty verbal commitments."
+    },
+    "Venus": {
+        summary: "Retrograde Shukra turns focus inward on relationship values, artistic expression, financial structures, and self-worth.",
+        guidance: "Re-evaluate personal boundaries, avoid impulsive luxury expenditures, and resolve past relationship matters."
+    },
+    "Mars": {
+        summary: "Retrograde Mangala redirects physical energy, ambition, and drive, encouraging strategic planning over brute force.",
+        guidance: "Manage anger or impatience, refrain from starting major aggressive ventures, and channel energy into physical wellness."
+    },
+    "Jupiter": {
+        summary: "Retrograde Guru prompts reflection on personal ethics, higher learning, spiritual beliefs, and long-term expansion.",
+        guidance: "Review financial plans, deepen spiritual practices, and re-examine wisdom gained from past life experiences."
+    },
+    "Saturn": {
+        summary: "Retrograde Shani emphasizes auditing karmic responsibilities, discipline, career structures, and long-term commitments.",
+        guidance: "Focus on duty, patient effort, and completing unfinished responsibilities without taking shortcuts."
+    },
+    "Uranus": {
+        summary: "Retrograde Uranus brings internal innovation, reassessment of personal freedom, and processing of recent breakthroughs.",
+        guidance: "Reflect on personal authenticity and adapt to shifting circumstances with flexibility."
+    },
+    "Neptune": {
+        summary: "Retrograde Neptune dissolves illusions, heightening intuitive perception and spiritual clarity.",
+        guidance: "Trust inner instincts, stay grounded in practical reality, and embrace creative inspiration."
+    },
+    "Pluto": {
+        summary: "Retrograde Pluto encourages deep inner transformation, shedding outdated power dynamics, and emotional renewal.",
+        guidance: "Release control over unchangeable past events and focus on personal empowerment."
+    }
+};
+
+export const COMBUSTION_INSIGHTS: Record<string, { summary: string; guidance: string }> = {
+    "Mercury": {
+        summary: "Combust Budha (Asta) near the Sun can cause mental over-thinking or temporary ego clashes in communication.",
+        guidance: "Practice mindful speech, avoid intellectual debate for ego, and focus internal logic toward research."
+    },
+    "Venus": {
+        summary: "Combust Shukra (Asta) conceals outer charm, inviting deeper reflection on genuine affection and inner fulfillment.",
+        guidance: "Prioritize emotional depth over surface appeal and practice unconditional devotion."
+    },
+    "Mars": {
+        summary: "Combust Mangala (Asta) intensifies internal heat and drive, requiring mindful management of ego and energy.",
+        guidance: "Channel intensity into constructive, solitary discipline rather than confrontational disputes."
+    },
+    "Jupiter": {
+        summary: "Combust Guru (Asta) can obscure external mentorship, encouraging reliance on inner wisdom and righteousness.",
+        guidance: "Seek answers through self-study, maintain humility, and uphold righteous conduct."
+    },
+    "Saturn": {
+        summary: "Combust Shani (Asta) tests patience and humility while purifying karmic duties under the solar beam.",
+        guidance: "Remain patient with delayed rewards, practice selfless service, and stay committed to daily routines."
+    }
+};
+
 const TITHI_NAMES = [
     { name: "Pratipada", sanskrit: "प्रतिपदा" },
     { name: "Dwitiya", sanskrit: "द्वितीया" },
