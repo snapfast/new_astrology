@@ -65,8 +65,6 @@ const TRANSLATIONS = {
     combustLabel: "Combustion",
     currentOrUpcoming: "Current / Next",
     previousPeriod: "Previous",
-    noRashiTransit: "No sign transit found in search window.",
-    noNakshatraTransit: "No nakshatra transit found in search window.",
     retrogradeTitle: "Retrograde Motion (Vakri)",
     combustTitle: "Combustion (Asta)",
     combustAndRetroOverview: "Planetary Retrograde & Combustion Overview",
@@ -80,7 +78,7 @@ const TRANSLATIONS = {
     durationDays: "days",
     combustionOrb: "Combustion Orb Limit",
     astrologicalGuidance: "Astrological Guidance",
-    keyRemedies: "Key Recommendation"
+    keyRemedies: "Key Recommendation",
     noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
     noNakshatraTransit: "No nakshatra change near this reference date."
   }
