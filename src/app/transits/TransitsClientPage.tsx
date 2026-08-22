@@ -56,8 +56,8 @@ const TRANSLATIONS = {
     combustLabel: "Combustion",
     currentOrUpcoming: "Current / Next",
     previousPeriod: "Previous",
-    noRashiTransit: "No sign transit found in search window.",
-    noNakshatraTransit: "No nakshatra transit found in search window."
+    noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
+    noNakshatraTransit: "No nakshatra change near this reference date."
   }
 };
 
