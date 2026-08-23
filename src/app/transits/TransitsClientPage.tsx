@@ -80,7 +80,10 @@ const TRANSLATIONS = {
     astrologicalGuidance: "Astrological Guidance",
     keyRemedies: "Key Recommendation",
     noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
-    noNakshatraTransit: "No nakshatra change near this reference date."
+    noNakshatraTransit: "No nakshatra change near this reference date.",
+    currentTransit: "Current Transit",
+    pastBadge: "Past",
+    upcomingBadge: "Upcoming"
   }
 };
 
@@ -345,17 +348,46 @@ const TransitsClientPage = () => {
                       </h4>
                       {rashiEvents.length > 0 ? (
                         <ul className="space-y-2.5">
-                          {rashiEvents.map((ev, i) => (
-                            <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
-                              <span className="text-accent text-base leading-none select-none">•</span>
-                              <div>
-                                <div className="font-medium text-on-surface">
-                                  {ev.fromValue} &rarr; {ev.toValue}
-                                </div>
-                                <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
-                              </div>
-                            </li>
-                          ))}
+                          {(() => {
+                            let lastPastIdx = -1;
+                            for (let idx = 0; idx < rashiEvents.length; idx++) {
+                              if (rashiEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                                lastPastIdx = idx;
+                              }
+                            }
+                            return rashiEvents.map((ev, i) => {
+                              const isCurrent = lastPastIdx !== -1 && i === lastPastIdx;
+                              const isPast = i < lastPastIdx;
+                              const badgeLabel = isCurrent ? t.currentTransit : (isPast ? t.pastBadge : t.upcomingBadge);
+                              const badgeClass = isCurrent
+                                ? 'bg-accent/15 text-accent border-accent/40 font-bold'
+                                : (isPast ? 'bg-gray-100 text-gray-600 border-gray-200 font-medium' : 'bg-amber-50 text-amber-800 border-amber-200/80 font-medium');
+
+                              return (
+                                <li
+                                  key={i}
+                                  className={`text-sm font-body text-on-surface flex items-start gap-2 transition-all ${
+                                    isCurrent
+                                      ? 'p-2.5 rounded-xl bg-accent/10 border border-accent/30 shadow-2xs font-medium'
+                                      : 'p-1 rounded-lg'
+                                  }`}
+                                >
+                                  <span className={`text-base leading-none select-none mt-0.5 ${isCurrent ? 'text-accent font-bold' : 'text-accent/70'}`}>•</span>
+                                  <div className="w-full space-y-0.5">
+                                    <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                                      <div className="font-semibold text-on-surface">
+                                        {ev.fromValue} &rarr; {ev.toValue}
+                                      </div>
+                                      <span className={`px-2 py-0.5 rounded-full text-[10px] border ${badgeClass}`}>
+                                        {badgeLabel}
+                                      </span>
+                                    </div>
+                                    <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
+                                  </div>
+                                </li>
+                              );
+                            });
+                          })()}
                         </ul>
                       ) : (
                         <p className="text-xs text-on-surface/60 italic font-body">{t.noRashiTransit}</p>
@@ -369,17 +401,46 @@ const TransitsClientPage = () => {
                       </h4>
                       {nakshatraEvents.length > 0 ? (
                         <ul className="space-y-2.5">
-                          {nakshatraEvents.map((ev, i) => (
-                            <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
-                              <span className="text-accent text-base leading-none select-none">•</span>
-                              <div>
-                                <div className="font-medium text-on-surface">
-                                  {ev.fromValue} &rarr; {ev.toValue}
-                                </div>
-                                <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
-                              </div>
-                            </li>
-                          ))}
+                          {(() => {
+                            let lastPastIdx = -1;
+                            for (let idx = 0; idx < nakshatraEvents.length; idx++) {
+                              if (nakshatraEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                                lastPastIdx = idx;
+                              }
+                            }
+                            return nakshatraEvents.map((ev, i) => {
+                              const isCurrent = lastPastIdx !== -1 && i === lastPastIdx;
+                              const isPast = i < lastPastIdx;
+                              const badgeLabel = isCurrent ? t.currentTransit : (isPast ? t.pastBadge : t.upcomingBadge);
+                              const badgeClass = isCurrent
+                                ? 'bg-accent/15 text-accent border-accent/40 font-bold'
+                                : (isPast ? 'bg-gray-100 text-gray-600 border-gray-200 font-medium' : 'bg-amber-50 text-amber-800 border-amber-200/80 font-medium');
+
+                              return (
+                                <li
+                                  key={i}
+                                  className={`text-sm font-body text-on-surface flex items-start gap-2 transition-all ${
+                                    isCurrent
+                                      ? 'p-2.5 rounded-xl bg-accent/10 border border-accent/30 shadow-2xs font-medium'
+                                      : 'p-1 rounded-lg'
+                                  }`}
+                                >
+                                  <span className={`text-base leading-none select-none mt-0.5 ${isCurrent ? 'text-accent font-bold' : 'text-accent/70'}`}>•</span>
+                                  <div className="w-full space-y-0.5">
+                                    <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                                      <div className="font-semibold text-on-surface">
+                                        {ev.fromValue} &rarr; {ev.toValue}
+                                      </div>
+                                      <span className={`px-2 py-0.5 rounded-full text-[10px] border ${badgeClass}`}>
+                                        {badgeLabel}
+                                      </span>
+                                    </div>
+                                    <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
+                                  </div>
+                                </li>
+                              );
+                            });
+                          })()}
                         </ul>
                       ) : (
                         <p className="text-xs text-on-surface/60 italic font-body">{t.noNakshatraTransit}</p>
