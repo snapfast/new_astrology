@@ -40,13 +40,14 @@ test('Transits page renders all twelve planets and future transits', async ({ pa
   await expect(page.locator('h4', { hasText: 'Rashi Transits' }).first()).toBeVisible();
   await expect(page.locator('h4', { hasText: 'Nakshatra Transits' }).first()).toBeVisible();
 
-  // Change filter to "Sun" and verify only Sun is displayed in transit cards
+  // Change filter to "Sun" and verify only Sun is displayed in transit cards grid
   await filterSelect.selectOption('Sun');
-  await expect(transitTitles).toContainText(['Sun']);
-  await expect(transitTitles).not.toContainText(['Moon']);
+  const gridCardTitles = page.locator('[data-testid="transits-grid"] [data-testid="transit-card-title"]');
+  await expect(gridCardTitles).toContainText(['Sun']);
+  await expect(gridCardTitles).not.toContainText(['Moon']);
 
-  // Change filter to "Moon" and verify only Moon is displayed in transit cards
+  // Change filter to "Moon" and verify only Moon is displayed in transit cards grid
   await filterSelect.selectOption('Moon');
-  await expect(transitTitles).toContainText(['Moon']);
-  await expect(transitTitles).not.toContainText(['Sun']);
+  await expect(gridCardTitles).toContainText(['Moon']);
+  await expect(gridCardTitles).not.toContainText(['Sun']);
 });

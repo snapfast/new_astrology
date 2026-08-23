@@ -65,9 +65,9 @@ const TRANSLATIONS = {
     combustLabel: "Combustion",
     currentOrUpcoming: "Current / Next",
     previousPeriod: "Previous",
-    retrogradeTitle: "Retrograde Motion (Vakri)",
-    combustTitle: "Combustion (Asta)",
-    combustAndRetroOverview: "Planetary Retrograde & Combustion Overview",
+    retrogradeTitle: "Retrograde",
+    combustTitle: "Combustion",
+    combustAndRetroOverview: "Planetary Motion Overview",
     overviewSubtitle: "Special motion states alter planetary expression: Retrograde (Vakri) directs energy inward, while Combustion (Asta) obscures external material manifestations under solar intensity.",
     allOverview: "All Phenomena",
     retrogradeOnly: "Retrograde (Vakri)",
@@ -76,7 +76,7 @@ const TRANSLATIONS = {
     upcoming: "Upcoming",
     ended: "Ended",
     durationDays: "days",
-    combustionOrb: "Combustion Orb Limit",
+    combustionOrb: "Orb Limit",
     astrologicalGuidance: "Astrological Guidance",
     keyRemedies: "Key Recommendation",
     noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
@@ -267,6 +267,40 @@ const TransitsClientPage = () => {
           </div>
         </div>
 
+        {/* Legend Bar */}
+        <div data-testid="transits-legend-bar" className="flex flex-wrap items-center justify-between gap-4 bg-white rounded-2xl py-2 px-4 text-xs font-body shadow-2xs border-none">
+          <div className="flex items-center gap-2 text-on-surface font-semibold shrink-0">
+            <span className="material-symbols-outlined text-base text-accent">info</span>
+            <span>Legend:</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
+            <div className="flex items-center gap-1.5">
+              <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+                <span className="material-symbols-outlined text-[16px]">sync_alt</span>
+              </span>
+              <span className="text-on-surface/80 text-xs font-medium">{t.retrograde} <span className="text-on-surface/60 text-[11px]">(Vakri)</span></span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-error/10 text-error">
+                <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
+              </span>
+              <span className="text-on-surface/80 text-xs font-medium">{t.combust} <span className="text-on-surface/60 text-[11px]">(Asta)</span></span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-success/10 text-success">
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </span>
+              <span className="text-on-surface/80 text-xs font-medium">{t.direct} <span className="text-on-surface/60 text-[11px]">(Forward)</span></span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border bg-accent/15 text-accent border-accent/40">
+                <span className="material-symbols-outlined text-[14px]">adjust</span>
+              </span>
+              <span className="text-on-surface/80 text-xs font-medium">{t.currentTransit}</span>
+            </div>
+          </div>
+        </div>
+
         {/* Transits List Grid */}
         <div data-testid="transits-grid" className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {transitsData.map((transit) => {
@@ -309,21 +343,18 @@ const TransitsClientPage = () => {
                       {currentPos && (
                         <div className="flex flex-wrap items-center gap-1.5">
                           {currentPos.isRetrograde && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
-                              <span className="material-symbols-outlined text-[14px]">sync_alt</span>
-                              {t.retrograde}
+                            <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+                              <span className="material-symbols-outlined text-[16px]">sync_alt</span>
                             </span>
                           )}
                           {currentPos.isCombust && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error/10 text-error">
-                              <span className="material-symbols-outlined text-[14px]">local_fire_department</span>
-                              {t.combust}
+                            <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-error/10 text-error">
+                              <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
                             </span>
                           )}
                           {!currentPos.isRetrograde && !currentPos.isCombust && planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu" && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success">
-                              <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                              {t.direct}
+                            <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-success/10 text-success">
+                              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </span>
                           )}
                         </div>
@@ -372,8 +403,8 @@ const TransitsClientPage = () => {
                                         {ev.fromValue} &rarr; {ev.toValue}
                                       </div>
                                       {isCurrent && (
-                                        <span className="px-2 py-0.5 rounded-full text-[10px] border bg-accent/15 text-accent border-accent/40 font-bold">
-                                          {t.currentTransit}
+                                        <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border bg-accent/15 text-accent border-accent/40">
+                                          <span className="material-symbols-outlined text-[13px]">adjust</span>
                                         </span>
                                       )}
                                     </div>
@@ -422,8 +453,8 @@ const TransitsClientPage = () => {
                                         {ev.fromValue} &rarr; {ev.toValue}
                                       </div>
                                       {isCurrent && (
-                                        <span className="px-2 py-0.5 rounded-full text-[10px] border bg-accent/15 text-accent border-accent/40 font-bold">
-                                          {t.currentTransit}
+                                        <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border bg-accent/15 text-accent border-accent/40">
+                                          <span className="material-symbols-outlined text-[13px]">adjust</span>
                                         </span>
                                       )}
                                     </div>
