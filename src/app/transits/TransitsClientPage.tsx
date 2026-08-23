@@ -81,9 +81,7 @@ const TRANSLATIONS = {
     keyRemedies: "Key Recommendation",
     noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
     noNakshatraTransit: "No nakshatra change near this reference date.",
-    currentTransit: "Current Transit",
-    pastBadge: "Past",
-    upcomingBadge: "Upcoming"
+    currentTransit: "Current Transit"
   }
 };
 
@@ -348,17 +346,6 @@ const TransitsClientPage = () => {
                       </h4>
                       {rashiEvents.length > 0 ? (
                         <ul className="space-y-2.5">
-                          {rashiEvents.map((ev, i) => (
-                            <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
-                              <span className="text-accent text-base leading-none select-none">•</span>
-                              <div>
-                                <div className="font-medium text-on-surface flex items-center gap-1.5 flex-wrap">
-                                  <span>{ev.fromValue} &rarr; {ev.toValue}</span>
-                                </div>
-                                <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
-                              </div>
-                            </li>
-                          ))}
                           {(() => {
                             let lastPastIdx = -1;
                             for (let idx = 0; idx < rashiEvents.length; idx++) {
@@ -368,11 +355,6 @@ const TransitsClientPage = () => {
                             }
                             return rashiEvents.map((ev, i) => {
                               const isCurrent = lastPastIdx !== -1 && i === lastPastIdx;
-                              const isPast = i < lastPastIdx;
-                              const badgeLabel = isCurrent ? t.currentTransit : (isPast ? t.pastBadge : t.upcomingBadge);
-                              const badgeClass = isCurrent
-                                ? 'bg-accent/15 text-accent border-accent/40 font-bold'
-                                : (isPast ? 'bg-gray-100 text-gray-600 border-gray-200 font-medium' : 'bg-amber-50 text-amber-800 border-amber-200/80 font-medium');
 
                               return (
                                 <li
@@ -389,9 +371,11 @@ const TransitsClientPage = () => {
                                       <div className="font-semibold text-on-surface">
                                         {ev.fromValue} &rarr; {ev.toValue}
                                       </div>
-                                      <span className={`px-2 py-0.5 rounded-full text-[10px] border ${badgeClass}`}>
-                                        {badgeLabel}
-                                      </span>
+                                      {isCurrent && (
+                                        <span className="px-2 py-0.5 rounded-full text-[10px] border bg-accent/15 text-accent border-accent/40 font-bold">
+                                          {t.currentTransit}
+                                        </span>
+                                      )}
                                     </div>
                                     <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
                                   </div>
@@ -412,17 +396,6 @@ const TransitsClientPage = () => {
                       </h4>
                       {nakshatraEvents.length > 0 ? (
                         <ul className="space-y-2.5">
-                          {nakshatraEvents.map((ev, i) => (
-                            <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
-                              <span className="text-accent text-base leading-none select-none">•</span>
-                              <div>
-                                <div className="font-medium text-on-surface flex items-center gap-1.5 flex-wrap">
-                                  <span>{ev.fromValue} &rarr; {ev.toValue}</span>
-                                </div>
-                                <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
-                              </div>
-                            </li>
-                          ))}
                           {(() => {
                             let lastPastIdx = -1;
                             for (let idx = 0; idx < nakshatraEvents.length; idx++) {
@@ -432,11 +405,6 @@ const TransitsClientPage = () => {
                             }
                             return nakshatraEvents.map((ev, i) => {
                               const isCurrent = lastPastIdx !== -1 && i === lastPastIdx;
-                              const isPast = i < lastPastIdx;
-                              const badgeLabel = isCurrent ? t.currentTransit : (isPast ? t.pastBadge : t.upcomingBadge);
-                              const badgeClass = isCurrent
-                                ? 'bg-accent/15 text-accent border-accent/40 font-bold'
-                                : (isPast ? 'bg-gray-100 text-gray-600 border-gray-200 font-medium' : 'bg-amber-50 text-amber-800 border-amber-200/80 font-medium');
 
                               return (
                                 <li
@@ -453,9 +421,11 @@ const TransitsClientPage = () => {
                                       <div className="font-semibold text-on-surface">
                                         {ev.fromValue} &rarr; {ev.toValue}
                                       </div>
-                                      <span className={`px-2 py-0.5 rounded-full text-[10px] border ${badgeClass}`}>
-                                        {badgeLabel}
-                                      </span>
+                                      {isCurrent && (
+                                        <span className="px-2 py-0.5 rounded-full text-[10px] border bg-accent/15 text-accent border-accent/40 font-bold">
+                                          {t.currentTransit}
+                                        </span>
+                                      )}
                                     </div>
                                     <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
                                   </div>
