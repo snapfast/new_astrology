@@ -370,7 +370,7 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     assert.strictEqual(plutoTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Pluto");
     assert.strictEqual(plutoTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Pluto");
 
-    // Test all 12 planets generate valid non-empty transits
+    // Test all 12 planets generate valid non-empty transits and are sorted ascending
     const allPlanets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu", "Uranus", "Neptune", "Pluto"];
     for (const p of allPlanets) {
         const tr = getPlanetTransits(p, refDate);
@@ -378,6 +378,22 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
         assert.ok(tr.future.some(e => e.type === 'rashi'), `${p} should have future Rashi transits`);
         assert.ok(tr.past.some(e => e.type === 'nakshatra'), `${p} should have past Nakshatra transits`);
         assert.ok(tr.future.some(e => e.type === 'nakshatra'), `${p} should have future Nakshatra transits`);
+
+        // Assert past events are sorted in ascending chronological order
+        for (let i = 0; i < tr.past.length - 1; i++) {
+            assert.ok(
+                tr.past[i].date.getTime() <= tr.past[i + 1].date.getTime(),
+                `${p} past events should be in ascending chronological order`
+            );
+        }
+
+        // Assert future events are sorted in ascending chronological order
+        for (let i = 0; i < tr.future.length - 1; i++) {
+            assert.ok(
+                tr.future[i].date.getTime() <= tr.future[i + 1].date.getTime(),
+                `${p} future events should be in ascending chronological order`
+            );
+        }
     }
 });
 
