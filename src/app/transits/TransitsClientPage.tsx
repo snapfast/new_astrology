@@ -270,30 +270,30 @@ const TransitsClientPage = () => {
         {/* Legend Bar */}
         <div data-testid="transits-legend-bar" className="flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl py-1.5 px-3.5 text-xs font-body shadow-2xs border-none">
           <div className="flex items-center gap-2 text-on-surface font-semibold shrink-0">
-            <span className="material-symbols-outlined text-base text-accent">info</span>
+            <span className="material-symbols-outlined text-base text-on-surface">info</span>
             <span>Legend:</span>
           </div>
           <div className="flex flex-wrap items-center gap-3 sm:gap-6">
             <div className="flex items-center gap-1.5">
-              <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+              <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center p-1 rounded-full text-xs font-semibold border border-on-surface text-on-surface bg-transparent">
                 <span className="material-symbols-outlined text-[16px]">sync_alt</span>
               </span>
               <span className="text-on-surface/80 text-xs font-medium">{t.retrograde} <span className="text-on-surface/60 text-[11px]">(Vakri)</span></span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-error/10 text-error">
+              <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center p-1 rounded-full text-xs font-semibold border border-on-surface text-on-surface bg-transparent">
                 <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
               </span>
               <span className="text-on-surface/80 text-xs font-medium">{t.combust} <span className="text-on-surface/60 text-[11px]">(Asta)</span></span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-success/10 text-success">
+              <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center p-1 rounded-full text-xs font-semibold border border-on-surface text-on-surface bg-transparent">
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </span>
               <span className="text-on-surface/80 text-xs font-medium">{t.direct} <span className="text-on-surface/60 text-[11px]">(Forward)</span></span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border bg-accent/15 text-accent border-accent/40">
+              <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border border-on-surface text-on-surface bg-transparent">
                 <span className="material-symbols-outlined text-[14px]">adjust</span>
               </span>
               <span className="text-on-surface/80 text-xs font-medium">{t.currentTransit}</span>
@@ -343,17 +343,17 @@ const TransitsClientPage = () => {
                       {currentPos && (
                         <div className="flex flex-wrap items-center gap-1.5">
                           {currentPos.isRetrograde && (
-                            <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+                            <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center p-1 rounded-full text-xs font-semibold border border-on-surface text-on-surface bg-transparent">
                               <span className="material-symbols-outlined text-[16px]">sync_alt</span>
                             </span>
                           )}
                           {currentPos.isCombust && (
-                            <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-error/10 text-error">
+                            <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center p-1 rounded-full text-xs font-semibold border border-on-surface text-on-surface bg-transparent">
                               <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
                             </span>
                           )}
                           {!currentPos.isRetrograde && !currentPos.isCombust && planetName !== "Sun" && planetName !== "Moon" && planetName !== "Rahu" && planetName !== "Ketu" && (
-                            <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center p-1.5 rounded-full text-xs font-semibold bg-success/10 text-success">
+                            <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center p-1 rounded-full text-xs font-semibold border border-on-surface text-on-surface bg-transparent">
                               <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </span>
                           )}
@@ -403,7 +403,7 @@ const TransitsClientPage = () => {
                                         {ev.fromValue} &rarr; {ev.toValue}
                                       </div>
                                       {isCurrent && (
-                                        <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border bg-accent/15 text-accent border-accent/40">
+                                        <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border border-on-surface text-on-surface bg-transparent">
                                           <span className="material-symbols-outlined text-[13px]">adjust</span>
                                         </span>
                                       )}
@@ -453,7 +453,7 @@ const TransitsClientPage = () => {
                                         {ev.fromValue} &rarr; {ev.toValue}
                                       </div>
                                       {isCurrent && (
-                                        <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border bg-accent/15 text-accent border-accent/40">
+                                        <span title={t.currentTransit} className="inline-flex items-center justify-center p-1 rounded-full border border-on-surface text-on-surface bg-transparent">
                                           <span className="material-symbols-outlined text-[13px]">adjust</span>
                                         </span>
                                       )}
