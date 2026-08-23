@@ -2714,7 +2714,7 @@ function getPastTransitsForPlanet(
         }
 
         if (stepEvents.length > 0) {
-            stepEvents.sort((a, b) => b.date.getTime() - a.date.getTime());
+            stepEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
             for (const ev of stepEvents) {
                 if (ev.type === 'rashi' && rashiCount < 3) {
                     events.push(ev);

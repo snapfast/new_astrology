@@ -80,7 +80,9 @@ const TRANSLATIONS = {
     astrologicalGuidance: "Astrological Guidance",
     keyRemedies: "Key Recommendation",
     noRashiTransit: "Long-term sign transit (no sign change near this reference date).",
-    noNakshatraTransit: "No nakshatra change near this reference date."
+    noNakshatraTransit: "No nakshatra change near this reference date.",
+    pastEventTag: "Past",
+    upcomingEventTag: "Upcoming"
   }
 };
 
@@ -345,17 +347,23 @@ const TransitsClientPage = () => {
                       </h4>
                       {rashiEvents.length > 0 ? (
                         <ul className="space-y-2.5">
-                          {rashiEvents.map((ev, i) => (
-                            <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
-                              <span className="text-accent text-base leading-none select-none">•</span>
-                              <div>
-                                <div className="font-medium text-on-surface">
-                                  {ev.fromValue} &rarr; {ev.toValue}
+                          {rashiEvents.map((ev, i) => {
+                            const isPast = ev.date.getTime() < referenceDate.getTime();
+                            return (
+                              <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
+                                <span className="text-accent text-base leading-none select-none">•</span>
+                                <div>
+                                  <div className="font-medium text-on-surface flex items-center gap-1.5 flex-wrap">
+                                    <span>{ev.fromValue} &rarr; {ev.toValue}</span>
+                                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-semibold border ${isPast ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-accent/10 text-accent border-accent/20'}`}>
+                                      {isPast ? t.pastEventTag : t.upcomingEventTag}
+                                    </span>
+                                  </div>
+                                  <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
                                 </div>
-                                <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
-                              </div>
-                            </li>
-                          ))}
+                              </li>
+                            );
+                          })}
                         </ul>
                       ) : (
                         <p className="text-xs text-on-surface/60 italic font-body">{t.noRashiTransit}</p>
@@ -369,17 +377,23 @@ const TransitsClientPage = () => {
                       </h4>
                       {nakshatraEvents.length > 0 ? (
                         <ul className="space-y-2.5">
-                          {nakshatraEvents.map((ev, i) => (
-                            <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
-                              <span className="text-accent text-base leading-none select-none">•</span>
-                              <div>
-                                <div className="font-medium text-on-surface">
-                                  {ev.fromValue} &rarr; {ev.toValue}
+                          {nakshatraEvents.map((ev, i) => {
+                            const isPast = ev.date.getTime() < referenceDate.getTime();
+                            return (
+                              <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
+                                <span className="text-accent text-base leading-none select-none">•</span>
+                                <div>
+                                  <div className="font-medium text-on-surface flex items-center gap-1.5 flex-wrap">
+                                    <span>{ev.fromValue} &rarr; {ev.toValue}</span>
+                                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-semibold border ${isPast ? 'bg-gray-100 text-gray-600 border-gray-200' : 'bg-accent/10 text-accent border-accent/20'}`}>
+                                      {isPast ? t.pastEventTag : t.upcomingEventTag}
+                                    </span>
+                                  </div>
+                                  <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
                                 </div>
-                                <div className="text-xs text-on-surface/70">{formatISTDate(ev.date)}</div>
-                              </div>
-                            </li>
-                          ))}
+                              </li>
+                            );
+                          })}
                         </ul>
                       ) : (
                         <p className="text-xs text-on-surface/60 italic font-body">{t.noNakshatraTransit}</p>
@@ -402,7 +416,8 @@ const TransitsClientPage = () => {
                         const periods = [
                           { ...retroDetails.currentOrNext, duration: currOrNextDuration },
                           { ...retroDetails.previous, duration: prevDuration }
-                        ].filter(p => p.start && p.end);
+                        ].filter((p): p is { start: Date; end: Date; duration: number | null } => p.start !== null && p.end !== null)
+                         .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
                           <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
@@ -478,7 +493,8 @@ const TransitsClientPage = () => {
                         const periods = [
                           { ...combustDetails.currentOrNext, duration: currOrNextDuration },
                           { ...combustDetails.previous, duration: prevDuration }
-                        ].filter(p => p.start && p.end);
+                        ].filter((p): p is { start: Date; end: Date; duration: number | null } => p.start !== null && p.end !== null)
+                         .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
                           <div className="bg-red-50/50 border border-red-200/80 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
