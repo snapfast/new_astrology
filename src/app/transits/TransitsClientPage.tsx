@@ -200,14 +200,14 @@ const TransitsClientPage = () => {
         description={t.heroDesc}
       />
 
-      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+      <section className="py-4 md:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-5 md:space-y-6">
         {/* Input Parameters Card */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline rounded-2xl p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white border border-outline rounded-2xl p-4 md:p-5 shadow-sm">
           <div className="flex flex-col gap-1 w-full md:w-auto">
             <h2 className="text-xs uppercase font-label text-accent font-bold tracking-widest">{t.referenceTime}</h2>
             <p className="text-sm text-on-surface font-body">Change date or time to view movements relative to a specific moment.</p>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
             {/* Filter by Planet Dropdown */}
             <div className="relative w-full sm:w-auto">
               <select
@@ -216,7 +216,7 @@ const TransitsClientPage = () => {
                   setSelectedPlanet(e.target.value);
                   sendGAEvent({ event: 'action_click', action_name: 'transits_filter_planet', planet: e.target.value });
                 }}
-                className="w-full sm:w-48 pl-4 pr-10 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                className="w-full sm:w-48 pl-4 pr-10 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 aria-label={t.filterPlanet}
               >
                 <option value="all">{t.allPlanets}</option>
@@ -237,7 +237,7 @@ const TransitsClientPage = () => {
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-full sm:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                className="w-full sm:w-48 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label="Select Date"
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
@@ -259,7 +259,7 @@ const TransitsClientPage = () => {
                 type="time"
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
-                className="w-full sm:w-36 px-4 py-2.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                className="w-full sm:w-36 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
                 aria-label="Select Time"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">schedule</span>
@@ -268,7 +268,7 @@ const TransitsClientPage = () => {
         </div>
 
         {/* Legend Bar */}
-        <div data-testid="transits-legend-bar" className="flex flex-wrap items-center justify-between gap-4 bg-white rounded-2xl py-2 px-4 text-xs font-body shadow-2xs border-none">
+        <div data-testid="transits-legend-bar" className="flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl py-1.5 px-3.5 text-xs font-body shadow-2xs border-none">
           <div className="flex items-center gap-2 text-on-surface font-semibold shrink-0">
             <span className="material-symbols-outlined text-base text-accent">info</span>
             <span>Legend:</span>
@@ -302,7 +302,7 @@ const TransitsClientPage = () => {
         </div>
 
         {/* Transits List Grid */}
-        <div data-testid="transits-grid" className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <div data-testid="transits-grid" className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-5">
           {transitsData.map((transit) => {
             const planetName = transit.planet;
             const planetSanskrit = PLANET_NAMES[planetName]?.sanskrit || planetName;
@@ -331,10 +331,10 @@ const TransitsClientPage = () => {
             const nakshatraEvents = uniqueEvents.filter(ev => ev.type === 'nakshatra');
 
             return (
-              <div key={planetName} className="bg-white border border-outline rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
+              <div key={planetName} className="bg-white border border-outline rounded-2xl p-4 md:p-5 shadow-sm flex flex-col justify-between space-y-4">
+                <div className="space-y-3">
                   {/* Card Header: Name + Badges + Position */}
-                  <div className="border-b border-outline/10 pb-3 flex flex-col space-y-2">
+                  <div className="border-b border-outline/10 pb-2.5 flex flex-col space-y-1.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <h3 data-testid="transit-card-title" className="text-xl font-headline font-bold text-on-surface flex items-baseline gap-2">
                         {planetName} <span className="font-hindi text-base font-normal text-on-surface/70">({planetSanskrit})</span>
@@ -369,14 +369,14 @@ const TransitsClientPage = () => {
                   </div>
 
                   {/* 2-Column Bullets Layout: Rashi & Nakshatra Transits */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-0.5">
                     {/* Column 1: Rashi Transits */}
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       <h4 className="text-xs font-label uppercase font-bold tracking-wider text-accent border-b border-outline/10 pb-1">
                         {t.rashiTransits}
                       </h4>
                       {rashiEvents.length > 0 ? (
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-1.5">
                           {(() => {
                             let lastPastIdx = -1;
                             for (let idx = 0; idx < rashiEvents.length; idx++) {
@@ -392,8 +392,8 @@ const TransitsClientPage = () => {
                                   key={i}
                                   className={`text-sm font-body text-on-surface flex items-start gap-2 transition-all ${
                                     isCurrent
-                                      ? 'p-2.5 rounded-xl bg-accent/10 border border-accent/30 shadow-2xs font-medium'
-                                      : 'p-1 rounded-lg'
+                                      ? 'p-2 rounded-lg bg-accent/10 border border-accent/30 shadow-2xs font-medium'
+                                      : 'p-1 rounded-md'
                                   }`}
                                 >
                                   <span className={`text-base leading-none select-none mt-0.5 ${isCurrent ? 'text-accent font-bold' : 'text-accent/70'}`}>•</span>
@@ -421,12 +421,12 @@ const TransitsClientPage = () => {
                     </div>
 
                     {/* Column 2: Nakshatra Transits */}
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       <h4 className="text-xs font-label uppercase font-bold tracking-wider text-accent border-b border-outline/10 pb-1">
                         {t.nakshatraTransits}
                       </h4>
                       {nakshatraEvents.length > 0 ? (
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-1.5">
                           {(() => {
                             let lastPastIdx = -1;
                             for (let idx = 0; idx < nakshatraEvents.length; idx++) {
@@ -442,8 +442,8 @@ const TransitsClientPage = () => {
                                   key={i}
                                   className={`text-sm font-body text-on-surface flex items-start gap-2 transition-all ${
                                     isCurrent
-                                      ? 'p-2.5 rounded-xl bg-accent/10 border border-accent/30 shadow-2xs font-medium'
-                                      : 'p-1 rounded-lg'
+                                      ? 'p-2 rounded-lg bg-accent/10 border border-accent/30 shadow-2xs font-medium'
+                                      : 'p-1 rounded-md'
                                   }`}
                                 >
                                   <span className={`text-base leading-none select-none mt-0.5 ${isCurrent ? 'text-accent font-bold' : 'text-accent/70'}`}>•</span>
@@ -474,8 +474,8 @@ const TransitsClientPage = () => {
 
                 {/* Card Footer: Retrograde & Combustion Detailed Cards */}
                 {(retroDetails || combustDetails) && (
-                  <div className="pt-4 border-t border-outline/10 space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-body">
+                  <div className="pt-3 border-t border-outline/10 space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-body">
                       {/* Retrograde Box */}
                       {retroDetails && (() => {
                         const retroInsight = RETROGRADE_INSIGHTS[planetName];
@@ -490,8 +490,8 @@ const TransitsClientPage = () => {
                          .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
-                          <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
-                            <div className="space-y-2">
+                          <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
+                            <div className="space-y-1.5">
                               <div className="flex items-center justify-between gap-1">
                                 <span className="text-xs uppercase tracking-wider text-amber-800 font-label font-bold flex items-center gap-1">
                                   <span className="material-symbols-outlined text-[15px]">sync_alt</span>
@@ -504,7 +504,7 @@ const TransitsClientPage = () => {
                                 )}
                               </div>
 
-                              <div className="space-y-1.5 pt-1 border-t border-amber-200/60">
+                              <div className="space-y-1 pt-1 border-t border-amber-200/60">
                                 {periods.map((p, pIdx) => {
                                   if (!p.start || !p.end) return null;
                                   const refMs = referenceDate.getTime();
@@ -513,7 +513,7 @@ const TransitsClientPage = () => {
                                   return (
                                     <div
                                       key={pIdx}
-                                      className={`p-2 rounded-lg transition-all ${
+                                      className={`p-1.5 rounded-lg transition-all ${
                                         isActive
                                           ? 'bg-amber-100/90 border border-amber-300/90 shadow-2xs font-semibold'
                                           : 'bg-white/60 border border-amber-200/40'
@@ -543,7 +543,7 @@ const TransitsClientPage = () => {
                             </div>
 
                             {retroInsight && (
-                              <div className="pt-2 border-t border-amber-200/60 text-[11px] text-on-surface space-y-1">
+                              <div className="pt-1.5 border-t border-amber-200/60 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{retroInsight.summary}</p>
                                 <p className="text-[10px] text-amber-800 font-medium leading-snug">💡 {retroInsight.guidance}</p>
                               </div>
@@ -567,8 +567,8 @@ const TransitsClientPage = () => {
                          .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
-                          <div className="bg-red-50/50 border border-red-200/80 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
-                            <div className="space-y-2">
+                          <div className="bg-red-50/50 border border-red-200/80 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
+                            <div className="space-y-1.5">
                               <div className="flex items-center justify-between gap-1">
                                 <span className="text-xs uppercase tracking-wider text-red-700 font-label font-bold flex items-center gap-1">
                                   <span className="material-symbols-outlined text-[15px] text-red-600">local_fire_department</span>
@@ -581,7 +581,7 @@ const TransitsClientPage = () => {
                                 )}
                               </div>
 
-                              <div className="space-y-1.5 pt-1 border-t border-red-200/60">
+                              <div className="space-y-1 pt-1 border-t border-red-200/60">
                                 {periods.map((p, pIdx) => {
                                   if (!p.start || !p.end) return null;
                                   const refMs = referenceDate.getTime();
@@ -590,7 +590,7 @@ const TransitsClientPage = () => {
                                   return (
                                     <div
                                       key={pIdx}
-                                      className={`p-2 rounded-lg transition-all ${
+                                      className={`p-1.5 rounded-lg transition-all ${
                                         isActive
                                           ? 'bg-red-100/90 border border-red-300/90 shadow-2xs font-semibold'
                                           : 'bg-white/60 border border-red-200/40'
@@ -618,7 +618,7 @@ const TransitsClientPage = () => {
                                 })}
 
                                 {orbInfo && (
-                                  <div className="text-[10px] text-red-800 font-medium pt-1">
+                                  <div className="text-[10px] text-red-800 font-medium pt-0.5">
                                     {t.combustionOrb}: <span className="font-semibold text-red-950">within {orbInfo.direct}° of Sun</span> {orbInfo.retro ? `(${orbInfo.retro}° in retro)` : ''}
                                   </div>
                                 )}
@@ -626,7 +626,7 @@ const TransitsClientPage = () => {
                             </div>
 
                             {combustInsight && (
-                              <div className="pt-2 border-t border-red-200/60 text-[11px] text-on-surface space-y-1">
+                              <div className="pt-1.5 border-t border-red-200/60 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{combustInsight.summary}</p>
                                 <p className="text-[10px] text-red-700 font-medium leading-snug">🔥 {combustInsight.guidance}</p>
                               </div>
@@ -644,9 +644,9 @@ const TransitsClientPage = () => {
       </section>
 
       {/* Comprehensive Planetary Retrograde & Combustion Overview Section */}
-      <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="bg-white border border-outline rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-outline/10 pb-4">
+      <section className="py-4 md:py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="bg-white border border-outline rounded-2xl p-4 md:p-6 shadow-sm space-y-4 md:space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-outline/10 pb-3">
             <div>
               <h2 className="text-2xl font-headline font-bold text-on-surface">{t.combustAndRetroOverview}</h2>
               <p className="text-sm text-on-surface/80 font-body mt-1 max-w-3xl">{t.overviewSubtitle}</p>
@@ -679,7 +679,7 @@ const TransitsClientPage = () => {
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {(() => {
               const overviewCards: Array<{
                 planet: string;
@@ -736,7 +736,7 @@ const TransitsClientPage = () => {
                 return (
                   <div
                     key={`${card.planet}-${card.type}-${idx}`}
-                    className={`border rounded-xl p-5 space-y-3.5 flex flex-col justify-between hover:shadow-xs transition-all ${
+                    className={`border rounded-xl p-4 space-y-2.5 flex flex-col justify-between hover:shadow-xs transition-all ${
                       isRetro
                         ? 'bg-amber-50/40 border-amber-200/70'
                         : 'bg-red-50/40 border-red-200/70'
@@ -768,7 +768,7 @@ const TransitsClientPage = () => {
                         )}
                       </div>
 
-                      <div className={`text-xs text-on-surface p-2.5 rounded-lg border space-y-1 font-body ${
+                      <div className={`text-xs text-on-surface p-2 rounded-lg border space-y-1 font-body ${
                         card.isCurrent
                           ? (isRetro ? 'bg-amber-100/80 border-amber-300 font-medium' : 'bg-red-100/80 border-red-300 font-medium')
                           : (isRetro ? 'bg-white/60 border-amber-200/50' : 'bg-white/60 border-red-200/50')
@@ -795,7 +795,7 @@ const TransitsClientPage = () => {
                     </div>
 
                     {insight && (
-                      <div className={`pt-3 border-t text-xs text-on-surface space-y-1 font-body ${isRetro ? 'border-amber-200/60' : 'border-red-200/60'}`}>
+                      <div className={`pt-2 border-t text-xs text-on-surface space-y-1 font-body ${isRetro ? 'border-amber-200/60' : 'border-red-200/60'}`}>
                         <p className="leading-relaxed">{insight.summary}</p>
                         <p className={`text-[11px] font-medium leading-snug pt-0.5 ${isRetro ? 'text-amber-800' : 'text-red-700'}`}>
                           {isRetro ? '💡' : '🔥'} {insight.guidance}
@@ -811,55 +811,55 @@ const TransitsClientPage = () => {
       </section>
 
       {/* Educational Section */}
-      <section className="py-8 md:py-16 bg-white border-y border-outline/30">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-8">
+      <section className="py-6 md:py-10 bg-white border-y border-outline/30">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 md:space-y-6">
           <h2 className="text-2xl md:text-3xl font-headline text-on-surface">{t.eduTitle}</h2>
           <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto">
             {t.eduIntro}
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left not-prose pt-4">
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 text-left not-prose pt-2">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.sunTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.sunDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.moonTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.moonDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.marsTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.marsDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.mercuryTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.mercuryDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.jupiterTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.jupiterDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.venusTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.venusDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.saturnTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.saturnDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.rahuKetuTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.rahuKetuDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.uranusTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.uranusDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1">
               <h3 className="text-base font-semibold text-on-surface">{t.neptuneTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.neptuneDesc}</p>
             </div>
-            <div className="p-5 bg-surface rounded-xl border border-outline/40 space-y-1 md:col-span-2 md:max-w-xl md:mx-auto md:w-full">
+            <div className="p-3.5 md:p-4 bg-surface rounded-xl border border-outline/40 space-y-1 md:col-span-2 md:max-w-xl md:mx-auto md:w-full">
               <h3 className="text-base font-semibold text-on-surface">{t.plutoTitle}</h3>
               <p className="text-sm text-on-surface font-body leading-relaxed">{t.plutoDesc}</p>
             </div>
@@ -867,7 +867,7 @@ const TransitsClientPage = () => {
         </div>
       </section>
 
-      <ExploreTools currentPath="/transits" className="my-12" />
+      <ExploreTools currentPath="/transits" className="my-6 md:my-8" />
 
       <Footer />
     </main>
