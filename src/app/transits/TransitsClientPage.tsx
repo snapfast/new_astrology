@@ -67,11 +67,6 @@ const TRANSLATIONS = {
     previousPeriod: "Previous",
     retrogradeTitle: "Retrograde",
     combustTitle: "Combustion",
-    combustAndRetroOverview: "Planetary Motion Overview",
-    overviewSubtitle: "Special motion states alter planetary expression: Retrograde (Vakri) directs energy inward, while Combustion (Asta) obscures external material manifestations under solar intensity.",
-    allOverview: "All Phenomena",
-    retrogradeOnly: "Retrograde (Vakri)",
-    combustionOnly: "Combustion (Asta)",
     activeNow: "Active Now",
     upcoming: "Upcoming",
     ended: "Ended",
@@ -110,7 +105,6 @@ const TransitsClientPage = () => {
   }, []);
 
   const [selectedPlanet, setSelectedPlanet] = useState("all");
-  const [overviewTab, setOverviewTab] = useState<"all" | "retro" | "combust">("all");
 
   const referenceDate = useMemo(() => {
     const [year, month, day] = selectedDate.split('-').map(Number);
@@ -640,173 +634,6 @@ const TransitsClientPage = () => {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      {/* Comprehensive Planetary Retrograde & Combustion Overview Section */}
-      <section className="py-4 md:py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="bg-white border border-outline rounded-2xl p-4 md:p-6 shadow-sm space-y-4 md:space-y-5">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-outline/10 pb-3">
-            <div>
-              <h2 className="text-2xl font-headline font-bold text-on-surface">{t.combustAndRetroOverview}</h2>
-              <p className="text-sm text-on-surface/80 font-body mt-1 max-w-3xl">{t.overviewSubtitle}</p>
-            </div>
-
-            {/* Filter Tabs */}
-            <div className="flex items-center gap-1.5 bg-surface border border-outline/30 p-1 rounded-xl self-start md:self-auto">
-              <button
-                type="button"
-                onClick={() => setOverviewTab("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${overviewTab === "all" ? 'bg-white text-on-surface shadow-xs font-semibold' : 'text-on-surface/70 hover:text-on-surface'}`}
-              >
-                {t.allOverview}
-              </button>
-              <button
-                type="button"
-                onClick={() => setOverviewTab("retro")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${overviewTab === "retro" ? 'bg-white text-accent shadow-xs font-semibold' : 'text-on-surface/70 hover:text-on-surface'}`}
-              >
-                {t.retrogradeOnly}
-              </button>
-              <button
-                type="button"
-                onClick={() => setOverviewTab("combust")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${overviewTab === "combust" ? 'bg-white text-error shadow-xs font-semibold' : 'text-on-surface/70 hover:text-on-surface'}`}
-              >
-                {t.combustionOnly}
-              </button>
-            </div>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {(() => {
-              const overviewCards: Array<{
-                planet: string;
-                type: "retro" | "combust";
-                start: Date;
-                end: Date;
-                isCurrent: boolean;
-              }> = [];
-
-              const activePlanets = selectedPlanet === "all" ? PLANETS_ORDER : [selectedPlanet];
-
-              for (const planet of activePlanets) {
-                const details = retroAndCombustDetails[planet];
-                if (!details) continue;
-
-                // Retrograde period
-                if (details.retroDetails?.currentOrNext.start && details.retroDetails?.currentOrNext.end) {
-                  const start = details.retroDetails.currentOrNext.start;
-                  const end = details.retroDetails.currentOrNext.end;
-                  const refMs = referenceDate.getTime();
-                  const isCurrent = refMs >= start.getTime() && refMs <= end.getTime();
-                  overviewCards.push({ planet, type: "retro", start, end, isCurrent });
-                }
-
-                // Combustion period
-                if (details.combustDetails?.currentOrNext.start && details.combustDetails?.currentOrNext.end) {
-                  const start = details.combustDetails.currentOrNext.start;
-                  const end = details.combustDetails.currentOrNext.end;
-                  const refMs = referenceDate.getTime();
-                  const isCurrent = refMs >= start.getTime() && refMs <= end.getTime();
-                  overviewCards.push({ planet, type: "combust", start, end, isCurrent });
-                }
-              }
-
-              // Filter based on overview tab
-              const filteredCards = overviewCards.filter(c => {
-                if (overviewTab === "retro") return c.type === "retro";
-                if (overviewTab === "combust") return c.type === "combust";
-                return true;
-              }).sort((a, b) => a.start.getTime() - b.start.getTime());
-
-              if (filteredCards.length === 0) {
-                return <p className="text-sm text-on-surface italic col-span-full py-4">{t.noCombustions}</p>;
-              }
-
-              return filteredCards.map((card, idx) => {
-                const planetSanskrit = PLANET_NAMES[card.planet]?.sanskrit || card.planet;
-                const duration = getDaysDuration(card.start, card.end);
-                const isRetro = card.type === "retro";
-                const statusBadge = getPhaseStatusBadge(card.start, card.end, referenceDate, card.type);
-                const insight = isRetro ? RETROGRADE_INSIGHTS[card.planet] : COMBUSTION_INSIGHTS[card.planet];
-                const orbInfo = !isRetro ? COMBUSTION_ORB_LIMITS[card.planet] : null;
-
-                return (
-                  <div
-                    key={`${card.planet}-${card.type}-${idx}`}
-                    className={`border rounded-xl p-4 space-y-2.5 flex flex-col justify-between hover:shadow-xs transition-all ${
-                      isRetro
-                        ? 'bg-amber-50/40 border-amber-200/70'
-                        : 'bg-red-50/40 border-red-200/70'
-                    }`}
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="text-base font-headline font-bold text-on-surface flex items-baseline gap-1.5">
-                          {card.planet} <span className="font-hindi text-xs font-normal text-on-surface/70">({planetSanskrit})</span>
-                        </h3>
-                        {statusBadge && (
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusBadge.className}`}>
-                            {statusBadge.label}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-md ${isRetro ? 'bg-amber-100 text-amber-800 border border-amber-300/60' : 'bg-red-100 text-red-700 border border-red-300/60'}`}>
-                          <span className="material-symbols-outlined text-[14px]">
-                            {isRetro ? "sync_alt" : "local_fire_department"}
-                          </span>
-                          {isRetro ? t.retrogradeTitle : t.combustTitle}
-                        </span>
-                        {duration && (
-                          <span className="text-xs text-on-surface/70 font-body">
-                            ({duration} {t.durationDays})
-                          </span>
-                        )}
-                      </div>
-
-                      <div className={`text-xs text-on-surface p-2 rounded-lg border space-y-1 font-body ${
-                        card.isCurrent
-                          ? (isRetro ? 'bg-amber-100/80 border-amber-300 font-medium' : 'bg-red-100/80 border-red-300 font-medium')
-                          : (isRetro ? 'bg-white/60 border-amber-200/50' : 'bg-white/60 border-red-200/50')
-                      }`}>
-                        <div className="flex items-center justify-between">
-                          <span>
-                            <span className="text-on-surface/70">{t.combustFrom}:</span> <span className="font-semibold text-on-surface">{formatCombustionDate(card.start)}</span>
-                          </span>
-                          {card.isCurrent && (
-                            <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${isRetro ? 'bg-amber-200 text-amber-900' : 'bg-red-200 text-red-900'}`}>
-                              {t.activeNow}
-                            </span>
-                          )}
-                        </div>
-                        <div>
-                          <span className="text-on-surface/70">{t.combustTo}:</span> <span className="font-semibold text-on-surface">{formatCombustionDate(card.end)}</span>
-                        </div>
-                        {orbInfo && (
-                          <div className="text-[11px] text-red-800 font-medium pt-0.5">
-                            {t.combustionOrb}: <span className="font-semibold text-on-surface">within {orbInfo.direct}° of Sun</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {insight && (
-                      <div className={`pt-2 border-t text-xs text-on-surface space-y-1 font-body ${isRetro ? 'border-amber-200/60' : 'border-red-200/60'}`}>
-                        <p className="leading-relaxed">{insight.summary}</p>
-                        <p className={`text-[11px] font-medium leading-snug pt-0.5 ${isRetro ? 'text-amber-800' : 'text-red-700'}`}>
-                          {isRetro ? '💡' : '🔥'} {insight.guidance}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                );
-              });
-            })()}
-          </div>
         </div>
       </section>
 
