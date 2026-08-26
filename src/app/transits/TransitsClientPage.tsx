@@ -82,6 +82,21 @@ const TRANSLATIONS = {
 
 const PLANETS_ORDER = ["Moon", "Mercury", "Venus", "Sun", "Mars", "Jupiter", "Rahu", "Ketu", "Saturn", "Uranus", "Neptune", "Pluto"];
 
+const RASHI_SYMBOLS: Record<string, string> = {
+  Aries: "♈",
+  Taurus: "♉",
+  Gemini: "♊",
+  Cancer: "♋",
+  Leo: "♌",
+  Virgo: "♍",
+  Libra: "♎",
+  Scorpio: "♏",
+  Sagittarius: "♐",
+  Capricorn: "♑",
+  Aquarius: "♒",
+  Pisces: "♓",
+};
+
 const TransitsClientPage = () => {
   const t = TRANSLATIONS.en;
 
@@ -160,7 +175,7 @@ const TransitsClientPage = () => {
     return days;
   };
 
-  const getPhaseStatusBadge = (start: Date | null, end: Date | null, refDate: Date, type: "retro" | "combust" = "retro") => {
+  const getPhaseStatusBadge = (start: Date | null, end: Date | null, refDate: Date) => {
     if (!start || !end) return null;
     const refMs = refDate.getTime();
     const startMs = start.getTime();
@@ -169,18 +184,18 @@ const TransitsClientPage = () => {
     if (refMs >= startMs && refMs <= endMs) {
       return {
         label: t.activeNow,
-        className: type === "combust" ? "bg-red-100 text-red-700 border-red-300" : "bg-amber-100 text-amber-800 border-amber-300"
+        className: "bg-surface text-on-surface border-outline/40"
       };
     } else if (refMs < startMs) {
       const daysUntil = Math.ceil((startMs - refMs) / (1000 * 60 * 60 * 24));
       return {
         label: `${t.upcoming} (${daysUntil}d)`,
-        className: type === "combust" ? "bg-red-50 text-red-600 border-red-200" : "bg-amber-50 text-amber-800 border-amber-200"
+        className: "bg-surface text-on-surface border-outline/30"
       };
     } else {
       return {
         label: t.ended,
-        className: "bg-gray-100 text-gray-600 border-gray-200"
+        className: "bg-surface/50 text-on-surface/60 border-outline/20"
       };
     }
   };
@@ -394,7 +409,7 @@ const TransitsClientPage = () => {
                                   <div className="w-full space-y-0.5">
                                     <div className="flex items-center justify-between gap-1.5 flex-wrap">
                                       <div className="font-semibold text-on-surface">
-                                        {ev.fromValue} &rarr; {ev.toValue}
+                                        {ev.fromValue} {RASHI_SYMBOLS[ev.fromValue] ? <span className="font-normal text-on-surface/70">{RASHI_SYMBOLS[ev.fromValue]}</span> : ''} &rarr; {ev.toValue} {RASHI_SYMBOLS[ev.toValue] ? <span className="font-normal text-on-surface/70">{RASHI_SYMBOLS[ev.toValue]}</span> : ''}
                                       </div>
                                       {isCurrent && (
                                         <span title={t.currentTransit} className="inline-flex items-center justify-center text-on-surface">
@@ -484,10 +499,10 @@ const TransitsClientPage = () => {
                          .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
-                          <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
+                          <div className="bg-surface border border-outline/40 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
                             <div className="space-y-1.5">
                               <div className="flex items-center justify-between gap-1">
-                                <span className="text-xs uppercase tracking-wider text-amber-800 font-label font-bold flex items-center gap-1">
+                                <span className="text-xs uppercase tracking-wider text-on-surface font-label font-bold flex items-center gap-1">
                                   <span className="material-symbols-outlined text-[15px]">sync_alt</span>
                                   {t.retrogradeTitle}
                                 </span>
@@ -498,7 +513,7 @@ const TransitsClientPage = () => {
                                 )}
                               </div>
 
-                              <div className="space-y-1 pt-1 border-t border-amber-200/60">
+                              <div className="space-y-1 pt-1 border-t border-outline/20">
                                 {periods.map((p, pIdx) => {
                                   if (!p.start || !p.end) return null;
                                   const refMs = referenceDate.getTime();
@@ -509,8 +524,8 @@ const TransitsClientPage = () => {
                                       key={pIdx}
                                       className={`p-1.5 rounded-lg transition-all ${
                                         isActive
-                                          ? 'bg-amber-100/90 border border-amber-300/90 shadow-2xs font-semibold'
-                                          : 'bg-white/60 border border-amber-200/40'
+                                          ? 'bg-accent/10 border border-accent/30 shadow-2xs font-semibold'
+                                          : 'bg-surface/50 border border-outline/20'
                                       }`}
                                     >
                                       <div className="flex items-center justify-between gap-2 text-xs">
@@ -519,13 +534,13 @@ const TransitsClientPage = () => {
                                             {formatCombustionDate(p.start)} &rarr; {formatCombustionDate(p.end)}
                                           </span>
                                           {isActive && (
-                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-900 border border-amber-400/50">
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-accent/20 text-on-surface border border-accent/30">
                                               {t.activeNow}
                                             </span>
                                           )}
                                         </div>
                                         {p.duration && (
-                                          <span className="text-[11px] text-amber-900 font-medium shrink-0">
+                                          <span className="text-[11px] text-on-surface/80 font-medium shrink-0">
                                             {p.duration} {t.durationDays}
                                           </span>
                                         )}
@@ -537,9 +552,9 @@ const TransitsClientPage = () => {
                             </div>
 
                             {retroInsight && (
-                              <div className="pt-1.5 border-t border-amber-200/60 text-[11px] text-on-surface space-y-0.5">
+                              <div className="pt-1.5 border-t border-outline/20 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{retroInsight.summary}</p>
-                                <p className="text-[10px] text-amber-800 font-medium leading-snug">💡 {retroInsight.guidance}</p>
+                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">💡 {retroInsight.guidance}</p>
                               </div>
                             )}
                           </div>
@@ -550,7 +565,7 @@ const TransitsClientPage = () => {
                       {combustDetails && (() => {
                         const combustInsight = COMBUSTION_INSIGHTS[planetName];
                         const orbInfo = COMBUSTION_ORB_LIMITS[planetName];
-                        const currOrNextBadge = getPhaseStatusBadge(combustDetails.currentOrNext.start, combustDetails.currentOrNext.end, referenceDate, "combust");
+                        const currOrNextBadge = getPhaseStatusBadge(combustDetails.currentOrNext.start, combustDetails.currentOrNext.end, referenceDate);
                         const currOrNextDuration = getDaysDuration(combustDetails.currentOrNext.start, combustDetails.currentOrNext.end);
                         const prevDuration = getDaysDuration(combustDetails.previous.start, combustDetails.previous.end);
 
@@ -561,11 +576,11 @@ const TransitsClientPage = () => {
                          .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
-                          <div className="bg-red-50/50 border border-red-200/80 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
+                          <div className="bg-surface border border-outline/40 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
                             <div className="space-y-1.5">
                               <div className="flex items-center justify-between gap-1">
-                                <span className="text-xs uppercase tracking-wider text-red-700 font-label font-bold flex items-center gap-1">
-                                  <span className="material-symbols-outlined text-[15px] text-red-600">local_fire_department</span>
+                                <span className="text-xs uppercase tracking-wider text-on-surface font-label font-bold flex items-center gap-1">
+                                  <span className="material-symbols-outlined text-[15px] text-on-surface">local_fire_department</span>
                                   {t.combustTitle}
                                 </span>
                                 {currOrNextBadge && (
@@ -575,7 +590,7 @@ const TransitsClientPage = () => {
                                 )}
                               </div>
 
-                              <div className="space-y-1 pt-1 border-t border-red-200/60">
+                              <div className="space-y-1 pt-1 border-t border-outline/20">
                                 {periods.map((p, pIdx) => {
                                   if (!p.start || !p.end) return null;
                                   const refMs = referenceDate.getTime();
@@ -586,8 +601,8 @@ const TransitsClientPage = () => {
                                       key={pIdx}
                                       className={`p-1.5 rounded-lg transition-all ${
                                         isActive
-                                          ? 'bg-red-100/90 border border-red-300/90 shadow-2xs font-semibold'
-                                          : 'bg-white/60 border border-red-200/40'
+                                          ? 'bg-accent/10 border border-accent/30 shadow-2xs font-semibold'
+                                          : 'bg-surface/50 border border-outline/20'
                                       }`}
                                     >
                                       <div className="flex items-center justify-between gap-2 text-xs">
@@ -596,13 +611,13 @@ const TransitsClientPage = () => {
                                             {formatCombustionDate(p.start)} &rarr; {formatCombustionDate(p.end)}
                                           </span>
                                           {isActive && (
-                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-200 text-red-900 border border-red-400/50">
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-accent/20 text-on-surface border border-accent/30">
                                               {t.activeNow}
                                             </span>
                                           )}
                                         </div>
                                         {p.duration && (
-                                          <span className="text-[11px] text-red-900 font-medium shrink-0">
+                                          <span className="text-[11px] text-on-surface/80 font-medium shrink-0">
                                             {p.duration} {t.durationDays}
                                           </span>
                                         )}
@@ -612,17 +627,17 @@ const TransitsClientPage = () => {
                                 })}
 
                                 {orbInfo && (
-                                  <div className="text-[10px] text-red-800 font-medium pt-0.5">
-                                    {t.combustionOrb}: <span className="font-semibold text-red-950">within {orbInfo.direct}° of Sun</span> {orbInfo.retro ? `(${orbInfo.retro}° in retro)` : ''}
+                                  <div className="text-[10px] text-on-surface/80 font-medium pt-0.5">
+                                    {t.combustionOrb}: <span className="font-semibold text-on-surface">within {orbInfo.direct}° of Sun</span> {orbInfo.retro ? `(${orbInfo.retro}° in retro)` : ''}
                                   </div>
                                 )}
                               </div>
                             </div>
 
                             {combustInsight && (
-                              <div className="pt-1.5 border-t border-red-200/60 text-[11px] text-on-surface space-y-0.5">
+                              <div className="pt-1.5 border-t border-outline/20 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{combustInsight.summary}</p>
-                                <p className="text-[10px] text-red-700 font-medium leading-snug">🔥 {combustInsight.guidance}</p>
+                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">🔥 {combustInsight.guidance}</p>
                               </div>
                             )}
                           </div>
