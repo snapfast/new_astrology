@@ -554,7 +554,7 @@ const TransitsClientPage = () => {
                             {retroInsight && (
                               <div className="pt-1.5 border-t border-outline/20 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{retroInsight.summary}</p>
-                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">💡 {retroInsight.guidance}</p>
+                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">{retroInsight.guidance}</p>
                               </div>
                             )}
                           </div>
@@ -637,7 +637,7 @@ const TransitsClientPage = () => {
                             {combustInsight && (
                               <div className="pt-1.5 border-t border-outline/20 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{combustInsight.summary}</p>
-                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">🔥 {combustInsight.guidance}</p>
+                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">{combustInsight.guidance}</p>
                               </div>
                             )}
                           </div>
