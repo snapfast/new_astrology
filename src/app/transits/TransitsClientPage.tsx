@@ -524,7 +524,7 @@ const TransitsClientPage = () => {
                                       key={pIdx}
                                       className={`p-1.5 rounded-lg transition-all ${
                                         isActive
-                                          ? 'bg-accent/10 border border-accent/30 shadow-2xs font-semibold'
+                                          ? 'bg-surface border border-outline/30 shadow-2xs font-semibold'
                                           : 'bg-surface/50 border border-outline/20'
                                       }`}
                                     >
@@ -534,7 +534,7 @@ const TransitsClientPage = () => {
                                             {formatCombustionDate(p.start)} &rarr; {formatCombustionDate(p.end)}
                                           </span>
                                           {isActive && (
-                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-accent/20 text-on-surface border border-accent/30">
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-surface text-on-surface border border-outline/40">
                                               {t.activeNow}
                                             </span>
                                           )}
@@ -601,7 +601,7 @@ const TransitsClientPage = () => {
                                       key={pIdx}
                                       className={`p-1.5 rounded-lg transition-all ${
                                         isActive
-                                          ? 'bg-accent/10 border border-accent/30 shadow-2xs font-semibold'
+                                          ? 'bg-surface border border-outline/30 shadow-2xs font-semibold'
                                           : 'bg-surface/50 border border-outline/20'
                                       }`}
                                     >
@@ -611,7 +611,7 @@ const TransitsClientPage = () => {
                                             {formatCombustionDate(p.start)} &rarr; {formatCombustionDate(p.end)}
                                           </span>
                                           {isActive && (
-                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-accent/20 text-on-surface border border-accent/30">
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-surface text-on-surface border border-outline/40">
                                               {t.activeNow}
                                             </span>
                                           )}
