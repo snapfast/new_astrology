@@ -83,18 +83,18 @@ const TRANSLATIONS = {
 const PLANETS_ORDER = ["Moon", "Mercury", "Venus", "Sun", "Mars", "Jupiter", "Rahu", "Ketu", "Saturn", "Uranus", "Neptune", "Pluto"];
 
 const RASHI_SYMBOLS: Record<string, string> = {
-  Aries: "♈",
-  Taurus: "♉",
-  Gemini: "♊",
-  Cancer: "♋",
-  Leo: "♌",
-  Virgo: "♍",
-  Libra: "♎",
-  Scorpio: "♏",
-  Sagittarius: "♐",
-  Capricorn: "♑",
-  Aquarius: "♒",
-  Pisces: "♓",
+  Aries: "♈︎",
+  Taurus: "♉︎",
+  Gemini: "♊︎",
+  Cancer: "♋︎",
+  Leo: "♌︎",
+  Virgo: "♍︎",
+  Libra: "♎︎",
+  Scorpio: "♏︎",
+  Sagittarius: "♐︎",
+  Capricorn: "♑︎",
+  Aquarius: "♒︎",
+  Pisces: "♓︎",
 };
 
 const TransitsClientPage = () => {
@@ -372,7 +372,7 @@ const TransitsClientPage = () => {
 
                     {currentPos && (
                       <p className="text-xs font-body text-on-surface/80">
-                        Current: <span className="font-semibold text-on-surface">{currentPos.rasi}</span> ({currentPos.degree}) • <span className="font-semibold text-on-surface">{currentPos.nakshatra}</span> ({currentPos.pada} Pada)
+                        Current: <span className="font-semibold text-on-surface">{currentPos.rasi} {RASHI_SYMBOLS[currentPos.rasi] ? <span className="font-normal text-on-surface/70">{RASHI_SYMBOLS[currentPos.rasi]}</span> : ''}</span> ({currentPos.degree}) • <span className="font-semibold text-on-surface">{currentPos.nakshatra}</span> ({currentPos.pada} Pada)
                       </p>
                     )}
                   </div>
