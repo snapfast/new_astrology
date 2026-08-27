@@ -488,7 +488,7 @@ const TransitsClientPage = () => {
                       {/* Retrograde Box */}
                       {retroDetails && (() => {
                         const retroInsight = RETROGRADE_INSIGHTS[planetName];
-                        const currOrNextBadge = getPhaseStatusBadge(retroDetails.currentOrNext.start, retroDetails.currentOrNext.end, referenceDate, "retro");
+                        const currOrNextBadge = getPhaseStatusBadge(retroDetails.currentOrNext.start, retroDetails.currentOrNext.end, referenceDate);
                         const currOrNextDuration = getDaysDuration(retroDetails.currentOrNext.start, retroDetails.currentOrNext.end);
                         const prevDuration = getDaysDuration(retroDetails.previous.start, retroDetails.previous.end);
 
