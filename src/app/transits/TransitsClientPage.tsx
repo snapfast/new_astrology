@@ -499,7 +499,7 @@ const TransitsClientPage = () => {
                          .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
-                          <div className="bg-surface border border-outline/40 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
+                          <div className="bg-transparent border border-outline/40 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
                             <div className="space-y-1.5">
                               <div className="flex items-center justify-between gap-1">
                                 <span className="text-xs uppercase tracking-wider text-on-surface font-label font-bold flex items-center gap-1">
@@ -554,7 +554,10 @@ const TransitsClientPage = () => {
                             {retroInsight && (
                               <div className="pt-1.5 border-t border-outline/20 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{retroInsight.summary}</p>
-                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">💡 {retroInsight.guidance}</p>
+                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug flex items-start gap-1">
+                                  <span className="material-symbols-outlined text-[13px] leading-none shrink-0 mt-[1px]">lightbulb</span>
+                                  <span>{retroInsight.guidance}</span>
+                                </p>
                               </div>
                             )}
                           </div>
@@ -576,7 +579,7 @@ const TransitsClientPage = () => {
                          .sort((a, b) => a.start.getTime() - b.start.getTime());
 
                         return (
-                          <div className="bg-surface border border-outline/40 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
+                          <div className="bg-transparent border border-outline/40 rounded-xl p-2.5 md:p-3 space-y-2 flex flex-col justify-between">
                             <div className="space-y-1.5">
                               <div className="flex items-center justify-between gap-1">
                                 <span className="text-xs uppercase tracking-wider text-on-surface font-label font-bold flex items-center gap-1">
@@ -637,7 +640,10 @@ const TransitsClientPage = () => {
                             {combustInsight && (
                               <div className="pt-1.5 border-t border-outline/20 text-[11px] text-on-surface space-y-0.5">
                                 <p className="leading-snug">{combustInsight.summary}</p>
-                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug">🔥 {combustInsight.guidance}</p>
+                                <p className="text-[10px] text-on-surface/80 font-medium leading-snug flex items-start gap-1">
+                                  <span className="material-symbols-outlined text-[13px] leading-none shrink-0 mt-[1px]">local_fire_department</span>
+                                  <span>{combustInsight.guidance}</span>
+                                </p>
                               </div>
                             )}
                           </div>
