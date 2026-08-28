@@ -277,35 +277,35 @@ const TransitsClientPage = () => {
         </div>
 
         {/* Legend Bar */}
-        <div data-testid="transits-legend-bar" className="flex flex-wrap items-center justify-between gap-2.5 bg-white rounded-xl py-1 px-3 text-[11px] font-body shadow-2xs border-none">
+        <div data-testid="transits-legend-bar" className="flex flex-wrap items-center justify-between gap-2.5 bg-white rounded-xl py-1 px-3 text-[10px] font-body shadow-2xs border-none">
           <div className="flex items-center gap-1.5 text-on-surface font-semibold shrink-0">
-            <span className="material-symbols-outlined text-sm text-on-surface">info</span>
+            <span className="material-symbols-outlined text-[13px] text-on-surface">info</span>
             <span>Legend:</span>
           </div>
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-5">
             <div className="flex items-center gap-1">
               <span title={`${t.retrograde} (Vakri)`} className="inline-flex items-center justify-center text-on-surface">
-                <span className="material-symbols-outlined text-[15px]">sync_alt</span>
+                <span className="material-symbols-outlined text-[14px]">sync_alt</span>
               </span>
-              <span className="text-on-surface/80 text-[11px] font-medium">{t.retrograde} <span className="text-on-surface/60 text-[10px]">(Vakri)</span></span>
+              <span className="text-on-surface/80 text-[10px] font-medium">{t.retrograde} <span className="text-on-surface/60 text-[9px]">(Vakri)</span></span>
             </div>
             <div className="flex items-center gap-1">
               <span title={`${t.combust} (Asta)`} className="inline-flex items-center justify-center text-on-surface">
-                <span className="material-symbols-outlined text-[15px]">local_fire_department</span>
+                <span className="material-symbols-outlined text-[14px]">local_fire_department</span>
               </span>
-              <span className="text-on-surface/80 text-[11px] font-medium">{t.combust} <span className="text-on-surface/60 text-[10px]">(Asta)</span></span>
+              <span className="text-on-surface/80 text-[10px] font-medium">{t.combust} <span className="text-on-surface/60 text-[9px]">(Asta)</span></span>
             </div>
             <div className="flex items-center gap-1">
               <span title={`${t.direct} (Forward)`} className="inline-flex items-center justify-center text-on-surface">
-                <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
               </span>
-              <span className="text-on-surface/80 text-[11px] font-medium">{t.direct} <span className="text-on-surface/60 text-[10px]">(Forward)</span></span>
+              <span className="text-on-surface/80 text-[10px] font-medium">{t.direct} <span className="text-on-surface/60 text-[9px]">(Forward)</span></span>
             </div>
             <div className="flex items-center gap-1">
               <span title={t.currentTransit} className="inline-flex items-center justify-center text-on-surface">
-                <span className="material-symbols-outlined text-[13px]">adjust</span>
+                <span className="material-symbols-outlined text-[12px]">adjust</span>
               </span>
-              <span className="text-on-surface/80 text-[11px] font-medium">{t.currentTransit}</span>
+              <span className="text-on-surface/80 text-[10px] font-medium">{t.currentTransit}</span>
             </div>
           </div>
         </div>
@@ -372,7 +372,7 @@ const TransitsClientPage = () => {
 
                     {currentPos && (
                       <p className="text-xs font-body text-on-surface/80">
-                        Current: <span className="font-semibold text-on-surface">{currentPos.rasi} {RASHI_SYMBOLS[currentPos.rasi] ? <span className="font-normal text-on-surface/70">{RASHI_SYMBOLS[currentPos.rasi]}</span> : ''}</span> ({currentPos.degree}) • <span className="font-semibold text-on-surface">{currentPos.nakshatra}</span> ({currentPos.pada} Pada)
+                        <span className="material-symbols-outlined text-[13px] mr-1 align-text-bottom">adjust</span>Current: <span className="font-semibold text-on-surface">{currentPos.rasi} {RASHI_SYMBOLS[currentPos.rasi] ? <span className="font-normal text-on-surface/70">{RASHI_SYMBOLS[currentPos.rasi]}</span> : ''}</span> ({currentPos.degree}) • <span className="font-semibold text-on-surface">{currentPos.nakshatra}</span> ({currentPos.pada} Pada)
                       </p>
                     )}
                   </div>
@@ -508,7 +508,7 @@ const TransitsClientPage = () => {
                                 </span>
                                 {currOrNextBadge && (
                                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${currOrNextBadge.className}`}>
-                                    {currOrNextBadge.label}
+                                    {currOrNextBadge.label === t.activeNow && <span className="material-symbols-outlined text-[10px] mr-1">adjust</span>}{currOrNextBadge.label}
                                   </span>
                                 )}
                               </div>
@@ -535,7 +535,7 @@ const TransitsClientPage = () => {
                                           </span>
                                           {isActive && (
                                             <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-surface text-on-surface border border-outline/40">
-                                              {t.activeNow}
+                                              <span className="material-symbols-outlined text-[11px] mr-1 align-text-bottom">adjust</span>{t.activeNow}
                                             </span>
                                           )}
                                         </div>
@@ -588,7 +588,7 @@ const TransitsClientPage = () => {
                                 </span>
                                 {currOrNextBadge && (
                                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${currOrNextBadge.className}`}>
-                                    {currOrNextBadge.label}
+                                    {currOrNextBadge.label === t.activeNow && <span className="material-symbols-outlined text-[10px] mr-1">adjust</span>}{currOrNextBadge.label}
                                   </span>
                                 )}
                               </div>
@@ -615,7 +615,7 @@ const TransitsClientPage = () => {
                                           </span>
                                           {isActive && (
                                             <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-surface text-on-surface border border-outline/40">
-                                              {t.activeNow}
+                                              <span className="material-symbols-outlined text-[11px] mr-1 align-text-bottom">adjust</span>{t.activeNow}
                                             </span>
                                           )}
                                         </div>
