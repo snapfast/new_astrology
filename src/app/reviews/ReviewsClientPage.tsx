@@ -36,8 +36,8 @@ export default function ReviewsClientPage() {
   const reviewsSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Rahul Bali Astrology - Vedic Astrology Consultation in Gurugram",
-    "description": "Professional Vedic Astrology consultations by Pandit Rahul Bali Ji in Gurugram and Gurgaon.",
+    "name": "Rahul Bali Astrology - Vedic Astrology Consultation",
+    "description": "Professional Vedic Astrology consultations by Pandit Rahul Bali Ji.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",

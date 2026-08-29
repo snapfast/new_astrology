@@ -126,7 +126,7 @@ export default async function RootLayout({
                 "@type": "Organization",
                 "name": "Rahul Bali Astrology"
               },
-              "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology based in Gurugram, India, providing personalized horoscopes and spiritual consultations."
+              "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology, providing personalized horoscopes and spiritual consultations."
             }}
           />
           {children}

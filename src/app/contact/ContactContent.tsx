@@ -13,7 +13,7 @@ const TRANSLATIONS = {
     title: "Contact Us",
     subtitle: "Get in Touch",
     location: "Location",
-    city: "Gurugram (Gurgaon), Haryana, India",
+    city: "India",
     email: "Email Address",
     online: "Online Presence"
   }};
