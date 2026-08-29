@@ -565,7 +565,6 @@ function getRotationMatrix(time: Ast.AstroTime): Ast.RotationMatrix {
  * Calculates the True Spica Ayanamsa (calculating Spica/Chitra at exactly 180°).
  * This ensures absolute precision matching the Swiss Ephemeris and traditional standard benchmarks.
  */
-const ayanamsaCache = new Map<number, number>();
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
     const key = time.ut;
     const cached = ayanamsaCache.get(key);
@@ -801,6 +800,8 @@ function calculatePlanetaryAndDivisionalData(
 
     // 2. Calculate Planets
     if (!rotEqjEct) rotEqjEct = getRotationMatrix(time);
+    const sunSiderealLong = (tropicalSunLong - ayanamsa + 360) % 360;
+
     for (let i = 0; i < PLANET_MAP.length; i++) {
         const p = PLANET_MAP[i];
         let long: number;
