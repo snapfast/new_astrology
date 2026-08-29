@@ -238,7 +238,6 @@ const TransitsClientPage = () => {
                   );
                 })}
               </select>
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">expand_more</span>
             </div>
 
             <div className="relative w-full sm:w-auto">
