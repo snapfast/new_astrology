@@ -1,5 +1,30 @@
 import * as Ast from 'astronomy-engine';
 
+class BoundedMap<K, V> extends Map<K, V> {
+    private maxSize: number;
+
+    constructor(maxSize: number) {
+        super();
+        this.maxSize = maxSize;
+    }
+    set(key: K, value: V): this {
+        if (this.size >= this.maxSize && !this.has(key)) {
+            const firstKey = this.keys().next().value;
+            if (firstKey !== undefined) {
+                this.delete(firstKey);
+            }
+        }
+        return super.set(key, value);
+    }
+}
+
+// Global caches for core astrometric computations to avoid redundant trigonometric calculations.
+// Max size is bounded to prevent memory leaks during prolonged server execution.
+const ayanamsaCache = new BoundedMap<number, number>(10000);
+const eclLongCache = new BoundedMap<string, number>(10000);
+const moonLongCache = new BoundedMap<number, number>(10000);
+const rotationMatrixCache = new BoundedMap<number, Ast.RotationMatrix>(10000);
+
 export interface PlanetData {
     name: string;
     nameSanskrit: string;
@@ -460,22 +485,39 @@ const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
 export const SIDEREAL_YEAR_DAYS = 365.24219;
 const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
 
+function getRotationMatrix(time: Ast.AstroTime): Ast.RotationMatrix {
+    const key = time.ut;
+    let rot = rotationMatrixCache.get(key);
+    if (!rot) {
+        rot = Ast.Rotation_EQJ_ECT(time);
+        rotationMatrixCache.set(key, rot);
+    }
+    return rot;
+}
+
 /**
  * Calculates the True Spica Ayanamsa (calculating Spica/Chitra at exactly 180°).
  * This ensures absolute precision matching the Swiss Ephemeris and traditional standard benchmarks.
  */
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
+    const key = time.ut;
+    const cached = ayanamsaCache.get(key);
+    if (cached !== undefined) {
+        return cached;
+    }
     // Define Spica (Alpha Virginis / Chitra) coordinates for J2000 epoch
     const ra = 13 + 25/60 + 11.579/3600;
     const dec = -(11 + 9/60 + 40.75/3600);
     Ast.DefineStar(Ast.Body.Star1, ra, dec, 250);
 
     const geoJ2000 = Ast.GeoVector(Ast.Body.Star1, time, true);
-    const rot = Ast.Rotation_EQJ_ECT(time);
+    const rot = getRotationMatrix(time);
     const eclDateVec = Ast.RotateVector(rot, geoJ2000);
     const tropicalLong = (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
 
-    return (tropicalLong - 180 + 360) % 360;
+    const result = (tropicalLong - 180 + 360) % 360;
+    ayanamsaCache.set(key, result);
+    return result;
 }
 
 /**
@@ -489,7 +531,7 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
     const t2 = Ast.MakeTime(time.ut + 1 / 24); // +1 hour in days
 
     const lon1 = currentLong ?? getTrueEclipticLongitude(body, t1, rotEqjEct);
-    const rot2 = rotEqjEct ? Ast.Rotation_EQJ_ECT(t2) : undefined;
+    const rot2 = rotEqjEct ? getRotationMatrix(t2) : undefined;
     const lon2 = getTrueEclipticLongitude(body, t2, rot2);
 
     let diff = (lon2 - lon1 + 360) % 360;
@@ -506,17 +548,31 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
 
 
 function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
+    const key = `${body}_${time.ut}`;
+    const cached = eclLongCache.get(key);
+    if (cached !== undefined) {
+        return cached;
+    }
     const geoJ2000 = Ast.GeoVector(body, time, true);
-    const rot = rotEqjEct || Ast.Rotation_EQJ_ECT(time);
+    const rot = rotEqjEct || getRotationMatrix(time);
     const eclDateVec = Ast.RotateVector(rot, geoJ2000);
-    return (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+    const result = (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+    eclLongCache.set(key, result);
+    return result;
 }
 
 function getTrueMoonEclipticLongitude(time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
+    const key = time.ut;
+    const cached = moonLongCache.get(key);
+    if (cached !== undefined) {
+        return cached;
+    }
     const geoJ2000 = Ast.GeoMoon(time);
-    const rot = rotEqjEct || Ast.Rotation_EQJ_ECT(time);
+    const rot = rotEqjEct || getRotationMatrix(time);
     const eclDateVec = Ast.RotateVector(rot, geoJ2000);
-    return (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+    const result = (Math.atan2(eclDateVec.y, eclDateVec.x) * 180 / Math.PI + 360) % 360;
+    moonLongCache.set(key, result);
+    return result;
 }
 
 export function getMeanRahu(time: Ast.AstroTime): number {
@@ -677,7 +733,7 @@ function calculatePlanetaryAndDivisionalData(
     }
 
     // 2. Calculate Planets
-    if (!rotEqjEct) rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+    if (!rotEqjEct) rotEqjEct = getRotationMatrix(time);
     for (let i = 0; i < PLANET_MAP.length; i++) {
         const p = PLANET_MAP[i];
         let long: number;
@@ -1282,7 +1338,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
     let rotEqjEct: Ast.RotationMatrix | undefined;
     const getRotEqjEct = () => {
-        if (!rotEqjEct) rotEqjEct = Ast.Rotation_EQJ_ECT(time);
+        if (!rotEqjEct) rotEqjEct = getRotationMatrix(time);
         return rotEqjEct;
     };
 
@@ -1510,7 +1566,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
     // Calculate parameters at Sunrise to initialize state correctly for tracking elements
     const startAstroTime = Ast.MakeTime(sunriseDate);
     const startAy = getLahiriAyanamsa(startAstroTime);
-    const startR = Ast.Rotation_EQJ_ECT(startAstroTime);
+    const startR = getRotationMatrix(startAstroTime);
     const startSunLong = getTrueEclipticLongitude(Ast.Body.Sun, startAstroTime, startR);
     const startMoonLong = getTrueMoonEclipticLongitude(startAstroTime, startR);
 
@@ -1527,7 +1583,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
 
     // Calculate exact parameters at the provided time (e.g. time of birth)
     const exactAy = getLahiriAyanamsa(time);
-    const exactR = Ast.Rotation_EQJ_ECT(time);
+    const exactR = getRotationMatrix(time);
     const exactSunLong = getTrueEclipticLongitude(Ast.Body.Sun, time, exactR);
     const exactMoonLong = getTrueMoonEclipticLongitude(time, exactR);
 
@@ -1628,7 +1684,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         const stepTime = new Date(actualMs);
         const astTime = Ast.MakeTime(stepTime);
         const ay = getLahiriAyanamsa(astTime);
-        const r = Ast.Rotation_EQJ_ECT(astTime);
+        const r = getRotationMatrix(astTime);
         const sl = getTrueEclipticLongitude(Ast.Body.Sun, astTime, r);
         const ml = getTrueMoonEclipticLongitude(astTime, r);
 
@@ -1761,7 +1817,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
     const prevNewMoon = Ast.SearchMoonPhase(0, time, -30);
     let monthIdx = 0;
     if (prevNewMoon) {
-        const rot = Ast.Rotation_EQJ_ECT(prevNewMoon);
+        const rot = getRotationMatrix(prevNewMoon);
         const nmSunLong = getTrueEclipticLongitude(Ast.Body.Sun, prevNewMoon, rot);
         const nmSiderealSunLong = (nmSunLong - getLahiriAyanamsa(prevNewMoon) + 360) % 360;
         monthIdx = Math.floor(nmSiderealSunLong / 30);
