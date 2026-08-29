@@ -321,8 +321,10 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     // Test Sun
     const sunTransits = getPlanetTransits("Sun", refDate);
     assert.strictEqual(sunTransits.planet, "Sun");
-    assert.strictEqual(sunTransits.past.length, 3, "Should have exactly 3 past transits for Sun");
-    assert.strictEqual(sunTransits.future.length, 3, "Should have exactly 3 future transits for Sun");
+    assert.strictEqual(sunTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Sun");
+    assert.strictEqual(sunTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Sun");
+    assert.strictEqual(sunTransits.past.filter(e => e.type === 'nakshatra').length, 3, "Should have 3 past Nakshatra transits for Sun");
+    assert.strictEqual(sunTransits.future.filter(e => e.type === 'nakshatra').length, 3, "Should have 3 future Nakshatra transits for Sun");
 
     // Verify order and boundaries
     for (const p of sunTransits.past) {
@@ -342,28 +344,57 @@ test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
 
     // Test Moon (very fast planet)
     const moonTransits = getPlanetTransits("Moon", refDate);
-    assert.strictEqual(moonTransits.past.length, 3, "Should have exactly 3 past transits for Moon");
-    assert.strictEqual(moonTransits.future.length, 3, "Should have exactly 3 future transits for Moon");
+    assert.strictEqual(moonTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Moon");
+    assert.strictEqual(moonTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Moon");
 
     // Test Saturn (very slow planet)
     const saturnTransits = getPlanetTransits("Saturn", refDate);
-    assert.strictEqual(saturnTransits.past.length, 3, "Should have exactly 3 past transits for Saturn");
-    assert.strictEqual(saturnTransits.future.length, 3, "Should have exactly 3 future transits for Saturn");
+    assert.strictEqual(saturnTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Saturn");
+    assert.strictEqual(saturnTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Saturn");
 
     // Test Uranus (outer planet)
     const uranusTransits = getPlanetTransits("Uranus", refDate);
     assert.strictEqual(uranusTransits.planet, "Uranus");
-    assert.ok(uranusTransits.future.length > 0, "Should compute future transits for Uranus");
+    assert.strictEqual(uranusTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Uranus");
+    assert.strictEqual(uranusTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Uranus");
 
     // Test Neptune (outer planet)
     const neptuneTransits = getPlanetTransits("Neptune", refDate);
     assert.strictEqual(neptuneTransits.planet, "Neptune");
-    assert.ok(neptuneTransits.future.length > 0, "Should compute future transits for Neptune");
+    assert.strictEqual(neptuneTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Neptune");
+    assert.strictEqual(neptuneTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Neptune");
 
     // Test Pluto (outer planet)
     const plutoTransits = getPlanetTransits("Pluto", refDate);
     assert.strictEqual(plutoTransits.planet, "Pluto");
-    assert.ok(plutoTransits.future.length > 0, "Should compute future transits for Pluto");
+    assert.strictEqual(plutoTransits.past.filter(e => e.type === 'rashi').length, 3, "Should have 3 past Rashi transits for Pluto");
+    assert.strictEqual(plutoTransits.future.filter(e => e.type === 'rashi').length, 3, "Should have 3 future Rashi transits for Pluto");
+
+    // Test all 12 planets generate valid non-empty transits and are sorted ascending
+    const allPlanets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu", "Uranus", "Neptune", "Pluto"];
+    for (const p of allPlanets) {
+        const tr = getPlanetTransits(p, refDate);
+        assert.ok(tr.past.some(e => e.type === 'rashi'), `${p} should have past Rashi transits`);
+        assert.ok(tr.future.some(e => e.type === 'rashi'), `${p} should have future Rashi transits`);
+        assert.ok(tr.past.some(e => e.type === 'nakshatra'), `${p} should have past Nakshatra transits`);
+        assert.ok(tr.future.some(e => e.type === 'nakshatra'), `${p} should have future Nakshatra transits`);
+
+        // Assert past events are sorted in ascending chronological order
+        for (let i = 0; i < tr.past.length - 1; i++) {
+            assert.ok(
+                tr.past[i].date.getTime() <= tr.past[i + 1].date.getTime(),
+                `${p} past events should be in ascending chronological order`
+            );
+        }
+
+        // Assert future events are sorted in ascending chronological order
+        for (let i = 0; i < tr.future.length - 1; i++) {
+            assert.ok(
+                tr.future[i].date.getTime() <= tr.future[i + 1].date.getTime(),
+                `${p} future events should be in ascending chronological order`
+            );
+        }
+    }
 });
 
 import { getFutureCombustions } from './astrology.ts';

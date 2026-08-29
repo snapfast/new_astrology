@@ -237,20 +237,86 @@ export const NAKSHATRA_NAMES = [
 
 const NAKSHATRAS = NAKSHATRA_NAMES.map(n => n.name);
 
-export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string } } = {
-    "Sun": { name: "Sun", sanskrit: "सूर्य" },
-    "Moon": { name: "Moon", sanskrit: "चंद्र" },
-    "Mars": { name: "Mars", sanskrit: "मंगल" },
-    "Mercury": { name: "Mercury", sanskrit: "बुध" },
-    "Jupiter": { name: "Jupiter", sanskrit: "गुरु" },
-    "Venus": { name: "Venus", sanskrit: "शुक्र" },
-    "Saturn": { name: "Saturn", sanskrit: "शनि" },
-    "Rahu": { name: "Rahu", sanskrit: "राहु" },
-    "Ketu": { name: "Ketu", sanskrit: "केतु" },
-    "Uranus": { name: "Uranus", sanskrit: "अरुण" },
-    "Neptune": { name: "Neptune", sanskrit: "वरुण" },
-    "Pluto": { name: "Pluto", sanskrit: "यम" },
-    "Ascendant": { name: "Ascendant", sanskrit: "लग्न" }
+export const PLANET_NAMES: { [key: string]: { name: string, sanskrit: string, symbol?: string } } = {
+    "Sun": { name: "Sun", sanskrit: "सूर्य", symbol: "Su" },
+    "Moon": { name: "Moon", sanskrit: "चंद्र", symbol: "Mo" },
+    "Mars": { name: "Mars", sanskrit: "मंगल", symbol: "Ma" },
+    "Mercury": { name: "Mercury", sanskrit: "बुध", symbol: "Me" },
+    "Jupiter": { name: "Jupiter", sanskrit: "गुरु", symbol: "Ju" },
+    "Venus": { name: "Venus", sanskrit: "शुक्र", symbol: "Ve" },
+    "Saturn": { name: "Saturn", sanskrit: "शनि", symbol: "Sa" },
+    "Rahu": { name: "Rahu", sanskrit: "राहु", symbol: "Ra" },
+    "Ketu": { name: "Ketu", sanskrit: "केतु", symbol: "Ke" },
+    "Uranus": { name: "Uranus", sanskrit: "अरुण", symbol: "Ur" },
+    "Neptune": { name: "Neptune", sanskrit: "वरुण", symbol: "Ne" },
+    "Pluto": { name: "Pluto", sanskrit: "यम", symbol: "Pl" },
+    "Ascendant": { name: "Ascendant", sanskrit: "लग्न", symbol: "As" }
+};
+
+export const COMBUSTION_ORB_LIMITS: Record<string, { direct: number; retro?: number }> = {
+    "Mercury": { direct: 14, retro: 12 },
+    "Venus": { direct: 10, retro: 8 },
+    "Mars": { direct: 17 },
+    "Jupiter": { direct: 11 },
+    "Saturn": { direct: 15 }
+};
+
+export const RETROGRADE_INSIGHTS: Record<string, { summary: string; guidance: string }> = {
+    "Mercury": {
+        summary: "Retrograde Budha urges slowing down mental speed, reviewing contracts, verifying communication, and backing up digital work.",
+        guidance: "Double-check travel plans, re-read documents before signing, and avoid hasty verbal commitments."
+    },
+    "Venus": {
+        summary: "Retrograde Shukra turns focus inward on relationship values, artistic expression, financial structures, and self-worth.",
+        guidance: "Re-evaluate personal boundaries, avoid impulsive luxury expenditures, and resolve past relationship matters."
+    },
+    "Mars": {
+        summary: "Retrograde Mangala redirects physical energy, ambition, and drive, encouraging strategic planning over brute force.",
+        guidance: "Manage anger or impatience, refrain from starting major aggressive ventures, and channel energy into physical wellness."
+    },
+    "Jupiter": {
+        summary: "Retrograde Guru prompts reflection on personal ethics, higher learning, spiritual beliefs, and long-term expansion.",
+        guidance: "Review financial plans, deepen spiritual practices, and re-examine wisdom gained from past life experiences."
+    },
+    "Saturn": {
+        summary: "Retrograde Shani emphasizes auditing karmic responsibilities, discipline, career structures, and long-term commitments.",
+        guidance: "Focus on duty, patient effort, and completing unfinished responsibilities without taking shortcuts."
+    },
+    "Uranus": {
+        summary: "Retrograde Uranus brings internal innovation, reassessment of personal freedom, and processing of recent breakthroughs.",
+        guidance: "Reflect on personal authenticity and adapt to shifting circumstances with flexibility."
+    },
+    "Neptune": {
+        summary: "Retrograde Neptune dissolves illusions, heightening intuitive perception and spiritual clarity.",
+        guidance: "Trust inner instincts, stay grounded in practical reality, and embrace creative inspiration."
+    },
+    "Pluto": {
+        summary: "Retrograde Pluto encourages deep inner transformation, shedding outdated power dynamics, and emotional renewal.",
+        guidance: "Release control over unchangeable past events and focus on personal empowerment."
+    }
+};
+
+export const COMBUSTION_INSIGHTS: Record<string, { summary: string; guidance: string }> = {
+    "Mercury": {
+        summary: "Combust Budha (Asta) near the Sun can cause mental over-thinking or temporary ego clashes in communication.",
+        guidance: "Practice mindful speech, avoid intellectual debate for ego, and focus internal logic toward research."
+    },
+    "Venus": {
+        summary: "Combust Shukra (Asta) conceals outer charm, inviting deeper reflection on genuine affection and inner fulfillment.",
+        guidance: "Prioritize emotional depth over surface appeal and practice unconditional devotion."
+    },
+    "Mars": {
+        summary: "Combust Mangala (Asta) intensifies internal heat and drive, requiring mindful management of ego and energy.",
+        guidance: "Channel intensity into constructive, solitary discipline rather than confrontational disputes."
+    },
+    "Jupiter": {
+        summary: "Combust Guru (Asta) can obscure external mentorship, encouraging reliance on inner wisdom and righteousness.",
+        guidance: "Seek answers through self-study, maintain humility, and uphold righteous conduct."
+    },
+    "Saturn": {
+        summary: "Combust Shani (Asta) tests patience and humility while purifying karmic duties under the solar beam.",
+        guidance: "Remain patient with delayed rewards, practice selfless service, and stay committed to daily routines."
+    }
 };
 
 const TITHI_NAMES = [
@@ -499,6 +565,7 @@ function getRotationMatrix(time: Ast.AstroTime): Ast.RotationMatrix {
  * Calculates the True Spica Ayanamsa (calculating Spica/Chitra at exactly 180°).
  * This ensures absolute precision matching the Swiss Ephemeris and traditional standard benchmarks.
  */
+const ayanamsaCache = new Map<number, number>();
 function getLahiriAyanamsa(time: Ast.AstroTime): number {
     const key = time.ut;
     const cached = ayanamsaCache.get(key);
@@ -750,7 +817,7 @@ function calculatePlanetaryAndDivisionalData(
         const planetRasiIdx = Math.floor(siderealLong / 30);
         const house = ((planetRasiIdx - lagnaRasiIdx + 12) % 12) + 1;
 
-        const isCombust = (p.name !== "Sun" && p.name !== "Moon") ? isPlanetCombustAt(p.name, p.body, time) : false;
+        const isCombust = (p.name !== "Sun" && p.name !== "Moon") ? isPlanetCombustAt(p.name, p.body, time, siderealLong, isRetro, sunSiderealLong) : false;
 
         planetData.push(createPlanet(p.name, p.symbol, siderealLong, house, isRetro, isCombust));
         assignToCharts(p.symbol, siderealLong, isRetro, isCombust);
@@ -2416,6 +2483,7 @@ export interface PlanetTransits {
     planet: string;
     past: TransitEvent[];
     future: TransitEvent[];
+    current?: PlanetData;
 }
 
 interface PlanetState {
@@ -2424,7 +2492,13 @@ interface PlanetState {
     isRetro: boolean;
 }
 
+const planetLongCache = new Map<string, { long: number, isRetro: boolean }>();
 function getPlanetLongAndMotion(planet: string, body: Ast.Body | null, time: Ast.AstroTime): { long: number, isRetro: boolean } {
+    const cacheKey = `${planet}_${time.ut}`;
+    if (planetLongCache.has(cacheKey)) {
+        return planetLongCache.get(cacheKey)!;
+    }
+
     const ayanamsa = getLahiriAyanamsa(time);
     let long = 0;
     let isRetro = false;
@@ -2445,7 +2519,14 @@ function getPlanetLongAndMotion(planet: string, body: Ast.Body | null, time: Ast
     }
 
     const siderealLong = (long - ayanamsa + 360) % 360;
-    return { long: siderealLong, isRetro };
+    const result = { long: siderealLong, isRetro };
+
+    if (planetLongCache.size >= 200) {
+        const firstKey = planetLongCache.keys().next().value;
+        if (firstKey !== undefined) planetLongCache.delete(firstKey);
+    }
+    planetLongCache.set(cacheKey, result);
+    return result;
 }
 
 function getPlanetStateAt(planet: string, body: Ast.Body | null, time: Ast.AstroTime): PlanetState {
@@ -2489,18 +2570,22 @@ function getFutureTransitsForPlanet(
     maxSteps: number
 ): TransitEvent[] {
     const events: TransitEvent[] = [];
+    let rashiCount = 0;
+    let nakshatraCount = 0;
+    let motionCount = 0;
+
     let prevDate = new Date(refDate);
     let prevTime = Ast.MakeTime(prevDate);
     let prevState = getPlanetStateAt(planet, body, prevTime);
 
-    for (let step = 1; step <= maxSteps && events.length < 3; step++) {
+    for (let step = 1; step <= maxSteps && (rashiCount < 3 || nakshatraCount < 3); step++) {
         const currDate = new Date(refDate.getTime() + step * stepDays * 24 * 60 * 60 * 1000);
         const currTime = Ast.MakeTime(currDate);
         const currState = getPlanetStateAt(planet, body, currTime);
 
         const stepEvents: TransitEvent[] = [];
 
-        if (currState.rashi !== prevState.rashi) {
+        if (currState.rashi !== prevState.rashi && rashiCount < 3) {
             const exactDate = bisectTransit(planet, body, 'rashi', prevDate, currDate, prevState.rashi);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2520,7 +2605,7 @@ function getFutureTransitsForPlanet(
             }
         }
 
-        if (currState.nakshatra !== prevState.nakshatra) {
+        if (currState.nakshatra !== prevState.nakshatra && nakshatraCount < 3) {
             const exactDate = bisectTransit(planet, body, 'nakshatra', prevDate, currDate, prevState.nakshatra);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2540,7 +2625,7 @@ function getFutureTransitsForPlanet(
             }
         }
 
-        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu") {
+        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu" && motionCount < 3) {
             if (currState.isRetro !== prevState.isRetro) {
                 const exactDate = bisectTransit(planet, body, 'motion', prevDate, currDate, prevState.isRetro);
                 const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
@@ -2565,8 +2650,15 @@ function getFutureTransitsForPlanet(
         if (stepEvents.length > 0) {
             stepEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
             for (const ev of stepEvents) {
-                if (events.length < 3) {
+                if (ev.type === 'rashi' && rashiCount < 3) {
                     events.push(ev);
+                    rashiCount++;
+                } else if (ev.type === 'nakshatra' && nakshatraCount < 3) {
+                    events.push(ev);
+                    nakshatraCount++;
+                } else if (ev.type === 'motion' && motionCount < 3) {
+                    events.push(ev);
+                    motionCount++;
                 }
             }
         }
@@ -2587,18 +2679,22 @@ function getPastTransitsForPlanet(
     maxSteps: number
 ): TransitEvent[] {
     const events: TransitEvent[] = [];
+    let rashiCount = 0;
+    let nakshatraCount = 0;
+    let motionCount = 0;
+
     let prevDate = new Date(refDate);
     let prevTime = Ast.MakeTime(prevDate);
     let prevState = getPlanetStateAt(planet, body, prevTime);
 
-    for (let step = 1; step <= maxSteps && events.length < 3; step++) {
+    for (let step = 1; step <= maxSteps && (rashiCount < 3 || nakshatraCount < 3); step++) {
         const currDate = new Date(refDate.getTime() - step * stepDays * 24 * 60 * 60 * 1000);
         const currTime = Ast.MakeTime(currDate);
         const currState = getPlanetStateAt(planet, body, currTime);
 
         const stepEvents: TransitEvent[] = [];
 
-        if (currState.rashi !== prevState.rashi) {
+        if (currState.rashi !== prevState.rashi && rashiCount < 3) {
             const exactDate = bisectTransit(planet, body, 'rashi', currDate, prevDate, currState.rashi);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2618,7 +2714,7 @@ function getPastTransitsForPlanet(
             }
         }
 
-        if (currState.nakshatra !== prevState.nakshatra) {
+        if (currState.nakshatra !== prevState.nakshatra && nakshatraCount < 3) {
             const exactDate = bisectTransit(planet, body, 'nakshatra', currDate, prevDate, currState.nakshatra);
             const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
             const tPlus = Ast.MakeTime(new Date(exactDate.getTime() + 15 * 60 * 1000));
@@ -2638,7 +2734,7 @@ function getPastTransitsForPlanet(
             }
         }
 
-        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu") {
+        if (planet !== "Sun" && planet !== "Moon" && planet !== "Rahu" && planet !== "Ketu" && motionCount < 3) {
             if (currState.isRetro !== prevState.isRetro) {
                 const exactDate = bisectTransit(planet, body, 'motion', currDate, prevDate, currState.isRetro);
                 const tMinus = Ast.MakeTime(new Date(exactDate.getTime() - 15 * 60 * 1000));
@@ -2661,10 +2757,17 @@ function getPastTransitsForPlanet(
         }
 
         if (stepEvents.length > 0) {
-            stepEvents.sort((a, b) => b.date.getTime() - a.date.getTime());
+            stepEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
             for (const ev of stepEvents) {
-                if (events.length < 3) {
+                if (ev.type === 'rashi' && rashiCount < 3) {
                     events.push(ev);
+                    rashiCount++;
+                } else if (ev.type === 'nakshatra' && nakshatraCount < 3) {
+                    events.push(ev);
+                    nakshatraCount++;
+                } else if (ev.type === 'motion' && motionCount < 3) {
+                    events.push(ev);
+                    motionCount++;
                 }
             }
         }
@@ -2747,10 +2850,18 @@ export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTr
     past.sort((a, b) => a.date.getTime() - b.date.getTime());
     future.sort((a, b) => a.date.getTime() - b.date.getTime());
 
+    // Calculate detailed current position
+    const refAstroTime = Ast.MakeTime(referenceDate);
+    const { long: siderealLong, isRetro } = getPlanetLongAndMotion(planet, body, refAstroTime);
+    const sunLong = getPlanetLongAndMotion("Sun", null, refAstroTime).long;
+    const isComb = (planet !== "Sun" && planet !== "Moon" && body !== null) ? isPlanetCombustAt(planet, body, refAstroTime, siderealLong, isRetro, sunLong) : false;
+    const currentPlanetData = createPlanet(planet, PLANET_NAMES[planet]?.symbol || planet.slice(0, 2), siderealLong, 1, isRetro, isComb);
+
     return {
         planet,
         past,
-        future
+        future,
+        current: currentPlanetData
     };
 }
 
@@ -2761,9 +2872,30 @@ export interface CombustionPeriod {
     isCurrent: boolean;
 }
 
-function isPlanetCombustAt(planet: string, body: Ast.Body, time: Ast.AstroTime): boolean {
-    const sunLong = getPlanetLongAndMotion("Sun", null, time).long;
-    const { long: planetLong, isRetro } = getPlanetLongAndMotion(planet, body, time);
+function isPlanetCombustAt(
+    planet: string,
+    body: Ast.Body,
+    time: Ast.AstroTime,
+    precomputedLong?: number,
+    precomputedIsRetro?: boolean,
+    precomputedSunLong?: number
+): boolean {
+    // Optimization: Skip expensive coordinate and retrograde recalculations if parameters are precomputed
+    const sunLong = precomputedSunLong !== undefined
+        ? precomputedSunLong
+        : getPlanetLongAndMotion("Sun", null, time).long;
+
+    let planetLong: number;
+    let isRetro: boolean;
+
+    if (precomputedLong !== undefined && precomputedIsRetro !== undefined) {
+        planetLong = precomputedLong;
+        isRetro = precomputedIsRetro;
+    } else {
+        const res = getPlanetLongAndMotion(planet, body, time);
+        planetLong = res.long;
+        isRetro = res.isRetro;
+    }
 
     const diff = Math.min(Math.abs(planetLong - sunLong), 360 - Math.abs(planetLong - sunLong));
 

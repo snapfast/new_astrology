@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import Link from 'next/link';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,10 +13,10 @@ const TRANSLATIONS = {
     durationBadge: "30 Mins",
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
-    suggestedPayments: "Pay after the session. No upfront payment needed.",
     meetBtn: "Schedule Now",
-    viewPayments: "Support & Donate",
     closeModal: "Close modal",
+    useOfService: "Compassionate Kundli Analysis: A safe, supportive space to explore your unique birth chart and understand the planetary influences shaping your current life path.",
+    howItBenefits: "Clarity & Inner Peace: Gain deep comfort, absolute clarity, and practical, time-tested remedies to overcome anxieties and welcome positive changes.",
     highlights: [
       "Birth Chart (Kundli) Analysis",
       "Career & Wealth Guidance",
@@ -90,9 +89,20 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             </div>
           </div>
 
-          {/* Pricing Disclaimer */}
-          <div className="bg-accent/20 p-3 rounded-xl text-on-surface/90 font-body leading-relaxed text-xs">
-            {t.suggestedPayments}
+          {/* Service Details & Benefits (2 empathetic pointers) */}
+          <div className="bg-surface-bright/50 border border-outline/10 p-3.5 rounded-2xl space-y-3">
+            <div className="flex gap-2.5 items-start">
+              <span className="material-symbols-outlined text-accent text-lg shrink-0 mt-0.5" aria-hidden="true">explore</span>
+              <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
+                <strong>{t.useOfService.split(':')[0]}:</strong>{t.useOfService.substring(t.useOfService.indexOf(':') + 1)}
+              </p>
+            </div>
+            <div className="flex gap-2.5 items-start">
+              <span className="material-symbols-outlined text-accent text-lg shrink-0 mt-0.5" aria-hidden="true">sentiment_satisfied</span>
+              <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
+                <strong>{t.howItBenefits.split(':')[0]}:</strong>{t.howItBenefits.substring(t.howItBenefits.indexOf(':') + 1)}
+              </p>
+            </div>
           </div>
 
           {/* Actions */}
@@ -106,19 +116,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             >
               {t.meetBtn}
             </ScheduleButton>
-
-            <Link
-              href="/donate"
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'modal_view_donate' });
-                onClose();
-              }}
-              className={`block w-full text-center font-medium transition-colors ${
-                lang === 'hi' ? 'text-xs text-on-surface/70 hover:text-primary' : 'text-xs uppercase tracking-[0.15em] text-on-surface/60 hover:text-primary'
-              }`}
-            >
-              {t.viewPayments}
-            </Link>
           </div>
         </div>
 

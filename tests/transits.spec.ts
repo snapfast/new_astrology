@@ -36,19 +36,18 @@ test('Transits page renders all twelve planets and future transits', async ({ pa
   await dateInput.fill('2025-05-15');
   await timeInput.fill('10:30');
 
-  // Verify that future transits label exists
-  await expect(page.locator('h4')).toContainText(['Upcoming Transits']);
+  // Verify 2-column transit headers exist (Rashi Transits & Nakshatra Transits)
+  await expect(page.locator('h4', { hasText: 'Rashi Transits' }).first()).toBeVisible();
+  await expect(page.locator('h4', { hasText: 'Nakshatra Transits' }).first()).toBeVisible();
 
-  // Verify that past movements label does NOT exist
-  await expect(page.locator('h4')).not.toContainText(['Past 3 Movements']);
-
-  // Change filter to "Sun" and verify only Sun is displayed in transit cards
+  // Change filter to "Sun" and verify only Sun is displayed in transit cards grid
   await filterSelect.selectOption('Sun');
-  await expect(transitTitles).toContainText(['Sun']);
-  await expect(transitTitles).not.toContainText(['Moon']);
+  const gridCardTitles = page.locator('[data-testid="transits-grid"] [data-testid="transit-card-title"]');
+  await expect(gridCardTitles).toContainText(['Sun']);
+  await expect(gridCardTitles).not.toContainText(['Moon']);
 
-  // Change filter to "Moon" and verify only Moon is displayed in transit cards
+  // Change filter to "Moon" and verify only Moon is displayed in transit cards grid
   await filterSelect.selectOption('Moon');
-  await expect(transitTitles).toContainText(['Moon']);
-  await expect(transitTitles).not.toContainText(['Sun']);
+  await expect(gridCardTitles).toContainText(['Moon']);
+  await expect(gridCardTitles).not.toContainText(['Sun']);
 });

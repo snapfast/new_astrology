@@ -11,8 +11,6 @@ const TRANSLATIONS = {
   en: {
     subtitle: 'SACRED VEDIC ASTROLOGY · JYOTISH SHASTRA',
     title: 'Pandit Rahul Bali Ji',
-    desc1: 'Profound Vedic astrology readings and authoritative spiritual consultations rooted in an esteemed Brahmin lineage and sacred astrological traditions.',
-    desc2: 'Gurugram, India.',
     bookBtn: 'Book a Consultation',
     learnBtn: 'Learn More',
     charts: 'Charts',
@@ -28,32 +26,29 @@ const Hero = () => {
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
-      <div className="concentric-circles animate-slow-spin">
-        <div className="circle-dashed w-[400px] h-[400px]"></div>
-        <div className="circle-dashed w-[600px] h-[600px]"></div>
-        <div className="circle-dashed w-[800px] h-[800px]">
-           {/* Decorative dot on the outer circle */}
-           <div className="absolute top-1/2 -right-1.5 w-3 h-3 bg-accent rounded-full border-4 border-background"></div>
+      <div className="concentric-circles">
+        <div className="circle-dashed w-[400px] h-[400px] animate-spin-20s">
+          {/* Red dot on the inner circle at 9 o'clock */}
+          <div className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-3 h-3 bg-[#FF0000] rounded-full border-4 border-background"></div>
+        </div>
+        <div className="circle-dashed w-[600px] h-[600px] animate-spin-30s">
+          {/* Black dot on the middle circle at 6 o'clock */}
+          <div className="absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-3 h-3 bg-[#000000] rounded-full border-4 border-background"></div>
+        </div>
+        <div className="circle-dashed w-[800px] h-[800px] animate-spin-45s">
+          {/* Golden/accent dot on the outer circle at 3 o'clock */}
+          <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-accent rounded-full border-4 border-background"></div>
         </div>
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center py-20 md:py-32 mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
-          <span className={`font-medium text-accent mb-3 font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
-            {t.subtitle}
-          </span>
-          <span className="text-lg md:text-2xl text-accent font-hindi">
+          <span className="text-lg md:text-2xl text-accent font-hindi mb-3">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
-        </div>
-
-        <div className="max-w-md mx-auto mb-12">
-          <p className={`text-on-surface font-body leading-relaxed mb-1 ${lang === 'hi' ? 'text-lg' : 'text-base'}`}>
-            {t.desc1}
-          </p>
-          <p className={`text-on-surface font-body ${lang === 'hi' ? 'text-base' : 'text-sm'}`}>
-            {t.desc2}
-          </p>
+          <span className={`font-medium text-accent font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
+            {t.subtitle}
+          </span>
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">

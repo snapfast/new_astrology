@@ -743,14 +743,6 @@ const HoroscopeContent = () => {
                 </span>
                 {t.moreVargas}
               </h3>
-              <span
-                className={cn(
-                  "material-symbols-outlined text-2xl text-on-surface/60 transition-transform duration-300",
-                  moreVargasExpanded ? "rotate-180" : "",
-                )}
-              >
-                expand_more
-              </span>
             </button>
 
             <div

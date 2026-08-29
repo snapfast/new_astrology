@@ -18,11 +18,6 @@ test('Reviews page CTA section is visible and functional', async ({ page }) => {
   const bookBtn = page.getByRole('button', { name: /Book 1-on-1/i }).first();
   await expect(bookBtn).toBeVisible();
 
-  // Verify Donate link is visible and correct
-  const donateLink = page.getByRole('link', { name: /Support & Donate/i }).first();
-  await expect(donateLink).toBeVisible();
-  await expect(donateLink).toHaveAttribute('href', '/donate');
-
   // Take a full-page screenshot of the reviews CTA
   await page.screenshot({ path: '/home/jules/verification/reviews_page_cta.png', fullPage: true });
 });

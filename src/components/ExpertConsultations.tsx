@@ -9,30 +9,30 @@ interface ExpertConsultationsProps {
 
 const TRANSLATIONS = {
   en: {
-    prep: "Journey to Clarity",
+    prep: "Step-by-Step Guide",
     title: "How it Works",
-    desc: "A seamless path to receiving personalized spiritual guidance and life-changing astrological insights.",
+    desc: "A simple process to get clear astrological guidance and remedies for your life.",
     bookNow: "Book Your Session Now",
     guidelines: [
       {
         id: "booking-process",
-        title: "Instant Booking",
-        description: "Secure your 30-minute private session instantly through our integrated calendar. Choose a time that works best for you."
+        title: "Book a Session",
+        description: "Book your 30-minute online consultation easily. Choose a date and time that suits you."
       },
       {
         id: "required-details",
-        title: "Birth Details",
-        description: "To decode your karmic map accurately, we require your exact date, time, and place of birth during the scheduling process."
+        title: "Provide Birth Details",
+        description: "To read your Kundli accurately, we need your exact date, time, and place of birth when you book."
       },
       {
         id: "prepare-questions",
-        title: "Focused Areas",
-        description: "Think about the specific areas—career, relationships, or health—where you seek the most clarity to make our session deeply impactful."
+        title: "Prepare Your Questions",
+        description: "Note down specific questions about your career, marriage, health, or personal life that you want to ask during the call."
       },
       {
         id: "open-mindset",
-        title: "Transformative Insight",
-        description: "Approach our session with an open heart. You will receive guidance that empowers you to navigate life's challenges with confidence."
+        title: "Get Clear Guidance",
+        description: "Join the call with an open mind. You will receive clear answers and practical remedies for your problems."
       }
     ]
   }};

@@ -21,7 +21,6 @@ const TRANSLATIONS = {
     contact: 'Contact',
     bookNow: 'Book Now',
     bookConsultation: 'Book a Consultation Now',
-    location: 'Gurugram, India',
     switchLanguage: 'Switch Language / भाषा बदलें',
     openMenu: 'Open Menu',
     closeMenu: 'Close Menu',
@@ -131,7 +130,6 @@ const Navbar = () => {
                     }`}
                   >
                     {link.name}
-                    <span className="material-symbols-outlined !text-lg" aria-hidden="true">expand_more</span>
                   </button>
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-outline/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
@@ -262,9 +260,6 @@ const Navbar = () => {
           </button>
 
           <div className="flex flex-col items-center mt-8 gap-2">
-            <p className="text-[11px] text-on-surface font-body tracking-wider uppercase">
-              {t.location}
-            </p>
             <p className="text-lg text-accent font-hindi">
               ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>

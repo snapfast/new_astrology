@@ -1,17 +1,11 @@
+/* eslint-disable @next/next/google-font-preconnect */
 import type { Metadata } from "next";
-import { Poppins, Akshar } from "next/font/google";
+import { Akshar } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 const akshar = Akshar({
   subsets: ["latin", "devanagari"],
@@ -86,7 +80,7 @@ export default async function RootLayout({
       <head>
         {/* Speed Optimizations: Preconnect & DNS Prefetch to establish early connections */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -110,7 +104,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <LanguageProvider>
           <JsonLd
