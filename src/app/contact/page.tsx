@@ -4,17 +4,17 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online. Connect for accurate Kundli readings and remedies.",
+  description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations online. Connect for accurate Kundli readings and remedies.",
   keywords: [
     "Contact Rahul Bali", "Astrologer phone number", "book astrology consultation",
-    "Rahul Bali Gurgaon address", "Gurugram astrologer contact", "astrology email support"
+    "Rahul Bali address", "astrology email support"
   ],
   alternates: {
     canonical: "https://astro.rahulbali.in/contact",
   },
   openGraph: {
     title: "Contact | Rahul Bali Astrology",
-    description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online.",
+    description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations online.",
     url: "https://astro.rahulbali.in/contact",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Contact | Rahul Bali Astrology",
-    description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations in Gurugram or online.",
+    description: "Get in touch with Pandit Rahul Bali Ji for Vedic astrology consultations online.",
     images: ["/og-image.png"],
   },
 };
@@ -48,8 +48,8 @@ export default function ContactPage() {
       "email": "rahulbaliastrology@gmail.com",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Gurugram",
-        "addressLocality": "Gurugram",
+        "streetAddress": "India",
+        "addressLocality": "India",
         "addressRegion": "Haryana",
         "postalCode": "122001",
         "addressCountry": "IN"

@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 const TRANSLATIONS = {
   en: {
     quote: '"Astrology is a sacred science of light; it is about illuminating the karmic blueprint of your soul through divine wisdom and ancient Brahmin traditions."',
-    para1: 'Pandit Rahul Bali Ji is a highly revered Vedic Astrologer based in <strong>Gurugram (Gurgaon)</strong>, specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Upholding a prestigious Brahmin heritage, he provides exceptionally precise birth chart analysis and profound spiritual remedies for career, relationships, and health.',
+    para1: 'Pandit Rahul Bali Ji is a highly revered Vedic Astrologer specializing in <strong>Jyotish Shastra</strong>, <strong>Parashara</strong>, and <strong>Jaimini</strong> systems. Upholding a prestigious Brahmin heritage, he provides exceptionally precise birth chart analysis and profound spiritual remedies for career, relationships, and health.',
     para2: 'His masterful approach seamlessly unites ancient sacred wisdom with modern clarity, utilizing high-precision <strong>Lahiri Ayanamsa</strong> for every calculation. Every authoritative prediction and remedy is deeply rooted in authentic karmic patterns to empower you with absolute confidence and transformative insights.',
     para3: 'With an esteemed global reach extending from <strong>India</strong> to <strong>Indonesia</strong> and beyond, his unparalleled expertise has guided countless souls toward ultimate clarity. Every shared testimonial reflects genuine, undeniable success.',
     corePrinciples: 'Core Principles',
