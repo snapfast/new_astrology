@@ -51,33 +51,41 @@ const Hero = () => {
           </span>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
-          <button
-            onClick={() => {
-              sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
-              setIsBookingModalOpen(true);
-            }}
-            className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-              lang === 'hi'
-                ? 'text-[13px] md:text-[15px] tracking-normal'
-                : 'text-[10px] md:text-xs tracking-[0.1em]'
-            }`}
-          >
-            {t.bookBtn}
-          </button>
-          <button
-            onClick={() => {
-              sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
-              setIsModalOpen(true);
-            }}
-            className={`btn-secondary px-10 py-4 font-medium uppercase font-label ${
-              lang === 'hi'
-                ? 'text-[13px] md:text-[15px] tracking-normal'
-                : 'text-[10px] md:text-xs tracking-[0.1em]'
-            }`}
-          >
-            {t.learnBtn}
-          </button>
+        <div className="flex flex-col items-center gap-4 mb-16">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
+                setIsBookingModalOpen(true);
+              }}
+              className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                lang === 'hi'
+                  ? 'text-[13px] md:text-[15px] tracking-normal'
+                  : 'text-[10px] md:text-xs tracking-[0.1em]'
+              }`}
+            >
+              {t.bookBtn}
+            </button>
+            <button
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
+                setIsModalOpen(true);
+              }}
+              className={`btn-secondary px-10 py-4 font-medium uppercase font-label ${
+                lang === 'hi'
+                  ? 'text-[13px] md:text-[15px] tracking-normal'
+                  : 'text-[10px] md:text-xs tracking-[0.1em]'
+              }`}
+            >
+              {t.learnBtn}
+            </button>
+          </div>
+
+          <div className="mt-4">
+            <span className="animate-blink-colors font-bold text-lg tracking-wider drop-shadow-md capitalize">
+              No Hidden Charges
+            </span>
+          </div>
         </div>
 
         {/* Trust Signals */}
