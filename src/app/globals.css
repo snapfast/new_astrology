@@ -258,12 +258,19 @@ textarea::placeholder {
   transform: translateY(-2px) scale(1.02);
 }
 
-@keyframes blinkColors {
-  0%, 100% { color: red; opacity: 1; }
-  33% { color: green; opacity: 0.5; }
-  66% { color: yellow; opacity: 1; }
+@keyframes premiumGlow {
+  0%, 100% {
+    opacity: 0.85;
+    text-shadow: 0 0 8px rgba(224, 170, 62, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 16px rgba(224, 170, 62, 0.8);
+    transform: scale(1.02);
+  }
 }
 
-.animate-blink-colors {
-  animation: blinkColors 1.5s infinite;
+.animate-premium-glow {
+  animation: premiumGlow 2.5s ease-in-out infinite;
 }
