@@ -30,7 +30,7 @@ const TRANSLATIONS = {
     para4: "Appointments and financial contributions are governed by clear, centralized rules:",
     list3: [
       "<strong>Duration:</strong> Live 1-on-1 consultations are exactly 30 minutes in duration, conducted via secure video sessions (Google Meet).",
-      "<strong>Suggested Contributions:</strong> Astrological services operate on a voluntary donation model, centralized on our `/donate` page. No upfront payment is required. The suggested donation amounts are clearly outlined in Indian Rupees (INR).",
+      "<strong>Suggested Contributions:</strong> Astrological services operate on a voluntary donation model. No upfront payment is required. The suggested donation amounts are clearly outlined in Indian Rupees (INR).",
       "<strong>Booking Protocol:</strong> Bookings are handled via Calendly. No phone number or upfront payment is needed to schedule."
     ],
     heading5: "5. Intellectual Property",
