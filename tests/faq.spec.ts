@@ -23,7 +23,7 @@ test('FAQ page renders correctly', async ({ page }) => {
 
   // Verify specific questions
   await expect(page.getByRole('heading', { name: 'What are Varga charts and why are they important in Vedic Astrology?' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'What is the Panch Pakshi (or Panch Oakshi) Astrology system?' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'How does the Biorhythm (or Biothytm) tracker assist in self-awareness?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'What is the Panch Pakshi Astrology system?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'How does the Biorhythm tracker assist in self-awareness?' })).toBeVisible();
 
 });
