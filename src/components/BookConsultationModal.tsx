@@ -118,20 +118,6 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             >
               {t.meetBtn}
             </ScheduleButton>
-
-            <Link
-              href="/donate"
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'modal_donate_redirect' });
-                onClose();
-              }}
-              className={`flex items-center justify-center w-full py-2.5 bg-surface text-on-surface/80 border border-outline/20 hover:bg-on-surface/5 transition-all rounded-full font-bold uppercase ${
-                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs tracking-wider'
-              }`}
-            >
-              <span className="material-symbols-outlined text-sm mr-1.5" aria-hidden="true">favorite</span>
-              {t.optionalDonationBtn}
-            </Link>
           </div>
         </div>
 
