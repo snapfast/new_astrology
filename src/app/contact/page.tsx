@@ -48,16 +48,8 @@ export default function ContactPage() {
       "email": "rahulbaliastrology@gmail.com",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "India",
-        "addressLocality": "India",
-        "addressRegion": "Haryana",
-        "postalCode": "122001",
+        "addressLocality": "Online",
         "addressCountry": "IN"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 28.4595,
-        "longitude": 77.0266
       }
     }
   };

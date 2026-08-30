@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     default: "Rahul Bali Astrology",
     template: "%s | Rahul Bali Astrology",
   },
-  description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations to align with your true purpose.",
+  description: "Experience authentic Vedic Astrology with Pandit Rahul Bali Ji. Get precise Kundli (birth chart) readings, horoscope analysis, and actionable spiritual remedies.",
   keywords: ["Vedic Astrology", "Horoscope", "Birth Chart", "Spiritual Consultation", "Pandit Rahul Bali", "Astrology Readings", "Kundli", "Jyotish"],
   authors: [{ name: "Pandit Rahul Bali" }],
   creator: "Pandit Rahul Bali",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Rahul Bali Astrology",
-    description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
+    description: "Experience authentic Vedic Astrology with Pandit Rahul Bali Ji. Get precise Kundli (birth chart) readings, horoscope analysis, and actionable spiritual remedies.",
     url: "https://astro.rahulbali.in",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Rahul Bali Astrology",
-    description: "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Get personalized horoscopes, birth chart readings, and spiritual consultations.",
+    description: "Experience authentic Vedic Astrology with Pandit Rahul Bali Ji. Get precise Kundli (birth chart) readings, horoscope analysis, and actionable spiritual remedies.",
     images: ["/og-image.png"],
   },
   robots: {

@@ -11,8 +11,8 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Rahul Bali Astrology",
-  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer. Get accurate Janam Kundli readings, all 17 divisional varga charts, Panch Pakshi (Panch Oakshi) analysis, and Biorhythm (Biothytm) cycles.",
+  title: "Best Vedic Astrologer Online | Pandit Rahul Bali Astrology",
+  description: "Consult Pandit Rahul Bali Ji, a trusted online Vedic Astrologer. Discover accurate Janam Kundli readings, all 17 Varga charts, Panchang, and spiritual guidance.",
   keywords: [
     "Rahul Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
     "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
@@ -39,16 +39,8 @@ export default function Home() {
     "priceRange": "₹ - ₹₹₹",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "India",
-      "addressLocality": "India",
-      "addressRegion": "Haryana",
-      "postalCode": "122001",
+      "addressLocality": "Online",
       "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 28.4595,
-      "longitude": 77.0266
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -70,7 +62,7 @@ export default function Home() {
       "https://www.linkedin.com/in/rahulbaliastrology/",
       "https://www.threads.net/@rahulbaliastro"
     ],
-    "description": "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Specialist in Janam Kundli, career, and relationship consultations.",
+    "description": "Pandit Rahul Bali Ji is a renowned online Vedic Astrologer providing precise Kundli readings, spiritual guidance, and relationship consultations.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
