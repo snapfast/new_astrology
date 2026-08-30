@@ -4,6 +4,7 @@ import { Akshar } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
@@ -27,6 +28,9 @@ export const metadata: Metadata = {
   publisher: "Rahul Bali Astrology",
   alternates: {
     canonical: "https://astro.rahulbali.in",
+    languages: {
+      "en-US": "https://astro.rahulbali.in",
+    },
   },
   formatDetection: {
     email: false,
@@ -129,6 +133,7 @@ export default async function RootLayout({
               "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology, providing personalized horoscopes and spiritual consultations."
             }}
           />
+          <Breadcrumbs />
           {children}
           <BackToTop />
         </LanguageProvider>

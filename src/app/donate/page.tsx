@@ -3,6 +3,7 @@ import DonateClientPage from './DonateClientPage';
 
 export const metadata: Metadata = {
   title: "Donate",
+  robots: { index: false, follow: false },
   description: "Support Pandit Rahul Bali Ji's work in Vedic Astrology. Your contributions help maintain this platform and provide free astrological tools to everyone.",
   keywords: [
     "Donate Rahul Bali Astrology", "support free astrology tools", "voluntary contributions",

@@ -46,4 +46,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-panchang-screenshots/
+
+# playwright test screenshots
+/panchang-screenshots/
