@@ -8,7 +8,7 @@ import StarRating from './StarRating';
 const TRANSLATIONS = {
   en: {
     subtitle: "Reviews",
-    title: "Testimonials",
+    title: "Astrology Consultation Reviews for Rahul Bali",
     rating: "5/5 RATING",
     viewOnGoogle: "View on Google",
     prev: "Previous review",

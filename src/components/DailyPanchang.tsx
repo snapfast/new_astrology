@@ -10,7 +10,7 @@ interface DailyPanchangProps {
 
 const TRANSLATIONS = {
   en: {
-    title: "Today's Panchang",
+    title: "Today's Panchang & Daily Astrology",
     viewFull: "View Full Daily Panchang",
     tithi: "Tithi",
     nakshatra: "Nakshatra",

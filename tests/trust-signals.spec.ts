@@ -17,6 +17,6 @@ test('Testimonials section rating is visible', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByText('VEDIC ASTROLOGY · JYOTISH SHASTRA')).toBeVisible();
 
-  await page.locator('text=Testimonials').scrollIntoViewIfNeeded();
+  await page.locator('text=Astrology Consultation Reviews for Rahul Bali').scrollIntoViewIfNeeded();
   await expect(page.getByText('5.0 GOOGLE RATING', { exact: true })).toBeVisible();
 });

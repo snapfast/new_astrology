@@ -7,7 +7,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
-    title: "Generate your Horoscope",
+    title: "Generate Birth Chart Horoscope",
     desc: "Enter your details to unlock a precise map of the stars at the moment of your birth.",
     labelName: "Full Name",
     labelDob: "Date of Birth",

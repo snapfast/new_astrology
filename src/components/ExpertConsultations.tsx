@@ -10,7 +10,7 @@ interface ExpertConsultationsProps {
 const TRANSLATIONS = {
   en: {
     prep: "Step-by-Step Guide",
-    title: "How it Works",
+    title: "Book Your Astrology Consultation",
     desc: "A simple process to get clear astrological guidance and remedies for your life.",
     bookNow: "Book Your Session Now",
     guidelines: [

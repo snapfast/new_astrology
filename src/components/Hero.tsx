@@ -46,9 +46,12 @@ const Hero = () => {
           <span className="text-lg md:text-2xl text-accent font-hindi mb-3">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
-          <span className={`font-medium text-accent font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
+          <span className={`font-medium text-accent font-label mb-4 ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
             {t.subtitle}
           </span>
+          <h1 className="text-4xl md:text-6xl font-headline text-on-surface px-4 leading-tight">
+            Vedic Astrology Consultations by Pandit Rahul Bali
+          </h1>
         </div>
 
         <div className="flex flex-col items-center gap-4 mb-16">
