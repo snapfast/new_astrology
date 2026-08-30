@@ -95,13 +95,23 @@ export default function Home() {
     <main className="min-h-screen">
       <JsonLd data={businessSchema} />
       <Navbar />
-      <Hero />
-      <DailyPanchang className="-mt-20 z-20" />
-      <Suspense fallback={<div className="h-32" />}>
-        <ChartGeneration className="mt-8" />
-      </Suspense>
-      <Testimonials />
-      <ExpertConsultations />
+      <article>
+        <Hero />
+        <section aria-label="Daily Panchang">
+          <DailyPanchang className="-mt-20 z-20" />
+        </section>
+        <section aria-label="Horoscope Generation">
+          <Suspense fallback={<div className="h-32" />}>
+            <ChartGeneration className="mt-8" />
+          </Suspense>
+        </section>
+        <section aria-label="Client Testimonials">
+          <Testimonials />
+        </section>
+        <section aria-label="Expert Astrology Consultations">
+          <ExpertConsultations />
+        </section>
+      </article>
       <Footer />
     </main>
   );
