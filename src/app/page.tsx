@@ -12,7 +12,7 @@ import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
   title: "Rahul Bali Astrology",
-  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer. Get accurate Janam Kundli readings, all 17 divisional varga charts, Panch Pakshi (Panch Oakshi) analysis, and Biorhythm (Biothytm) cycles.",
+  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer. Get accurate Janam Kundli readings, 17 varga charts, Panch Pakshi & Biorhythm.",
   keywords: [
     "Rahul Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
     "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
