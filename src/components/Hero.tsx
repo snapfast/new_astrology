@@ -51,6 +51,10 @@ const Hero = () => {
           </span>
         </div>
 
+        <h1 className="text-5xl md:text-7xl font-normal text-on-surface mb-8 font-headline tracking-tight leading-tight">
+          {t.title}
+        </h1>
+
         <div className="flex flex-col items-center gap-4 mb-16">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <button
