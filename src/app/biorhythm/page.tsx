@@ -3,18 +3,18 @@ import BiorhythmClientPage from './BiorhythmClientPage';
 
 export const metadata: Metadata = {
   title: 'Biorhythm',
-  description: 'Track your physical, emotional, and intellectual biorhythm (Biothytm) cycles. Understand your natural energy peaks and troughs based on your birth date, alongside Panch Pakshi (Panch Oakshi) and Vedic Varga charts analysis.',
+  description: 'Track your physical, emotional, and intellectual Biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date for guidance.',
   keywords: [
-    "Biorhythm Calculator", "Biothytm system", "physical emotional intellectual cycles", "energy cycle tracker",
+    "Biorhythm Calculator", "Biorhythm system", "physical emotional intellectual cycles", "energy cycle tracker",
     "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools",
-    "Panch Pakshi", "Panch Oakshi", "all 17 varga charts", "body biorhythms", "energy flow"
+    "Panch Pakshi", "all 17 varga charts", "body biorhythms", "energy flow"
   ],
   alternates: {
     canonical: "https://astro.rahulbali.in/biorhythm",
   },
   openGraph: {
     title: 'Biorhythm | Rahul Bali Astrology',
-    description: 'Track your physical, emotional, and intellectual biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date.',
+    description: 'Track your physical, emotional, and intellectual Biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date for guidance.',
     url: "https://astro.rahulbali.in/biorhythm",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: 'Biorhythm | Rahul Bali Astrology',
-    description: 'Track your physical, emotional, and intellectual biorhythm cycles. Understand your natural energy peaks and troughs.',
+    description: 'Track your physical, emotional, and intellectual Biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date for guidance.',
     images: ["/og-image.png"],
   },
 };

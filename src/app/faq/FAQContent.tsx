@@ -44,12 +44,12 @@ const TRANSLATIONS = {
         a: "Varga charts are divisional charts. We divide a Rashi (30° zodiac sign) into smaller parts. Each part shows a different area of your life. For example, D9 Navamsha shows marriage and spouse characteristics, D10 Dashamsha shows career and public fame, and D30 Trimsamsa shows health and obstacles. While your main D1 Lagna Kundli shows your physical life, these Varga charts show the inner strength of the Grahas (planets) to give very deep and accurate predictions."
       },
       {
-        q: "What is the Panch Pakshi (or Panch Oakshi) Astrology system?",
-        a: "The Panch Pakshi (sometimes called Panch Oakshi) system is a very powerful five-bird astrology system from South India. It is based on the five main elements (Pancha Mahabhutas). Your birth Nakshatra (lunar mansion) and the Paksha (waxing or waning phase of the Moon) decide which of the 5 birds is your personal bird (Falcon/Vulture, Owl, Crow, Rooster, Peacock). Each bird goes through 5 activities every day: Ruling, Eating, Walking, Sleeping, and Dying. 'Ruling' is when you are strongest, and 'Dying' is when you should avoid starting new work. This is highly useful for picking the best time (Muhurta) for daily activities."
+        q: "What is the Panch Pakshi Astrology system?",
+        a: "The Panch Pakshi system is a very powerful five-bird astrology system from South India. It is based on the five main elements (Pancha Mahabhutas). Your birth Nakshatra (lunar mansion) and the Paksha (waxing or waning phase of the Moon) decide which of the 5 birds is your personal bird (Falcon/Vulture, Owl, Crow, Rooster, Peacock). Each bird goes through 5 activities every day: Ruling, Eating, Walking, Sleeping, and Dying. 'Ruling' is when you are strongest, and 'Dying' is when you should avoid starting new work. This is highly useful for picking the best time (Muhurta) for daily activities."
       },
       {
-        q: "How does the Biorhythm (or Biothytm) tracker assist in self-awareness?",
-        a: "The Biorhythm (often searched as Biothytm) tracker is a way to map your natural life cycles from birth. Just like the Moon has its waxing and waning phases (Shukla and Krishna Paksha), your body and mind also have cycles. The physical cycle is 23 days (good for stamina), the emotional cycle is 28 days (good for feelings and creativity), and the intellectual cycle is 33 days (good for mental focus). By tracking these rising and falling waves, you can plan your important work during peak days and rest when your energies are low."
+        q: "How does the Biorhythm tracker assist in self-awareness?",
+        a: "The Biorhythm tracker is a way to map your natural life cycles from birth. Just like the Moon has its waxing and waning phases (Shukla and Krishna Paksha), your body and mind also have cycles. The physical cycle is 23 days (good for stamina), the emotional cycle is 28 days (good for feelings and creativity), and the intellectual cycle is 33 days (good for mental focus). By tracking these rising and falling waves, you can plan your important work during peak days and rest when your energies are low."
       },
       {
         q: "How are the planet positions (Grahas) and charts calculated on this platform?",

@@ -4,10 +4,10 @@ import FAQContent from './FAQContent';
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional (Varga) charts, Panch Pakshi (Panch Oakshi) system, and physical, emotional, and intellectual Biorhythm (Biothytm) cycles.",
+  description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional Varga charts, Panch Pakshi, and Biorhythm cycles by Pandit Rahul Bali.",
   keywords: [
     "Vedic Astrology FAQ", "all 17 varga charts", "divisional charts in hindi",
-    "Panch Pakshi system", "Panch Oakshi calculator", "Biorhythm system", "Biothytm cycles",
+    "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm cycles",
     "D9 Navamsha usage", "D10 Dashamsha career", "Astrology questions", "Rahul Bali FAQ"
   ],
   alternates: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FAQ | Rahul Bali Astrology",
-    description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional (Varga) charts, Panch Pakshi (Panch Oakshi) system, and physical, emotional, and intellectual Biorhythm (Biothytm) cycles.",
+    description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional Varga charts, Panch Pakshi, and Biorhythm cycles by Pandit Rahul Bali.",
     url: "https://astro.rahulbali.in/faq",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FAQ | Rahul Bali Astrology",
-    description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional (Varga) charts, Panch Pakshi (Panch Oakshi) system, and physical, emotional, and intellectual Biorhythm (Biothytm) cycles.",
+    description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional Varga charts, Panch Pakshi, and Biorhythm cycles by Pandit Rahul Bali.",
     images: ["/og-image.png"],
   },
 };

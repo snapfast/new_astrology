@@ -11,12 +11,12 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Windfall Vedic Astrologer Online | Pandit Rahul Bali Astrology",
+  title: "Best Vedic Astrologer Online | Pandit Rahul Bali Astrology",
   description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer. Get accurate Janam Kundli readings, 17 varga charts, Panch Pakshi & Biorhythm.",
   keywords: [
     "Rahul Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
     "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
-    "Panch Pakshi system", "Panch Oakshi calculator", "Biorhythm system", "Biothytm tracker"
+    "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm tracker"
   ],
   alternates: {
     canonical: "https://astro.rahulbali.in",
