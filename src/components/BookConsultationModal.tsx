@@ -2,6 +2,7 @@
 
 import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
+import Link from 'next/link';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
@@ -14,6 +15,7 @@ const TRANSLATIONS = {
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
     meetBtn: "Schedule Now",
+    optionalDonationBtn: "Optional Donation",
     closeModal: "Close modal",
     useOfService: "Compassionate Kundli Analysis: A safe, supportive space to explore your unique birth chart and understand the planetary influences shaping your current life path.",
     howItBenefits: "Clarity & Inner Peace: Gain deep comfort, absolute clarity, and practical, time-tested remedies to overcome anxieties and welcome positive changes.",
@@ -116,6 +118,20 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             >
               {t.meetBtn}
             </ScheduleButton>
+
+            <Link
+              href="/donate"
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'modal_donate_redirect' });
+                onClose();
+              }}
+              className={`flex items-center justify-center w-full py-2.5 bg-surface text-on-surface/80 border border-outline/20 hover:bg-on-surface/5 transition-all rounded-full font-bold uppercase ${
+                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs tracking-wider'
+              }`}
+            >
+              <span className="material-symbols-outlined text-sm mr-1.5" aria-hidden="true">favorite</span>
+              {t.optionalDonationBtn}
+            </Link>
           </div>
         </div>
 
