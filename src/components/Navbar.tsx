@@ -80,6 +80,7 @@ const Navbar = () => {
     {
       name: t.tools,
       subLinks: [
+        { name: 'KP Prashna', href: '/kp-horary' },
         { name: 'Transits (Gochar)', href: '/transits' },
         { name: 'Planetary Hours (Hora)', href: '/hora' },
         { name: 'Biorhythm', href: '/biorhythm' },
