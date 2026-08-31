@@ -1,19 +1,46 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, KeyboardEvent } from 'react';
 import PageHeader from '@/components/PageHeader';
 import ExploreTools from '@/components/ExploreTools';
 import { calculateBTRData } from '@/lib/btr';
 import KundliChart from '@/components/KundliChart';
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { useLanguage } from '@/context/LanguageContext';
+
+interface Suggestion {
+  name: string;
+  lat: string;
+  lon: string;
+}
+
+const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
+const MAX_CACHE_SIZE = 100;
+
+if (typeof window !== 'undefined') {
+  try {
+    const stored = sessionStorage.getItem('NOMINATIM_CACHE');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      Object.entries(parsed).forEach(([key, value]) => {
+        SUGGESTIONS_CACHE.set(key, value as Suggestion[]);
+      });
+    }
+  } catch (error) {
+    console.error('Error loading Nominatim cache:', error);
+  }
+}
 
 export default function BtrClientPage() {
   const [isClient, setIsClient] = useState(false);
+  const { lang } = useLanguage();
 
   // State for initial details
-  const [showForm, setShowForm] = useState(true);
   const [name, setName] = useState("Jane Doe");
   const [dob, setDob] = useState("1990-01-01");
   const [tob, setTob] = useState("12:00:00");
+  const [pob, setPob] = useState("New Delhi, Delhi, India");
   const [lat, setLat] = useState("28.6139");
   const [lon, setLon] = useState("77.2090");
   const [gender, setGender] = useState<"Male"|"Female">("Male");
@@ -21,12 +48,134 @@ export default function BtrClientPage() {
   // State for dynamic BTR details
   const [currentTob, setCurrentTob] = useState(tob);
 
+  // Suggestions state
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+  const suggestionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionRef.current && !suggestionRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+        setActiveSuggestionIndex(-1);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const query = pob.trim();
+    const cacheKey = query.toLowerCase();
+
+    if (query.length < 3 || query.length > 100) {
+      setSuggestions([]);
+      return;
+    }
+
+    const cached = SUGGESTIONS_CACHE.get(cacheKey);
+    if (cached) {
+      setSuggestions(cached);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const fetchCities = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5&featuretype=city`,
+          { signal: controller.signal }
+        );
+        const data = await response.json();
+        interface NominatimAddress {
+          city?: string;
+          town?: string;
+          village?: string;
+          suburb?: string;
+          hamlet?: string;
+          state?: string;
+          country?: string;
+        }
+        interface NominatimItem {
+          address: NominatimAddress;
+          display_name: string;
+          lat: string;
+          lon: string;
+        }
+        const uniqueCitiesMap = data.reduce((map: Map<string, Suggestion>, item: NominatimItem) => {
+          const { address, lat, lon, display_name } = item;
+          const city = address.city || address.town || address.village || address.suburb || address.hamlet;
+          const { state, country } = address;
+          const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : display_name;
+
+          map.set(name, { name, lat, lon });
+          return map;
+        }, new Map<string, Suggestion>());
+        const uniqueCities: Suggestion[] = Array.from(uniqueCitiesMap.values());
+
+        if (SUGGESTIONS_CACHE.size >= MAX_CACHE_SIZE) {
+          const firstKey = SUGGESTIONS_CACHE.keys().next().value;
+          if (firstKey !== undefined) SUGGESTIONS_CACHE.delete(firstKey);
+        }
+        SUGGESTIONS_CACHE.set(cacheKey, uniqueCities);
+
+        if (typeof window !== 'undefined') {
+          try {
+            const cacheObj = Object.fromEntries(SUGGESTIONS_CACHE.entries());
+            sessionStorage.setItem('NOMINATIM_CACHE', JSON.stringify(cacheObj));
+          } catch {}
+        }
+
+        setSuggestions(uniqueCities);
+      } catch (error) {
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.error('Error fetching cities:', error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchCities, 500);
+    return () => {
+      clearTimeout(debounceTimer);
+      controller.abort();
+    };
+  }, [pob]);
+
+  const handleSuggestionKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveSuggestionIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : prev));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveSuggestionIndex(prev => (prev > 0 ? prev - 1 : -1));
+    } else if (e.key === 'Enter' && activeSuggestionIndex >= 0) {
+      e.preventDefault();
+      const suggestion = suggestions[activeSuggestionIndex];
+      setPob(suggestion.name);
+      setLat(suggestion.lat);
+      setLon(suggestion.lon);
+      setShowSuggestions(false);
+      setActiveSuggestionIndex(-1);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+      setActiveSuggestionIndex(-1);
+    }
+  };
+
   const btrData = useMemo(() => {
-    if (!dob || !currentTob) return null;
+    if (!dob || !currentTob || !lat || !lon) return null;
     try {
         return calculateBTRData(dob, currentTob, lat, lon, gender);
     } catch {
@@ -34,7 +183,6 @@ export default function BtrClientPage() {
     }
   }, [dob, currentTob, lat, lon, gender]);
 
-  // Adjust time by seconds
   const adjustTime = (secondsDelta: number) => {
     const [year, month, day] = dob.split('-').map(Number);
     const [h, m, s] = currentTob.split(':').map(Number);
@@ -50,89 +198,178 @@ export default function BtrClientPage() {
 
     setDob(`${newY}-${newMo}-${newD}`);
     setCurrentTob(`${newH}:${newM}:${newS}`);
+    setTob(`${newH}:${newM}:${newS}`);
   };
 
   if (!isClient) return null;
 
   return (
-    <div className="min-h-screen bg-surface pb-16">
-      {!showForm ? (
-         <div className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b shadow-sm py-3 px-4 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-col">
-               <span className="font-semibold text-lg">{name}</span>
-               <span className="text-sm text-text-muted">{dob} • {currentTob} • {gender}</span>
+    <div className="min-h-screen bg-surface pb-16 flex flex-col">
+      <Navbar />
+
+      <PageHeader
+        title="Birth Time Rectification (BTR)"
+        subtitle="Vedic Tool"
+        description="Interactive tool to adjust and rectify your exact birth time."
+      />
+
+      <main className="flex-grow container mx-auto px-4 mt-8 space-y-8 relative">
+
+        {/* Styled Form Section matching Horoscope Page */}
+        <section className="bg-background relative z-20 pt-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-surface p-6 md:p-10 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
+              <div className="relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                  {/* Name Input */}
+                  <div className="space-y-2">
+                    <label htmlFor="full-name" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Full Name</label>
+                    <input
+                      id="full-name"
+                      name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full px-6 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body"
+                      placeholder="The earthly name of the soul..."
+                      type="text"
+                      autoComplete="off"
+                      maxLength={100}
+                    />
+                  </div>
+
+                  {/* Date Input */}
+                  <div className="space-y-2">
+                    <label htmlFor="dob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Date of Birth</label>
+                    <div className="relative">
+                      <input
+                        id="dob-input"
+                        type="date"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                        className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-transparent text-xs md:text-sm font-body cursor-pointer relative z-10"
+                      />
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-on-surface text-xs md:text-sm font-body z-20">
+                        {(() => {
+                          if (!dob) return '';
+                          const [y, m, d] = dob.split('-');
+                          const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                          const monthIdx = parseInt(m, 10) - 1;
+                          if (monthIdx >= 0 && monthIdx < 12) {
+                            return `${parseInt(d, 10)} ${months[monthIdx]} ${y}`;
+                          }
+                          return dob;
+                        })()}
+                      </div>
+                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
+                    </div>
+                  </div>
+
+                  {/* Time Input */}
+                  <div className="space-y-2">
+                    <label htmlFor="tob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Time of Birth</label>
+                    <div className="relative">
+                      <input
+                        id="tob-input"
+                        type="time"
+                        step="1"
+                        value={tob}
+                        onChange={(e) => { setTob(e.target.value); setCurrentTob(e.target.value); }}
+                        className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer"
+                      />
+                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                    </div>
+                  </div>
+
+                  {/* Place Input with Autocomplete */}
+                  <div className="space-y-2 relative" ref={suggestionRef}>
+                    <label htmlFor="pob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Place of Birth</label>
+                    <div role="combobox" aria-expanded={showSuggestions && (suggestions.length > 0 || isLoading)} aria-haspopup="listbox" aria-controls="suggestions-listbox">
+                      <input
+                        id="pob-input"
+                        name="pob"
+                        value={pob}
+                        onChange={(e) => {
+                          setPob(e.target.value);
+                          setShowSuggestions(true);
+                          setActiveSuggestionIndex(-1);
+                        }}
+                        onFocus={() => setShowSuggestions(true)}
+                        onKeyDown={handleSuggestionKeyDown}
+                        className="w-full px-6 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body"
+                        placeholder="City, Country"
+                        type="text"
+                        autoComplete="off"
+                      />
+                    </div>
+                    {showSuggestions && (suggestions.length > 0 || isLoading) && (
+                      <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                        {isLoading ? (
+                          <div className="px-6 py-4 text-xs text-on-surface font-body">Searching cities...</div>
+                        ) : (
+                          <ul id="suggestions-listbox" role="listbox" className="max-h-60 overflow-y-auto">
+                            {suggestions.map((suggestion, index) => (
+                              <li key={index} role="option" aria-selected={index === activeSuggestionIndex}>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setPob(suggestion.name);
+                                    setLat(suggestion.lat);
+                                    setLon(suggestion.lon);
+                                    setShowSuggestions(false);
+                                    setActiveSuggestionIndex(-1);
+                                  }}
+                                  onMouseEnter={() => setActiveSuggestionIndex(index)}
+                                  className={`w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body transition-colors ${index === activeSuggestionIndex ? 'bg-accent/20' : 'active:bg-accent/5'}`}
+                                >
+                                  {suggestion.name}
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Gender Input */}
+                  <div className="space-y-2">
+                    <label htmlFor="gender-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Gender</label>
+                    <div className="relative">
+                      <select
+                        id="gender-input"
+                        value={gender}
+                        onChange={e => setGender(e.target.value as "Male"|"Female")}
+                        className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer appearance-none"
+                      >
+                         <option value="Male">Male</option>
+                         <option value="Female">Female</option>
+                      </select>
+                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">wc</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div className="flex items-center space-x-2">
-               <div className="flex items-center space-x-1 border rounded p-1 bg-surface">
-                   <button onClick={() => adjustTime(-3600)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">-1h</button>
-                   <button onClick={() => adjustTime(-60)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">-1m</button>
-                   <button onClick={() => adjustTime(-1)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">-1s</button>
-
-                   <span className="px-4 font-mono font-bold text-lg">{currentTob}</span>
-
-                   <button onClick={() => adjustTime(1)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+1s</button>
-                   <button onClick={() => adjustTime(60)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+1m</button>
-                   <button onClick={() => adjustTime(3600)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+1h</button>
-               </div>
-
-               <button onClick={() => setShowForm(true)} className="ml-4 text-brand-500 underline text-sm">Edit Details</button>
-            </div>
-         </div>
-      ) : (
-        <PageHeader
-          title="Birth Time Rectification (BTR)"
-          subtitle="Vedic Tool"
-          description="Interactive tool to adjust and rectify your exact birth time."
-        />
-      )}
-
-      <main className="container mx-auto px-4 mt-8">
-        {showForm ? (
-          <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-             <h2 className="text-xl font-bold mb-4">Enter Birth Details</h2>
-             <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">Name</label>
-                  <input type="text" value={name} onChange={e => setName(e.target.value)} className="w-full border rounded p-2" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Date (YYYY-MM-DD)</label>
-                      <input type="date" value={dob} onChange={e => setDob(e.target.value)} className="w-full border rounded p-2" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Time (HH:mm:ss)</label>
-                      <input type="time" step="1" value={tob} onChange={e => { setTob(e.target.value); setCurrentTob(e.target.value); }} className="w-full border rounded p-2" />
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Latitude</label>
-                      <input type="text" value={lat} onChange={e => setLat(e.target.value)} className="w-full border rounded p-2" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Longitude</label>
-                      <input type="text" value={lon} onChange={e => setLon(e.target.value)} className="w-full border rounded p-2" />
-                    </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Gender</label>
-                  <select value={gender} onChange={e => setGender(e.target.value as "Male"|"Female")} className="w-full border rounded p-2">
-                     <option value="Male">Male</option>
-                     <option value="Female">Female</option>
-                  </select>
-                </div>
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="w-full bg-brand-500 text-white font-bold py-3 rounded-lg hover:bg-brand-600 transition"
-                >
-                  Start Rectification
-                </button>
-             </div>
           </div>
-        ) : btrData ? (
-          <div className="flex flex-col gap-6">
+        </section>
+
+        {/* Sticky Time Adjustment Bar */}
+        <div className="sticky top-4 z-40 max-w-4xl mx-auto flex items-center justify-center p-2">
+            <div className="flex items-center space-x-1 border border-outline/30 rounded-full p-2 bg-white/90 backdrop-blur shadow-sm">
+                <button onClick={() => adjustTime(-3600)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">-1 hour</button>
+                <button onClick={() => adjustTime(-60)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">-1 min</button>
+                <button onClick={() => adjustTime(-1)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">-1 sec</button>
+
+                <span className="px-5 font-mono font-bold text-lg tracking-wider text-primary">{currentTob}</span>
+
+                <button onClick={() => adjustTime(1)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">+1 sec</button>
+                <button onClick={() => adjustTime(60)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">+1 min</button>
+                <button onClick={() => adjustTime(3600)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">+1 hour</button>
+            </div>
+        </div>
+
+        {btrData ? (
+          <div className="flex flex-col gap-6 max-w-6xl mx-auto mt-4">
              {/* Charts Grid */}
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                  <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
@@ -245,7 +482,8 @@ export default function BtrClientPage() {
         )}
       </main>
 
-      {showForm && <ExploreTools currentPath="/btr" />}
+      <ExploreTools currentPath="/btr" />
+      <Footer />
     </div>
   );
 }
