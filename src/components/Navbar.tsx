@@ -85,6 +85,7 @@ const Navbar = () => {
         { name: 'Biorhythm', href: '/biorhythm' },
         { name: 'Panch Pakshi', href: '/panch-pakshi' },
         { name: 'Birth Time Rectification (BTR)', href: '/btr' },
+        { name: 'Transits Table', href: '/transits-table' },
         { name: 'FAQ', href: '/faq' }
       ]
     },
