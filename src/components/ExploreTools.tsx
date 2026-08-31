@@ -157,7 +157,26 @@ const ALL_CARDS = [
     },
     gaAction: 'explore_booking',
     paths: []
-  }
+  },
+  {
+    id: 'kp-prashna',
+    href: '/kp-horary',
+    icon: 'help_center',
+    title: {
+      en: 'KP Prashna Kundli',
+      hi: 'के.पी. प्रश्न कुंडली'
+    },
+    desc: {
+      en: 'Cast a KP Horary chart with a number between 1-249.',
+      hi: '1 से 249 तक की संख्या से के.पी. प्रश्न कुंडली बनाएं।'
+    },
+    action: {
+      en: 'Cast Chart',
+      hi: 'चार्ट बनाएं'
+    },
+    gaAction: 'explore_kp_prashna',
+    paths: ['/kp-horary', '/kp-horoscope']
+  },
 ];
 
 interface ExploreToolsProps {
