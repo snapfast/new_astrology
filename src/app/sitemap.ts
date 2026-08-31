@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/transits',
     '/biorhythm',
     '/panch-pakshi',
+    '/btr',
     '/faq',
     '/privacy',
     '/terms',

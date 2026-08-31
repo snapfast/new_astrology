@@ -84,6 +84,7 @@ const Navbar = () => {
         { name: 'Planetary Hours (Hora)', href: '/hora' },
         { name: 'Biorhythm', href: '/biorhythm' },
         { name: 'Panch Pakshi', href: '/panch-pakshi' },
+        { name: 'Birth Time Rectification (BTR)', href: '/btr' },
         { name: 'FAQ', href: '/faq' }
       ]
     },

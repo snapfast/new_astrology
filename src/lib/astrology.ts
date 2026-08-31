@@ -369,7 +369,7 @@ const RASI_FULL_NAMES = [
     { name: "Pisces", sanskrit: "मीन" }
 ];
 
-const RASIS = RASI_FULL_NAMES.map(r => r.name);
+export const RASIS = RASI_FULL_NAMES.map(r => r.name);
 
 const RITUS = [
     { name: "Vasanta", sanskrit: "वसन्त" },
@@ -566,7 +566,7 @@ function getRotationMatrix(time: Ast.AstroTime): Ast.RotationMatrix {
  * Calculates the True Spica Ayanamsa (calculating Spica/Chitra at exactly 180°).
  * This ensures absolute precision matching the Swiss Ephemeris and traditional standard benchmarks.
  */
-function getLahiriAyanamsa(time: Ast.AstroTime): number {
+export function getLahiriAyanamsa(time: Ast.AstroTime): number {
     const key = time.ut;
     const cached = ayanamsaCache.get(key);
     if (cached !== undefined) {
@@ -614,7 +614,7 @@ function isPlanetRetrograde(body: Ast.Body, time: Ast.AstroTime, currentLong?: n
 
 
 
-function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
+export function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
     const key = `${body}_${time.ut}`;
     const cached = eclLongCache.get(key);
     if (cached !== undefined) {
@@ -677,22 +677,23 @@ function getEmptyChartData(): ChartData {
     };
 }
 
-function parseISTToUTC(dob: string, tob: string): { istDate: Date, time: Ast.AstroTime } {
+export function parseISTToUTC(dob: string, tob: string): { istDate: Date, time: Ast.AstroTime } {
     const dateParts = dob.split('-');
     if (dateParts.length !== 3) throw new Error("Invalid date format. Expected YYYY-MM-DD");
     const [year, month, day] = dateParts.map(Number);
 
     const timeParts = tob.split(':');
     if (timeParts.length < 2) throw new Error("Invalid time format. Expected HH:mm");
-    const [hour, minute] = timeParts.map(Number);
+    const [hour, minute, second] = timeParts.map(Number);
+    const sec = second || 0;
 
-    if (isNaN(year) || isNaN(month) || isNaN(day) || isNaN(hour) || isNaN(minute)) {
+    if (isNaN(year) || isNaN(month) || isNaN(day) || isNaN(hour) || isNaN(minute) || isNaN(sec)) {
         throw new Error("Invalid date or time components");
     }
 
     // Create Date object interpreted as UTC, then subtract 5.5 hours to get the actual UTC time
     // since the input is local IST (UTC+5:30)
-    const istDate = new Date(Date.UTC(year, month - 1, day, hour, minute));
+    const istDate = new Date(Date.UTC(year, month - 1, day, hour, minute, sec));
     const utcDate = new Date(istDate.getTime() - (5.5 * 60 * 60 * 1000));
     const time = Ast.MakeTime(utcDate);
 
@@ -1541,7 +1542,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
     return result;
 }
 
-function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: string, sanskrit: string, sunrise: Date | null } {
+export function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { name: string, sanskrit: string, sunrise: Date | null } {
     const observer = new Ast.Observer(lat, lon, 0);
     // Direction: +1 for Rise, -1 for Set
     const recentSunrise = Ast.SearchRiseSet(Ast.Body.Sun, observer, 1, time, -24);
