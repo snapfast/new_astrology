@@ -1,16 +1,12 @@
 "use client";
 
-import { Suspense, useState, useMemo, useEffect } from "react";
+import { Suspense, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import KundliChart from "@/components/KundliChart";
-import VimshottariDasha from "@/components/VimshottariDasha";
-import AshtakvargaChart from "@/components/AshtakvargaChart";
 import { generateAstrologyData } from "@/lib/astrology";
-import ExploreTools from "@/components/ExploreTools";
-import KPHoraryGeneration from "@/components/KPHoraryGeneration";
 import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -108,8 +104,6 @@ const TRANSLATIONS = {
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [showCopied, setShowCopied] = useState(false);
-  const [moreVargasExpanded, setMoreVargasExpanded] = useState(false);
-  const [birthDetailsExpanded, setBirthDetailsExpanded] = useState(false);
 
   const goToCompact = () => {
     sendGAEvent({ event: "action_click", action_name: "horoscope_go_compact" });
@@ -120,66 +114,24 @@ const HoroscopeContent = () => {
   const t = TRANSLATIONS.en;
   const searchParams = useSearchParams();
 
-  // Close the edit section automatically when navigation completes and params change
-  useEffect(() => {
-    setBirthDetailsExpanded(false);
-  }, [searchParams]);
-
   const name = sanitize(searchParams.get("name"), 100) || "Guest";
   const dob = sanitizeDate(searchParams.get("dob")) || "";
-  const formattedDob = useMemo(() => {
-    if (!dob) return "";
-    const parts = dob.split("-");
-    if (parts.length !== 3) return "";
-    const [year, month, day] = parts;
-    const monthIdx = parseInt(month, 10) - 1;
-    if (monthIdx < 0 || monthIdx > 11) return "";
-
-    const monthsEn = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const monthsHi = [
-      "जनवरी",
-      "फरवरी",
-      "मार्च",
-      "अप्रैल",
-      "मई",
-      "जून",
-      "जुलाई",
-      "अगस्त",
-      "सितंबर",
-      "अक्टूबर",
-      "नवंबर",
-      "दिसंबर",
-    ];
-    const months = lang === "hi" ? monthsHi : monthsEn;
-
-    return `${day} ${months[monthIdx]} ${year}`;
-  }, [dob, lang]);
   const tob = sanitizeTime(searchParams.get("tob")) || "";
-  const pob = sanitize(searchParams.get("pob"), 100) || "";
   const lat = sanitizeCoord(searchParams.get("lat")) || "";
   const lon = sanitizeCoord(searchParams.get("lon")) || "";
   const kpNumber = searchParams.get("kpNumber") || "";
 
-  const chartData = useMemo(
+  const standardChartData = useMemo(
+    () => generateAstrologyData(dob, tob, lat, lon),
+    [dob, tob, lat, lon],
+  );
+
+  const kpChartData = useMemo(
     () => generateAstrologyData(dob, tob, lat, lon, parseInt(kpNumber, 10)),
     [dob, tob, lat, lon, kpNumber],
   );
 
-  const sunSign = chartData.panchang.sunSign;
-  const moonSign = chartData.panchang.moonSign;
+
 
   const handleShare = async () => {
     sendGAEvent({
@@ -190,7 +142,7 @@ const HoroscopeContent = () => {
       try {
         await navigator.share({
           title: `Horoscope for ${name}`,
-          text: `Check out my Vedic birth chart! Sun Sign: ${sunSign}, Moon Sign: ${moonSign}.`,
+          text: `Check out my KP Horoscope birth chart!`,
           url: window.location.href,
         });
       } catch (err) {
@@ -208,13 +160,6 @@ const HoroscopeContent = () => {
     }
   };
 
-  const handleBookNow = () => {
-    sendGAEvent({
-      event: "action_click",
-      action_name: "horoscope_page_book_now",
-    });
-    window.dispatchEvent(new CustomEvent("openBookingModal"));
-  };
 
   return (
     <>
@@ -261,361 +206,10 @@ const HoroscopeContent = () => {
       </PageHeader>
 
       <div className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16">
-        <div className="space-y-3 text-left">
-          {/* Section: Birth Information */}
-          <div
-            className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm cursor-pointer hover:bg-surface-container-lowest transition-colors"
-            onClick={() => setBirthDetailsExpanded(!birthDetailsExpanded)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setBirthDetailsExpanded(!birthDetailsExpanded);
-              }
-            }}
-            aria-expanded={birthDetailsExpanded}
-          >
-            <div className="flex justify-between items-center">
-              <h2
-                className={cn(
-                  "font-bold text-accent uppercase font-label text-xs md:text-sm",
-                  lang === "hi" ? "tracking-normal" : "tracking-[0.15em]",
-                )}
-              >
-                {t.birthInfo}
-              </h2>
-              <span className="material-symbols-outlined text-on-surface/60 transition-colors">
-                {birthDetailsExpanded ? 'close' : 'edit'}
-              </span>
-            </div>
-
-            {!birthDetailsExpanded ? (
-              <div className="mt-2 text-sm text-on-surface/80 font-body flex flex-wrap items-center gap-2">
-                <span className="font-medium">{name}</span>
-                <span className="text-on-surface/40 text-[10px]">•</span>
-                <span className="tabular-nums">{formattedDob}</span>
-                <span className="text-on-surface/40 text-[10px]">•</span>
-                <span className="tabular-nums">{tob}</span>
-                <span className="text-on-surface/40 text-[10px]">•</span>
-                <span>{pob}</span>
-              </div>
-            ) : (
-              <div className="mt-4 pt-4 border-t border-outline/50 animate-in slide-in-from-top-2 fade-in duration-300">
-                <div onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
-                  <KPHoraryGeneration isUpdate={true} initialValues={{ name, dob, tob, pob, lat, lon, kpNumber }} onClose={() => setBirthDetailsExpanded(false)} className="py-4 bg-transparent p-0 m-0 [&>div]:p-0 [&>div]:border-none [&>div]:shadow-none [&_.text-center]:hidden" />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-            {/* Section: Vedic Panchang */}
-            <div className="lg:col-span-2 bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
-              <h2
-                className={cn(
-                  "font-bold text-accent uppercase font-label mb-3 text-xs md:text-sm",
-                  lang === "hi" ? "tracking-normal" : "tracking-[0.15em]",
-                )}
-              >
-                {t.panchang}
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 gap-x-3">
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.tithi}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.tithi
-                      : chartData.panchang.tithiSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.paksha}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.paksha
-                      : chartData.panchang.pakshaSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.vara}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.vara
-                      : chartData.panchang.varaSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.nakshatra}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.nakshatra
-                      : chartData.panchang.nakshatraSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.yoga}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.yoga
-                      : chartData.panchang.yogaSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.karana}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.karana
-                      : chartData.panchang.karanaSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.sunSign}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.sunSign
-                      : chartData.panchang.sunSignSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.moonSign}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.moonSign
-                      : chartData.panchang.moonSignSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.ritu}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.ritu
-                      : chartData.panchang.rituSanskrit}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.ayana}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem]",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {lang === "en"
-                      ? chartData.panchang.ayana
-                      : chartData.panchang.ayanaSanskrit}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Section: Time Divisions */}
-            <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
-              <h2
-                className={cn(
-                  "font-bold text-accent uppercase font-label mb-3 text-xs md:text-sm",
-                  lang === "hi" ? "tracking-normal" : "tracking-[0.15em]",
-                )}
-              >
-                {t.timings}
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-3">
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.abhijit}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {chartData.panchang.abhijitMuhurta}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.rahu}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {chartData.panchang.rahuKaal}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.gulika}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {chartData.panchang.gulikaKaal}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p
-                    className={cn(
-                      "text-on-surface/70 uppercase font-label font-bold text-xs flex items-center mb-1",
-                      lang === "hi" ? "tracking-normal" : "tracking-wider",
-                    )}
-                  >
-                    {t.yamaganda}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-sm md:text-base text-on-surface font-medium leading-tight flex items-center min-h-[1.5rem] tabular-nums",
-                      lang === "hi" ? "font-hindi font-bold" : "",
-                    )}
-                  >
-                    {chartData.panchang.yamagandaKaal}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Charts Section */}
         <div className="space-y-8">
-          {/* Row 1: D1 & D9 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Standard D1 */}
             <div className="space-y-6">
               <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
                 <span>{t.d1Chart}</span>
@@ -625,10 +219,10 @@ const HoroscopeContent = () => {
                     lang === "hi" ? "font-hindi" : "",
                   )}
                 >
-                  {t.d1Desc}
+                  Standard D1 Chart
                 </span>
               </h2>
-              <KundliChart data={chartData.d1} />
+              <KundliChart data={standardChartData.d1} />
               <div
                 className={`flex justify-center gap-x-6 gap-y-2 text-xs text-on-surface/60 mt-3 font-body ${lang === "hi" ? "font-hindi" : ""}`}
               >
@@ -644,539 +238,81 @@ const HoroscopeContent = () => {
                 </span>
               </div>
             </div>
+
+            {/* KP D1 */}
             <div className="space-y-6">
               <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{t.d9Chart}</span>
+                <span>KP D1 Chart</span>
                 <span
                   className={cn(
                     "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
                     lang === "hi" ? "font-hindi" : "",
                   )}
                 >
-                  {t.d9Desc}
+                  KP Horary Lagna
                 </span>
               </h2>
-              <KundliChart data={chartData.d9} />
-            </div>
-          </div>
-
-          {/* Row 2: D3 & D10 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{t.d3Chart}</span>
-                <span
-                  className={cn(
-                    "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                    lang === "hi" ? "font-hindi" : "",
-                  )}
-                >
-                  {t.d3Desc}
-                </span>
-              </h2>
-              <KundliChart data={chartData.d3} />
-            </div>
-            <div className="space-y-6">
-              <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{t.d10Chart}</span>
-                <span
-                  className={cn(
-                    "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                    lang === "hi" ? "font-hindi" : "",
-                  )}
-                >
-                  {t.d10Desc}
-                </span>
-              </h2>
-              <KundliChart data={chartData.d10} />
-            </div>
-          </div>
-
-          {/* Row 3: D7 & D60 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{t.d7Chart}</span>
-                <span
-                  className={cn(
-                    "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                    lang === "hi" ? "font-hindi" : "",
-                  )}
-                >
-                  {t.d7Desc}
-                </span>
-              </h2>
-              <KundliChart data={chartData.d7} />
-            </div>
-            <div className="space-y-6">
-              <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{t.d60Chart}</span>
-                <span
-                  className={cn(
-                    "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                    lang === "hi" ? "font-hindi" : "",
-                  )}
-                >
-                  {t.d60Desc}
-                </span>
-              </h2>
-              <KundliChart data={chartData.d60} />
-            </div>
-          </div>
-
-          {/* Collapsible: More Divisional Charts (Vargas) */}
-          <div className="w-full mt-8 print:hidden">
-            <button
-              onClick={() => {
-                sendGAEvent({
-                  event: "action_click",
-                  action_name: "horoscope_toggle_more_vargas",
-                });
-                setMoreVargasExpanded(!moreVargasExpanded);
-              }}
-              aria-expanded={moreVargasExpanded}
-              aria-controls="more-vargas-container"
-              className="w-full flex items-center justify-between py-3 px-0 text-on-surface/70 hover:text-on-surface border-b border-outline pb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-200"
-            >
-              <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface/70 flex items-center gap-2">
-                <span className="material-symbols-outlined text-on-surface/60">
-                  view_quilt
-                </span>
-                {t.moreVargas}
-              </h3>
-            </button>
-
-            <div
-              id="more-vargas-container"
-              className={cn(
-                "transition-all duration-500 ease-in-out",
-                moreVargasExpanded
-                  ? "max-h-[8000px] pt-6 pb-0 px-0"
-                  : "max-h-0 overflow-hidden",
-              )}
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d2Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d2Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d2} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d2usChart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d2usDesc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d2us} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d4Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d4Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d4} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d12Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d12Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d12} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d16Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d16Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d16} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d20Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d20Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d20} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d24Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d24Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d24} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d27Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d27Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d27} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d30Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d30Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d30} />
-                </div>
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d40Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d40Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d40} />
-                </div>
-                <div className="space-y-6 lg:col-span-2 lg:max-w-2xl lg:mx-auto lg:w-full">
-                  <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                    <span>{t.d45Chart}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
-                        lang === "hi" ? "font-hindi" : "",
-                      )}
-                    >
-                      {t.d45Desc}
-                    </span>
-                  </h2>
-                  <KundliChart data={chartData.d45} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <p
-            className={`text-xs text-on-surface text-center pt-4 ${lang === "hi" ? "font-hindi" : ""}`}
-          >
-            {t.northIndianStyle}
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">
-            {t.planetaryPositions}
-          </h2>
-          <div className="overflow-x-auto bg-white rounded-3xl border border-outline shadow-sm">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-white border-b border-outline">
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.planet}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label text-center",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.house}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.rasi}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.rasiLord}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.degree}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.nakshatra}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.nakLord}
-                  </th>
-                  <th
-                    className={cn(
-                      "px-4 py-2.5 text-xs font-bold text-on-surface uppercase font-label text-center",
-                      lang === "hi" ? "tracking-normal" : "tracking-widest",
-                    )}
-                  >
-                    {t.pada}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline">
-                {chartData.planets.map((p, idx) => (
-                  <tr
-                    key={idx}
-                    className="hover:bg-surface-container-lowest transition-colors font-body"
-                  >
-                    <td
-                      className={`px-4 py-2.5 text-sm font-medium text-on-surface ${lang === "hi" ? "font-hindi" : ""}`}
-                    >
-                      {lang === "hi" ? p.nameSanskrit : p.name}
-                      {p.isRetrograde && (
-                        <span className="ml-1 text-black font-normal">*</span>
-                      )}
-                      {p.isCombust && (
-                        <span className="ml-0.5 text-xs text-black font-normal">
-                          ^
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-2.5 text-sm text-on-surface text-center tabular-nums">
-                      {p.house}
-                    </td>
-                    <td
-                      className={`px-4 py-2.5 text-sm text-on-surface ${lang === "hi" ? "font-hindi" : ""}`}
-                    >
-                      {lang === "hi" ? p.rasiSanskrit : p.rasi}
-                    </td>
-                    <td
-                      className={`px-4 py-2.5 text-sm text-on-surface ${lang === "hi" ? "font-hindi" : ""}`}
-                    >
-                      {lang === "hi" ? p.rasiLordSanskrit : p.rasiLord}
-                    </td>
-                    <td className="px-4 py-2.5 text-sm text-on-surface whitespace-nowrap tabular-nums">
-                      {p.degree}
-                    </td>
-                    <td
-                      className={`px-4 py-2.5 text-sm text-on-surface ${lang === "hi" ? "font-hindi" : ""}`}
-                    >
-                      {lang === "hi" ? p.nakshatraSanskrit : p.nakshatra}
-                    </td>
-                    <td
-                      className={`px-4 py-2.5 text-sm text-on-surface ${lang === "hi" ? "font-hindi" : ""}`}
-                    >
-                      {lang === "hi"
-                        ? p.nakshatraLordSanskrit
-                        : p.nakshatraLord}
-                    </td>
-                    <td className="px-4 py-2.5 text-sm text-on-surface text-center font-bold tabular-nums">
-                      {p.pada}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div
-            className={`flex flex-wrap gap-x-6 gap-y-2 text-xs text-on-surface/60 px-4 mt-3 font-body ${lang === "hi" ? "font-hindi" : ""}`}
-          >
-            <span className="flex items-center gap-1">
-              <span className="text-black font-normal">*</span>
-              <span>{lang === "hi" ? "वक्री (Retrograde)" : "Retrograde"}</span>
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="text-black font-normal">^</span>
-              <span>{lang === "hi" ? "अस्त (Combust)" : "Combust"}</span>
-            </span>
-          </div>
-        </div>
-
-        {/* Vimshottari Dasha Section */}
-        <div className="space-y-8">
-          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3">
-            {t.vimshottariDasha}
-          </h2>
-
-          {/* Interactive Vimshottari Dasha System */}
-          <VimshottariDasha
-            mahadashas={chartData.mahadashas}
-            dashaBalance={chartData.dashaBalance}
-            lang={lang}
-          />
-        </div>
-
-        {/* Sarva Ashtakvarga Section */}
-        <div className="space-y-6 pt-4">
-          <div className="border-b border-outline pb-3">
-            <h2 className="text-2xl font-normal font-headline text-on-surface">
-              {t.ashtakvargaTitle}
-            </h2>
-            <p className="text-sm text-on-surface/70 font-body mt-1 leading-relaxed">
-              {t.ashtakvargaDesc}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* SAV North Indian Chart */}
-            <div className="bg-white border border-outline rounded-3xl p-6 shadow-sm flex flex-col items-center">
-              <h3 className="text-lg font-bold text-accent uppercase font-label mb-4 text-center">
-                {lang === "hi" ? "सर्वाष्टकवर्ग चक्र" : "Sarva Ashtakvarga Kundli"}
-              </h3>
-              <AshtakvargaChart ashtakvarga={chartData.ashtakvarga || []} houseRasis={chartData.d1.houseRasis} />
-              <p className="text-[11px] text-on-surface/60 font-body mt-4 text-center max-w-sm">
-                {lang === "hi"
-                  ? "चक्र में दिए गए बिंदु प्रत्येक भाव/राशि की कुल क्षमता दर्शाते हैं। केंद्र स्थान में उच्च बिंदु शुभ फलदायक होते हैं।"
-                  : "The points in each house represent the total composite energy of that sign. High points in key houses yield powerful results."}
-              </p>
-            </div>
-
-            {/* SAV Points Table */}
-            <div className="bg-white border border-outline rounded-3xl p-6 shadow-sm overflow-hidden flex flex-col">
-              <h3 className="text-lg font-bold text-accent uppercase font-label mb-4">
-                {lang === "hi" ? "राशि अनुसार अष्टकवर्ग बिंदु" : "Ashtakvarga Points per Sign"}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {[
-                  { en: "Aries", hi: "मेष" },
-                  { en: "Taurus", hi: "वृषभ" },
-                  { en: "Gemini", hi: "मिथुन" },
-                  { en: "Cancer", hi: "कर्क" },
-                  { en: "Leo", hi: "सिंह" },
-                  { en: "Virgo", hi: "कन्या" },
-                  { en: "Libra", hi: "तुला" },
-                  { en: "Scorpio", hi: "वृश्चिक" },
-                  { en: "Sagittarius", hi: "धनु" },
-                  { en: "Capricorn", hi: "मकर" },
-                  { en: "Aquarius", hi: "कुम्भ" },
-                  { en: "Pisces", hi: "मीन" }
-                ].map((sign, idx) => {
-                  const pts = chartData.ashtakvarga ? chartData.ashtakvarga[idx] : 0;
-                  let bgClass = "bg-surface-container-low";
-                  let borderClass = "border-outline/50";
-                  if (pts >= 30) {
-                    bgClass = "bg-green-50/50";
-                    borderClass = "border-green-200";
-                  } else if (pts < 25) {
-                    bgClass = "bg-amber-50/50";
-                    borderClass = "border-amber-200";
-                  }
-
-                  return (
-                    <div key={idx} className={cn("p-3 rounded-2xl border flex flex-col justify-between transition-colors", bgClass, borderClass)}>
-                      <span className={cn("text-xs font-bold text-on-surface uppercase tracking-wider font-label", lang === "hi" ? "font-hindi" : "")}>
-                        {lang === "hi" ? sign.hi : sign.en}
-                      </span>
-                      <div className="flex justify-between items-baseline mt-2">
-                        <span className="text-[10px] text-on-surface/60 font-body">{t.rasiPoints}</span>
-                        <span className="text-xl font-extrabold text-on-surface font-headline tabular-nums">{pts}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              <KundliChart data={kpChartData.d1} />
             </div>
           </div>
         </div>
 
-        {/* Verification CTA Section */}
-        <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
-          <div className="relative z-10">
-            <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">
-              {t.ctaTitle}
+        {/* KP Astrology Information Section */}
+        <div className="bg-surface-container-low rounded-3xl p-6 md:p-8 border border-outline mt-12 max-w-4xl mx-auto space-y-6 print:hidden">
+          <div className="space-y-2">
+            <h3 className="text-xl md:text-2xl font-normal font-headline text-on-surface flex items-center gap-2">
+              <span className="material-symbols-outlined text-accent">menu_book</span>
+              {lang === 'hi' ? 'केपी ज्योतिष और प्रश्न (KP Astrology & Prashna)' : 'KP Astrology & Prashna'}
             </h3>
-            <p className="text-sm md:text-base text-on-surface font-body mb-10 max-w-2xl mx-auto leading-relaxed">
-              {t.ctaDesc}
+            <p className="text-sm md:text-base text-on-surface/80 font-body leading-relaxed">
+              {lang === 'hi'
+                ? 'कृष्णमूर्ति पद्धति (KP) वैदिक ज्योतिष की एक उन्नत प्रणाली है। यह सटीक भविष्यवाणियों के लिए नक्षत्रों (Star Lords) और उप-नक्षत्रों (Sub-Lords) पर विशेष ध्यान केंद्रित करती है।'
+                : 'Krishnamurti Paddhati (KP) is an advanced system of Vedic Astrology. It focuses specifically on Nakshatras (Star Lords) and Sub-Lords to offer highly precise timing and predictions.'}
             </p>
-            <button
-              onClick={handleBookNow}
-              className={cn(
-                "inline-block bg-primary text-white px-12 py-5 rounded-full font-medium text-xs md:text-sm uppercase font-label",
-                lang === "hi"
-                  ? "tracking-normal text-base"
-                  : "tracking-[0.1em]",
-              )}
-            >
-              {t.ctaBtn}
-            </button>
           </div>
-          {/* Subtle Decorative Element */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
-        </div>
 
-        <ExploreTools currentPath="/horoscope" className="mt-12 print:hidden" />
+          <div className="space-y-4">
+            <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/50 pb-2">
+              {lang === 'hi' ? 'केपी चार्ट का विश्लेषण कैसे करें?' : 'How to Read the KP Chart?'}
+            </h4>
+            <ul className="list-disc pl-5 space-y-3 text-sm text-on-surface/80 font-body">
+              <li>
+                <strong className="text-on-surface">{lang === 'hi' ? 'उप-नक्षत्र स्वामी (Sub-Lord):' : 'Cuspal Sub-Lord:'}</strong>
+                {lang === 'hi'
+                  ? ' केपी में, किसी भी भाव का फल मुख्य रूप से उस भाव के उप-नक्षत्र स्वामी द्वारा निर्धारित होता है।'
+                  : ' In KP astrology, the result of any house is primarily determined by the Sub-Lord of that specific house cusp.'}
+              </li>
+              <li>
+                <strong className="text-on-surface">{lang === 'hi' ? 'नक्षत्र स्वामी (Star Lord):' : 'Star Lord (Nakshatra Lord):'}</strong>
+                {lang === 'hi'
+                  ? ' ग्रह अपने नक्षत्र स्वामी के परिणाम देते हैं। उप-नक्षत्र स्वामी यह तय करता है कि वे परिणाम सकारात्मक होंगे या नकारात्मक।'
+                  : ' Planets predominantly give the results of their Star Lord. The Sub-Lord of the planet decides whether those results will be positive or negative.'}
+              </li>
+              <li>
+                <strong className="text-on-surface">{lang === 'hi' ? 'भाव चालित (House Placements):' : 'Placidus House System:'}</strong>
+                {lang === 'hi'
+                  ? ' केपी प्रणाली भाव (Placidus) प्रणाली का उपयोग करती है, जहां ग्रह एक राशि में होने के बावजूद दूसरे भाव में चले जा सकते हैं।'
+                  : ' KP uses the Placidus house system. You may notice planets placed in different houses compared to the standard D1 chart due to unequal house sizes.'}
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/50 pb-2">
+              {lang === 'hi' ? 'प्रश्न कुंडली (Horary Astrology)' : 'Prashna (Horary) Astrology'}
+            </h4>
+            <p className="text-sm text-on-surface/80 font-body leading-relaxed">
+              {lang === 'hi'
+                ? 'प्रश्न ज्योतिष का उपयोग तब किया जाता है जब जन्म समय ज्ञात न हो, या किसी विशिष्ट प्रश्न का उत्तर चाहिए हो। केपी प्रणाली में, व्यक्ति को 1 से 249 के बीच एक संख्या चुनने के लिए कहा जाता है। यह संख्या उस विशिष्ट समय पर लग्न (Ascendant) की डिग्री और उप-नक्षत्र को निर्धारित करती है।'
+                : 'Prashna is used when birth details are unknown, or to answer a highly specific question. In the KP Horary system, the querent is asked to provide a number between 1 and 249. This number maps to a specific Ascendant degree and Sub-Lord in the zodiac, completely overriding the time-based Ascendant.'}
+            </p>
+            <p className="text-sm text-on-surface/80 font-body leading-relaxed">
+              {lang === 'hi'
+                ? 'ऊपर दिया गया "KP D1 Chart" आपके द्वारा चुनी गई संख्या (1-249) के आधार पर लग्न को दर्शाता है, जबकि "Standard D1 Chart" सामान्य समय पर आधारित है।'
+                : 'The "KP D1 Chart" above forces the Ascendant (Lagna) to match the exact degree of your chosen number (1-249), while the "Standard D1 Chart" uses the regular time-based calculation for comparison.'}
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );
