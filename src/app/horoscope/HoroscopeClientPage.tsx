@@ -103,7 +103,9 @@ const TRANSLATIONS = {
     loading: "Loading your destiny...",
     ashtakvargaTitle: "Sarva Ashtakvarga (SAV)",
     ashtakvargaDesc: "Sarva Ashtakvarga is a composite strength map of the zodiac signs. Houses with 28+ points are highly auspicious, 25-27 are neutral, and under 25 are weaker zones.",
-    rasiPoints: "SAV points"}};
+    rasiPoints: "SAV points",
+    chalitChart: "Bhav Chalit Chart",
+    chalitDesc: "Planetary positions in houses (Equal House)"}};
 
 const HoroscopeContent = () => {
   const { lang } = useLanguage();
@@ -1075,6 +1077,24 @@ const HoroscopeContent = () => {
             dashaBalance={chartData.dashaBalance}
             lang={lang}
           />
+        </div>
+
+        {/* Bhav Chalit Chart Section */}
+        <div className="space-y-6 pt-4">
+          <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+            <span>{t.chalitChart}</span>
+            <span
+              className={cn(
+                "text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case",
+                lang === "hi" ? "font-hindi" : "",
+              )}
+            >
+              {t.chalitDesc}
+            </span>
+          </h2>
+          <div className="max-w-2xl mx-auto w-full">
+            <KundliChart data={chartData.chalit} />
+          </div>
         </div>
 
         {/* Sarva Ashtakvarga Section */}
