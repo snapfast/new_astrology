@@ -1,12 +1,18 @@
-1. **Identify the missing standard**: The memory mentions "Rashi transit labels conditionally append Unicode Rashi symbols (e.g., ♈) for visual clarity." in `TransitsClientPage.tsx`. Also, "Sub-cards for Combustion and Retrograde utilize de-cluttered, neutralized themes (using standard surface/outline colors rather than highly colorful red/amber alerts)".
-2. **Review `TransitsClientPage.tsx`**:
-   - `RASHI_SYMBOLS` mapping needs to be added (e.g., Aries: "♈", Taurus: "♉", ...).
-   - In the Rashi transits section, update `{ev.fromValue} &rarr; {ev.toValue}` to append symbols if available.
-   - For Combustion and Retrograde sub-cards, they currently use `bg-red-50/50`, `border-red-200/80` and `bg-amber-50/50`, `border-amber-200/80`. Change these to standard surface/outline colors to match the neutralized theme requirement (e.g. `bg-surface border border-outline/40`).
-   - Also, update text colors for those sub-cards appropriately if they use deep red/amber, they might need standard text colors like `text-on-surface`.
-3. **Draft Changes**:
-   - Define `RASHI_SYMBOLS` in `TransitsClientPage.tsx`.
-   - Update `ev.fromValue` and `ev.toValue` rendering in `TransitsClientPage.tsx` to include `RASHI_SYMBOLS[ev.fromValue]`.
-   - Modify class names for Retrograde card: replace `bg-amber-50/50` with `bg-surface`, `border-amber-200/80` with `border-outline/40`, remove `bg-amber-100`, etc.
-   - Modify class names for Combustion card: replace `bg-red-50/50` with `bg-surface`, `border-red-200/80` with `border-outline/40`, remove `bg-red-100`, etc.
-   - Run tests.
+1. **Calculate Chalit Chart in `src/lib/astrology.ts`**:
+   - Add `chalit: DivisionalChartData` to `ChartData` interface and add `chalit` to `chartKeys`.
+   - Calculate Chalit positions using Sripathi or equal house system (usually equal house system: shift 15 degrees behind lagna).
+   - Equal house system is simple: 1st house is `Lagna - 15` to `Lagna + 15`. A planet is in the `N`th house if its longitude is in the `N`th 30-degree segment starting from `Lagna - 15`.
+   - Wait, "Chalit" chart traditionally shows planets in houses based on Bhava Chalit.
+   - A straightforward equal house system (Bhava Chalit) calculates a planet's house as: `Math.floor(((planetLong - lagnaSidereal + 15 + 360) % 360) / 30) + 1`.
+   - However, since Rasi numbers in KundliChart correspond to the Rasi of the house cusps. The Ascendant's Rasi is for house 1.
+   - Wait, in a Chalit chart, we display planets in houses, but the rasi labels remain the same as D1, or maybe the rasi label for each house should be the rasi where the cusp falls. Usually, Chalit charts just display the same lagna rasi for house 1 as D1.
+2. **Display Chalit Chart in `src/app/horoscope/HoroscopeClientPage.tsx`**:
+   - Add a new section for "Bhav Chalit Chart" at the bottom of the horoscope page, just before the "More Divisional Charts (Vargas)" or near "Planetary Positions". The user said "at bottom of the hroroscope page".
+   - Use `KundliChart` component to render it.
+
+Let's do standard Bhava Chalit (Equal House system) using Ascendant as mid-point of the 1st house.
+- `cusp 1 mid = lagnaSidereal`
+- `house 1 starts = lagnaSidereal - 15`
+- A planet's chalit house is `Math.floor(((siderealLong - lagnaSidereal + 15 + 360) % 360) / 30) + 1`.
+
+Is there any specific translation or translation key? We'll add `chalitChart: "Bhav Chalit Chart"`, `chalitDesc: "Planetary positions in houses"`.

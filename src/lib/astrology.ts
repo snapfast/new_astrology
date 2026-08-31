@@ -182,6 +182,7 @@ export interface ShadBalaData {
 export interface ChartData {
     planets: PlanetData[];
     d1: DivisionalChartData;
+    chalit: DivisionalChartData;
     d2: DivisionalChartData;
     d2us: DivisionalChartData;
     d3: DivisionalChartData;
@@ -665,7 +666,7 @@ function getEmptyChartData(): ChartData {
     };
     return {
         planets: [],
-        d1: emptyChart, d2: emptyChart, d2us: emptyChart, d3: emptyChart, d4: emptyChart,
+        d1: emptyChart, chalit: emptyChart, d2: emptyChart, d2us: emptyChart, d3: emptyChart, d4: emptyChart,
         d7: emptyChart, d9: emptyChart, d10: emptyChart, d12: emptyChart, d16: emptyChart,
         d20: emptyChart, d24: emptyChart, d27: emptyChart, d30: emptyChart, d40: emptyChart,
         d45: emptyChart, d60: emptyChart,
@@ -716,15 +717,15 @@ function calculatePlanetaryAndDivisionalData(
     rotEqjEct?: Ast.RotationMatrix
 ) {
     const planetData: PlanetData[] = [];
-    const chartKeys = ['d1', 'd2', 'd2us', 'd3', 'd4', 'd7', 'd9', 'd10', 'd12', 'd16', 'd20', 'd24', 'd27', 'd30', 'd40', 'd45', 'd60'] as const;
+    const chartKeys = ['d1', 'chalit', 'd2', 'd2us', 'd3', 'd4', 'd7', 'd9', 'd10', 'd12', 'd16', 'd20', 'd24', 'd27', 'd30', 'd40', 'd45', 'd60'] as const;
     const divisions: Record<ChartKey, number> = {
-        d1: 1, d2: 2, d2us: 2, d3: 3, d4: 4, d7: 7, d9: 9, d10: 10,
+        d1: 1, chalit: 1, d2: 2, d2us: 2, d3: 3, d4: 4, d7: 7, d9: 9, d10: 10,
         d12: 12, d16: 16, d20: 20, d24: 24, d27: 27, d30: 30, d40: 40, d45: 45, d60: 60
     };
     type ChartKey = typeof chartKeys[number];
 
     const assignments: Record<ChartKey, { [key: number]: Array<{ symbol: string, isRetrograde: boolean, isCombust?: boolean, degree?: string }> }> = {
-        d1: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
+        d1: {}, chalit: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
         d12: {}, d16: {}, d20: {}, d24: {}, d27: {}, d30: {}, d40: {}, d45: {}, d60: {}
     };
 
@@ -754,6 +755,7 @@ function calculatePlanetaryAndDivisionalData(
 
     const lagnaRasis: Record<ChartKey, number> = {
         d1: lagnaRasiIdx,
+        chalit: lagnaRasiIdx,
         d2: getD2Rasi(lagnaSidereal),
         d2us: getD2UmaShambhuRasi(lagnaSidereal),
         d3: getD3Rasi(lagnaSidereal),
@@ -774,6 +776,11 @@ function calculatePlanetaryAndDivisionalData(
 
     const assignToCharts = (symbol: string, siderealLong: number, isRetro: boolean, isComb: boolean = false) => {
         assignments.d1[((Math.floor(siderealLong / 30) - lagnaRasis.d1 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 1) % 30) });
+
+        // Bhava Chalit (Equal House System): 1st house is Lagna - 15 to Lagna + 15
+        const chalitHouse = Math.floor(((siderealLong - lagnaSidereal + 15 + 360) % 360) / 30) + 1;
+        assignments.chalit[chalitHouse].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 1) % 30) });
+
         assignments.d2[((getD2Rasi(siderealLong) - lagnaRasis.d2 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 2) % 30) });
         assignments.d2us[((getD2UmaShambhuRasi(siderealLong) - lagnaRasis.d2us + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 2) % 30) });
         assignments.d3[((getD3Rasi(siderealLong) - lagnaRasis.d3 + 12) % 12) + 1].push({ symbol, isRetrograde: isRetro, isCombust: isComb, degree: formatDegree((siderealLong * 3) % 30) });
@@ -839,7 +846,7 @@ function calculatePlanetaryAndDivisionalData(
     assignToCharts("Ke", ketuSidereal, true, false);
 
     const houseRasis: Record<ChartKey, { [key: number]: number }> = {
-        d1: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
+        d1: {}, chalit: {}, d2: {}, d2us: {}, d3: {}, d4: {}, d7: {}, d9: {}, d10: {},
         d12: {}, d16: {}, d20: {}, d24: {}, d27: {}, d30: {}, d40: {}, d45: {}, d60: {}
     };
 
@@ -855,6 +862,7 @@ function calculatePlanetaryAndDivisionalData(
     return {
         planets: planetData,
         d1: { houses: assignments.d1, houseRasis: houseRasis.d1 },
+        chalit: { houses: assignments.chalit, houseRasis: houseRasis.chalit },
         d2: { houses: assignments.d2, houseRasis: houseRasis.d2 },
         d2us: { houses: assignments.d2us, houseRasis: houseRasis.d2us },
         d3: { houses: assignments.d3, houseRasis: houseRasis.d3 },
@@ -1490,6 +1498,7 @@ export function generateAstrologyData(dob: string, tob: string, latStr?: string,
 
     Object.defineProperty(result, 'planets', { get: () => getCoreData().planets, enumerable: true });
     Object.defineProperty(result, 'd1', { get: () => getCoreData().d1, enumerable: true });
+    Object.defineProperty(result, 'chalit', { get: () => getCoreData().chalit, enumerable: true });
     Object.defineProperty(result, 'd2', { get: () => getCoreData().d2, enumerable: true });
     Object.defineProperty(result, 'd2us', { get: () => getCoreData().d2us, enumerable: true });
     Object.defineProperty(result, 'd3', { get: () => getCoreData().d3, enumerable: true });
