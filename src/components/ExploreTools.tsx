@@ -121,6 +121,25 @@ const ALL_CARDS = [
     paths: ['/hora']
   },
   {
+    id: 'transits-table',
+    href: '/transits-table',
+    icon: 'table_chart',
+    title: {
+      en: 'Transits Table',
+      hi: 'गोचर तालिका'
+    },
+    desc: {
+      en: 'View current live astrological positions of all Vedic planets in a compact table view.',
+      hi: 'एक कॉम्पैक्ट टेबल दृश्य में सभी वैदिक ग्रहों की वर्तमान लाइव ज्योतिषीय स्थिति देखें।'
+    },
+    action: {
+      en: 'View Table',
+      hi: 'तालिका देखें'
+    },
+    gaAction: 'explore_transits_table',
+    paths: ['/transits-table']
+  },
+  {
     id: 'booking',
     isButton: true,
     icon: 'chat_bubble',

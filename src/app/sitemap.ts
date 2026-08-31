@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/panchang',
     '/hora',
     '/transits',
+    '/transits-table',
     '/biorhythm',
     '/panch-pakshi',
     '/faq',
