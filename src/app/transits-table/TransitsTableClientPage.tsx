@@ -17,7 +17,6 @@ const TRANSLATIONS = {
     degree: "Degree",
     nakshatra: "Nakshatra",
     pada: "Pada",
-    house: "House",
     rashiLord: "Sign Lord",
     nakshatraLord: "Nakshatra Lord",
     state: "State",
@@ -120,12 +119,11 @@ const TransitsTableClientPage = () => {
                 <tr>
                   <th className="px-4 py-3">{t.planet}</th>
                   <th className="px-4 py-3">{t.rashi}</th>
+                  <th className="px-4 py-3">{t.rashiLord}</th>
                   <th className="px-4 py-3">{t.degree}</th>
                   <th className="px-4 py-3">{t.nakshatra}</th>
-                  <th className="px-4 py-3 text-center">{t.pada}</th>
-                  <th className="px-4 py-3 text-center">{t.house}</th>
-                  <th className="px-4 py-3">{t.rashiLord}</th>
                   <th className="px-4 py-3">{t.nakshatraLord}</th>
+                  <th className="px-4 py-3 text-center">{t.pada}</th>
                   <th className="px-4 py-3">{t.state}</th>
                 </tr>
               </thead>
@@ -142,23 +140,20 @@ const TransitsTableClientPage = () => {
                          {planetName} <span className="font-hindi text-xs font-normal text-on-surface/70">({planetSanskrit})</span>
                       </td>
                       <td className="px-4 py-3">{pData.rasi}</td>
+                      <td className="px-4 py-3">{pData.rasiLord}</td>
                       <td className="px-4 py-3 tabular-nums">{pData.degree}</td>
                       <td className="px-4 py-3">{pData.nakshatra}</td>
-                      <td className="px-4 py-3 text-center">{pData.pada}</td>
-                      <td className="px-4 py-3 text-center">{pData.house || '-'}</td>
-                      <td className="px-4 py-3">{pData.rasiLord}</td>
                       <td className="px-4 py-3">{pData.nakshatraLord}</td>
+                      <td className="px-4 py-3 text-center">{pData.pada}</td>
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap items-center gap-1.5 text-xs font-medium">
                           {pData.isRetrograde && (
                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface border border-outline/40">
-                               <span className="material-symbols-outlined text-[12px]">sync_alt</span>
                                {t.retrograde}
                              </span>
                           )}
                           {pData.isCombust && (
                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface border border-outline/40">
-                               <span className="material-symbols-outlined text-[12px]">local_fire_department</span>
                                {t.combust}
                              </span>
                           )}
