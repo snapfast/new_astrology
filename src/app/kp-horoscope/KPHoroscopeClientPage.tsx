@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import KundliChart from "@/components/KundliChart";
 import { generateAstrologyData } from "@/lib/astrology";
+import { generateKPAstrologyData } from "@/lib/kp";
+import * as Ast from "astronomy-engine";
 import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -127,7 +129,12 @@ const HoroscopeContent = () => {
   );
 
   const kpChartData = useMemo(
-    () => generateAstrologyData(dob, tob, lat, lon, parseInt(kpNumber, 10)),
+    () => {
+      const [y, m, d] = dob.split("-").map(Number);
+      const [h, min] = tob.split(":").map(Number);
+      const time = Ast.MakeTime(new Date(Date.UTC(y, m - 1, d, h, min - 330)));
+      return generateKPAstrologyData(time, parseFloat(lat), parseFloat(lon), parseInt(kpNumber, 10));
+    },
     [dob, tob, lat, lon, kpNumber],
   );
 
@@ -289,10 +296,10 @@ const HoroscopeContent = () => {
                   : ' Planets predominantly give the results of their Star Lord. The Sub-Lord of the planet decides whether those results will be positive or negative.'}
               </li>
               <li>
-                <strong className="text-on-surface">{lang === 'hi' ? 'भाव चालित (House Placements):' : 'Placidus House System:'}</strong>
+                <strong className="text-on-surface">{lang === 'hi' ? 'प्लासिडस भाव प्रणाली (Placidus House System):' : 'Placidus House System:'}</strong>
                 {lang === 'hi'
-                  ? ' केपी प्रणाली भाव (Placidus) प्रणाली का उपयोग करती है, जहां ग्रह एक राशि में होने के बावजूद दूसरे भाव में चले जा सकते हैं।'
-                  : ' KP uses the Placidus house system. You may notice planets placed in different houses compared to the standard D1 chart due to unequal house sizes.'}
+                  ? ' केपी ज्योतिष में प्लासिडस भाव प्रणाली का उपयोग किया जाता है। यह एक गणितीय विधि है जो समय और भौगोलिक स्थान के आधार पर भावों को सटीक रूप से विभाजित करती है।'
+                  : ' The KP system relies on the Placidus house system. Placidus uses a complex mathematical calculation based on the exact time and latitude/longitude to trisect the semi-diurnal and semi-nocturnal arcs of the ecliptic. This creates unequal house sizes, meaning a house can span across multiple signs, or a sign can be entirely intercepted within a house. This is why planetary placements in the KP chart often differ significantly from the standard whole-sign D1 chart.'}
               </li>
             </ul>
           </div>
