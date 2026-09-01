@@ -25,7 +25,7 @@ export function calculatePlacidusCusps(time: Ast.AstroTime, lat: number, lon: nu
         ) * deg
     );
 
-    const getPlacidusCusp = (RAMC_Offset: number, r: number, isBelowHorizon: boolean): number => {
+    const getPlacidusCusp = (RAMC_Offset: number, r: number): number => {
         let cusp = 0; // initial guess
         let rightAscension = RAMC_Offset;
 
@@ -37,7 +37,7 @@ export function calculatePlacidusCusps(time: Ast.AstroTime, lat: number, lon: nu
             }
 
             const ascensionalDiffDeg = D * deg;
-            const R = isBelowHorizon ? RAMC_Offset - (ascensionalDiffDeg / 3) * (r / 30) : RAMC_Offset + (ascensionalDiffDeg / 3) * (r / 30);
+            const R = RAMC_Offset + (ascensionalDiffDeg / 3) * (r / 30);
             rightAscension = normalizeAngle(R);
         }
 
@@ -45,10 +45,10 @@ export function calculatePlacidusCusps(time: Ast.AstroTime, lat: number, lon: nu
         return cusp;
     };
 
-    const cusp11 = getPlacidusCusp(RAMC + 30, 30, false);
-    const cusp12 = getPlacidusCusp(RAMC + 60, 60, false);
-    const cusp2  = getPlacidusCusp(RAMC + 120, 60, true);
-    const cusp3  = getPlacidusCusp(RAMC + 150, 30, true);
+    const cusp11 = getPlacidusCusp(RAMC + 30, 30);
+    const cusp12 = getPlacidusCusp(RAMC + 60, 60);
+    const cusp2  = getPlacidusCusp(RAMC + 120, 60);
+    const cusp3  = getPlacidusCusp(RAMC + 150, 30);
 
     const tropicalCusps = [
         0, // dummy
