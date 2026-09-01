@@ -371,7 +371,7 @@ export default function BtrClientPage() {
         {btrData ? (
           <div className="flex flex-col gap-6 max-w-6xl mx-auto mt-4">
              {/* Charts Grid */}
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                  <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
                     <h3 className="font-bold text-center mb-2">D1 - Lagna Chart</h3>
                     <div className="w-full max-w-[300px] aspect-square">
@@ -473,6 +473,32 @@ export default function BtrClientPage() {
                    <p className="text-sm text-text-muted mt-3">
                      * Traditional texts suggest examining Gulika&apos;s relationship with the natal Ascendant for rectification.
                    </p>
+                </div>
+
+                {/* D24 Chaturvimshamsha */}
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                   <h3 className="text-lg font-bold border-b pb-2 mb-3">D24 (Chaturvimshamsha) - Educational Rectification</h3>
+                   <p className="text-sm text-text-muted mb-3">
+                     The D24 chart is heavily utilized in Vedic Astrology to scrutinize educational milestones, intellect, and higher learning.
+                   </p>
+                   <ul className="text-sm text-on-surface list-disc pl-5 space-y-1">
+                      <li><strong>Key Houses:</strong> The 4th (Primary), 5th (Intelligence), and 9th (Higher Education) houses and their lords are matched against real-world educational events.</li>
+                      <li><strong>Event Verification:</strong> Astrologers verify if periods (Dashas) corresponding to major exams, college graduation, or educational breaks align with the planets placed in or ruling these key D24 houses.</li>
+                      <li><strong>Rectification Action:</strong> If a known educational achievement occurred but the operative planetary periods do not reflect it in the D24 chart, the birth time is shifted slightly until the chart aligns with the reality of the native&apos;s educational history.</li>
+                   </ul>
+                </div>
+
+                {/* D60 Shashtiamsha */}
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                   <h3 className="text-lg font-bold border-b pb-2 mb-3">D60 (Shashtiamsha) - Micro-Tuning & Karma</h3>
+                   <p className="text-sm text-text-muted mb-3">
+                     The D60 chart is the most sensitive divisional chart, changing its Ascendant approximately every 2 minutes (0.5 degrees). It represents past-life karma and the finest grain of destiny.
+                   </p>
+                   <ul className="text-sm text-on-surface list-disc pl-5 space-y-1">
+                      <li><strong>Ultimate Verification:</strong> Often used as the final step in rectification to fine-tune a birth time to the exact minute or second.</li>
+                      <li><strong>Shashtiamsha Deities:</strong> Each of the 60 divisions is assigned a specific deity (e.g., Ghora, Amrita, Kala). The nature of the deity ruling the D60 Ascendant must resonate deeply with the native&apos;s core life path and inherent nature.</li>
+                      <li><strong>Event Granularity:</strong> It is used to differentiate between twins or to validate extremely specific, unique life events that are not fully explained by the D1 or D9 charts.</li>
+                   </ul>
                 </div>
 
              </div>
