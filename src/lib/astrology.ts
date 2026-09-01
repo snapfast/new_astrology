@@ -804,7 +804,7 @@ const D9_START_SIGNS = [0, 9, 6, 3]; // Fire, Earth, Air, Water
 export const SIDEREAL_YEAR_DAYS = 365.24219;
 const MS_PER_YEAR = SIDEREAL_YEAR_DAYS * 24 * 60 * 60 * 1000;
 
-function getRotationMatrix(time: Ast.AstroTime): Ast.RotationMatrix {
+export function getRotationMatrix(time: Ast.AstroTime): Ast.RotationMatrix {
     const key = time.ut;
     let rot = rotationMatrixCache.get(key);
     if (!rot) {
@@ -880,7 +880,7 @@ export function getTrueEclipticLongitude(body: Ast.Body, time: Ast.AstroTime, ro
     return result;
 }
 
-function getTrueMoonEclipticLongitude(time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
+export function getTrueMoonEclipticLongitude(time: Ast.AstroTime, rotEqjEct?: Ast.RotationMatrix): number {
     const key = time.ut;
     const cached = moonLongCache.get(key);
     if (cached !== undefined) {
@@ -952,7 +952,7 @@ export function parseISTToUTC(dob: string, tob: string): { istDate: Date, time: 
     return { istDate, time };
 }
 
-function formatDegree(siderealLong: number): string {
+export function formatDegree(siderealLong: number): string {
     const degInRasi = siderealLong % 30;
     const d = Math.floor(degInRasi);
     const m = Math.floor((degInRasi - d) * 60);
@@ -2715,7 +2715,7 @@ export function getSignInsight(signName: string, lang: 'en' | 'hi' = 'en'): stri
     return insight[lang];
 }
 
-function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean, isCombust: boolean = false): PlanetData {
+export function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean, isCombust: boolean = false): PlanetData {
     const normLong = ((siderealLong % 360) + 360) % 360;
     const rasiIdx = Math.floor(normLong / 30) % 12;
     const nakshatraIdx = Math.floor(normLong / NAKSHATRA_WIDTH) % 27;
@@ -3147,7 +3147,7 @@ export interface CombustionPeriod {
     isCurrent: boolean;
 }
 
-function isPlanetCombustAt(
+export function isPlanetCombustAt(
     planet: string,
     body: Ast.Body,
     time: Ast.AstroTime,
