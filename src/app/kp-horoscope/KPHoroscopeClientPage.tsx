@@ -130,9 +130,13 @@ const HoroscopeContent = () => {
 
   const kpChartData = useMemo(
     () => {
+      if (!dob || !tob) return null;
       const [y, m, d] = dob.split("-").map(Number);
       const [h, min] = tob.split(":").map(Number);
-      const time = Ast.MakeTime(new Date(Date.UTC(y, m - 1, d, h, min - 330)));
+      if (!y || !m || !d || isNaN(h) || isNaN(min)) return null;
+      const dateObj = new Date(Date.UTC(y, m - 1, d, h, min - 330));
+      if (isNaN(dateObj.getTime())) return null;
+      const time = Ast.MakeTime(dateObj);
       return generateKPAstrologyData(time, parseFloat(lat), parseFloat(lon), parseInt(kpNumber, 10));
     },
     [dob, tob, lat, lon, kpNumber],
@@ -259,7 +263,7 @@ const HoroscopeContent = () => {
                   KP Horary Lagna
                 </span>
               </h2>
-              <KundliChart data={kpChartData.d1} />
+              {kpChartData && <KundliChart data={kpChartData.d1} />}
             </div>
           </div>
         </div>
