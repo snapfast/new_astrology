@@ -1,0 +1,24 @@
+<<<<<<< SEARCH
+  const kpChartData = useMemo(
+    () => {
+      const [y, m, d] = dob.split("-").map(Number);
+      const [h, min] = tob.split(":").map(Number);
+      const time = Ast.MakeTime(new Date(Date.UTC(y, m - 1, d, h, min - 330)));
+      return generateKPAstrologyData(time, parseFloat(lat), parseFloat(lon), parseInt(kpNumber, 10));
+    },
+    [dob, tob, lat, lon, kpNumber],
+  );
+=======
+  const kpChartData = useMemo(
+    () => {
+      const [y, m, d] = dob.split("-").map(Number);
+      const [h, min] = tob.split(":").map(Number);
+      if (!y || !m || !d || isNaN(h) || isNaN(min)) return null;
+      const dateObj = new Date(Date.UTC(y, m - 1, d, h, min - 330));
+      if (isNaN(dateObj.getTime())) return null;
+      const time = Ast.MakeTime(dateObj);
+      return generateKPAstrologyData(time, parseFloat(lat), parseFloat(lon), parseInt(kpNumber, 10));
+    },
+    [dob, tob, lat, lon, kpNumber],
+  );
+>>>>>>> REPLACE
