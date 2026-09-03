@@ -12,8 +12,8 @@ import ExploreTools from '@/components/ExploreTools';
 const TRANSLATIONS = {
   en: {
     title: "Frequently Asked Questions",
-    subtitle: "Knowledge & Wisdom",
-    description: "Explore detailed answers regarding Vedic Astrology, Shodashavarga (Divisional) Charts, the Panch Pakshi system, and personal Biorhythm tracking.",
+    subtitle: "Questions & Answers",
+    description: "Explore answers regarding Vedic Astrology, Divisional Charts, the Panch Pakshi system, and Biorhythm.",
 
     sectionVargaTitle: "1. All 17 Varga (Divisional) Charts Reference",
     sectionVargaDesc: "In Vedic Astrology, divisional charts (Vargas) offer deeper insight into specific facets of a native's life, showing planetary strengths not visible in the primary Lagna chart. Here is the comprehensive list of all 17 charts supported on our platform:",

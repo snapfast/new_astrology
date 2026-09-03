@@ -9,7 +9,7 @@ import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Expert Vedic Astrology services covering career, finance, relationships, health, and spiritual guidance through traditional Jyotish principles.",
+  description: "Vedic Astrology services covering career, finance, relationships, and health.",
   keywords: [
     "Vedic Astrology Services", "Kundli Reading", "Career Astrology",
     "Relationship Astrology remedies", "Medical Astrology consultation", "business astrology support"
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Services | Rahul Bali Astrology",
-    description: "Expert Vedic Astrology services covering career, finance, relationships, health, and spiritual guidance through traditional Jyotish principles.",
+    description: "Vedic Astrology services covering career, finance, relationships, and health.",
     url: "https://astro.rahulbali.in/services",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Services | Rahul Bali Astrology",
-    description: "Expert Vedic Astrology services covering career, finance, relationships, health, and spiritual guidance.",
+    description: "Vedic Astrology services covering career, finance, relationships, and health.",
     images: ["/og-image.png"],
   },
 };

@@ -11,7 +11,7 @@ import ExploreTools from '@/components/ExploreTools';
 const TRANSLATIONS = {
   en: {
     title: "Contact Us",
-    subtitle: "Get in Touch",
+    subtitle: "Contact Information",
     location: "Location",
     city: "India",
     email: "Email Address",

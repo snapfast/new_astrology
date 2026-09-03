@@ -7,7 +7,7 @@ test('404 page displays correctly in English', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Page Not Found' })).toBeVisible();
 
   // Check for the English subtitle
-  await expect(page.getByText('404 Error')).toBeVisible();
+  await expect(page.getByText('Not Found', { exact: true })).toBeVisible();
 
   // Check for the "Back to Home" button
   const backButton = page.getByRole('link', { name: 'Back to Home' });

@@ -3,7 +3,7 @@ import TransitsTableClientPage from './TransitsTableClientPage';
 
 export const metadata: Metadata = {
   title: 'Current Planetary Transits Table',
-  description: 'View the current live astrological positions and status of all Vedic planets in a compact table view.',
+  description: 'View the current astrological positions and status of all Vedic planets in a table view.',
   keywords: [
     "Planetary Transits Table", "Current Planetary Positions", "Gochar Table", "Vedic Astrology Transits",
     "live planets", "current rashi", "nakshatra position"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Current Planetary Transits Table | Rahul Bali Astrology',
-    description: 'View the current live astrological positions and status of all Vedic planets in a compact table view.',
+    description: 'View the current astrological positions and status of all Vedic planets in a table view.',
     url: "https://astro.rahulbali.in/transits-table",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: 'Current Planetary Transits Table | Rahul Bali Astrology',
-    description: 'View the current live astrological positions and status of all Vedic planets in a compact table view.',
+    description: 'View the current astrological positions and status of all Vedic planets in a table view.',
     images: ["/og-image.png"],
   },
 };

@@ -9,7 +9,7 @@ import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "Free Kundli",
-  description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9), and planetary positions using precise Lahiri Ayanamsa.",
+  description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",
   keywords: [
     "Free Kundli", "Online Kundli", "Janam Kundali", "Vedic Horoscope", "Birth Chart",
     "Free Astrology Report", "Kundali Matching", "Laguna Chart", "Navamsha Chart",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Free Kundli | Rahul Bali Astrology",
-    description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9), and planetary positions.",
+    description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",
     url: "https://astro.rahulbali.in/free-horoscope",
     siteName: "Rahul Bali Astrology",
     images: [

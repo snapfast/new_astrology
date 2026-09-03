@@ -4,7 +4,7 @@ import FAQContent from './FAQContent';
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional Varga charts, Panch Pakshi, and Biorhythm cycles by Pandit Rahul Bali.",
+  description: "Explore frequently asked questions about Vedic Astrology, Divisional Varga charts, Panch Pakshi, and Biorhythm.",
   keywords: [
     "Vedic Astrology FAQ", "all 17 varga charts", "divisional charts in hindi",
     "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm cycles",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FAQ | Rahul Bali Astrology",
-    description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional Varga charts, Panch Pakshi, and Biorhythm cycles by Pandit Rahul Bali.",
+    description: "Explore frequently asked questions about Vedic Astrology, Divisional Varga charts, Panch Pakshi, and Biorhythm.",
     url: "https://astro.rahulbali.in/faq",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FAQ | Rahul Bali Astrology",
-    description: "Explore frequently asked questions about Vedic Astrology, all 17 Divisional Varga charts, Panch Pakshi, and Biorhythm cycles by Pandit Rahul Bali.",
+    description: "Explore frequently asked questions about Vedic Astrology, Divisional Varga charts, Panch Pakshi, and Biorhythm.",
     images: ["/og-image.png"],
   },
 };

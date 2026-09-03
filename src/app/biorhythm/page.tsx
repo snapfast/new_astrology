@@ -3,7 +3,7 @@ import BiorhythmClientPage from './BiorhythmClientPage';
 
 export const metadata: Metadata = {
   title: 'Biorhythm',
-  description: 'Track your physical, emotional, and intellectual Biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date for guidance.',
+  description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
   keywords: [
     "Biorhythm Calculator", "Biorhythm system", "physical emotional intellectual cycles", "energy cycle tracker",
     "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Biorhythm | Rahul Bali Astrology',
-    description: 'Track your physical, emotional, and intellectual Biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date for guidance.',
+    description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
     url: "https://astro.rahulbali.in/biorhythm",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: 'Biorhythm | Rahul Bali Astrology',
-    description: 'Track your physical, emotional, and intellectual Biorhythm cycles. Understand your natural energy peaks and troughs based on your birth date for guidance.',
+    description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
     images: ["/og-image.png"],
   },
 };

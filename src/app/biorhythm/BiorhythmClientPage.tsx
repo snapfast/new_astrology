@@ -15,7 +15,7 @@ const TRANSLATIONS = {
   en: {
     heroTitle: "Personal Biorhythms",
     heroSubtitle: "Energy Cycles",
-    heroDesc: "Understand your natural cycles. Physical, emotional, and intellectual rhythms influence your daily life from the moment of birth.",
+    heroDesc: "Track your physical, emotional, and intellectual rhythms.",
     cycleDay: "Day Cycle",
     interpretation: "Interpretation",
     interpretationDesc: "Values above the center line are <strong>High Phases</strong> (energetic), below are <strong>Low Phases</strong> (rest). Crossing the line indicates transition or instability.",

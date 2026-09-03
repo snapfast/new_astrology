@@ -8,8 +8,8 @@ import PageHeader from '@/components/PageHeader';
 const TRANSLATIONS = {
   en: {
     title: "Page Not Found",
-    subtitle: "404 Error",
-    description: "The cosmic path you're looking for doesn't seem to exist. Let's get you back on track.",
+    subtitle: "Not Found",
+    description: "The page you are looking for does not exist.",
     backToHome: "Back to Home"
   }};
 

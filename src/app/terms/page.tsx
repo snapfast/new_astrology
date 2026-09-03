@@ -4,7 +4,7 @@ import TermsContent from './TermsContent';
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Read our Terms of Service. Learn about astrological disclaimers, accurate birth inputs, and voluntary contributions for Rahul Bali Astrology.",
+  description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
   keywords: [
     "Terms of Service", "astrological disclaimers", "Rahul Bali Astrology terms",
     "consultation guidelines", "refund and payment terms"
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Terms of Service | Rahul Bali Astrology",
-    description: "Read our Terms of Service. Learn about astrological disclaimers, accurate birth inputs, and voluntary contributions.",
+    description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
     url: "https://astro.rahulbali.in/terms",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service | Rahul Bali Astrology",
-    description: "Read our Terms of Service. Learn about astrological disclaimers, accurate birth inputs, and voluntary contributions.",
+    description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
     images: ["/og-image.png"],
   },
 };
