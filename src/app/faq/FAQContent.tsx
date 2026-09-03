@@ -97,7 +97,7 @@ export default function FAQContent() {
         <div className="max-w-6xl mx-auto px-8">
 
           {/* Navigation Tabs for density and micro-UX */}
-          <div className="flex justify-center border-b border-outline/30 mb-12 gap-6">
+          <div className="flex justify-center border-b border-outline/20 mb-12 gap-6">
             <button
               onClick={() => setActiveTab('vargas')}
               className={cn(
@@ -126,14 +126,14 @@ export default function FAQContent() {
 
           {activeTab === 'vargas' && (
             <div className="space-y-12 animate-in fade-in duration-300">
-              <div className="bg-surface-container-low border border-outline/30 rounded-3xl p-6 md:p-8 text-left">
+              <div className="bg-surface-container-low border border-outline/20 rounded-3xl p-6 md:p-8 text-left">
                 <h2 className="text-xl md:text-2xl font-normal font-headline text-on-surface mb-3">{t.sectionVargaTitle}</h2>
                 <p className="text-sm md:text-base text-on-surface/90 leading-relaxed font-body">{t.sectionVargaDesc}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {t.charts.map((chart, idx) => (
-                  <div key={idx} className="bg-white border border-outline/50 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 text-left">
+                  <div key={idx} className="bg-white border border-outline/20 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 text-left">
                     <div className="flex justify-between items-start gap-4 mb-3">
                       <span className="text-xs font-bold text-accent bg-accent/10 px-2.5 py-1 rounded-md uppercase font-label">
                         {chart.id}
@@ -154,7 +154,7 @@ export default function FAQContent() {
           {activeTab === 'general' && (
             <div className="max-w-4xl mx-auto space-y-10 animate-in fade-in duration-300 text-left">
               {t.faqs.map((faq, idx) => (
-                <div key={idx} className="bg-white border border-outline/30 rounded-2xl p-6 md:p-8 shadow-sm">
+                <div key={idx} className="bg-white border border-outline/20 rounded-2xl p-6 md:p-8 shadow-sm">
                   <h3 className="text-lg font-medium font-headline text-on-surface mb-3 flex gap-3 items-start">
                     <span className="text-accent shrink-0 select-none">Q.</span>
                     <span>{faq.q}</span>

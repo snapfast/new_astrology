@@ -111,14 +111,14 @@ const Testimonials = () => {
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => { prevSlide(); setIsAutoPlaying(false); }}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/20 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   aria-label={t.prev}
                 >
                   <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
                 </button>
                 <button
                   onClick={() => { nextSlide(); setIsAutoPlaying(false); }}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/30 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline/20 flex items-center justify-center text-on-surface hover:bg-on-surface/5 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   aria-label={t.next}
                 >
                   <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
@@ -135,13 +135,13 @@ const Testimonials = () => {
               >
                 {featuredReviews.map((item) => (
                   <div key={item.id} className={`${itemsPerView === 2 ? 'min-w-[50%]' : 'min-w-full'} px-2`}>
-                    <div className="bg-surface p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] border border-outline h-full flex flex-col">
+                    <div className="bg-surface p-6 md:p-8 rounded-3xl md:rounded-3xl border border-outline h-full flex flex-col">
                       <StarRating className="mb-4" starClassName="text-sm md:text-base" />
                       <p className="text-sm md:text-base text-on-surface mb-6 leading-relaxed font-body font-normal">
                         &quot;{item.review}&quot;
                       </p>
                       <div className="flex items-center gap-4 mt-auto">
-                        <div className="w-12 h-12 rounded-full bg-white border border-outline/50 flex items-center justify-center text-accent font-semibold text-lg">
+                        <div className="w-12 h-12 rounded-full bg-white border border-outline/20 flex items-center justify-center text-accent font-semibold text-lg">
                           {item.name[0]}
                         </div>
                         <div>

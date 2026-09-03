@@ -40,7 +40,7 @@ export default function PanchPakshiClientPage() {
           {/* Left Column: Control Bar & Day Info */}
           <div className="lg:col-span-1 space-y-8">
             {/* Unified Control Bar */}
-            <div className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm">
+            <div className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm">
               <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4">
                 <div className="flex flex-col w-full sm:w-auto">
                   <label htmlFor="panch-pakshi-nakshatra" className="text-xs font-semibold uppercase tracking-wider text-on-surface/70 mb-1 ml-1">{selectNakshatraLabel}</label>
@@ -48,7 +48,7 @@ export default function PanchPakshiClientPage() {
                     id="panch-pakshi-nakshatra"
                     value={selectedNakshatra}
                     onChange={(e) => setSelectedNakshatra(e.target.value)}
-                    className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 text-sm font-medium"
+                    className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 text-sm font-medium"
                   >
                     {NAKSHATRA_NAMES.map(n => (
                       <option key={n.name} value={n.name}>{lang === 'en' ? n.name : n.sanskrit}</option>
@@ -62,7 +62,7 @@ export default function PanchPakshiClientPage() {
                     id="panch-pakshi-paksha"
                     value={selectedPaksha}
                     onChange={(e) => setSelectedPaksha(e.target.value as "Shukla" | "Krishna")}
-                    className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 text-sm font-medium"
+                    className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 text-sm font-medium"
                   >
                     {pakshaOptions.map(p => (
                       <option key={p.value} value={p.value}>{p.label}</option>
@@ -78,7 +78,7 @@ export default function PanchPakshiClientPage() {
                       id="panch-pakshi-date"
                       value={dateStr}
                       onChange={(e) => setDateStr(e.target.value)}
-                      className="w-full sm:w-40 px-4 py-2 bg-white border border-outline/50 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 transition-shadow pr-12 text-sm text-transparent font-medium tabular-nums relative z-10"
+                      className="w-full sm:w-40 px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 transition-shadow pr-12 text-sm text-transparent font-medium tabular-nums relative z-10"
                       aria-label={datePlaceholder}
                     />
                     <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-medium z-20">
@@ -114,7 +114,7 @@ export default function PanchPakshiClientPage() {
                   <h2 className="text-2xl font-headline text-accent mb-6">{lang === 'en' ? 'Daily Activities' : 'दैनिक गतिविधियां'}</h2>
                   <div className="space-y-4">
                       {currentSchedule.activities.map((item, idx) => (
-                          <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-outline/10 bg-surface/30">
+                          <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-outline/20 bg-surface/30">
                               <div className="mb-2 sm:mb-0">
                                   <span className="text-sm font-medium text-on-surface/60 uppercase tracking-wider block mb-1">Time</span>
                                   <span className="text-lg font-body text-on-surface tabular-nums">{item.timeSlot}</span>
@@ -136,7 +136,7 @@ export default function PanchPakshiClientPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Ruling */}
-            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+            <div className="p-4 rounded-xl border border-outline/20 bg-surface/30 flex flex-col space-y-2">
               <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-success/20 text-success">
                 {lang === 'en' ? 'Ruling' : 'शासन (Ruling)'}
               </span>
@@ -148,7 +148,7 @@ export default function PanchPakshiClientPage() {
             </div>
 
             {/* Eating */}
-            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+            <div className="p-4 rounded-xl border border-outline/20 bg-surface/30 flex flex-col space-y-2">
               <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-info/20 text-info">
                 {lang === 'en' ? 'Eating' : 'भोजन (Eating)'}
               </span>
@@ -160,7 +160,7 @@ export default function PanchPakshiClientPage() {
             </div>
 
             {/* Walking */}
-            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+            <div className="p-4 rounded-xl border border-outline/20 bg-surface/30 flex flex-col space-y-2">
               <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-warning/20 text-warning">
                 {lang === 'en' ? 'Walking' : 'चलना (Walking)'}
               </span>
@@ -172,7 +172,7 @@ export default function PanchPakshiClientPage() {
             </div>
 
             {/* Sleeping */}
-            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+            <div className="p-4 rounded-xl border border-outline/20 bg-surface/30 flex flex-col space-y-2">
               <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-on-surface/10 text-on-surface">
                 {lang === 'en' ? 'Sleeping' : 'नींद (Sleeping)'}
               </span>
@@ -184,7 +184,7 @@ export default function PanchPakshiClientPage() {
             </div>
 
             {/* Dying */}
-            <div className="p-4 rounded-xl border border-outline/10 bg-surface/30 flex flex-col space-y-2">
+            <div className="p-4 rounded-xl border border-outline/20 bg-surface/30 flex flex-col space-y-2">
               <span className="px-3 py-1 rounded-lg font-medium text-center text-sm w-fit bg-error/20 text-error">
                 {lang === 'en' ? 'Dying' : 'मृत्यु (Dying)'}
               </span>

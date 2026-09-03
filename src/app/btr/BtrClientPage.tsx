@@ -218,7 +218,7 @@ export default function BtrClientPage() {
         {/* Styled Form Section matching Horoscope Page */}
         <section className="bg-background relative z-20 pt-8">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-surface p-6 md:p-10 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
+            <div className="bg-surface p-6 md:p-10 rounded-3xl shadow-sm border border-outline/20 relative overflow-hidden">
               <div className="relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {/* Name Input */}
@@ -302,7 +302,7 @@ export default function BtrClientPage() {
                       />
                     </div>
                     {showSuggestions && (suggestions.length > 0 || isLoading) && (
-                      <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/20 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                         {isLoading ? (
                           <div className="px-6 py-4 text-xs text-on-surface font-body">Searching cities...</div>
                         ) : (
@@ -355,7 +355,7 @@ export default function BtrClientPage() {
 
         {/* Sticky Time Adjustment Bar */}
         <div className="sticky top-4 z-40 max-w-4xl mx-auto flex items-center justify-center p-2">
-            <div className="flex items-center space-x-1 border border-outline/30 rounded-full p-2 bg-white/90 backdrop-blur shadow-sm">
+            <div className="flex items-center space-x-1 border border-outline/20 rounded-full p-2 bg-white/90 backdrop-blur shadow-sm">
                 <button onClick={() => adjustTime(-3600)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">-1 hour</button>
                 <button onClick={() => adjustTime(-60)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">-1 min</button>
                 <button onClick={() => adjustTime(-1)} className="px-3 py-1.5 text-xs font-medium text-on-surface bg-surface-container-low rounded-full hover:bg-surface-container transition">-1 sec</button>

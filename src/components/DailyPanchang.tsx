@@ -43,7 +43,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
   return (
     <section className={`py-16 bg-surface-bright relative overflow-hidden ${className}`}>
       <div className="max-w-7xl mx-auto px-8 relative z-10">
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-8 md:p-12 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-12 shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="flex flex-col lg:flex-row items-center gap-12 relative">
             <div className="lg:w-1/2">
               <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-8 leading-tight">{t.title}</h2>

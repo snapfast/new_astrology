@@ -29,7 +29,7 @@ const Footer = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
-    <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/50 font-body print:hidden">
+    <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/20 font-body print:hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
         <div className="col-span-1 lg:col-span-1">
           <Link href="/" className="mb-8 block">
@@ -66,7 +66,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/30 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all text-[10px] tracking-widest">
+      <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/20 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all text-[10px] tracking-widest">
         <Link href="/" className="text-center md:text-left">{t.rights}</Link>
         <div className="flex gap-10">
           <Link href="/privacy">{t.privacy}</Link>

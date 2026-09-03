@@ -354,13 +354,13 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
           <div className="flex flex-wrap items-center gap-2 text-sm font-medium">
             {selectedMd ? (
             <>
-              <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/50 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
+              <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
                 {lang === 'hi' ? PLANET_NAMES[selectedMd.lord]?.sanskrit || selectedMd.lord : selectedMd.lord}
               </span>
               {selectedAd && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/50 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
                     {lang === 'hi' ? PLANET_NAMES[selectedAd.lord]?.sanskrit || selectedAd.lord : selectedAd.lord}
                   </span>
                 </>
@@ -368,7 +368,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
               {selectedPd && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/50 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
                     {lang === 'hi' ? PLANET_NAMES[selectedPd.lord]?.sanskrit || selectedPd.lord : selectedPd.lord}
                   </span>
                 </>
@@ -376,7 +376,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
               {selectedSd && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/50 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
                     {lang === 'hi' ? PLANET_NAMES[selectedSd.lord]?.sanskrit || selectedSd.lord : selectedSd.lord}
                   </span>
                 </>
@@ -384,7 +384,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
               {selectedPrana && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/50 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
                     {lang === 'hi' ? PLANET_NAMES[selectedPrana.lord]?.sanskrit || selectedPrana.lord : selectedPrana.lord}
                   </span>
                 </>

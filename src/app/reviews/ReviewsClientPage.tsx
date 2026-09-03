@@ -93,13 +93,13 @@ export default function ReviewsClientPage() {
       <div className="pt-16 pb-16">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
-            <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-outline flex flex-col shadow-sm">
+            <div key={item.id} className="bg-white p-6 rounded-3xl border border-outline flex flex-col shadow-sm">
               <StarRating className="mb-4" starClassName="text-base" />
               <p className="text-sm text-on-surface mb-6 leading-relaxed font-body font-normal flex-grow">
                 &quot;{item.review}&quot;
               </p>
-              <div className="flex items-center gap-4 pt-6 border-t border-outline/30">
-                <div className="w-10 h-10 rounded-full bg-white border border-outline/50 flex items-center justify-center text-accent font-semibold text-base uppercase">
+              <div className="flex items-center gap-4 pt-6 border-t border-outline/20">
+                <div className="w-10 h-10 rounded-full bg-white border border-outline/20 flex items-center justify-center text-accent font-semibold text-base uppercase">
                   {item.name[0]}
                 </div>
                 <div>
@@ -121,7 +121,7 @@ export default function ReviewsClientPage() {
       <section className="max-w-7xl mx-auto px-8 pb-16">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3507.5973617160266!2d77.0661377!3d28.4615515!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1911f4ce53e1%3A0x1aa9a8a9a005470!2sRahul%20Bali%20Astrology!5e0!3m2!1sen!2sin!4v1781586655704!5m2!1sen!2sin"
-          className="w-full h-[450px] rounded-[2.5rem] border border-outline shadow-sm"
+          className="w-full h-[450px] rounded-3xl border border-outline shadow-sm"
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
@@ -130,9 +130,9 @@ export default function ReviewsClientPage() {
       </section>
 
       {/* CTA Section to Reduce Bounce Rate */}
-      <section className="py-16 bg-surface-bright relative overflow-hidden border-t border-outline/30">
+      <section className="py-16 bg-surface-bright relative overflow-hidden border-t border-outline/20">
         <div className="max-w-4xl mx-auto px-8 text-center relative z-10">
-          <div className="bg-white border border-outline/80 rounded-[3rem] p-8 md:p-12 shadow-sm">
+          <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-12 shadow-sm">
             <h2 className="text-2xl md:text-3xl font-normal mb-4 font-headline text-on-surface">
               {lang === 'en' ? "Experience the Guidance Yourself" : "स्वयं मार्गदर्शन का अनुभव करें"}
             </h2>

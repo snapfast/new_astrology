@@ -106,7 +106,7 @@ export default function FreeHoroscopePage() {
       </div>
 
       {/* SEO Content Section: Why Kundli Matters */}
-      <section className="py-24 bg-surface border-t border-outline/30">
+      <section className="py-24 bg-surface border-t border-outline/20">
         <div className="max-w-4xl mx-auto px-8">
           <h2 className="text-3xl md:text-4xl font-normal mb-12 font-headline text-on-surface text-center">The Significance of Your Birth Chart</h2>
           <div className="prose prose-sm md:prose-base max-w-none text-on-surface font-body leading-relaxed space-y-6">
@@ -131,7 +131,7 @@ export default function FreeHoroscopePage() {
       </section>
 
       {/* Features/Info Section */}
-      <section className="py-24 bg-surface-container-low border-y border-outline/30">
+      <section className="py-24 bg-surface-container-low border-y border-outline/20">
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-center max-w-4xl mx-auto">
             <div className="space-y-4">
@@ -180,7 +180,7 @@ export default function FreeHoroscopePage() {
       {/* CTA Section */}
       <section className="pb-32 pt-12 bg-surface">
         <div className="max-w-4xl mx-auto px-8">
-          <div className="bg-surface-container-low border border-outline/50 rounded-[3rem] p-10 md:p-16 text-center">
+          <div className="bg-surface-container-low border border-outline/20 rounded-3xl p-10 md:p-16 text-center">
             <h2 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Unlock Your Cosmic Potential</h2>
             <p className="text-sm md:text-base text-on-surface font-body mb-10 leading-relaxed">
               While a digital chart is a valuable tool, a <strong>Verified Personal Consultation</strong> with Pandit Rahul Bali Ji offers the depth and nuance needed for life-altering decisions.

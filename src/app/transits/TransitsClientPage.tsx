@@ -190,7 +190,7 @@ const TransitsClientPage = () => {
       const daysUntil = Math.ceil((startMs - refMs) / (1000 * 60 * 60 * 24));
       return {
         label: `${t.upcoming} (${daysUntil}d)`,
-        className: "bg-surface text-on-surface border-outline/30"
+        className: "bg-surface text-on-surface border-outline/20"
       };
     } else {
       return {
@@ -225,7 +225,7 @@ const TransitsClientPage = () => {
                   setSelectedPlanet(e.target.value);
                   sendGAEvent({ event: 'action_click', action_name: 'transits_filter_planet', planet: e.target.value });
                 }}
-                className="w-full sm:w-48 pl-4 pr-10 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                className="w-full sm:w-48 pl-4 pr-10 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 aria-label={t.filterPlanet}
               >
                 <option value="all">{t.allPlanets}</option>
@@ -245,7 +245,7 @@ const TransitsClientPage = () => {
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-full sm:w-48 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                className="w-full sm:w-48 px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label="Select Date"
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
@@ -267,7 +267,7 @@ const TransitsClientPage = () => {
                 type="time"
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
-                className="w-full sm:w-36 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                className="w-full sm:w-36 px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
                 aria-label="Select Time"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">schedule</span>
@@ -342,7 +342,7 @@ const TransitsClientPage = () => {
               <div key={planetName} className="bg-white border border-outline rounded-2xl p-4 md:p-5 shadow-sm flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   {/* Card Header: Name + Badges + Position */}
-                  <div className="border-b border-outline/10 pb-2.5 flex flex-col space-y-1.5">
+                  <div className="border-b border-outline/20 pb-2.5 flex flex-col space-y-1.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <h3 data-testid="transit-card-title" className="text-xl font-headline font-bold text-on-surface flex items-baseline gap-2">
                         {planetName} <span className="font-hindi text-base font-normal text-on-surface/70">({planetSanskrit})</span>
@@ -380,7 +380,7 @@ const TransitsClientPage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-0.5">
                     {/* Column 1: Rashi Transits */}
                     <div className="space-y-1.5">
-                      <h4 className="text-xs font-label uppercase font-bold tracking-wider text-accent border-b border-outline/10 pb-1">
+                      <h4 className="text-xs font-label uppercase font-bold tracking-wider text-accent border-b border-outline/20 pb-1">
                         {t.rashiTransits}
                       </h4>
                       {rashiEvents.length > 0 ? (
@@ -430,7 +430,7 @@ const TransitsClientPage = () => {
 
                     {/* Column 2: Nakshatra Transits */}
                     <div className="space-y-1.5">
-                      <h4 className="text-xs font-label uppercase font-bold tracking-wider text-accent border-b border-outline/10 pb-1">
+                      <h4 className="text-xs font-label uppercase font-bold tracking-wider text-accent border-b border-outline/20 pb-1">
                         {t.nakshatraTransits}
                       </h4>
                       {nakshatraEvents.length > 0 ? (
@@ -482,7 +482,7 @@ const TransitsClientPage = () => {
 
                 {/* Card Footer: Retrograde & Combustion Detailed Cards */}
                 {(retroDetails || combustDetails) && (
-                  <div className="pt-3 border-t border-outline/10 space-y-3">
+                  <div className="pt-3 border-t border-outline/20 space-y-3">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-body">
                       {/* Retrograde Box */}
                       {retroDetails && (() => {
@@ -523,7 +523,7 @@ const TransitsClientPage = () => {
                                       key={pIdx}
                                       className={`p-1.5 rounded-lg transition-all ${
                                         isActive
-                                          ? 'bg-surface border border-outline/30 shadow-2xs font-semibold'
+                                          ? 'bg-surface border border-outline/20 shadow-2xs font-semibold'
                                           : 'bg-surface/50 border border-outline/20'
                                       }`}
                                     >
@@ -603,7 +603,7 @@ const TransitsClientPage = () => {
                                       key={pIdx}
                                       className={`p-1.5 rounded-lg transition-all ${
                                         isActive
-                                          ? 'bg-surface border border-outline/30 shadow-2xs font-semibold'
+                                          ? 'bg-surface border border-outline/20 shadow-2xs font-semibold'
                                           : 'bg-surface/50 border border-outline/20'
                                       }`}
                                     >
@@ -658,7 +658,7 @@ const TransitsClientPage = () => {
       </section>
 
       {/* Educational Section */}
-      <section className="py-6 md:py-10 bg-white border-y border-outline/30">
+      <section className="py-6 md:py-10 bg-white border-y border-outline/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 md:space-y-6">
           <h2 className="text-2xl md:text-3xl font-headline text-on-surface">{t.eduTitle}</h2>
           <p className="text-sm md:text-base text-on-surface font-body leading-relaxed max-w-2xl mx-auto">

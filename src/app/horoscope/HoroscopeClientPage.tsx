@@ -265,7 +265,7 @@ const HoroscopeContent = () => {
         <div className="space-y-3 text-left">
           {/* Section: Birth Information */}
           <div
-            className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 relative shadow-sm cursor-pointer hover:bg-surface-container-lowest transition-colors"
+            className="bg-white border border-outline/20 rounded-3xl p-4 md:p-5 relative shadow-sm cursor-pointer hover:bg-surface-container-lowest transition-colors"
             onClick={() => setBirthDetailsExpanded(!birthDetailsExpanded)}
             role="button"
             tabIndex={0}
@@ -302,7 +302,7 @@ const HoroscopeContent = () => {
                 <span>{pob}</span>
               </div>
             ) : (
-              <div className="mt-4 pt-4 border-t border-outline/50 animate-in slide-in-from-top-2 fade-in duration-300">
+              <div className="mt-4 pt-4 border-t border-outline/20 animate-in slide-in-from-top-2 fade-in duration-300">
                 <div onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                   <ChartGeneration isUpdate={true} initialValues={{ name, dob, tob, pob, lat, lon }} onClose={() => setBirthDetailsExpanded(false)} className="py-4 bg-transparent p-0 m-0 [&>div]:p-0 [&>div]:border-none [&>div]:shadow-none [&_.text-center]:hidden" />
                 </div>
@@ -312,7 +312,7 @@ const HoroscopeContent = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
             {/* Section: Vedic Panchang */}
-            <div className="lg:col-span-2 bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
+            <div className="lg:col-span-2 bg-white border border-outline/20 rounded-3xl p-4 md:p-5 shadow-sm">
               <h2
                 className={cn(
                   "font-bold text-accent uppercase font-label mb-3 text-xs md:text-sm",
@@ -526,7 +526,7 @@ const HoroscopeContent = () => {
             </div>
 
             {/* Section: Time Divisions */}
-            <div className="bg-white border border-outline/80 rounded-3xl p-4 md:p-5 shadow-sm">
+            <div className="bg-white border border-outline/20 rounded-3xl p-4 md:p-5 shadow-sm">
               <h2
                 className={cn(
                   "font-bold text-accent uppercase font-label mb-3 text-xs md:text-sm",
@@ -1144,7 +1144,7 @@ const HoroscopeContent = () => {
                 ].map((sign, idx) => {
                   const pts = chartData.ashtakvarga ? chartData.ashtakvarga[idx] : 0;
                   let bgClass = "bg-surface-container-low";
-                  let borderClass = "border-outline/50";
+                  let borderClass = "border-outline/20";
                   if (pts >= 30) {
                     bgClass = "bg-green-50/50";
                     borderClass = "border-green-200";
@@ -1171,7 +1171,7 @@ const HoroscopeContent = () => {
         </div>
 
         {/* Verification CTA Section */}
-        <div className="bg-surface-container-low rounded-[2.5rem] md:rounded-[4rem] border border-outline/50 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
+        <div className="bg-surface-container-low rounded-3xl md:rounded-[4rem] border border-outline/20 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
           <div className="relative z-10">
             <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">
               {t.ctaTitle}

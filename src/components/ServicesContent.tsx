@@ -34,7 +34,7 @@ export default function ServicesContent() {
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                   {service.title[lang]}
                 </h3>
-                <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30 group-hover:border-accent/50 transition-colors">
+                <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/20 group-hover:border-accent/50 transition-colors">
                   {service.description[lang]}
                 </p>
               </div>

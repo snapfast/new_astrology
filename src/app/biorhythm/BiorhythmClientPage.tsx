@@ -137,7 +137,7 @@ const BiorhythmContent = () => {
 
       <div className="py-8 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 md:space-y-12">
         {/* Unified Control Bar */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 bg-white border border-outline/20 rounded-2xl p-5 shadow-sm">
           {/* DOB Input */}
           <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div className="shrink-0">
@@ -154,7 +154,7 @@ const BiorhythmContent = () => {
                 id="dob"
                 value={dob}
                 onChange={handleDobChange}
-                className="w-full bg-white border border-outline/50 rounded-xl px-4 py-2 text-transparent font-body focus:ring-2 focus:ring-accent transition-all text-sm appearance-none relative z-10"
+                className="w-full bg-white border border-outline/20 rounded-xl px-4 py-2 text-transparent font-body focus:ring-2 focus:ring-accent transition-all text-sm appearance-none relative z-10"
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
                 {(() => {
@@ -180,7 +180,7 @@ const BiorhythmContent = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => adjustDate(-1)}
-                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/20"
                   title="Previous Day"
                   aria-label="Previous Day"
                 >
@@ -198,7 +198,7 @@ const BiorhythmContent = () => {
 
                 <button
                   onClick={() => adjustDate(1)}
-                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/30"
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-accent hover:bg-surface-container-high transition-colors border border-outline/20"
                   title="Next Day"
                   aria-label="Next Day"
                 >
@@ -214,7 +214,7 @@ const BiorhythmContent = () => {
                     type="date"
                     value={targetDate.toISOString().split("T")[0]}
                     onChange={handleTargetDateChange}
-                    className="w-full md:w-44 px-4 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                    className="w-full md:w-44 px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                     aria-label="Select Target Date"
                   />
                   <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
@@ -261,7 +261,7 @@ const BiorhythmContent = () => {
               {biorhythmData.cycles.map((cycle) => (
                 <div
                   key={cycle.name}
-                  className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+                  className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
                 >
                   <div className="relative z-10">
                     <div className="flex justify-between items-start mb-3">
@@ -311,7 +311,7 @@ const BiorhythmContent = () => {
               ))}
 
               {/* Integrated Interpretation Box */}
-              <div className="bg-accent/5 border border-accent/20 rounded-[2rem] p-4 md:p-5 flex flex-col justify-center">
+              <div className="bg-accent/5 border border-accent/20 rounded-2xl p-4 md:p-5 flex flex-col justify-center">
                 <h4 className="text-base font-headline text-on-surface mb-2">
                   {t.interpretation}
                 </h4>
@@ -340,7 +340,7 @@ const BiorhythmContent = () => {
           </div>
         )}
 
-        <div className="bg-white border border-outline/80 rounded-[2.5rem] p-5 md:p-8 shadow-sm">
+        <div className="bg-white border border-outline/20 rounded-3xl p-5 md:p-8 shadow-sm">
           <h4 className="text-xl font-headline text-on-surface mb-4">
             {t.historyTitle}
           </h4>
