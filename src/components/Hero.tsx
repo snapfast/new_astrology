@@ -80,13 +80,6 @@ const Hero = () => {
               {t.learnBtn}
             </button>
           </div>
-
-          <div className="mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full border border-accent/30 bg-surface/80 backdrop-blur-sm animate-premium-glow">
-            <span className="material-symbols-outlined text-[16px] text-accent font-variation-fill">verified</span>
-            <span className="text-sm font-medium tracking-wide text-on-surface capitalize">
-              No Hidden Charges
-            </span>
-          </div>
         </div>
 
         {/* Trust Signals */}
