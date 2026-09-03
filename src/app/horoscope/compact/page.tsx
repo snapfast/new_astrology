@@ -4,7 +4,7 @@ import CompactHoroscopeClientPage from './CompactHoroscopeClientPage';
 export const metadata: Metadata = {
   title: "Compact Kundli Dashboard",
   robots: { index: false, follow: false },
-  description: "A professional, high-density dashboard for your Vedic birth chart (Kundli). All divisional charts, planetary positions, and dasha details on a single screen.",
+  description: "A compact dashboard for your Vedic birth chart (Kundli). View charts, planetary positions, and dasha details.",
   keywords: [
     "Compact Kundli Dashboard", "High-Density Birth Chart", "Vedic chart dashboard",
     "divisional charts view", "planetary positions single screen", "professional astrologer dashboard"
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Compact Kundli Dashboard | Rahul Bali Astrology",
-    description: "A professional, high-density dashboard for your Vedic birth chart (Kundli). All divisional charts, planetary positions, and dasha details on a single screen.",
+    description: "A compact dashboard for your Vedic birth chart (Kundli). View charts, planetary positions, and dasha details.",
     url: "https://astro.rahulbali.in/horoscope/compact",
     siteName: "Rahul Bali Astrology",
     images: [

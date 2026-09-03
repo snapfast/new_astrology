@@ -9,7 +9,7 @@ import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
+  description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
   keywords: [
     "About Rahul Bali", "Vedic Astrologer",
     "Jyotish Shastra practitioner", "astrology life remedies", "Rahul Bali Astrology bio"
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "About | Rahul Bali Astrology",
-    description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology providing spiritual insights and practical life remedies rooted in Jyotish Shastra.",
+    description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
     url: "https://astro.rahulbali.in/about",
     siteName: "Rahul Bali Astrology",
     images: [

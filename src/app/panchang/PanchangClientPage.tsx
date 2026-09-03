@@ -15,7 +15,7 @@ const TRANSLATIONS = {
   en: {
     heroTitle: "Daily Panchang",
     heroSubtitle: "Vedic Timekeeping",
-    heroDesc: "Align your daily activities with the cosmic rhythm. Accurate Vedic Panchang details for New Delhi, India.",
+    heroDesc: "View Vedic Panchang details for New Delhi, India.",
     elementsTitle: "Panchang Elements",
     timingsTitle: "Muhurtas & Kaal",
     celestialTitle: "Sun & Moon Timings",

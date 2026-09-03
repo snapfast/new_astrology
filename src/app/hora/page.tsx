@@ -3,7 +3,7 @@ import HoraClientPage from './HoraClientPage';
 
 export const metadata: Metadata = {
   title: "Planetary Hours (Hora)",
-  description: "Calculate real-time Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord and select auspicious timings (Muhurtas) for your tasks.",
+  description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
   keywords: [
     "Planetary Hours", "Hora Calculator", "Vedic Hora", "Hora Lord Today", "Brihat Parasara Hora Shastra",
     "Auspicious Hours", "Vedic Muhurta", "Planet Hours", "Astro Hours", "Auspicious Timings"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Planetary Hours (Hora) | Rahul Bali Astrology",
-    description: "Calculate real-time Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord and select auspicious timings (Muhurtas) for your tasks.",
+    description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
     url: "https://astro.rahulbali.in/hora",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Planetary Hours (Hora) | Rahul Bali Astrology",
-    description: "Calculate real-time Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord and select auspicious timings (Muhurtas) for your tasks.",
+    description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
     images: ["/og-image.png"],
   },
 };

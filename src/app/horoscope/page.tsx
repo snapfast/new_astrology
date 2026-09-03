@@ -3,7 +3,7 @@ import HoroscopeClientPage from './HoroscopeClientPage';
 
 export const metadata: Metadata = {
   title: "Vedic Horoscope",
-  description: "Generate your free Vedic astrology birth chart (Kundli) with Pandit Rahul Bali Ji. Get detailed planetary positions, divisional charts (D1, D3, D9), and Vimshottari Dasha.",
+  description: "Generate your free Vedic astrology birth chart (Kundli). Get planetary positions, divisional charts, and Vimshottari Dasha.",
   keywords: [
     "Free Vedic Horoscope", "Online Birth Chart", "Accurate Kundli Online", "Janam Kundali",
     "divisional charts", "Vimshottari Dasha", "Pandit Rahul Bali astrology"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Vedic Horoscope | Rahul Bali Astrology",
-    description: "Generate your free Vedic astrology birth chart (Kundli) with Pandit Rahul Bali Ji. Get detailed planetary positions, divisional charts (D1, D3, D9), and Vimshottari Dasha.",
+    description: "Generate your free Vedic astrology birth chart (Kundli). Get planetary positions, divisional charts, and Vimshottari Dasha.",
     url: "https://astro.rahulbali.in/horoscope",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Vedic Horoscope | Rahul Bali Astrology",
-    description: "Generate your free Vedic astrology birth chart (Kundli) with Pandit Rahul Bali Ji.",
+    description: "Generate your free Vedic astrology birth chart (Kundli).",
     images: ["/og-image.png"],
   },
 };

@@ -9,7 +9,7 @@ const TRANSLATIONS = {
   en: {
     title: "Terms of Service",
     subtitle: "Guidelines & Disclaimers",
-    description: "Please read our Terms of Service and Astrological Disclaimers carefully before using our digital tools and booking consultations.",
+    description: "Please read our Terms of Service and disclaimers before using our tools and booking consultations.",
     heading1: "1. Acceptance of Terms",
     para1: "By accessing and using the website astro.rahulbali.in ('Website') and any services, calculations, or tools provided by Rahul Bali Astrology, you agree to comply with and be bound by these Terms of Service. If you do not agree, please refrain from using our services.",
     heading2: "2. Nature of Astrological Guidance & Disclaimers",

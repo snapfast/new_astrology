@@ -4,7 +4,7 @@ import PrivacyContent from './PrivacyContent';
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Read our Privacy Policy. Learn how your birth details, names, and contact information are processed securely with absolute confidentiality.",
+  description: "Read our Privacy Policy. Learn how your information is processed securely.",
   keywords: [
     "Privacy Policy", "Rahul Bali Astrology privacy", "birth data security",
     "confidential astrology consultation", "user data privacy"
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Privacy Policy | Rahul Bali Astrology",
-    description: "Read our Privacy Policy. Learn how your birth details, names, and contact information are processed securely with absolute confidentiality.",
+    description: "Read our Privacy Policy. Learn how your information is processed securely.",
     url: "https://astro.rahulbali.in/privacy",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | Rahul Bali Astrology",
-    description: "Read our Privacy Policy. Learn how your birth details, names, and contact information are processed securely.",
+    description: "Read our Privacy Policy. Learn how your information is processed securely.",
     images: ["/og-image.png"],
   },
 };

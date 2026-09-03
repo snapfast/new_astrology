@@ -3,7 +3,7 @@ import TransitsClientPage from './TransitsClientPage';
 
 export const metadata: Metadata = {
   title: 'Planetary Transits (Gochar)',
-  description: 'Track the past and future movements (Gochara) of all nine Vedic planets. Detailed transit details across Rashi (Signs) and Nakshatras (Asterisms).',
+  description: 'Track the movements (Gochara) of all nine Vedic planets across Rashi (Signs) and Nakshatras (Asterisms).',
   keywords: [
     "Planetary Transits", "Gochar Tracker", "Vedic Astrology Transits", "planetary shifts",
     "Gochara online", "planet movements", "Pandit Rahul Bali transits",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Planetary Transits (Gochar) | Rahul Bali Astrology',
-    description: 'Track the past and future movements of all nine Vedic planets across signs and nakshatras.',
+    description: 'Track the movements of all nine Vedic planets across signs and nakshatras.',
     url: "https://astro.rahulbali.in/transits",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: 'Planetary Transits (Gochar) | Rahul Bali Astrology',
-    description: 'Track the past and future movements of all nine Vedic planets across signs and nakshatras.',
+    description: 'Track the movements of all nine Vedic planets across signs and nakshatras.',
     images: ["/og-image.png"],
   },
 };

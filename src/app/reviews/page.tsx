@@ -3,7 +3,7 @@ import ReviewsClientPage from './ReviewsClientPage';
 
 export const metadata: Metadata = {
   title: "Reviews",
-  description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
+  description: "Client reviews and experiences with Rahul Bali Astrology",
   keywords: [
     "Rahul Bali reviews", "trusted astrologer reviews",
     "client testimonials", "accurate astrology predictions", "astrologer Google rating"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Reviews | Rahul Bali Astrology",
-    description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
+    description: "Client reviews and experiences with Rahul Bali Astrology",
     url: "https://astro.rahulbali.in/reviews",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Reviews | Rahul Bali Astrology",
-    description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
+    description: "Client reviews and experiences with Rahul Bali Astrology",
     images: ["/og-image.png"],
   },
 };

@@ -9,8 +9,8 @@ import PageHeader from '@/components/PageHeader';
 const TRANSLATIONS = {
   en: {
     title: "Something Went Wrong",
-    subtitle: "System Error",
-    description: "The celestial alignment seems disrupted. We've encountered an unexpected error.",
+    subtitle: "Error",
+    description: "We\'ve encountered an unexpected error.",
     tryAgain: "Try Again",
     backToHome: "Back to Home"
   }};

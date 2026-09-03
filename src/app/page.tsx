@@ -11,8 +11,8 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Best Vedic Astrologer Online | Pandit Rahul Bali Astrology",
-  description: "Consult with Pandit Rahul Bali Ji, a leading Vedic Astrologer. Get accurate Janam Kundli readings, 17 varga charts, Panch Pakshi & Biorhythm.",
+  title: "Vedic Astrology Consultations | Rahul Bali Astrology",
+  description: "Consult with Rahul Bali for Vedic Astrology. Get Janam Kundli readings, varga charts, Panch Pakshi & Biorhythm.",
   keywords: [
     "Rahul Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
     "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",

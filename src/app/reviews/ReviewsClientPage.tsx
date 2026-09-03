@@ -14,7 +14,7 @@ const TRANSLATIONS = {
   en: {
     title: "Rahul Bali Astrology Reviews",
     subtitle: "Testimonials",
-    description: "Transforming Destiny, Elevating Lives — Happy Clients, Happy Life",
+    description: "Client reviews and experiences with Rahul Bali Astrology",
     googleReviews: "Google Reviews",
     writeReview: "Write a Review on Google",
     latestReviewsNote: "Please check our Google profile above for the latest reviews."

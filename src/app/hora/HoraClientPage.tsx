@@ -13,7 +13,7 @@ const TRANSLATIONS = {
   en: {
     heroTitle: "Planetary Hours",
     heroSubtitle: "Vedic Hora Calculator",
-    heroDesc: "Align your actions with cosmic alignments based on Brihat Parasara Hora Shastra. Every hour of the day is ruled by a planet, determining the auspiciousness of your endeavors.",
+    heroDesc: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra.",
     selectDate: "Select Date",
     selectedDate: "Selected Date",
     today: "Today",

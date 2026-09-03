@@ -8,8 +8,8 @@ import PageHeader from '@/components/PageHeader';
 const TRANSLATIONS = {
   en: {
     title: "Privacy Policy",
-    subtitle: "Trust & Transparency",
-    description: "We value your trust. Learn how your birth details and personal information are handled with absolute confidentiality.",
+    subtitle: "Information Security",
+    description: "Learn how your birth details and personal information are handled securely.",
     heading1: "1. Introduction",
     para1: "Welcome to Rahul Bali Astrology. We are committed to protecting your privacy and ensuring that your personal and astrological data is handled securely and transparently. This Privacy Policy describes how we collect, use, and safeguard your information when you visit our website and use our services.",
     heading2: "2. Information We Collect",

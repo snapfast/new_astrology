@@ -10,7 +10,7 @@ import { generateAstrologyData, PLANET_NAMES, getPlanetTransits } from '@/lib/as
 const TRANSLATIONS = {
   en: {
     heroTitle: "Transits Table",
-    heroDesc: "View the current live astrological positions and status of all Vedic planets.",
+    heroDesc: "View the current astrological positions and status of all Vedic planets.",
     referenceTime: "Reference Date & Time (IST)",
     planet: "Planet",
     rashi: "Sign",

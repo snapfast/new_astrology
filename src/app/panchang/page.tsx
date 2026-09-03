@@ -3,7 +3,7 @@ import PanchangClientPage from './PanchangClientPage';
 
 export const metadata: Metadata = {
   title: "Daily Panchang",
-  description: "Get the most accurate Daily Panchang for today. Detailed Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal. Align your day with Vedic wisdom.",
+  description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
   keywords: [
     "Daily Panchang", "Today Panchang", "Vedic Panchang", "Tithi Today", "Nakshatra Today",
     "Rahu Kaal Today", "Abhijit Muhurta", "Vedic Calendar", "Hindu Calendar", "Auspicious Timings"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Daily Panchang | Rahul Bali Astrology",
-    description: "Get the most accurate Daily Panchang for today. Detailed Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
+    description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
     url: "https://astro.rahulbali.in/panchang",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Daily Panchang | Rahul Bali Astrology",
-    description: "Get the most accurate Daily Panchang for today. Detailed Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
+    description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
     images: ["/og-image.png"],
   },
 };
