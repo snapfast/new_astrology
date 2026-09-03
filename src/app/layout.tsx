@@ -138,7 +138,7 @@ export default async function RootLayout({
           <BackToTop />
         </LanguageProvider>
       </body>
-      <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />
+      {process.env.NODE_ENV === 'production' && <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />}
     </html>
   );
 }
