@@ -80,13 +80,13 @@ const Navbar = () => {
       name: t.tools,
       subLinks: [
         { name: t.panchang, href: '/panchang' },
-        { name: 'KP Prashna', href: '/kp-horary' },
         { name: 'Transits (Gochar)', href: '/transits' },
-        { name: 'Planetary Hours (Hora)', href: '/hora' },
-        { name: 'Biorhythm', href: '/biorhythm' },
-        { name: 'Panch Pakshi', href: '/panch-pakshi' },
-        { name: 'Birth Time Rectification (BTR)', href: '/btr' },
         { name: 'Transits Table', href: '/transits-table' },
+        { name: 'Planetary Hours (Hora)', href: '/hora' },
+        { name: 'KP Prashna', href: '/kp-horary' },
+        { name: 'Panch Pakshi', href: '/panch-pakshi' },
+        { name: 'Biorhythm', href: '/biorhythm' },
+        { name: 'Birth Time Rectification (BTR)', href: '/btr' },
         { name: 'FAQ', href: '/faq' }
       ]
     },
