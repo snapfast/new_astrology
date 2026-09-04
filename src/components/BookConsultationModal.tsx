@@ -6,6 +6,7 @@ import Link from 'next/link';
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
+import LotusSwastika from './LotusSwastika';
 
 const TRANSLATIONS = {
   en: {
@@ -48,9 +49,9 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
         {/* Header */}
         <div className="flex justify-between items-center mb-3 md:mb-4 border-b border-outline/10 pb-3">
           <div className="flex items-center gap-3">
-            <span className="text-[#C62828] text-lg md:text-xl leading-none select-none drop-shadow-sm" aria-hidden="true">卐</span>
+            <LotusSwastika className="w-5 h-5 md:w-6 md:h-6 text-[#C62828] drop-shadow-sm" aria-hidden="true" />
             <h2 id="book-consultation-title" className="text-xl md:text-2xl font-medium text-on-surface font-headline tracking-tight">{t.title}</h2>
-            <span className="text-[#C62828] text-lg md:text-xl leading-none select-none drop-shadow-sm" aria-hidden="true">卐</span>
+            <LotusSwastika className="w-5 h-5 md:w-6 md:h-6 text-[#C62828] drop-shadow-sm" aria-hidden="true" />
           </div>
           <button
             onClick={() => {
