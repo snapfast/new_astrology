@@ -57,7 +57,7 @@ const TRANSLATIONS = {
       },
       {
         q: "How can I book a personal verified consultation?",
-        a: "While automated digital charts provide an excellent starting reference, a direct consultation with Pandit Rahul Bali Ji is essential for personalized karmic remedies, precise time rectification, and life counseling. You can schedule a session via our 'Book Consultation' modals or explore options on the /services page."
+        a: "While automated digital charts provide an excellent starting reference, a direct consultation with Pandit Rahul Bali Ji is essential for personalized karmic remedies, precise time rectification, and life counseling. You can schedule a session via our 'Book Consultation' modals or explore options on the /about page."
       }
     ]
   }};
