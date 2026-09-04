@@ -46,8 +46,12 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
     >
       <div className="p-4 md:p-5">
         {/* Header */}
-        <div className="flex justify-between items-center mb-3 md:mb-4">
-          <h2 id="book-consultation-title" className="text-xl md:text-2xl font-normal text-on-surface font-headline tracking-tight">{t.title}</h2>
+        <div className="flex justify-between items-center mb-3 md:mb-4 border-b border-outline/10 pb-3">
+          <div className="flex items-center gap-3">
+            <span className="text-[#C62828] text-lg md:text-xl leading-none select-none drop-shadow-sm" aria-hidden="true">卐</span>
+            <h2 id="book-consultation-title" className="text-xl md:text-2xl font-medium text-on-surface font-headline tracking-tight">{t.title}</h2>
+            <span className="text-[#C62828] text-lg md:text-xl leading-none select-none drop-shadow-sm" aria-hidden="true">卐</span>
+          </div>
           <button
             onClick={() => {
               sendGAEvent({ event: 'action_click', action_name: 'book_modal_close' });
