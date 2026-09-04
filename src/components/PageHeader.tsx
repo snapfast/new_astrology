@@ -21,7 +21,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   const { lang } = useLanguage();
 
   return (
-    <section className={`pt-20 pb-6 md:pt-28 md:pb-8 bg-background relative overflow-hidden border-b border-outline/10 ${centered ? 'text-center' : ''}`}>
+    <section className={`pt-20 pb-6 md:pt-28 md:pb-8 bg-background relative overflow-hidden border-b border-outline/20 ${centered ? 'text-center' : ''}`}>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[300px] bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>
 
       <div className="max-w-7xl mx-auto px-8 relative z-10">

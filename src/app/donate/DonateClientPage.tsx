@@ -50,7 +50,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
       <div className="relative group">
         <button
           onClick={handleCopy}
-          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/10 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
+          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
         >
           <span className="text-sm md:text-base font-body text-on-surface font-medium mr-2">
             {value}
@@ -92,7 +92,7 @@ const DonateClientPage: FC = () => {
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.upiTitle}</h4>
               </div>
-              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-3xl md:rounded-3xl p-6 md:p-10 shadow-sm border border-outline/20 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/donate-qr.png"
@@ -116,7 +116,7 @@ const DonateClientPage: FC = () => {
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.paypalTitle}</h4>
               </div>
-              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-[2.5rem] md:rounded-[3rem] p-10 md:p-16 shadow-sm border border-outline/10 overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-3xl md:rounded-3xl p-10 md:p-16 shadow-sm border border-outline/20 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/paypal-logo.svg"
@@ -135,12 +135,12 @@ const DonateClientPage: FC = () => {
             </div>
           </div>
 
-          <div className="pt-12 border-t border-outline/10 text-center lg:text-left">
+          <div className="pt-12 border-t border-outline/20 text-center lg:text-left">
             <a
               href="mailto:rahulbaliastrology@gmail.com"
               className="inline-flex items-center gap-4 text-on-surface/70 hover:text-primary transition-colors font-body text-base md:text-lg group"
             >
-              <div className="w-12 h-12 rounded-full bg-surface-bright flex items-center justify-center border border-outline/10 group-hover:border-primary/20 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-surface-bright flex items-center justify-center border border-outline/20 group-hover:border-primary/20 transition-colors">
                 <span className="material-symbols-outlined text-xl">mail</span>
               </div>
               <span>{t.emailTitle}: <span className="text-on-surface font-medium">rahulbaliastrology@gmail.com</span></span>
@@ -148,7 +148,7 @@ const DonateClientPage: FC = () => {
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-outline/10 text-center">
+        <div className="mt-20 pt-8 border-t border-outline/20 text-center">
           <p className="text-on-surface/40 font-label uppercase text-[10px] md:text-xs tracking-[0.3em]">
             {t.motto}
           </p>

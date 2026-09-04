@@ -254,7 +254,7 @@ const Navbar = () => {
           })}
         </div>
 
-        <div className="mt-auto pt-10 pb-8 border-t border-outline/50 shrink-0">
+        <div className="mt-auto pt-10 pb-8 border-t border-outline/20 shrink-0">
           <button
             onClick={handleBookNow}
             className="w-full bg-primary text-white py-4 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"

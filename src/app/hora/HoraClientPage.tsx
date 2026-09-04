@@ -192,7 +192,7 @@ const HoraClientPage = () => {
                 type="date"
                 value={selectedDateStr}
                 onChange={handleDateChange}
-                className="w-full md:w-44 px-3 py-2 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                className="w-full md:w-44 px-3 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label={t.selectDate}
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-on-surface text-sm font-body z-20">
@@ -223,7 +223,7 @@ const HoraClientPage = () => {
             {/* Live Highlight Card or Date Info Card (Compact p-5) */}
             <div className="lg:col-span-1 space-y-4">
               {isTodaySelected && liveActiveHora ? (
-                <div className="bg-white border-2 border-accent rounded-[2rem] p-5 shadow-sm relative overflow-hidden flex flex-col justify-between space-y-4">
+                <div className="bg-white border-2 border-accent rounded-2xl p-5 shadow-sm relative overflow-hidden flex flex-col justify-between space-y-4">
                   <div>
                     <span className="text-[9px] bg-accent text-white font-label uppercase px-2 py-0.5 rounded-full tracking-widest block w-fit mb-3">
                       {lang === 'en' ? 'LIVE NOW' : 'लाइव'}
@@ -272,7 +272,7 @@ const HoraClientPage = () => {
                     )}
                   </div>
 
-                  <div className="border-t border-outline/10 pt-3 space-y-1">
+                  <div className="border-t border-outline/20 pt-3 space-y-1">
                     <div className="flex justify-between items-center text-xs">
                       <span className="font-label uppercase text-on-surface/80">{t.type}:</span>
                       <span className="font-bold text-on-surface">{liveActiveHora.type === 'day' ? t.day : t.night}</span>
@@ -286,7 +286,7 @@ const HoraClientPage = () => {
                   </div>
                 </div>
               ) : (
-                <div className="bg-white border border-outline rounded-[2rem] p-5 shadow-sm space-y-4">
+                <div className="bg-white border border-outline rounded-2xl p-5 shadow-sm space-y-4">
                   <div>
                     <span className="text-[9px] bg-primary/10 text-primary font-label uppercase px-2 py-0.5 rounded-full tracking-widest block w-fit mb-3 font-bold">
                       {lang === 'en' ? 'HISTORICAL' : 'इतिहास'}
@@ -295,11 +295,11 @@ const HoraClientPage = () => {
                   </div>
 
                   <div className="space-y-3 text-xs font-body leading-relaxed text-on-surface/80">
-                    <div className="flex justify-between border-b border-outline/10 pb-1.5">
+                    <div className="flex justify-between border-b border-outline/20 pb-1.5">
                       <span>{t.sunrise}:</span>
                       <span className="font-bold tabular-nums text-on-surface">{formatTimeStr(horaData.sunrise)}</span>
                     </div>
-                    <div className="flex justify-between border-b border-outline/10 pb-1.5">
+                    <div className="flex justify-between border-b border-outline/20 pb-1.5">
                       <span>{t.sunset}:</span>
                       <span className="font-bold tabular-nums text-on-surface">{formatTimeStr(horaData.sunset)}</span>
                     </div>
@@ -313,7 +313,7 @@ const HoraClientPage = () => {
 
               {/* Activities details (Compact padding p-5) */}
               {((isTodaySelected && liveActiveHora) || horaData.horas[0]) && (
-                <div className="bg-white border border-outline rounded-[2rem] p-5 shadow-sm space-y-4">
+                <div className="bg-white border border-outline rounded-2xl p-5 shadow-sm space-y-4">
                   {(() => {
                     const active = isTodaySelected && liveActiveHora ? liveActiveHora : horaData.horas[0];
                     const acts = lang === 'en' ? active.activities.en : active.activities.hi;
@@ -333,7 +333,7 @@ const HoraClientPage = () => {
                           </ul>
                         </div>
 
-                        <div className="border-t border-outline/10 pt-3">
+                        <div className="border-t border-outline/20 pt-3">
                           <h3 className="text-sm font-headline font-bold text-on-surface mb-2 flex items-center gap-1.5">
                             <span className="material-symbols-outlined text-error !text-lg" aria-hidden="true">cancel</span>
                             {t.avoidTitle} ({lang === 'en' ? active.lord : active.lordSanskrit})
@@ -352,13 +352,13 @@ const HoraClientPage = () => {
             </div>
 
             {/* 24 Hours Timeline Schedule (Compact paddings p-4 md:p-6, and compact table row paddings py-2 px-3) */}
-            <div className="lg:col-span-2 bg-white border border-outline rounded-[2rem] p-4 md:p-6 shadow-sm">
+            <div className="lg:col-span-2 bg-white border border-outline rounded-2xl p-4 md:p-6 shadow-sm">
               <div className="mb-4">
                 <h2 className="text-lg font-bold text-accent uppercase tracking-wider font-label">{t.hoursTitle}</h2>
                 <p className="text-xs text-on-surface/60 font-body mt-0.5">{t.hoursSubtitle}</p>
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-outline/30">
+              <div className="overflow-x-auto rounded-xl border border-outline/20">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-surface border-b border-outline/20 text-xs font-label uppercase tracking-wider text-accent/80">
@@ -375,7 +375,7 @@ const HoraClientPage = () => {
                       return (
                         <tr
                           key={hora.number}
-                          className={`border-b border-outline/10 text-xs font-body transition-all ${
+                          className={`border-b border-outline/20 text-xs font-body transition-all ${
                             isLive
                               ? 'bg-accent/10 font-bold border-l-4 border-l-accent'
                               : 'odd:bg-surface/20'
@@ -426,7 +426,7 @@ const HoraClientPage = () => {
         )}
 
         {/* Educational Content Section (Compact padding p-5 md:p-6) */}
-        <div className="bg-white border border-outline rounded-[2rem] p-5 md:p-6 shadow-sm space-y-4 max-w-4xl mx-auto">
+        <div className="bg-white border border-outline rounded-2xl p-5 md:p-6 shadow-sm space-y-4 max-w-4xl mx-auto">
           <h2 className="text-lg md:text-xl font-bold text-accent uppercase tracking-wider font-label text-center">
             {t.educationalTitle}
           </h2>

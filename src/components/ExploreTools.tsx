@@ -236,7 +236,7 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
     : "अपनी जीवनशैली और ब्रह्मांडीय ऊर्जाओं को और बेहतर बनाएं। हमारे सटीक खगोलीय उपकरणों और व्यक्तिगत सेवाओं का उपयोग करें।";
 
   return (
-    <section className={`py-12 bg-surface-bright relative overflow-hidden border-t border-outline/30 rounded-[3rem] ${className}`}>
+    <section className={`py-12 bg-surface-bright relative overflow-hidden border-t border-outline/20 rounded-3xl ${className}`}>
       <div className="max-w-5xl mx-auto px-4 md:px-8 text-center relative z-10">
         <h3 className="text-xl md:text-2xl font-normal mb-2 font-headline text-on-surface">
           {sectionTitle}
@@ -256,7 +256,7 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
                 <button
                   key={card.id}
                   onClick={handleBookingClick}
-                  className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow text-left group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
+                  className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow text-left group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
                 >
                   <div>
                     <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">
@@ -281,7 +281,7 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
                 key={card.id}
                 href={card.href || ''}
                 onClick={() => handleCardClick(card.gaAction)}
-                className="bg-white border border-outline/80 rounded-[2rem] p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
+                className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
               >
                 <div>
                   <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">

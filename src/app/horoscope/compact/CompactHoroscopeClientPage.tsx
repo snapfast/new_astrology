@@ -99,7 +99,7 @@ const CompactHoroscopeContent = () => {
       </div>
 
       {/* Header */}
-      <header className="flex-none bg-white border-b border-outline/50 px-4 py-3 xl:px-6 xl:py-4 flex items-center justify-center shadow-sm z-10 print:hidden">
+      <header className="flex-none bg-white border-b border-outline/20 px-4 py-3 xl:px-6 xl:py-4 flex items-center justify-center shadow-sm z-10 print:hidden">
         <div className="flex items-center gap-4 xl:gap-8 text-xs xl:text-sm 2xl:text-base">
           <div className="flex gap-2">
             <span className="text-on-surface font-label uppercase tracking-tighter">{t.name}:</span>
@@ -129,8 +129,8 @@ const CompactHoroscopeContent = () => {
         {/* Left Column: Panchang & Muhurtas & Planetary Positions */}
         <div className="col-span-1 row-span-12 flex flex-col gap-3 xl:gap-4 2xl:gap-5 md:h-full md:overflow-hidden">
           {/* Panchang */}
-          <section className="flex-[2] bg-white border border-outline/80 rounded-2xl p-3.5 xl:p-4.5 shadow-sm overflow-y-auto no-scrollbar">
-            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/30 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
+          <section className="flex-[2] bg-white border border-outline/20 rounded-2xl p-3.5 xl:p-4.5 shadow-sm overflow-y-auto no-scrollbar">
+            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/20 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
             <div className="grid grid-cols-2 gap-x-3 xl:gap-x-4 gap-y-2.5 xl:gap-y-3.5">
               {[
                 { label: t.tithi, val: lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit },
@@ -153,8 +153,8 @@ const CompactHoroscopeContent = () => {
           </section>
 
           {/* Muhurtas */}
-          <section className="bg-white border border-outline/80 rounded-2xl p-3.5 xl:p-4.5 shadow-sm shrink-0">
-            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/30 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
+          <section className="bg-white border border-outline/20 rounded-2xl p-3.5 xl:p-4.5 shadow-sm shrink-0">
+            <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/20 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.timings}</h2>
             <div className="grid grid-cols-2 gap-x-3 xl:gap-x-4 gap-y-2.5 xl:gap-y-3.5">
               {[
                 { label: t.abhijit, val: chartData.panchang.abhijitMuhurta, color: 'text-success' },
@@ -171,8 +171,8 @@ const CompactHoroscopeContent = () => {
           </section>
 
           {/* Planetary Table */}
-          <section className="flex-[3] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
-            <div className="bg-white px-3 py-1.5 xl:px-4.5 xl:py-2.5 border-b border-outline/50 flex justify-between items-center">
+          <section className="flex-[3] bg-white border border-outline/20 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
+            <div className="bg-white px-3 py-1.5 xl:px-4.5 xl:py-2.5 border-b border-outline/20 flex justify-between items-center">
               <h2 className={`text-xs xl:text-sm font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
               <div className={`flex items-center gap-2 text-[9px] xl:text-[10px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
                 <span className="flex items-center gap-0.5">
@@ -188,7 +188,7 @@ const CompactHoroscopeContent = () => {
             <div className="flex-grow overflow-y-auto no-scrollbar">
               <table className="w-full text-left border-collapse">
                 <thead className="sticky top-0 bg-white shadow-sm z-10">
-                  <tr className="border-b border-outline/30">
+                  <tr className="border-b border-outline/20">
                     <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.planet}</th>
                     <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.rasi}</th>
                     <th className="px-2 py-1.5 xl:px-3 xl:py-2 text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold text-on-surface uppercase font-label">{t.degree}</th>
@@ -240,8 +240,8 @@ const CompactHoroscopeContent = () => {
           </div>
 
           {/* Dasha (Condensed) */}
-          <section className="flex-[2] bg-white border border-outline/80 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
-             <div className="bg-white px-4 py-2 border-b border-outline/50 flex justify-between items-center">
+          <section className="flex-[2] bg-white border border-outline/20 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
+             <div className="bg-white px-4 py-2 border-b border-outline/20 flex justify-between items-center">
               <h2 className={`text-xs font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.vimshottariDasha}</h2>
               <div className="flex items-center gap-1">
                  <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
@@ -379,8 +379,8 @@ const CompactHoroscopeContent = () => {
 };
 
 const ChartBox = ({ title, data, lang }: { title: string, data: DivisionalChartData, lang: string }) => (
-  <section className="bg-white border border-outline/80 rounded-2xl flex flex-col shadow-sm overflow-hidden min-h-0">
-    <div className="bg-white px-3 py-1 border-b border-outline/30 xl:px-4 xl:py-2 shrink-0">
+  <section className="bg-white border border-outline/20 rounded-2xl flex flex-col shadow-sm overflow-hidden min-h-0">
+    <div className="bg-white px-3 py-1 border-b border-outline/20 xl:px-4 xl:py-2 shrink-0">
       <h2 className={`text-[11px] md:text-xs xl:text-sm font-bold text-on-surface uppercase font-label truncate ${lang === 'en' ? 'tracking-widest' : ''}`}>{title}</h2>
     </div>
     <div className="flex-grow flex items-center justify-center p-1.5 min-h-0 overflow-hidden">

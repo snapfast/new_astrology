@@ -283,7 +283,7 @@ const HoroscopeContent = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/50 pb-2">
+            <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/20 pb-2">
               {lang === 'hi' ? 'केपी चार्ट का विश्लेषण कैसे करें?' : 'How to Read the KP Chart?'}
             </h4>
             <ul className="list-disc pl-5 space-y-3 text-sm text-on-surface/80 font-body">
@@ -309,7 +309,7 @@ const HoroscopeContent = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/50 pb-2">
+            <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/20 pb-2">
               {lang === 'hi' ? 'प्रश्न कुंडली (Horary Astrology)' : 'Prashna (Horary) Astrology'}
             </h4>
             <p className="text-sm text-on-surface/80 font-body leading-relaxed">

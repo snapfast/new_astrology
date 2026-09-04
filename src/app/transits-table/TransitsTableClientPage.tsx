@@ -100,13 +100,13 @@ const TransitsTableClientPage = () => {
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full sm:w-40 px-3 py-1.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all"
+              className="w-full sm:w-40 px-3 py-1.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all"
             />
             <input
               type="time"
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
-              className="w-full sm:w-32 px-3 py-1.5 rounded-xl bg-white border border-outline/50 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all"
+              className="w-full sm:w-32 px-3 py-1.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all"
             />
           </div>
         </div>
@@ -115,7 +115,7 @@ const TransitsTableClientPage = () => {
         <div className="bg-white border border-outline rounded-2xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm font-body text-on-surface">
-              <thead className="bg-surface border-b border-outline/30 uppercase text-xs font-label text-accent font-bold tracking-wider">
+              <thead className="bg-surface border-b border-outline/20 uppercase text-xs font-label text-accent font-bold tracking-wider">
                 <tr>
                   <th className="px-4 py-3">{t.planet}</th>
                   <th className="px-4 py-3">{t.rashi}</th>

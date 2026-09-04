@@ -59,7 +59,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
                 <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                 {item.title}
               </h3>
-              <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/30">
+              <p className="text-sm font-body text-on-surface leading-relaxed pl-4.5 border-l border-outline/20">
                 {item.description}
               </p>
             </div>

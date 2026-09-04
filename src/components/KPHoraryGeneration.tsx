@@ -466,7 +466,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
   return (
     <section className={`py-16 bg-background relative z-20 ${className}`}>
       <div className="max-w-4xl mx-auto px-8">
-        <div className="bg-surface p-10 md:p-16 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-outline/50 relative overflow-hidden">
+        <div className="bg-surface p-10 md:p-16 rounded-3xl shadow-sm border border-outline/20 relative overflow-hidden">
           <div className="relative z-10">
             <div className="mb-8 md:mb-12 text-center">
               <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">{t.title}</h2>
@@ -631,7 +631,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                 {errors.pob && <p id="pob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.pob}</p>}
 
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
-                  <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/30 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/20 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     {isLoading ? (
                       <div className="px-6 py-4 text-xs text-on-surface font-body">{t.searching}</div>
                     ) : (

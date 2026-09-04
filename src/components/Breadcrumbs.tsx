@@ -29,7 +29,7 @@ const Breadcrumbs = () => {
   return (
     <>
       <JsonLd data={schema} />
-      <nav aria-label="Breadcrumb" className="w-full bg-surface text-sm py-3 border-b border-outline/10">
+      <nav aria-label="Breadcrumb" className="w-full bg-surface text-sm py-3 border-b border-outline/20">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <ol className="flex items-center space-x-2 text-on-surface/70">
             <li>

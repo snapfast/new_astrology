@@ -63,7 +63,7 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series, lang =
 
   return (
     <div className="w-full overflow-x-auto pb-4">
-      <div className="min-w-[800px] bg-white border border-outline/80 rounded-[2.5rem] p-4 md:p-6 shadow-sm">
+      <div className="min-w-[800px] bg-white border border-outline/20 rounded-3xl p-4 md:p-6 shadow-sm">
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
           {/* Horizontal Grid Lines */}
           <line
