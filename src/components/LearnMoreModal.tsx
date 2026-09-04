@@ -62,9 +62,9 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
 
           <div className="space-y-3.5">
             {/* Sample Reports */}
-            <div className="p-3 md:p-3.5 bg-surface-bright border border-outline/20 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 text-center sm:text-left">
-              <div className="w-9 h-9 md:w-10 md:h-10 bg-white rounded-xl border border-outline/20 flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-on-surface text-lg" aria-hidden="true">folder_open</span>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 text-center sm:text-left">
+              <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-on-surface text-2xl" aria-hidden="true">folder_open</span>
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>{t.sampleTitle}</h3>
@@ -86,9 +86,9 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Spiritual Insights */}
-            <div className="p-3 md:p-3.5 bg-surface-bright border border-outline/20 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 text-center sm:text-left">
-              <div className="w-9 h-9 md:w-10 md:h-10 bg-white rounded-xl border border-outline/20 flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-on-surface text-lg" aria-hidden="true">alternate_email</span>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-4 text-center sm:text-left">
+              <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-on-surface text-2xl" aria-hidden="true">alternate_email</span>
               </div>
               <div className="flex-1 w-full">
                 <h3 className={`font-normal text-on-surface font-headline mb-1 ${lang === 'hi' ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>{t.socialTitle}</h3>

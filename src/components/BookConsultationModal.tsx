@@ -63,8 +63,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
         {/* Content Stack */}
         <div className="space-y-3.5">
           {/* Service Details with Logo */}
-          <div className="flex items-start gap-3 bg-surface-bright/50 border border-outline/20 p-3 rounded-2xl">
-            <div className="w-9 h-9 bg-white shadow-sm border border-outline/20 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+          <div className="flex items-start gap-3">
+            <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5">
               <svg viewBox="0 0 622 512" className="w-5 h-5">
                 <path d="M351.419 255.568L411.978 324.79L493.418 376.827L507.584 256.005L493.418 137.908L410.418 183.621L351.419 255.568Z" fill="#00832D"/>
                 <path d="M0.00283051 365.583V468.541C0.00283051 492.049 19.0851 511.136 42.5983 511.136H145.556L166.876 433.344L145.556 365.583L74.9198 344.263L0.00283051 365.583Z" fill="#0066DA"/>
@@ -92,7 +92,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </div>
 
           {/* Service Details & Benefits (2 empathetic pointers) */}
-          <div className="bg-surface-bright/50 border border-outline/20 p-3.5 rounded-2xl space-y-3">
+          <div className="space-y-3">
             <div className="flex gap-2.5 items-start">
               <span className="material-symbols-outlined text-accent text-lg shrink-0 mt-0.5" aria-hidden="true">explore</span>
               <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
