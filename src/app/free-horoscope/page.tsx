@@ -186,7 +186,7 @@ export default function FreeHoroscopePage() {
               While a digital chart is a valuable tool, a <strong>Verified Personal Consultation</strong> with Pandit Rahul Bali Ji offers the depth and nuance needed for life-altering decisions.
             </p>
             <a
-              href="/services"
+              href="/about"
               className="inline-block px-10 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label"
             >
               Book Professional Reading

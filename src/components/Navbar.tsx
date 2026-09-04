@@ -16,7 +16,6 @@ const TRANSLATIONS = {
     biorhythm: 'Biorhythm',
     tools: 'Tools',
     about: 'About',
-    services: 'Services',
     reviews: 'Reviews',
     contact: 'Contact',
     bookNow: 'Book Now',
@@ -91,7 +90,6 @@ const Navbar = () => {
       ]
     },
     { name: t.about, href: '/about' },
-    { name: t.services, href: '/services' },
     { name: t.reviews, href: '/reviews' },
     { name: t.contact, href: '/contact' },
   ];

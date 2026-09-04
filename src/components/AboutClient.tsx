@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 
 const TRANSLATIONS = {
   en: {
@@ -10,6 +11,7 @@ const TRANSLATIONS = {
     para2: 'His masterful approach seamlessly unites ancient sacred wisdom with modern clarity, utilizing high-precision <strong>Lahiri Ayanamsa</strong> for every calculation. Every authoritative prediction and remedy is deeply rooted in authentic karmic patterns to empower you with absolute confidence and transformative insights.',
     para3: 'With an esteemed global reach extending from <strong>India</strong> to <strong>Indonesia</strong> and beyond, his unparalleled expertise has guided countless souls toward ultimate clarity. Every shared testimonial reflects genuine, undeniable success.',
     corePrinciples: 'Core Principles',
+    specializedServices: 'Specialized Services',
     values: [
       {
         title: "Authenticity",
@@ -61,8 +63,8 @@ export default function AboutClient() {
           </div>
         </div>
 
-        {/* Right Column: Core Principles (40%) */}
-        <div className="lg:col-span-4 space-y-12">
+        {/* Right Column: Core Principles & Services (40%) */}
+        <div className="lg:col-span-4 space-y-16">
           <div className="space-y-8">
             <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.corePrinciples}</h3>
             <div className="space-y-8">
@@ -78,6 +80,18 @@ export default function AboutClient() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="space-y-8">
+            <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.specializedServices}</h3>
+            <ul className="grid grid-cols-1 gap-4">
+              {SPECIALIZED_SERVICES.map((service) => (
+                <li key={service.id} className="flex items-center gap-3 text-sm font-medium text-on-surface hover:text-accent transition-colors">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
+                  {service.title[lang]}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
