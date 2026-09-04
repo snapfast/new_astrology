@@ -74,10 +74,12 @@ const Navbar = () => {
   const navLinks: NavLink[] = [
     { name: t.home, href: '/' },
     { name: t.freeHoroscope, href: '/free-horoscope', highlight: true },
-    { name: t.panchang, href: '/panchang' },
+    { name: t.about, href: '/about' },
+    { name: t.reviews, href: '/reviews' },
     {
       name: t.tools,
       subLinks: [
+        { name: t.panchang, href: '/panchang' },
         { name: 'KP Prashna', href: '/kp-horary' },
         { name: 'Transits (Gochar)', href: '/transits' },
         { name: 'Planetary Hours (Hora)', href: '/hora' },
@@ -88,8 +90,6 @@ const Navbar = () => {
         { name: 'FAQ', href: '/faq' }
       ]
     },
-    { name: t.about, href: '/about' },
-    { name: t.reviews, href: '/reviews' },
   ];
 
   return (
