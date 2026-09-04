@@ -17,7 +17,6 @@ const TRANSLATIONS = {
     tools: 'Tools',
     about: 'About',
     reviews: 'Reviews',
-    contact: 'Contact',
     bookNow: 'Book Now',
     bookConsultation: 'Book a Consultation Now',
     switchLanguage: 'Switch Language / भाषा बदलें',
@@ -91,7 +90,6 @@ const Navbar = () => {
     },
     { name: t.about, href: '/about' },
     { name: t.reviews, href: '/reviews' },
-    { name: t.contact, href: '/contact' },
   ];
 
   return (
