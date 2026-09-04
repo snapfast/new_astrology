@@ -3,6 +3,7 @@
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { SPECIALIZED_SERVICES } from '@/lib/consultations';
+import { SOCIAL_PROFILES } from '@/lib/social-data';
 
 const TRANSLATIONS = {
   en: {
@@ -12,6 +13,9 @@ const TRANSLATIONS = {
     para3: 'With an esteemed global reach extending from <strong>India</strong> to <strong>Indonesia</strong> and beyond, his unparalleled expertise has guided countless souls toward ultimate clarity. Every shared testimonial reflects genuine, undeniable success.',
     corePrinciples: 'Core Principles',
     specializedServices: 'Specialized Services',
+    contactTitle: 'Contact & Connect',
+    location: 'India',
+    email: 'rahulbaliastrology@gmail.com',
     values: [
       {
         title: "Authenticity",
@@ -56,6 +60,90 @@ export default function AboutClient() {
             <p dangerouslySetInnerHTML={{ __html: t.para2 }} />
 
             <p dangerouslySetInnerHTML={{ __html: t.para3 }} />
+
+            <div className="pt-12 border-t border-outline/20">
+              <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.contactTitle}</h3>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-on-surface/70 uppercase tracking-widest font-label mb-1">Location</p>
+                  <p className="text-lg font-body text-on-surface">{t.location}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-on-surface/70 uppercase tracking-widest font-label mb-1">Email</p>
+                  <a href={`mailto:${t.email}`} className="text-lg font-body text-on-surface hover:text-accent transition-colors">
+                    {t.email}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-sm text-on-surface/70 uppercase tracking-widest font-label mb-3">Online Presence</p>
+                  <div className="flex flex-wrap gap-4">
+                    <a
+                      href={SOCIAL_PROFILES.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#E1306C] hover:bg-[#E1306C] hover:border-[#E1306C] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="Instagram"
+                    >
+                      <i className="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                      href={SOCIAL_PROFILES.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#FF0000] hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="YouTube"
+                    >
+                      <i className="fa-brands fa-youtube"></i>
+                    </a>
+                    <a
+                      href={SOCIAL_PROFILES.threads}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#000000] hover:bg-[#000000] hover:border-[#000000] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="Threads"
+                    >
+                      <i className="fa-brands fa-threads"></i>
+                    </a>
+                    <a
+                      href={SOCIAL_PROFILES.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="Facebook"
+                    >
+                      <i className="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                      href={SOCIAL_PROFILES.linkedin}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#0A66C2] hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="LinkedIn"
+                    >
+                      <i className="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a
+                      href={SOCIAL_PROFILES.tumblr}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#36465D] hover:bg-[#36465D] hover:border-[#36465D] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="Tumblr"
+                    >
+                      <i className="fa-brands fa-tumblr"></i>
+                    </a>
+                    <a
+                      href={SOCIAL_PROFILES.reddit}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-outline/20 flex items-center justify-center text-[#FF4500] hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-surface transition-all duration-300 text-xl"
+                      aria-label="Reddit"
+                    >
+                      <i className="fa-brands fa-reddit-alien"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
               ॥ ॐ नमो भगवते वासुदेवाय नमः ॥

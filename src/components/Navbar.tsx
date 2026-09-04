@@ -91,7 +91,6 @@ const Navbar = () => {
     },
     { name: t.about, href: '/about' },
     { name: t.reviews, href: '/reviews' },
-    { name: t.contact, href: '/contact' },
   ];
 
   return (

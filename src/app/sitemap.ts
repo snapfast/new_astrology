@@ -6,7 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/about',
-    '/contact',
     '/reviews',
     '/horoscope',
     '/kp-horary',
@@ -20,8 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/panch-pakshi',
     '/btr',
     '/faq',
-    '/privacy',
-    '/terms',
+    '/legal',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

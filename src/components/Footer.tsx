@@ -19,8 +19,7 @@ const TRANSLATIONS = {
   aboutUs: 'About Us',
   contact: 'Contact',
   rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
-  privacy: 'Privacy',
-  terms: 'Terms',
+  legal: 'Legal',
   faq: 'FAQ'
 };
 
@@ -61,7 +60,6 @@ const Footer = () => {
           <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.company}</h6>
           <ul className="space-y-5 text-sm">
             <li><Link className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
-            <li><Link className="text-on-surface font-normal" href="/contact">{t.contact}</Link></li>
             <li><Link className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
           </ul>
         </div>
@@ -69,8 +67,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/20 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all text-[10px] tracking-widest">
         <Link href="/" className="text-center md:text-left">{t.rights}</Link>
         <div className="flex gap-10">
-          <Link href="/privacy">{t.privacy}</Link>
-          <Link href="/terms">{t.terms}</Link>
+          <Link href="/legal">{t.legal}</Link>
         </div>
       </div>
 
