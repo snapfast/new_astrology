@@ -24,7 +24,7 @@ const BaseModal: FC<BaseModalProps> = ({
   maxWidth = 'max-w-lg',
   backdropClassName = 'bg-on-surface/60 ',
   containerClassName = 'p-3 md:p-4',
-  wrapperClassName = 'rounded-2xl md:rounded-3xl border-white/20 duration-500',
+  wrapperClassName = 'rounded-3xl duration-500',
   ariaLabelledBy,
   ariaDescribedBy,
 }) => {
@@ -78,7 +78,7 @@ const BaseModal: FC<BaseModalProps> = ({
         className={`flex min-h-full items-center justify-center pointer-events-none ${containerClassName}`}
       >
         <div
-          className={`relative w-full ${maxWidth} bg-white shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300 border border-outline/20 pointer-events-auto ${wrapperClassName} max-h-[80vh] md:max-h-[90vh] overflow-y-auto`}
+          className={`relative w-full ${maxWidth} bg-white shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-300 border border-outline/20 pointer-events-auto ${wrapperClassName} max-h-[80vh] md:max-h-[90vh] overflow-y-auto`}
         >
           {children}
         </div>
