@@ -1642,8 +1642,8 @@ export function calculateAllShadBala(
 
     // Sort descending by ratio to calculate relative ranks
     const sortedForRank = [...intermediateList].sort((a, b) => b.ratio - a.ratio);
-    for (const item of intermediateList) {
-        item.rank = sortedForRank.findIndex(s => s.planet === item.planet) + 1;
+    for (let i = 0; i < sortedForRank.length; i++) {
+        sortedForRank[i].rank = i + 1;
     }
 
     // Return in Moon, Sun, Mercury, Venus, Mars, Jupiter, Saturn order
