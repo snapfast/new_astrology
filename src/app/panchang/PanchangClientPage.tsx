@@ -207,15 +207,7 @@ const PanchangPage = () => {
 
   const panchang = useMemo(() => {
     const dob = selectedDate.toISOString().split('T')[0];
-
-    const now = new Date();
-    const istOffset = 5.5 * 60 * 60 * 1000;
-    const todayIST = new Date(now.getTime() + istOffset).toISOString().split('T')[0];
-
-    let tob = "12:00";
-    if (selectedDate.toISOString().split('T')[0] === todayIST) {
-       tob = new Date(now.getTime() + istOffset).toISOString().split('T')[1].substring(0, 5);
-    }
+    const tob = "12:00";
 
     // Default to New Delhi coordinates
     const data = generateAstrologyData(dob, tob, "28.6139", "77.2090");
