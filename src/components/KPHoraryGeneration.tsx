@@ -24,7 +24,8 @@ const TRANSLATIONS = {
     errorHistory: "This name already exists in your history. Please use a unique name.",
     errorDob: "Please select a date of birth",
     errorTob: "Please select a time of birth",
-    errorPob: "Please select a location from the suggestions"
+    errorPob: "Please select a location from the suggestions",
+    kpTooltip: "Use 1-249 when the exact birth time is unknown or for a specific Horary (Prashna) question. Leave blank to cast a standard time-based chart."
   }};
 
 interface Suggestion {
@@ -536,10 +537,15 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                 )}
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="kpNumber" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>
-                  KP Horary Number (1-249) <span className="text-red-500">*</span>
+              <div className="space-y-2 relative group/tooltip">
+                <label htmlFor="kpNumber" className={`flex items-center gap-1.5 text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>
+                  KP Horary Number (1-249)
+                  <span className="material-symbols-outlined text-[14px] text-on-surface/50 cursor-help" aria-label="info">info</span>
                 </label>
+                <div className="absolute left-0 bottom-full mb-2 w-[240px] p-2.5 bg-surface-container-highest text-on-surface text-[10px] md:text-xs rounded-xl shadow-lg border border-outline/10 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-30 font-body leading-relaxed">
+                  {t.kpTooltip}
+                  <div className="absolute top-full left-6 -mt-px border-4 border-transparent border-t-surface-container-highest"></div>
+                </div>
                 <div className="relative">
                   <input
                     id="kpNumber"
@@ -550,7 +556,6 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                     onChange={(e) => { setKpNumber(e.target.value); }}
                     placeholder="e.g. 108"
                     className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body"
-                    required
                   />
                   <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">format_list_numbered</span>
                 </div>
