@@ -20,31 +20,27 @@ export default function AboutClient() {
 
   return (
     <div className="space-y-24">
-      <div className="grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
-        {/* Left Column: Condensed Bio (60%) */}
-        <div className="lg:col-span-6 space-y-16">
-          <div className="prose prose-lg max-w-none font-body text-on-surface leading-relaxed space-y-8">
-            <p dangerouslySetInnerHTML={{ __html: t.para1 }} />
+      <div className="flex flex-col max-w-5xl mx-auto space-y-24 items-center">
+        {/* Bio Section */}
+        <div className="prose prose-lg max-w-3xl text-center font-body text-on-surface leading-relaxed space-y-8">
+          <p dangerouslySetInnerHTML={{ __html: t.para1 }} />
 
-            <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
-              ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
-            </p>
-          </div>
+          <p className="text-lg md:text-2xl pt-12 text-accent border-t border-outline/20 font-hindi">
+            ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
+          </p>
         </div>
 
-        {/* Right Column: Services (40%) */}
-        <div className="lg:col-span-4 space-y-16">
-          <div className="space-y-8">
-            <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.specializedServices}</h3>
-            <ul className="grid grid-cols-1 gap-4">
-              {SPECIALIZED_SERVICES.map((service) => (
-                <li key={service.id} className="flex items-center gap-3 text-sm font-medium text-on-surface hover:text-accent transition-colors">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
-                  {service.title[lang]}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Services Section */}
+        <div className="w-full text-center space-y-12">
+          <h3 className={`text-[10px] font-medium uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.specializedServices}</h3>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+            {SPECIALIZED_SERVICES.map((service) => (
+              <li key={service.id} className="flex items-center gap-3 text-sm font-medium text-on-surface hover:text-accent transition-colors">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
+                {service.title[lang]}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
