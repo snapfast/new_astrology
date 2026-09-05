@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData } from './astrology.ts';
+import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -676,4 +676,32 @@ test('getHoraData outputs 24 dynamic BPHS proportional Horas', () => {
             `Hora ${i + 1} end time should match Hora ${i + 2} start time`
         );
     }
+});
+
+test('calculateAllShadBala isDay fallback logic handles malformed panchang times', () => {
+    const planets = [
+        { name: "Sun", rasi: "Aries", degree: "10° 0' 0\"", isRetrograde: false, nakshatra: "Ashwini", pada: 1 },
+        { name: "Moon", rasi: "Taurus", degree: "20° 0' 0\"", isRetrograde: false, nakshatra: "Rohini", pada: 2 },
+        { name: "Mars", rasi: "Gemini", degree: "15° 0' 0\"", isRetrograde: false, nakshatra: "Ardra", pada: 3 },
+        { name: "Mercury", rasi: "Cancer", degree: "25° 0' 0\"", isRetrograde: false, nakshatra: "Ashlesha", pada: 4 },
+        { name: "Jupiter", rasi: "Leo", degree: "5° 0' 0\"", isRetrograde: false, nakshatra: "Magha", pada: 1 },
+        { name: "Venus", rasi: "Virgo", degree: "12° 0' 0\"", isRetrograde: false, nakshatra: "Hasta", pada: 2 },
+        { name: "Saturn", rasi: "Libra", degree: "22° 0' 0\"", isRetrograde: false, nakshatra: "Vishakha", pada: 3 },
+    ];
+
+    // Invalid time to trigger catch block in parseTimeStr
+    const mockPanchang = { sunrise: "invalid", sunset: "invalid", tithi: "", nakshatra: "", yoga: "", karana: "" };
+
+    // 12:00 -> birthMin = 720 (>= 360 && <= 1110), so isDay = true
+    const resultDay = calculateAllShadBala(planets as any, "1990-01-01", "12:00", mockPanchang as any);
+    const sunDayKala = resultDay.find(p => p.planet === 'Sun')?.kalaBala;
+
+    // 01:00 -> birthMin = 60 (< 360), so isDay = false
+    const resultNight = calculateAllShadBala(planets as any, "1990-01-01", "01:00", mockPanchang as any);
+    const sunNightKala = resultNight.find(p => p.planet === 'Sun')?.kalaBala;
+
+    // We can just assert that they calculated successfully and differentiate day/night KalaBala which differs based on isDay
+    assert.ok(sunDayKala !== undefined);
+    assert.ok(sunNightKala !== undefined);
+    assert.notStrictEqual(sunDayKala, sunNightKala, "KalaBala should differ between day and night fallback times");
 });
