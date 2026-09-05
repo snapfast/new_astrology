@@ -16,13 +16,13 @@ const TRANSLATIONS = {
         If you found our service valuable, we would be deeply grateful for any donation to support our mission, suggested amount <span className="font-hindi">₹701, ₹1100, ₹1200, ₹2100, ₹7100</span>, etc.
       </div>
     ),
-    upiTitle: "Scan to Pay (UPI)",
+    upiTitle: "Scan to Donate (UPI)",
     upiIdLabel: "UPI ID",
     upiId: "rahul.bali@ybl",
-    paypalTitle: "PayPal Payment",
+    paypalTitle: "PayPal Donation",
     paypalEmail: "rahulbaliastrology@gmail.com",
     paypalEmailLabel: "PayPal Email",
-    emailTitle: "Email for Payment Issues",
+    emailTitle: "Email for Donation Issues",
     motto: "Guided by the stars, Grounded in Truth",
     copied: "Copied!"
   }
