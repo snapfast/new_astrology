@@ -7,6 +7,7 @@ import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
 import LotusSwastika from './LotusSwastika';
+import Image from 'next/image';
 
 const TRANSLATIONS = {
   en: {
@@ -69,8 +70,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
         <div className="space-y-3.5">
           {/* Service Details with Logo */}
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5">
-              <span className="material-symbols-outlined text-on-surface text-2xl" aria-hidden="true">videocam</span>
+            <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5 bg-surface-bright rounded-full">
+              <Image src="/google-meet-icon.svg" alt="Google Meet Logo" width={24} height={24} className="w-5 h-5 drop-shadow-sm" aria-hidden="true" />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1">
