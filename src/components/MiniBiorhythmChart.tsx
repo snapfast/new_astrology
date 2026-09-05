@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BiorhythmSeriesPoint } from '@/lib/biorhythm';
 
 interface MiniBiorhythmChartProps {
@@ -19,6 +19,8 @@ const MiniBiorhythmChart: React.FC<MiniBiorhythmChartProps> = ({ series, cycleNa
 
   const getX = (index: number) => padding.left + (index / (series.length - 1)) * chartWidth;
   const getY = (value: number) => padding.top + (1 - (value + 1) / 2) * chartHeight;
+
+  const targetIndex = useMemo(() => series.findIndex(p => p.isTarget), [series]);
 
   if (series.length < 2) return null;
 
@@ -45,8 +47,6 @@ const MiniBiorhythmChart: React.FC<MiniBiorhythmChartProps> = ({ series, cycleNa
 
     pathData += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
   }
-
-  const targetIndex = series.findIndex(p => p.isTarget);
 
   return (
     <div className="w-full h-[60px]">

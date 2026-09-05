@@ -323,14 +323,15 @@ const TransitsClientPage = () => {
 
             // Deduplicate events with same type, from, to, and close date
             const uniqueEvents: TransitEvent[] = [];
+            const seenEvents = new Map<string, number>();
+
             for (const ev of allEvents) {
-              const isDuplicate = uniqueEvents.some(
-                existing => existing.type === ev.type &&
-                            existing.fromValue === ev.fromValue &&
-                            existing.toValue === ev.toValue &&
-                            Math.abs(existing.date.getTime() - ev.date.getTime()) < 1000 * 60 * 60
-              );
-              if (!isDuplicate) {
+              const evTime = ev.date.getTime();
+              const key = `${ev.type}_${ev.fromValue}_${ev.toValue}`;
+              const lastSeenTime = seenEvents.get(key);
+
+              if (lastSeenTime === undefined || Math.abs(lastSeenTime - evTime) >= 1000 * 60 * 60) {
+                seenEvents.set(key, evTime);
                 uniqueEvents.push(ev);
               }
             }
@@ -387,8 +388,9 @@ const TransitsClientPage = () => {
                         <ul className="space-y-1.5">
                           {(() => {
                             let lastPastIdx = -1;
+                            const refTime = referenceDate.getTime();
                             for (let idx = 0; idx < rashiEvents.length; idx++) {
-                              if (rashiEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                              if (rashiEvents[idx].date.getTime() <= refTime) {
                                 lastPastIdx = idx;
                               }
                             }
@@ -437,8 +439,9 @@ const TransitsClientPage = () => {
                         <ul className="space-y-1.5">
                           {(() => {
                             let lastPastIdx = -1;
+                            const refTime = referenceDate.getTime();
                             for (let idx = 0; idx < nakshatraEvents.length; idx++) {
-                              if (nakshatraEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                              if (nakshatraEvents[idx].date.getTime() <= refTime) {
                                 lastPastIdx = idx;
                               }
                             }
