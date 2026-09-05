@@ -128,6 +128,8 @@ const TransitsClientPage = () => {
     return new Date(localMs - 5.5 * 60 * 60 * 1000);
   }, [selectedDate, selectedTime]);
 
+  const referenceDateMs = useMemo(() => referenceDate.getTime(), [referenceDate]);
+
   const transitsData = useMemo(() => {
     const planetsToCalc = selectedPlanet === "all" ? PLANETS_ORDER : [selectedPlanet];
     return planetsToCalc.map(planet => getPlanetTransits(planet, referenceDate));
@@ -174,8 +176,6 @@ const TransitsClientPage = () => {
     const days = Math.round(diffMs / (1000 * 60 * 60 * 24));
     return days;
   };
-
-  const referenceDateMs = useMemo(() => referenceDate.getTime(), [referenceDate]);
 
   const getPhaseStatusBadge = (start: Date | null, end: Date | null, refDate: Date) => {
     if (!start || !end) return null;
@@ -325,14 +325,15 @@ const TransitsClientPage = () => {
 
             // Deduplicate events with same type, from, to, and close date
             const uniqueEvents: TransitEvent[] = [];
+            const seenEvents = new Map<string, number>();
+
             for (const ev of allEvents) {
-              const isDuplicate = uniqueEvents.some(
-                existing => existing.type === ev.type &&
-                            existing.fromValue === ev.fromValue &&
-                            existing.toValue === ev.toValue &&
-                            Math.abs(existing.date.getTime() - ev.date.getTime()) < 1000 * 60 * 60
-              );
-              if (!isDuplicate) {
+              const evTime = ev.date.getTime();
+              const key = `${ev.type}_${ev.fromValue}_${ev.toValue}`;
+              const lastSeenTime = seenEvents.get(key);
+
+              if (lastSeenTime === undefined || Math.abs(lastSeenTime - evTime) >= 1000 * 60 * 60) {
+                seenEvents.set(key, evTime);
                 uniqueEvents.push(ev);
               }
             }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { BiorhythmSeriesPoint, BIORHYTHM_CYCLES } from '@/lib/biorhythm';
 
 interface BiorhythmChartProps {
@@ -59,7 +59,7 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series, lang =
     return path;
   };
 
-  const targetIndex = series.findIndex(p => p.isTarget);
+  const targetIndex = useMemo(() => series.findIndex(p => p.isTarget), [series]);
 
   return (
     <div className="w-full overflow-x-auto pb-4">
@@ -133,17 +133,14 @@ const BiorhythmChartComponent: React.FC<BiorhythmChartProps> = ({ series, lang =
                 className="opacity-100"
               />
               {/* Dots - Only show for current day */}
-              {series.map((p, i) => (
-                p.isTarget ? (
-                  <circle
-                    key={i}
-                    cx={getX(i)} cy={getY(p.values[cycle.name])}
-                    r={4}
-                    fill={cycle.color}
-                    className="stroke-white stroke-2"
-                  />
-                ) : null
-              ))}
+              {targetIndex !== -1 && (
+                <circle
+                  cx={getX(targetIndex)} cy={getY(series[targetIndex].values[cycle.name])}
+                  r={4}
+                  fill={cycle.color}
+                  className="stroke-white stroke-2"
+                />
+              )}
             </g>
           ))}
         </svg>
