@@ -1218,24 +1218,34 @@ const SATURN_BAV_RULES = [
     { source: "Ascendant", offsets: [1, 3, 4, 6, 10, 11] }
 ];
 
-const getRasiIdxByName = (name: string, planets: PlanetData[]): number => {
-    const p = planets.find(pl => pl.name === name);
-    if (!p) return 0;
-    return RASIS.indexOf(p.rasi);
-};
-
 export function calculateSarvaAshtakvarga(planets: PlanetData[]): number[] {
     const sav = new Array(12).fill(0);
 
+    let sun = -1, moon = -1, mars = -1, merc = -1, jup = -1, ven = -1, sat = -1, asc = -1;
+
+    // Single-pass O(N) lookup loop directly resolving rasi indices using local variables,
+    // replacing 8 independent O(N) array.find calls and avoiding dictionary creation overhead in the hot loop.
+    for (let i = 0; i < planets.length; i++) {
+        const p = planets[i];
+        if (p.name === "Sun") sun = RASIS.indexOf(p.rasi);
+        else if (p.name === "Moon") moon = RASIS.indexOf(p.rasi);
+        else if (p.name === "Mars") mars = RASIS.indexOf(p.rasi);
+        else if (p.name === "Mercury") merc = RASIS.indexOf(p.rasi);
+        else if (p.name === "Jupiter") jup = RASIS.indexOf(p.rasi);
+        else if (p.name === "Venus") ven = RASIS.indexOf(p.rasi);
+        else if (p.name === "Saturn") sat = RASIS.indexOf(p.rasi);
+        else if (p.name === "Ascendant") asc = RASIS.indexOf(p.rasi);
+    }
+
     const rasisOfPlanets: Record<string, number> = {
-        "Sun": getRasiIdxByName("Sun", planets),
-        "Moon": getRasiIdxByName("Moon", planets),
-        "Mars": getRasiIdxByName("Mars", planets),
-        "Mercury": getRasiIdxByName("Mercury", planets),
-        "Jupiter": getRasiIdxByName("Jupiter", planets),
-        "Venus": getRasiIdxByName("Venus", planets),
-        "Saturn": getRasiIdxByName("Saturn", planets),
-        "Ascendant": getRasiIdxByName("Ascendant", planets)
+        "Sun": sun === -1 ? 0 : sun,
+        "Moon": moon === -1 ? 0 : moon,
+        "Mars": mars === -1 ? 0 : mars,
+        "Mercury": merc === -1 ? 0 : merc,
+        "Jupiter": jup === -1 ? 0 : jup,
+        "Venus": ven === -1 ? 0 : ven,
+        "Saturn": sat === -1 ? 0 : sat,
+        "Ascendant": asc === -1 ? 0 : asc
     };
 
     const allBavRules = [
