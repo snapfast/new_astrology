@@ -175,6 +175,8 @@ const TransitsClientPage = () => {
     return days;
   };
 
+  const referenceDateMs = useMemo(() => referenceDate.getTime(), [referenceDate]);
+
   const getPhaseStatusBadge = (start: Date | null, end: Date | null, refDate: Date) => {
     if (!start || !end) return null;
     const refMs = refDate.getTime();
@@ -388,7 +390,7 @@ const TransitsClientPage = () => {
                           {(() => {
                             let lastPastIdx = -1;
                             for (let idx = 0; idx < rashiEvents.length; idx++) {
-                              if (rashiEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                              if (rashiEvents[idx].date.getTime() <= referenceDateMs) {
                                 lastPastIdx = idx;
                               }
                             }
@@ -438,7 +440,7 @@ const TransitsClientPage = () => {
                           {(() => {
                             let lastPastIdx = -1;
                             for (let idx = 0; idx < nakshatraEvents.length; idx++) {
-                              if (nakshatraEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                              if (nakshatraEvents[idx].date.getTime() <= referenceDateMs) {
                                 lastPastIdx = idx;
                               }
                             }
@@ -515,8 +517,7 @@ const TransitsClientPage = () => {
                               <div className="space-y-1 pt-1 border-t border-outline/20">
                                 {periods.map((p, pIdx) => {
                                   if (!p.start || !p.end) return null;
-                                  const refMs = referenceDate.getTime();
-                                  const isActive = refMs >= p.start.getTime() && refMs <= p.end.getTime();
+                                  const isActive = referenceDateMs >= p.start.getTime() && referenceDateMs <= p.end.getTime();
 
                                   return (
                                     <div
@@ -595,8 +596,7 @@ const TransitsClientPage = () => {
                               <div className="space-y-1 pt-1 border-t border-outline/20">
                                 {periods.map((p, pIdx) => {
                                   if (!p.start || !p.end) return null;
-                                  const refMs = referenceDate.getTime();
-                                  const isActive = refMs >= p.start.getTime() && refMs <= p.end.getTime();
+                                  const isActive = referenceDateMs >= p.start.getTime() && referenceDateMs <= p.end.getTime();
 
                                   return (
                                     <div
