@@ -18,8 +18,8 @@ const TRANSLATIONS = {
     meetBtn: "Schedule Now",
     optionalDonationBtn: "Optional Donation",
     closeModal: "Close modal",
-    useOfService: "Compassionate Kundli Analysis: A safe, supportive space to explore your unique birth chart and understand the planetary influences shaping your current life path.",
-    howItBenefits: "Clarity & Inner Peace: Gain deep comfort, absolute clarity, and practical, time-tested remedies to overcome anxieties and welcome positive changes.",
+    useOfService: "Compassionate Kundli Analysis",
+    howItBenefits: "Clarity & Inner Peace",
     highlights: [
       "Birth Chart (Kundli) Analysis",
       "Career & Wealth Guidance",
@@ -93,13 +93,13 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             <div className="flex gap-2.5 items-start">
               <span className="material-symbols-outlined text-on-surface/70 text-lg shrink-0 mt-0.5" aria-hidden="true">explore</span>
               <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
-                <strong>{t.useOfService.split(':')[0]}:</strong>{t.useOfService.substring(t.useOfService.indexOf(':') + 1)}
+                {t.useOfService}
               </p>
             </div>
             <div className="flex gap-2.5 items-start">
               <span className="material-symbols-outlined text-on-surface/70 text-lg shrink-0 mt-0.5" aria-hidden="true">sentiment_satisfied</span>
               <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
-                <strong>{t.howItBenefits.split(':')[0]}:</strong>{t.howItBenefits.substring(t.howItBenefits.indexOf(':') + 1)}
+                {t.howItBenefits}
               </p>
             </div>
           </div>
