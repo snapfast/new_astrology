@@ -1299,7 +1299,12 @@ export function calculateAllShadBala(
         isDay = birthMin >= 360 && birthMin <= 1110;
     }
 
-    const getPlanetObj = (name: string) => planets.find(p => p.name === name);
+    const planetMap: Record<string, PlanetData> = {};
+    for (const p of planets) {
+        planetMap[p.name] = p;
+    }
+
+    const getPlanetObj = (name: string) => planetMap[name];
 
     const debLongitudes: Record<string, number> = {
         "Sun": 190,
@@ -1358,7 +1363,7 @@ export function calculateAllShadBala(
         const uchchaBala = Number(((uchchaDiff / 180) * 60).toFixed(2));
 
         // 2. Saptavargaja Bala
-        const saptavargajaBala = calculateSaptavargajaBala(pName, long, planets);
+        const saptavargajaBala = calculateSaptavargajaBala(pName, long, planetMap);
 
         // 3. Ojhayugmarasiamsa Bala
         const isOddD1 = pRasiIdx % 2 === 0;
@@ -1393,7 +1398,7 @@ export function calculateAllShadBala(
         const sthanaBala = Number((uchchaBala + saptavargajaBala + ojhayugmarasiamsaBala + kendradiBala + drekkanaBala).toFixed(2));
 
         // 6. Dig Bala
-        const ascendant = planets.find(pl => pl.name === "Ascendant");
+        const ascendant = planetMap["Ascendant"];
         const lagnaLong = ascendant ? (RASIS.indexOf(ascendant.rasi) * 30 + parseDegree(ascendant.degree)) : 285.37;
         let zeroPoint = 0;
         if (pName === "Jupiter" || pName === "Mercury") {
@@ -1436,8 +1441,8 @@ export function calculateAllShadBala(
         nathonnathaBala = Math.max(0, Math.min(60, nathonnathaBala));
 
         // 8. Paksha Bala
-        const sunPl = planets.find(pl => pl.name === "Sun");
-        const mercPl = planets.find(pl => pl.name === "Mercury");
+        const sunPl = planetMap["Sun"];
+        const mercPl = planetMap["Mercury"];
         let mercuryIsMalefic = false;
         if (sunPl && mercPl) {
             const sunL = RASIS.indexOf(sunPl.rasi) * 30 + parseDegree(sunPl.degree);
@@ -3834,10 +3839,10 @@ export function isVargaExalted(planet: string, signIdx: number): boolean {
     return exaltationSigns[planet] === signIdx;
 }
 
-export function getCompoundRelationship(planet: string, lord: string, planets: PlanetData[]): string {
+export function getCompoundRelationship(planet: string, lord: string, planetMap: Record<string, PlanetData>): string {
     if (planet === lord) return "Own";
-    const pData = planets.find(pl => pl.name === planet);
-    const lData = planets.find(pl => pl.name === lord);
+    const pData = planetMap[planet];
+    const lData = planetMap[lord];
     if (!pData || !lData) return "Neutral";
 
     const naturalRelations: Record<string, Record<string, string>> = {
@@ -3862,7 +3867,7 @@ export function getCompoundRelationship(planet: string, lord: string, planets: P
     return "Enemy";
 }
 
-export function calculateSaptavargajaBala(pName: string, long: number, planets: PlanetData[]): number {
+export function calculateSaptavargajaBala(pName: string, long: number, planetMap: Record<string, PlanetData>): number {
     const vargas = ["D1", "D2", "D3", "D7", "D9", "D12", "D30"];
     const exaltationDegrees: Record<string, number> = {
         "Sun": 10, "Moon": 3, "Mars": 28, "Mercury": 15, "Jupiter": 5, "Venus": 27, "Saturn": 20
@@ -3891,7 +3896,7 @@ export function calculateSaptavargajaBala(pName: string, long: number, planets: 
         } else if (pName === signLord) {
             total += 30;
         } else {
-            const rel = getCompoundRelationship(pName, signLord, planets);
+            const rel = getCompoundRelationship(pName, signLord, planetMap);
             if (rel === "Great Friend") total += 22.5;
             else if (rel === "Friend") total += 15;
             else if (rel === "Neutral") total += 7.5;
