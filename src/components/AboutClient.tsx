@@ -7,7 +7,11 @@ import { SOCIAL_PROFILES } from '@/lib/social-data';
 
 const TRANSLATIONS = {
   en: {
-    para1: 'Pandit Rahul Bali Ji provides practical life guidance through <strong>Jyotish Shastra</strong>. His approach combines traditional astrology with psycho-analysis, focusing on understanding deep-rooted thinking patterns and behaviors. By decoding your birth chart, he offers clear, actionable insights to help you navigate your career, relationships, and personal growth.',
+    para1: (
+      <>
+        Pandit Rahul Bali Ji provides practical life guidance through <strong>Jyotish Shastra</strong>. His approach combines traditional astrology with psycho-analysis, focusing on understanding deep-rooted thinking patterns and behaviors. By decoding your birth chart, he offers clear, actionable insights to help you navigate your career, relationships, and personal growth.
+      </>
+    ),
     specializedServices: 'Specialized Services',
     email: "Email Address",
     online: "Online Presence",
@@ -24,7 +28,7 @@ export default function AboutClient() {
         {/* Left Column: Condensed Bio (60%) */}
         <div className="lg:col-span-6 space-y-16">
           <div className="prose prose-lg max-w-none font-body text-on-surface leading-relaxed space-y-8">
-            <p dangerouslySetInnerHTML={{ __html: t.para1 }} />
+            <p>{t.para1}</p>
 
             <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
               ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
