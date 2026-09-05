@@ -177,7 +177,10 @@ const ALL_CARDS = [
     gaAction: 'explore_kp_prashna',
     paths: ['/kp-horary', '/kp-horoscope']
   },
-];
+].map(card => ({
+  ...card,
+  lowerPaths: card.paths.map(p => p.toLowerCase())
+}));
 
 interface ExploreToolsProps {
   currentPath?: string;
@@ -192,7 +195,7 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
 
     // Find matching card for current path
     const matchingCard = ALL_CARDS.find(card =>
-      card.paths.some(p => normalizedPath.includes(p.toLowerCase()))
+      card.lowerPaths.some(p => normalizedPath.includes(p))
     );
 
     // If there is a matching card, filter it out to avoid pointing to the current page.
