@@ -268,6 +268,86 @@ const HoroscopeContent = () => {
           </div>
         </div>
 
+        {kpChartData && (
+          <div className="space-y-12">
+            {/* KP Planetary Positions Table */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                <span>{lang === "hi" ? "केपी ग्रह स्थिति" : "KP Planetary Positions"}</span>
+                <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === "hi" ? "font-hindi" : "")}>
+                  {lang === "hi" ? "ग्रहों के नक्षत्र और उप-नक्षत्र स्वामी" : "Planetary Star Lords and Sub-Lords"}
+                </span>
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left font-body">
+                  <thead className="text-xs uppercase bg-surface-container-low text-on-surface/70 border-b border-outline/20">
+                    <tr>
+                      <th className="px-4 py-3 font-medium">{t.planet}</th>
+                      <th className="px-4 py-3 font-medium">{t.sign}</th>
+                      <th className="px-4 py-3 font-medium">{t.degree}</th>
+                      <th className="px-4 py-3 font-medium">{t.nakshatra}</th>
+                      <th className="px-4 py-3 font-medium">{t.nakLord}</th>
+                      <th className="px-4 py-3 font-medium">{lang === 'hi' ? 'उप-नक्षत्र' : 'Sub Lord'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline/10">
+                    {kpChartData.planets.map((planet) => (
+                      <tr key={planet.name} className="hover:bg-surface-container-lowest/50 transition-colors">
+                        <td className="px-4 py-3 font-medium text-on-surface flex items-center gap-1.5">
+                          {lang === "hi" ? planet.nameSanskrit : planet.name}
+                          {planet.isRetrograde && <span className="text-on-surface/50 text-[10px]">*</span>}
+                          {planet.isCombust && <span className="text-on-surface/50 text-[10px]">^</span>}
+                        </td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.rasiSanskrit : planet.rasi}</td>
+                        <td className="px-4 py-3 text-on-surface/80 font-mono text-xs">{planet.degree}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.nakshatraSanskrit : planet.nakshatra} - {planet.pada}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.nakshatraLordSanskrit : planet.nakshatraLord}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.subLordSanskrit : planet.subLord}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* KP House Cusps Table */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
+                <span>{lang === "hi" ? "केपी भाव स्पष्ट" : "KP House Cusps (Placidus)"}</span>
+                <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === "hi" ? "font-hindi" : "")}>
+                  {lang === "hi" ? "भावों के नक्षत्र और उप-नक्षत्र स्वामी" : "Cuspal Star Lords and Sub-Lords"}
+                </span>
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left font-body">
+                  <thead className="text-xs uppercase bg-surface-container-low text-on-surface/70 border-b border-outline/20">
+                    <tr>
+                      <th className="px-4 py-3 font-medium">{lang === 'hi' ? 'भाव' : 'Cusp'}</th>
+                      <th className="px-4 py-3 font-medium">{t.sign}</th>
+                      <th className="px-4 py-3 font-medium">{t.degree}</th>
+                      <th className="px-4 py-3 font-medium">{t.nakshatra}</th>
+                      <th className="px-4 py-3 font-medium">{t.nakLord}</th>
+                      <th className="px-4 py-3 font-medium">{lang === 'hi' ? 'उप-नक्षत्र' : 'Sub Lord'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline/10">
+                    {kpChartData.cuspsData?.map((cusp) => (
+                      <tr key={cusp.name} className="hover:bg-surface-container-lowest/50 transition-colors">
+                        <td className="px-4 py-3 font-medium text-on-surface">{cusp.name}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.rasiSanskrit : cusp.rasi}</td>
+                        <td className="px-4 py-3 text-on-surface/80 font-mono text-xs">{cusp.degree}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.nakshatraSanskrit : cusp.nakshatra} - {cusp.pada}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.nakshatraLordSanskrit : cusp.nakshatraLord}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.subLordSanskrit : cusp.subLord}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* KP Astrology Information Section */}
         <div className="bg-surface-container-low rounded-3xl p-6 md:p-8 border border-outline mt-12 max-w-4xl mx-auto space-y-6 print:hidden">
           <div className="space-y-2">

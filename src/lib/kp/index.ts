@@ -129,9 +129,16 @@ export function generateKPAstrologyData(
         houseRasis.d1[h] = Math.floor(siderealCusps[h] / 30) + 1;
     }
 
+    const cuspsData: PlanetData[] = [];
+    for (let h = 1; h <= 12; h++) {
+        const cuspLong = siderealCusps[h];
+        cuspsData.push(createPlanet(`House ${h}`, `H${h}`, cuspLong, h, false, false));
+    }
+
     return {
         planets: planetData,
         cusps: siderealCusps,
+        cuspsData,
         d1: { houses: assignments.d1, houseRasis: houseRasis.d1 } as DivisionalChartData
     };
 }

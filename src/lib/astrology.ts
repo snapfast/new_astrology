@@ -292,6 +292,8 @@ export interface PlanetData {
     rasiLordSanskrit: string;
     nakshatraLord: string;
     nakshatraLordSanskrit: string;
+    subLord: string;
+    subLordSanskrit: string;
     isRetrograde: boolean;
     isCombust?: boolean;
 }
@@ -2737,7 +2739,24 @@ export function createPlanet(name: string, symbol: string, siderealLong: number,
     const pada = Math.floor((normLong % NAKSHATRA_WIDTH) / PADA_WIDTH) + 1;
 
     const rasiLordName = RASI_LORDS[rasiIdx];
-    const nakLordName = NAKSHATRA_LORDS[nakshatraIdx % 9];
+    const nakLordIdx = nakshatraIdx % 9;
+    const nakLordName = NAKSHATRA_LORDS[nakLordIdx];
+
+    const remainder = normLong % NAKSHATRA_WIDTH;
+    let accumulated = 0;
+    let subLordIdx = -1;
+
+    for (let i = 0; i < 9; i++) {
+        const currentLordIdx = (nakLordIdx + i) % 9;
+        const lord = NAKSHATRA_LORDS[currentLordIdx];
+        const span = (DASHA_DURATIONS[lord] / 120) * NAKSHATRA_WIDTH;
+        if (remainder < accumulated + span) {
+            subLordIdx = currentLordIdx;
+            break;
+        }
+        accumulated += span;
+    }
+    const subLordName = NAKSHATRA_LORDS[subLordIdx];
 
     return {
         name,
@@ -2754,6 +2773,8 @@ export function createPlanet(name: string, symbol: string, siderealLong: number,
         rasiLordSanskrit: PLANET_NAMES[rasiLordName]?.sanskrit || rasiLordName,
         nakshatraLord: nakLordName,
         nakshatraLordSanskrit: PLANET_NAMES[nakLordName]?.sanskrit || nakLordName,
+        subLord: subLordName,
+        subLordSanskrit: PLANET_NAMES[subLordName]?.sanskrit || subLordName,
         isRetrograde,
         isCombust
     };
