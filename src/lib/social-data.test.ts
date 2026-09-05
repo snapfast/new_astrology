@@ -18,7 +18,7 @@ test('SOCIAL_PROFILES contains valid https URLs', () => {
     try {
       const url = new URL(urlString);
       assert.strictEqual(url.protocol, 'https:', `${platform} URL must use https protocol`);
-    } catch (e) {
+    } catch {
       assert.fail(`URL for ${platform} is invalid: ${urlString}`);
     }
   }

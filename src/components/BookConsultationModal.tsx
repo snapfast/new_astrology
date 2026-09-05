@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
-import Link from 'next/link';
+
 import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
