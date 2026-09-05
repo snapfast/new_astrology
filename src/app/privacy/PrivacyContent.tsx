@@ -31,9 +31,9 @@ const TRANSLATIONS = {
     heading5: "5. Third-Party Integrations",
     para5: "Our platform integrates with trusted external service providers:",
     list3: [
-      "<strong>Calendly:</strong> Used exclusively for secure appointment bookings.",
-      "<strong>Google Analytics:</strong> Collects anonymous usage trends to optimize the speed and reach of our services.",
-      "<strong>Donations:</strong> UPI QR Codes and PayPal integrations are processed directly by the respective financial gateways; no payment credentials or card details are ever stored on our servers."
+      { strong: "Calendly:", text: " Used exclusively for secure appointment bookings." },
+      { strong: "Google Analytics:", text: " Collects anonymous usage trends to optimize the speed and reach of our services." },
+      { strong: "Donations:", text: " UPI QR Codes and PayPal integrations are processed directly by the respective financial gateways; no payment credentials or card details are ever stored on our servers." }
     ],
     heading6: "6. Contact Us",
     para6: "If you have any questions or concerns regarding this Privacy Policy or your data, please contact us at:",
@@ -90,7 +90,9 @@ export default function PrivacyContent() {
               <p className="text-on-surface/90">{t.para5}</p>
               <ul className="list-disc pl-6 space-y-4 text-on-surface/90">
                 {t.list3.map((item, idx) => (
-                  <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
+                  <li key={idx}>
+                    <strong>{item.strong}</strong>{item.text}
+                  </li>
                 ))}
               </ul>
             </div>

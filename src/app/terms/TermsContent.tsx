@@ -29,9 +29,9 @@ const TRANSLATIONS = {
     heading4: "4. Consultations & Payments",
     para4: "Appointments and financial contributions are governed by clear, centralized rules:",
     list3: [
-      "<strong>Duration:</strong> Live 1-on-1 consultations are exactly 30 minutes in duration, conducted via secure video sessions (Google Meet).",
-      "<strong>Suggested Contributions:</strong> Astrological services operate on a voluntary donation model. No upfront payment is required. The suggested donation amounts are clearly outlined in Indian Rupees (INR).",
-      "<strong>Booking Protocol:</strong> Bookings are handled via Calendly. No phone number or upfront payment is needed to schedule."
+      { strong: "Duration:", text: " Live 1-on-1 consultations are exactly 30 minutes in duration, conducted via secure video sessions (Google Meet)." },
+      { strong: "Suggested Contributions:", text: " Astrological services operate on a voluntary donation model. No upfront payment is required. The suggested donation amounts are clearly outlined in Indian Rupees (INR)." },
+      { strong: "Booking Protocol:", text: " Bookings are handled via Calendly. No phone number or upfront payment is needed to schedule." }
     ],
     heading5: "5. Intellectual Property",
     para5: "All original content, logos, custom SVG chart renderers, calculations, and visual designs featured on this website are the intellectual property of Rahul Bali Astrology. You may not reproduce, redistribute, or monetize any part of this website without explicit written permission.",
@@ -85,7 +85,9 @@ export default function TermsContent() {
               <p className="text-on-surface/90">{t.para4}</p>
               <ul className="list-disc pl-6 space-y-4 text-on-surface/90">
                 {t.list3.map((item, idx) => (
-                  <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
+                  <li key={idx}>
+                    <strong>{item.strong}</strong>{item.text}
+                  </li>
                 ))}
               </ul>
             </div>

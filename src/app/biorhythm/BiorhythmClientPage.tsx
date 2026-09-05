@@ -18,7 +18,13 @@ const TRANSLATIONS = {
     heroDesc: "Track your physical, emotional, and intellectual rhythms.",
     cycleDay: "Day Cycle",
     interpretation: "Interpretation",
-    interpretationDesc: "Values above the center line are <strong>High Phases</strong> (energetic), below are <strong>Low Phases</strong> (rest). Crossing the line indicates transition or instability.",
+    interpretationDesc: {
+      text1: "Values above the center line are ",
+      strong1: "High Phases",
+      text2: " (energetic), below are ",
+      strong2: "Low Phases",
+      text3: " (rest). Crossing the line indicates transition or instability."
+    },
     calculating: "Calculating your rhythms...",
     enterDob: "Please enter your birth date to see your personal biorhythm cycles.",
     dobLabel: "Date of Birth",
@@ -315,7 +321,9 @@ const BiorhythmContent = () => {
                 <h4 className="text-base font-headline text-on-surface mb-2">
                   {t.interpretation}
                 </h4>
-                <p className="text-[11px] text-on-surface font-body leading-tight" dangerouslySetInnerHTML={{ __html: t.interpretationDesc }} />
+                <p className="text-[11px] text-on-surface font-body leading-tight">
+                  {t.interpretationDesc.text1}<strong>{t.interpretationDesc.strong1}</strong>{t.interpretationDesc.text2}<strong>{t.interpretationDesc.strong2}</strong>{t.interpretationDesc.text3}
+                </p>
               </div>
             </div>
           </div>
