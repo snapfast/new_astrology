@@ -207,14 +207,6 @@ const PanchangPage = () => {
 
   const panchang = useMemo(() => {
     const dob = selectedDate.toISOString().split('T')[0];
-    // Use fixed time 12:00 for daily panchang if not "today" or just use current time if it's today?
-    // Actually, usually daily panchang is calculated for sunrise or a specific time.
-    // The previous code used "now". Let's keep current time for today, and 12:00 for other days?
-    // Or just 12:00 for all to be consistent.
-    // Wait, the previous code was:
-    // const istTime = new Date(now.getTime() + istOffset);
-    // const dob = istTime.toISOString().split('T')[0];
-    // const tob = istTime.toISOString().split('T')[1].substring(0, 5);
 
     const now = new Date();
     const istOffset = 5.5 * 60 * 60 * 1000;
