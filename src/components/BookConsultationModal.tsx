@@ -7,6 +7,7 @@ import BaseModal from './BaseModal';
 import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
 import LotusSwastika from './LotusSwastika';
+import Image from 'next/image';
 
 const TRANSLATIONS = {
   en: {
@@ -18,8 +19,8 @@ const TRANSLATIONS = {
     meetBtn: "Schedule Now",
     optionalDonationBtn: "Optional Donation",
     closeModal: "Close modal",
-    useOfService: "Compassionate Kundli Analysis: A safe, supportive space to explore your unique birth chart and understand the planetary influences shaping your current life path.",
-    howItBenefits: "Clarity & Inner Peace: Gain deep comfort, absolute clarity, and practical, time-tested remedies to overcome anxieties and welcome positive changes.",
+    useOfService: "Compassionate Kundli Analysis",
+    howItBenefits: "Clarity & Inner Peace",
     highlights: [
       "Birth Chart (Kundli) Analysis",
       "Career & Wealth Guidance",
@@ -69,8 +70,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
         <div className="space-y-3.5">
           {/* Service Details with Logo */}
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5">
-              <span className="material-symbols-outlined text-on-surface text-2xl" aria-hidden="true">videocam</span>
+            <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5 bg-surface-bright rounded-full">
+              <Image src="/google-meet-icon.svg" alt="Google Meet Logo" width={24} height={24} className="w-5 h-5 drop-shadow-sm" aria-hidden="true" />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -93,13 +94,13 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
             <div className="flex gap-2.5 items-start">
               <span className="material-symbols-outlined text-on-surface/70 text-lg shrink-0 mt-0.5" aria-hidden="true">explore</span>
               <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
-                <strong>{t.useOfService.split(':')[0]}:</strong>{t.useOfService.substring(t.useOfService.indexOf(':') + 1)}
+                {t.useOfService}
               </p>
             </div>
             <div className="flex gap-2.5 items-start">
               <span className="material-symbols-outlined text-on-surface/70 text-lg shrink-0 mt-0.5" aria-hidden="true">sentiment_satisfied</span>
               <p className="text-on-surface/90 font-body leading-relaxed text-xs md:text-sm">
-                <strong>{t.howItBenefits.split(':')[0]}:</strong>{t.howItBenefits.substring(t.howItBenefits.indexOf(':') + 1)}
+                {t.howItBenefits}
               </p>
             </div>
           </div>
