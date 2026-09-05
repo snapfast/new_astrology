@@ -387,8 +387,9 @@ const TransitsClientPage = () => {
                         <ul className="space-y-1.5">
                           {(() => {
                             let lastPastIdx = -1;
+                            const refTime = referenceDate.getTime();
                             for (let idx = 0; idx < rashiEvents.length; idx++) {
-                              if (rashiEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                              if (rashiEvents[idx].date.getTime() <= refTime) {
                                 lastPastIdx = idx;
                               }
                             }
@@ -437,8 +438,9 @@ const TransitsClientPage = () => {
                         <ul className="space-y-1.5">
                           {(() => {
                             let lastPastIdx = -1;
+                            const refTime = referenceDate.getTime();
                             for (let idx = 0; idx < nakshatraEvents.length; idx++) {
-                              if (nakshatraEvents[idx].date.getTime() <= referenceDate.getTime()) {
+                              if (nakshatraEvents[idx].date.getTime() <= refTime) {
                                 lastPastIdx = idx;
                               }
                             }
