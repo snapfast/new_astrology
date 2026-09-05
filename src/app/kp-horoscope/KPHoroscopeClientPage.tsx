@@ -34,6 +34,7 @@ const TRANSLATIONS = {
     yoga: "Yoga",
     karana: "Karana",
     sunSign: "Sun Sign",
+    sign: "Sign",
     moonSign: "Moon Sign",
     ritu: "Ritu",
     ayana: "Ayana",

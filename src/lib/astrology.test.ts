@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala } from './astrology.ts';
+import { getMeanRahu, type PlanetData, type PanchangData, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -693,11 +693,11 @@ test('calculateAllShadBala isDay fallback logic handles malformed panchang times
     const mockPanchang = { sunrise: "invalid", sunset: "invalid", tithi: "", nakshatra: "", yoga: "", karana: "" };
 
     // 12:00 -> birthMin = 720 (>= 360 && <= 1110), so isDay = true
-    const resultDay = calculateAllShadBala(planets as any, "1990-01-01", "12:00", mockPanchang as any);
+    const resultDay = calculateAllShadBala(planets as unknown as PlanetData[], "1990-01-01", "12:00", mockPanchang as unknown as PanchangData);
     const sunDayKala = resultDay.find(p => p.planet === 'Sun')?.kalaBala;
 
     // 01:00 -> birthMin = 60 (< 360), so isDay = false
-    const resultNight = calculateAllShadBala(planets as any, "1990-01-01", "01:00", mockPanchang as any);
+    const resultNight = calculateAllShadBala(planets as unknown as PlanetData[], "1990-01-01", "01:00", mockPanchang as unknown as PanchangData);
     const sunNightKala = resultNight.find(p => p.planet === 'Sun')?.kalaBala;
 
     // We can just assert that they calculated successfully and differentiate day/night KalaBala which differs based on isDay

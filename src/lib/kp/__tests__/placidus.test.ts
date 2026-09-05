@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { calculatePlacidusCusps, getPlacidusHouse } from '../placidus.ts';
+import { calculatePlacidusCusps } from '../placidus.ts';
 
 test('Placidus cusps align with sample KP chart degrees', () => {
     // Nov 02, 1993, 13:10 IST, Nangal Punjab
