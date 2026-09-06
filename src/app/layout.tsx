@@ -5,6 +5,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
@@ -77,7 +78,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const nonce = "";
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") || "";
 
   return (
     <html lang="en" className="scroll-smooth">
