@@ -1,15 +1,5 @@
-/**
- * Sanitizes JSON-LD data to prevent XSS vulnerabilities.
- * Escapes <, >, \u2028, and \u2029.
- */
-export const sanitizeJsonLd = (data: Record<string, unknown>): string => {
-  return JSON.stringify(data)
-    .replace(/&/g, "\\u0026")
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-};
+import React from 'react';
+import serialize from 'serialize-javascript';
 
 interface JsonLdProps {
   data: Record<string, unknown>;
@@ -17,13 +7,15 @@ interface JsonLdProps {
 }
 
 const JsonLd = ({ data, nonce }: JsonLdProps) => {
+  // Use serialize-javascript with isJSON flag to safely serialize JSON-LD
+  // while properly escaping all characters (including </script> and unicode separators)
+  const serialized = serialize(data, { isJSON: true });
+
   return (
     <script
       type="application/ld+json"
       nonce={nonce}
-      dangerouslySetInnerHTML={{
-        __html: sanitizeJsonLd(data),
-      }}
+      dangerouslySetInnerHTML={{ __html: serialized }}
     />
   );
 };
