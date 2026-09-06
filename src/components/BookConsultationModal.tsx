@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState, useEffect as useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 
 import BaseModal from './BaseModal';
@@ -15,6 +15,7 @@ const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
 const EXIT_REASONS = [
   "I'm not sure the consultation is right for me",
   "I need more information",
+  "Unclear pricing",
   "The timing isn't right",
   "I need to think about it",
   "I'm not ready yet",
@@ -228,10 +229,17 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                                   value={reason}
                                   checked={selectedReason === reason}
                                   onChange={() => setSelectedReason(reason)}
-                                  className="w-4 h-4 text-accent bg-surface-bright border-outline/30 focus:ring-accent focus:ring-2"
+                                  className="w-4 h-4 text-accent bg-surface-bright border-outline/30 focus:ring-accent focus:ring-2 mt-0.5"
                               />
                           </div>
-                          <span className="text-sm text-on-surface/80">{reason}</span>
+                          <div className="flex flex-col">
+                              <span className="text-sm text-on-surface/80">{reason}</span>
+                              {reason === "Unclear pricing" && (
+                                  <span className="text-[11px] text-on-surface/50 mt-0.5 leading-tight pr-2">
+                                      (This is a donation-based service. You can donate anything after the session or choose not to.)
+                                  </span>
+                              )}
+                          </div>
                       </label>
                   ))}
                </div>
