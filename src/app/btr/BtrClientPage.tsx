@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef, KeyboardEvent } from 'react';
 import PageHeader from '@/components/PageHeader';
+import { useNominatim } from '@/hooks/useNominatim';
 import ExploreTools from '@/components/ExploreTools';
 import { calculateBTRData } from '@/lib/btr';
 import KundliChart from '@/components/KundliChart';
@@ -9,14 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from '@/context/LanguageContext';
 
-interface Suggestion {
-  name: string;
-  lat: string;
-  lon: string;
-}
-
 const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
-const MAX_CACHE_SIZE = 100;
 
 if (typeof window !== 'undefined') {
   try {
@@ -49,8 +43,7 @@ export default function BtrClientPage() {
   const [currentTob, setCurrentTob] = useState(tob);
 
   // Suggestions state
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { suggestions, isSearching: isLoading, fetchSuggestions } = useNominatim();
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
   const suggestionRef = useRef<HTMLDivElement>(null);
@@ -71,85 +64,8 @@ export default function BtrClientPage() {
   }, []);
 
   useEffect(() => {
-    const query = pob.trim();
-    const cacheKey = query.toLowerCase();
-
-    if (query.length < 3 || query.length > 100) {
-      setSuggestions([]);
-      return;
-    }
-
-    const cached = SUGGESTIONS_CACHE.get(cacheKey);
-    if (cached) {
-      setSuggestions(cached);
-      return;
-    }
-
-    const controller = new AbortController();
-
-    const fetchCities = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5&featuretype=city`,
-          { signal: controller.signal }
-        );
-        const data = await response.json();
-        interface NominatimAddress {
-          city?: string;
-          town?: string;
-          village?: string;
-          suburb?: string;
-          hamlet?: string;
-          state?: string;
-          country?: string;
-        }
-        interface NominatimItem {
-          address: NominatimAddress;
-          display_name: string;
-          lat: string;
-          lon: string;
-        }
-        const uniqueCitiesMap = data.reduce((map: Map<string, Suggestion>, item: NominatimItem) => {
-          const { address, lat, lon, display_name } = item;
-          const city = address.city || address.town || address.village || address.suburb || address.hamlet;
-          const { state, country } = address;
-          const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : display_name;
-
-          map.set(name, { name, lat, lon });
-          return map;
-        }, new Map<string, Suggestion>());
-        const uniqueCities: Suggestion[] = Array.from(uniqueCitiesMap.values());
-
-        if (SUGGESTIONS_CACHE.size >= MAX_CACHE_SIZE) {
-          const firstKey = SUGGESTIONS_CACHE.keys().next().value;
-          if (firstKey !== undefined) SUGGESTIONS_CACHE.delete(firstKey);
-        }
-        SUGGESTIONS_CACHE.set(cacheKey, uniqueCities);
-
-        if (typeof window !== 'undefined') {
-          try {
-            const cacheObj = Object.fromEntries(SUGGESTIONS_CACHE.entries());
-            sessionStorage.setItem('NOMINATIM_CACHE', JSON.stringify(cacheObj));
-          } catch {}
-        }
-
-        setSuggestions(uniqueCities);
-      } catch (error) {
-        if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('Error fetching cities:', error);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    const debounceTimer = setTimeout(fetchCities, 500);
-    return () => {
-      clearTimeout(debounceTimer);
-      controller.abort();
-    };
-  }, [pob]);
+    fetchSuggestions(pob);
+  }, [pob, fetchSuggestions]);
 
   const handleSuggestionKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!showSuggestions || suggestions.length === 0) return;

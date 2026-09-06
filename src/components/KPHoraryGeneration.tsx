@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, FormEvent, useMemo, KeyboardEvent } from '
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useNominatim } from '@/hooks/useNominatim';
+import { type StoredChartData } from '@/lib/types';
 
 const TRANSLATIONS = {
   en: {
@@ -27,12 +29,6 @@ const TRANSLATIONS = {
     errorPob: "Please select a location from the suggestions",
     kpTooltip: "Use 1-249 when the exact birth time is unknown or for a specific Horary (Prashna) question. Leave blank to cast a standard time-based chart."
   }};
-
-interface Suggestion {
-  name: string;
-  lat: string;
-  lon: string;
-}
 
 interface StoredChartData {
   name: string;
@@ -77,24 +73,6 @@ const isValidHistoryItem = (item: unknown): item is StoredChartData => {
   );
 };
 
-const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
-const MAX_CACHE_SIZE = 100;
-
-// Initialize cache from sessionStorage for persistence across page refreshes
-if (typeof window !== 'undefined') {
-  try {
-    const stored = sessionStorage.getItem('NOMINATIM_CACHE');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      Object.entries(parsed).forEach(([key, value]) => {
-        SUGGESTIONS_CACHE.set(key, value as Suggestion[]);
-      });
-    }
-  } catch (error) {
-    console.error('Error loading Nominatim cache:', error);
-  }
-}
-
 // formatDobDisplay formats the DOB string from history storage (which is in DD-MM-YYYY format)
 // to DD MMM YYYY (e.g., "24 Jul 1995" or "24 जुलाई 1995") for user display.
 const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
@@ -127,8 +105,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
       ? { lat: initialValues.lat, lon: initialValues.lon }
       : { lat: '28.6139', lon: '77.2090' }
   );
-  const [suggestions, setSuggestions] = useState<{ name: string; lat: string; lon: string }[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { suggestions, isSearching: isLoading, fetchSuggestions } = useNominatim();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [history, setHistory] = useState<StoredChartData[]>([]);
@@ -203,90 +180,8 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
   }, []);
 
   useEffect(() => {
-    const query = pob.trim();
-    const cacheKey = query.toLowerCase();
-
-    if (query.length < 3 || query.length > 100) {
-      setSuggestions([]);
-      return;
-    }
-
-    // Performance Optimization: Check in-memory cache before initiating request
-    const cached = SUGGESTIONS_CACHE.get(cacheKey);
-    if (cached) {
-      setSuggestions(cached);
-      return;
-    }
-
-    const controller = new AbortController();
-
-    const fetchCities = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5&featuretype=city`,
-          { signal: controller.signal }
-        );
-        const data = await response.json();
-        interface NominatimAddress {
-          city?: string;
-          town?: string;
-          village?: string;
-          suburb?: string;
-          hamlet?: string;
-          state?: string;
-          country?: string;
-        }
-        interface NominatimItem {
-          address: NominatimAddress;
-          display_name: string;
-          lat: string;
-          lon: string;
-        }
-        const uniqueCitiesMap = data.reduce((map: Map<string, Suggestion>, item: NominatimItem) => {
-          const { address, lat, lon, display_name } = item;
-          const city = address.city || address.town || address.village || address.suburb || address.hamlet;
-          const { state, country } = address;
-          const name = city ? `${city}${state ? `, ${state}` : ''}, ${country}` : display_name;
-
-          map.set(name, { name, lat, lon });
-          return map;
-        }, new Map<string, Suggestion>());
-        const uniqueCities: Suggestion[] = Array.from(uniqueCitiesMap.values());
-
-        // Cache the result to prevent redundant network calls for the same query
-        if (SUGGESTIONS_CACHE.size >= MAX_CACHE_SIZE) {
-          const firstKey = SUGGESTIONS_CACHE.keys().next().value;
-          if (firstKey !== undefined) SUGGESTIONS_CACHE.delete(firstKey);
-        }
-        SUGGESTIONS_CACHE.set(cacheKey, uniqueCities);
-
-        // Persist to sessionStorage
-        if (typeof window !== 'undefined') {
-          try {
-            const cacheObj = Object.fromEntries(SUGGESTIONS_CACHE.entries());
-            sessionStorage.setItem('NOMINATIM_CACHE', JSON.stringify(cacheObj));
-          } catch {
-            // Silently fail on quota errors
-          }
-        }
-
-        setSuggestions(uniqueCities);
-      } catch (error) {
-        if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('Error fetching cities:', error);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    const debounceTimer = setTimeout(fetchCities, 500);
-    return () => {
-      clearTimeout(debounceTimer);
-      controller.abort(); // Cancel pending request if component re-renders or unmounts
-    };
-  }, [pob]);
+    fetchSuggestions(pob);
+  }, [pob, fetchSuggestions]);
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
