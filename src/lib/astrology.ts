@@ -1664,9 +1664,14 @@ export function calculateAllShadBala(
     }
 
     // Return in Moon, Sun, Mercury, Venus, Mars, Jupiter, Saturn order
+    const shadbalaPlanetMap: Record<string, ShadBalaData> = {};
+    for (let i = 0; i < intermediateList.length; i++) {
+        shadbalaPlanetMap[intermediateList[i].planet] = intermediateList[i];
+    }
+
     const orderedPlanets = ["Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
-    for (const name of orderedPlanets) {
-        const found = intermediateList.find(item => item.planet === name);
+    for (let i = 0; i < orderedPlanets.length; i++) {
+        const found = shadbalaPlanetMap[orderedPlanets[i]];
         if (found) shadbalaList.push(found);
     }
 
@@ -2187,7 +2192,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
 
     const amanta = lunarMonthName;
     const purnimanta = paksha.name === "Krishna"
-        ? LUNAR_MONTHS[(LUNAR_MONTHS.findIndex(m => m.name === amanta) + 1) % 12].name
+        ? LUNAR_MONTHS[((monthIdx + 1) % 12 + 1) % 12].name
         : amanta;
 
     const result = {
