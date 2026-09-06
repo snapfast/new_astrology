@@ -200,7 +200,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
           </>
         ) : view === 'survey' ? (
           <>
-            <div className="flex justify-between items-center mb-4 border-b border-outline/10 pb-3">
+            <div className="flex justify-between items-center mb-2.5 border-b border-outline/10 pb-2">
               <div className="flex items-center gap-2 md:gap-3">
                  <LotusSwastika className="w-5 h-5 text-[#C62828] drop-shadow-sm" aria-hidden="true" />
                  <h2 id="exit-survey-title" className="text-lg md:text-xl font-medium text-on-surface font-headline tracking-tight">Before you go...</h2>
@@ -214,28 +214,28 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               </button>
             </div>
 
-            <div className="space-y-4">
-               <p className="text-on-surface/90 font-body leading-relaxed text-sm">
+            <div className="space-y-2.5">
+               <p className="text-on-surface/90 font-body leading-tight text-xs md:text-sm">
                   I’d love to understand what stopped you from booking. What’s the main reason you didn’t continue?
                </p>
 
-               <div className="space-y-2">
+               <div className="space-y-0.5">
                   {EXIT_REASONS.map((reason, idx) => (
-                      <label key={idx} className="flex items-start gap-3 p-2 rounded-lg hover:bg-surface-bright transition-colors cursor-pointer border border-transparent hover:border-outline/10">
-                          <div className="flex items-center h-5">
+                      <label key={idx} className="flex items-start gap-2 p-1.5 rounded-lg hover:bg-surface-bright transition-colors cursor-pointer border border-transparent hover:border-outline/10">
+                          <div className="flex items-center h-4 md:h-5">
                               <input
                                   type="radio"
                                   name="exit_reason"
                                   value={reason}
                                   checked={selectedReason === reason}
                                   onChange={() => setSelectedReason(reason)}
-                                  className="w-4 h-4 text-accent bg-surface-bright border-outline/30 focus:ring-accent focus:ring-2 mt-0.5"
+                                  className="w-3.5 h-3.5 md:w-4 md:h-4 text-accent bg-surface-bright border-outline/30 focus:ring-accent focus:ring-2 mt-0.5"
                               />
                           </div>
                           <div className="flex flex-col">
-                              <span className="text-sm text-on-surface/80">{reason}</span>
+                              <span className="text-xs md:text-sm text-on-surface/80">{reason}</span>
                               {reason === "Unclear pricing" && (
-                                  <span className="text-[11px] text-on-surface/50 mt-0.5 leading-tight pr-2">
+                                  <span className="text-[10px] md:text-[11px] text-on-surface/50 mt-0.5 leading-tight pr-2">
                                       (This is a donation-based service. You can donate anything after the session or choose not to.)
                                   </span>
                               )}
@@ -244,11 +244,11 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   ))}
                </div>
 
-               <div className="flex flex-col gap-2 pt-2">
+               <div className="flex flex-col gap-1.5 pt-1.5">
                    <button
                       onClick={handleSurveySubmit}
                       disabled={!selectedReason || isSubmitting}
-                      className={`flex items-center justify-center w-full py-2.5 rounded-full font-medium uppercase transition-all text-xs tracking-wider md:text-sm md:tracking-[0.1em] ${
+                      className={`flex items-center justify-center w-full py-2 rounded-full font-medium uppercase transition-all text-[11px] tracking-wider md:text-xs md:tracking-[0.1em] ${
                           !selectedReason || isSubmitting
                           ? 'bg-surface-bright text-on-surface/40 cursor-not-allowed'
                           : 'bg-on-surface text-white hover:bg-on-surface/90 active:scale-[0.98] shadow-sm'
@@ -258,7 +258,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                    </button>
                    <button
                       onClick={handleBooked}
-                      className="flex items-center justify-center w-full py-2.5 text-on-surface/60 font-medium uppercase transition-all hover:text-on-surface hover:bg-surface-bright rounded-full active:scale-[0.98] text-xs tracking-wider md:text-sm md:tracking-[0.1em]"
+                      className="flex items-center justify-center w-full py-2 text-on-surface/60 font-medium uppercase transition-all hover:text-on-surface hover:bg-surface-bright rounded-full active:scale-[0.98] text-[11px] tracking-wider md:text-xs md:tracking-[0.1em]"
                    >
                       I have booked
                    </button>
