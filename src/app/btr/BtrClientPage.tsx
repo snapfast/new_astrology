@@ -210,7 +210,7 @@ export default function BtrClientPage() {
       <PageHeader
         title="Birth Time Rectification (BTR)"
         subtitle="Vedic Tool"
-        description="Interactive tool to adjust and rectify your exact birth time."
+        description="Interactive tool to adjust and rectify your exact birth time. - Beta tool, not fully tested."
       />
 
       <main className="flex-grow container mx-auto px-4 mt-8 space-y-8 relative">
