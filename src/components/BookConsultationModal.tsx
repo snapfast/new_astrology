@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState, useEffect as import_react_useEffect } from 'react';
+import { FC, useState, useEffect as useEffect } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 
 import BaseModal from './BaseModal';
@@ -15,7 +15,6 @@ const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
 const EXIT_REASONS = [
   "I'm not sure the consultation is right for me",
   "I need more information",
-  "The price",
   "The timing isn't right",
   "I need to think about it",
   "I'm not ready yet",
@@ -58,7 +57,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Reset state when modal opens, to avoid visual flash during close animation
-  import_react_useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       setView('booking');
       setSelectedReason('');
