@@ -251,14 +251,14 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                       className={`flex items-center justify-center w-full py-2.5 rounded-full font-medium uppercase transition-all text-xs tracking-wider md:text-sm md:tracking-[0.1em] ${
                           !selectedReason || isSubmitting
                           ? 'bg-surface-bright text-on-surface/40 cursor-not-allowed'
-                          : 'bg-on-surface text-white hover:bg-on-surface/90 active:scale-[0.98]'
+                          : 'bg-on-surface text-white hover:bg-on-surface/90 active:scale-[0.98] shadow-sm'
                       }`}
                    >
                       {isSubmitting ? 'Submitting...' : 'Submit'}
                    </button>
                    <button
                       onClick={handleBooked}
-                      className="flex items-center justify-center w-full py-2.5 bg-surface-bright border border-outline/10 text-on-surface rounded-full font-medium uppercase transition-all hover:bg-surface-bright/80 active:scale-[0.98] text-xs tracking-wider md:text-sm md:tracking-[0.1em]"
+                      className="flex items-center justify-center w-full py-2.5 text-on-surface/60 font-medium uppercase transition-all hover:text-on-surface hover:bg-surface-bright rounded-full active:scale-[0.98] text-xs tracking-wider md:text-sm md:tracking-[0.1em]"
                    >
                       I have booked
                    </button>
