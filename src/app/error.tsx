@@ -44,7 +44,7 @@ export default function Error({
           >
             {t.tryAgain}
           </button>
-          <Link
+          <Link prefetch={true}
             href="/"
             className="btn-secondary inline-flex items-center justify-center px-8 py-3 font-medium text-sm tracking-widest uppercase shadow-sm"
           >

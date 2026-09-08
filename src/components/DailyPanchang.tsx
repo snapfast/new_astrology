@@ -67,7 +67,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                   </div>
                 </div>
               </div>
-              <Link
+              <Link prefetch={true}
                 href="/panchang"
                 className="group/btn inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs tracking-[0.1em] uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >

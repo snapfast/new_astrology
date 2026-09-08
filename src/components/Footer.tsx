@@ -31,7 +31,7 @@ const Footer = () => {
     <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/20 font-body print:hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-8">
         <div className="col-span-1 lg:col-span-1">
-          <Link href="/" className="mb-8 block">
+          <Link prefetch={true} href="/" className="mb-8 block">
             <Logo />
           </Link>
           <p className="text-on-surface text-sm leading-relaxed mb-10 max-w-xs font-normal">
@@ -41,9 +41,9 @@ const Footer = () => {
         <div>
           <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.services}</h6>
           <ul className="space-y-5 text-sm">
-            <li><Link href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
-            <li><Link href="/hora" className="text-on-surface font-normal text-left">{t.hora}</Link></li>
-            <li><Link href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
+            <li><Link prefetch={true} href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
+            <li><Link prefetch={true} href="/hora" className="text-on-surface font-normal text-left">{t.hora}</Link></li>
+            <li><Link prefetch={true} href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.consultation}</button></li>
             <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.premium}</button></li>
           </ul>
@@ -59,16 +59,16 @@ const Footer = () => {
         <div>
           <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.company}</h6>
           <ul className="space-y-5 text-sm">
-            <li><Link className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
-            <li><Link className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
+            <li><Link prefetch={true} className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
+            <li><Link prefetch={true} className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
           </ul>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-8 mt-16 pt-10 border-t border-outline/20 flex flex-col md:flex-row justify-between items-center gap-6 uppercase font-medium text-on-surface font-label transition-all text-[10px] tracking-widest">
-        <Link href="/" className="text-center md:text-left">{t.rights}</Link>
+        <Link prefetch={true} href="/" className="text-center md:text-left">{t.rights}</Link>
         <div className="flex gap-10">
-          <Link href="/privacy">{t.privacy}</Link>
-          <Link href="/terms">{t.terms}</Link>
+          <Link prefetch={true} href="/privacy">{t.privacy}</Link>
+          <Link prefetch={true} href="/terms">{t.terms}</Link>
         </div>
       </div>
 
