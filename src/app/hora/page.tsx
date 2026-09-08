@@ -9,19 +9,19 @@ export const metadata: Metadata = {
     "Auspicious Hours", "Vedic Muhurta", "Planet Hours", "Astro Hours", "Auspicious Timings"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/hora",
+    canonical: "https://baliastrology.com/hora",
   },
   openGraph: {
-    title: "Planetary Hours (Hora) | Rahul Bali Astrology",
+    title: "Planetary Hours (Hora) | Bali Astrology",
     description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
-    url: "https://astro.rahulbali.in/hora",
-    siteName: "Rahul Bali Astrology",
+    url: "https://baliastrology.com/hora",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Planetary Hours (Hora) - Rahul Bali Astrology",
+        alt: "Planetary Hours (Hora) - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Planetary Hours (Hora) | Rahul Bali Astrology",
+    title: "Planetary Hours (Hora) | Bali Astrology",
     description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
     images: ["/og-image.png"],
   },

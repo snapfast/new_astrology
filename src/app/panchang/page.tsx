@@ -9,19 +9,19 @@ export const metadata: Metadata = {
     "Rahu Kaal Today", "Abhijit Muhurta", "Vedic Calendar", "Hindu Calendar", "Auspicious Timings"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/panchang",
+    canonical: "https://baliastrology.com/panchang",
   },
   openGraph: {
-    title: "Daily Panchang | Rahul Bali Astrology",
+    title: "Daily Panchang | Bali Astrology",
     description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
-    url: "https://astro.rahulbali.in/panchang",
-    siteName: "Rahul Bali Astrology",
+    url: "https://baliastrology.com/panchang",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Daily Panchang - Rahul Bali Astrology",
+        alt: "Daily Panchang - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Daily Panchang | Rahul Bali Astrology",
+    title: "Daily Panchang | Bali Astrology",
     description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
     images: ["/og-image.png"],
   },

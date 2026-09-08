@@ -12,22 +12,22 @@ export const metadata: Metadata = {
   description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
   keywords: [
     "About Rahul Bali", "Vedic Astrologer",
-    "Jyotish Shastra practitioner", "astrology life remedies", "Rahul Bali Astrology bio"
+    "Jyotish Shastra practitioner", "astrology life remedies", "Bali Astrology bio"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/about",
+    canonical: "https://baliastrology.com/about",
   },
   openGraph: {
-    title: "About | Rahul Bali Astrology",
+    title: "About | Bali Astrology",
     description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
-    url: "https://astro.rahulbali.in/about",
-    siteName: "Rahul Bali Astrology",
+    url: "https://baliastrology.com/about",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "About Pandit Rahul Bali Ji - Rahul Bali Astrology",
+        alt: "About Rahul Bali Ji - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About | Rahul Bali Astrology",
-    description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology providing spiritual insights and practical life remedies.",
+    title: "About | Bali Astrology",
+    description: "Learn about Rahul Bali Ji, a renowned expert in Vedic Astrology providing spiritual insights and practical life remedies.",
     images: ["/og-image.png"],
   },
 };
@@ -47,9 +47,9 @@ export default function AboutPage() {
     "@type": "AboutPage",
     "mainEntity": {
       "@type": "Person",
-      "name": "Pandit Rahul Bali",
-      "url": "https://astro.rahulbali.in/about",
-      "image": "https://astro.rahulbali.in/og-image.png",
+      "name": "Rahul Bali",
+      "url": "https://baliastrology.com/about",
+      "image": "https://baliastrology.com/og-image.png",
       "sameAs": [
         "https://www.instagram.com/RahulBaliAstro",
         "https://www.youtube.com/@RahulBaliAstrology",
@@ -59,9 +59,9 @@ export default function AboutPage() {
       "jobTitle": "Vedic Astrologer",
       "worksFor": {
         "@type": "Organization",
-        "name": "Rahul Bali Astrology"
+        "name": "Bali Astrology"
       },
-      "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology providing personalized horoscopes and spiritual consultations."
+      "description": "Rahul Bali Ji is a renowned expert in Vedic Astrology providing personalized horoscopes and spiritual consultations."
     }
   };
 
@@ -70,7 +70,7 @@ export default function AboutPage() {
       <JsonLd data={aboutSchema} />
       <Navbar />
       <PageHeader
-        title="Pandit Rahul Bali Ji"
+        title="Rahul Bali Ji"
         subtitle="The Practitioner"
       />
       <div className="py-16 max-w-5xl mx-auto px-8">

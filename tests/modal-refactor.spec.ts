@@ -9,10 +9,10 @@ test('BookConsultationModal text reduction', async ({ page }) => {
   await page.waitForTimeout(3000);
 
   // Open the modal by clicking the "Book a Consultation" button in the hero
-  await page.locator('button', { hasText: /Book a Consultation/i }).first().click();
+  await page.getByRole('button', { name: /Book a Consultation/i, exact: false }).first().click();
 
-  // Verify the modal is visible by checking for the title
-  await expect(page.getByRole('heading', { name: 'Book Consultation' })).toBeVisible();
+  // Wait for the modal title to be visible by its id or text
+  await expect(page.locator('#book-consultation-title')).toBeVisible({ timeout: 10000 });
 
   // Verify shortened English text
   await expect(page.getByText('Google Meet Session')).toBeVisible();

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Prashna Chart", "Rahul Bali astrology"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/kp-horoscope",
+    canonical: "https://baliastrology.com/kp-horoscope",
   }
 };
 

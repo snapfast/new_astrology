@@ -10,7 +10,7 @@ import { useLanguage } from '@/context/LanguageContext';
 const TRANSLATIONS = {
   en: {
     subtitle: 'SACRED VEDIC ASTROLOGY · JYOTISH SHASTRA',
-    title: 'Pandit Rahul Bali Ji',
+    title: 'Rahul Bali Ji',
     bookBtn: 'Book a Consultation',
     learnBtn: 'Learn More',
     charts: 'Charts',

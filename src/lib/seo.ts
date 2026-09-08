@@ -11,10 +11,10 @@ export const generateWebPageSchema = (
     "url": url,
     "publisher": {
       "@type": "Organization",
-      "name": "Rahul Bali Astrology",
+      "name": "Bali Astrology",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://astro.rahulbali.in/og-image.png"
+        "url": "https://baliastrology.com/og-image.png"
       }
     }
   };

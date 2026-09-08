@@ -6,23 +6,23 @@ export const metadata: Metadata = {
   description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
   keywords: [
     "Biorhythm Calculator", "Biorhythm system", "physical emotional intellectual cycles", "energy cycle tracker",
-    "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools",
+    "biorhythm chart online", "personal energy peaks", "Rahul Bali tools",
     "Panch Pakshi", "all 17 varga charts", "body biorhythms", "energy flow"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/biorhythm",
+    canonical: "https://baliastrology.com/biorhythm",
   },
   openGraph: {
-    title: 'Biorhythm | Rahul Bali Astrology',
+    title: 'Biorhythm | Bali Astrology',
     description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
-    url: "https://astro.rahulbali.in/biorhythm",
-    siteName: "Rahul Bali Astrology",
+    url: "https://baliastrology.com/biorhythm",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Biorhythm Calculator - Rahul Bali Astrology",
+        alt: "Biorhythm Calculator - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: 'Biorhythm | Rahul Bali Astrology',
+    title: 'Biorhythm | Bali Astrology',
     description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
     images: ["/og-image.png"],
   },

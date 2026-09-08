@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/api/', '/horoscope/compact', '/donate'],
     },
-    sitemap: 'https://astro.rahulbali.in/sitemap.xml',
+    sitemap: 'https://baliastrology.com/sitemap.xml',
   }
 }

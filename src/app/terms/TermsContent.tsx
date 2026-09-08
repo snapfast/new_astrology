@@ -11,9 +11,9 @@ const TRANSLATIONS = {
     subtitle: "Guidelines & Disclaimers",
     description: "Please read our Terms of Service and disclaimers before using our tools and booking consultations.",
     heading1: "1. Acceptance of Terms",
-    para1: "By accessing and using the website astro.rahulbali.in ('Website') and any services, calculations, or tools provided by Rahul Bali Astrology, you agree to comply with and be bound by these Terms of Service. If you do not agree, please refrain from using our services.",
+    para1: "By accessing and using the website baliastrology.com ('Website') and any services, calculations, or tools provided by Bali Astrology, you agree to comply with and be bound by these Terms of Service. If you do not agree, please refrain from using our services.",
     heading2: "2. Nature of Astrological Guidance & Disclaimers",
-    para2: "Vedic Astrology (Jyotish) is an ancient, interpretive science. All astrological analyses, horoscopes, divisional chart calculations, and consultations with Pandit Rahul Bali Ji:",
+    para2: "Vedic Astrology (Jyotish) is an ancient, interpretive science. All astrological analyses, horoscopes, divisional chart calculations, and consultations with Rahul Bali Ji:",
     list1: [
       "Are intended solely for self-awareness, spiritual guidance, and educational purposes.",
       "Do not constitute absolute or legally binding predictions.",
@@ -34,7 +34,7 @@ const TRANSLATIONS = {
       { title: "Booking Protocol:", text: " Bookings are handled via Calendly. No phone number or upfront payment is needed to schedule." }
     ],
     heading5: "5. Intellectual Property",
-    para5: "All original content, logos, custom SVG chart renderers, calculations, and visual designs featured on this website are the intellectual property of Rahul Bali Astrology. You may not reproduce, redistribute, or monetize any part of this website without explicit written permission.",
+    para5: "All original content, logos, custom SVG chart renderers, calculations, and visual designs featured on this website are the intellectual property of Bali Astrology. You may not reproduce, redistribute, or monetize any part of this website without explicit written permission.",
     heading6: "6. Support & Contact",
     para6: "If you have any questions, clarifications, or support requests regarding our terms, please reach out to us at:",
     emailLabel: "Email: "}};

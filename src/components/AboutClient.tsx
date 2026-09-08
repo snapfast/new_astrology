@@ -7,7 +7,7 @@ import { SOCIAL_PROFILES } from '@/lib/social-data';
 
 const TRANSLATIONS = {
   en: {
-    para1Part1: 'Pandit Rahul Bali Ji provides practical life guidance through ',
+    para1Part1: 'Rahul Bali Ji provides practical life guidance through ',
     para1Strong: 'Jyotish Shastra',
     para1Part2: '. His approach combines traditional astrology with psycho-analysis, focusing on understanding deep-rooted thinking patterns and behaviors. By decoding your birth chart, he offers clear, actionable insights to help you navigate your career, relationships, and personal growth.',
     specializedServices: 'Specialized Services',

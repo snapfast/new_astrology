@@ -11,15 +11,15 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology Consultations | Rahul Bali Astrology",
+  title: "Vedic Astrology Consultations | Bali Astrology",
   description: "Consult with Rahul Bali for Vedic Astrology. Get Janam Kundli readings, varga charts, Panch Pakshi & Biorhythm.",
   keywords: [
-    "Rahul Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
+    "Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
     "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
     "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm tracker"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in",
+    canonical: "https://baliastrology.com",
   },
 };
 
@@ -27,10 +27,10 @@ export default function Home() {
   const businessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Rahul Bali Astrology",
-    "image": "https://astro.rahulbali.in/og-image.png",
-    "@id": "https://astro.rahulbali.in",
-    "url": "https://astro.rahulbali.in",
+    "name": "Bali Astrology",
+    "image": "https://baliastrology.com/og-image.png",
+    "@id": "https://baliastrology.com",
+    "url": "https://baliastrology.com",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer support",
@@ -70,7 +70,7 @@ export default function Home() {
       "https://www.linkedin.com/in/rahulbaliastrology/",
       "https://www.threads.net/@rahulbaliastro"
     ],
-    "description": "Expert Vedic Astrology guidance by Pandit Rahul Bali Ji. Specialist in Janam Kundli, career, and relationship consultations.",
+    "description": "Expert Vedic Astrology guidance by Rahul Bali Ji. Specialist in Janam Kundli, career, and relationship consultations.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",

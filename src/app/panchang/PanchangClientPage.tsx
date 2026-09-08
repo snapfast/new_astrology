@@ -237,11 +237,11 @@ const PanchangPage = () => {
     "description": `Detailed Vedic Panchang for today. Tithi: ${panchang.tithi}, Nakshatra: ${panchang.nakshatra}, Yoga: ${panchang.yoga}, Rahu Kaal: ${panchang.rahuKaal}.`,
     "author": {
       "@type": "Person",
-      "name": "Pandit Rahul Bali"
+      "name": "Rahul Bali"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Rahul Bali Astrology"
+      "name": "Bali Astrology"
     }
   };
 

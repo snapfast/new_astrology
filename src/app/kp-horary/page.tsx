@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "KP Prashna Kundli",
   description: "Cast a KP Prashna chart online using a Horary number from 1 to 249.",
   alternates: {
-    canonical: "https://astro.rahulbali.in/kp-horary",
+    canonical: "https://baliastrology.com/kp-horary",
   }
 };
 

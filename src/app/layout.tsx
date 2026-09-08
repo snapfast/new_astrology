@@ -17,20 +17,20 @@ const akshar = Akshar({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://astro.rahulbali.in"),
+  metadataBase: new URL("https://baliastrology.com"),
   title: {
-    default: "Rahul Bali Astrology",
-    template: "%s | Rahul Bali Astrology",
+    default: "Bali Astrology",
+    template: "%s | Bali Astrology",
   },
   description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
-  keywords: ["Vedic Astrology", "Horoscope", "Birth Chart", "Spiritual Consultation", "Pandit Rahul Bali", "Astrology Readings", "Kundli", "Jyotish"],
-  authors: [{ name: "Pandit Rahul Bali" }],
-  creator: "Pandit Rahul Bali",
-  publisher: "Rahul Bali Astrology",
+  keywords: ["Vedic Astrology", "Horoscope", "Birth Chart", "Spiritual Consultation", "Rahul Bali", "Astrology Readings", "Kundli", "Jyotish"],
+  authors: [{ name: "Rahul Bali" }],
+  creator: "Rahul Bali",
+  publisher: "Bali Astrology",
   alternates: {
-    canonical: "https://astro.rahulbali.in",
+    canonical: "https://baliastrology.com",
     languages: {
-      "en-US": "https://astro.rahulbali.in",
+      "en-US": "https://baliastrology.com",
     },
   },
   formatDetection: {
@@ -39,16 +39,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Rahul Bali Astrology",
+    title: "Bali Astrology",
     description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
-    url: "https://astro.rahulbali.in",
-    siteName: "Rahul Bali Astrology",
+    url: "https://baliastrology.com",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png", // Assuming an OG image will be provided or exists
         width: 1200,
         height: 630,
-        alt: "Rahul Bali Astrology",
+        alt: "Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rahul Bali Astrology",
+    title: "Bali Astrology",
     description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
     images: ["/og-image.png"],
   },
@@ -118,9 +118,9 @@ export default async function RootLayout({
             data={{
               "@context": "https://schema.org",
               "@type": "Person",
-              "name": "Pandit Rahul Bali",
-              "url": "https://astro.rahulbali.in",
-              "image": "https://astro.rahulbali.in/og-image.png",
+              "name": "Rahul Bali",
+              "url": "https://baliastrology.com",
+              "image": "https://baliastrology.com/og-image.png",
               "sameAs": [
                 "https://www.instagram.com/RahulBaliAstro",
                 "https://www.youtube.com/@RahulBaliAstrology",
@@ -130,9 +130,9 @@ export default async function RootLayout({
               "jobTitle": "Vedic Astrologer",
               "worksFor": {
                 "@type": "Organization",
-                "name": "Rahul Bali Astrology"
+                "name": "Bali Astrology"
               },
-              "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology, providing personalized horoscopes and spiritual consultations."
+              "description": "Rahul Bali Ji is a renowned expert in Vedic Astrology, providing personalized horoscopes and spiritual consultations."
             }}
           />
           <Breadcrumbs />

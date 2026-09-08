@@ -13,22 +13,22 @@ export const metadata: Metadata = {
   keywords: [
     "Free Kundli", "Online Kundli", "Janam Kundali", "Vedic Horoscope", "Birth Chart",
     "Free Astrology Report", "Kundali Matching", "Laguna Chart", "Navamsha Chart",
-    "Vedic Astrology Online", "Accurate Kundli", "Pandit Rahul Bali", "Astrology Chart"
+    "Vedic Astrology Online", "Accurate Kundli", "Rahul Bali", "Astrology Chart"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/free-horoscope",
+    canonical: "https://baliastrology.com/free-horoscope",
   },
   openGraph: {
-    title: "Free Kundli | Rahul Bali Astrology",
+    title: "Free Kundli | Bali Astrology",
     description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",
-    url: "https://astro.rahulbali.in/free-horoscope",
-    siteName: "Rahul Bali Astrology",
+    url: "https://baliastrology.com/free-horoscope",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Free Kundli Online - Rahul Bali Astrology",
+        alt: "Free Kundli Online - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Kundli | Rahul Bali Astrology",
-    description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9).",
+    title: "Free Kundli | Bali Astrology",
+    description: "Generate your Free Kundli online with Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9).",
     images: ["/og-image.png"],
   },
 };
@@ -46,7 +46,7 @@ export default function FreeHoroscopePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Rahul Bali Astrology Free Kundli Generator",
+    "name": "Bali Astrology Free Kundli Generator",
     "operatingSystem": "Web",
     "applicationCategory": "LifestyleApplication",
     "aggregateRating": {
@@ -183,7 +183,7 @@ export default function FreeHoroscopePage() {
           <div className="bg-surface-container-low border border-outline/20 rounded-3xl p-10 md:p-16 text-center">
             <h2 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">Unlock Your Cosmic Potential</h2>
             <p className="text-sm md:text-base text-on-surface font-body mb-10 leading-relaxed">
-              While a digital chart is a valuable tool, a <strong>Verified Personal Consultation</strong> with Pandit Rahul Bali Ji offers the depth and nuance needed for life-altering decisions.
+              While a digital chart is a valuable tool, a <strong>Verified Personal Consultation</strong> with Rahul Bali Ji offers the depth and nuance needed for life-altering decisions.
             </p>
             <a
               href="/about"

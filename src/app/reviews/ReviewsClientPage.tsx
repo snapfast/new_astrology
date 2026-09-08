@@ -12,9 +12,9 @@ import ExploreTools from '@/components/ExploreTools';
 
 const TRANSLATIONS = {
   en: {
-    title: "Rahul Bali Astrology Reviews",
+    title: "Bali Astrology Reviews",
     subtitle: "Testimonials",
-    description: "Client reviews and experiences with Rahul Bali Astrology",
+    description: "Client reviews and experiences with Bali Astrology",
     googleReviews: "Google Reviews",
     writeReview: "Write a Review on Google",
     latestReviewsNote: "Please check our Google profile above for the latest reviews."
@@ -36,8 +36,8 @@ export default function ReviewsClientPage() {
   const reviewsSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Rahul Bali Astrology - Vedic Astrology Consultation",
-    "description": "Professional Vedic Astrology consultations by Pandit Rahul Bali Ji.",
+    "name": "Bali Astrology - Vedic Astrology Consultation",
+    "description": "Professional Vedic Astrology consultations by Rahul Bali Ji.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
@@ -125,7 +125,7 @@ export default function ReviewsClientPage() {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Rahul Bali Astrology on Google Maps"
+          title="Bali Astrology on Google Maps"
         />
       </section>
 

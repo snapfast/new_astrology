@@ -17,7 +17,7 @@ const TRANSLATIONS = {
   followUs: 'Follow Us',
   company: 'Company',
   aboutUs: 'About Us',
-  rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
+  rights: 'Bali Astrology Services © 2025. All rights reserved.',
   privacy: 'Privacy',
   terms: 'Terms',
   faq: 'FAQ'
