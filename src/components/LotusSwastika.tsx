@@ -3,18 +3,31 @@ import { FC, SVGProps } from 'react';
 const LotusSwastika: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" {...props}>
     <g fill="currentColor">
-      {/* Right facing swastika */}
-      <path d="M 45,45 v -40 h 40 v 10 h -30 v 30 z" />
-      <path d="M 55,45 h 40 v 40 h -10 v -30 h -30 z" />
-      <path d="M 55,55 v 40 h -40 v -10 h 30 v -30 z" />
-      <path d="M 45,55 h -40 v -40 h 10 v 30 h 30 z" />
-      <rect x="45" y="45" width="10" height="10" />
+      <defs>
+        {/* Arm goes UP from center, then RIGHT with flared end */}
+        <path id="swastika-arm" d="
+          M 45,55
+          L 45,25
+          L 65,25
+          L 80,10
+          L 95,10
+          L 95,20
+          L 80,35
+          L 55,35
+          L 55,55 Z" />
+      </defs>
+
+      {/* 4 Rotated Arms */}
+      <use href="#swastika-arm" />
+      <use href="#swastika-arm" transform="rotate(90 50 50)" />
+      <use href="#swastika-arm" transform="rotate(180 50 50)" />
+      <use href="#swastika-arm" transform="rotate(270 50 50)" />
 
       {/* 4 Central Dots */}
-      <circle cx="70" cy="30" r="5" />
-      <circle cx="70" cy="70" r="5" />
-      <circle cx="30" cy="70" r="5" />
-      <circle cx="30" cy="30" r="5" />
+      <circle cx="67" cy="33" r="4.5" />
+      <circle cx="67" cy="67" r="4.5" />
+      <circle cx="33" cy="67" r="4.5" />
+      <circle cx="33" cy="33" r="4.5" />
     </g>
   </svg>
 );
