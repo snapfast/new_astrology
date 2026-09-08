@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "Rashi transit details", "Nakshatra transit", "all 9 planets gochar"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/transits",
+    canonical: "https://baliastrology.com/transits",
   },
   openGraph: {
     title: 'Planetary Transits (Gochar) | Rahul Bali Astrology',
     description: 'Track the movements of all nine Vedic planets across signs and nakshatras.',
-    url: "https://astro.rahulbali.in/transits",
+    url: "https://baliastrology.com/transits",
     siteName: "Rahul Bali Astrology",
     images: [
       {

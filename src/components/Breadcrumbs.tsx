@@ -16,11 +16,11 @@ const Breadcrumbs = () => {
   const breadcrumbItems = pathSegments.map((segment, index) => {
     const url = `/${pathSegments.slice(0, index + 1).join('/')}`;
     const title = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
-    return { name: title, item: `https://astro.rahulbali.in${url}` };
+    return { name: title, item: `https://baliastrology.com${url}` };
   });
 
   const schemaItems = [
-    { name: 'Home', item: 'https://astro.rahulbali.in' },
+    { name: 'Home', item: 'https://baliastrology.com' },
     ...breadcrumbItems
   ];
 
@@ -48,7 +48,7 @@ const Breadcrumbs = () => {
                       {item.name}
                     </span>
                   ) : (
-                    <Link prefetch={true} href={item.item.replace('https://astro.rahulbali.in', '')} className="hover:text-primary transition-colors truncate max-w-[150px] md:max-w-none">
+                    <Link prefetch={true} href={item.item.replace('https://baliastrology.com', '')} className="hover:text-primary transition-colors truncate max-w-[150px] md:max-w-none">
                       {item.name}
                     </Link>
                   )}

@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "astrology platform donation", "UPI donation", "PayPal astrology support"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/donate",
+    canonical: "https://baliastrology.com/donate",
   },
   openGraph: {
     title: "Donate | Rahul Bali Astrology",
     description: "Support Pandit Rahul Bali Ji's work in Vedic Astrology. Your contributions help maintain this platform and provide free astrological tools to everyone.",
-    url: "https://astro.rahulbali.in/donate",
+    url: "https://baliastrology.com/donate",
     siteName: "Rahul Bali Astrology",
     images: [
       {

@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     "Vedic Astrology Online", "Accurate Kundli", "Pandit Rahul Bali", "Astrology Chart"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/free-horoscope",
+    canonical: "https://baliastrology.com/free-horoscope",
   },
   openGraph: {
     title: "Free Kundli | Rahul Bali Astrology",
     description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",
-    url: "https://astro.rahulbali.in/free-horoscope",
+    url: "https://baliastrology.com/free-horoscope",
     siteName: "Rahul Bali Astrology",
     images: [
       {

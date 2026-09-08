@@ -15,12 +15,12 @@ export const metadata: Metadata = {
     "Jyotish Shastra practitioner", "astrology life remedies", "Rahul Bali Astrology bio"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/about",
+    canonical: "https://baliastrology.com/about",
   },
   openGraph: {
     title: "About | Rahul Bali Astrology",
     description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
-    url: "https://astro.rahulbali.in/about",
+    url: "https://baliastrology.com/about",
     siteName: "Rahul Bali Astrology",
     images: [
       {
@@ -48,8 +48,8 @@ export default function AboutPage() {
     "mainEntity": {
       "@type": "Person",
       "name": "Pandit Rahul Bali",
-      "url": "https://astro.rahulbali.in/about",
-      "image": "https://astro.rahulbali.in/og-image.png",
+      "url": "https://baliastrology.com/about",
+      "image": "https://baliastrology.com/og-image.png",
       "sameAs": [
         "https://www.instagram.com/RahulBaliAstro",
         "https://www.youtube.com/@RahulBaliAstrology",

@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     "live planets", "current rashi", "nakshatra position"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/transits-table",
+    canonical: "https://baliastrology.com/transits-table",
   },
   openGraph: {
     title: 'Current Planetary Transits Table | Rahul Bali Astrology',
     description: 'View the current astrological positions and status of all Vedic planets in a table view.',
-    url: "https://astro.rahulbali.in/transits-table",
+    url: "https://baliastrology.com/transits-table",
     siteName: "Rahul Bali Astrology",
     images: [
       {

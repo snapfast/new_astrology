@@ -14,7 +14,7 @@ export const generateWebPageSchema = (
       "name": "Rahul Bali Astrology",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://astro.rahulbali.in/og-image.png"
+        "url": "https://baliastrology.com/og-image.png"
       }
     }
   };

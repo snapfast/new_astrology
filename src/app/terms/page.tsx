@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "consultation guidelines", "refund and payment terms"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/terms",
+    canonical: "https://baliastrology.com/terms",
   },
   openGraph: {
     title: "Terms of Service | Rahul Bali Astrology",
     description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
-    url: "https://astro.rahulbali.in/terms",
+    url: "https://baliastrology.com/terms",
     siteName: "Rahul Bali Astrology",
     images: [
       {

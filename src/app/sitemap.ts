@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://astro.rahulbali.in'
+  const baseUrl = 'https://baliastrology.com'
 
   const routes = [
     '',

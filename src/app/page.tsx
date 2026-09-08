@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm tracker"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in",
+    canonical: "https://baliastrology.com",
   },
 };
 
@@ -28,9 +28,9 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Rahul Bali Astrology",
-    "image": "https://astro.rahulbali.in/og-image.png",
-    "@id": "https://astro.rahulbali.in",
-    "url": "https://astro.rahulbali.in",
+    "image": "https://baliastrology.com/og-image.png",
+    "@id": "https://baliastrology.com",
+    "url": "https://baliastrology.com",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer support",
