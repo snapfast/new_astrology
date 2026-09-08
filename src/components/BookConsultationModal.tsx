@@ -8,7 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
 import LotusSwastika from './LotusSwastika';
 import Image from 'next/image';
-
+import Link from 'next/link';
 
 const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
 
@@ -190,12 +190,18 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
 
             {/* Footer */}
             <div className="mt-4 pt-3 border-t border-outline/20 flex justify-center items-center">
-              <div className={`flex items-center gap-1.5 text-on-surface/40 font-body uppercase ${
-                 lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wider'
-              }`}>
-                <span className="material-symbols-outlined text-base">verified_user</span>
-                <span>Secure via Calendly</span>
-              </div>
+              <Link
+                href="/donate"
+                onClick={() => {
+                  sendGAEvent({ event: 'action_click', action_name: 'modal_donate_click' });
+                  onClose();
+                }}
+                className={`flex items-center justify-center w-full py-2 text-on-surface/70 font-medium uppercase transition-all hover:text-on-surface hover:bg-surface-bright border border-outline/20 rounded-full active:scale-[0.98] ${
+                  lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-[0.1em]'
+                }`}
+              >
+                {t.optionalDonationBtn}
+              </Link>
             </div>
           </>
         ) : view === 'survey' ? (
