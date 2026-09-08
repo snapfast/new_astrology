@@ -9,6 +9,7 @@ import KundliChart from '@/components/KundliChart';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from '@/context/LanguageContext';
+import { type Suggestion } from '@/lib/types';
 
 const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
 
