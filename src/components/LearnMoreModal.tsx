@@ -67,57 +67,59 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Content Stack */}
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {/* Section 1: Sample Reports */}
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="material-symbols-outlined text-on-surface text-2xl" aria-hidden="true">folder_open</span>
+              <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5 bg-surface-bright rounded-full">
+                <span className="material-symbols-outlined text-on-surface/80 text-[20px]" aria-hidden="true">folder_open</span>
               </div>
               <div>
-                <h3 className={`font-normal text-on-surface font-headline tracking-tight mb-1 ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.sampleTitle}</h3>
+                <h3 className={`font-normal text-on-surface font-headline tracking-tight mb-0.5 ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.sampleTitle}</h3>
                 <p id="learn-more-desc" className={`text-on-surface/80 font-body leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-xs md:text-sm'}`}>{t.sampleDesc}</p>
               </div>
             </div>
 
-            <a
-              href="https://drive.google.com/drive/u/0/folders/1xlyzqP8CEUx11Lh3U14UmBa2Os600SHQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_samples_redirect' })}
-              className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium uppercase transition-all hover:bg-on-surface/90 ${
-                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-[0.15em]'
-              }`}
-            >
-              {t.sampleBtn}
-            </a>
+            <div className="space-y-2">
+              <a
+                href="https://drive.google.com/drive/u/0/folders/1xlyzqP8CEUx11Lh3U14UmBa2Os600SHQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_samples_redirect' })}
+                className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 ${
+                  lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-sm md:text-base tracking-wide'
+                }`}
+              >
+                {t.sampleBtn}
+              </a>
+            </div>
           </div>
-
-          <hr className="border-outline/10" />
 
           {/* Section 2: Spiritual Insights */}
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="material-symbols-outlined text-on-surface text-2xl" aria-hidden="true">alternate_email</span>
+              <div className="w-9 h-9 flex items-center justify-center shrink-0 mt-0.5 bg-surface-bright rounded-full">
+                <span className="material-symbols-outlined text-on-surface/80 text-[20px]" aria-hidden="true">alternate_email</span>
               </div>
               <div>
-                <h3 className={`font-normal text-on-surface font-headline tracking-tight mb-1 ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.socialTitle}</h3>
+                <h3 className={`font-normal text-on-surface font-headline tracking-tight mb-0.5 ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.socialTitle}</h3>
                 <p className={`text-on-surface/80 font-body leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-xs md:text-sm'}`}>{t.socialDesc}</p>
               </div>
             </div>
 
-            <a
-              href="https://www.threads.net/@rahulbaliastro"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads_redirect' })}
-              className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium uppercase transition-all hover:bg-on-surface/90 ${
-                lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-[0.15em]'
-              }`}
-            >
-              {t.socialBtn}
-            </a>
+            <div className="space-y-2">
+              <a
+                href="https://www.threads.net/@rahulbaliastro"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads_redirect' })}
+                className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 ${
+                  lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-sm md:text-base tracking-wide'
+                }`}
+              >
+                {t.socialBtn}
+              </a>
+            </div>
           </div>
         </div>
       </div>

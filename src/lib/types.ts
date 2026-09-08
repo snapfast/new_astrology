@@ -17,4 +17,5 @@ export interface StoredChartData {
   tob: string;
   pob: string;
   coords: { lat: string; lon: string } | null;
+  kpNumber?: string;
 }

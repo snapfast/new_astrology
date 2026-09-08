@@ -13,15 +13,15 @@ import Link from 'next/link';
 const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
 
 const EXIT_REASONS = [
-  "I'm not sure the consultation is right for me",
-  "I need more information",
-  "Unclear pricing",
-  "The timing isn't right",
-  "I need to think about it",
-  "I'm not ready yet",
-  "The process was too confusing",
-  "I was just browsing",
-  "Other"
+  "Not Sure If Consultation Is Right For Me",
+  "Need More Information Before Booking",
+  "Unclear Pricing & Donation Structure",
+  "Timing Is Not Convenient Right Now",
+  "Need More Time To Think About It",
+  "Not Ready For A Consultation Yet",
+  "Booking Process Was Too Confusing",
+  "Just Browsing The Website",
+  "Other Reason"
 ];
 
 const TRANSLATIONS = {
@@ -143,11 +143,11 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <h3 className={`font-normal text-on-surface font-headline tracking-tight ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetTitle}</h3>
                     <div className="flex flex-wrap gap-1.5">
-                      <span className={`px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium uppercase rounded-full ${
-                        lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
+                      <span className={`px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium rounded-full ${
+                        lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-wide'
                       }`}>{t.durationBadge}</span>
-                      <span className={`px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium uppercase rounded-full ${
-                        lang === 'hi' ? 'text-[10px] md:text-xs tracking-normal' : 'text-[10px] md:text-xs tracking-wider'
+                      <span className={`px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium rounded-full ${
+                        lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-wide'
                       }`}>{t.videoBadge}</span>
                     </div>
                   </div>
@@ -179,8 +179,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' });
                     setView('survey');
                   }}
-                  className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium uppercase transition-all hover:bg-on-surface/90 ${
-                    lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-[0.15em]'
+                  className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 ${
+                    lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-sm md:text-base tracking-wide'
                   }`}
                 >
                   {t.meetBtn}
@@ -196,8 +196,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   sendGAEvent({ event: 'action_click', action_name: 'modal_donate_click' });
                   onClose();
                 }}
-                className={`flex items-center justify-center w-full py-2 text-on-surface/70 font-medium uppercase transition-all hover:text-on-surface hover:bg-surface-bright border border-outline/20 rounded-full active:scale-[0.98] ${
-                  lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-[0.1em]'
+                className={`flex items-center justify-center w-full py-2 text-on-surface/70 font-medium transition-all hover:text-on-surface hover:bg-surface-bright border border-outline/20 rounded-full active:scale-[0.98] ${
+                  lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wide'
                 }`}
               >
                 {t.optionalDonationBtn}
@@ -213,7 +213,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-outline/20 hover:bg-surface-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95"
                 aria-label="Close survey"
               >
                 <span className="material-symbols-outlined text-on-surface text-lg" aria-hidden="true">close</span>
@@ -240,7 +240,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                           </div>
                           <div className="flex flex-col">
                               <span className="text-xs md:text-sm text-on-surface/80">{reason}</span>
-                              {reason === "Unclear pricing" && (
+                              {reason === "Unclear Pricing & Donation Structure" && (
                                   <span className="text-[10px] md:text-[11px] text-on-surface/50 mt-0.5 leading-tight pr-2">
                                       (This is a donation-based service. You can donate anything after the session or choose not to.)
                                   </span>
@@ -254,7 +254,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                    <button
                       onClick={handleSurveySubmit}
                       disabled={!selectedReason || isSubmitting}
-                      className={`flex items-center justify-center w-full py-2 rounded-full font-medium uppercase transition-all text-[11px] tracking-wider md:text-xs md:tracking-[0.1em] ${
+                      className={`flex items-center justify-center w-full py-2 rounded-full font-medium transition-all text-sm md:text-base tracking-wide ${
                           !selectedReason || isSubmitting
                           ? 'bg-surface-bright text-on-surface/40 cursor-not-allowed'
                           : 'bg-on-surface text-white hover:bg-on-surface/90 active:scale-[0.98] shadow-sm'
@@ -264,7 +264,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                    </button>
                    <button
                       onClick={handleBooked}
-                      className="flex items-center justify-center w-full py-2 text-on-surface/60 font-medium uppercase transition-all hover:text-on-surface hover:bg-surface-bright rounded-full active:scale-[0.98] text-[11px] tracking-wider md:text-xs md:tracking-[0.1em]"
+                      className="flex items-center justify-center w-full py-2 text-on-surface/60 font-medium transition-all hover:text-on-surface hover:bg-surface-bright rounded-full active:scale-[0.98] text-sm md:text-base tracking-wide"
                    >
                       I have booked
                    </button>

@@ -30,15 +30,6 @@ const TRANSLATIONS = {
     kpTooltip: "Use 1-249 when the exact birth time is unknown or for a specific Horary (Prashna) question. Leave blank to cast a standard time-based chart."
   }};
 
-interface StoredChartData {
-  name: string;
-  dob: string;
-  tob: string;
-  pob: string;
-  coords: { lat: string; lon: string } | null;
-  kpNumber?: string;
-}
-
 const HOROSCOPE_HISTORY_KEY = 'KP_HORARY_FORM_HISTORY';
 
 interface KPHoraryGenerationProps {
