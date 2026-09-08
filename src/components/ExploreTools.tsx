@@ -286,7 +286,7 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
             }
 
             return (
-              <Link
+              <Link prefetch={true}
                 key={card.id}
                 href={card.href || ''}
                 onClick={() => handleCardClick(card.gaAction)}

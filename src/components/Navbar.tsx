@@ -109,7 +109,7 @@ const Navbar = () => {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
+          <Link prefetch={true} href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
             <Logo />
           </Link>
         </div>
@@ -133,7 +133,7 @@ const Navbar = () => {
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-outline/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
                       {link.subLinks.map(subLink => (
-                        <Link
+                        <Link prefetch={true}
                           key={subLink.href}
                           href={subLink.href}
                           className={`block px-4 py-2 text-sm hover:bg-surface-container-high transition-colors ${
@@ -150,7 +150,7 @@ const Navbar = () => {
             }
             const isActive = pathname === link.href;
             return (
-              <Link
+              <Link prefetch={true}
                 key={link.href || link.name}
                 href={link.href || '/'}
                 aria-current={isActive ? 'page' : undefined}
@@ -189,7 +189,7 @@ const Navbar = () => {
     >
       <div className="flex flex-col h-full p-6 overflow-y-auto">
         <div className="flex items-center justify-between mb-12 shrink-0">
-          <Link href="/" onClick={closeMenu} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg">
+          <Link prefetch={true} href="/" onClick={closeMenu} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg">
             <Logo />
           </Link>
           <button
@@ -214,7 +214,7 @@ const Navbar = () => {
                     {link.subLinks.map(subLink => {
                       const isActive = pathname === subLink.href;
                       return (
-                        <Link
+                        <Link prefetch={true}
                           key={subLink.href}
                           href={subLink.href}
                           onClick={closeMenu}
@@ -235,7 +235,7 @@ const Navbar = () => {
             const isActive = pathname === link.href;
             return (
               <div key={link.href || link.name} className="px-1">
-                <Link
+                <Link prefetch={true}
                   href={link.href || '/'}
                   onClick={closeMenu}
                   aria-current={isActive ? 'page' : undefined}

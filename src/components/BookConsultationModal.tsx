@@ -190,7 +190,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
 
             {/* Footer */}
             <div className="mt-4 pt-3 border-t border-outline/20 flex justify-center items-center">
-              <Link
+              <Link prefetch={true}
                 href="/donate"
                 onClick={() => {
                   sendGAEvent({ event: 'action_click', action_name: 'modal_donate_click' });

@@ -33,7 +33,7 @@ const Breadcrumbs = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <ol className="flex items-center space-x-2 text-on-surface/70">
             <li>
-              <Link href="/" className="hover:text-primary transition-colors flex items-center">
+              <Link prefetch={true} href="/" className="hover:text-primary transition-colors flex items-center">
                 <span className="material-symbols-outlined text-[18px]">home</span>
                 <span className="sr-only">Home</span>
               </Link>
@@ -48,7 +48,7 @@ const Breadcrumbs = () => {
                       {item.name}
                     </span>
                   ) : (
-                    <Link href={item.item.replace('https://astro.rahulbali.in', '')} className="hover:text-primary transition-colors truncate max-w-[150px] md:max-w-none">
+                    <Link prefetch={true} href={item.item.replace('https://astro.rahulbali.in', '')} className="hover:text-primary transition-colors truncate max-w-[150px] md:max-w-none">
                       {item.name}
                     </Link>
                   )}
