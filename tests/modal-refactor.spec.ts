@@ -20,7 +20,7 @@ test('BookConsultationModal text reduction', async ({ page }) => {
   await expect(page.getByText('Video is optional')).toBeVisible();
   await expect(page.getByText('1-on-1 session for deep chart analysis and remedies.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Schedule Now' })).toBeVisible();
-  await expect(page.getByText('Secure via Calendly')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Optional Donation' })).toBeVisible();
 
   // Verify motto is NOT visible
   await expect(page.getByText('Guided by the stars, Grounded in Truth')).not.toBeVisible();
