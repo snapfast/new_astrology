@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import TransitsTableClientPage from './TransitsTableClientPage';
+import JsonLd from '@/components/JsonLd';
+import { generateWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Current Planetary Transits Table',
@@ -36,5 +38,16 @@ export const metadata: Metadata = {
 };
 
 export default function TransitsTablePage() {
-  return <TransitsTableClientPage />;
+  const schema = generateWebPageSchema(
+    "Current Planetary Transits Table",
+    "View the current astrological positions and status of all Vedic planets in a table view.",
+    "https://baliastrology.com/transits-table"
+  );
+
+  return (
+    <>
+      <JsonLd data={schema} />
+      <TransitsTableClientPage />
+    </>
+  );
 }

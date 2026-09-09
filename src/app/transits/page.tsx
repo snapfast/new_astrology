@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import TransitsClientPage from './TransitsClientPage';
+import JsonLd from '@/components/JsonLd';
+import { generateWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Planetary Transits (Gochar)',
@@ -37,5 +39,16 @@ export const metadata: Metadata = {
 };
 
 export default function TransitsPage() {
-  return <TransitsClientPage />;
+  const schema = generateWebPageSchema(
+    "Planetary Transits (Gochar)",
+    "Track the movements (Gochara) of all nine Vedic planets across Rashi (Signs) and Nakshatras (Asterisms).",
+    "https://baliastrology.com/transits"
+  );
+
+  return (
+    <>
+      <JsonLd data={schema} />
+      <TransitsClientPage />
+    </>
+  );
 }

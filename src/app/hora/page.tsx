@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import HoraClientPage from './HoraClientPage';
+import JsonLd from '@/components/JsonLd';
+import { generateWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Planetary Hours (Hora)",
@@ -36,5 +38,16 @@ export const metadata: Metadata = {
 };
 
 export default function HoraPage() {
-  return <HoraClientPage />;
+  const schema = generateWebPageSchema(
+    "Planetary Hours (Hora)",
+    "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
+    "https://baliastrology.com/hora"
+  );
+
+  return (
+    <>
+      <JsonLd data={schema} />
+      <HoraClientPage />
+    </>
+  );
 }

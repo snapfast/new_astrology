@@ -46,6 +46,9 @@ const Hero = () => {
           <span className="text-lg md:text-2xl text-accent font-hindi mb-3">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
+          <h1 className="text-3xl md:text-5xl font-headline font-semibold text-on-surface mb-2">
+            Pandit Rahul Bali Ji
+          </h1>
           <span className={`font-medium text-accent font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
             {t.subtitle}
           </span>
