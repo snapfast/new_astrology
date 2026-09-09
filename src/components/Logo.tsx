@@ -1,7 +1,7 @@
 import React from 'react';
-import { Great_Vibes } from 'next/font/google';
+import { Pinyon_Script } from 'next/font/google';
 
-const greatVibes = Great_Vibes({
+const pinyonScript = Pinyon_Script({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
@@ -13,11 +13,11 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ className = "" }) => {
   return (
-    <div className={`flex flex-row items-baseline gap-2 leading-none ${greatVibes.className} ${className}`}>
-      <span className="text-xl md:text-3xl font-normal tracking-tight text-accent whitespace-nowrap">
+    <div className={`flex flex-row items-baseline gap-2 leading-none ${pinyonScript.className} ${className}`}>
+      <span className="text-2xl md:text-4xl font-normal tracking-tight text-accent whitespace-nowrap">
         Bali
       </span>
-      <span className="text-xl md:text-3xl font-normal tracking-tight text-on-surface whitespace-nowrap">
+      <span className="text-2xl md:text-4xl font-normal tracking-tight text-on-surface whitespace-nowrap">
         Astrology
       </span>
     </div>
