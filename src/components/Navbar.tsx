@@ -19,7 +19,7 @@ const TRANSLATIONS = {
     reviews: 'Reviews',
     donate: 'Donate',
     bookNow: 'Book Now',
-    bookConsultation: 'Book a Consultation Now',
+    bookConsultation: 'Book a Consultation',
     switchLanguage: 'Switch Language / भाषा बदलें',
     openMenu: 'Open Menu',
     closeMenu: 'Close Menu',
@@ -183,11 +183,10 @@ const Navbar = () => {
     </nav>
 
     {/* Mobile Menu Overlay - Moved outside nav for better stacking and background control */}
+    {isMenuOpen && (
     <div
       id="mobile-menu"
-      className={`fixed inset-0 bg-surface z-[100] transition-transform duration-300 ease-in-out md:hidden ${
-        isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className="fixed inset-0 bg-surface z-[100] transition-transform duration-300 ease-in-out md:hidden translate-x-0"
     >
       <div className="flex flex-col h-full p-6 overflow-y-auto">
         <div className="flex items-center justify-between mb-12 shrink-0">
@@ -268,6 +267,7 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+    )}
 
     <BookConsultationModal
       isOpen={isBookingModalOpen}
