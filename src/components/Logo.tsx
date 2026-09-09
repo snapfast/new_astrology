@@ -14,9 +14,6 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ className = "" }) => {
   return (
     <div className={`flex flex-row items-baseline gap-2 leading-none ${greatVibes.className} ${className}`}>
-      <span className="text-xl md:text-3xl font-normal tracking-tight text-on-surface whitespace-nowrap">
-        Rahul
-      </span>
       <span className="text-xl md:text-3xl font-normal tracking-tight text-accent whitespace-nowrap">
         Bali
       </span>
