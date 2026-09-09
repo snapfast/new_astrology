@@ -17,6 +17,7 @@ const TRANSLATIONS = {
     tools: 'Tools',
     about: 'About',
     reviews: 'Reviews',
+    donate: 'Donate',
     bookNow: 'Book Now',
     bookConsultation: 'Book a Consultation Now',
     switchLanguage: 'Switch Language / भाषा बदलें',
@@ -76,6 +77,7 @@ const Navbar = () => {
     { name: t.freeHoroscope, href: '/free-horoscope', highlight: true },
     { name: t.about, href: '/about' },
     { name: t.reviews, href: '/reviews' },
+    { name: t.donate, href: '/donate' },
     {
       name: t.tools,
       subLinks: [
