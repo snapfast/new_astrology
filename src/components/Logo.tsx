@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pinyon_Script } from 'next/font/google';
+import { Quintessential } from 'next/font/google';
 
-const pinyonScript = Pinyon_Script({
+const quintessential = Quintessential({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
@@ -13,7 +13,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ className = "" }) => {
   return (
-    <div className={`flex flex-row items-baseline gap-2 leading-none ${pinyonScript.className} ${className}`}>
+    <div className={`flex flex-row items-baseline gap-2 leading-none ${quintessential.className} ${className}`}>
       <span className="text-2xl md:text-4xl font-bold tracking-tight text-accent whitespace-nowrap">
         Bali
       </span>
