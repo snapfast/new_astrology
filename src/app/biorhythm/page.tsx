@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import BiorhythmClientPage from './BiorhythmClientPage';
+import JsonLd from '@/components/JsonLd';
+import { generateWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Biorhythm',
@@ -37,5 +39,16 @@ export const metadata: Metadata = {
 };
 
 export default function BiorhythmPage() {
-  return <BiorhythmClientPage />;
+  const schema = generateWebPageSchema(
+    "Biorhythm",
+    "Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.",
+    "https://baliastrology.com/biorhythm"
+  );
+
+  return (
+    <>
+      <JsonLd data={schema} />
+      <BiorhythmClientPage />
+    </>
+  );
 }

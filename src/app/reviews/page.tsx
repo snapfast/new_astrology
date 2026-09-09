@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import ReviewsClientPage from './ReviewsClientPage';
+import JsonLd from '@/components/JsonLd';
+import { generateWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Reviews",
@@ -36,5 +38,16 @@ export const metadata: Metadata = {
 };
 
 export default function ReviewsPage() {
-  return <ReviewsClientPage />;
+  const schema = generateWebPageSchema(
+    "Reviews",
+    "Client reviews and experiences with Rahul Bali Astrology",
+    "https://baliastrology.com/reviews"
+  );
+
+  return (
+    <>
+      <JsonLd data={schema} />
+      <ReviewsClientPage />
+    </>
+  );
 }

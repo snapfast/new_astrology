@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import PanchPakshiClientPage from './PanchPakshiClientPage';
+import JsonLd from '@/components/JsonLd';
+import { generateWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Panch Pakshi',
@@ -38,5 +40,16 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <PanchPakshiClientPage />;
+  const schema = generateWebPageSchema(
+    "Panch Pakshi",
+    "Calculate your Panch Pakshi bird based on your birth Nakshatra. Understand its five astrological activity states for precise daily guidance and timing.",
+    "https://baliastrology.com/panch-pakshi"
+  );
+
+  return (
+    <>
+      <JsonLd data={schema} />
+      <PanchPakshiClientPage />
+    </>
+  );
 }
