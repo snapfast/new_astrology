@@ -120,7 +120,7 @@ export default function ReviewsClientPage() {
 
       <section className="max-w-7xl mx-auto px-8 pb-16">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3507.5973617160266!2d77.0661377!3d28.4615515!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1911f4ce53e1%3A0x1aa9a8a9a005470!2sRahul%20Bali%20Astrology!5e0!3m2!1sen!2sin!4v1781586655704!5m2!1sen!2sin"
+          src="https://share.google/u7vMNubQvWEnVMT1f"
           className="w-full h-[450px] rounded-3xl border border-outline shadow-sm"
           allowFullScreen
           loading="lazy"
