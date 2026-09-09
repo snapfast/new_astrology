@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     "divisional charts", "Vimshottari Dasha", "Pandit Rahul Bali astrology"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/horoscope",
+    canonical: "https://baliastrology.com/horoscope",
   },
   openGraph: {
     title: "Vedic Horoscope | Rahul Bali Astrology",
     description: "Generate your free Vedic astrology birth chart (Kundli). Get planetary positions, divisional charts, and Vimshottari Dasha.",
-    url: "https://astro.rahulbali.in/horoscope",
+    url: "https://baliastrology.com/horoscope",
     siteName: "Rahul Bali Astrology",
     images: [
       {

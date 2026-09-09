@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     "client testimonials", "accurate astrology predictions", "astrologer Google rating"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/reviews",
+    canonical: "https://baliastrology.com/reviews",
   },
   openGraph: {
     title: "Reviews | Rahul Bali Astrology",
     description: "Client reviews and experiences with Rahul Bali Astrology",
-    url: "https://astro.rahulbali.in/reviews",
+    url: "https://baliastrology.com/reviews",
     siteName: "Rahul Bali Astrology",
     images: [
       {

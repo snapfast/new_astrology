@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     "D9 Navamsha usage", "D10 Dashamsha career", "Astrology questions", "Rahul Bali FAQ"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/faq",
+    canonical: "https://baliastrology.com/faq",
   },
   openGraph: {
     title: "FAQ | Rahul Bali Astrology",
     description: "Explore frequently asked questions about Vedic Astrology, Divisional Varga charts, Panch Pakshi, and Biorhythm.",
-    url: "https://astro.rahulbali.in/faq",
+    url: "https://baliastrology.com/faq",
     siteName: "Rahul Bali Astrology",
     images: [
       {

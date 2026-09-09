@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     "Auspicious Hours", "Vedic Muhurta", "Planet Hours", "Astro Hours", "Auspicious Timings"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/hora",
+    canonical: "https://baliastrology.com/hora",
   },
   openGraph: {
     title: "Planetary Hours (Hora) | Rahul Bali Astrology",
     description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
-    url: "https://astro.rahulbali.in/hora",
+    url: "https://baliastrology.com/hora",
     siteName: "Rahul Bali Astrology",
     images: [
       {

@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "divisional charts view", "planetary positions single screen", "professional astrologer dashboard"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/horoscope/compact",
+    canonical: "https://baliastrology.com/horoscope/compact",
   },
   openGraph: {
     title: "Compact Kundli Dashboard | Rahul Bali Astrology",
     description: "A compact dashboard for your Vedic birth chart (Kundli). View charts, planetary positions, and dasha details.",
-    url: "https://astro.rahulbali.in/horoscope/compact",
+    url: "https://baliastrology.com/horoscope/compact",
     siteName: "Rahul Bali Astrology",
     images: [
       {

@@ -17,7 +17,7 @@ const akshar = Akshar({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://astro.rahulbali.in"),
+  metadataBase: new URL("https://baliastrology.com"),
   title: {
     default: "Rahul Bali Astrology",
     template: "%s | Rahul Bali Astrology",
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   creator: "Pandit Rahul Bali",
   publisher: "Rahul Bali Astrology",
   alternates: {
-    canonical: "https://astro.rahulbali.in",
+    canonical: "https://baliastrology.com",
     languages: {
-      "en-US": "https://astro.rahulbali.in",
+      "en-US": "https://baliastrology.com",
     },
   },
   formatDetection: {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rahul Bali Astrology",
     description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
-    url: "https://astro.rahulbali.in",
+    url: "https://baliastrology.com",
     siteName: "Rahul Bali Astrology",
     images: [
       {
@@ -119,8 +119,8 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Pandit Rahul Bali",
-              "url": "https://astro.rahulbali.in",
-              "image": "https://astro.rahulbali.in/og-image.png",
+              "url": "https://baliastrology.com",
+              "image": "https://baliastrology.com/og-image.png",
               "sameAs": [
                 "https://www.instagram.com/RahulBaliAstro",
                 "https://www.youtube.com/@RahulBaliAstrology",

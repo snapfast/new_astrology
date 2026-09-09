@@ -11,7 +11,7 @@ const TRANSLATIONS = {
     subtitle: "Guidelines & Disclaimers",
     description: "Please read our Terms of Service and disclaimers before using our tools and booking consultations.",
     heading1: "1. Acceptance of Terms",
-    para1: "By accessing and using the website astro.rahulbali.in ('Website') and any services, calculations, or tools provided by Rahul Bali Astrology, you agree to comply with and be bound by these Terms of Service. If you do not agree, please refrain from using our services.",
+    para1: "By accessing and using the website baliastrology.com ('Website') and any services, calculations, or tools provided by Rahul Bali Astrology, you agree to comply with and be bound by these Terms of Service. If you do not agree, please refrain from using our services.",
     heading2: "2. Nature of Astrological Guidance & Disclaimers",
     para2: "Vedic Astrology (Jyotish) is an ancient, interpretive science. All astrological analyses, horoscopes, divisional chart calculations, and consultations with Pandit Rahul Bali Ji:",
     list1: [

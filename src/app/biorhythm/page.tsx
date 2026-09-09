@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "Panch Pakshi", "all 17 varga charts", "body biorhythms", "energy flow"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/biorhythm",
+    canonical: "https://baliastrology.com/biorhythm",
   },
   openGraph: {
     title: 'Biorhythm | Rahul Bali Astrology',
     description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
-    url: "https://astro.rahulbali.in/biorhythm",
+    url: "https://baliastrology.com/biorhythm",
     siteName: "Rahul Bali Astrology",
     images: [
       {

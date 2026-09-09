@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     "all 17 varga charts", "Biorhythm tracker", "Vedic system of five birds", "Pancha Pakshi"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/panch-pakshi",
+    canonical: "https://baliastrology.com/panch-pakshi",
   },
   openGraph: {
     title: 'Panch Pakshi | Rahul Bali Astrology',
     description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra. Understand its five astrological activity states for precise daily guidance and timing.',
-    url: 'https://astro.rahulbali.in/panch-pakshi',
+    url: 'https://baliastrology.com/panch-pakshi',
     siteName: "Rahul Bali Astrology",
     images: [
       {

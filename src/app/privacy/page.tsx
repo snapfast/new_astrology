@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "confidential astrology consultation", "user data privacy"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/privacy",
+    canonical: "https://baliastrology.com/privacy",
   },
   openGraph: {
     title: "Privacy Policy | Rahul Bali Astrology",
     description: "Read our Privacy Policy. Learn how your information is processed securely.",
-    url: "https://astro.rahulbali.in/privacy",
+    url: "https://baliastrology.com/privacy",
     siteName: "Rahul Bali Astrology",
     images: [
       {

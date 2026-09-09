@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     "Rahu Kaal Today", "Abhijit Muhurta", "Vedic Calendar", "Hindu Calendar", "Auspicious Timings"
   ],
   alternates: {
-    canonical: "https://astro.rahulbali.in/panchang",
+    canonical: "https://baliastrology.com/panchang",
   },
   openGraph: {
     title: "Daily Panchang | Rahul Bali Astrology",
     description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
-    url: "https://astro.rahulbali.in/panchang",
+    url: "https://baliastrology.com/panchang",
     siteName: "Rahul Bali Astrology",
     images: [
       {
