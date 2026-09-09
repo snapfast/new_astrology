@@ -78,70 +78,70 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
 
             <div className="lg:w-1/2 w-full grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.tithi}</p>
+                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.tithi}</p>
                 {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-base md:text-lg font-headline text-on-surface">
+                    <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
                       {`${panchang.paksha} ${item.name}`}
                     </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
+                    <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi">{panchang.pakshaSanskrit} {item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{panchang.pakshaSanskrit} {item.sanskrit}</p>
                   </div>
                 ))}
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.nakshatra}</p>
+                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.nakshatra}</p>
                 {(panchang.nakshatrasList || [{ name: panchang.nakshatra, sanskrit: panchang.nakshatraSanskrit, end: panchang.nakshatraEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-base md:text-lg font-headline text-on-surface">
+                    <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
                       {item.name}
                     </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
+                    <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.yoga}</p>
+                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.yoga}</p>
                 {(panchang.yogasList || [{ name: panchang.yoga, sanskrit: panchang.yogaSanskrit, end: panchang.yogaEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-base md:text-lg font-headline text-on-surface">
+                    <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
                       {item.name}
                     </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
+                    <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.karana}</p>
+                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.karana}</p>
                 {(panchang.karanasList || [{ name: panchang.karana, sanskrit: panchang.karanaSanskrit, end: panchang.karanaEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-base md:text-lg font-headline text-on-surface">
+                    <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
                       {item.name}
                     </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
+                    <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.vara}</p>
+                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.vara}</p>
                 <div className="space-y-0.5 border-l border-accent/10 pl-2">
-                  <p className="text-base md:text-lg font-headline text-on-surface">{panchang.vara}</p>
-                  <p className="text-xs text-on-surface/80 font-hindi">{panchang.varaSanskrit}</p>
+                  <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">{panchang.vara}</p>
+                  <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{panchang.varaSanskrit}</p>
                 </div>
               </div>
             </div>
