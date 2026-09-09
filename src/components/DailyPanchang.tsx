@@ -46,24 +46,24 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
         <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-12 shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="flex flex-col lg:flex-row items-center gap-12 relative">
             <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-5xl font-normal font-headline text-on-surface mb-8 leading-tight">{t.title}</h2>
-              <div className="space-y-6 mb-10">
+              <h2 className="text-2xl md:text-4xl font-normal font-headline text-on-surface mb-6 leading-tight">{t.title}</h2>
+              <div className="space-y-5 mb-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                    <span className="material-symbols-outlined text-xl" aria-hidden="true">sunny</span>
+                  <div className="w-9 h-9 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
+                    <span className="material-symbols-outlined text-lg" aria-hidden="true">sunny</span>
                   </div>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
-                    <p className="text-lg font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-error/10 rounded-full flex items-center justify-center text-error shrink-0">
-                    <span className="material-symbols-outlined text-xl" aria-hidden="true">block</span>
+                  <div className="w-9 h-9 bg-error/10 rounded-full flex items-center justify-center text-error shrink-0">
+                    <span className="material-symbols-outlined text-lg" aria-hidden="true">block</span>
                   </div>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
-                    <p className="text-lg font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
                   </div>
                 </div>
               </div>
@@ -81,13 +81,13 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.tithi}</p>
                 {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-xl font-headline text-on-surface">
+                    <p className="text-base md:text-lg font-headline text-on-surface">
                       {`${panchang.paksha} ${item.name}`}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{panchang.pakshaSanskrit} {item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{panchang.pakshaSanskrit} {item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -96,13 +96,13 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.nakshatra}</p>
                 {(panchang.nakshatrasList || [{ name: panchang.nakshatra, sanskrit: panchang.nakshatraSanskrit, end: panchang.nakshatraEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-xl font-headline text-on-surface">
+                    <p className="text-base md:text-lg font-headline text-on-surface">
                       {item.name}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -111,13 +111,13 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.yoga}</p>
                 {(panchang.yogasList || [{ name: panchang.yoga, sanskrit: panchang.yogaSanskrit, end: panchang.yogaEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-xl font-headline text-on-surface">
+                    <p className="text-base md:text-lg font-headline text-on-surface">
                       {item.name}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -126,13 +126,13 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.karana}</p>
                 {(panchang.karanasList || [{ name: panchang.karana, sanskrit: panchang.karanaSanskrit, end: panchang.karanaEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
-                    <p className="text-xl font-headline text-on-surface">
+                    <p className="text-base md:text-lg font-headline text-on-surface">
                       {item.name}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -140,8 +140,8 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.vara}</p>
                 <div className="space-y-0.5 border-l border-accent/10 pl-2">
-                  <p className="text-xl font-headline text-on-surface">{panchang.vara}</p>
-                  <p className="text-xs md:text-sm text-on-surface/80 font-hindi">{panchang.varaSanskrit}</p>
+                  <p className="text-base md:text-lg font-headline text-on-surface">{panchang.vara}</p>
+                  <p className="text-xs text-on-surface/80 font-hindi">{panchang.varaSanskrit}</p>
                 </div>
               </div>
             </div>
