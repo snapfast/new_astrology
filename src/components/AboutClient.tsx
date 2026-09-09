@@ -13,8 +13,16 @@ const TRANSLATIONS = {
     specializedServices: 'Specialized Services',
     email: "Email Address",
     online: "Online Presence",
+    stylisedWordmarks: "Stylised Brand Mark Variations",
   }
 };
+
+const BALI_STYLES = [
+  { id: 1, label: 'Elegant Cursive', svg: '/images/bali-styles/bali-style-1.svg', webp: '/images/bali-styles/bali-style-1.webp' },
+  { id: 2, label: 'Modern Editorial', svg: '/images/bali-styles/bali-style-2.svg', webp: '/images/bali-styles/bali-style-2.webp' },
+  { id: 3, label: 'Vedic Traditional', svg: '/images/bali-styles/bali-style-3.svg', webp: '/images/bali-styles/bali-style-3.webp' },
+  { id: 4, label: 'Artistic Expression', svg: '/images/bali-styles/bali-style-4.svg', webp: '/images/bali-styles/bali-style-4.webp' },
+];
 
 export default function AboutClient() {
   const { lang } = useLanguage();
@@ -131,6 +139,32 @@ export default function AboutClient() {
                 <i className="fa-brands fa-reddit-alien"></i>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stylised Bali Brandmark Gallery Section */}
+      <div className="mt-24 pt-16 border-t border-outline/20">
+        <div className="flex flex-col items-center text-center space-y-12">
+          <div>
+            <h3 className={`text-[10px] font-medium uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.stylisedWordmarks}</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+            {BALI_STYLES.map((style) => (
+              <div key={style.id} className="p-4 rounded-3xl bg-surface-bright border border-outline/20 shadow-sm flex flex-col items-center gap-4 transition-all hover:border-outline/40">
+                <picture className="w-full h-auto block">
+                  <source srcSet={style.webp} type="image/webp" />
+                  <source srcSet={style.svg} type="image/svg+xml" />
+                  <img
+                    src={style.webp}
+                    alt={`Bali Stylised Wordmark - ${style.label}`}
+                    className="w-full h-auto object-contain rounded-2xl"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+            ))}
           </div>
         </div>
       </div>
