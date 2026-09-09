@@ -32,7 +32,7 @@ const TRANSLATIONS = {
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
     meetBtn: "Schedule Now",
-    optionalDonationBtn: "Optional Donation",
+    optionalDonationBtn: "Donate",
     closeModal: "Close modal",
     useOfService: "Compassionate Kundli Analysis",
     howItBenefits: "Clarity & Inner Peace",
@@ -196,8 +196,8 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   sendGAEvent({ event: 'action_click', action_name: 'modal_donate_click' });
                   onClose();
                 }}
-                className={`flex items-center justify-center w-full py-2 text-on-surface/70 font-medium transition-all hover:text-on-surface hover:bg-surface-bright border border-outline/20 rounded-full active:scale-[0.98] ${
-                  lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-xs md:text-sm tracking-wide'
+                className={`flex items-center justify-center w-full py-1 text-on-surface/70 font-medium ${
+                  lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-wide'
                 }`}
               >
                 {t.optionalDonationBtn}
