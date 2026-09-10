@@ -74,7 +74,7 @@ const Navbar = () => {
 
   const navLinks: NavLink[] = [
     { name: t.home, href: '/' },
-    { name: t.freeHoroscope, href: '/free-horoscope', highlight: true },
+    { name: t.freeHoroscope, href: '/free-horoscope' },
     { name: t.about, href: '/about' },
     { name: t.reviews, href: '/reviews' },
     { name: t.donate, href: '/donate' },
