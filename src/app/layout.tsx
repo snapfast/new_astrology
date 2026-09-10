@@ -4,7 +4,6 @@ import { Akshar } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import { headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
@@ -135,7 +134,6 @@ export default async function RootLayout({
               "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology, providing personalized horoscopes and spiritual consultations."
             }}
           />
-          <Breadcrumbs />
           {children}
           <BackToTop />
         </LanguageProvider>

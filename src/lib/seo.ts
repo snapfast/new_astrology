@@ -20,17 +20,3 @@ export const generateWebPageSchema = (
   };
 };
 
-export const generateBreadcrumbSchema = (
-  items: { name: string; item: string }[]
-): Record<string, unknown> => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.item
-    }))
-  };
-};
