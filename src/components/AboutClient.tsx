@@ -29,143 +29,150 @@ export default function AboutClient() {
   const t = TRANSLATIONS.en;
 
   return (
-    <div className="space-y-24">
-      <div className="grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
-        {/* Left Column: Condensed Bio (60%) */}
-        <div className="lg:col-span-6 space-y-16">
-          <div className="prose prose-lg max-w-none font-body text-on-surface leading-relaxed space-y-8">
-            <p>
-              {t.para1Part1}
-              <strong>{t.para1Strong}</strong>
-              {t.para1Part2}
-            </p>
-
-            <p className="text-lg md:text-2xl text-center pt-12 text-accent border-t border-outline/20 font-hindi">
-              ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
-            </p>
-          </div>
+    <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
+      {/* Practitioner Bio & Mantra Block */}
+      <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-8">
+        <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed">
+          <p className="text-base md:text-lg text-on-surface/90">
+            {t.para1Part1}
+            <strong className="text-on-surface font-semibold">{t.para1Strong}</strong>
+            {t.para1Part2}
+          </p>
         </div>
-
-        {/* Right Column: Services (40%) */}
-        <div className="lg:col-span-4 space-y-16">
-          <div className="space-y-8">
-            <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.specializedServices}</h3>
-            <ul className="grid grid-cols-1 gap-4">
-              {SPECIALIZED_SERVICES.map((service) => (
-                <li key={service.id} className="flex items-center gap-3 text-sm font-medium text-on-surface hover:text-accent transition-colors">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
-                  {service.title[lang]}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="pt-6 border-t border-outline/10 text-xl md:text-2xl text-accent font-hindi tracking-wide">
+          ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
         </div>
       </div>
 
-      {/* Contact Section */}
-      <div className="mt-24 pt-16 border-t border-outline/20">
-        <div className="flex flex-col items-center text-center space-y-16">
-          <div>
-            <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.email}</h3>
-            <a href="mailto:rahulbaliastrology@gmail.com" className="text-2xl font-body text-on-surface hover:text-accent transition-colors">
-              rahulbaliastrology@gmail.com
+      {/* Specialized Services Grid Card */}
+      <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-8">
+        <div className="text-center">
+          <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
+            {t.specializedServices}
+          </h3>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          {SPECIALIZED_SERVICES.map((service) => (
+            <div
+              key={service.id}
+              className="p-3.5 rounded-2xl bg-surface-bright border border-outline/15 text-sm font-medium text-on-surface flex items-center justify-center text-center transition-all hover:border-accent/40 hover:bg-surface"
+            >
+              {service.title[lang]}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Email & Social Links Card */}
+      <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-10">
+        <div className="space-y-3">
+          <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
+            {t.email}
+          </h3>
+          <a
+            href="mailto:rahulbaliastrology@gmail.com"
+            className="text-xl md:text-2xl font-body font-medium text-on-surface hover:text-accent transition-colors inline-block"
+          >
+            rahulbaliastrology@gmail.com
+          </a>
+        </div>
+
+        <div className="space-y-6 pt-8 border-t border-outline/10">
+          <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
+            {t.online}
+          </h3>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+            <a
+              href={SOCIAL_PROFILES.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#E1306C] hover:bg-[#E1306C] hover:border-[#E1306C] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="Instagram"
+            >
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href={SOCIAL_PROFILES.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#FF0000] hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="YouTube"
+            >
+              <i className="fa-brands fa-youtube"></i>
+            </a>
+            <a
+              href={SOCIAL_PROFILES.threads}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#000000] hover:bg-[#000000] hover:border-[#000000] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="Threads"
+            >
+              <i className="fa-brands fa-threads"></i>
+            </a>
+            <a
+              href={SOCIAL_PROFILES.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="Facebook"
+            >
+              <i className="fa-brands fa-facebook-f"></i>
+            </a>
+            <a
+              href={SOCIAL_PROFILES.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#0A66C2] hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="LinkedIn"
+            >
+              <i className="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a
+              href={SOCIAL_PROFILES.tumblr}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#36465D] hover:bg-[#36465D] hover:border-[#36465D] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="Tumblr"
+            >
+              <i className="fa-brands fa-tumblr"></i>
+            </a>
+            <a
+              href={SOCIAL_PROFILES.reddit}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-outline/20 bg-surface-bright flex items-center justify-center text-[#FF4500] hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white transition-all duration-300 text-2xl shadow-sm"
+              aria-label="Reddit"
+            >
+              <i className="fa-brands fa-reddit-alien"></i>
             </a>
           </div>
-
-          <div>
-            <h3 className={`text-[10px] font-medium uppercase text-accent mb-6 font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.online}</h3>
-            <div className="flex flex-wrap justify-center gap-6">
-              <a
-                href={SOCIAL_PROFILES.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#E1306C] hover:bg-[#E1306C] hover:border-[#E1306C] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="Instagram"
-              >
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a
-                href={SOCIAL_PROFILES.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#FF0000] hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="YouTube"
-              >
-                <i className="fa-brands fa-youtube"></i>
-              </a>
-              <a
-                href={SOCIAL_PROFILES.threads}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#000000] hover:bg-[#000000] hover:border-[#000000] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="Threads"
-              >
-                <i className="fa-brands fa-threads"></i>
-              </a>
-              <a
-                href={SOCIAL_PROFILES.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="Facebook"
-              >
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a
-                href={SOCIAL_PROFILES.linkedin}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#0A66C2] hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="LinkedIn"
-              >
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
-              <a
-                href={SOCIAL_PROFILES.tumblr}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#36465D] hover:bg-[#36465D] hover:border-[#36465D] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="Tumblr"
-              >
-                <i className="fa-brands fa-tumblr"></i>
-              </a>
-              <a
-                href={SOCIAL_PROFILES.reddit}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full border border-outline/20 flex items-center justify-center text-[#FF4500] hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-surface transition-all duration-300 text-2xl"
-                aria-label="Reddit"
-              >
-                <i className="fa-brands fa-reddit-alien"></i>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Stylised Bali Brandmark Gallery Section */}
-      <div className="mt-24 pt-16 border-t border-outline/20">
-        <div className="flex flex-col items-center text-center space-y-12">
-          <div>
-            <h3 className={`text-[10px] font-medium uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.stylisedWordmarks}</h3>
-          </div>
+      {/* Stylised Brand Mark Variations Gallery */}
+      <div className="space-y-8 text-center">
+        <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
+          {t.stylisedWordmarks}
+        </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
-            {BALI_STYLES.map((style) => (
-              <div key={style.id} className="p-4 rounded-3xl bg-surface-bright border border-outline/20 shadow-sm flex flex-col items-center gap-4 transition-all hover:border-outline/40">
-                <picture className="w-full h-auto block">
-                  <source srcSet={style.webp} type="image/webp" />
-                  <source srcSet={style.svg} type="image/svg+xml" />
-                  <img
-                    src={style.webp}
-                    alt={`Bali Stylised Wordmark - ${style.label}`}
-                    className="w-full h-auto object-contain rounded-2xl"
-                    loading="lazy"
-                  />
-                </picture>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {BALI_STYLES.map((style) => (
+            <div
+              key={style.id}
+              className="p-4 rounded-3xl bg-surface-bright border border-outline/20 shadow-sm flex flex-col items-center justify-center transition-all hover:border-outline/40"
+            >
+              <picture className="w-full h-auto block">
+                <source srcSet={style.webp} type="image/webp" />
+                <source srcSet={style.svg} type="image/svg+xml" />
+                <img
+                  src={style.webp}
+                  alt={`Bali Stylised Wordmark - ${style.label}`}
+                  className="w-full h-auto object-contain rounded-2xl"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+          ))}
         </div>
       </div>
     </div>
