@@ -32,7 +32,7 @@ const TRANSLATIONS = {
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
     meetBtn: "Schedule Now",
-    optionalDonationBtn: "Optional Donation",
+    optionalDonationBtn: "Donate",
     closeModal: "Close modal",
     useOfService: "Compassionate Kundli Analysis",
     howItBenefits: "Clarity & Inner Peace",

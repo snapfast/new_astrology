@@ -102,7 +102,7 @@ const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="md:hidden p-2 -ml-2 mr-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="md:hidden p-2 -ml-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label={t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
@@ -110,8 +110,8 @@ const Navbar = () => {
             <span className="material-symbols-outlined !text-2xl" aria-hidden="true">menu</span>
           </button>
 
-          {/* Logo */}
-          <Link prefetch={true} href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
+          {/* Logo - Hidden on mobile, visible on desktop */}
+          <Link prefetch={true} href="/" className="hidden md:block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 rounded-lg">
             <Logo />
           </Link>
         </div>
@@ -172,6 +172,15 @@ const Navbar = () => {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
+          {/* Reviews Link - Mobile Only */}
+          <Link
+            prefetch={true}
+            href="/reviews"
+            className="md:hidden text-on-surface px-3 py-2 rounded-full font-medium text-[11px] tracking-[0.05em] uppercase hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+          >
+            {t.reviews}
+          </Link>
+
           <button
             onClick={handleBookNow}
             className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[11px] md:text-sm tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
