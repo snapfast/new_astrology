@@ -18,4 +18,5 @@ export interface StoredChartData {
   pob: string;
   coords: { lat: string; lon: string } | null;
   kpNumber?: string;
+  gender?: "Male" | "Female";
 }

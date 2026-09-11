@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef, FormEvent, useMemo, KeyboardEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent, KeyboardEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useNominatim } from '@/hooks/useNominatim';
+import { useProfileHistory, formatDobDisplay } from '@/hooks/useProfileHistory';
 import { type StoredChartData } from '@/lib/types';
 
 const TRANSLATIONS = {
@@ -29,8 +30,6 @@ const TRANSLATIONS = {
     errorPob: "Please select a location from the suggestions"
   }};
 
-const HOROSCOPE_HISTORY_KEY = 'HOROSCOPE_FORM_HISTORY';
-
 interface ChartGenerationProps {
   className?: string;
   initialValues?: {
@@ -44,37 +43,6 @@ interface ChartGenerationProps {
   isUpdate?: boolean;
   onClose?: () => void;
 }
-
-const isValidHistoryItem = (item: unknown): item is StoredChartData => {
-  if (!item || typeof item !== 'object') return false;
-  const candidate = item as Record<string, unknown>;
-  return (
-    typeof candidate.name === 'string' &&
-    typeof candidate.dob === 'string' &&
-    typeof candidate.tob === 'string' &&
-    typeof candidate.pob === 'string' &&
-    (candidate.coords === null || (
-      typeof candidate.coords === 'object' &&
-      candidate.coords !== null &&
-      typeof (candidate.coords as Record<string, unknown>).lat === 'string' &&
-      typeof (candidate.coords as Record<string, unknown>).lon === 'string'
-    ))
-  );
-};
-
-// formatDobDisplay formats the DOB string from history storage (which is in DD-MM-YYYY format)
-// to DD MMM YYYY (e.g., "24 Jul 1995" or "24 जुलाई 1995") for user display.
-const formatDobDisplay = (dobStr: string) => {
-  if (!dobStr) return '';
-  const parts = dobStr.split('-'); // dobStr is DD-MM-YYYY
-  if (parts.length !== 3) return dobStr;
-  const [d, m, y] = parts;
-  const monthIdx = parseInt(m, 10) - 1;
-  if (monthIdx < 0 || monthIdx > 11) return dobStr;
-
-  const monthsEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  return `${d} ${monthsEn[monthIdx]} ${y}`;
-};
 
 const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onClose }: ChartGenerationProps) => {
   const router = useRouter();
@@ -93,48 +61,28 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
   const { suggestions, isSearching: isLoading, fetchSuggestions } = useNominatim();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [history, setHistory] = useState<StoredChartData[]>([]);
-  const [showHistory, setShowHistory] = useState(false);
-  const [activeHistoryIndex, setActiveHistoryIndex] = useState(-1);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
 
-  // Performance Optimization: Memoized Map for O(1) duplicate name validation
-  const historyMap = useMemo(() => {
-    const map = new Map<string, StoredChartData>();
-    for (let i = 0; i < history.length; i++) {
-      const item = history[i];
-      const nameKey = item.name.toLowerCase();
-      if (!map.has(nameKey)) {
-        map.set(nameKey, item);
-      }
-    }
-    return map;
-  }, [history]);
+  const {
+    filteredHistory,
+    historyMap,
+    showHistory,
+    setShowHistory,
+    activeHistoryIndex,
+    setActiveHistoryIndex,
+    historyRef,
+    saveProfile,
+    handleSelectHistory,
+    handleHistoryKeyDown
+  } = useProfileHistory(name);
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const suggestionRef = useRef<HTMLDivElement>(null);
-  const historyRef = useRef<HTMLDivElement>(null);
 
   // Reset submitting state if the URL parameters change (e.g. after soft navigation)
   useEffect(() => {
     setIsSubmitting(false);
   }, [searchParams]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem(HOROSCOPE_HISTORY_KEY);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            const validHistory = parsed.filter(isValidHistoryItem);
-            setHistory(validHistory);
-          }
-        }
-      } catch (error) {
-        console.error('Error loading horoscope history:', error);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (initialValues) return;
@@ -154,10 +102,6 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
       if (suggestionRef.current && !suggestionRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
         setActiveSuggestionIndex(-1);
-      }
-      if (historyRef.current && !historyRef.current.contains(event.target as Node)) {
-        setShowHistory(false);
-        setActiveHistoryIndex(-1);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -200,44 +144,24 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSelectHistory = (item: StoredChartData) => {
+  const onProfileSelect = (item: StoredChartData) => {
     setName(item.name);
-
-    // History stores DD-MM-YYYY, native input needs YYYY-MM-DD
     if (item.dob) {
-      const [d, m, y] = item.dob.split('-');
-      setDob(`${y}-${m}-${d}`);
+      const parts = item.dob.split('-');
+      if (parts.length === 3) {
+        if (parts[0].length === 4) {
+          setDob(item.dob);
+        } else {
+          setDob(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        }
+      }
     }
-
-    // History stores HH:mm, which native time input also uses
     if (item.tob) {
       setTob(item.tob);
     }
-
     setPob(item.pob);
     setCoords(item.coords);
-    setShowHistory(false);
-    setActiveHistoryIndex(-1);
-
     sendGAEvent({ event: 'action_click', action_name: 'horoscope_history_select' });
-  };
-
-  const handleHistoryKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (!showHistory || history.length === 0) return;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActiveHistoryIndex(prev => (prev < history.length - 1 ? prev + 1 : prev));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActiveHistoryIndex(prev => (prev > 0 ? prev - 1 : -1));
-    } else if (e.key === 'Enter' && activeHistoryIndex >= 0) {
-      e.preventDefault();
-      handleSelectHistory(history[activeHistoryIndex]);
-    } else if (e.key === 'Escape') {
-      setShowHistory(false);
-      setActiveHistoryIndex(-1);
-    }
   };
 
   const handleSuggestionKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -272,19 +196,9 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
     const dobString = `${day}-${month}-${year}`; // For history display (DD-MM-YYYY)
     const tobString = tob;
 
-    // Save to history
-    const newData: StoredChartData = { name, dob: dobString, tob: tobString, pob, coords };
-    const updatedHistory = [
-      newData,
-      ...history.filter(item =>
-        item.name !== name || item.dob !== dobString || item.pob !== pob
-      )
-    ].slice(0, 5);
-
-    setHistory(updatedHistory);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(HOROSCOPE_HISTORY_KEY, JSON.stringify(updatedHistory));
-    }
+    // Save to history (stored as DD-MM-YYYY format)
+    const dobFormatted = `${day}-${month}-${year}`;
+    saveProfile({ name, dob: dobFormatted, tob: tobString, pob, coords });
 
     sendGAEvent({ event: 'action_click', action_name: 'generate_horoscope_submit' });
 
@@ -344,27 +258,27 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
   };
 
   return (
-    <section className={`py-16 bg-background relative z-20 ${className}`}>
-      <div className="max-w-4xl mx-auto px-8">
-        <div className="bg-surface p-10 md:p-16 rounded-3xl shadow-sm border border-outline/20 relative overflow-hidden">
+    <section className={`py-8 md:py-12 bg-background relative z-20 ${className}`}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="bg-surface p-5 md:p-8 rounded-2xl md:rounded-3xl shadow-sm border border-outline/20 relative overflow-hidden">
           <div className="relative z-10">
-            <div className="mb-8 md:mb-12 text-center">
-              <h2 className="text-2xl md:text-4xl font-normal mb-4 font-headline text-on-surface">{t.title}</h2>
-              <p className="text-xs md:text-sm text-on-surface font-body max-w-sm mx-auto">{t.desc}</p>
+            <div className="mb-6 md:mb-8 text-center">
+              <h2 className="text-xl md:text-3xl font-normal mb-2 md:mb-3 font-headline text-on-surface">{t.title}</h2>
+              <p className="text-xs md:text-sm text-on-surface/80 font-body max-w-md mx-auto">{t.desc}</p>
             </div>
             <form
               onSubmit={handleSubmit}
               onBlur={handleFormBlur}
               action="/horoscope"
               method="GET"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 gap-3.5 md:gap-5"
             >
               <div
-                className="space-y-2 relative"
+                className="space-y-1.5 relative"
                 ref={historyRef}
               >
-                <label htmlFor="full-name" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelName}</label>
-                <div role="combobox" aria-expanded={showHistory && history.length > 0} aria-haspopup="listbox" aria-controls="history-listbox">
+                <label htmlFor="full-name" className={`text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-wider' : ''}`}>{t.labelName}</label>
+                <div role="combobox" aria-expanded={showHistory && filteredHistory.length > 0} aria-haspopup="listbox" aria-controls="history-listbox">
                   <input
                     id="full-name"
                     name="name"
@@ -372,10 +286,11 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                     onChange={(e) => {
                       setName(e.target.value);
                       if (!showHistory) setShowHistory(true);
+                      setActiveHistoryIndex(-1);
                     }}
                     onFocus={() => setShowHistory(true)}
-                    onKeyDown={handleHistoryKeyDown}
-                    className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                    onKeyDown={(e) => handleHistoryKeyDown(e, onProfileSelect)}
+                    className={`w-full px-4 py-2.5 md:py-3 bg-white border ${errors.name ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
                     placeholder={t.placeholderName}
                     type="text"
                     autoComplete="off"
@@ -387,25 +302,25 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                     aria-activedescendant={activeHistoryIndex >= 0 ? `history-option-${activeHistoryIndex}` : undefined}
                   />
                 </div>
-                {errors.name && <p id="name-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.name}</p>}
+                {errors.name && <p id="name-error" className="text-[9px] text-red-500 ml-3 font-body" role="alert">{errors.name}</p>}
 
-                {showHistory && history.length > 0 && (
-                  <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-accent border border-white/10 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="px-6 py-3 bg-white/10 border-b border-white/5">
-                      <span className="text-[8px] md:text-[10px] font-medium text-white uppercase font-label tracking-widest">{t.recentProfiles}</span>
+                {showHistory && filteredHistory.length > 0 && (
+                  <div className="absolute z-[60] left-0 right-0 top-full mt-1.5 bg-accent border border-white/10 rounded-2xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-2 bg-white/10 border-b border-white/5">
+                      <span className="text-[9px] md:text-[10px] font-medium text-white uppercase font-label tracking-wider">{t.recentProfiles}</span>
                     </div>
-                    <ul id="history-listbox" role="listbox" className="max-h-60 overflow-y-auto">
-                      {history.map((item, index) => (
+                    <ul id="history-listbox" role="listbox" className="max-h-52 overflow-y-auto">
+                      {filteredHistory.map((item, index) => (
                         <li key={index} id={`history-option-${index}`} role="option" aria-selected={index === activeHistoryIndex}>
                           <button
                             type="button"
-                            onClick={() => handleSelectHistory(item)}
+                            onClick={() => handleSelectHistory(item, onProfileSelect)}
                             onMouseEnter={() => setActiveHistoryIndex(index)}
-                            className={`w-full text-left px-6 py-4 transition-colors group ${index === activeHistoryIndex ? 'bg-white/20' : 'hover:bg-white/10'}`}
+                            className={`w-full text-left px-4 py-2.5 transition-colors group ${index === activeHistoryIndex ? 'bg-white/20' : 'hover:bg-white/10'}`}
                           >
                             <div className="flex flex-col gap-0.5">
-                              <span className="text-xs md:text-sm text-white font-body font-medium transition-colors">{item.name}</span>
-                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white font-body">
+                              <span className="text-xs text-white font-body font-medium transition-colors">{item.name}</span>
+                              <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white/80 font-body">
                                 <span>{formatDobDisplay(item.dob)}</span>
                                 <span>•</span>
                                 <span className="truncate">{item.pob}</span>
@@ -418,20 +333,20 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                   </div>
                 )}
               </div>
-              <div className="space-y-2">
-                <label htmlFor="dob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-widest">{t.labelDob}</label>
+              <div className="space-y-1.5">
+                <label htmlFor="dob-input" className="text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-wider">{t.labelDob}</label>
                 <div className="relative">
                   <input
                     id="dob-input"
                     type="date"
                     value={dob}
                     onChange={(e) => setDob(e.target.value)}
-                    className={`w-full pl-6 pr-12 py-3 md:py-4 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-transparent text-xs md:text-sm font-body cursor-pointer relative z-10`}
+                    className={`w-full pl-4 pr-10 py-2.5 md:py-3 bg-white border ${errors.dob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-transparent text-xs md:text-sm font-body cursor-pointer relative z-10`}
                     required
                     aria-invalid={!!errors.dob}
                     aria-describedby={errors.dob ? "dob-error" : undefined}
                   />
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-on-surface text-xs md:text-sm font-body z-20">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-xs md:text-sm font-body z-20">
                     {(() => {
                       if (!dob) return '';
                       const [y, m, d] = dob.split('-');
@@ -443,29 +358,29 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                       return dob;
                     })()}
                   </div>
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-base z-20" aria-hidden="true">calendar_month</span>
                 </div>
-                {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
+                {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-3 font-body" role="alert">{errors.dob}</p>}
               </div>
-              <div className="space-y-2">
-                <label htmlFor="tob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-widest">{t.labelTob}</label>
+              <div className="space-y-1.5">
+                <label htmlFor="tob-input" className="text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-wider">{t.labelTob}</label>
                 <div className="relative">
                   <input
                     id="tob-input"
                     type="time"
                     value={tob}
                     onChange={(e) => setTob(e.target.value)}
-                    className={`w-full pl-6 pr-12 py-3 md:py-4 bg-white border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
+                    className={`w-full pl-4 pr-10 py-2.5 md:py-3 bg-white border ${errors.tob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer`}
                     required
                     aria-invalid={!!errors.tob}
                     aria-describedby={errors.tob ? "tob-error" : undefined}
                   />
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-base" aria-hidden="true">schedule</span>
                 </div>
-                {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
+                {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-3 font-body" role="alert">{errors.tob}</p>}
               </div>
-              <div className="space-y-2 relative" ref={suggestionRef}>
-                <label htmlFor="pob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-widest">{t.labelPob}</label>
+              <div className="space-y-1.5 relative" ref={suggestionRef}>
+                <label htmlFor="pob-input" className="text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-wider">{t.labelPob}</label>
                 <div role="combobox" aria-expanded={showSuggestions && (suggestions.length > 0 || isLoading)} aria-haspopup="listbox" aria-controls="suggestions-listbox">
                   <input
                     id="pob-input"
@@ -479,7 +394,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                     }}
                     onFocus={() => setShowSuggestions(true)}
                     onKeyDown={handleSuggestionKeyDown}
-                    className={`w-full px-6 py-3 md:py-4 bg-white border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
+                    className={`w-full px-4 py-2.5 md:py-3 bg-white border ${errors.pob ? 'border-red-500' : 'border-outline'} rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body`}
                     placeholder={t.placeholderPob}
                     type="text"
                     autoComplete="off"
@@ -491,14 +406,14 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                     aria-activedescendant={activeSuggestionIndex >= 0 ? `suggestion-option-${activeSuggestionIndex}` : undefined}
                   />
                 </div>
-                {errors.pob && <p id="pob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.pob}</p>}
+                {errors.pob && <p id="pob-error" className="text-[9px] text-red-500 ml-3 font-body" role="alert">{errors.pob}</p>}
 
                 {showSuggestions && (suggestions.length > 0 || isLoading) && (
-                  <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/20 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="absolute z-50 left-0 right-0 top-full mt-1.5 bg-surface border border-outline/20 rounded-2xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     {isLoading ? (
-                      <div className="px-6 py-4 text-xs text-on-surface font-body">{t.searching}</div>
+                      <div className="px-4 py-3 text-xs text-on-surface font-body">{t.searching}</div>
                     ) : (
-                      <ul id="suggestions-listbox" role="listbox" className="max-h-60 overflow-y-auto">
+                      <ul id="suggestions-listbox" role="listbox" className="max-h-52 overflow-y-auto">
                         {suggestions.map((suggestion, index) => (
                           <li key={index} id={`suggestion-option-${index}`} role="option" aria-selected={index === activeSuggestionIndex}>
                             <button
@@ -510,7 +425,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                                 setActiveSuggestionIndex(-1);
                               }}
                               onMouseEnter={() => setActiveSuggestionIndex(index)}
-                              className={`w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body transition-colors ${index === activeSuggestionIndex ? 'bg-accent/20' : 'active:bg-accent/5'}`}
+                              className={`w-full text-left px-4 py-2.5 text-xs md:text-sm text-on-surface font-body transition-colors ${index === activeSuggestionIndex ? 'bg-accent/20' : 'active:bg-accent/5'}`}
                             >
                               {suggestion.name}
                             </button>
@@ -522,9 +437,9 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                 )}
               </div>
               {!isUpdate && (
-                <div className="md:col-span-2 pt-2 md:pt-4">
+                <div className="md:col-span-2 pt-2 md:pt-3">
                   <button
-                    className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform tracking-[0.1em]"
+                    className="w-full py-3 md:py-3.5 bg-primary text-white rounded-full font-medium text-[11px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform tracking-wider"
                     type="submit"
                     disabled={isSubmitting}
                     aria-busy={isSubmitting}
