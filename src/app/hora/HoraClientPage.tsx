@@ -149,13 +149,13 @@ const HoraClientPage = () => {
     sendGAEvent({ event: 'action_click', action_name: 'hora_today_reset' });
   };
 
-  const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-US', {
+  const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat('en-US', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     timeZone: 'UTC'
-  }), [lang]);
+  }), []);
 
   const formattedSelectedDate = useMemo(() => {
     if (!selectedDateStr) return '';
@@ -211,7 +211,7 @@ const HoraClientPage = () => {
             </div>
             <div className="hidden sm:block sm:w-52 shrink-0">
               <p className="text-[10px] font-label text-accent uppercase mb-0.5 tracking-widest">{t.selectedDate}</p>
-              <p className={`text-xs font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
+              <p className="text-xs font-body tabular-nums text-on-surface whitespace-nowrap">
                 {formattedSelectedDate}
               </p>
             </div>
@@ -316,18 +316,16 @@ const HoraClientPage = () => {
                 <div className="bg-white border border-outline rounded-2xl p-5 shadow-sm space-y-4">
                   {(() => {
                     const active = isTodaySelected && liveActiveHora ? liveActiveHora : horaData.horas[0];
-                    const acts = lang === 'en' ? active.activities.en : active.activities.hi;
-                    const avoids = lang === 'en' ? active.avoid.en : active.avoid.hi;
 
                     return (
                       <>
                         <div>
                           <h3 className="text-sm font-headline font-bold text-on-surface mb-2 flex items-center gap-1.5">
                             <span className="material-symbols-outlined text-success !text-lg" aria-hidden="true">task_alt</span>
-                            {t.activitiesTitle} ({lang === 'en' ? active.lord : active.lordSanskrit})
+                            {t.activitiesTitle} ({active.lord})
                           </h3>
                           <ul className="space-y-1 text-xs font-body leading-relaxed text-on-surface/90 list-disc pl-5">
-                            {acts.map((act, i) => (
+                            {active.activities.map((act, i) => (
                               <li key={i}>{act}</li>
                             ))}
                           </ul>
@@ -336,10 +334,10 @@ const HoraClientPage = () => {
                         <div className="border-t border-outline/20 pt-3">
                           <h3 className="text-sm font-headline font-bold text-on-surface mb-2 flex items-center gap-1.5">
                             <span className="material-symbols-outlined text-error !text-lg" aria-hidden="true">cancel</span>
-                            {t.avoidTitle} ({lang === 'en' ? active.lord : active.lordSanskrit})
+                            {t.avoidTitle} ({active.lord})
                           </h3>
                           <ul className="space-y-1 text-xs font-body leading-relaxed text-on-surface/90 list-disc pl-5">
-                            {avoids.map((avoid, i) => (
+                            {active.avoid.map((avoid, i) => (
                               <li key={i}>{avoid}</li>
                             ))}
                           </ul>

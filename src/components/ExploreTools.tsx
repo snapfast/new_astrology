@@ -2,7 +2,6 @@
 
 import React, { useMemo } from 'react';
 import Link from 'next/link';
-import { useLanguage } from '@/context/LanguageContext';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const ALL_CARDS = [
@@ -10,18 +9,9 @@ const ALL_CARDS = [
     id: 'kundli',
     href: '/free-horoscope',
     icon: 'auto_stories',
-    title: {
-      en: 'Free Kundli Online',
-      hi: 'मुफ्त ऑनलाइन कुंडली'
-    },
-    desc: {
-      en: 'Get accurate Janam Kundli charts and astrological calculations.',
-      hi: 'सटीक जन्म कुंडली चार्ट और ज्योतिषीय गणना प्राप्त करें।'
-    },
-    action: {
-      en: 'Generate Chart',
-      hi: 'कुंडली बनाएं'
-    },
+    title: 'Free Kundli Online',
+    desc: 'Get accurate Janam Kundli charts and astrological calculations.',
+    action: 'Generate Chart',
     gaAction: 'explore_kundli',
     paths: ['/free-horoscope', '/horoscope', '/horoscope/compact']
   },
@@ -29,18 +19,9 @@ const ALL_CARDS = [
     id: 'panchang',
     href: '/panchang',
     icon: 'wb_sunny',
-    title: {
-      en: 'Daily Panchang',
-      hi: 'दैनिक पंचांग'
-    },
-    desc: {
-      en: "View today's Tithi, Nakshatra, Yoga, and Auspicious Muhurtas.",
-      hi: 'आज की तिथि, नक्षत्र, योग और शुभ मुहूर्त देखें।'
-    },
-    action: {
-      en: 'Check Panchang',
-      hi: 'पंचांग देखें'
-    },
+    title: 'Daily Panchang',
+    desc: "View today's Tithi, Nakshatra, Yoga, and Auspicious Muhurtas.",
+    action: 'Check Panchang',
     gaAction: 'explore_panchang',
     paths: ['/panchang']
   },
@@ -48,18 +29,9 @@ const ALL_CARDS = [
     id: 'panch-pakshi',
     href: '/panch-pakshi',
     icon: 'flight',
-    title: {
-      en: 'Panch Pakshi',
-      hi: 'पंच पक्षी'
-    },
-    desc: {
-      en: 'Find your birth bird and understand daily peak activity times.',
-      hi: 'अपने जन्म पक्षी का पता लगाएं और दैनिक शिखर गतिविधि समय को समझें।'
-    },
-    action: {
-      en: 'Find Birth Bird',
-      hi: 'पक्षी खोजें'
-    },
+    title: 'Panch Pakshi',
+    desc: 'Find your birth bird and understand daily peak activity times.',
+    action: 'Find Birth Bird',
     gaAction: 'explore_pakshi',
     paths: ['/panch-pakshi']
   },
@@ -67,18 +39,9 @@ const ALL_CARDS = [
     id: 'transits',
     href: '/transits',
     icon: 'sync_alt',
-    title: {
-      en: 'Planetary Transits',
-      hi: 'ग्रह गोचर'
-    },
-    desc: {
-      en: 'Track past and future planetary movements across signs and asterisms.',
-      hi: 'राशियों और नक्षत्रों में ग्रहों के पिछले और भविष्य के गोचर को ट्रैक करें।'
-    },
-    action: {
-      en: 'Track Transits',
-      hi: 'गोचर देखें'
-    },
+    title: 'Planetary Transits',
+    desc: 'Track past and future planetary movements across signs and asterisms.',
+    action: 'Track Transits',
     gaAction: 'explore_transits',
     paths: ['/transits']
   },
@@ -86,18 +49,9 @@ const ALL_CARDS = [
     id: 'biorhythm',
     href: '/biorhythm',
     icon: 'insights',
-    title: {
-      en: 'Personal Biorhythms',
-      hi: 'व्यक्तिगत बायोरिदम'
-    },
-    desc: {
-      en: 'Understand your physical, emotional, and intellectual energy cycles.',
-      hi: 'अपने शारीरिक, भावनात्मक और बौद्धिक चक्रों को समझें।'
-    },
-    action: {
-      en: 'Check Biorhythm',
-      hi: 'बायोरिदम देखें'
-    },
+    title: 'Personal Biorhythms',
+    desc: 'Understand your physical, emotional, and intellectual energy cycles.',
+    action: 'Check Biorhythm',
     gaAction: 'explore_biorhythm',
     paths: ['/biorhythm']
   },
@@ -105,18 +59,9 @@ const ALL_CARDS = [
     id: 'hora',
     href: '/hora',
     icon: 'hourglass_empty',
-    title: {
-      en: 'Planetary Hours (Hora)',
-      hi: 'ग्रह होरा चक्र'
-    },
-    desc: {
-      en: 'Vedic planetary hours for choosing auspicious timings (muhurtas).',
-      hi: 'शुभ मुहूर्त और समय चुनने के लिए वैदिक ग्रह होरा चक्र।'
-    },
-    action: {
-      en: 'View Hora',
-      hi: 'होरा देखें'
-    },
+    title: 'Planetary Hours (Hora)',
+    desc: 'Vedic planetary hours for choosing auspicious timings (muhurtas).',
+    action: 'View Hora',
     gaAction: 'explore_hora',
     paths: ['/hora']
   },
@@ -124,18 +69,9 @@ const ALL_CARDS = [
     id: 'transits-table',
     href: '/transits-table',
     icon: 'table_chart',
-    title: {
-      en: 'Transits Table',
-      hi: 'गोचर तालिका'
-    },
-    desc: {
-      en: 'View current live astrological positions of all Vedic planets in a compact table view.',
-      hi: 'एक कॉम्पैक्ट टेबल दृश्य में सभी वैदिक ग्रहों की वर्तमान लाइव ज्योतिषीय स्थिति देखें।'
-    },
-    action: {
-      en: 'View Table',
-      hi: 'तालिका देखें'
-    },
+    title: 'Transits Table',
+    desc: 'View current live astrological positions of all Vedic planets in a compact table view.',
+    action: 'View Table',
     gaAction: 'explore_transits_table',
     paths: ['/transits-table']
   },
@@ -143,18 +79,9 @@ const ALL_CARDS = [
     id: 'booking',
     isButton: true,
     icon: 'chat_bubble',
-    title: {
-      en: 'Book 1-on-1 Session',
-      hi: 'परामर्श सत्र बुक करें'
-    },
-    desc: {
-      en: 'Get solutions for career, relationships, remedies & spiritual path.',
-      hi: 'करियर, रिश्तों, उपायों और आध्यात्मिक मार्ग के लिए समाधान प्राप्त करें।'
-    },
-    action: {
-      en: 'Connect Now',
-      hi: 'जुड़ें'
-    },
+    title: 'Book 1-on-1 Session',
+    desc: 'Get solutions for career, relationships, remedies & spiritual path.',
+    action: 'Connect Now',
     gaAction: 'explore_booking',
     paths: []
   },
@@ -162,18 +89,9 @@ const ALL_CARDS = [
     id: 'kp-prashna',
     href: '/kp-horary',
     icon: 'help_center',
-    title: {
-      en: 'KP Prashna Kundli',
-      hi: 'के.पी. प्रश्न कुंडली'
-    },
-    desc: {
-      en: 'Cast a KP Horary chart with a number between 1-249.',
-      hi: '1 से 249 तक की संख्या से के.पी. प्रश्न कुंडली बनाएं।'
-    },
-    action: {
-      en: 'Cast Chart',
-      hi: 'चार्ट बनाएं'
-    },
+    title: 'KP Prashna Kundli',
+    desc: 'Cast a KP Horary chart with a number between 1-249.',
+    action: 'Cast Chart',
     gaAction: 'explore_kp_prashna',
     paths: ['/kp-horary', '/kp-horoscope']
   },
@@ -188,8 +106,6 @@ interface ExploreToolsProps {
 }
 
 const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className = '' }) => {
-  const { lang } = useLanguage();
-
   const filteredCards = useMemo(() => {
     const normalizedPath = currentPath.toLowerCase().trim();
 
@@ -239,10 +155,8 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
     window.dispatchEvent(new CustomEvent('openBookingModal'));
   };
 
-  const sectionTitle = lang === 'en' ? "Explore More Vedic Astrology Tools" : "अन्य वैदिक ज्योतिष उपकरण देखें";
-  const sectionDesc = lang === 'en'
-    ? "Align your lifestyle and cosmic energies further. Try our precise astronomical tools and personalized services."
-    : "अपनी जीवनशैली और ब्रह्मांडीय ऊर्जाओं को और बेहतर बनाएं। हमारे सटीक खगोलीय उपकरणों और व्यक्तिगत सेवाओं का उपयोग करें।";
+  const sectionTitle = "Explore More Vedic Astrology Tools";
+  const sectionDesc = "Align your lifestyle and cosmic energies further. Try our precise astronomical tools and personalized services.";
 
   return (
     <section className={`py-12 bg-surface-bright relative overflow-hidden border-t border-outline/20 rounded-3xl ${className}`}>
@@ -256,10 +170,6 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
           {filteredCards.map((card) => {
-            const cardTitle = lang === 'hi' && card.title.hi ? card.title.hi : card.title.en;
-            const cardDesc = lang === 'hi' && card.desc.hi ? card.desc.hi : card.desc.en;
-            const cardAction = lang === 'hi' && card.action.hi ? card.action.hi : card.action.en;
-
             if (card.isButton) {
               return (
                 <button
@@ -271,15 +181,15 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
                     <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">
                       {card.icon}
                     </span>
-                    <h4 className={`text-sm font-headline text-on-surface mb-1 ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
-                      {cardTitle}
+                    <h4 className="text-sm font-headline text-on-surface mb-1">
+                      {card.title}
                     </h4>
-                    <p className={`text-[11px] text-on-surface/70 leading-relaxed font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                      {cardDesc}
+                    <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                      {card.desc}
                     </p>
                   </div>
-                  <span className={`text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                    {cardAction} &rarr;
+                  <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    {card.action} &rarr;
                   </span>
                 </button>
               );
@@ -296,15 +206,15 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
                   <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">
                     {card.icon}
                   </span>
-                  <h4 className={`text-sm font-headline text-on-surface mb-1 ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
-                    {cardTitle}
+                  <h4 className="text-sm font-headline text-on-surface mb-1">
+                    {card.title}
                   </h4>
-                  <p className={`text-[11px] text-on-surface/70 leading-relaxed font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                    {cardDesc}
+                  <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                    {card.desc}
                   </p>
                 </div>
-                <span className={`text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                  {cardAction} &rarr;
+                <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  {card.action} &rarr;
                 </span>
               </Link>
             );

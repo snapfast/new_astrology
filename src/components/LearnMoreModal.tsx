@@ -3,7 +3,6 @@
 import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
-import { useLanguage } from '@/context/LanguageContext';
 import LotusSwastika from './LotusSwastika';
 
 const TRANSLATIONS = {
@@ -35,7 +34,6 @@ interface LearnMoreModalProps {
 }
 
 const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
-  const { lang } = useLanguage();
   const t = TRANSLATIONS.en;
 
   return (
@@ -75,8 +73,8 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 <span className="material-symbols-outlined text-on-surface/80 text-[20px]" aria-hidden="true">folder_open</span>
               </div>
               <div>
-                <h3 className={`font-normal text-on-surface font-headline tracking-tight mb-0.5 ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.sampleTitle}</h3>
-                <p id="learn-more-desc" className={`text-on-surface/80 font-body leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-xs md:text-sm'}`}>{t.sampleDesc}</p>
+                <h3 className="font-normal text-on-surface font-headline tracking-tight mb-0.5 text-base md:text-lg">{t.sampleTitle}</h3>
+                <p id="learn-more-desc" className="text-on-surface/80 font-body leading-relaxed text-xs md:text-sm">{t.sampleDesc}</p>
               </div>
             </div>
 
@@ -86,9 +84,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_samples_redirect' })}
-                className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 ${
-                  lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-sm md:text-base tracking-wide'
-                }`}
+                className="flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 text-sm md:text-base tracking-wide"
               >
                 {t.sampleBtn}
               </a>
@@ -102,8 +98,8 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 <span className="material-symbols-outlined text-on-surface/80 text-[20px]" aria-hidden="true">alternate_email</span>
               </div>
               <div>
-                <h3 className={`font-normal text-on-surface font-headline tracking-tight mb-0.5 ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.socialTitle}</h3>
-                <p className={`text-on-surface/80 font-body leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-xs md:text-sm'}`}>{t.socialDesc}</p>
+                <h3 className="font-normal text-on-surface font-headline tracking-tight mb-0.5 text-base md:text-lg">{t.socialTitle}</h3>
+                <p className="text-on-surface/80 font-body leading-relaxed text-xs md:text-sm">{t.socialDesc}</p>
               </div>
             </div>
 
@@ -113,9 +109,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads_redirect' })}
-                className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 ${
-                  lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-sm md:text-base tracking-wide'
-                }`}
+                className="flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 text-sm md:text-base tracking-wide"
               >
                 {t.socialBtn}
               </a>

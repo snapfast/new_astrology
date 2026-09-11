@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { REVIEWS } from '@/lib/reviews';
-import { useLanguage } from '@/context/LanguageContext';
 import StarRating from './StarRating';
 
 const TRANSLATIONS = {
@@ -26,7 +25,6 @@ const GoogleIcon = () => (
 );
 
 const Testimonials = () => {
-  const { lang } = useLanguage();
   const t = TRANSLATIONS.en;
   // Use a curated subset of reviews for the home page testimonials
   const featuredReviews = useMemo(() => {
@@ -88,7 +86,7 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-1 lg:sticky lg:top-24">
-            <span className={`text-[10px] font-medium uppercase text-accent mb-4 block font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.subtitle}</span>
+            <span className="text-[10px] font-medium uppercase text-accent mb-4 block font-label tracking-[0.3em]">{t.subtitle}</span>
             <h2 className="text-4xl md:text-5xl font-normal mb-8 font-headline text-on-surface tracking-tight">{t.title}</h2>
 
             <div className="flex flex-col gap-8">
@@ -96,7 +94,7 @@ const Testimonials = () => {
                 href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 font-medium text-[10px] uppercase font-label self-start ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                className="btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 font-medium text-[10px] uppercase font-label self-start tracking-[0.1em]"
               >
                 <GoogleIcon />
                 {t.viewOnGoogle}

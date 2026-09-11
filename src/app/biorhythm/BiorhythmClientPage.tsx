@@ -125,13 +125,13 @@ const BiorhythmContent = () => {
     return seriesData.slice(27, 34);
   }, [seriesData]);
 
-  const formattedTargetDate = useMemo(() => targetDate.toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', {
+  const formattedTargetDate = useMemo(() => targetDate.toLocaleDateString('en-US', {
     weekday: "short",
     month: "short",
     day: "numeric",
     year: "numeric",
     timeZone: "UTC",
-  }), [targetDate, lang]);
+  }), [targetDate]);
 
   return (
     <>
@@ -241,10 +241,10 @@ const BiorhythmContent = () => {
                   </span>
                 </div>
                 <div className="hidden sm:block sm:w-40 shrink-0">
-                  <p className={`text-[10px] font-label text-accent uppercase mb-0.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>
+                  <p className="text-[10px] font-label text-accent uppercase mb-0.5 tracking-widest">
                     {t.analysisDate}
                   </p>
-                  <p className={`text-xs font-body tabular-nums text-on-surface whitespace-nowrap ${lang === 'hi' ? 'font-hindi' : ''}`}>
+                  <p className="text-xs font-body tabular-nums text-on-surface whitespace-nowrap">
                     {formattedTargetDate}
                   </p>
                 </div>
@@ -258,7 +258,7 @@ const BiorhythmContent = () => {
             {/* Chart Section */}
             {seriesData && (
               <div className="animate-in fade-in duration-1000 delay-300">
-                <BiorhythmChart series={seriesData} lang={lang} />
+                <BiorhythmChart series={seriesData} />
               </div>
             )}
 

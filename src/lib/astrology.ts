@@ -639,55 +639,19 @@ const AYANAS = [
     { name: "Dakshinayana", sanskrit: "दक्षिणायन" }
 ];
 
-export const SIGN_INSIGHTS: { [key: string]: { en: string; hi: string } } = {
-    "Aries": {
-        en: "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
-        hi: "अदम्य ऊर्जा वाले स्वाभाविक नेता। आपमें एक अग्रणी भावना और उत्साह के साथ किसी भी चुनौती को स्वीकार करने का साहस है।"
-    },
-    "Taurus": {
-        en: "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
-        hi: "स्थिर और भरोसेमंद, आप स्थिरता और जीवन की बेहतरीन चीजों को महत्व देते हैं। आपकी दृढ़ता और धैर्य आपकी सबसे बड़ी ताकत हैं।"
-    },
-    "Gemini": {
-        en: "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
-        hi: "बौद्धिक रूप से जिज्ञासु और अत्यधिक अनुकूलनशील। संवाद करने और कई दृष्टिकोणों को देखने की आपकी क्षमता आपको सामाजिक रूप से निपुण बनाती है।"
-    },
-    "Cancer": {
-        en: "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
-        hi: "अत्यंत सहज और पालन-पोषण करने वाले। आप घर और परिवार को सबसे ऊपर महत्व देते हैं, और आपके पास एक शक्तिशाली भावनात्मक बुद्धिमत्ता है जो आपका मार्गदर्शन करती है।"
-    },
-    "Leo": {
-        en: "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
-        hi: "रचनात्मक, आत्मविश्वासी और करिश्माई। आपमें दूसरों को प्रेरित करने की स्वाभाविक क्षमता है और आपका हृदय जितना उदार है उतना ही साहसी भी।"
-    },
-    "Virgo": {
-        en: "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
-        hi: "विश्लेषणात्मक और विवरण-उन्मुख। आप पूर्णता की तलाश करते हैं और अपने व्यावहारिक ज्ञान के माध्यम से दूसरों की सेवा करने में गहरा संतोष पाते हैं।"
-    },
-    "Libra": {
-        en: "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
-        hi: "संतुलन और सद्भाव के साधक। आपमें एक परिष्कृत सौंदर्य बोध और कूटनीति तथा सार्थक साझेदारी बनाने की स्वाभाविक प्रतिभा है।"
-    },
-    "Scorpio": {
-        en: "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
-        hi: "तीव्र, भावुक और गहराई से बोधगम्य। आपके पास महान परिवर्तन लाने और छिपे हुए सत्यों को उजागर करने की शक्ति है।"
-    },
-    "Sagittarius": {
-        en: "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
-        hi: "दार्शनिक दिमाग वाली एक साहसी आत्मा। आपका आशावाद और उच्च ज्ञान की खोज आपको निरंतर विकास और विस्तार की ओर ले जाती है।"
-    },
-    "Capricorn": {
-        en: "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
-        hi: "अनुशासित, महत्वाकांक्षी और लचीला। आपके पास सफलता के उच्चतम शिखरों पर चढ़ने के लिए आवश्यक रणनीतिक दिमाग और सहनशक्ति है।"
-    },
-    "Aquarius": {
-        en: "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
-        hi: "दूरदर्शी और स्वतंत्र। आप एक भविष्योन्मुखी विचारक हैं जो समुदाय और नवाचार को महत्व देते हैं, अक्सर अपनी अलग राह चलते हैं।"
-    },
-    "Pisces": {
-        en: "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul.",
-        hi: "दयालु, कलात्मक और गहराई से आध्यात्मिक। आपमें एक विशाल कल्पना और आत्मा के अदृश्य क्षेत्रों के साथ एक स्वाभाविक संबंध है।"
-    }
+export const SIGN_INSIGHTS: Record<string, string> = {
+    "Aries": "A natural-born leader with boundless energy. You possess a pioneering spirit and the courage to take on any challenge with enthusiasm.",
+    "Taurus": "Grounding and dependable, you value stability and the finer things in life. Your persistence and patience are your greatest strengths.",
+    "Gemini": "Intellectually curious and highly adaptable. Your ability to communicate and see multiple perspectives makes you a social chameleon.",
+    "Cancer": "Deeply intuitive and nurturing. You value home and family above all, possessing a powerful emotional intelligence that guides your path.",
+    "Leo": "Creative, confident, and charismatic. You have a natural ability to inspire others and a heart that is as generous as it is brave.",
+    "Virgo": "Analytical and detail-oriented. You seek perfection and find deep satisfaction in being of service to others through your practical wisdom.",
+    "Libra": "A seeker of balance and harmony. You possess a refined aesthetic sense and a natural talent for diplomacy and building meaningful partnerships.",
+    "Scorpio": "Intense, passionate, and profoundly perceptive. You have the strength to undergo great transformations and uncover hidden truths.",
+    "Sagittarius": "An adventurous soul with a philosophical mind. Your optimism and quest for higher knowledge lead you toward constant growth and expansion.",
+    "Capricorn": "Disciplined, ambitious, and resilient. You have the strategic mind and endurance required to climb the highest mountains of success.",
+    "Aquarius": "Visionary and independent. You are a forward-thinker who values community and innovation, often marching to the beat of your own drum.",
+    "Pisces": "Compassionate, artistic, and deeply spiritual. You possess a vast imagination and a natural connection to the unseen realms of the soul."
 };
 
 const YOGAS = [
@@ -2731,10 +2695,10 @@ export function getD60Rasi(long: number): number {
     return (rasiIdx + shashtiamshaIdx) % 12;
 }
 
-export function getSignInsight(signName: string, lang: 'en' | 'hi' = 'en'): string {
+export function getSignInsight(signName: string): string {
     const insight = SIGN_INSIGHTS[signName];
-    if (!insight) return lang === 'en' ? "A unique blend of celestial energies that shapes your distinct personality and life path." : "स्वर्गीय ऊर्जाओं का एक अनूठा मिश्रण जो आपके विशिष्ट व्यक्तित्व और जीवन पथ को आकार देता है।";
-    return insight[lang];
+    if (!insight) return "A unique blend of celestial energies that shapes your distinct personality and life path.";
+    return insight;
 }
 
 export function createPlanet(name: string, symbol: string, siderealLong: number, house: number, isRetrograde: boolean, isCombust: boolean = false): PlanetData {
@@ -3529,14 +3493,8 @@ export interface HoraInterval {
     lordSanskrit: string;
     type: "day" | "night";
     nature: "benefic" | "malefic";
-    activities: {
-        en: string[];
-        hi: string[];
-    };
-    avoid: {
-        en: string[];
-        hi: string[];
-    };
+    activities: string[];
+    avoid: string[];
 }
 
 export interface HoraData {
@@ -3595,225 +3553,113 @@ export function getHoraData(dob: string, latStr?: string, lonStr?: string): Hora
 
     const PLANET_HORA_PROPERTIES: Record<string, {
         nature: "benefic" | "malefic";
-        activities: { en: string[]; hi: string[] };
-        avoid: { en: string[]; hi: string[] };
+        activities: string[];
+        avoid: string[];
     }> = {
         "Sun": {
             nature: "malefic",
-            activities: {
-                en: [
-                    "Meeting politicians, government officials, or authorities",
-                    "Applying for government jobs, tenders, or services",
-                    "Buying gold, copper, ruby, or royal ornaments",
-                    "Taking charge of a leadership position or starting administration",
-                    "Performing religious fire rituals (Yagna) or Sun worship"
-                ],
-                hi: [
-                    "राजनेताओं, सरकारी अधिकारियों या वरिष्ठ अधिकारियों से मिलना",
-                    "सरकारी नौकरियों, निविदाओं या सेवाओं के लिए आवेदन करना",
-                    "सोना, तांबा, माणिक या शाही आभूषण खरीदना",
-                    "नेतृत्व की स्थिति संभालना या प्रशासन शुरू करना",
-                    "धार्मिक यज्ञ, हवन या सूर्य पूजा करना"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Starting travel towards the West direction",
-                    "Important financial investments or loan signings",
-                    "Marriages, engagements, or signing peace treaties"
-                ],
-                hi: [
-                    "पश्चिम दिशा की ओर यात्रा प्रारंभ करना",
-                    "महत्वपूर्ण वित्तीय निवेश या ऋण दस्तावेजों पर हस्ताक्षर करना",
-                    "विवाह, सगाई या शांति संधियों पर हस्ताक्षर करना"
-                ]
-            }
+            activities: [
+                "Meeting politicians, government officials, or authorities",
+                "Applying for government jobs, tenders, or services",
+                "Buying gold, copper, ruby, or royal ornaments",
+                "Taking charge of a leadership position or starting administration",
+                "Performing religious fire rituals (Yagna) or Sun worship"
+            ],
+            avoid: [
+                "Starting travel towards the West direction",
+                "Important financial investments or loan signings",
+                "Marriages, engagements, or signing peace treaties"
+            ]
         },
         "Venus": {
             nature: "benefic",
-            activities: {
-                en: [
-                    "Romance, dating, marriage, and proposal discussions",
-                    "Buying clothes, jewelry, perfumes, cosmetics, and luxury goods",
-                    "Creative projects, artistic writing, music, film, and design",
-                    "Buying new vehicles, starting journeys, and beauty treatments",
-                    "Performing social gatherings and entertainment ceremonies"
-                ],
-                hi: [
-                    "रोमांस, डेटिंग, विवाह और प्रेम प्रस्ताव की चर्चा",
-                    "कपड़े, आभूषण, इत्र, सौंदर्य प्रसाधन और विलासिता की वस्तुएं खरीदना",
-                    "रचनात्मक परियोजनाएं, कलात्मक लेखन, संगीत, फिल्म और डिजाइन",
-                    "नए वाहन खरीदना, यात्राएं शुरू करना और सौंदर्य उपचार",
-                    "सामाजिक समारोहों और मनोरंजन कार्यक्रमों का आयोजन"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Entering legal disputes, court battles, or arguments",
-                    "Performing hard physical labor or heavy machinery installation",
-                    "Conducting fire rituals (Yagna)"
-                ],
-                hi: [
-                    "कानूनी विवादों, अदालती लड़ाइयों या बहस में पड़ना",
-                    "कठिन शारीरिक श्रम या भारी मशीनरी स्थापित करना",
-                    "यज्ञ या उग्र अनुष्ठान करना"
-                ]
-            }
+            activities: [
+                "Romance, dating, marriage, and proposal discussions",
+                "Buying clothes, jewelry, perfumes, cosmetics, and luxury goods",
+                "Creative projects, artistic writing, music, film, and design",
+                "Buying new vehicles, starting journeys, and beauty treatments",
+                "Performing social gatherings and entertainment ceremonies"
+            ],
+            avoid: [
+                "Entering legal disputes, court battles, or arguments",
+                "Performing hard physical labor or heavy machinery installation",
+                "Conducting fire rituals (Yagna)"
+            ]
         },
         "Mercury": {
             nature: "benefic",
-            activities: {
-                en: [
-                    "Writing, editing, and publishing documents or books",
-                    "Signing contracts, agreements, and trade deals",
-                    "Learning new skills, studying languages, or science courses",
-                    "Trading in stock markets, account management, and marketing",
-                    "Intellectual debates, starting educational programs, or short travels"
-                ],
-                hi: [
-                    "दस्तावेजों या पुस्तकों का लेखन, संपादन और प्रकाशन",
-                    "अनुबंधों, समझौतों और व्यापारिक सौदों पर हस्ताक्षर करना",
-                    "नए कौशल सीखना, भाषाओं का अध्ययन करना या विज्ञान के पाठ्यक्रम",
-                    "शेयर बाजारों में व्यापार, खाता प्रबंधन और विपणन",
-                    "बौद्धिक बहस, शैक्षणिक कार्यक्रम शुरू करना या छोटी यात्राएं"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Making decisions purely based on temporary emotions",
-                    "Starting long-term heavy construction projects",
-                    "Entering arguments with maternal relatives"
-                ],
-                hi: [
-                    "पूरी तरह से अस्थायी भावनाओं के आधार पर निर्णय लेना",
-                    "दीर्घकालिक भारी निर्माण कार्य शुरू करना",
-                    "मातृ पक्ष के रिश्तेदारों के साथ विवाद में पड़ना"
-                ]
-            }
+            activities: [
+                "Writing, editing, and publishing documents or books",
+                "Signing contracts, agreements, and trade deals",
+                "Learning new skills, studying languages, or science courses",
+                "Trading in stock markets, account management, and marketing",
+                "Intellectual debates, starting educational programs, or short travels"
+            ],
+            avoid: [
+                "Making decisions purely based on temporary emotions",
+                "Starting long-term heavy construction projects",
+                "Entering arguments with maternal relatives"
+            ]
         },
         "Moon": {
             nature: "benefic",
-            activities: {
-                en: [
-                    "Gardening, agriculture, or planting seeds",
-                    "Meeting family, mothers, and close female relatives",
-                    "Emotional healing, meditation, and psychological self-care",
-                    "Traveling by water, purchasing silver, household or dairy goods",
-                    "Launching public-facing projects, speeches, and culinary trials"
-                ],
-                hi: [
-                    "बागवानी, कृषि, या बीज बोना",
-                    "परिवार, माता और करीबी महिला रिश्तेदारों से मिलना",
-                    "भावनात्मक उपचार, ध्यान और मनोवैज्ञानिक आत्म-देखभाल",
-                    "जल मार्ग से यात्रा, चांदी, घरेलू या डेयरी उत्पाद खरीदना",
-                    "जन-उन्मुख परियोजनाओं की शुरुआत, भाषण और पाक कला के परीक्षण"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Decisions requiring intense, non-emotional logical debates",
-                    "Signing highly detailed financial loans or deep contracts",
-                    "Undergoing major surgeries or operations"
-                ],
-                hi: [
-                    "तीव्र, गैर-भावनात्मक तार्किक बहस की आवश्यकता वाले निर्णय",
-                    "अत्यधिक विस्तृत वित्तीय ऋण या गहरे समझौतों पर हस्ताक्षर",
-                    "बड़ी सर्जरी या ऑपरेशन कराना"
-                ]
-            }
+            activities: [
+                "Gardening, agriculture, or planting seeds",
+                "Meeting family, mothers, and close female relatives",
+                "Emotional healing, meditation, and psychological self-care",
+                "Traveling by water, purchasing silver, household or dairy goods",
+                "Launching public-facing projects, speeches, and culinary trials"
+            ],
+            avoid: [
+                "Decisions requiring intense, non-emotional logical debates",
+                "Signing highly detailed financial loans or deep contracts",
+                "Undergoing major surgeries or operations"
+            ]
         },
         "Saturn": {
             nature: "malefic",
-            activities: {
-                en: [
-                    "Buying land, property, houses, or mining rights",
-                    "Hiring labor, factory management, and physical construction",
-                    "Starting long-term, slow-paced endeavors requiring patience",
-                    "Planting long-lived trees, digging wells, or foundations",
-                    "Charity, visiting old-age homes, and deep spiritual solitude"
-                ],
-                hi: [
-                    "भूमि, संपत्ति, मकान या खनन अधिकार खरीदना",
-                    "श्रम की नियुक्ति, कारखाना प्रबंधन और भौतिक निर्माण",
-                    "धैर्य की आवश्यकता वाले दीर्घकालिक, धीमी गति के प्रयास शुरू करना",
-                    "दीर्घजीवी पेड़ लगाना, कुएं या नींव खोदना",
-                    "दान, वृद्धाश्रमों का दौरा करना और गहन आध्यात्मिक एकांत"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Buying new vehicles, luxury items, or clothes",
-                    "Initiating marriages, engagements, or romantic proposals",
-                    "Entering new partnerships, fast profit business, or long travels"
-                ],
-                hi: [
-                    "नए वाहन, विलासिता की वस्तुएं या कपड़े खरीदना",
-                    "विवाह, सगाई या रोमांटिक प्रस्ताव शुरू करना",
-                    "नई साझेदारी, त्वरित लाभ के व्यवसाय या लंबी यात्राएं शुरू करना"
-                ]
-            }
+            activities: [
+                "Buying land, property, houses, or mining rights",
+                "Hiring labor, factory management, and physical construction",
+                "Starting long-term, slow-paced endeavors requiring patience",
+                "Planting long-lived trees, digging wells, or foundations",
+                "Charity, visiting old-age homes, and deep spiritual solitude"
+            ],
+            avoid: [
+                "Buying new vehicles, luxury items, or clothes",
+                "Initiating marriages, engagements, or romantic proposals",
+                "Entering new partnerships, fast profit business, or long travels"
+            ]
         },
         "Jupiter": {
             nature: "benefic",
-            activities: {
-                en: [
-                    "Meeting spiritual gurus, teachers, mentors, or advisors",
-                    "Performing religious rituals, weddings, and sacred blessings",
-                    "Investing wealth, long-term savings, or banking deals",
-                    "Buying gold, yellow stones (topaz), and studying philosophy",
-                    "Starting long-distance travels, pilgrimages, and charities"
-                ],
-                hi: [
-                    "आध्यात्मिक गुरुओं, शिक्षकों, आकाओं या सलाहकारों से मिलना",
-                    "धार्मिक अनुष्ठान, विवाह और पवित्र मांगलिक कार्य करना",
-                    "धन निवेश, दीर्घकालिक बचत या बैंकिंग सौदे",
-                    "सोना, पीले रत्न (पुखराज) खरीदना और दर्शनशास्त्र का अध्ययन",
-                    "लंबी दूरी की यात्राएं, तीर्थयात्राएं और दान शुरू करना"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Taking out new financial loans or debts",
-                    "Aggressive debates, filing legal suits, or entering surgeries",
-                    "Starting low-level work or unethical deals"
-                ],
-                hi: [
-                    "नए वित्तीय ऋण या कर्ज लेना",
-                    "उग्र वाद-विवाद, कानूनी मुकदमे दायर करना या सर्जरी कराना",
-                    "निम्न स्तर का काम या अनैतिक सौदे शुरू करना"
-                ]
-            }
+            activities: [
+                "Meeting spiritual gurus, teachers, mentors, or advisors",
+                "Performing religious rituals, weddings, and sacred blessings",
+                "Investing wealth, long-term savings, or banking deals",
+                "Buying gold, yellow stones (topaz), and studying philosophy",
+                "Starting long-distance travels, pilgrimages, and charities"
+            ],
+            avoid: [
+                "Taking out new financial loans or debts",
+                "Aggressive debates, filing legal suits, or entering surgeries",
+                "Starting low-level work or unethical deals"
+            ]
         },
         "Mars": {
             nature: "malefic",
-            activities: {
-                en: [
-                    "Sports, physical workouts, martial arts, and competitions",
-                    "Undergoing surgeries, medical checkups, or dental work",
-                    "Administrative commands, security setup, and police/military operations",
-                    "Buying machinery, tools, vehicles, weapons, or land",
-                    "Managing fire-related works, furnaces, cooking, or engineering tasks"
-                ],
-                hi: [
-                    "खेल, शारीरिक कसरत, मार्शल आर्ट और प्रतियोगिताएं",
-                    "सर्जरी, चिकित्सा जांच या दंत चिकित्सा कार्य कराना",
-                    "प्रशासनिक आदेश, सुरक्षा व्यवस्था और पुलिस/सैन्य अभियान",
-                    "मशीनरी, उपकरण, वाहन, हथियार या भूमि खरीदना",
-                    "अग्नि से संबंधित कार्य, भट्टियां, खाना बनाना या इंजीनियरिंग कार्य"
-                ]
-            },
-            avoid: {
-                en: [
-                    "Commencing long journeys or traveling in vehicles",
-                    "Starting peaceful negotiations, weddings, or signing contracts",
-                    "Arguments with siblings or elder family members"
-                ],
-                hi: [
-                    "लंबी यात्राएं शुरू करना या वाहनों में यात्रा करना",
-                    "शांतिपूर्ण बातचीत, विवाह या समझौतों पर हस्ताक्षर करना",
-                    "भाई-बहनों या परिवार के बुजुर्ग सदस्यों के साथ बहस करना"
-                ]
-            }
+            activities: [
+                "Sports, physical workouts, martial arts, and competitions",
+                "Undergoing surgeries, medical checkups, or dental work",
+                "Administrative commands, security setup, and police/military operations",
+                "Buying machinery, tools, vehicles, weapons, or land",
+                "Managing fire-related works, furnaces, cooking, or engineering tasks"
+            ],
+            avoid: [
+                "Commencing long journeys or traveling in vehicles",
+                "Starting peaceful negotiations, weddings, or signing contracts",
+                "Arguments with siblings or elder family members"
+            ]
         }
     };
 
@@ -3824,7 +3670,7 @@ export function getHoraData(dob: string, latStr?: string, lonStr?: string): Hora
         const start = new Date(sunriseDate.getTime() + i * dayHoraLength);
         const end = new Date(sunriseDate.getTime() + (i + 1) * dayHoraLength);
         const lord = orderOfHoraLords[(startIdx + i) % 7];
-        const props = PLANET_HORA_PROPERTIES[lord] || { nature: "benefic" as const, activities: { en: [], hi: [] }, avoid: { en: [], hi: [] } };
+        const props = PLANET_HORA_PROPERTIES[lord] || { nature: "benefic" as const, activities: [], avoid: [] };
 
         horas.push({
             number: i + 1,
@@ -3844,7 +3690,7 @@ export function getHoraData(dob: string, latStr?: string, lonStr?: string): Hora
         const start = new Date(sunsetDate.getTime() + i * nightHoraLength);
         const end = new Date(sunsetDate.getTime() + (i + 1) * nightHoraLength);
         const lord = orderOfHoraLords[(startIdx + 12 + i) % 7];
-        const props = PLANET_HORA_PROPERTIES[lord] || { nature: "benefic" as const, activities: { en: [], hi: [] }, avoid: { en: [], hi: [] } };
+        const props = PLANET_HORA_PROPERTIES[lord] || { nature: "benefic" as const, activities: [], avoid: [] };
 
         horas.push({
             number: 12 + i + 1,

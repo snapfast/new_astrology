@@ -64,7 +64,7 @@ const isValidHistoryItem = (item: unknown): item is StoredChartData => {
 
 // formatDobDisplay formats the DOB string from history storage (which is in DD-MM-YYYY format)
 // to DD MMM YYYY (e.g., "24 Jul 1995" or "24 जुलाई 1995") for user display.
-const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
+const formatDobDisplay = (dobStr: string) => {
   if (!dobStr) return '';
   const parts = dobStr.split('-'); // dobStr is DD-MM-YYYY
   if (parts.length !== 3) return dobStr;
@@ -73,10 +73,7 @@ const formatDobDisplay = (dobStr: string, lang: 'en' | 'hi') => {
   if (monthIdx < 0 || monthIdx > 11) return dobStr;
 
   const monthsEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const monthsHi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
-  const months = lang === 'hi' ? monthsHi : monthsEn;
-
-  return `${d} ${months[monthIdx]} ${y}`;
+  return `${d} ${monthsEn[monthIdx]} ${y}`;
 };
 
 const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onClose }: ChartGenerationProps) => {
@@ -395,7 +392,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                 {showHistory && history.length > 0 && (
                   <div className="absolute z-[60] left-0 right-0 top-full mt-2 bg-accent border border-white/10 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-6 py-3 bg-white/10 border-b border-white/5">
-                      <span className={`text-[8px] md:text-[10px] font-medium text-white uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.recentProfiles}</span>
+                      <span className="text-[8px] md:text-[10px] font-medium text-white uppercase font-label tracking-widest">{t.recentProfiles}</span>
                     </div>
                     <ul id="history-listbox" role="listbox" className="max-h-60 overflow-y-auto">
                       {history.map((item, index) => (
@@ -409,7 +406,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                             <div className="flex flex-col gap-0.5">
                               <span className="text-xs md:text-sm text-white font-body font-medium transition-colors">{item.name}</span>
                               <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white font-body">
-                                <span>{formatDobDisplay(item.dob, lang)}</span>
+                                <span>{formatDobDisplay(item.dob)}</span>
                                 <span>•</span>
                                 <span className="truncate">{item.pob}</span>
                               </div>
@@ -422,7 +419,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                 )}
               </div>
               <div className="space-y-2">
-                <label htmlFor="dob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelDob}</label>
+                <label htmlFor="dob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-widest">{t.labelDob}</label>
                 <div className="relative">
                   <input
                     id="dob-input"
@@ -451,7 +448,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
               <div className="space-y-2">
-                <label htmlFor="tob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelTob}</label>
+                <label htmlFor="tob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-widest">{t.labelTob}</label>
                 <div className="relative">
                   <input
                     id="tob-input"
@@ -468,7 +465,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                 {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>
               <div className="space-y-2 relative" ref={suggestionRef}>
-                <label htmlFor="pob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.labelPob}</label>
+                <label htmlFor="pob-input" className="text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label tracking-widest">{t.labelPob}</label>
                 <div role="combobox" aria-expanded={showSuggestions && (suggestions.length > 0 || isLoading)} aria-haspopup="listbox" aria-controls="suggestions-listbox">
                   <input
                     id="pob-input"
@@ -527,7 +524,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
               {!isUpdate && (
                 <div className="md:col-span-2 pt-2 md:pt-4">
                   <button
-                    className={`w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                    className="w-full py-4 md:py-5 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform tracking-[0.1em]"
                     type="submit"
                     disabled={isSubmitting}
                     aria-busy={isSubmitting}

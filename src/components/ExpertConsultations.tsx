@@ -1,7 +1,6 @@
 'use client';
 
 import { memo } from 'react';
-import { useLanguage } from '@/context/LanguageContext';
 
 interface ExpertConsultationsProps {
   showTitle?: boolean;
@@ -38,7 +37,6 @@ const TRANSLATIONS = {
   }};
 
 const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsProps) => {
-  const { lang } = useLanguage();
   const t = TRANSLATIONS.en;
 
   return (
@@ -46,7 +44,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
       <div className="max-w-5xl mx-auto px-8">
         {showTitle && (
           <div className="text-center mb-16">
-            <span className={`text-[10px] font-medium uppercase text-accent mb-4 block font-label ${lang === 'en' ? 'tracking-[0.3em]' : ''}`}>{t.prep}</span>
+            <span className="text-[10px] font-medium uppercase text-accent mb-4 block font-label tracking-[0.3em]">{t.prep}</span>
             <h2 className="text-5xl font-normal mb-6 font-headline text-on-surface">{t.title}</h2>
             <p className="text-on-surface max-w-2xl mx-auto text-base font-body leading-relaxed">{t.desc}</p>
           </div>
@@ -72,9 +70,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
             onClick={() => {
               window.dispatchEvent(new CustomEvent('openBookingModal'));
             }}
-            className={`inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 ${
-              lang === 'hi' ? 'text-[15px] tracking-normal' : 'text-xs tracking-[0.2em]'
-            }`}
+            className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
           >
             {t.bookNow}
           </button>
