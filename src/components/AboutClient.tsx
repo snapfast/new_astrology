@@ -7,6 +7,10 @@ import { SOCIAL_PROFILES } from '@/lib/social-data';
 
 const TRANSLATIONS = {
   en: {
+    bioPara1Part1: 'Rahul Bali was born in the ',
+    baliFamilyLink: 'Bali Family',
+    bioPara1Part2: ' in the town of Ambala City. Trained in classical Brahmin knowledge since birth, he completed his schooling in Ambala and earned a double degree in engineering. By profession an engineer, he has been working at an MNC (Google) since 2018.',
+    bioPara2: 'He combines liberal thoughts with traditional values and enjoys traveling across India.',
     para1Part1: 'Pandit Rahul Bali Ji provides practical life guidance through ',
     para1Strong: 'Jyotish Shastra',
     para1Part2: '. His approach combines traditional astrology with psycho-analysis, focusing on understanding deep-rooted thinking patterns and behaviors. By decoding your birth chart, he offers clear, actionable insights to help you navigate your career, relationships, and personal growth.',
@@ -17,6 +21,10 @@ const TRANSLATIONS = {
     stylisedWordmarks: "Stylised Brand Mark Variations",
   },
   hi: {
+    bioPara1Part1: 'राहुल बाली का जन्म अम्बाला शहर में ',
+    baliFamilyLink: 'बाली परिवार',
+    bioPara1Part2: ' में हुआ था। जन्म से ही शास्त्रीय ब्राह्मण ज्ञान में प्रशिक्षित, उन्होंने अम्बाला में अपनी स्कूली शिक्षा पूरी की और इंजीनियरिंग में दोहरी डिग्री प्राप्त की। पेशे से एक इंजीनियर, वह 2018 से एक बहुराष्ट्रीय कंपनी (Google) में कार्यरत हैं।',
+    bioPara2: 'वह उदारवादी विचारों और पारंपरिक मूल्यों के संयोजन में विश्वास रखते हैं और उन्हें पूरे भारत में यात्रा करना पसंद है।',
     para1Part1: 'पंडित राहुल बाली जी ',
     para1Strong: 'ज्योतिष शास्त्र',
     para1Part2: ' के माध्यम से व्यावहारिक जीवन मार्गदर्शन प्रदान करते हैं। उनका दृष्टिकोण पारंपरिक ज्योतिष को मनोविश्लेषण के साथ जोड़ता है, जो गहरे विचारों और व्यवहारों को समझने पर केंद्रित है। आपकी जन्म कुंडली का विश्लेषण करके, वह आपको आपके करियर, संबंधों और व्यक्तिगत विकास में स्पष्ट और व्यावहारिक अंतर्दृष्टि प्रदान करते हैं।',
@@ -44,6 +52,21 @@ export default function AboutClient() {
       {/* Practitioner Bio & Mantra Block */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-8">
         <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed space-y-4">
+          <p className="text-base md:text-lg text-on-surface/90">
+            {t.bioPara1Part1}
+            <a
+              href="https://en.wikipedia.org/wiki/Bali_clan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent underline font-medium hover:text-accent/80 transition-colors"
+            >
+              {t.baliFamilyLink}
+            </a>
+            {t.bioPara1Part2}
+          </p>
+          <p className="text-base md:text-lg text-on-surface/90">
+            {t.bioPara2}
+          </p>
           <p className="text-base md:text-lg text-on-surface/90">
             {t.para1Part1}
             <strong className="text-on-surface font-semibold">{t.para1Strong}</strong>
