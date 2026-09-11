@@ -1,7 +1,8 @@
 "use client";
 
-import { Suspense, useState, useMemo, useEffect } from "react";
+import { Suspense, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
@@ -10,7 +11,6 @@ import VimshottariDasha from "@/components/VimshottariDasha";
 import AshtakvargaChart from "@/components/AshtakvargaChart";
 import { generateAstrologyData } from "@/lib/astrology";
 import ExploreTools from "@/components/ExploreTools";
-import ChartGeneration from "@/components/ChartGeneration";
 import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -89,6 +89,7 @@ const TRANSLATIONS = {
     planetaryPositions: "Planetary Positions",
     vimshottariDasha: "Vimshottari Dasha",
     generateNew: "Generate New Chart",
+    editForm: "Edit Form",
     pageTitle: "Your Birth Chart",
     compactView: "Compact",
     ctaTitle: "Seeking Verified Information?",
@@ -111,7 +112,6 @@ const HoroscopeContent = () => {
   const { lang } = useLanguage();
   const [showCopied, setShowCopied] = useState(false);
   const [moreVargasExpanded, setMoreVargasExpanded] = useState(false);
-  const [birthDetailsExpanded, setBirthDetailsExpanded] = useState(false);
 
   const goToCompact = () => {
     sendGAEvent({ event: "action_click", action_name: "horoscope_go_compact" });
@@ -121,11 +121,6 @@ const HoroscopeContent = () => {
 
   const t = TRANSLATIONS.en;
   const searchParams = useSearchParams();
-
-  // Close the edit section automatically when navigation completes and params change
-  useEffect(() => {
-    setBirthDetailsExpanded(false);
-  }, [searchParams]);
 
   const name = sanitize(searchParams.get("name"), 100) || "Guest";
   const dob = sanitizeDate(searchParams.get("dob")) || "";
@@ -214,6 +209,20 @@ const HoroscopeContent = () => {
             </div>
           )}
 
+          <Link
+            href="/free-horoscope"
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
+            title="Go back to Horoscope Form"
+          >
+            <span
+              className="material-symbols-outlined text-[16px]"
+              aria-hidden="true"
+            >
+              edit_note
+            </span>
+            <span>{t.editForm}</span>
+          </Link>
+
           <button
             onClick={goToCompact}
             className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
@@ -248,45 +257,19 @@ const HoroscopeContent = () => {
       <div className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16">
         <div className="space-y-3 text-left">
           {/* Section: Birth Information */}
-          <div
-            className="bg-white border border-outline/20 rounded-3xl p-4 md:p-5 relative shadow-sm cursor-pointer hover:bg-surface-container-lowest transition-colors"
-            onClick={() => setBirthDetailsExpanded(!birthDetailsExpanded)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setBirthDetailsExpanded(!birthDetailsExpanded);
-              }
-            }}
-            aria-expanded={birthDetailsExpanded}
-          >
-            <div className="flex justify-between items-center">
-              <h2 className="font-bold text-accent uppercase font-label text-xs md:text-sm tracking-[0.15em]">
-                {t.birthInfo}
-              </h2>
-              <span className="material-symbols-outlined text-on-surface/60 transition-colors">
-                {birthDetailsExpanded ? 'close' : 'edit'}
-              </span>
+          <div className="bg-white border border-outline/20 rounded-3xl p-4 md:p-5 relative shadow-sm">
+            <h2 className="font-bold text-accent uppercase font-label text-xs md:text-sm tracking-[0.15em]">
+              {t.birthInfo}
+            </h2>
+            <div className="mt-2 text-sm text-on-surface/80 font-body flex flex-wrap items-center gap-2">
+              <span className="font-medium">{name}</span>
+              <span className="text-on-surface/40 text-[10px]">•</span>
+              <span className="tabular-nums">{formattedDob}</span>
+              <span className="text-on-surface/40 text-[10px]">•</span>
+              <span className="tabular-nums">{tob}</span>
+              <span className="text-on-surface/40 text-[10px]">•</span>
+              <span>{pob}</span>
             </div>
-
-            {!birthDetailsExpanded ? (
-              <div className="mt-2 text-sm text-on-surface/80 font-body flex flex-wrap items-center gap-2">
-                <span className="font-medium">{name}</span>
-                <span className="text-on-surface/40 text-[10px]">•</span>
-                <span className="tabular-nums">{formattedDob}</span>
-                <span className="text-on-surface/40 text-[10px]">•</span>
-                <span className="tabular-nums">{tob}</span>
-                <span className="text-on-surface/40 text-[10px]">•</span>
-                <span>{pob}</span>
-              </div>
-            ) : (
-              <div className="mt-4 pt-4 border-t border-outline/20 animate-in slide-in-from-top-2 fade-in duration-300">
-                <div onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
-                  <ChartGeneration isUpdate={true} initialValues={{ name, dob, tob, pob, lat, lon }} onClose={() => setBirthDetailsExpanded(false)} className="py-4 bg-transparent p-0 m-0 [&>div]:p-0 [&>div]:border-none [&>div]:shadow-none [&_.text-center]:hidden" />
-                </div>
-              </div>
-            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
