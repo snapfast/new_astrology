@@ -102,7 +102,7 @@ const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="md:hidden p-2 -ml-2 text-on-surface flex items-center justify-center hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="md:hidden p-2 -ml-2 text-on-surface flex items-center justify-center hover:bg-black/5 active:bg-black/10 active:scale-95 rounded-full transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label={t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
@@ -124,7 +124,7 @@ const Navbar = () => {
               return (
                 <div key={link.name} className="relative group">
                   <button
-                    className={`flex items-center gap-1 transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
+                    className={`flex items-center gap-1 transition-all duration-200 hover:text-on-surface active:scale-95 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
                       isSubActive
                         ? 'text-on-surface font-semibold underline underline-offset-8 decoration-accent/40'
                         : 'text-on-surface'
@@ -138,7 +138,7 @@ const Navbar = () => {
                         <Link prefetch={true}
                           key={subLink.href}
                           href={subLink.href}
-                          className={`block px-4 py-2 text-sm hover:bg-surface-container-high transition-colors ${
+                          className={`block px-4 py-2 text-sm hover:bg-surface-container-high active:bg-surface-container-high/80 active:scale-[0.98] transition-all ${
                             pathname === subLink.href ? 'text-accent font-semibold' : 'text-on-surface'
                           }`}
                         >
@@ -156,7 +156,7 @@ const Navbar = () => {
                 key={link.href || link.name}
                 href={link.href || '/'}
                 aria-current={isActive ? 'page' : undefined}
-                className={`transition-all duration-300 hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
+                className={`transition-all duration-200 hover:text-on-surface active:scale-95 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm ${
                   isActive
                     ? 'text-on-surface font-semibold underline underline-offset-8 decoration-accent/40'
                     : link.highlight
@@ -176,7 +176,7 @@ const Navbar = () => {
           <Link
             prefetch={true}
             href="/reviews"
-            className="md:hidden text-on-surface px-3 py-2 rounded-full font-medium text-[11px] tracking-[0.05em] uppercase hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="md:hidden text-on-surface px-3 py-2 rounded-full font-medium text-[11px] tracking-[0.05em] uppercase hover:bg-black/5 active:bg-black/10 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             {t.reviews}
           </Link>
@@ -195,32 +195,36 @@ const Navbar = () => {
     {isMenuOpen && (
     <div
       id="mobile-menu"
-      className="fixed inset-0 bg-surface z-[100] transition-transform duration-300 ease-in-out md:hidden translate-x-0"
+      className="fixed inset-0 bg-surface z-[100] md:hidden animate-drawer-in"
     >
       <div className="flex flex-col h-full p-6 overflow-y-auto">
-        <div className="flex items-center justify-between mb-12 shrink-0">
+        <div className="flex items-center justify-between mb-8 shrink-0">
           <Link prefetch={true} href="/" onClick={closeMenu} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg">
             <Logo />
           </Link>
           <button
             onClick={closeMenu}
-            className="p-2 -mr-2 text-on-surface hover:bg-black/5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="p-2 -mr-2 text-on-surface hover:bg-black/5 active:bg-black/10 active:scale-95 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label={t.closeMenu}
           >
             <span className="material-symbols-outlined !text-2xl" aria-hidden="true">close</span>
           </button>
         </div>
 
-        <div className="flex flex-col gap-8">
-          {navLinks.map((link) => {
+        <div className="flex flex-col gap-4">
+          {navLinks.map((link, idx) => {
             if (link.subLinks) {
               const isSubActive = link.subLinks.some(subLink => pathname === subLink.href);
               return (
-                <div key={link.name} className="px-1 flex flex-col gap-4">
-                  <div className={`text-3xl font-headline tracking-tight py-1 block ${isSubActive ? 'text-accent' : 'text-on-surface'}`}>
+                <div
+                  key={link.name}
+                  className="px-1 flex flex-col gap-2 animate-nav-item"
+                  style={{ animationDelay: `${idx * 50 + 50}ms` }}
+                >
+                  <div className={`text-lg font-semibold tracking-wide py-1 block ${isSubActive ? 'text-accent' : 'text-on-surface'}`}>
                     {link.name}
                   </div>
-                  <div className="flex flex-col gap-4 pl-4 border-l-2 border-outline/20">
+                  <div className="flex flex-col gap-2 pl-4 border-l-2 border-outline/30 my-1">
                     {link.subLinks.map(subLink => {
                       const isActive = pathname === subLink.href;
                       return (
@@ -229,8 +233,8 @@ const Navbar = () => {
                           href={subLink.href}
                           onClick={closeMenu}
                           aria-current={isActive ? 'page' : undefined}
-                          className={`text-2xl font-headline tracking-tight py-1 block transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-8 rounded-lg ${
-                            isActive ? 'text-accent font-semibold' : 'text-on-surface/80'
+                          className={`text-base font-normal py-0.5 block transition-all active:scale-[0.98] active:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg ${
+                            isActive ? 'text-accent font-medium' : 'text-on-surface/80 hover:text-on-surface'
                           }`}
                         >
                           {subLink.name}
@@ -244,13 +248,17 @@ const Navbar = () => {
 
             const isActive = pathname === link.href;
             return (
-              <div key={link.href || link.name} className="px-1">
+              <div
+                key={link.href || link.name}
+                className="px-1 animate-nav-item"
+                style={{ animationDelay: `${idx * 50 + 50}ms` }}
+              >
                 <Link prefetch={true}
                   href={link.href || '/'}
                   onClick={closeMenu}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`text-3xl font-headline tracking-tight py-1 block transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-8 rounded-lg ${
-                    isActive ? 'text-accent font-semibold' : link.highlight ? 'text-accent' : 'text-on-surface'
+                  className={`text-lg font-medium tracking-wide py-1 block transition-all active:scale-[0.98] active:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg ${
+                    isActive ? 'text-accent font-semibold' : link.highlight ? 'text-accent' : 'text-on-surface hover:text-accent'
                   }`}
                 >
                   {link.name}
@@ -260,16 +268,19 @@ const Navbar = () => {
           })}
         </div>
 
-        <div className="mt-auto pt-10 pb-8 border-t border-outline/20 shrink-0">
+        <div
+          className="mt-auto pt-6 pb-6 border-t border-outline/20 shrink-0 animate-nav-item"
+          style={{ animationDelay: `${navLinks.length * 50 + 100}ms` }}
+        >
           <button
             onClick={handleBookNow}
-            className="w-full bg-primary text-white py-4 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="w-full bg-primary text-white py-3.5 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {t.bookConsultation}
           </button>
 
-          <div className="flex flex-col items-center mt-8 gap-2">
-            <p className="text-lg text-accent font-hindi">
+          <div className="flex flex-col items-center mt-6 gap-2">
+            <p className="text-base text-accent font-hindi">
               ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
             </p>
           </div>
