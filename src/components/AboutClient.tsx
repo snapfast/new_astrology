@@ -7,13 +7,13 @@ import { SOCIAL_PROFILES } from '@/lib/social-data';
 
 const TRANSLATIONS = {
   en: {
-    bioPara1Part1: 'Rahul Bali was born in the ',
+    bioPara1Part1: 'Rahul Bali was born into the ',
     baliFamilyLink: 'Bali Family',
-    bioPara1Part2: ' in the town of Ambala City. Trained in classical Brahmin knowledge since birth, he completed his schooling in Ambala and earned a double degree in engineering. By profession an engineer, he has been working at an MNC (Google) since 2018.',
-    bioPara2: 'He combines liberal thoughts with traditional values and enjoys traveling across India.',
+    bioPara1Part2: ' in Ambala City. Trained in classical Brahmin traditions since birth, he completed his schooling in Ambala and earned a double degree in engineering. An engineer by profession, he has been working at an MNC (Google) since 2018.',
+    bioPara2: 'He combines progressive thinking with traditional values and enjoys traveling across India.',
     para1Part1: 'Pandit Rahul Bali Ji provides practical life guidance through ',
     para1Strong: 'Jyotish Shastra',
-    para1Part2: '. His approach combines traditional astrology with psycho-analysis, focusing on understanding deep-rooted thinking patterns and behaviors. By decoding your birth chart, he offers clear, actionable insights to help you navigate your career, relationships, and personal growth.',
+    para1Part2: '. His approach combines classical astrology with psychological insights, focusing on understanding deep-rooted thinking patterns and behaviors.',
     specializedServices: 'Specialized Services',
     email: "Email Address",
     online: "Online Presence",
@@ -26,7 +26,7 @@ const TRANSLATIONS = {
     bioPara2: 'वह उदारवादी विचारों और पारंपरिक मूल्यों के संयोजन में विश्वास रखते हैं और उन्हें पूरे भारत में यात्रा करना पसंद है।',
     para1Part1: 'पंडित राहुल बाली जी ',
     para1Strong: 'ज्योतिष शास्त्र',
-    para1Part2: ' के माध्यम से व्यावहारिक जीवन मार्गदर्शन प्रदान करते हैं। उनका दृष्टिकोण पारंपरिक ज्योतिष को मनोविश्लेषण के साथ जोड़ता है, जो गहरे विचारों और व्यवहारों को समझने पर केंद्रित है। आपकी जन्म कुंडली का विश्लेषण करके, वह आपको आपके करियर, संबंधों और व्यक्तिगत विकास में स्पष्ट और व्यावहारिक अंतर्दृष्टि प्रदान करते हैं।',
+    para1Part2: ' के माध्यम से व्यावहारिक जीवन मार्गदर्शन प्रदान करते हैं। उनका दृष्टिकोण पारंपरिक ज्योतिष को मनोविश्लेषण के साथ जोड़ता है, जो गहरे विचारों और व्यवहारों को समझने पर केंद्रित है।',
     specializedServices: 'विशेष परामर्श सेवाएं',
     email: "ईमेल पता",
     online: "ऑनलाइन उपस्थिति",
@@ -76,21 +76,21 @@ export default function AboutClient() {
         </div>
       </div>
 
-      {/* Specialized Services Grid Card */}
+      {/* Specialized Services List Card */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-8">
         <div className="text-center">
           <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
             {t.specializedServices}
           </h3>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 text-center">
           {SPECIALIZED_SERVICES.map((service) => (
-            <div
+            <p
               key={service.id}
-              className="p-3.5 rounded-2xl bg-surface-bright border border-outline/15 text-sm font-medium text-on-surface flex items-center justify-center text-center transition-all hover:border-accent/40 hover:bg-surface"
+              className="text-sm md:text-base font-medium text-on-surface/90 py-1"
             >
               {service.title[lang]}
-            </div>
+            </p>
           ))}
         </div>
       </div>
