@@ -288,30 +288,22 @@ export default function BtrClientPage() {
         {btrData ? (
           <div className="flex flex-col gap-6 max-w-6xl mx-auto mt-4">
              {/* Charts Grid */}
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <h3 className="font-bold text-center mb-2">D1 - Lagna Chart</h3>
-                    <div className="w-full max-w-[300px] aspect-square">
-                        <KundliChart data={btrData.chartData.d1} />
-                    </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                 <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20 flex flex-col items-center w-full">
+                    <h3 className="font-bold text-center mb-3 text-on-surface">D1 - Lagna Chart</h3>
+                    <KundliChart data={btrData.chartData.d1} />
                  </div>
-                 <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <h3 className="font-bold text-center mb-2">D9 - Navamsa</h3>
-                    <div className="w-full max-w-[300px] aspect-square">
-                        <KundliChart data={btrData.chartData.d9} />
-                    </div>
+                 <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20 flex flex-col items-center w-full">
+                    <h3 className="font-bold text-center mb-3 text-on-surface">D9 - Navamsa</h3>
+                    <KundliChart data={btrData.chartData.d9} />
                  </div>
-                 <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <h3 className="font-bold text-center mb-2">D24 - Chaturvimshamsha</h3>
-                    <div className="w-full max-w-[300px] aspect-square">
-                        <KundliChart data={btrData.chartData.d24} />
-                    </div>
+                 <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20 flex flex-col items-center w-full">
+                    <h3 className="font-bold text-center mb-3 text-on-surface">D24 - Chaturvimshamsha</h3>
+                    <KundliChart data={btrData.chartData.d24} />
                  </div>
-                 <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <h3 className="font-bold text-center mb-2">D60 - Shashtiamsha</h3>
-                    <div className="w-full max-w-[300px] aspect-square">
-                        <KundliChart data={btrData.chartData.d60} />
-                    </div>
+                 <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20 flex flex-col items-center w-full">
+                    <h3 className="font-bold text-center mb-3 text-on-surface">D60 - Shashtiamsha</h3>
+                    <KundliChart data={btrData.chartData.d60} />
                  </div>
              </div>
 
@@ -319,18 +311,18 @@ export default function BtrClientPage() {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {/* Tattva Siddhanta */}
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                   <h3 className="text-lg font-bold border-b pb-2 mb-3">Tattva Siddhanta (Gender Rule)</h3>
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20">
+                   <h3 className="text-lg font-bold border-b border-outline/10 pb-2 mb-3 text-on-surface">Tattva Siddhanta (Gender Rule)</h3>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Ascendant Element:</span>
-                      <span className="font-medium">{btrData.tattva.rulingElement}</span>
+                      <span className="text-on-surface/70">Ascendant Element:</span>
+                      <span className="font-medium text-on-surface">{btrData.tattva.rulingElement}</span>
                    </div>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Expected Gender:</span>
-                      <span className="font-medium">{btrData.tattva.expectedGender}</span>
+                      <span className="text-on-surface/70">Expected Gender:</span>
+                      <span className="font-medium text-on-surface">{btrData.tattva.expectedGender}</span>
                    </div>
-                   <div className="flex justify-between items-center mt-4 p-3 bg-gray-50 rounded-lg">
-                      <span className="font-semibold">Match Status:</span>
+                   <div className="flex justify-between items-center mt-4 p-3 bg-surface-container-low rounded-2xl">
+                      <span className="font-semibold text-on-surface">Match Status:</span>
                       {btrData.tattva.genderMatches ? (
                          <span className="text-green-600 font-bold flex items-center gap-1"><span className="material-symbols-outlined text-sm">check_circle</span> Matched</span>
                       ) : (
@@ -340,18 +332,18 @@ export default function BtrClientPage() {
                 </div>
 
                 {/* Kunda */}
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                   <h3 className="text-lg font-bold border-b pb-2 mb-3">Kunda (Lagna x 81)</h3>
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20">
+                   <h3 className="text-lg font-bold border-b border-outline/10 pb-2 mb-3 text-on-surface">Kunda (Lagna x 81)</h3>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Kunda Longitude:</span>
-                      <span className="font-medium">{btrData.kunda.longitude.toFixed(2)}°</span>
+                      <span className="text-on-surface/70">Kunda Longitude:</span>
+                      <span className="font-medium text-on-surface">{btrData.kunda.longitude.toFixed(2)}°</span>
                    </div>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Kunda Rasi:</span>
-                      <span className="font-medium">{btrData.kunda.rasi}</span>
+                      <span className="text-on-surface/70">Kunda Rasi:</span>
+                      <span className="font-medium text-on-surface">{btrData.kunda.rasi}</span>
                    </div>
-                   <div className="flex justify-between items-center mt-4 p-3 bg-gray-50 rounded-lg">
-                      <span className="font-semibold">Lagna Trine Match:</span>
+                   <div className="flex justify-between items-center mt-4 p-3 bg-surface-container-low rounded-2xl">
+                      <span className="font-semibold text-on-surface">Lagna Trine Match:</span>
                       {btrData.kunda.matchesLagna ? (
                          <span className="text-green-600 font-bold flex items-center gap-1"><span className="material-symbols-outlined text-sm">check_circle</span> Matched</span>
                       ) : (
@@ -361,41 +353,41 @@ export default function BtrClientPage() {
                 </div>
 
                 {/* Pranapada */}
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                   <h3 className="text-lg font-bold border-b pb-2 mb-3">Pranapada Lagna</h3>
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20">
+                   <h3 className="text-lg font-bold border-b border-outline/10 pb-2 mb-3 text-on-surface">Pranapada Lagna</h3>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Pranapada Longitude:</span>
-                      <span className="font-medium">{btrData.pranapada.longitude.toFixed(2)}°</span>
+                      <span className="text-on-surface/70">Pranapada Longitude:</span>
+                      <span className="font-medium text-on-surface">{btrData.pranapada.longitude.toFixed(2)}°</span>
                    </div>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Pranapada Rasi:</span>
-                      <span className="font-medium">{btrData.pranapada.rasi}</span>
+                      <span className="text-on-surface/70">Pranapada Rasi:</span>
+                      <span className="font-medium text-on-surface">{btrData.pranapada.rasi}</span>
                    </div>
-                   <p className="text-sm text-text-muted mt-3">
+                   <p className="text-sm text-on-surface/70 mt-3">
                      * Pranapada should ideally align with the Lagna, Navamsa Lagna, or their trines depending on the specific tradition followed by the astrologer.
                    </p>
                 </div>
 
                 {/* Gulika */}
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                   <h3 className="text-lg font-bold border-b pb-2 mb-3">Gulika Alignment</h3>
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20">
+                   <h3 className="text-lg font-bold border-b border-outline/10 pb-2 mb-3 text-on-surface">Gulika Alignment</h3>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Gulika Longitude (Lagna point):</span>
-                      <span className="font-medium">{btrData.gulika.longitude.toFixed(2)}°</span>
+                      <span className="text-on-surface/70">Gulika Longitude (Lagna point):</span>
+                      <span className="font-medium text-on-surface">{btrData.gulika.longitude.toFixed(2)}°</span>
                    </div>
                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-text-muted">Gulika Rasi:</span>
-                      <span className="font-medium">{btrData.gulika.rasi}</span>
+                      <span className="text-on-surface/70">Gulika Rasi:</span>
+                      <span className="font-medium text-on-surface">{btrData.gulika.rasi}</span>
                    </div>
-                   <p className="text-sm text-text-muted mt-3">
+                   <p className="text-sm text-on-surface/70 mt-3">
                      * Traditional texts suggest examining Gulika&apos;s relationship with the natal Ascendant for rectification.
                    </p>
                 </div>
 
                 {/* D24 Chaturvimshamsha */}
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                   <h3 className="text-lg font-bold border-b pb-2 mb-3">D24 (Chaturvimshamsha) - Educational Rectification</h3>
-                   <p className="text-sm text-text-muted mb-3">
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20">
+                   <h3 className="text-lg font-bold border-b border-outline/10 pb-2 mb-3 text-on-surface">D24 (Chaturvimshamsha) - Educational Rectification</h3>
+                   <p className="text-sm text-on-surface/70 mb-3">
                      The D24 chart is heavily utilized in Vedic Astrology to scrutinize educational milestones, intellect, and higher learning.
                    </p>
                    <ul className="text-sm text-on-surface list-disc pl-5 space-y-1">
@@ -406,9 +398,9 @@ export default function BtrClientPage() {
                 </div>
 
                 {/* D60 Shashtiamsha */}
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                   <h3 className="text-lg font-bold border-b pb-2 mb-3">D60 (Shashtiamsha) - Micro-Tuning & Karma</h3>
-                   <p className="text-sm text-text-muted mb-3">
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-outline/20">
+                   <h3 className="text-lg font-bold border-b border-outline/10 pb-2 mb-3 text-on-surface">D60 (Shashtiamsha) - Micro-Tuning & Karma</h3>
+                   <p className="text-sm text-on-surface/70 mb-3">
                      The D60 chart is the most sensitive divisional chart, changing its Ascendant approximately every 2 minutes (0.5 degrees). It represents past-life karma and the finest grain of destiny.
                    </p>
                    <ul className="text-sm text-on-surface list-disc pl-5 space-y-1">
