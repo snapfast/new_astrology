@@ -44,7 +44,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
 
   return (
     <div className="flex flex-col gap-1.5 w-full max-w-[320px]">
-      <span className="text-on-surface/40 font-label uppercase text-[9px] tracking-widest">
+      <span className="text-on-surface/70 font-label uppercase text-[9px] tracking-widest">
         {label}
       </span>
       <div className="relative group">
@@ -56,7 +56,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
             {value}
           </span>
           <div className="flex items-center shrink-0">
-             <span className="material-symbols-outlined text-on-surface/40 group-hover:text-primary transition-colors text-lg">
+             <span className="material-symbols-outlined text-on-surface/60 group-hover:text-primary transition-colors text-lg">
                {copied ? 'check' : 'content_copy'}
              </span>
           </div>
@@ -149,7 +149,7 @@ const DonateClientPage: FC = () => {
         </div>
 
         <div className="mt-20 pt-8 border-t border-outline/20 text-center">
-          <p className="text-on-surface/40 font-label uppercase text-[10px] md:text-xs tracking-[0.3em]">
+          <p className="text-on-surface/70 font-label uppercase text-[10px] md:text-xs tracking-[0.3em]">
             {t.motto}
           </p>
         </div>

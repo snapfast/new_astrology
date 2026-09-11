@@ -103,7 +103,7 @@ export default function ReviewsClientPage() {
                   {item.name[0]}
                 </div>
                 <div>
-                  <h5 className="font-medium text-[12px] tracking-[0.05em] uppercase font-label text-on-surface">{item.name}</h5>
+                  <h3 className="font-medium text-[12px] tracking-[0.05em] uppercase font-label text-on-surface">{item.name}</h3>
                   <p className="text-[10px] text-on-surface uppercase tracking-[0.1em] font-label">{item.date}</p>
                 </div>
               </div>

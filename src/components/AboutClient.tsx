@@ -46,9 +46,9 @@ export default function AboutClient() {
       {/* Specialized Services List Card */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-8">
         <div className="text-center">
-          <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+          <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
             Specialized Services
-          </h3>
+          </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 text-center">
           {SPECIALIZED_SERVICES.map((service) => (
@@ -65,9 +65,9 @@ export default function AboutClient() {
       {/* Email & Social Links Card */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-10">
         <div className="space-y-3">
-          <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+          <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
             Email Address
-          </h3>
+          </h2>
           <a
             href="mailto:rahulbaliastrology@gmail.com"
             className="text-xl md:text-2xl font-body font-medium text-on-surface hover:text-accent transition-colors inline-block"
@@ -77,9 +77,9 @@ export default function AboutClient() {
         </div>
 
         <div className="space-y-6 pt-8 border-t border-outline/10">
-          <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+          <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
             Online Presence
-          </h3>
+          </h2>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <a
               href={SOCIAL_PROFILES.instagram}
@@ -150,9 +150,9 @@ export default function AboutClient() {
 
       {/* Stylised Brand Mark Variations Gallery */}
       <div className="space-y-8 text-center">
-        <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+        <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
           Stylised Brand Mark Variations
-        </h3>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {BALI_STYLES.map((style) => (

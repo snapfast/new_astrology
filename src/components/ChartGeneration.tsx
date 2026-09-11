@@ -443,7 +443,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                       return dob;
                     })()}
                   </div>
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
                 </div>
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
@@ -460,7 +460,7 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
                     aria-invalid={!!errors.tob}
                     aria-describedby={errors.tob ? "tob-error" : undefined}
                   />
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">schedule</span>
                 </div>
                 {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>

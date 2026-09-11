@@ -440,7 +440,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                     placeholder="e.g. 108"
                     className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body"
                   />
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">format_list_numbered</span>
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg z-20" aria-hidden="true">format_list_numbered</span>
                 </div>
               </div>
               <div className="space-y-2">
@@ -468,7 +468,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                       return dob;
                     })()}
                   </div>
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
                 </div>
                 {errors.dob && <p id="dob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.dob}</p>}
               </div>
@@ -485,7 +485,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                     aria-invalid={!!errors.tob}
                     aria-describedby={errors.tob ? "tob-error" : undefined}
                   />
-                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                  <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">schedule</span>
                 </div>
                 {errors.tob && <p id="tob-error" className="text-[9px] text-red-500 ml-4 font-body" role="alert">{errors.tob}</p>}
               </div>
