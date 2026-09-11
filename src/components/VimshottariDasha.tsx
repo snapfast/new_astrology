@@ -359,7 +359,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
               </span>
               {selectedAd && (
                 <>
-                  <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
+                  <span className="material-symbols-outlined text-[16px] text-on-surface/60">chevron_right</span>
                   <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
                     {selectedAd.lord}
                   </span>
@@ -367,7 +367,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
               )}
               {selectedPd && (
                 <>
-                  <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
+                  <span className="material-symbols-outlined text-[16px] text-on-surface/60">chevron_right</span>
                   <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
                     {selectedPd.lord}
                   </span>
@@ -383,7 +383,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
               )}
               {selectedPrana && (
                 <>
-                  <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
+                  <span className="material-symbols-outlined text-[16px] text-on-surface/60">chevron_right</span>
                   <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
                     {selectedPrana.lord}
                   </span>

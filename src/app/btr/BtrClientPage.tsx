@@ -177,7 +177,7 @@ export default function BtrClientPage() {
                           return dob;
                         })()}
                       </div>
-                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
+                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
                     </div>
                   </div>
 
@@ -193,7 +193,7 @@ export default function BtrClientPage() {
                         onChange={(e) => { setTob(e.target.value); setCurrentTob(e.target.value); }}
                         className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer"
                       />
-                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">schedule</span>
                     </div>
                   </div>
 
@@ -261,7 +261,7 @@ export default function BtrClientPage() {
                          <option value="Male">Male</option>
                          <option value="Female">Female</option>
                       </select>
-                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/40 pointer-events-none text-lg" aria-hidden="true">wc</span>
+                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">wc</span>
                     </div>
                   </div>
                 </div>
