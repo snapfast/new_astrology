@@ -1,38 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useLanguage } from '@/context/LanguageContext';
 import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 import { SOCIAL_PROFILES } from '@/lib/social-data';
-
-const TRANSLATIONS = {
-  en: {
-    bioPara1Part1: 'Rahul Bali was born into the ',
-    baliFamilyLink: 'Bali Family',
-    bioPara1Part2: ' in Ambala City. Trained in classical Brahmin traditions since birth, he completed his schooling in Ambala and earned a double degree in engineering. An engineer by profession, he has been working at an MNC (Google) since 2018.',
-    bioPara2: 'He combines progressive thinking with traditional values and enjoys traveling across India.',
-    para1Part1: 'Pandit Rahul Bali Ji provides practical life guidance through ',
-    para1Strong: 'Jyotish Shastra',
-    para1Part2: '. His approach combines classical astrology with psychological insights, focusing on understanding deep-rooted thinking patterns and behaviors.',
-    specializedServices: 'Specialized Services',
-    email: "Email Address",
-    online: "Online Presence",
-    stylisedWordmarks: "Stylised Brand Mark Variations",
-  },
-  hi: {
-    bioPara1Part1: 'राहुल बाली का जन्म अम्बाला शहर में ',
-    baliFamilyLink: 'बाली परिवार',
-    bioPara1Part2: ' में हुआ था। जन्म से ही शास्त्रीय ब्राह्मण ज्ञान में प्रशिक्षित, उन्होंने अम्बाला में अपनी स्कूली शिक्षा पूरी की और इंजीनियरिंग में दोहरी डिग्री प्राप्त की। पेशे से एक इंजीनियर, वह 2018 से एक बहुराष्ट्रीय कंपनी (Google) में कार्यरत हैं।',
-    bioPara2: 'वह उदारवादी विचारों और पारंपरिक मूल्यों के संयोजन में विश्वास रखते हैं और उन्हें पूरे भारत में यात्रा करना पसंद है।',
-    para1Part1: 'पंडित राहुल बाली जी ',
-    para1Strong: 'ज्योतिष शास्त्र',
-    para1Part2: ' के माध्यम से व्यावहारिक जीवन मार्गदर्शन प्रदान करते हैं। उनका दृष्टिकोण पारंपरिक ज्योतिष को मनोविश्लेषण के साथ जोड़ता है, जो गहरे विचारों और व्यवहारों को समझने पर केंद्रित है।',
-    specializedServices: 'विशेष परामर्श सेवाएं',
-    email: "ईमेल पता",
-    online: "ऑनलाइन उपस्थिति",
-    stylisedWordmarks: "शैलीबद्ध ब्रांड मार्क विविधताएं",
-  }
-};
 
 const BALI_STYLES = [
   { id: 1, label: 'Elegant Cursive', svg: '/images/bali-styles/bali-style-1.svg', webp: '/images/bali-styles/bali-style-1.webp' },
@@ -42,33 +12,30 @@ const BALI_STYLES = [
 ];
 
 export default function AboutClient() {
-  const { lang } = useLanguage();
-  const t = TRANSLATIONS[lang as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
-
   return (
     <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
       {/* Practitioner Bio & Mantra Block */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-8">
         <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed space-y-4">
           <p className="text-base md:text-lg text-on-surface/90">
-            {t.bioPara1Part1}
+            Rahul Bali was born into the{' '}
             <a
               href="https://en.wikipedia.org/wiki/Bali_clan"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent underline font-medium hover:text-accent/80 transition-colors"
             >
-              {t.baliFamilyLink}
+              Bali Family
             </a>
-            {t.bioPara1Part2}
+            {' '}in Ambala City. Trained in classical Brahmin traditions since birth, he completed his schooling in Ambala and earned a double degree in engineering. An engineer by profession, he has been working at an MNC (Google) since 2018.
           </p>
           <p className="text-base md:text-lg text-on-surface/90">
-            {t.bioPara2}
+            He combines progressive thinking with traditional values and enjoys traveling across India.
           </p>
           <p className="text-base md:text-lg text-on-surface/90">
-            {t.para1Part1}
-            <strong className="text-on-surface font-semibold">{t.para1Strong}</strong>
-            {t.para1Part2}
+            Pandit Rahul Bali Ji provides practical life guidance through{' '}
+            <strong className="text-on-surface font-semibold">Jyotish Shastra</strong>
+            . His approach combines classical astrology with psychological insights, focusing on understanding deep-rooted thinking patterns and behaviors.
           </p>
         </div>
         <div className="pt-6 border-t border-outline/10 text-xl md:text-2xl text-accent font-hindi tracking-wide">
@@ -79,8 +46,8 @@ export default function AboutClient() {
       {/* Specialized Services List Card */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-8">
         <div className="text-center">
-          <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
-            {t.specializedServices}
+          <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+            Specialized Services
           </h3>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 text-center">
@@ -89,7 +56,7 @@ export default function AboutClient() {
               key={service.id}
               className="text-sm md:text-base font-medium text-on-surface/90 py-1"
             >
-              {service.title[lang]}
+              {service.title}
             </p>
           ))}
         </div>
@@ -98,8 +65,8 @@ export default function AboutClient() {
       {/* Email & Social Links Card */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-10">
         <div className="space-y-3">
-          <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
-            {t.email}
+          <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+            Email Address
           </h3>
           <a
             href="mailto:rahulbaliastrology@gmail.com"
@@ -110,8 +77,8 @@ export default function AboutClient() {
         </div>
 
         <div className="space-y-6 pt-8 border-t border-outline/10">
-          <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
-            {t.online}
+          <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+            Online Presence
           </h3>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <a
@@ -183,8 +150,8 @@ export default function AboutClient() {
 
       {/* Stylised Brand Mark Variations Gallery */}
       <div className="space-y-8 text-center">
-        <h3 className={`text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-accent font-label ${lang === 'en' ? 'tracking-[0.25em]' : ''}`}>
-          {t.stylisedWordmarks}
+        <h3 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+          Stylised Brand Mark Variations
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">

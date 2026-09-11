@@ -274,9 +274,9 @@ const HoroscopeContent = () => {
             {/* KP Planetary Positions Table */}
             <div className="space-y-6">
               <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{lang === "hi" ? "केपी ग्रह स्थिति" : "KP Planetary Positions"}</span>
-                <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === "hi" ? "font-hindi" : "")}>
-                  {lang === "hi" ? "ग्रहों के नक्षत्र और उप-नक्षत्र स्वामी" : "Planetary Star Lords and Sub-Lords"}
+                <span>KP Planetary Positions</span>
+                <span className="text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case">
+                  Planetary Star Lords and Sub-Lords
                 </span>
               </h2>
               <div className="overflow-x-auto">
@@ -288,22 +288,22 @@ const HoroscopeContent = () => {
                       <th className="px-4 py-3 font-medium">{t.degree}</th>
                       <th className="px-4 py-3 font-medium">{t.nakshatra}</th>
                       <th className="px-4 py-3 font-medium">{t.nakLord}</th>
-                      <th className="px-4 py-3 font-medium">{lang === 'hi' ? 'उप-नक्षत्र' : 'Sub Lord'}</th>
+                      <th className="px-4 py-3 font-medium">Sub Lord</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline/10">
                     {kpChartData.planets.map((planet) => (
                       <tr key={planet.name} className="hover:bg-surface-container-lowest/50 transition-colors">
                         <td className="px-4 py-3 font-medium text-on-surface flex items-center gap-1.5">
-                          {lang === "hi" ? planet.nameSanskrit : planet.name}
+                          {planet.name}
                           {planet.isRetrograde && <span className="text-on-surface/50 text-[10px]">*</span>}
                           {planet.isCombust && <span className="text-on-surface/50 text-[10px]">^</span>}
                         </td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.rasiSanskrit : planet.rasi}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{planet.rasi}</td>
                         <td className="px-4 py-3 text-on-surface/80 font-mono text-xs">{planet.degree}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.nakshatraSanskrit : planet.nakshatra} - {planet.pada}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.nakshatraLordSanskrit : planet.nakshatraLord}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? planet.subLordSanskrit : planet.subLord}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{planet.nakshatra} - {planet.pada}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{planet.nakshatraLord}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{planet.subLord}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -314,32 +314,32 @@ const HoroscopeContent = () => {
             {/* KP House Cusps Table */}
             <div className="space-y-6">
               <h2 className="text-2xl font-normal font-headline text-on-surface border-b border-outline pb-3 flex flex-col gap-1">
-                <span>{lang === "hi" ? "केपी भाव स्पष्ट" : "KP House Cusps (Placidus)"}</span>
-                <span className={cn("text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case", lang === "hi" ? "font-hindi" : "")}>
-                  {lang === "hi" ? "भावों के नक्षत्र और उप-नक्षत्र स्वामी" : "Cuspal Star Lords and Sub-Lords"}
+                <span>KP House Cusps (Placidus)</span>
+                <span className="text-[11px] leading-normal text-on-surface/60 font-body font-normal normal-case">
+                  Cuspal Star Lords and Sub-Lords
                 </span>
               </h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left font-body">
                   <thead className="text-xs uppercase bg-surface-container-low text-on-surface/70 border-b border-outline/20">
                     <tr>
-                      <th className="px-4 py-3 font-medium">{lang === 'hi' ? 'भाव' : 'Cusp'}</th>
+                      <th className="px-4 py-3 font-medium">Cusp</th>
                       <th className="px-4 py-3 font-medium">{t.sign}</th>
                       <th className="px-4 py-3 font-medium">{t.degree}</th>
                       <th className="px-4 py-3 font-medium">{t.nakshatra}</th>
                       <th className="px-4 py-3 font-medium">{t.nakLord}</th>
-                      <th className="px-4 py-3 font-medium">{lang === 'hi' ? 'उप-नक्षत्र' : 'Sub Lord'}</th>
+                      <th className="px-4 py-3 font-medium">Sub Lord</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline/10">
                     {kpChartData.cuspsData?.map((cusp) => (
                       <tr key={cusp.name} className="hover:bg-surface-container-lowest/50 transition-colors">
                         <td className="px-4 py-3 font-medium text-on-surface">{cusp.name}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.rasiSanskrit : cusp.rasi}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{cusp.rasi}</td>
                         <td className="px-4 py-3 text-on-surface/80 font-mono text-xs">{cusp.degree}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.nakshatraSanskrit : cusp.nakshatra} - {cusp.pada}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.nakshatraLordSanskrit : cusp.nakshatraLord}</td>
-                        <td className="px-4 py-3 text-on-surface/80">{lang === "hi" ? cusp.subLordSanskrit : cusp.subLord}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{cusp.nakshatra} - {cusp.pada}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{cusp.nakshatraLord}</td>
+                        <td className="px-4 py-3 text-on-surface/80">{cusp.subLord}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -354,54 +354,42 @@ const HoroscopeContent = () => {
           <div className="space-y-2">
             <h3 className="text-xl md:text-2xl font-normal font-headline text-on-surface flex items-center gap-2">
               <span className="material-symbols-outlined text-accent">menu_book</span>
-              {lang === 'hi' ? 'केपी ज्योतिष और प्रश्न (KP Astrology & Prashna)' : 'KP Astrology & Prashna'}
+              KP Astrology & Prashna
             </h3>
             <p className="text-sm md:text-base text-on-surface/80 font-body leading-relaxed">
-              {lang === 'hi'
-                ? 'कृष्णमूर्ति पद्धति (KP) वैदिक ज्योतिष की एक उन्नत प्रणाली है। यह सटीक भविष्यवाणियों के लिए नक्षत्रों (Star Lords) और उप-नक्षत्रों (Sub-Lords) पर विशेष ध्यान केंद्रित करती है।'
-                : 'Krishnamurti Paddhati (KP) is an advanced system of Vedic Astrology. It focuses specifically on Nakshatras (Star Lords) and Sub-Lords to offer highly precise timing and predictions.'}
+              Krishnamurti Paddhati (KP) is an advanced system of Vedic Astrology. It focuses specifically on Nakshatras (Star Lords) and Sub-Lords to offer highly precise timing and predictions.
             </p>
           </div>
 
           <div className="space-y-4">
             <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/20 pb-2">
-              {lang === 'hi' ? 'केपी चार्ट का विश्लेषण कैसे करें?' : 'How to Read the KP Chart?'}
+              How to Read the KP Chart?
             </h4>
             <ul className="list-disc pl-5 space-y-3 text-sm text-on-surface/80 font-body">
               <li>
-                <strong className="text-on-surface">{lang === 'hi' ? 'उप-नक्षत्र स्वामी (Sub-Lord):' : 'Cuspal Sub-Lord:'}</strong>
-                {lang === 'hi'
-                  ? ' केपी में, किसी भी भाव का फल मुख्य रूप से उस भाव के उप-नक्षत्र स्वामी द्वारा निर्धारित होता है।'
-                  : ' In KP astrology, the result of any house is primarily determined by the Sub-Lord of that specific house cusp.'}
+                <strong className="text-on-surface">Cuspal Sub-Lord:</strong>
+                {' '}In KP astrology, the result of any house is primarily determined by the Sub-Lord of that specific house cusp.
               </li>
               <li>
-                <strong className="text-on-surface">{lang === 'hi' ? 'नक्षत्र स्वामी (Star Lord):' : 'Star Lord (Nakshatra Lord):'}</strong>
-                {lang === 'hi'
-                  ? ' ग्रह अपने नक्षत्र स्वामी के परिणाम देते हैं। उप-नक्षत्र स्वामी यह तय करता है कि वे परिणाम सकारात्मक होंगे या नकारात्मक।'
-                  : ' Planets predominantly give the results of their Star Lord. The Sub-Lord of the planet decides whether those results will be positive or negative.'}
+                <strong className="text-on-surface">Star Lord (Nakshatra Lord):</strong>
+                {' '}Planets predominantly give the results of their Star Lord. The Sub-Lord of the planet decides whether those results will be positive or negative.
               </li>
               <li>
-                <strong className="text-on-surface">{lang === 'hi' ? 'प्लासिडस भाव प्रणाली (Placidus House System):' : 'Placidus House System:'}</strong>
-                {lang === 'hi'
-                  ? ' केपी ज्योतिष में प्लासिडस भाव प्रणाली का उपयोग किया जाता है। यह एक गणितीय विधि है जो समय और भौगोलिक स्थान के आधार पर भावों को सटीक रूप से विभाजित करती है।'
-                  : ' The KP system relies on the Placidus house system. Placidus uses a complex mathematical calculation based on the exact time and latitude/longitude to trisect the semi-diurnal and semi-nocturnal arcs of the ecliptic. This creates unequal house sizes, meaning a house can span across multiple signs, or a sign can be entirely intercepted within a house. This is why planetary placements in the KP chart often differ significantly from the standard whole-sign D1 chart.'}
+                <strong className="text-on-surface">Placidus House System:</strong>
+                {' '}The KP system relies on the Placidus house system. Placidus uses a complex mathematical calculation based on the exact time and latitude/longitude to trisect the semi-diurnal and semi-nocturnal arcs of the ecliptic. This creates unequal house sizes, meaning a house can span across multiple signs, or a sign can be entirely intercepted within a house. This is why planetary placements in the KP chart often differ significantly from the standard whole-sign D1 chart.
               </li>
             </ul>
           </div>
 
           <div className="space-y-4">
             <h4 className="text-lg font-medium font-headline text-on-surface border-b border-outline/20 pb-2">
-              {lang === 'hi' ? 'प्रश्न कुंडली (Horary Astrology)' : 'Prashna (Horary) Astrology'}
+              Prashna (Horary) Astrology
             </h4>
             <p className="text-sm text-on-surface/80 font-body leading-relaxed">
-              {lang === 'hi'
-                ? 'प्रश्न ज्योतिष का उपयोग तब किया जाता है जब जन्म समय ज्ञात न हो, या किसी विशिष्ट प्रश्न का उत्तर चाहिए हो। केपी प्रणाली में, व्यक्ति को 1 से 249 के बीच एक संख्या चुनने के लिए कहा जाता है। यह संख्या उस विशिष्ट समय पर लग्न (Ascendant) की डिग्री और उप-नक्षत्र को निर्धारित करती है।'
-                : 'Prashna is used when birth details are unknown, or to answer a highly specific question. In the KP Horary system, the querent is asked to provide a number between 1 and 249. This number maps to a specific Ascendant degree and Sub-Lord in the zodiac, completely overriding the time-based Ascendant.'}
+              Prashna is used when birth details are unknown, or to answer a highly specific question. In the KP Horary system, the querent is asked to provide a number between 1 and 249. This number maps to a specific Ascendant degree and Sub-Lord in the zodiac, completely overriding the time-based Ascendant.
             </p>
             <p className="text-sm text-on-surface/80 font-body leading-relaxed">
-              {lang === 'hi'
-                ? 'ऊपर दिया गया "KP D1 Chart" आपके द्वारा चुनी गई संख्या (1-249) के आधार पर लग्न को दर्शाता है, जबकि "Standard D1 Chart" सामान्य समय पर आधारित है।'
-                : 'The "KP D1 Chart" above forces the Ascendant (Lagna) to match the exact degree of your chosen number (1-249), while the "Standard D1 Chart" uses the regular time-based calculation for comparison.'}
+              The &quot;KP D1 Chart&quot; above forces the Ascendant (Lagna) to match the exact degree of your chosen number (1-249), while the &quot;Standard D1 Chart&quot; uses the regular time-based calculation for comparison.
             </p>
           </div>
         </div>

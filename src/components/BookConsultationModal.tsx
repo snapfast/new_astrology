@@ -4,7 +4,6 @@ import { FC, useState, useEffect } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 
 import BaseModal from './BaseModal';
-import { useLanguage } from '@/context/LanguageContext';
 import ScheduleButton from './ScheduleButton';
 import LotusSwastika from './LotusSwastika';
 import Image from 'next/image';
@@ -50,7 +49,6 @@ interface BookConsultationModalProps {
 }
 
 const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose }) => {
-  const { lang } = useLanguage();
   const t = TRANSLATIONS.en;
 
   const [view, setView] = useState<'booking' | 'survey' | 'thanks'>('booking');
@@ -141,17 +139,13 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h3 className={`font-normal text-on-surface font-headline tracking-tight ${lang === 'hi' ? 'text-lg' : 'text-base md:text-lg'}`}>{t.meetTitle}</h3>
+                    <h3 className="font-normal text-on-surface font-headline tracking-tight text-base md:text-lg">{t.meetTitle}</h3>
                     <div className="flex flex-wrap gap-1.5">
-                      <span className={`px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium rounded-full ${
-                        lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-wide'
-                      }`}>{t.durationBadge}</span>
-                      <span className={`px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium rounded-full ${
-                        lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-wide'
-                      }`}>{t.videoBadge}</span>
+                      <span className="px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium rounded-full text-[11px] md:text-xs tracking-wide">{t.durationBadge}</span>
+                      <span className="px-2 py-0.5 bg-surface-bright border border-outline/10 text-on-surface/80 font-medium rounded-full text-[11px] md:text-xs tracking-wide">{t.videoBadge}</span>
                     </div>
                   </div>
-                  <p id="book-consultation-desc" className={`text-on-surface/80 font-body leading-relaxed ${lang === 'hi' ? 'text-sm' : 'text-xs md:text-sm'}`}>{t.meetDesc}</p>
+                  <p id="book-consultation-desc" className="text-on-surface/80 font-body leading-relaxed text-xs md:text-sm">{t.meetDesc}</p>
                 </div>
               </div>
 
@@ -179,9 +173,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                     sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' });
                     setView('survey');
                   }}
-                  className={`flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 ${
-                    lang === 'hi' ? 'text-sm md:text-base tracking-normal' : 'text-sm md:text-base tracking-wide'
-                  }`}
+                  className="flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 text-sm md:text-base tracking-wide"
                 >
                   {t.meetBtn}
                 </ScheduleButton>
@@ -196,9 +188,7 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
                   sendGAEvent({ event: 'action_click', action_name: 'modal_donate_click' });
                   onClose();
                 }}
-                className={`flex items-center justify-center w-full py-1 text-on-surface/70 font-medium ${
-                  lang === 'hi' ? 'text-[11px] md:text-xs tracking-normal' : 'text-[11px] md:text-xs tracking-wide'
-                }`}
+                className="flex items-center justify-center w-full py-1 text-on-surface/70 font-medium text-[11px] md:text-xs tracking-wide"
               >
                 {t.optionalDonationBtn}
               </Link>

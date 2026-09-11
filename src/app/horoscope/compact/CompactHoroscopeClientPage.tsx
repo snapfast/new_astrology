@@ -77,11 +77,8 @@ const CompactHoroscopeContent = () => {
     if (monthIdx < 0 || monthIdx > 11) return '';
 
     const monthsEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const monthsHi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
-    const months = lang === 'hi' ? monthsHi : monthsEn;
-
-    return `${day} ${months[monthIdx]} ${year}`;
-  }, [dob, lang]);
+    return `${day} ${monthsEn[monthIdx]} ${year}`;
+  }, [dob]);
   const tob = sanitizeTime(searchParams.get('tob')) || '';
   const pob = sanitize(searchParams.get('pob'), 100) || '';
   const lat = sanitizeCoord(searchParams.get('lat')) || '';
@@ -94,7 +91,7 @@ const CompactHoroscopeContent = () => {
       {/* Mobile Blocker Overlay */}
       <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-8 text-center">
         <span className="material-symbols-outlined text-6xl text-accent mb-4">desktop_windows</span>
-        <h2 className={`text-2xl mb-4 ${lang === 'hi' ? 'font-hindi font-bold' : 'font-headline'}`}>{t.desktopOnly}</h2>
+        <h2 className="text-2xl mb-4 font-headline">{t.desktopOnly}</h2>
         <p className="text-on-surface font-body mb-8 text-sm">{t.mobileMsg}</p>
       </div>
 
@@ -133,20 +130,20 @@ const CompactHoroscopeContent = () => {
             <h2 className={`text-xs xl:text-sm font-bold text-accent uppercase font-label mb-2.5 xl:mb-3.5 border-b border-outline/20 pb-1 xl:pb-1.5 ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.panchang}</h2>
             <div className="grid grid-cols-2 gap-x-3 xl:gap-x-4 gap-y-2.5 xl:gap-y-3.5">
               {[
-                { label: t.tithi, val: lang === 'en' ? chartData.panchang.tithi : chartData.panchang.tithiSanskrit },
-                { label: t.paksha, val: lang === 'en' ? chartData.panchang.paksha : chartData.panchang.pakshaSanskrit },
-                { label: t.vara, val: lang === 'en' ? chartData.panchang.vara : chartData.panchang.varaSanskrit },
-                { label: t.nakshatra, val: lang === 'en' ? chartData.panchang.nakshatra : chartData.panchang.nakshatraSanskrit },
-                { label: t.yoga, val: lang === 'en' ? chartData.panchang.yoga : chartData.panchang.yogaSanskrit },
-                { label: t.karana, val: lang === 'en' ? chartData.panchang.karana : chartData.panchang.karanaSanskrit },
-                { label: t.sunSign, val: lang === 'en' ? chartData.panchang.sunSign : chartData.panchang.sunSignSanskrit },
-                { label: t.moonSign, val: lang === 'en' ? chartData.panchang.moonSign : chartData.panchang.moonSignSanskrit },
-                { label: t.ritu, val: lang === 'en' ? chartData.panchang.ritu : chartData.panchang.rituSanskrit },
-                { label: t.ayana, val: lang === 'en' ? chartData.panchang.ayana : chartData.panchang.ayanaSanskrit },
+                { label: t.tithi, val: chartData.panchang.tithi },
+                { label: t.paksha, val: chartData.panchang.paksha },
+                { label: t.vara, val: chartData.panchang.vara },
+                { label: t.nakshatra, val: chartData.panchang.nakshatra },
+                { label: t.yoga, val: chartData.panchang.yoga },
+                { label: t.karana, val: chartData.panchang.karana },
+                { label: t.sunSign, val: chartData.panchang.sunSign },
+                { label: t.moonSign, val: chartData.panchang.moonSign },
+                { label: t.ritu, val: chartData.panchang.ritu },
+                { label: t.ayana, val: chartData.panchang.ayana },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-[9px] xl:text-[10px] 2xl:text-[11px] text-on-surface font-label uppercase tracking-tighter leading-none mb-1 xl:mb-1.5">{item.label}</span>
-                  <span className={`text-[11px] md:text-xs xl:text-[13px] 2xl:text-[15px] font-bold leading-snug ${lang === 'hi' || (i <= 9 && item.val.match(/[अ-ह]/)) ? 'font-hindi' : ''}`}>{item.val}</span>
+                  <span className="text-[11px] md:text-xs xl:text-[13px] 2xl:text-[15px] font-bold leading-snug">{item.val}</span>
                 </div>
               ))}
             </div>
@@ -173,15 +170,15 @@ const CompactHoroscopeContent = () => {
           {/* Planetary Table */}
           <section className="flex-[3] bg-white border border-outline/20 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-0">
             <div className="bg-white px-3 py-1.5 xl:px-4.5 xl:py-2.5 border-b border-outline/20 flex justify-between items-center">
-              <h2 className={`text-xs xl:text-sm font-bold text-on-surface uppercase font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>{t.planetaryPositions}</h2>
-              <div className={`flex items-center gap-2 text-[9px] xl:text-[10px] text-on-surface/70 font-body ${lang === 'hi' ? 'font-hindi font-bold' : ''}`}>
+              <h2 className="text-xs xl:text-sm font-bold text-on-surface uppercase font-label tracking-widest">{t.planetaryPositions}</h2>
+              <div className="flex items-center gap-2 text-[9px] xl:text-[10px] text-on-surface/70 font-body">
                 <span className="flex items-center gap-0.5">
                   <span className="text-black font-normal">*</span>
-                  <span>{lang === 'hi' ? 'वक्री' : 'Retro'}</span>
+                  <span>Retro</span>
                 </span>
                 <span className="flex items-center gap-0.5">
                   <span className="text-black font-normal">^</span>
-                  <span>{lang === 'hi' ? 'अस्त' : 'Combust'}</span>
+                  <span>Combust</span>
                 </span>
               </div>
             </div>
@@ -198,26 +195,26 @@ const CompactHoroscopeContent = () => {
                 <tbody className="divide-y divide-outline/10">
                   {chartData.planets.map((p, idx) => (
                     <tr key={idx} className="hover:bg-surface-container-lowest transition-colors font-body">
-                      <td className={`px-2 py-1 xl:px-3 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                        {lang === 'hi' ? p.nameSanskrit : p.name}{p.isRetrograde && <span className="ml-0.5 text-black font-normal">*</span>}
+                      <td className="px-2 py-1 xl:px-3 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-on-surface">
+                        {p.name}{p.isRetrograde && <span className="ml-0.5 text-black font-normal">*</span>}
                         {p.isCombust && <span className="ml-0.5 text-[9px] text-black font-normal">^</span>}
                       </td>
-                      <td className={`px-2 py-1 xl:px-3 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] text-on-surface ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.rasiSanskrit : p.rasi}</td>
+                      <td className="px-2 py-1 xl:px-3 xl:py-1.5 text-[11px] xl:text-[12px] 2xl:text-[13px] text-on-surface">{p.rasi}</td>
                       <td className="px-2 py-1 xl:px-3 xl:py-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface whitespace-nowrap tabular-nums">{p.degree}</td>
-                      <td className={`px-2 py-1 xl:px-3 xl:py-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface truncate max-w-[70px] xl:max-w-[90px] ${lang === 'hi' ? 'font-hindi' : ''}`}>{lang === 'hi' ? p.nakshatraSanskrit : p.nakshatra}</td>
+                      <td className="px-2 py-1 xl:px-3 xl:py-1.5 text-[10px] xl:text-[11px] 2xl:text-[12px] text-on-surface truncate max-w-[70px] xl:max-w-[90px]">{p.nakshatra}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <div className={`bg-surface-container-lowest px-3 py-1 xl:py-2 border-t border-outline/20 flex gap-3 text-[9px] xl:text-[10px] text-on-surface/60 font-body ${lang === 'hi' ? 'font-hindi' : ''}`}>
+            <div className="bg-surface-container-lowest px-3 py-1 xl:py-2 border-t border-outline/20 flex gap-3 text-[9px] xl:text-[10px] text-on-surface/60 font-body">
               <span className="flex items-center gap-0.5">
                 <span className="text-black font-normal">*</span>
-                <span>{lang === 'hi' ? 'वक्र' : 'Retrograde'}</span>
+                <span>Retrograde</span>
               </span>
               <span className="flex items-center gap-0.5">
                 <span className="text-black font-normal">^</span>
-                <span>{lang === 'hi' ? 'अस्त' : 'Combust'}</span>
+                <span>Combust</span>
               </span>
             </div>
           </section>

@@ -5,7 +5,6 @@ import LearnMoreModal from './LearnMoreModal';
 import BookConsultationModal from './BookConsultationModal';
 import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useLanguage } from '@/context/LanguageContext';
 
 const TRANSLATIONS = {
   en: {
@@ -18,7 +17,6 @@ const TRANSLATIONS = {
   }};
 
 const Hero = () => {
-  const { lang } = useLanguage();
   const t = TRANSLATIONS.en;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -47,7 +45,7 @@ const Hero = () => {
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
           <h1 className="sr-only">Pandit Rahul Bali Ji - Vedic Astrology</h1>
-          <span className={`font-medium text-accent font-label ${lang === 'hi' ? 'text-xs md:text-sm tracking-normal' : 'text-[10px] tracking-[0.3em] uppercase'}`}>
+          <span className="font-medium text-accent font-label text-[10px] tracking-[0.3em] uppercase">
             {t.subtitle}
           </span>
         </div>
@@ -59,11 +57,7 @@ const Hero = () => {
                 sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
                 setIsBookingModalOpen(true);
               }}
-              className={`flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                lang === 'hi'
-                  ? 'text-[13px] md:text-[15px] tracking-normal'
-                  : 'text-[10px] md:text-xs tracking-[0.1em]'
-              }`}
+              className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[10px] md:text-xs tracking-[0.1em]"
             >
               {t.bookBtn}
             </button>
@@ -72,11 +66,7 @@ const Hero = () => {
                 sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
                 setIsModalOpen(true);
               }}
-              className={`btn-secondary px-10 py-4 font-medium uppercase font-label ${
-                lang === 'hi'
-                  ? 'text-[13px] md:text-[15px] tracking-normal'
-                  : 'text-[10px] md:text-xs tracking-[0.1em]'
-              }`}
+              className="btn-secondary px-10 py-4 font-medium uppercase font-label text-[10px] md:text-xs tracking-[0.1em]"
             >
               {t.learnBtn}
             </button>

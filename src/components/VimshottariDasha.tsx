@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect, useRef, memo } from 'react';
-import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PranaDasha, PLANET_NAMES, DashaBalance } from '@/lib/astrology';
+import { Mahadasha, Antardasha, Pratyantardasha, SookshmaDasha, PranaDasha, DashaBalance } from '@/lib/astrology';
 
 interface VimshottariDashaProps {
   mahadashas: Mahadasha[];
@@ -53,8 +53,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   const t = TRANSLATIONS.en;
 
   // Performance Optimization: Pre-instantiate formatters to avoid the overhead of repeatedly calling toLocaleDateString
-  const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), [lang]);
-  const DATE_TIME_FORMATTER = useMemo(() => new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }), [lang]);
+  const DATE_FORMATTER = useMemo(() => new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), []);
+  const DATE_TIME_FORMATTER = useMemo(() => new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }), []);
   const now = useMemo(() => new Date(), []);
   const nowTime = useMemo(() => now.getTime(), [now]);
 
@@ -282,8 +282,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
                   <div className="flex justify-between items-center relative z-10">
                     <div className="flex items-center gap-2">
-                      <span className={`text-base font-bold ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                        {lang === 'hi' ? PLANET_NAMES[item.lord]?.sanskrit || item.lord : item.lord}
+                      <span className="text-base font-bold">
+                        {item.lord}
                       </span>
                       {isCurrent && !isSelected && (
                         <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -322,8 +322,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
                 <div className="flex justify-between items-center relative z-10">
                   <div className="flex items-center gap-2">
-                    <span className={`text-base font-bold ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                      {lang === 'hi' ? PLANET_NAMES[item.lord]?.sanskrit || item.lord : item.lord}
+                    <span className="text-base font-bold">
+                      {item.lord}
                     </span>
                     {isCurrent && !isSelected && (
                       <span className="animate-pulse flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -354,38 +354,38 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
           <div className="flex flex-wrap items-center gap-2 text-sm font-medium">
             {selectedMd ? (
             <>
-              <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                {lang === 'hi' ? PLANET_NAMES[selectedMd.lord]?.sanskrit || selectedMd.lord : selectedMd.lord}
+              <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
+                {selectedMd.lord}
               </span>
               {selectedAd && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                    {lang === 'hi' ? PLANET_NAMES[selectedAd.lord]?.sanskrit || selectedAd.lord : selectedAd.lord}
+                  <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
+                    {selectedAd.lord}
                   </span>
                 </>
               )}
               {selectedPd && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                    {lang === 'hi' ? PLANET_NAMES[selectedPd.lord]?.sanskrit || selectedPd.lord : selectedPd.lord}
+                  <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
+                    {selectedPd.lord}
                   </span>
                 </>
               )}
               {selectedSd && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                    {lang === 'hi' ? PLANET_NAMES[selectedSd.lord]?.sanskrit || selectedSd.lord : selectedSd.lord}
+                  <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
+                    {selectedSd.lord}
                   </span>
                 </>
               )}
               {selectedPrana && (
                 <>
                   <span className="material-symbols-outlined text-[16px] text-on-surface/40">chevron_right</span>
-                  <span className={`px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                    {lang === 'hi' ? PLANET_NAMES[selectedPrana.lord]?.sanskrit || selectedPrana.lord : selectedPrana.lord}
+                  <span className="px-2.5 py-1 bg-surface-container-low border border-outline/20 rounded-md text-on-surface shadow-sm">
+                    {selectedPrana.lord}
                   </span>
                 </>
               )}
@@ -404,8 +404,8 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
                 <span className="font-medium text-xs whitespace-nowrap">{t.dashaBalance}:</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className={`font-bold text-xs ${lang === 'hi' ? 'font-hindi' : ''}`}>
-                  {lang === 'hi' ? PLANET_NAMES[dashaBalance.lord]?.sanskrit || dashaBalance.lord : dashaBalance.lord}
+                <span className="font-bold text-xs">
+                  {dashaBalance.lord}
                 </span>
                 <span className="text-accent/60 text-xs">•</span>
                 <div className="flex items-center gap-1 font-medium tabular-nums text-xs">
@@ -429,7 +429,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
             type="button"
             onClick={() => scrollContainer('left')}
             className="absolute left-2 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-8 h-8 rounded-full bg-white border border-on-surface shadow-md hover:bg-surface-container-lowest active:scale-95 transition-all text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            aria-label={lang === 'hi' ? 'बाएँ स्क्रॉल करें' : 'Scroll left'}
+            aria-label="Scroll left"
           >
             <span className="material-symbols-outlined text-[18px]" aria-hidden="true">chevron_left</span>
           </button>
@@ -439,7 +439,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
             type="button"
             onClick={() => scrollContainer('right')}
             className="absolute right-2 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-8 h-8 rounded-full bg-white border border-on-surface shadow-md hover:bg-surface-container-lowest active:scale-95 transition-all text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            aria-label={lang === 'hi' ? 'दाएँ स्क्रॉल करें' : 'Scroll right'}
+            aria-label="Scroll right"
           >
             <span className="material-symbols-outlined text-[18px]" aria-hidden="true">chevron_right</span>
           </button>
@@ -459,7 +459,7 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
             <div className="flex-grow flex items-center justify-center p-12 text-center border-l border-outline bg-white">
               <div className="max-w-xs">
                 <span className="material-symbols-outlined text-4xl text-outline mb-4">account_tree</span>
-                <p className={`text-xs text-on-surface font-medium uppercase tracking-widest ${lang === 'hi' ? 'font-hindi' : ''}`}>{t.selectMd}</p>
+                <p className="text-xs text-on-surface font-medium uppercase tracking-widest">{t.selectMd}</p>
               </div>
             </div>
           )}
