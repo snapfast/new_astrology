@@ -10,10 +10,21 @@ const TRANSLATIONS = {
     para1Part1: 'Pandit Rahul Bali Ji provides practical life guidance through ',
     para1Strong: 'Jyotish Shastra',
     para1Part2: '. His approach combines traditional astrology with psycho-analysis, focusing on understanding deep-rooted thinking patterns and behaviors. By decoding your birth chart, he offers clear, actionable insights to help you navigate your career, relationships, and personal growth.',
+    para2: 'Specialized consultations offer practical clarity across key life areas, including career hurdles, business obstacles, financial challenges, property issues, and legal disputes, as well as personal matters such as relationship struggles, marriage concerns, family conflicts, child-related challenges, education setbacks, health concerns, mental health struggles, emotional distress, and spiritual dilemmas.',
     specializedServices: 'Specialized Services',
     email: "Email Address",
     online: "Online Presence",
     stylisedWordmarks: "Stylised Brand Mark Variations",
+  },
+  hi: {
+    para1Part1: 'पंडित राहुल बाली जी ',
+    para1Strong: 'ज्योतिष शास्त्र',
+    para1Part2: ' के माध्यम से व्यावहारिक जीवन मार्गदर्शन प्रदान करते हैं। उनका दृष्टिकोण पारंपरिक ज्योतिष को मनोविश्लेषण के साथ जोड़ता है, जो गहरे विचारों और व्यवहारों को समझने पर केंद्रित है। आपकी जन्म कुंडली का विश्लेषण करके, वह आपको आपके करियर, संबंधों और व्यक्तिगत विकास में स्पष्ट और व्यावहारिक अंतर्दृष्टि प्रदान करते हैं।',
+    para2: 'विशेष परामर्श जीवन के प्रमुख क्षेत्रों में व्यावहारिक स्पष्टता प्रदान करते हैं, जिनमें करियर की बाधाएं, व्यावसायिक बाधाएं, वित्तीय चुनौतियां, संपत्ति के मुद्दे और कानूनी विवाद शामिल हैं, साथ ही व्यक्तिगत मामले जैसे रिश्तों में संघर्ष, विवाह संबंधी चिंताएं, पारिवारिक विवाद, बच्चों से संबंधित चुनौतियां, शिक्षा में बाधाएं, स्वास्थ्य संबंधी चिंताएं, मानसिक स्वास्थ्य संघर्ष, भावनात्मक संकट और आध्यात्मिक दुविधाएं शामिल हैं।',
+    specializedServices: 'विशेष परामर्श सेवाएं',
+    email: "ईमेल पता",
+    online: "ऑनलाइन उपस्थिति",
+    stylisedWordmarks: "शैलीबद्ध ब्रांड मार्क विविधताएं",
   }
 };
 
@@ -26,17 +37,20 @@ const BALI_STYLES = [
 
 export default function AboutClient() {
   const { lang } = useLanguage();
-  const t = TRANSLATIONS.en;
+  const t = TRANSLATIONS[lang as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
 
   return (
     <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
       {/* Practitioner Bio & Mantra Block */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-8">
-        <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed">
+        <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed space-y-4">
           <p className="text-base md:text-lg text-on-surface/90">
             {t.para1Part1}
             <strong className="text-on-surface font-semibold">{t.para1Strong}</strong>
             {t.para1Part2}
+          </p>
+          <p className="text-base md:text-lg text-on-surface/90">
+            {t.para2}
           </p>
         </div>
         <div className="pt-6 border-t border-outline/10 text-xl md:text-2xl text-accent font-hindi tracking-wide">
