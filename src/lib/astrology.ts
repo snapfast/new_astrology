@@ -1645,7 +1645,15 @@ export function calculateAllShadBala(
 export function generateAstrologyData(dob: string, tob: string, latStr?: string, lonStr?: string, kpHoraryNumber?: number): ChartData {
     if (!dob || !tob) return getEmptyChartData();
 
-    const { istDate, time } = parseISTToUTC(dob, tob);
+    let istDate: Date;
+    let time: Ast.AstroTime;
+    try {
+        const parsed = parseISTToUTC(dob, tob);
+        istDate = parsed.istDate;
+        time = parsed.time;
+    } catch {
+        return getEmptyChartData();
+    }
 
     // Default coordinates: New Delhi, India
     const lat = parseFloat(latStr || "28.6139");
@@ -3061,6 +3069,15 @@ function getPastTransitsForPlanet(
 }
 
 export function getPlanetTransits(planet: string, referenceDate: Date): PlanetTransits {
+    if (!referenceDate || isNaN(referenceDate.getTime())) {
+        return {
+            planet,
+            past: [],
+            future: [],
+            current: undefined
+        };
+    }
+
     let body: Ast.Body | null = null;
     let stepDays = 1;
     let maxSteps = 100;
@@ -3352,6 +3369,8 @@ function bisectRetrogradeSwitch(planet: string, body: Ast.Body, d1: Date, d2: Da
 }
 
 export function getRetrogradeDetails(planet: string, refDate: Date): TransitPeriodGroup | null {
+    if (!refDate || isNaN(refDate.getTime())) return null;
+
     let body: Ast.Body | null = null;
     switch (planet) {
         case "Mercury": body = Ast.Body.Mercury; break;
@@ -3822,6 +3841,8 @@ function bisectCombustionSwitch(planet: string, body: Ast.Body, d1: Date, d2: Da
 }
 
 export function getCombustionDetails(planet: string, refDate: Date): TransitPeriodGroup | null {
+    if (!refDate || isNaN(refDate.getTime())) return null;
+
     let body: Ast.Body | null = null;
     switch (planet) {
         case "Mercury": body = Ast.Body.Mercury; break;
