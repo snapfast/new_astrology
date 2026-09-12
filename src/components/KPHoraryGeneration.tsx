@@ -343,10 +343,6 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                   KP Horary Number (1-249)
                   <span className="material-symbols-outlined text-[14px] text-on-surface/50 cursor-help" aria-label="info">info</span>
                 </label>
-                <div className="absolute left-0 bottom-full mb-2 w-[240px] p-2.5 bg-surface-container-highest text-on-surface text-[10px] md:text-xs rounded-xl shadow-lg border border-outline/10 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-30 font-body leading-relaxed">
-                  {t.kpTooltip}
-                  <div className="absolute top-full left-6 -mt-px border-4 border-transparent border-t-surface-container-highest"></div>
-                </div>
                 <div className="relative">
                   <input
                     id="kpNumber"
@@ -359,6 +355,10 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
                     className="w-full pl-4 pr-10 py-2.5 md:py-3 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-base z-20" aria-hidden="true">format_list_numbered</span>
+                </div>
+                <div className="absolute left-0 top-full mt-2 w-[240px] p-2.5 bg-surface text-on-surface text-[10px] md:text-xs rounded-xl shadow-lg border border-outline/20 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-30 font-body leading-relaxed">
+                  {t.kpTooltip}
+                  <div className="absolute bottom-full left-6 -mb-px border-4 border-transparent border-b-surface"></div>
                 </div>
               </div>
               <div className="space-y-1.5">
