@@ -49,6 +49,22 @@ const TransitsTableClientPage = () => {
     setSelectedTime(`${hrs}:${mins}`);
   }, []);
 
+  // Safely construct referenceDate for IST timezone
+  const referenceDate = useMemo(() => {
+    if (!selectedDate || !selectedTime) return new Date();
+    const dateParts = selectedDate.split('-');
+    const timeParts = selectedTime.split(':');
+    if (dateParts.length !== 3 || timeParts.length < 2) return new Date();
+    const [y, m, d] = dateParts.map(Number);
+    const [hrs, mins] = timeParts.map(Number);
+    if (isNaN(y) || isNaN(m) || isNaN(d) || isNaN(hrs) || isNaN(mins)) return new Date();
+
+    const formattedDate = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    const formattedTime = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:00`;
+    const dObj = new Date(`${formattedDate}T${formattedTime}+05:30`);
+    return isNaN(dObj.getTime()) ? new Date() : dObj;
+  }, [selectedDate, selectedTime]);
+
   // Use generateAstrologyData for planetary house mapping and positions
   const chartData = useMemo(() => {
     return generateAstrologyData(selectedDate, selectedTime, "28.6139", "77.2090");
@@ -56,12 +72,10 @@ const TransitsTableClientPage = () => {
 
   // Using getPlanetTransits fallback for Outer planets since they aren't fully integrated into generateAstrologyData output for this view
   const currentPositionsMap = useMemo(() => {
-    const referenceDate = new Date(`${selectedDate}T${selectedTime}:00+05:30`);
-
     const map = new Map();
     for (const planet of PLANETS_ORDER) {
       // First try to find in chartData
-      let pData = chartData.planets.find(p => p.name === planet);
+      let pData = chartData.planets?.find(p => p.name === planet);
 
       // If not in chartData (like outer planets), calculate it
       if (!pData) {
@@ -76,7 +90,7 @@ const TransitsTableClientPage = () => {
       }
     }
     return map;
-  }, [selectedDate, selectedTime, chartData]);
+  }, [chartData, referenceDate]);
 
   return (
     <main className="min-h-screen bg-surface">
@@ -91,23 +105,43 @@ const TransitsTableClientPage = () => {
 
         {/* Date/Time Selectors */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-outline rounded-2xl p-4 shadow-sm max-w-2xl mx-auto">
-           <div className="flex flex-col gap-1 w-full sm:w-auto">
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
             <h2 className="text-xs uppercase font-label text-accent font-bold tracking-widest">{t.referenceTime}</h2>
             <p className="text-sm text-on-surface font-body">Location default: New Delhi</p>
           </div>
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full sm:w-40 px-3 py-1.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all"
-            />
-            <input
-              type="time"
-              value={selectedTime}
-              onChange={(e) => setSelectedTime(e.target.value)}
-              className="w-full sm:w-32 px-3 py-1.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all"
-            />
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto">
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="w-full sm:w-44 px-3 py-1.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                aria-label="Select Date"
+              />
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-on-surface text-sm font-body z-20">
+                {(() => {
+                  if (!selectedDate) return '';
+                  const [y, m, d] = selectedDate.split('-');
+                  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  const monthIdx = parseInt(m, 10) - 1;
+                  if (monthIdx >= 0 && monthIdx < 12) {
+                    return `${parseInt(d, 10)} ${months[monthIdx]} ${y}`;
+                  }
+                  return selectedDate;
+                })()}
+              </div>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-lg z-20">calendar_month</span>
+            </div>
+            <div className="relative w-full sm:w-auto">
+              <input
+                type="time"
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+                className="w-full sm:w-32 px-3 py-1.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                aria-label="Select Time"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-lg">schedule</span>
+            </div>
           </div>
         </div>
 

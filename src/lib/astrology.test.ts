@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, type PlanetData, type PanchangData, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala } from './astrology.ts';
+import { getMeanRahu, type PlanetData, type PanchangData, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getPlanetTransits, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -285,6 +285,29 @@ test('generateAstrologyData handles empty inputs', () => {
   assert.strictEqual(data.panchang.tithi, "");
 });
 
+test('generateAstrologyData and transit functions handle partial and invalid date/time inputs without throwing', () => {
+  const data1 = generateAstrologyData("2026-07", "17:11");
+  assert.strictEqual(data1.planets.length, 0, 'Partial date YYYY-MM should return empty chart data');
+
+  const data2 = generateAstrologyData("2026-07-16", "17");
+  assert.strictEqual(data2.planets.length, 0, 'Partial time HH should return empty chart data');
+
+  const data3 = generateAstrologyData("invalid-date", "invalid-time");
+  assert.strictEqual(data3.planets.length, 0, 'Invalid date/time should return empty chart data');
+
+  const invalidDate = new Date("invalid-date-string");
+  const transits = getPlanetTransits("Sun", invalidDate);
+  assert.strictEqual(transits.current, undefined, 'Invalid Date should result in undefined current planet data');
+  assert.strictEqual(transits.past.length, 0, 'Invalid Date should result in empty past transits');
+  assert.strictEqual(transits.future.length, 0, 'Invalid Date should result in empty future transits');
+
+  const retro = getRetrogradeDetails("Mercury", invalidDate);
+  assert.strictEqual(retro, null, 'Invalid Date should return null for retrograde details');
+
+  const combust = getCombustionDetails("Venus", invalidDate);
+  assert.strictEqual(combust, null, 'Invalid Date should return null for combustion details');
+});
+
 test('calculatePanchang multiple elements transition verification (July 10, 2026)', () => {
   const dob = "2026-07-10";
   const tob = "12:00";
@@ -312,8 +335,6 @@ test('calculatePanchang multiple elements transition verification (July 10, 2026
   assert.ok(panchang.formattedText.includes("Amanta Month: Jyeshtha"), 'Should list Amanta Month');
   assert.ok(panchang.formattedText.includes("Purnimanta Month: Ashadha"), 'Should list Purnimanta Month');
 });
-
-import { getPlanetTransits } from './astrology.ts';
 
 test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     const refDate = new Date('2024-03-15T12:00:00Z');
