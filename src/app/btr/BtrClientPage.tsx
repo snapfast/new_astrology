@@ -9,7 +9,8 @@ import KundliChart from '@/components/KundliChart';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from '@/context/LanguageContext';
-import { type Suggestion } from '@/lib/types';
+import { useProfileHistory, formatDobDisplay } from '@/hooks/useProfileHistory';
+import { type Suggestion, type StoredChartData } from '@/lib/types';
 
 const SUGGESTIONS_CACHE = new Map<string, Suggestion[]>();
 
@@ -43,11 +44,22 @@ export default function BtrClientPage() {
   // State for dynamic BTR details
   const [currentTob, setCurrentTob] = useState(tob);
 
-  // Suggestions state
   const { suggestions, isSearching: isLoading, fetchSuggestions } = useNominatim();
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
   const suggestionRef = useRef<HTMLDivElement>(null);
+
+  const {
+    filteredHistory,
+    showHistory,
+    setShowHistory,
+    activeHistoryIndex,
+    setActiveHistoryIndex,
+    historyRef,
+    saveProfile,
+    handleSelectHistory,
+    handleHistoryKeyDown
+  } = useProfileHistory(name);
 
   useEffect(() => {
     setIsClient(true);
@@ -63,6 +75,54 @@ export default function BtrClientPage() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const onProfileSelect = (item: StoredChartData) => {
+    setName(item.name);
+    if (item.dob) {
+      const parts = item.dob.split('-');
+      if (parts.length === 3) {
+        if (parts[0].length === 4) {
+          setDob(item.dob);
+        } else {
+          setDob(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        }
+      }
+    }
+    if (item.tob) {
+      setTob(item.tob);
+      setCurrentTob(item.tob);
+    }
+    setPob(item.pob);
+    if (item.coords) {
+      setLat(item.coords.lat);
+      setLon(item.coords.lon);
+    }
+    if (item.gender) {
+      setGender(item.gender);
+    }
+  };
+
+  const saveCurrentBtrProfile = (
+    profileName: string,
+    profileDob: string,
+    profileTob: string,
+    profilePob: string,
+    profileLat: string,
+    profileLon: string,
+    profileGender?: "Male" | "Female"
+  ) => {
+    if (!profileName.trim() || profileName.trim().length < 2) return;
+    const [year, month, day] = profileDob.split('-');
+    const dobFormatted = `${day}-${month}-${year}`;
+    saveProfile({
+      name: profileName.trim(),
+      dob: dobFormatted,
+      tob: profileTob,
+      pob: profilePob,
+      coords: { lat: profileLat, lon: profileLon },
+      gender: profileGender
+    });
+  };
 
   useEffect(() => {
     fetchSuggestions(pob);
@@ -133,39 +193,83 @@ export default function BtrClientPage() {
       <main className="flex-grow container mx-auto px-4 mt-8 space-y-8 relative">
 
         {/* Styled Form Section matching Horoscope Page */}
-        <section className="bg-background relative z-20 pt-8">
+        <section className="bg-background relative z-20 pt-6">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-surface p-6 md:p-10 rounded-3xl shadow-sm border border-outline/20 relative overflow-hidden">
+            <div className="bg-surface p-5 md:p-8 rounded-2xl md:rounded-3xl shadow-sm border border-outline/20 relative overflow-hidden">
               <div className="relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 md:gap-5">
                   {/* Name Input */}
-                  <div className="space-y-2">
-                    <label htmlFor="full-name" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Full Name</label>
-                    <input
-                      id="full-name"
-                      name="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full px-6 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body"
-                      placeholder="The earthly name of the soul..."
-                      type="text"
-                      autoComplete="off"
-                      maxLength={100}
-                    />
+                  <div className="space-y-1.5 relative" ref={historyRef}>
+                    <label htmlFor="full-name" className={`text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-wider' : ''}`}>Full Name</label>
+                    <div role="combobox" aria-expanded={showHistory && filteredHistory.length > 0} aria-haspopup="listbox" aria-controls="btr-history-listbox">
+                      <input
+                        id="full-name"
+                        name="name"
+                        value={name}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          if (!showHistory) setShowHistory(true);
+                          setActiveHistoryIndex(-1);
+                        }}
+                        onFocus={() => setShowHistory(true)}
+                        onBlur={() => {
+                          saveCurrentBtrProfile(name, dob, tob, pob, lat, lon, gender);
+                        }}
+                        onKeyDown={(e) => handleHistoryKeyDown(e, onProfileSelect)}
+                        className="w-full px-4 py-2.5 md:py-3 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body"
+                        placeholder="The earthly name of the soul..."
+                        type="text"
+                        autoComplete="off"
+                        maxLength={100}
+                        aria-autocomplete="list"
+                      />
+                    </div>
+
+                    {showHistory && filteredHistory.length > 0 && (
+                      <div className="absolute z-[60] left-0 right-0 top-full mt-1.5 bg-accent border border-white/10 rounded-2xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="px-4 py-2 bg-white/10 border-b border-white/5">
+                          <span className="text-[9px] md:text-[10px] font-medium text-white uppercase font-label tracking-wider">Recent Profiles</span>
+                        </div>
+                        <ul id="btr-history-listbox" role="listbox" className="max-h-52 overflow-y-auto">
+                          {filteredHistory.map((item, index) => (
+                            <li key={index} id={`btr-history-option-${index}`} role="option" aria-selected={index === activeHistoryIndex}>
+                              <button
+                                type="button"
+                            onClick={() => handleSelectHistory(item, onProfileSelect)}
+                                onMouseEnter={() => setActiveHistoryIndex(index)}
+                                className={`w-full text-left px-4 py-2.5 transition-colors group ${index === activeHistoryIndex ? 'bg-white/20' : 'hover:bg-white/10'}`}
+                              >
+                                <div className="flex flex-col gap-0.5">
+                                  <span className="text-xs text-white font-body font-medium transition-colors">{item.name}</span>
+                                  <div className="flex items-center gap-2 text-[9px] md:text-[10px] text-white/80 font-body">
+                                    <span>{formatDobDisplay(item.dob)}</span>
+                                    <span>•</span>
+                                    <span className="truncate">{item.pob}</span>
+                                  </div>
+                                </div>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
 
                   {/* Date Input */}
-                  <div className="space-y-2">
-                    <label htmlFor="dob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Date of Birth</label>
+                  <div className="space-y-1.5">
+                    <label htmlFor="dob-input" className={`text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-wider' : ''}`}>Date of Birth</label>
                     <div className="relative">
                       <input
                         id="dob-input"
                         type="date"
                         value={dob}
-                        onChange={(e) => setDob(e.target.value)}
-                        className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-transparent text-xs md:text-sm font-body cursor-pointer relative z-10"
+                        onChange={(e) => {
+                          setDob(e.target.value);
+                          saveCurrentBtrProfile(name, e.target.value, tob, pob, lat, lon, gender);
+                        }}
+                        className="w-full pl-4 pr-10 py-2.5 md:py-3 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-transparent text-xs md:text-sm font-body cursor-pointer relative z-10"
                       />
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-on-surface text-xs md:text-sm font-body z-20">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-xs md:text-sm font-body z-20">
                         {(() => {
                           if (!dob) return '';
                           const [y, m, d] = dob.split('-');
@@ -177,29 +281,33 @@ export default function BtrClientPage() {
                           return dob;
                         })()}
                       </div>
-                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg z-20" aria-hidden="true">calendar_month</span>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-base z-20" aria-hidden="true">calendar_month</span>
                     </div>
                   </div>
 
                   {/* Time Input */}
-                  <div className="space-y-2">
-                    <label htmlFor="tob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Time of Birth</label>
+                  <div className="space-y-1.5">
+                    <label htmlFor="tob-input" className={`text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-wider' : ''}`}>Time of Birth</label>
                     <div className="relative">
                       <input
                         id="tob-input"
                         type="time"
                         step="1"
                         value={tob}
-                        onChange={(e) => { setTob(e.target.value); setCurrentTob(e.target.value); }}
-                        className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer"
+                        onChange={(e) => {
+                          setTob(e.target.value);
+                          setCurrentTob(e.target.value);
+                          saveCurrentBtrProfile(name, dob, e.target.value, pob, lat, lon, gender);
+                        }}
+                        className="w-full pl-4 pr-10 py-2.5 md:py-3 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer"
                       />
-                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">schedule</span>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-base" aria-hidden="true">schedule</span>
                     </div>
                   </div>
 
                   {/* Place Input with Autocomplete */}
-                  <div className="space-y-2 relative" ref={suggestionRef}>
-                    <label htmlFor="pob-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Place of Birth</label>
+                  <div className="space-y-1.5 relative" ref={suggestionRef}>
+                    <label htmlFor="pob-input" className={`text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-wider' : ''}`}>Place of Birth</label>
                     <div role="combobox" aria-expanded={showSuggestions && (suggestions.length > 0 || isLoading)} aria-haspopup="listbox" aria-controls="suggestions-listbox">
                       <input
                         id="pob-input"
@@ -212,18 +320,18 @@ export default function BtrClientPage() {
                         }}
                         onFocus={() => setShowSuggestions(true)}
                         onKeyDown={handleSuggestionKeyDown}
-                        className="w-full px-6 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body"
+                        className="w-full px-4 py-2.5 md:py-3 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 placeholder:text-secondary text-on-surface text-xs md:text-sm font-body"
                         placeholder="City, Country"
                         type="text"
                         autoComplete="off"
                       />
                     </div>
                     {showSuggestions && (suggestions.length > 0 || isLoading) && (
-                      <div className="absolute z-50 left-0 right-0 top-full mt-2 bg-surface border border-outline/20 rounded-3xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="absolute z-50 left-0 right-0 top-full mt-1.5 bg-surface border border-outline/20 rounded-2xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                         {isLoading ? (
-                          <div className="px-6 py-4 text-xs text-on-surface font-body">Searching cities...</div>
+                          <div className="px-4 py-3 text-xs text-on-surface font-body">Searching cities...</div>
                         ) : (
-                          <ul id="suggestions-listbox" role="listbox" className="max-h-60 overflow-y-auto">
+                          <ul id="suggestions-listbox" role="listbox" className="max-h-52 overflow-y-auto">
                             {suggestions.map((suggestion, index) => (
                               <li key={index} role="option" aria-selected={index === activeSuggestionIndex}>
                                 <button
@@ -234,9 +342,10 @@ export default function BtrClientPage() {
                                     setLon(suggestion.lon);
                                     setShowSuggestions(false);
                                     setActiveSuggestionIndex(-1);
+                                    saveCurrentBtrProfile(name, dob, tob, suggestion.name, suggestion.lat, suggestion.lon, gender);
                                   }}
                                   onMouseEnter={() => setActiveSuggestionIndex(index)}
-                                  className={`w-full text-left px-6 py-3 text-xs md:text-sm text-on-surface font-body transition-colors ${index === activeSuggestionIndex ? 'bg-accent/20' : 'active:bg-accent/5'}`}
+                                  className={`w-full text-left px-4 py-2.5 text-xs md:text-sm text-on-surface font-body transition-colors ${index === activeSuggestionIndex ? 'bg-accent/20' : 'active:bg-accent/5'}`}
                                 >
                                   {suggestion.name}
                                 </button>
@@ -249,19 +358,23 @@ export default function BtrClientPage() {
                   </div>
 
                   {/* Gender Input */}
-                  <div className="space-y-2">
-                    <label htmlFor="gender-input" className={`text-[7px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-widest' : ''}`}>Gender</label>
+                  <div className="space-y-1.5">
+                    <label htmlFor="gender-input" className={`text-[9px] md:text-[10px] font-medium text-on-surface uppercase ml-1 font-label ${lang === 'en' ? 'tracking-wider' : ''}`}>Gender</label>
                     <div className="relative">
                       <select
                         id="gender-input"
                         value={gender}
-                        onChange={e => setGender(e.target.value as "Male"|"Female")}
-                        className="w-full pl-6 pr-12 py-3 md:py-4 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer appearance-none"
+                        onChange={e => {
+                          const newGender = e.target.value as "Male"|"Female";
+                          setGender(newGender);
+                          saveCurrentBtrProfile(name, dob, tob, pob, lat, lon, newGender);
+                        }}
+                        className="w-full pl-4 pr-10 py-2.5 md:py-3 bg-white border border-outline rounded-full focus:ring-1 focus:ring-accent/20 text-on-surface text-xs md:text-sm font-body cursor-pointer appearance-none"
                       >
                          <option value="Male">Male</option>
                          <option value="Female">Female</option>
                       </select>
-                      <span className="absolute right-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-lg" aria-hidden="true">wc</span>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/60 pointer-events-none text-base" aria-hidden="true">wc</span>
                     </div>
                   </div>
                 </div>
