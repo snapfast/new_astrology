@@ -481,22 +481,42 @@ const PanchangPage = () => {
            {/* Celestial Timings Card */}
            <div className="bg-white border border-outline/20 rounded-2xl p-5 md:p-6 shadow-sm">
             <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.celestialTitle}</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunrise}</p>
-                <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunrise}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg">wb_sunny</span>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunrise}</p>
+                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunrise}</p>
+                </div>
               </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunset}</p>
-                <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunset}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg">wb_twilight</span>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunset}</p>
+                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunset}</p>
+                </div>
               </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonrise}</p>
-                <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonrise}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg">nights_stay</span>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonrise}</p>
+                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonrise}</p>
+                </div>
               </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonset}</p>
-                <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonset}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
+                  <span className="material-symbols-outlined text-lg">bedtime</span>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonset}</p>
+                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonset}</p>
+                </div>
               </div>
             </div>
           </div>
