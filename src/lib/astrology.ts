@@ -3333,6 +3333,135 @@ export interface TransitPeriodGroup {
     previous: PeriodDetails;
 }
 
+export interface AscendantTransitData {
+    signIndex: number;
+    signName: string;
+    signSanskrit: string;
+    signLord: string;
+    signLordSanskrit: string;
+    timeIST: string;
+    timeObj: Date;
+    chart: ChartData;
+}
+
+export function getSiderealLagnaAt(time: Ast.AstroTime, lat: number, lon: number): number {
+    const siderealTime = Ast.SiderealTime(time);
+    const RAMC = (siderealTime * 15 + lon) % 360;
+    const rad = Math.PI / 180;
+    const phi = lat * rad;
+    const rot = Ast.Rotation_ECL_EQD(time);
+    const eps = Math.acos(rot.rot[2][2]);
+    const alpha = RAMC * rad;
+    const lagnaTropical = (Math.atan2(Math.cos(alpha), -(Math.sin(alpha) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps))) / rad + 360) % 360;
+    const ayanamsa = getLahiriAyanamsa(time);
+    return (lagnaTropical - ayanamsa + 360) % 360;
+}
+
+export function getTransitsPerAscendant(dateStr: string, latStr?: string, lonStr?: string): AscendantTransitData[] {
+    const lat = parseFloat(latStr || "28.6139");
+    const lon = parseFloat(lonStr || "77.2090");
+
+    const parts = dateStr.split('-').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) {
+        return [];
+    }
+    const [year, month, day] = parts;
+
+    // Start of the day in IST (00:00:00 IST = Date.UTC(year, month - 1, day, 0, 0, 0) - 5.5 hours)
+    const startISTMs = Date.UTC(year, month - 1, day, 0, 0, 0) - 5.5 * 60 * 60 * 1000;
+    const endISTMs = startISTMs + 24 * 60 * 60 * 1000;
+
+    // Scan every 2 minutes across 24h period
+    const stepMs = 2 * 60 * 1000;
+    const timePoints: { ms: number; lagna: number }[] = [];
+
+    for (let ms = startISTMs; ms <= endISTMs; ms += stepMs) {
+        const time = Ast.MakeTime(new Date(ms));
+        const lagna = getSiderealLagnaAt(time, lat, lon);
+        timePoints.push({ ms, lagna });
+    }
+
+    const results: AscendantTransitData[] = [];
+
+    for (let S = 0; S < 12; S++) {
+        const targetDeg = S * 30 + 15;
+        let bestMs = startISTMs;
+        let minDiff = 360;
+
+        for (let i = 1; i < timePoints.length; i++) {
+            const p1 = timePoints[i - 1];
+            const p2 = timePoints[i];
+
+            const l1 = p1.lagna;
+            let l2 = p2.lagna;
+
+            let t = targetDeg;
+            if (l2 < l1) {
+                l2 += 360;
+                if (t < l1) t += 360;
+            }
+
+            if (t >= l1 && t <= l2) {
+                let low = p1.ms;
+                let high = p2.ms;
+
+                for (let iter = 0; iter < 20; iter++) {
+                    const mid = (low + high) / 2;
+                    const midTime = Ast.MakeTime(new Date(mid));
+                    let midLagna = getSiderealLagnaAt(midTime, lat, lon);
+                    if (midLagna < l1 && l2 >= 360) midLagna += 360;
+
+                    if (midLagna < t) {
+                        low = mid;
+                    } else {
+                        high = mid;
+                    }
+                }
+                bestMs = (low + high) / 2;
+                minDiff = 0;
+                break;
+            } else {
+                const d1 = Math.min(Math.abs(p1.lagna - targetDeg), 360 - Math.abs(p1.lagna - targetDeg));
+                if (d1 < minDiff) {
+                    minDiff = d1;
+                    bestMs = p1.ms;
+                }
+            }
+        }
+
+        const istMs = bestMs + 5.5 * 60 * 60 * 1000;
+        const istDate = new Date(istMs);
+
+        const h = istDate.getUTCHours();
+        const m = istDate.getUTCMinutes();
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 === 0 ? 12 : h % 12;
+        const timeIST = `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${ampm} IST`;
+
+        const dobStr = `${istDate.getUTCFullYear()}-${String(istDate.getUTCMonth() + 1).padStart(2, '0')}-${String(istDate.getUTCDate()).padStart(2, '0')}`;
+        const tobStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+        const chart = generateAstrologyData(dobStr, tobStr, lat.toString(), lon.toString());
+
+        const signInfo = RASI_FULL_NAMES[S];
+        const lordName = RASI_LORDS[S];
+        const lordSanskrit = PLANET_NAMES[lordName]?.sanskrit || lordName;
+
+        results.push({
+            signIndex: S,
+            signName: signInfo.name,
+            signSanskrit: signInfo.sanskrit,
+            signLord: lordName,
+            signLordSanskrit: lordSanskrit,
+            timeIST,
+            timeObj: new Date(bestMs),
+            chart
+        });
+    }
+
+    return results;
+}
+
 function getRetroStepDays(planet: string): number {
     switch (planet) {
         case "Mercury": return 2;

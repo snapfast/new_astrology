@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import * as Ast from 'astronomy-engine';
-import { getMeanRahu, type PlanetData, type PanchangData, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getPlanetTransits, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala } from './astrology.ts';
+import { getMeanRahu, type PlanetData, type PanchangData, calculateVimshottariDasha, getD7Rasi, getD60Rasi, generateAstrologyData, getPlanetTransits, getRetrogradeDetails, getCombustionDetails, SIDEREAL_YEAR_DAYS, getHoraData, calculateAllShadBala, getTransitsPerAscendant } from './astrology.ts';
 
 /**
  * Calculates the expected mean longitude of Rahu based on the formula from Meeus.
@@ -725,4 +725,30 @@ test('calculateAllShadBala isDay fallback logic handles malformed panchang times
     assert.ok(sunDayKala !== undefined);
     assert.ok(sunNightKala !== undefined);
     assert.notStrictEqual(sunDayKala, sunNightKala, "KalaBala should differ between day and night fallback times");
+});
+
+test('getTransitsPerAscendant calculates 12 ascendant charts with Lagna near 15 deg', () => {
+    const ascTransits = getTransitsPerAscendant("2026-07-16", "28.6139", "77.2090");
+
+    assert.strictEqual(ascTransits.length, 12, "Should return charts for all 12 Ascendants");
+
+    const expectedSigns = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
+
+    ascTransits.forEach((data, index) => {
+        assert.strictEqual(data.signIndex, index, `Index ${index} should match signIndex`);
+        assert.strictEqual(data.signName, expectedSigns[index], `Sign name should be ${expectedSigns[index]}`);
+        assert.ok(data.timeIST.includes("IST"), "timeIST should contain IST suffix");
+        assert.ok(data.chart, "Should contain chart data");
+        assert.ok(data.chart.d1, "Chart should contain D1 Kundli chart");
+
+        const ascPlanet = data.chart.planets.find(p => p.name === "Ascendant");
+        assert.ok(ascPlanet, `Ascendant planet should be present in chart for ${data.signName}`);
+        assert.strictEqual(ascPlanet.rasi, expectedSigns[index], `Ascendant rasi should be ${expectedSigns[index]}`);
+
+        // Degree should be approximately 15 degrees (e.g. 14°..15°)
+        const degMatch = ascPlanet.degree.match(/^(\d+)°/);
+        assert.ok(degMatch, "Degree string should match format");
+        const degVal = parseInt(degMatch[1], 10);
+        assert.ok(degVal >= 14 && degVal <= 15, `Ascendant degree for ${data.signName} should be close to 15°, got ${ascPlanet.degree}`);
+    });
 });

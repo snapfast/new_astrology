@@ -84,6 +84,7 @@ const Navbar = () => {
         { name: t.panchang, href: '/panchang' },
         { name: 'Transits (Gochar)', href: '/transits' },
         { name: 'Transits Table', href: '/transits-table' },
+        { name: 'Transits per Ascendant', href: '/transits-per-ascendant' },
         { name: 'Planetary Hours (Hora)', href: '/hora' },
         { name: 'KP Prashna', href: '/kp-horary' },
         { name: 'Panch Pakshi', href: '/panch-pakshi' },
