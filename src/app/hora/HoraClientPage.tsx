@@ -384,7 +384,7 @@ const HoraClientPage = () => {
                           </td>
                           <td className="py-2 px-3">
                             <div className="flex items-center gap-1.5">
-                              <span className="material-symbols-outlined !text-base" style={{ color: hora.nature === 'benefic' ? '#2e7d32' : '#ffae42' }}>
+                              <span className="material-symbols-outlined !text-base" style={{ color: hora.nature === 'benefic' ? '#2e7d32' : '#FF5900' }}>
                                 {hora.lord === "Sun" ? "sunny" :
                                  hora.lord === "Moon" ? "bedtime" :
                                  hora.lord === "Mars" ? "local_fire_department" :
