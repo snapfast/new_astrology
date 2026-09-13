@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import KundliChart from '@/components/KundliChart';
 import ExploreTools from '@/components/ExploreTools';
-import { getTransitsPerAscendant, AscendantTransitData } from '@/lib/astrology';
+import { getTransitsPerAscendant, type AscendantTransitData } from '@/lib/transits';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
@@ -108,7 +108,7 @@ const TransitsPerAscendantClientPage = () => {
                     {item.signName} <span className="font-hindi text-base font-normal text-on-surface/70">({item.signSanskrit})</span>
                   </h3>
                   <span className="text-xs font-label uppercase font-semibold text-accent tracking-wider">
-                    Lagna #1
+                    Lagna #{item.signIndex + 1}
                   </span>
                 </div>
 

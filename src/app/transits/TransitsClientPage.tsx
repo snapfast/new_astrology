@@ -5,15 +5,17 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import {
-  getPlanetTransits,
   PLANET_NAMES,
-  getRetrogradeDetails,
-  getCombustionDetails,
-  TransitEvent,
   COMBUSTION_ORB_LIMITS,
   RETROGRADE_INSIGHTS,
   COMBUSTION_INSIGHTS
 } from '@/lib/astrology';
+import {
+  getPlanetTransits,
+  getRetrogradeDetails,
+  getCombustionDetails,
+  type TransitEvent
+} from '@/lib/transits';
 import { sendGAEvent } from '@next/third-parties/google';
 import ExploreTools from '@/components/ExploreTools';
 

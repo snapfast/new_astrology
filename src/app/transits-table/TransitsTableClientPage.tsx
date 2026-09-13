@@ -5,7 +5,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import ExploreTools from '@/components/ExploreTools';
-import { generateAstrologyData, PLANET_NAMES, getPlanetTransits } from '@/lib/astrology';
+import { generateAstrologyData, PLANET_NAMES } from '@/lib/astrology';
+import { getPlanetTransits } from '@/lib/transits';
 
 const TRANSLATIONS = {
   en: {
