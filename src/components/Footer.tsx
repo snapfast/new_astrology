@@ -20,7 +20,8 @@ const TRANSLATIONS = {
   rights: 'Rahul Bali Astrology Services © 2025. All rights reserved.',
   privacy: 'Privacy',
   terms: 'Terms',
-  faq: 'FAQ'
+  faq: 'FAQ',
+  feedback: 'Feedback'
 };
 
 const Footer = () => {
@@ -61,6 +62,7 @@ const Footer = () => {
           <ul className="space-y-5 text-sm">
             <li><Link prefetch={true} className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
             <li><Link prefetch={true} className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
+            <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_company_feedback' })} className="text-on-surface font-normal" href="https://forms.gle/i2qXvXi84FvpH26N6" target="_blank" rel="noopener noreferrer">{t.feedback}</a></li>
           </ul>
         </div>
       </div>
