@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Planetary Transits (Gochar)',
   description: 'Track the movements (Gochara) of all nine Vedic planets across Rashi (Signs) and Nakshatras (Asterisms).',
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Planetary Transits", "Gochar Tracker", "Vedic Astrology Transits", "planetary shifts",
     "Gochara online", "planet movements", "Pandit Rahul Bali transits",
     "Rashi transit details", "Nakshatra transit", "all 9 planets gochar"

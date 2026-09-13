@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Vedic Horoscope",
   description: "Generate your free Vedic astrology birth chart (Kundli). Get planetary positions, divisional charts, and Vimshottari Dasha.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Free Vedic Horoscope", "Online Birth Chart", "Accurate Kundli Online", "Janam Kundali",
     "divisional charts", "Vimshottari Dasha", "Pandit Rahul Bali astrology"
   ],

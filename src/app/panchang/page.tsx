@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Daily Panchang",
   description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Daily Panchang", "Today Panchang", "Vedic Panchang", "Tithi Today", "Nakshatra Today",
     "Rahu Kaal Today", "Abhijit Muhurta", "Vedic Calendar", "Hindu Calendar", "Auspicious Timings"
   ],

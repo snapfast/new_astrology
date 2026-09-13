@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Birth Time Rectification (BTR)",
   description: "Birth Time Rectification (BTR) tool to determine and adjust your birth time using Vedic Astrology techniques.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Birth Time Rectification", "BTR Tool", "Vedic Astrology BTR", "Rectify Birth Time",
     "Divisional Charts BTR", "Rahul Bali astrology"
   ],

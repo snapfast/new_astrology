@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Terms of Service", "astrological disclaimers", "Rahul Bali Astrology terms",
     "consultation guidelines", "refund and payment terms"
   ],

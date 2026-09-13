@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "About",
   description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "About Rahul Bali", "Vedic Astrologer",
     "Jyotish Shastra practitioner", "astrology life remedies", "Rahul Bali Astrology bio"
   ],

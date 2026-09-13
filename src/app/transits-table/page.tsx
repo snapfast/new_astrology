@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Current Planetary Transits Table',
   description: 'View the current astrological positions and status of all Vedic planets in a table view.',
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Planetary Transits Table", "Current Planetary Positions", "Gochar Table", "Vedic Astrology Transits",
     "live planets", "current rashi", "nakshatra position"
   ],

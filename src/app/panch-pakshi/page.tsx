@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: 'Panch Pakshi',
   description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra. Understand its five astrological activity states for precise daily guidance and timing.',
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Panch Pakshi", "Five Birds Astrology", "Nakshatra Bird", "Vedic Astrology Calculator",
     "Ruling Bird", "Janam Nakshatra", "Panch Pakshi Activity Table", "Pandit Rahul Bali", "Aprakshya Planets",
     "all 17 varga charts", "Biorhythm tracker", "Vedic system of five birds", "Pancha Pakshi"

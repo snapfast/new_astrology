@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Reviews",
   description: "Client reviews and experiences with Rahul Bali Astrology",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Rahul Bali reviews", "trusted astrologer reviews",
     "client testimonials", "accurate astrology predictions", "astrologer Google rating"
   ],
