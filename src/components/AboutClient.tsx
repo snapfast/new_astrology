@@ -4,13 +4,6 @@ import React from 'react';
 import { SPECIALIZED_SERVICES } from '@/lib/consultations';
 import { SOCIAL_PROFILES } from '@/lib/social-data';
 
-const BALI_STYLES = [
-  { id: 1, label: 'Elegant Cursive', svg: '/images/bali-styles/bali-style-1.svg', webp: '/images/bali-styles/bali-style-1.webp' },
-  { id: 2, label: 'Modern Editorial', svg: '/images/bali-styles/bali-style-2.svg', webp: '/images/bali-styles/bali-style-2.webp' },
-  { id: 3, label: 'Vedic Traditional', svg: '/images/bali-styles/bali-style-3.svg', webp: '/images/bali-styles/bali-style-3.webp' },
-  { id: 4, label: 'Artistic Expression', svg: '/images/bali-styles/bali-style-4.svg', webp: '/images/bali-styles/bali-style-4.webp' },
-];
-
 export default function AboutClient() {
   return (
     <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
@@ -18,24 +11,24 @@ export default function AboutClient() {
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-8">
         <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed space-y-4">
           <p className="text-base md:text-lg text-on-surface/90">
-            Rahul Bali was born into the{' '}
+            Born into the{' '}
             <a
               href="https://en.wikipedia.org/wiki/Bali_clan"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent underline font-medium hover:text-accent/80 transition-colors"
             >
-              Bali Family
+              Bali family
             </a>
-            {' '}in Ambala City. Trained in classical Brahmin traditions since birth, he completed his schooling in Ambala and earned a double degree in engineering. An engineer by profession, he has been working at an MNC (Google) since 2018.
+            {' '}in Ambala City, Rahul Bali was nurtured in classical Brahmin traditions from an early age. After completing his schooling in Ambala, he earned a double degree in engineering and has served as a software engineer at Google since 2018.
           </p>
           <p className="text-base md:text-lg text-on-surface/90">
-            He combines progressive thinking with traditional values and enjoys traveling across India.
+            Blending contemporary analytical perspectives with timeless traditional wisdom, he finds continuous inspiration in traveling across India.
           </p>
           <p className="text-base md:text-lg text-on-surface/90">
-            Pandit Rahul Bali Ji provides practical life guidance through{' '}
+            Pandit Rahul Bali Ji offers serene and practical life guidance through{' '}
             <strong className="text-on-surface font-semibold">Jyotish Shastra</strong>
-            . His approach combines classical astrology with psychological insights, focusing on understanding deep-rooted thinking patterns and behaviors.
+            . His thoughtful approach harmonizes classical astrology with gentle psychological insight, helping individuals understand deep-rooted thinking patterns, navigate life with clarity, and cultivate inner harmony.
           </p>
         </div>
         <div className="pt-6 border-t border-outline/10 text-xl md:text-2xl text-accent font-hindi tracking-wide">
@@ -162,32 +155,6 @@ export default function AboutClient() {
         </div>
       </div>
 
-      {/* Stylised Brand Mark Variations Gallery */}
-      <div className="space-y-8 text-center">
-        <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
-          Stylised Brand Mark Variations
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {BALI_STYLES.map((style) => (
-            <div
-              key={style.id}
-              className="p-4 rounded-3xl bg-surface-bright border border-outline/20 shadow-sm flex flex-col items-center justify-center transition-all hover:border-outline/40"
-            >
-              <picture className="w-full h-auto block">
-                <source srcSet={style.webp} type="image/webp" />
-                <source srcSet={style.svg} type="image/svg+xml" />
-                <img
-                  src={style.webp}
-                  alt={`Bali Stylised Wordmark - ${style.label}`}
-                  className="w-full h-auto object-contain rounded-2xl"
-                  loading="lazy"
-                />
-              </picture>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
