@@ -18,24 +18,24 @@ export default function AboutClient() {
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 text-center space-y-8">
         <div className="prose prose-lg max-w-2xl mx-auto font-body text-on-surface leading-relaxed space-y-4">
           <p className="text-base md:text-lg text-on-surface/90">
-            Rahul Bali was born into the{' '}
+            Born into the{' '}
             <a
               href="https://en.wikipedia.org/wiki/Bali_clan"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent underline font-medium hover:text-accent/80 transition-colors"
             >
-              Bali Family
+              Bali family
             </a>
-            {' '}in Ambala City. Trained in classical Brahmin traditions since birth, he completed his schooling in Ambala and earned a double degree in engineering. An engineer by profession, he has been working at an MNC (Google) since 2018.
+            {' '}in Ambala City, Rahul Bali was nurtured in classical Brahmin traditions from an early age. After completing his schooling in Ambala, he earned a double degree in engineering and has served as a software engineer at Google since 2018.
           </p>
           <p className="text-base md:text-lg text-on-surface/90">
-            He combines progressive thinking with traditional values and enjoys traveling across India.
+            Blending contemporary analytical perspectives with timeless traditional wisdom, he finds continuous inspiration in traveling across India.
           </p>
           <p className="text-base md:text-lg text-on-surface/90">
-            Pandit Rahul Bali Ji provides practical life guidance through{' '}
+            Pandit Rahul Bali Ji offers serene and practical life guidance through{' '}
             <strong className="text-on-surface font-semibold">Jyotish Shastra</strong>
-            . His approach combines classical astrology with psychological insights, focusing on understanding deep-rooted thinking patterns and behaviors.
+            . His thoughtful approach harmonizes classical astrology with gentle psychological insight, helping individuals understand deep-rooted thinking patterns, navigate life with clarity, and cultivate inner harmony.
           </p>
         </div>
         <div className="pt-6 border-t border-outline/10 text-xl md:text-2xl text-accent font-hindi tracking-wide">

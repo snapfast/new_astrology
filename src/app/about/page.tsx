@@ -9,7 +9,7 @@ import ExploreTools from '@/components/ExploreTools';
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
+  description: "Discover the journey of Pandit Rahul Bali Ji, offering serene insights, traditional Vedic wisdom, and practical life remedies.",
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "About Rahul Bali", "Vedic Astrologer",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "About | Rahul Bali Astrology",
-    description: "Learn about Rahul Bali, providing insights and life remedies rooted in Vedic Astrology.",
+    description: "Discover the journey of Pandit Rahul Bali Ji, offering serene insights, traditional Vedic wisdom, and practical life remedies.",
     url: "https://baliastrology.com/about",
     siteName: "Rahul Bali Astrology",
     images: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "About | Rahul Bali Astrology",
-    description: "Learn about Pandit Rahul Bali Ji, a renowned expert in Vedic Astrology providing spiritual insights and practical life remedies.",
+    description: "Discover the journey of Pandit Rahul Bali Ji, offering serene insights, traditional Vedic wisdom, and practical life remedies.",
     images: ["/og-image.png"],
   },
 };
