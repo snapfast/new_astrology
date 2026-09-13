@@ -76,6 +76,16 @@ const ALL_CARDS = [
     paths: ['/transits-table']
   },
   {
+    id: 'transits-ascendant',
+    href: '/transits-per-ascendant',
+    icon: 'grid_view',
+    title: 'Transits per Ascendant',
+    desc: 'View daily transit Kundli charts rotated for each of the 12 Ascendants when Lagna is 15°.',
+    action: 'View Ascendants',
+    gaAction: 'explore_transits_ascendant',
+    paths: ['/transits-per-ascendant']
+  },
+  {
     id: 'booking',
     isButton: true,
     icon: 'chat_bubble',
