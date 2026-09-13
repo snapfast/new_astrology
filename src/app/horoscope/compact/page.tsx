@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   description: "A compact dashboard for your Vedic birth chart (Kundli). View charts, planetary positions, and dasha details.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Compact Kundli Dashboard", "High-Density Birth Chart", "Vedic chart dashboard",
     "divisional charts view", "planetary positions single screen", "professional astrologer dashboard"
   ],

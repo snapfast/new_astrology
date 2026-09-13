@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Planetary Hours (Hora)",
   description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Planetary Hours", "Hora Calculator", "Vedic Hora", "Hora Lord Today", "Brihat Parasara Hora Shastra",
     "Auspicious Hours", "Vedic Muhurta", "Planet Hours", "Astro Hours", "Auspicious Timings"
   ],

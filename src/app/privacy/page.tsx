@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Read our Privacy Policy. Learn how your information is processed securely.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Privacy Policy", "Rahul Bali Astrology privacy", "birth data security",
     "confidential astrology consultation", "user data privacy"
   ],

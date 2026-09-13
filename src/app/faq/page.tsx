@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "FAQ",
   description: "Explore frequently asked questions about Vedic Astrology, Divisional Varga charts, Panch Pakshi, and Biorhythm.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Vedic Astrology FAQ", "all 17 varga charts", "divisional charts in hindi",
     "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm cycles",
     "D9 Navamsha usage", "D10 Dashamsha career", "Astrology questions", "Rahul Bali FAQ"

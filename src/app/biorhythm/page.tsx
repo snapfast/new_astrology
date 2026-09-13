@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Biorhythm',
   description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Biorhythm Calculator", "Biorhythm system", "physical emotional intellectual cycles", "energy cycle tracker",
     "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools",
     "Panch Pakshi", "all 17 varga charts", "body biorhythms", "energy flow"

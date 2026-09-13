@@ -22,7 +22,11 @@ export const metadata: Metadata = {
     template: "%s | Rahul Bali Astrology",
   },
   description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
-  keywords: ["Vedic Astrology", "Horoscope", "Birth Chart", "Spiritual Consultation", "Pandit Rahul Bali", "Astrology Readings", "Kundli", "Jyotish"],
+  keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
+    "Vedic Astrology", "Horoscope", "Birth Chart", "Spiritual Consultation", "Pandit Rahul Bali",
+    "Astrology Readings", "Kundli", "Jyotish"
+  ],
   authors: [{ name: "Pandit Rahul Bali" }],
   creator: "Pandit Rahul Bali",
   publisher: "Rahul Bali Astrology",

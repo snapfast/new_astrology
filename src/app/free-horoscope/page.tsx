@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Free Kundli",
   description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Free Kundli", "Online Kundli", "Janam Kundali", "Vedic Horoscope", "Birth Chart",
     "Free Astrology Report", "Kundali Matching", "Laguna Chart", "Navamsha Chart",
     "Vedic Astrology Online", "Accurate Kundli", "Pandit Rahul Bali", "Astrology Chart"

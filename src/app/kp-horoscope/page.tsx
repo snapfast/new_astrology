@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "KP Prashna Kundli",
   description: "View your KP Prashna Kundli based on Horary number.",
   keywords: [
+    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "KP Prashna Kundli", "KP Horary", "Krishnamurti Paddhati", "Astrology",
     "Prashna Chart", "Rahul Bali astrology"
   ],
