@@ -9,11 +9,11 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
-    title: "Book Astrology Reading Online",
+    title: "Booking Online",
     subtitle: "Personalised Guidance",
     description: (
       <div className="font-body">
-        Have a specific question about your life? Get clear, direct answers through a personalised astrology reading based on your birth chart. No generic predictions, only focused insights tailored to you.
+        Focused chart insights.
       </div>
     ),
     chooseReadingTitle: "Personalised Astrology Reading",
