@@ -11,11 +11,11 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology Consultations | Rahul Bali Astrology",
+  title: "Vedic Astrology Consultations | Bali Astrology",
   description: "Consult with Rahul Bali for Vedic Astrology. Get Janam Kundli readings, varga charts, Panch Pakshi & Biorhythm.",
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
-    "Rahul Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
+    "Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
     "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
     "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm tracker"
   ],
@@ -28,7 +28,7 @@ export default function Home() {
   const businessSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Rahul Bali Astrology",
+    "name": "Bali Astrology",
     "image": "https://baliastrology.com/og-image.png",
     "@id": "https://baliastrology.com",
     "url": "https://baliastrology.com",

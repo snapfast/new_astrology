@@ -17,16 +17,16 @@ export const metadata: Metadata = {
     canonical: "https://baliastrology.com/panch-pakshi",
   },
   openGraph: {
-    title: 'Panch Pakshi | Rahul Bali Astrology',
+    title: 'Panch Pakshi | Bali Astrology',
     description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra. Understand its five astrological activity states for precise daily guidance and timing.',
     url: 'https://baliastrology.com/panch-pakshi',
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Panch Pakshi Calculator - Rahul Bali Astrology",
+        alt: "Panch Pakshi Calculator - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: 'Panch Pakshi | Rahul Bali Astrology',
+    title: 'Panch Pakshi | Bali Astrology',
     description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra. Understand its five astrological activity states for precise daily guidance and timing.',
     images: ["/og-image.png"],
   },

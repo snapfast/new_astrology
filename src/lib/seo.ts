@@ -11,7 +11,7 @@ export const generateWebPageSchema = (
     "url": url,
     "publisher": {
       "@type": "Organization",
-      "name": "Rahul Bali Astrology",
+      "name": "Bali Astrology",
       "logo": {
         "@type": "ImageObject",
         "url": "https://baliastrology.com/og-image.png"

@@ -7,22 +7,22 @@ export const metadata: Metadata = {
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "KP Prashna Kundli", "KP Horary", "Krishnamurti Paddhati", "Horary Astrology",
-    "Prashna Chart", "Rahul Bali astrology"
+    "Prashna Chart", "Bali astrology"
   ],
   alternates: {
     canonical: "https://baliastrology.com/kp-horary",
   },
   openGraph: {
-    title: "KP Prashna Kundli | Rahul Bali Astrology",
+    title: "KP Prashna Kundli | Bali Astrology",
     description: "Cast a KP Prashna chart online using a Horary number from 1 to 249.",
     url: "https://baliastrology.com/kp-horary",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "KP Prashna Kundli - Rahul Bali Astrology",
+        alt: "KP Prashna Kundli - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "KP Prashna Kundli | Rahul Bali Astrology",
+    title: "KP Prashna Kundli | Bali Astrology",
     description: "Cast a KP Prashna chart online using a Horary number from 1 to 249.",
     images: ["/og-image.png"],
   },

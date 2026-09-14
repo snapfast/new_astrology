@@ -18,8 +18,8 @@ const akshar = Akshar({
 export const metadata: Metadata = {
   metadataBase: new URL("https://baliastrology.com"),
   title: {
-    default: "Rahul Bali Astrology",
-    template: "%s | Rahul Bali Astrology",
+    default: "Bali Astrology",
+    template: "%s | Bali Astrology",
   },
   description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
   keywords: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Pandit Rahul Bali" }],
   creator: "Pandit Rahul Bali",
-  publisher: "Rahul Bali Astrology",
+  publisher: "Bali Astrology",
   alternates: {
     canonical: "https://baliastrology.com",
     languages: {
@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Rahul Bali Astrology",
+    title: "Bali Astrology",
     description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
     url: "https://baliastrology.com",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png", // Assuming an OG image will be provided or exists
         width: 1200,
         height: 630,
-        alt: "Rahul Bali Astrology",
+        alt: "Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rahul Bali Astrology",
+    title: "Bali Astrology",
     description: "Vedic Astrology guidance by Rahul Bali. Get horoscopes, birth chart readings, and consultations.",
     images: ["/og-image.png"],
   },
@@ -126,7 +126,7 @@ export default async function RootLayout({
               "jobTitle": "Vedic Astrologer",
               "worksFor": {
                 "@type": "Organization",
-                "name": "Rahul Bali Astrology"
+                "name": "Bali Astrology"
               },
               "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology, providing personalized horoscopes and spiritual consultations."
             }}

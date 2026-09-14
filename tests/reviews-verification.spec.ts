@@ -5,7 +5,7 @@ test('Reviews page map and note verification', async ({ page }) => {
   await page.waitForLoadState('networkidle');
 
   // Verify Google Maps iframe
-  const mapIframe = page.locator('iframe[title="Rahul Bali Astrology on Google Maps"]');
+  const mapIframe = page.locator('iframe[title="Bali Astrology on Google Maps"]');
   await expect(mapIframe).toBeVisible();
 
   const iframeSrc = await mapIframe.getAttribute('src');

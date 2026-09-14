@@ -241,7 +241,7 @@ const PanchangPage = () => {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Rahul Bali Astrology"
+      "name": "Bali Astrology"
     }
   };
 

@@ -7,22 +7,22 @@ export const metadata: Metadata = {
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Free Vedic Horoscope", "Online Birth Chart", "Accurate Kundli Online", "Janam Kundali",
-    "divisional charts", "Vimshottari Dasha", "Pandit Rahul Bali astrology"
+    "divisional charts", "Vimshottari Dasha", "Pandit Bali astrology"
   ],
   alternates: {
     canonical: "https://baliastrology.com/horoscope",
   },
   openGraph: {
-    title: "Vedic Horoscope | Rahul Bali Astrology",
+    title: "Vedic Horoscope | Bali Astrology",
     description: "Generate your free Vedic astrology birth chart (Kundli). Get planetary positions, divisional charts, and Vimshottari Dasha.",
     url: "https://baliastrology.com/horoscope",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Free Vedic Horoscope & Birth Chart - Rahul Bali Astrology",
+        alt: "Free Vedic Horoscope & Birth Chart - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vedic Horoscope | Rahul Bali Astrology",
+    title: "Vedic Horoscope | Bali Astrology",
     description: "Generate your free Vedic astrology birth chart (Kundli).",
     images: ["/og-image.png"],
   },

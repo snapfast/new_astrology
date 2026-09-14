@@ -13,22 +13,22 @@ export const metadata: Metadata = {
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "About Rahul Bali", "Vedic Astrologer",
-    "Jyotish Shastra practitioner", "astrology life remedies", "Rahul Bali Astrology bio"
+    "Jyotish Shastra practitioner", "astrology life remedies", "Bali Astrology bio"
   ],
   alternates: {
     canonical: "https://baliastrology.com/about",
   },
   openGraph: {
-    title: "About | Rahul Bali Astrology",
+    title: "About | Bali Astrology",
     description: "Discover the journey of Pandit Rahul Bali Ji, offering serene insights, traditional Vedic wisdom, and practical life remedies.",
     url: "https://baliastrology.com/about",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "About Pandit Rahul Bali Ji - Rahul Bali Astrology",
+        alt: "About Pandit Rahul Bali Ji - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About | Rahul Bali Astrology",
+    title: "About | Bali Astrology",
     description: "Discover the journey of Pandit Rahul Bali Ji, offering serene insights, traditional Vedic wisdom, and practical life remedies.",
     images: ["/og-image.png"],
   },
@@ -60,7 +60,7 @@ export default function AboutPage() {
       "jobTitle": "Vedic Astrologer",
       "worksFor": {
         "@type": "Organization",
-        "name": "Rahul Bali Astrology"
+        "name": "Bali Astrology"
       },
       "description": "Pandit Rahul Bali Ji is a renowned expert in Vedic Astrology providing personalized horoscopes and spiritual consultations."
     }

@@ -7,23 +7,23 @@ export const metadata: Metadata = {
   description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
-    "Terms of Service", "astrological disclaimers", "Rahul Bali Astrology terms",
+    "Terms of Service", "astrological disclaimers", "Bali Astrology terms",
     "consultation guidelines", "refund and payment terms"
   ],
   alternates: {
     canonical: "https://baliastrology.com/terms",
   },
   openGraph: {
-    title: "Terms of Service | Rahul Bali Astrology",
+    title: "Terms of Service | Bali Astrology",
     description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
     url: "https://baliastrology.com/terms",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Terms of Service - Rahul Bali Astrology",
+        alt: "Terms of Service - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms of Service | Rahul Bali Astrology",
+    title: "Terms of Service | Bali Astrology",
     description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",
     images: ["/og-image.png"],
   },
