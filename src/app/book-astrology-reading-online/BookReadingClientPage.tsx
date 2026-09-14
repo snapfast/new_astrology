@@ -103,16 +103,7 @@ const BookReadingClientPage: FC = () => {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-16 md:space-y-24">
         {/* Single Reading Package */}
-        <section className="space-y-8 max-w-2xl mx-auto">
-          <div className="text-center space-y-2">
-            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em]">
-              Service Package
-            </span>
-            <h2 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">
-              {t.chooseReadingTitle}
-            </h2>
-          </div>
-
+        <section className="max-w-2xl mx-auto">
           <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-10 shadow-sm flex flex-col justify-between relative transition-all">
             <div className="space-y-4 text-center">
               <h3 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
