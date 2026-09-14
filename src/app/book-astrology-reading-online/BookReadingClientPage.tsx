@@ -22,7 +22,7 @@ const TRANSLATIONS = {
       title: "Personalised Birth Chart Reading",
       priceInr: "₹701",
       priceUsd: "$11",
-      description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies. Available as a written report or consultation call.",
+      description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies during your consultation call.",
     },
     howToBookTitle: "How to book",
     steps: [
@@ -36,7 +36,7 @@ const TRANSLATIONS = {
     paypalLabel: "PayPal (for international clients):",
     paypalEmail: "rahulbaliastrology@gmail.com",
     nextTitle: "What Happens Next",
-    nextDesc1: "Once you schedule your slot, you will receive an instant Google Meet invitation. Your consultation or written analysis will be provided during your scheduled timeframe.",
+    nextDesc1: "Once you schedule your slot, you will receive an instant Google Meet invitation. Your consultation will be provided during your scheduled timeframe.",
     nextDesc2: "Each answer is carefully prepared — based on your chart, your question, and your energy.",
     scheduleTitle: "Schedule Your Appointment",
     scheduleBtnText: "Book Your Slot on Calendly",
