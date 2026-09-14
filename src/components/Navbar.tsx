@@ -49,10 +49,10 @@ const Navbar = () => {
 
   // Listen for custom openBookingModal event
   useEffect(() => {
-    const handleOpenModal = () => setIsBookingModalOpen(true);
+    const handleOpenModal = () => router.push('/book-astrology-reading-online');
     window.addEventListener('openBookingModal', handleOpenModal);
     return () => window.removeEventListener('openBookingModal', handleOpenModal);
-  }, []);
+  }, [router]);
 
   // Lock scroll when menu is open
   useEffect(() => {

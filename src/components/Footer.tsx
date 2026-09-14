@@ -46,8 +46,8 @@ const Footer = () => {
             <li><Link prefetch={true} href="/hora" className="text-on-surface font-normal text-left">{t.hora}</Link></li>
             <li><Link prefetch={true} href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
             <li><Link prefetch={true} href="/book-astrology-reading-online" className="text-on-surface font-normal text-left">Book a Reading</Link></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.consultation}</button></li>
-            <li><button onClick={() => { sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' }); setIsBookingModalOpen(true); }} className="text-on-surface font-normal text-left">{t.premium}</button></li>
+            <li><Link prefetch={true} href="/book-astrology-reading-online" onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' })} className="text-on-surface font-normal text-left">{t.consultation}</Link></li>
+            <li><Link prefetch={true} href="/book-astrology-reading-online" onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_service_premium' })} className="text-on-surface font-normal text-left">{t.premium}</Link></li>
           </ul>
         </div>
         <div>
