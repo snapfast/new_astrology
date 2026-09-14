@@ -13,7 +13,7 @@ const TRANSLATIONS = {
     subtitle: "Personalised Guidance",
     description: (
       <div className="font-body">
-        Have a specific question about your life? Get clear, direct answers through a personalised astrology reading based on your birth chart. No generic predictions, only focused insights tailored to you.
+        Get clear, direct answers tailored to your birth chart — focused insights with no generic predictions.
       </div>
     ),
     chooseReadingTitle: "Personalised Astrology Reading",
