@@ -271,12 +271,12 @@ const BookReadingClientPage: FC = () => {
           </div>
 
           <div className="w-full flex justify-center">
-            <div className="w-full max-w-3xl min-h-[700px] border border-outline/10 rounded-2xl overflow-hidden bg-surface-bright">
+            <div className="w-full max-w-3xl min-h-[950px] md:min-h-[1100px] border border-outline/10 rounded-2xl overflow-hidden bg-surface-bright">
               <iframe
                 src={t.googleFormUrl}
                 width="100%"
-                height="750"
-                className="w-full border-0"
+                height="1100"
+                className="w-full border-0 min-h-[950px] md:min-h-[1100px]"
                 title="Submit Astrology Question Form"
                 loading="lazy"
               >
