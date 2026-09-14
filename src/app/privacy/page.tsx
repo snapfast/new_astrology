@@ -7,23 +7,23 @@ export const metadata: Metadata = {
   description: "Read our Privacy Policy. Learn how your information is processed securely.",
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
-    "Privacy Policy", "Rahul Bali Astrology privacy", "birth data security",
+    "Privacy Policy", "Bali Astrology privacy", "birth data security",
     "confidential astrology consultation", "user data privacy"
   ],
   alternates: {
     canonical: "https://baliastrology.com/privacy",
   },
   openGraph: {
-    title: "Privacy Policy | Rahul Bali Astrology",
+    title: "Privacy Policy | Bali Astrology",
     description: "Read our Privacy Policy. Learn how your information is processed securely.",
     url: "https://baliastrology.com/privacy",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Privacy Policy - Rahul Bali Astrology",
+        alt: "Privacy Policy - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | Rahul Bali Astrology",
+    title: "Privacy Policy | Bali Astrology",
     description: "Read our Privacy Policy. Learn how your information is processed securely.",
     images: ["/og-image.png"],
   },

@@ -13,16 +13,16 @@ export const metadata: Metadata = {
     canonical: "https://baliastrology.com/panchang",
   },
   openGraph: {
-    title: "Daily Panchang | Rahul Bali Astrology",
+    title: "Daily Panchang | Bali Astrology",
     description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
     url: "https://baliastrology.com/panchang",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Daily Panchang - Rahul Bali Astrology",
+        alt: "Daily Panchang - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Daily Panchang | Rahul Bali Astrology",
+    title: "Daily Panchang | Bali Astrology",
     description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",
     images: ["/og-image.png"],
   },

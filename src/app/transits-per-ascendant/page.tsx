@@ -15,16 +15,16 @@ export const metadata: Metadata = {
     canonical: "https://baliastrology.com/transits-per-ascendant",
   },
   openGraph: {
-    title: 'Transits per Ascendant | Rahul Bali Astrology',
+    title: 'Transits per Ascendant | Bali Astrology',
     description: 'View daily transit Kundli charts rotated for each of the 12 Ascendants (Lagnas) calculated when the Ascendant reaches 15 degrees.',
     url: "https://baliastrology.com/transits-per-ascendant",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Transits per Ascendant - Rahul Bali Astrology",
+        alt: "Transits per Ascendant - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: 'Transits per Ascendant | Rahul Bali Astrology',
+    title: 'Transits per Ascendant | Bali Astrology',
     description: 'View daily transit Kundli charts rotated for each of the 12 Ascendants (Lagnas) calculated when the Ascendant reaches 15 degrees.',
     images: ["/og-image.png"],
   },

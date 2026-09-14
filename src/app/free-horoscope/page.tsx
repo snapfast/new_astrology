@@ -20,16 +20,16 @@ export const metadata: Metadata = {
     canonical: "https://baliastrology.com/free-horoscope",
   },
   openGraph: {
-    title: "Free Kundli | Rahul Bali Astrology",
+    title: "Free Kundli | Bali Astrology",
     description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",
     url: "https://baliastrology.com/free-horoscope",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Free Kundli Online - Rahul Bali Astrology",
+        alt: "Free Kundli Online - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Kundli | Rahul Bali Astrology",
+    title: "Free Kundli | Bali Astrology",
     description: "Generate your Free Kundli online with Pandit Rahul Bali. Get accurate Janam Kundali, detailed Vedic horoscope charts (D1, D3, D9).",
     images: ["/og-image.png"],
   },
@@ -47,7 +47,7 @@ export default function FreeHoroscopePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Rahul Bali Astrology Free Kundli Generator",
+    "name": "Bali Astrology Free Kundli Generator",
     "operatingSystem": "Web",
     "applicationCategory": "LifestyleApplication",
     "aggregateRating": {

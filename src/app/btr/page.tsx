@@ -9,22 +9,22 @@ export const metadata: Metadata = {
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Birth Time Rectification", "BTR Tool", "Vedic Astrology BTR", "Rectify Birth Time",
-    "Divisional Charts BTR", "Rahul Bali astrology"
+    "Divisional Charts BTR", "Bali astrology"
   ],
   alternates: {
     canonical: "https://baliastrology.com/btr",
   },
   openGraph: {
-    title: "Birth Time Rectification (BTR) | Rahul Bali Astrology",
+    title: "Birth Time Rectification (BTR) | Bali Astrology",
     description: "Birth Time Rectification (BTR) tool to determine and adjust your birth time using Vedic Astrology techniques.",
     url: "https://baliastrology.com/btr",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Birth Time Rectification (BTR) - Rahul Bali Astrology",
+        alt: "Birth Time Rectification (BTR) - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Birth Time Rectification (BTR) | Rahul Bali Astrology",
+    title: "Birth Time Rectification (BTR) | Bali Astrology",
     description: "Birth Time Rectification (BTR) tool to determine and adjust your birth time using Vedic Astrology techniques.",
     images: ["/og-image.png"],
   },

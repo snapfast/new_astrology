@@ -11,7 +11,7 @@ const TRANSLATIONS = {
     subtitle: "Information Security",
     description: "Learn how your birth details and personal information are handled securely.",
     heading1: "1. Introduction",
-    para1: "Welcome to Rahul Bali Astrology. We are committed to protecting your privacy and ensuring that your personal and astrological data is handled securely and transparently. This Privacy Policy describes how we collect, use, and safeguard your information when you visit our website and use our services.",
+    para1: "Welcome to Bali Astrology. We are committed to protecting your privacy and ensuring that your personal and astrological data is handled securely and transparently. This Privacy Policy describes how we collect, use, and safeguard your information when you visit our website and use our services.",
     heading2: "2. Information We Collect",
     para2: "To provide accurate Vedic astrological calculations, we collect the following details when you generate a birth chart or book a consultation:",
     list1: [

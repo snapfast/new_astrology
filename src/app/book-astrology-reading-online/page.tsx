@@ -8,22 +8,22 @@ export const metadata: Metadata = {
   description: "Get clear, personalized astrological readings based on your birth chart with focused insights on career, relationships, finances, or full chart analysis.",
   keywords: [
     "book astrology reading", "online astrology consultation", "vedic astrology reading",
-    "birth chart analysis", "kundli reading", "personalized horoscope", "rahul bali astrology"
+    "birth chart analysis", "kundli reading", "personalized horoscope", "bali astrology"
   ],
   alternates: {
     canonical: "https://baliastrology.com/book-astrology-reading-online",
   },
   openGraph: {
-    title: "Booking | Rahul Bali Astrology",
+    title: "Booking | Bali Astrology",
     description: "Get clear, personalized astrological readings based on your birth chart with focused insights on career, relationships, finances, or full chart analysis.",
     url: "https://baliastrology.com/book-astrology-reading-online",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Book Astrology Reading Online - Rahul Bali Astrology",
+        alt: "Book Astrology Reading Online - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Booking | Rahul Bali Astrology",
+    title: "Booking | Bali Astrology",
     description: "Get clear, personalized astrological readings based on your birth chart.",
     images: ["/og-image.png"],
   },

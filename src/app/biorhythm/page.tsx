@@ -16,16 +16,16 @@ export const metadata: Metadata = {
     canonical: "https://baliastrology.com/biorhythm",
   },
   openGraph: {
-    title: 'Biorhythm | Rahul Bali Astrology',
+    title: 'Biorhythm | Bali Astrology',
     description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
     url: "https://baliastrology.com/biorhythm",
-    siteName: "Rahul Bali Astrology",
+    siteName: "Bali Astrology",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Biorhythm Calculator - Rahul Bali Astrology",
+        alt: "Biorhythm Calculator - Bali Astrology",
       },
     ],
     locale: "en_US",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: 'Biorhythm | Rahul Bali Astrology',
+    title: 'Biorhythm | Bali Astrology',
     description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',
     images: ["/og-image.png"],
   },
