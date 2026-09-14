@@ -4,7 +4,6 @@ import { FC, useState, useEffect } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 
 import BaseModal from './BaseModal';
-import ScheduleButton from './ScheduleButton';
 import LotusSwastika from './LotusSwastika';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -167,16 +166,16 @@ const BookConsultationModal: FC<BookConsultationModalProps> = ({ isOpen, onClose
 
               {/* Actions */}
               <div className="space-y-2">
-                <ScheduleButton
-                  href="https://calendly.com/rahulbaliastrology/kundli/"
+                <Link
+                  href="/book-astrology-reading-online"
                   onClick={() => {
-                    sendGAEvent({ event: 'action_click', action_name: 'modal_calendly_redirect' });
-                    setView('survey');
+                    sendGAEvent({ event: 'action_click', action_name: 'modal_book_reading_redirect' });
+                    onClose();
                   }}
-                  className="flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 text-sm md:text-base tracking-wide"
+                  className="flex items-center justify-center w-full py-2.5 bg-on-surface text-white rounded-full font-medium transition-all hover:bg-on-surface/90 text-sm md:text-base tracking-wide text-center"
                 >
                   {t.meetBtn}
-                </ScheduleButton>
+                </Link>
               </div>
             </div>
 

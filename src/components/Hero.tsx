@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import LearnMoreModal from './LearnMoreModal';
 import BookConsultationModal from './BookConsultationModal';
 import StarRating from './StarRating';
@@ -52,15 +53,16 @@ const Hero = () => {
 
         <div className="flex flex-col items-center gap-4 mb-16">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <button
+            <Link
+              prefetch={true}
+              href="/book-astrology-reading-online"
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
-                setIsBookingModalOpen(true);
               }}
               className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[10px] md:text-xs tracking-[0.1em]"
             >
               {t.bookBtn}
-            </button>
+            </Link>
             <button
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
