@@ -129,7 +129,7 @@ const BookReadingClientPage: FC = () => {
               </p>
             </div>
 
-            <div className="pt-8 text-center space-y-3">
+            <div className="pt-8 text-center space-y-3 flex flex-col items-center">
               <ScheduleButton
                 href={t.calendlyUrl}
                 onClick={() => {
@@ -142,12 +142,29 @@ const BookReadingClientPage: FC = () => {
               <p className="text-xs font-body text-on-surface/60">
                 Generates instant Google Meet confirmation
               </p>
+
+              {/* Bouncing scroll down arrow to attract user to How to book section */}
+              <button
+                onClick={() => {
+                  document.getElementById('how-to-book')?.scrollIntoView({ behavior: 'smooth' });
+                  sendGAEvent({ event: 'action_click', action_name: 'scroll_to_how_to_book' });
+                }}
+                className="pt-4 inline-flex flex-col items-center gap-1 text-on-surface/70 hover:text-primary transition-colors cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg"
+                aria-label="Scroll down to How to Book section"
+              >
+                <span className="text-[11px] font-label uppercase tracking-widest text-on-surface/70 group-hover:text-primary transition-colors font-medium">
+                  How to Book
+                </span>
+                <span className="material-symbols-outlined text-2xl text-accent animate-bounce">
+                  keyboard_double_arrow_down
+                </span>
+              </button>
             </div>
           </div>
         </section>
 
         {/* How to Book & Payment Details Grid */}
-        <section id="payment-and-form" className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <section id="how-to-book" className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* How to Book Card */}
           <div className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
             <div className="space-y-2">
