@@ -26,9 +26,9 @@ const TRANSLATIONS = {
     },
     howToBookTitle: "How to book",
     steps: [
-      "Support our work with a voluntary contribution on our Donate page",
       "Select your preferred date and time slot using Calendly",
-      "Provide your birth details and questions during scheduling"
+      "Provide your birth details and questions during scheduling",
+      "Support our work with a voluntary contribution on our Donate page and leave a review"
     ],
     paymentDetailsTitle: "Voluntary Contributions & Support",
     upiLabel: "UPI:",
