@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Book Astrology Reading Online - Rahul Bali Astrology",
+        alt: "Booking Online - Rahul Bali Astrology",
       },
     ],
     locale: "en_US",
