@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
@@ -20,17 +21,16 @@ const TRANSLATIONS = {
     tier: {
       id: "birth-chart-reading",
       title: "Personalised Birth Chart Reading",
-      priceInr: "₹701",
-      priceUsd: "$11",
+      priceTag: "Donation Based",
       description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies during your consultation call.",
     },
     howToBookTitle: "How to book",
     steps: [
-      "Complete payment or contribution using UPI or PayPal",
+      "Support our work with a voluntary contribution on our Donate page",
       "Select your preferred date and time slot using Calendly",
       "Provide your birth details and questions during scheduling"
     ],
-    paymentDetailsTitle: "Payment & Contributions",
+    paymentDetailsTitle: "Voluntary Contributions & Support",
     upiLabel: "UPI:",
     upiId: "rahul.bali@ybl",
     paypalLabel: "PayPal (for international clients):",
@@ -109,20 +109,27 @@ const BookReadingClientPage: FC = () => {
               <h3 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
                 {t.tier.title}
               </h3>
-              <div className="flex items-baseline justify-center gap-2">
-                <span className="text-3xl md:text-4xl font-semibold text-on-surface font-body">
-                  {t.tier.priceInr}
+              <div className="flex flex-col items-center justify-center gap-2">
+                <span className="inline-flex items-center px-4 py-1.5 bg-surface-bright border border-outline/20 rounded-full text-sm md:text-base font-medium text-on-surface font-body">
+                  {t.tier.priceTag}
                 </span>
-                <span className="text-base text-on-surface/60 font-body">
-                  ({t.tier.priceUsd})
-                </span>
+                <p className="text-xs md:text-sm text-on-surface/70 font-body">
+                  All consultations operate on a voluntary contribution basis.{' '}
+                  <Link
+                    href="/donate"
+                    className="text-primary hover:underline font-medium inline-flex items-center gap-0.5"
+                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_link' })}
+                  >
+                    View Donate page <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </Link>
+                </p>
               </div>
               <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed max-w-lg mx-auto">
                 {t.tier.description}
               </p>
             </div>
 
-            <div className="pt-8 text-center space-y-3">
+            <div className="pt-8 text-center space-y-3 flex flex-col items-center">
               <ScheduleButton
                 href={t.calendlyUrl}
                 onClick={() => {
@@ -135,12 +142,29 @@ const BookReadingClientPage: FC = () => {
               <p className="text-xs font-body text-on-surface/60">
                 Generates instant Google Meet confirmation
               </p>
+
+              {/* Bouncing scroll down arrow to attract user to How to book section */}
+              <button
+                onClick={() => {
+                  document.getElementById('how-to-book')?.scrollIntoView({ behavior: 'smooth' });
+                  sendGAEvent({ event: 'action_click', action_name: 'scroll_to_how_to_book' });
+                }}
+                className="pt-4 inline-flex flex-col items-center gap-1 text-on-surface/70 hover:text-primary transition-colors cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg"
+                aria-label="Scroll down to How to Book section"
+              >
+                <span className="text-[11px] font-label uppercase tracking-widest text-on-surface/70 group-hover:text-primary transition-colors font-medium">
+                  How to Book
+                </span>
+                <span className="material-symbols-outlined text-2xl text-accent animate-bounce">
+                  keyboard_double_arrow_down
+                </span>
+              </button>
             </div>
           </div>
         </section>
 
         {/* How to Book & Payment Details Grid */}
-        <section id="payment-and-form" className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <section id="how-to-book" className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* How to Book Card */}
           <div className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
             <div className="space-y-2">
@@ -178,6 +202,9 @@ const BookReadingClientPage: FC = () => {
             </div>
 
             <div className="space-y-4">
+              <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
+                We offer guidance on a voluntary donation basis. You can choose to contribute before or after your consultation session.
+              </p>
               <CopyableField
                 value={t.upiId}
                 label={t.upiLabel}
@@ -188,9 +215,16 @@ const BookReadingClientPage: FC = () => {
                 label={t.paypalLabel}
                 copiedLabel={t.copied}
               />
-              <p className="text-xs font-body text-on-surface/60 leading-relaxed pt-2">
-                For voluntary contributions or payment confirmation, you can use the details above.
-              </p>
+              <div className="pt-2">
+                <Link
+                  href="/donate"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 text-on-surface text-xs md:text-sm font-medium font-label uppercase tracking-wider transition-all"
+                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_button' })}
+                >
+                  <span>Go to Donate Page (QR & Options)</span>
+                  <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
