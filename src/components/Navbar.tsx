@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import BookConsultationModal from './BookConsultationModal';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -32,11 +32,12 @@ const Navbar = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleBookNow = () => {
     sendGAEvent({ event: 'action_click', action_name: 'navbar_book_now' });
-    setIsBookingModalOpen(true);
     setIsMenuOpen(false);
+    router.push('/book-astrology-reading-online');
   };
 
   const closeMenu = () => setIsMenuOpen(false);

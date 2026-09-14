@@ -4,7 +4,7 @@ import { generateWebPageSchema } from '@/lib/seo';
 import BookReadingClientPage from './BookReadingClientPage';
 
 export const metadata: Metadata = {
-  title: "Book Astrology Reading Online",
+  title: "Booking",
   description: "Get clear, personalized astrological readings based on your birth chart with focused insights on career, relationships, finances, or full chart analysis.",
   keywords: [
     "book astrology reading", "online astrology consultation", "vedic astrology reading",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     canonical: "https://baliastrology.com/book-astrology-reading-online",
   },
   openGraph: {
-    title: "Book Astrology Reading Online | Rahul Bali Astrology",
+    title: "Booking | Rahul Bali Astrology",
     description: "Get clear, personalized astrological readings based on your birth chart with focused insights on career, relationships, finances, or full chart analysis.",
     url: "https://baliastrology.com/book-astrology-reading-online",
     siteName: "Rahul Bali Astrology",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Book Astrology Reading Online | Rahul Bali Astrology",
+    title: "Booking | Rahul Bali Astrology",
     description: "Get clear, personalized astrological readings based on your birth chart.",
     images: ["/og-image.png"],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function BookAstrologyReadingPage() {
   const schema = generateWebPageSchema(
-    "Book Astrology Reading Online",
+    "Booking",
     "Get clear, personalized astrological readings based on your birth chart with focused insights.",
     "https://baliastrology.com/book-astrology-reading-online"
   );
