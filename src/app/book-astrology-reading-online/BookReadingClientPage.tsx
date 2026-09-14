@@ -26,9 +26,9 @@ const TRANSLATIONS = {
     },
     howToBookTitle: "How to book",
     steps: [
+      "Complete payment or contribution using UPI or PayPal",
       "Select your preferred date and time slot using Calendly",
-      "Provide your birth details and questions during scheduling",
-      "Complete payment or donation to confirm your slot"
+      "Provide your birth details and questions during scheduling"
     ],
     paymentDetailsTitle: "Payment & Contributions",
     upiLabel: "UPI:",
