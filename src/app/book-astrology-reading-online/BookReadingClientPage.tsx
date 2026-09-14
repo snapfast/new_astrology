@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
+import ScheduleButton from '@/components/ScheduleButton';
 import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
@@ -15,50 +16,32 @@ const TRANSLATIONS = {
         Have a specific question about your life? Get clear, direct answers through a personalised astrology reading based on your birth chart. No generic predictions, only focused insights tailored to you.
       </div>
     ),
-    chooseReadingTitle: "Choose Your Reading",
-    tiers: [
-      {
-        id: "quick-question",
-        title: "Quick Question",
-        priceInr: "₹333",
-        priceUsd: "$5",
-        description: "One clear answer to one specific question.",
-        popular: false,
-      },
-      {
-        id: "detailed-reading",
-        title: "Detailed Reading",
-        priceInr: "₹1111",
-        priceUsd: "$15",
-        description: "In-depth guidance for one area of life such as career, relationships, or finances.",
-        popular: true,
-      },
-      {
-        id: "full-chart-reading",
-        title: "Full Birth Chart Reading",
-        priceInr: "₹5555",
-        priceUsd: "$75",
-        description: "Complete life analysis with detailed insights and personalised remedies. Available as a written report or consultation call.",
-        popular: false,
-      }
-    ],
-    howToBookTitle: "How to Book",
+    chooseReadingTitle: "Personalised Astrology Reading",
+    tier: {
+      id: "birth-chart-reading",
+      title: "Personalised Birth Chart Reading",
+      priceInr: "₹701",
+      priceUsd: "$11",
+      description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies. Available as a written report or consultation call.",
+    },
+    howToBookTitle: "How to book",
     steps: [
-      "Complete your payment",
-      "Fill out the form below with your question and birth details",
-      "Upload your payment confirmation"
+      "Select your preferred date and time slot using Calendly",
+      "Provide your birth details and questions during scheduling",
+      "Complete payment or donation to confirm your slot"
     ],
-    paymentDetailsTitle: "Payment Details",
-    upiLabel: "UPI ID",
+    paymentDetailsTitle: "Payment & Contributions",
+    upiLabel: "UPI:",
     upiId: "rahul.bali@ybl",
-    paypalLabel: "PayPal (for international clients)",
+    paypalLabel: "PayPal (for international clients):",
     paypalEmail: "rahulbaliastrology@gmail.com",
     nextTitle: "What Happens Next",
-    nextDesc1: "Once we receive your form and payment, we’ll email or WhatsApp you with a delivery time slot. Your written analysis will be sent within that time frame.",
+    nextDesc1: "Once you schedule your slot, you will receive an instant Google Meet invitation. Your consultation or written analysis will be provided during your scheduled timeframe.",
     nextDesc2: "Each answer is carefully prepared — based on your chart, your question, and your energy.",
-    submitTitle: "Submit Your Question",
+    scheduleTitle: "Schedule Your Appointment",
+    scheduleBtnText: "Book Your Slot on Calendly",
     copied: "Copied!",
-    googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfHztXCuftDzfMqt6JrPaWTaoMLqLUJ9WesZL4Cuk6EqMURlA/viewform?embedded=true"
+    calendlyUrl: "https://calendly.com/rahulbaliastrology/kundli/"
   }
 };
 
@@ -126,64 +109,46 @@ const BookReadingClientPage: FC = () => {
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-16 md:space-y-24">
-        {/* Choose Your Reading Tiers */}
-        <section className="space-y-8">
+        {/* Single Reading Package */}
+        <section className="space-y-8 max-w-2xl mx-auto">
           <div className="text-center space-y-2">
             <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em]">
-              Packages
+              Service Package
             </span>
             <h2 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">
               {t.chooseReadingTitle}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {t.tiers.map((tier) => (
-              <div
-                key={tier.id}
-                className={`bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all hover:border-outline/40 ${
-                  tier.popular ? 'ring-2 ring-accent/30' : ''
-                }`}
-              >
-                {tier.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-accent text-white font-label uppercase text-[9px] font-medium px-3 py-1 rounded-full tracking-widest shadow-sm">
-                    Most Popular
-                  </span>
-                )}
-                <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-normal font-headline text-on-surface">
-                    {tier.title}
-                  </h3>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl md:text-3xl font-semibold text-on-surface font-body">
-                      {tier.priceInr}
-                    </span>
-                    <span className="text-sm text-on-surface/60 font-body">
-                      ({tier.priceUsd})
-                    </span>
-                  </div>
-                  <p className="text-sm font-body text-on-surface/80 leading-relaxed">
-                    {tier.description}
-                  </p>
-                </div>
-
-                <div className="pt-8">
-                  <button
-                    onClick={() => {
-                      sendGAEvent({ event: 'action_click', action_name: 'tier_select', tier: tier.id });
-                      scrollToSection('payment-and-form');
-                    }}
-                    className={`w-full py-3.5 px-6 rounded-full text-xs font-medium uppercase font-label tracking-[0.15em] transition-all active:scale-95 text-center ${
-                      tier.popular
-                        ? 'bg-primary text-white hover:bg-primary/90 shadow-sm'
-                        : 'bg-surface-bright border border-outline/20 text-on-surface hover:bg-surface-bright/80'
-                    }`}
-                  >
-                    Select Reading
-                  </button>
-                </div>
+          <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-10 shadow-sm flex flex-col justify-between relative transition-all">
+            <div className="space-y-4 text-center">
+              <h3 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+                {t.tier.title}
+              </h3>
+              <div className="flex items-baseline justify-center gap-2">
+                <span className="text-3xl md:text-4xl font-semibold text-on-surface font-body">
+                  {t.tier.priceInr}
+                </span>
+                <span className="text-base text-on-surface/60 font-body">
+                  ({t.tier.priceUsd})
+                </span>
               </div>
-            ))}
+              <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed max-w-lg mx-auto">
+                {t.tier.description}
+              </p>
+            </div>
+
+            <div className="pt-8 text-center">
+              <button
+                onClick={() => {
+                  sendGAEvent({ event: 'action_click', action_name: 'tier_select', tier: t.tier.id });
+                  scrollToSection('schedule-section');
+                }}
+                className="w-full sm:w-auto py-4 px-10 bg-primary text-white rounded-full text-xs font-medium uppercase font-label tracking-[0.15em] transition-all active:scale-95 text-center hover:bg-primary/90 shadow-md"
+              >
+                Select Reading
+              </button>
+            </div>
           </div>
         </section>
 
@@ -237,7 +202,7 @@ const BookReadingClientPage: FC = () => {
                 copiedLabel={t.copied}
               />
               <p className="text-xs font-body text-on-surface/60 leading-relaxed pt-2">
-                After you’ve made the payment, fill out the form below with your question and birth details. You’ll also be asked to upload your payment confirmation.
+                For voluntary contributions or payment confirmation, you can use the details above.
               </p>
             </div>
           </div>
@@ -259,30 +224,31 @@ const BookReadingClientPage: FC = () => {
           </p>
         </section>
 
-        {/* Submit Your Question (Embedded Google Form) Section */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-10 shadow-sm space-y-6">
-          <div className="text-center space-y-2">
-            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em]">
-              Details & Question
+        {/* Schedule Your Appointment Section (Calendly Link) */}
+        <section id="schedule-section" className="bg-white border border-outline/20 rounded-3xl p-8 md:p-12 shadow-sm space-y-6 text-center max-w-3xl mx-auto">
+          <div className="space-y-2">
+            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
+              Instant Scheduling
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.submitTitle}
+              {t.scheduleTitle}
             </h2>
           </div>
 
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-3xl min-h-[950px] md:min-h-[1100px] border border-outline/10 rounded-2xl overflow-hidden bg-surface-bright">
-              <iframe
-                src={t.googleFormUrl}
-                width="100%"
-                height="1100"
-                className="w-full border-0 min-h-[950px] md:min-h-[1100px]"
-                title="Submit Astrology Question Form"
-                loading="lazy"
-              >
-                Loading…
-              </iframe>
-            </div>
+          <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
+            Pick a date and time that fits your schedule. Your appointment will automatically generate a Google Meet link and confirmation.
+          </p>
+
+          <div className="pt-4">
+            <ScheduleButton
+              href={t.calendlyUrl}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_click' });
+              }}
+              className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
+            >
+              {t.scheduleBtnText}
+            </ScheduleButton>
           </div>
         </section>
       </div>
