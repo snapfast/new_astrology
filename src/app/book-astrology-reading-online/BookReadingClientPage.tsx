@@ -22,13 +22,13 @@ const TRANSLATIONS = {
       title: "Personalised Birth Chart Reading",
       priceInr: "₹701",
       priceUsd: "$11",
-      description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies. Available as a written report or consultation call.",
+      description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies during your consultation call.",
     },
     howToBookTitle: "How to book",
     steps: [
+      "Complete payment or contribution using UPI or PayPal",
       "Select your preferred date and time slot using Calendly",
-      "Provide your birth details and questions during scheduling",
-      "Complete payment or donation to confirm your slot"
+      "Provide your birth details and questions during scheduling"
     ],
     paymentDetailsTitle: "Payment & Contributions",
     upiLabel: "UPI:",
@@ -36,7 +36,7 @@ const TRANSLATIONS = {
     paypalLabel: "PayPal (for international clients):",
     paypalEmail: "rahulbaliastrology@gmail.com",
     nextTitle: "What Happens Next",
-    nextDesc1: "Once you schedule your slot, you will receive an instant Google Meet invitation. Your consultation or written analysis will be provided during your scheduled timeframe.",
+    nextDesc1: "Once you schedule your slot, you will receive an instant Google Meet invitation. Your consultation will be provided during your scheduled timeframe.",
     nextDesc2: "Each answer is carefully prepared — based on your chart, your question, and your energy.",
     scheduleTitle: "Schedule Your Appointment",
     scheduleBtnText: "Book Your Slot on Calendly",
@@ -91,13 +91,6 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
 const BookReadingClientPage: FC = () => {
   const t = TRANSLATIONS.en;
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
@@ -110,16 +103,7 @@ const BookReadingClientPage: FC = () => {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-16 md:space-y-24">
         {/* Single Reading Package */}
-        <section className="space-y-8 max-w-2xl mx-auto">
-          <div className="text-center space-y-2">
-            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em]">
-              Service Package
-            </span>
-            <h2 className="text-3xl md:text-4xl font-normal font-headline text-on-surface">
-              {t.chooseReadingTitle}
-            </h2>
-          </div>
-
+        <section className="max-w-2xl mx-auto">
           <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-10 shadow-sm flex flex-col justify-between relative transition-all">
             <div className="space-y-4 text-center">
               <h3 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
@@ -138,16 +122,19 @@ const BookReadingClientPage: FC = () => {
               </p>
             </div>
 
-            <div className="pt-8 text-center">
-              <button
+            <div className="pt-8 text-center space-y-3">
+              <ScheduleButton
+                href={t.calendlyUrl}
                 onClick={() => {
-                  sendGAEvent({ event: 'action_click', action_name: 'tier_select', tier: t.tier.id });
-                  scrollToSection('schedule-section');
+                  sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_click' });
                 }}
-                className="w-full sm:w-auto py-4 px-10 bg-primary text-white rounded-full text-xs font-medium uppercase font-label tracking-[0.15em] transition-all active:scale-95 text-center hover:bg-primary/90 shadow-md"
+                className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
               >
-                Select Reading
-              </button>
+                {t.scheduleBtnText}
+              </ScheduleButton>
+              <p className="text-xs font-body text-on-surface/60">
+                Generates instant Google Meet confirmation
+              </p>
             </div>
           </div>
         </section>
@@ -224,33 +211,6 @@ const BookReadingClientPage: FC = () => {
           </p>
         </section>
 
-        {/* Schedule Your Appointment Section (Calendly Link) */}
-        <section id="schedule-section" className="bg-white border border-outline/20 rounded-3xl p-8 md:p-12 shadow-sm space-y-6 text-center max-w-3xl mx-auto">
-          <div className="space-y-2">
-            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
-              Instant Scheduling
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.scheduleTitle}
-            </h2>
-          </div>
-
-          <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            Pick a date and time that fits your schedule. Your appointment will automatically generate a Google Meet link and confirmation.
-          </p>
-
-          <div className="pt-4">
-            <ScheduleButton
-              href={t.calendlyUrl}
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_click' });
-              }}
-              className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
-            >
-              {t.scheduleBtnText}
-            </ScheduleButton>
-          </div>
-        </section>
       </div>
 
       <Footer />
