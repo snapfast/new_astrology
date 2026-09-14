@@ -9,7 +9,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
-    title: "Book Astrology Reading Online",
+    title: "Booking Online",
     subtitle: "Personalised Guidance",
     description: (
       <div className="font-body">
