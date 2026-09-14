@@ -237,7 +237,7 @@ const BookReadingClientPage: FC = () => {
                 copiedLabel={t.copied}
               />
               <p className="text-xs font-body text-on-surface/60 leading-relaxed pt-2">
-                After making your payment, please save your transaction reference or screenshot to upload in the form below.
+                After you’ve made the payment, fill out the form below with your question and birth details. You’ll also be asked to upload your payment confirmation.
               </p>
             </div>
           </div>
