@@ -17,7 +17,6 @@ const TRANSLATIONS = {
         Focused chart insights.
       </div>
     ),
-    chooseReadingTitle: "Personalised Astrology Reading",
     tier: {
       id: "birth-chart-reading",
       title: "Personalised Birth Chart Reading",
@@ -44,7 +43,6 @@ const TRANSLATIONS = {
     nextTitle: "What Happens Next",
     nextDesc1: "Once you schedule your slot, you will receive an instant Google Meet invitation. Your consultation will be provided during your scheduled timeframe.",
     nextDesc2: "Each answer is carefully prepared — based on your chart, your question, and your energy.",
-    scheduleTitle: "Schedule Your Appointment",
     scheduleBtnText: "Book Your Slot on Calendly",
     copied: "Copied!",
     calendlyUrl: "https://calendly.com/rahulbaliastrology/kundli/"
@@ -107,130 +105,90 @@ const BookReadingClientPage: FC = () => {
         description={t.description}
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-16 md:space-y-24">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 md:space-y-10">
         {/* Single Reading Package */}
-        <section className="max-w-2xl mx-auto">
-          <div className="bg-white border border-outline/20 rounded-3xl p-8 md:p-10 shadow-sm flex flex-col justify-between relative transition-all">
-            <div className="space-y-4 text-center">
-              <h3 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-                {t.tier.title}
-              </h3>
-              <div className="flex flex-col items-center justify-center gap-2">
-                <span className="inline-flex items-center px-4 py-1.5 bg-surface-bright border border-outline/20 rounded-full text-sm md:text-base font-medium text-on-surface font-body">
-                  {t.tier.priceTag}
-                </span>
-                <p className="text-xs md:text-sm text-on-surface/70 font-body">
-                  All consultations operate on a voluntary contribution basis.{' '}
-                  <Link
-                    href="/donate"
-                    className="text-primary hover:underline font-medium inline-flex items-center gap-0.5"
-                    onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_link' })}
-                  >
-                    View Donate page <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </Link>
-                </p>
-              </div>
-              <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed max-w-lg mx-auto">
-                {t.tier.description}
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all">
+          <div className="space-y-4 text-center">
+            <h3 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              {t.tier.title}
+            </h3>
+            <div className="flex flex-col items-center justify-center gap-2">
+              <span className="inline-flex items-center px-4 py-1.5 bg-surface-bright border border-outline/20 rounded-full text-sm md:text-base font-medium text-on-surface font-body">
+                {t.tier.priceTag}
+              </span>
+              <p className="text-xs md:text-sm text-on-surface/70 font-body">
+                All consultations operate on a voluntary contribution basis.{' '}
+                <Link
+                  href="/donate"
+                  className="text-primary hover:underline font-medium inline-flex items-center gap-0.5"
+                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_link' })}
+                >
+                  View Donate page <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                </Link>
               </p>
-              <div className="flex flex-col items-center justify-center gap-1 text-xs md:text-sm font-medium font-body text-accent pt-1">
-                <span>30-minute 1-on-1 sessions</span>
-                <span>Video is optional</span>
-              </div>
             </div>
+            <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
+              {t.tier.description}
+            </p>
+            <div className="flex flex-col items-center justify-center gap-1 text-xs md:text-sm font-medium font-body text-accent pt-1">
+              <span>30-minute 1-on-1 sessions</span>
+              <span>Video is optional</span>
+            </div>
+          </div>
 
-            <div className="pt-8 text-center space-y-3 flex flex-col items-center">
-              <ScheduleButton
-                href={t.calendlyUrl}
-                onClick={() => {
-                  sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_click' });
-                }}
-                className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
-              >
-                {t.scheduleBtnText}
-              </ScheduleButton>
-              <p className="text-xs font-body text-on-surface/60">
-                Generates instant Google Meet confirmation
-              </p>
-            </div>
+          <div className="pt-8 text-center space-y-3 flex flex-col items-center">
+            <ScheduleButton
+              href={t.calendlyUrl}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_click' });
+              }}
+              className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
+            >
+              {t.scheduleBtnText}
+            </ScheduleButton>
+            <p className="text-xs font-body text-on-surface/60">
+              Generates instant Google Meet confirmation
+            </p>
           </div>
         </section>
 
-        {/* How to Book & Payment Details Grid */}
-        <section id="how-to-book" className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* How to Book Card */}
-          <div className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-            <div className="space-y-2">
-              <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em]">
-                Simple Process
-              </span>
-              <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-                {t.howToBookTitle}
-              </h2>
-            </div>
-
-            <ol className="space-y-4">
-              {t.steps.map((step, idx) => (
-                <li key={idx} className="flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ol>
+        {/* How to Book Section */}
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
+            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
+              Simple Process
+            </span>
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              {t.howToBookTitle}
+            </h2>
           </div>
 
-          {/* Payment Details Card */}
-          <div className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-            <div className="space-y-2">
-              <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em]">
-                Direct Transfer
-              </span>
-              <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-                {t.paymentDetailsTitle}
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-                We offer guidance on a voluntary donation basis. You can choose to contribute before or after your consultation session.
-              </p>
-              <CopyableField
-                value={t.upiId}
-                label={t.upiLabel}
-                copiedLabel={t.copied}
-              />
-              <CopyableField
-                value={t.paypalEmail}
-                label={t.paypalLabel}
-                copiedLabel={t.copied}
-              />
-              <div className="pt-2">
-                <Link
-                  href="/donate"
-                  className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 text-on-surface text-xs md:text-sm font-medium font-label uppercase tracking-wider transition-all"
-                  onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_button' })}
-                >
-                  <span>Go to Donate Page (QR & Options)</span>
-                  <span className="material-symbols-outlined text-sm">open_in_new</span>
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ol className="space-y-4">
+            {t.steps.map((step, idx) => (
+              <li key={idx} className="flex items-start gap-4">
+                <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
+                  {idx + 1}
+                </span>
+                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* Preparing for Your Session */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-8">
-          <div className="text-center space-y-2 max-w-xl mx-auto">
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
             <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
               Consultation Readiness
             </span>
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              Preparing for Your Session
+            </h2>
           </div>
 
-          <ol className="space-y-4 max-w-2xl mx-auto">
+          <ol className="space-y-4">
             {t.prepSteps.map((step, idx) => (
               <li key={idx} className="flex items-start gap-4">
                 <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
@@ -245,7 +203,7 @@ const BookReadingClientPage: FC = () => {
         </section>
 
         {/* What Happens Next Section */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4 text-center max-w-3xl mx-auto">
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4 text-center">
           <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
             Delivery Details
           </span>
@@ -260,6 +218,43 @@ const BookReadingClientPage: FC = () => {
           </p>
         </section>
 
+        {/* Payment Details Card */}
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
+            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
+              Direct Transfer
+            </span>
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              {t.paymentDetailsTitle}
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
+              We offer guidance on a voluntary donation basis. You can choose to contribute before or after your consultation session.
+            </p>
+            <CopyableField
+              value={t.upiId}
+              label={t.upiLabel}
+              copiedLabel={t.copied}
+            />
+            <CopyableField
+              value={t.paypalEmail}
+              label={t.paypalLabel}
+              copiedLabel={t.copied}
+            />
+            <div className="pt-2">
+              <Link
+                href="/donate"
+                className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 text-on-surface text-xs md:text-sm font-medium font-label uppercase tracking-wider transition-all"
+                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_button' })}
+              >
+                <span>Go to Donate Page (QR & Options)</span>
+                <span className="material-symbols-outlined text-sm">open_in_new</span>
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
 
       <Footer />
