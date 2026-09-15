@@ -30,6 +30,30 @@ const TRANSLATIONS = {
       "Provide your birth details and questions during scheduling",
       "Support our work with a voluntary contribution on our Donate page and leave a review"
     ],
+    prepTitle: "Preparing for Your Consultation",
+    prepSubtitle: "How to get ready mentally and physically for your reading",
+    prepItems: [
+      {
+        icon: "edit_note",
+        title: "Keep a Notebook & Pen",
+        desc: "Have a pen and paper ready to write down key dates, planetary remedies, and personal insights during your session."
+      },
+      {
+        icon: "quiz",
+        title: "List Your Questions",
+        desc: "Jot down your primary concerns and goals in advance to ensure all your pressing questions are covered."
+      },
+      {
+        icon: "volume_off",
+        title: "Quiet Environment",
+        desc: "Choose a peaceful, distraction-free space with a stable internet connection for clear communication."
+      },
+      {
+        icon: "self_improvement",
+        title: "Open & Calm Mindset",
+        desc: "Take a few moments before the call to relax and approach the reading with clarity and receptivity."
+      }
+    ],
     paymentDetailsTitle: "Voluntary Contributions & Support",
     upiLabel: "UPI:",
     upiId: "rahul.bali@ybl",
@@ -127,9 +151,8 @@ const BookReadingClientPage: FC = () => {
               <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed max-w-lg mx-auto">
                 {t.tier.description}
               </p>
-              <div className="flex items-center justify-center gap-2 text-xs md:text-sm font-medium font-body text-accent pt-1">
+              <div className="flex flex-col items-center justify-center gap-1 text-xs md:text-sm font-medium font-body text-accent pt-1">
                 <span>30-minute 1-on-1 sessions</span>
-                <span>•</span>
                 <span>Video is optional</span>
               </div>
             </div>
@@ -214,6 +237,39 @@ const BookReadingClientPage: FC = () => {
                 </Link>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Preparing for Your Session */}
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="text-center space-y-2 max-w-xl mx-auto">
+            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
+              Consultation Readiness
+            </span>
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              {t.prepTitle}
+            </h2>
+            <p className="text-xs md:text-sm font-body text-on-surface/70">
+              {t.prepSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
+            {t.prepItems.map((item, idx) => (
+              <div key={idx} className="bg-surface-bright/60 border border-outline/10 rounded-2xl p-5 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-surface border border-outline/20 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="material-symbols-outlined text-accent text-xl">{item.icon}</span>
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-base font-medium font-headline text-on-surface">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs md:text-sm font-body text-on-surface/75 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
