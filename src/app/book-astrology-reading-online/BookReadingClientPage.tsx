@@ -30,8 +30,6 @@ const TRANSLATIONS = {
       "Provide your birth details and questions during scheduling",
       "Support our work with a voluntary contribution on our Donate page and leave a review"
     ],
-    prepTitle: "Preparing for Your Consultation",
-    prepSubtitle: "How to get ready mentally and physically for your reading",
     prepSteps: [
       "Keep a notebook and pen ready to write down key dates, planetary remedies, and personal insights",
       "List your primary concerns and questions in advance to ensure all pressing topics are covered",
@@ -230,12 +228,6 @@ const BookReadingClientPage: FC = () => {
             <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
               Consultation Readiness
             </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.prepTitle}
-            </h2>
-            <p className="text-xs md:text-sm font-body text-on-surface/70">
-              {t.prepSubtitle}
-            </p>
           </div>
 
           <ol className="space-y-4 max-w-2xl mx-auto">
