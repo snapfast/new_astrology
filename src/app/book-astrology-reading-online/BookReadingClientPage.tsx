@@ -26,9 +26,15 @@ const TRANSLATIONS = {
     },
     howToBookTitle: "How to book",
     steps: [
-      "Support our work with a voluntary contribution on our Donate page",
       "Select your preferred date and time slot using Calendly",
-      "Provide your birth details and questions during scheduling"
+      "Provide your birth details and questions during scheduling",
+      "Support our work with a voluntary contribution on our Donate page and leave a review"
+    ],
+    prepSteps: [
+      "Keep a notebook and pen ready to write down key dates, planetary remedies, and personal insights",
+      "List your primary concerns and questions in advance to ensure all pressing topics are covered",
+      "Choose a quiet, distraction-free space with a stable internet connection for clear communication",
+      "Take a few moments before the call to relax and approach the reading with an open, calm mindset"
     ],
     paymentDetailsTitle: "Voluntary Contributions & Support",
     upiLabel: "UPI:",
@@ -127,6 +133,10 @@ const BookReadingClientPage: FC = () => {
               <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed max-w-lg mx-auto">
                 {t.tier.description}
               </p>
+              <div className="flex flex-col items-center justify-center gap-1 text-xs md:text-sm font-medium font-body text-accent pt-1">
+                <span>30-minute 1-on-1 sessions</span>
+                <span>Video is optional</span>
+              </div>
             </div>
 
             <div className="pt-8 text-center space-y-3 flex flex-col items-center">
@@ -142,23 +152,6 @@ const BookReadingClientPage: FC = () => {
               <p className="text-xs font-body text-on-surface/60">
                 Generates instant Google Meet confirmation
               </p>
-
-              {/* Bouncing scroll down arrow to attract user to How to book section */}
-              <button
-                onClick={() => {
-                  document.getElementById('how-to-book')?.scrollIntoView({ behavior: 'smooth' });
-                  sendGAEvent({ event: 'action_click', action_name: 'scroll_to_how_to_book' });
-                }}
-                className="pt-4 inline-flex flex-col items-center gap-1 text-on-surface/70 hover:text-primary transition-colors cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg"
-                aria-label="Scroll down to How to Book section"
-              >
-                <span className="text-[11px] font-label uppercase tracking-widest text-on-surface/70 group-hover:text-primary transition-colors font-medium">
-                  How to Book
-                </span>
-                <span className="material-symbols-outlined text-2xl text-accent animate-bounce">
-                  keyboard_double_arrow_down
-                </span>
-              </button>
             </div>
           </div>
         </section>
@@ -227,6 +220,28 @@ const BookReadingClientPage: FC = () => {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Preparing for Your Session */}
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="text-center space-y-2 max-w-xl mx-auto">
+            <span className="text-[10px] font-medium uppercase text-accent font-label tracking-[0.3em] block">
+              Consultation Readiness
+            </span>
+          </div>
+
+          <ol className="space-y-4 max-w-2xl mx-auto">
+            {t.prepSteps.map((step, idx) => (
+              <li key={idx} className="flex items-start gap-4">
+                <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
+                  {idx + 1}
+                </span>
+                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* What Happens Next Section */}
