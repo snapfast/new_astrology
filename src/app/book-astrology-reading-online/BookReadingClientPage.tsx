@@ -20,7 +20,6 @@ const TRANSLATIONS = {
     tier: {
       id: "birth-chart-reading",
       title: "Personalised Birth Chart Reading",
-      priceTag: "Donation Based",
       description: "In-depth guidance and detailed insights tailored to your birth chart with practical remedies during your consultation call.",
     },
     howToBookTitle: "How to book",
@@ -113,9 +112,6 @@ const BookReadingClientPage: FC = () => {
               {t.tier.title}
             </h3>
             <div className="flex flex-col items-center justify-center gap-2">
-              <span className="inline-flex items-center px-4 py-1.5 bg-surface-bright border border-outline/20 rounded-full text-sm md:text-base font-medium text-on-surface font-body">
-                {t.tier.priceTag}
-              </span>
               <p className="text-xs md:text-sm text-on-surface/70 font-body">
                 All consultations operate on a voluntary contribution basis.{' '}
                 <Link
