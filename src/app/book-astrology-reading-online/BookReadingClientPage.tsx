@@ -32,27 +32,11 @@ const TRANSLATIONS = {
     ],
     prepTitle: "Preparing for Your Consultation",
     prepSubtitle: "How to get ready mentally and physically for your reading",
-    prepItems: [
-      {
-        icon: "edit_note",
-        title: "Keep a Notebook & Pen",
-        desc: "Have a pen and paper ready to write down key dates, planetary remedies, and personal insights during your session."
-      },
-      {
-        icon: "quiz",
-        title: "List Your Questions",
-        desc: "Jot down your primary concerns and goals in advance to ensure all your pressing questions are covered."
-      },
-      {
-        icon: "volume_off",
-        title: "Quiet Environment",
-        desc: "Choose a peaceful, distraction-free space with a stable internet connection for clear communication."
-      },
-      {
-        icon: "self_improvement",
-        title: "Open & Calm Mindset",
-        desc: "Take a few moments before the call to relax and approach the reading with clarity and receptivity."
-      }
+    prepSteps: [
+      "Keep a notebook and pen ready to write down key dates, planetary remedies, and personal insights",
+      "List your primary concerns and questions in advance to ensure all pressing topics are covered",
+      "Choose a quiet, distraction-free space with a stable internet connection for clear communication",
+      "Take a few moments before the call to relax and approach the reading with an open, calm mindset"
     ],
     paymentDetailsTitle: "Voluntary Contributions & Support",
     upiLabel: "UPI:",
@@ -254,23 +238,18 @@ const BookReadingClientPage: FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
-            {t.prepItems.map((item, idx) => (
-              <div key={idx} className="bg-surface-bright/60 border border-outline/10 rounded-2xl p-5 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-surface border border-outline/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="material-symbols-outlined text-accent text-xl">{item.icon}</span>
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-base font-medium font-headline text-on-surface">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs md:text-sm font-body text-on-surface/75 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
+          <ol className="space-y-4 max-w-2xl mx-auto">
+            {t.prepSteps.map((step, idx) => (
+              <li key={idx} className="flex items-start gap-4">
+                <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
+                  {idx + 1}
+                </span>
+                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
+                  {step}
+                </span>
+              </li>
             ))}
-          </div>
+          </ol>
         </section>
 
         {/* What Happens Next Section */}
