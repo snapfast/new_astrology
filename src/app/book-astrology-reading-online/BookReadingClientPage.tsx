@@ -127,6 +127,11 @@ const BookReadingClientPage: FC = () => {
               <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed max-w-lg mx-auto">
                 {t.tier.description}
               </p>
+              <div className="flex items-center justify-center gap-2 text-xs md:text-sm font-medium font-body text-accent pt-1">
+                <span>30-minute 1-on-1 sessions</span>
+                <span>•</span>
+                <span>Video is optional</span>
+              </div>
             </div>
 
             <div className="pt-8 text-center space-y-3 flex flex-col items-center">
@@ -142,23 +147,6 @@ const BookReadingClientPage: FC = () => {
               <p className="text-xs font-body text-on-surface/60">
                 Generates instant Google Meet confirmation
               </p>
-
-              {/* Bouncing scroll down arrow to attract user to How to book section */}
-              <button
-                onClick={() => {
-                  document.getElementById('how-to-book')?.scrollIntoView({ behavior: 'smooth' });
-                  sendGAEvent({ event: 'action_click', action_name: 'scroll_to_how_to_book' });
-                }}
-                className="pt-4 inline-flex flex-col items-center gap-1 text-on-surface/70 hover:text-primary transition-colors cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg"
-                aria-label="Scroll down to How to Book section"
-              >
-                <span className="text-[11px] font-label uppercase tracking-widest text-on-surface/70 group-hover:text-primary transition-colors font-medium">
-                  How to Book
-                </span>
-                <span className="material-symbols-outlined text-2xl text-accent animate-bounce">
-                  keyboard_double_arrow_down
-                </span>
-              </button>
             </div>
           </div>
         </section>
