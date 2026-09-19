@@ -29,7 +29,7 @@ const TRANSLATIONS = {
     heading4: "4. Consultations & Payments",
     para4: "Appointments and financial contributions are governed by clear, centralized rules:",
     list3: [
-      { title: "Duration:", text: " Live 1-on-1 consultations are exactly 30 minutes in duration, conducted via secure video sessions (Google Meet)." },
+      { title: "Duration:", text: " Live 1-on-1 consultations are 1 hour in duration, conducted via secure video sessions (Google Meet)." },
       { title: "Suggested Contributions:", text: " Astrological services operate on a voluntary donation model. No upfront payment is required. The suggested donation amounts are clearly outlined in Indian Rupees (INR)." },
       { title: "Booking Protocol:", text: " Bookings are handled via Calendly. No phone number or upfront payment is needed to schedule." }
     ],

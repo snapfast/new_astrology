@@ -26,8 +26,8 @@ const TRANSLATIONS = {
     whatToExpect: {
       tag: "Consultation Formats",
       title: "What to Expect",
-      intro: "Consultations are conducted as 30-minute 1-on-1 sessions tailored to your situation:",
-      sessionTitle: "30-Minute 1-on-1 Consultation",
+      intro: "Consultations are conducted as 1-hour 1-on-1 sessions tailored to your situation:",
+      sessionTitle: "1-Hour 1-on-1 Consultation",
       sessionDesc: "Ideal for birth chart examination, pressing life questions, follow-up consultations, horary (Praśna), day-selection (Muhurta), or compatibility analysis.",
       partsTitle: "Three Core Parts of a Consultation",
       partsDesc: "Consultations largely involve three parts, tailored according to your specific needs:",
