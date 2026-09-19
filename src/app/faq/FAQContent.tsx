@@ -94,7 +94,7 @@ export default function FAQContent() {
       />
 
       <section className="py-12 bg-surface">
-        <div className="max-w-6xl mx-auto px-8">
+        <div className="max-w-4xl mx-auto px-8">
 
           {/* Navigation Tabs for density and micro-UX */}
           <div className="flex justify-center border-b border-outline/20 mb-12 gap-6">

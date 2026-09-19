@@ -41,7 +41,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
 
   return (
     <section className={`${showTitle ? 'py-16' : 'pb-16'} bg-white`}>
-      <div className="max-w-5xl mx-auto px-8">
+      <div className="max-w-7xl mx-auto px-8">
         {showTitle && (
           <div className="text-center mb-16">
             <span className="text-[10px] font-medium uppercase text-accent mb-4 block font-label tracking-[0.3em]">{t.prep}</span>

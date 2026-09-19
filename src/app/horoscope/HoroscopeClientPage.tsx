@@ -801,7 +801,7 @@ const HoroscopeContent = () => {
         </div>
 
         {/* Verification CTA Section */}
-        <div className="bg-surface-container-low rounded-3xl md:rounded-[4rem] border border-outline/20 p-8 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto print:hidden">
+        <div className="bg-surface-container-low rounded-3xl md:rounded-[4rem] border border-outline/20 p-8 md:p-16 text-center relative overflow-hidden max-w-7xl mx-auto print:hidden">
           <div className="relative z-10">
             <h3 className="text-2xl md:text-3xl font-normal mb-6 font-headline text-on-surface">
               {t.ctaTitle}
