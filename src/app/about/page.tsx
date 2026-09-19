@@ -74,7 +74,7 @@ export default function AboutPage() {
         title="Pandit Rahul Bali Ji"
         subtitle="The Practitioner"
       />
-      <div className="py-16 max-w-5xl mx-auto px-8">
+      <div className="py-16 max-w-4xl mx-auto px-8">
         <AboutClient />
       </div>
 

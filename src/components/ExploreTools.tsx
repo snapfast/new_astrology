@@ -170,7 +170,7 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
 
   return (
     <section className={`py-12 bg-surface-bright relative overflow-hidden border-t border-outline/20 rounded-3xl ${className}`}>
-      <div className="max-w-5xl mx-auto px-4 md:px-8 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 text-center relative z-10">
         <h3 className="text-xl md:text-2xl font-normal mb-2 font-headline text-on-surface">
           {sectionTitle}
         </h3>
