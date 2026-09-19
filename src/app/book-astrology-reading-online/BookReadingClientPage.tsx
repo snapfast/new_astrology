@@ -174,11 +174,11 @@ const BookReadingClientPage: FC = () => {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 md:space-y-10">
 
-        {/* Schedule Call-to-Action Card */}
+        {/* Overview Card */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center">
           <div className="space-y-4">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Schedule A Consultation
+              Personalised Consultation
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
               Personalised Birth Chart Reading
@@ -195,21 +195,6 @@ const BookReadingClientPage: FC = () => {
               >
                 View Donate page <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </Link>
-            </p>
-          </div>
-
-          <div className="pt-6 text-center space-y-3 flex flex-col items-center">
-            <ScheduleButton
-              href={t.calendlyUrl}
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_click' });
-              }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-full font-medium font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs md:text-sm tracking-wider"
-            >
-              {t.scheduleBtnText}
-            </ScheduleButton>
-            <p className="text-xs font-body text-on-surface/60">
-              Generates instant calendar confirmation
             </p>
           </div>
         </section>
@@ -459,33 +444,6 @@ const BookReadingClientPage: FC = () => {
           </p>
         </section>
 
-        {/* Schedule Call-to-Action Bottom Card */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 text-center">
-          <div className="space-y-2">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Ready to Begin
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              Schedule Your Session
-            </h2>
-            <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-              Use the Schedule button below to reserve your appointment on Calendly.
-            </p>
-          </div>
-
-          <div className="pt-2 flex flex-col items-center">
-            <ScheduleButton
-              href={t.calendlyUrl}
-              onClick={() => {
-                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_bottom_click' });
-              }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-full font-medium font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs md:text-sm tracking-wider"
-            >
-              {t.scheduleBtnText}
-            </ScheduleButton>
-          </div>
-        </section>
-
         {/* Payment / Voluntary Support Details Card */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
           <div className="space-y-1">
@@ -521,6 +479,36 @@ const BookReadingClientPage: FC = () => {
                 <span className="material-symbols-outlined text-sm">open_in_new</span>
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Schedule Call-to-Action Card at end of page */}
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 text-center">
+          <div className="space-y-2">
+            <span className="text-xs font-medium text-accent font-label tracking-wider block">
+              Ready to Begin
+            </span>
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              Schedule Your Session
+            </h2>
+            <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
+              Use the Schedule button below to reserve your appointment on Calendly.
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-col items-center">
+            <ScheduleButton
+              href={t.calendlyUrl}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_bottom_click' });
+              }}
+              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-full font-medium font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs md:text-sm tracking-wider"
+            >
+              {t.scheduleBtnText}
+            </ScheduleButton>
+            <p className="text-xs font-body text-on-surface/60 mt-3">
+              Generates instant calendar confirmation
+            </p>
           </div>
         </section>
 
