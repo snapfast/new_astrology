@@ -26,7 +26,7 @@ const TRANSLATIONS = {
   en: {
     title: "Book Consultation",
     meetTitle: "Google Meet Session",
-    durationBadge: "30 Mins",
+    durationBadge: "1 Hour",
     videoBadge: "Video is optional",
     meetDesc: "1-on-1 session for deep chart analysis and remedies.",
     meetBtn: "Schedule Now",

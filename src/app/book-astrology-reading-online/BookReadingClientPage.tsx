@@ -10,7 +10,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
-    title: "Booking Online",
+    title: "Book Astrology Reading Online",
     subtitle: "Personalised Guidance",
     description: (
       <div className="font-body">
@@ -26,23 +26,21 @@ const TRANSLATIONS = {
     whatToExpect: {
       tag: "Consultation Formats",
       title: "What to Expect",
-      intro: "Consultations are available based on the amount of time required for your situation:",
-      shortTitle: "Short Consultations (< 60 Minutes)",
-      shortDesc: "Recommended for follow-up consultations, short-question sessions, horary (Praśna), day-selection (Muhurta), and matching of charts (business and personal).",
-      fullTitle: "Full Consultations (60+ Minutes)",
-      fullDesc: "Recommended for all new clients to allow sufficient time for a thorough birth chart examination and karmic analysis.",
+      intro: "Consultations are conducted as 1-hour 1-on-1 sessions tailored to your situation:",
+      sessionTitle: "1-Hour 1-on-1 Consultation",
+      sessionDesc: "Ideal for birth chart examination, pressing life questions, follow-up consultations, horary (Praśna), day-selection (Muhurta), or compatibility analysis.",
       partsTitle: "Three Core Parts of a Consultation",
-      partsDesc: "Consultations largely involve three parts, which can be adjusted at the behest of the client:",
+      partsDesc: "Consultations largely involve three parts, tailored according to your specific needs:",
       parts: [
         {
           num: "1",
           title: "Birth Chart Rectification",
-          desc: "Verification and micro-tuning of birth timing (a limited version is performed for short sessions less than 60 minutes)."
+          desc: "Verification and precise tuning of birth timing details."
         },
         {
           num: "2",
           title: "Assessment of Karmas & Remedies",
-          desc: "In-depth examination of karmic influences, their effects, root causes, and mantric or similar spiritual remedies (available for sessions of 60 minutes or more)."
+          desc: "In-depth examination of karmic influences, their effects, root causes, and practical mantric or spiritual remedies."
         },
         {
           num: "3",
@@ -76,7 +74,7 @@ const TRANSLATIONS = {
       steps: [
         "Select your preferred date and time slot using the Schedule button below",
         "Provide your precise birth details and key questions during scheduling",
-        "Upon receiving your request and contribution reference, expect 10–12 days processing time before your scheduled session",
+        "Receive instant calendar confirmation with session joining details",
         "Support our work with a voluntary contribution on our Donate page and leave a review"
       ],
       prepSteps: [
@@ -91,19 +89,19 @@ const TRANSLATIONS = {
       title: "How the Reading is Conducted",
       desc: "Readings can be conducted through:",
       options: [
-        "Phone Call (await your phone number and meeting details after scheduling)",
+        "Phone Call (we will reach out using the contact details provided during scheduling)",
         "Zoom (www.zoom.us) or Google Meet"
       ],
       recordingPolicy: "All readings whether over Phone, Zoom, or Google Meet are not recorded by default. You are welcome to take notes and write down predictions and remedies. (Video recording of chart screen & mouse movements is offered for clients with prior astrological knowledge)."
     },
     policy: {
       tag: "Guidelines & Policies",
-      title: "No Show & Cancellation Policy",
+      title: "Rescheduling & Courtesy Guidelines",
       reminders: "As a courtesy, to help you remember scheduled appointments, email reminders are sent in advance of your appointment time.",
-      notice: "24-Hour Notice: If your schedule changes and you cannot keep your appointment, please contact us with at least 24-hour notice so we may reschedule you and accommodate waiting clients.",
-      feeCharge: "Reimbursement Charge: If you do not cancel or reschedule your appointment with at least 24 hours notice, a EUR 50 € reimbursement charge for lost time is expected before rescheduling your consultation.",
-      doubleMissed: "Double Missed Sessions: If your consultation session is missed twice, your fee will not be refunded, and you are welcome to book a new consultation and remit a new fee.",
-      contact: "If you do not receive scheduling notice within 14 days, please contact: rahulbaliastrology@gmail.com"
+      notice: "24-Hour Notice: If your schedule changes and you cannot keep your appointment, please let us know with at least 24-hour notice so we may reschedule you and accommodate waiting clients.",
+      courtesyNotice: "Courtesy Rescheduling: Notifying us at least 24 hours in advance allows us to offer the open time slot to other seeking clients.",
+      doubleMissed: "Missed Appointments: If you miss your scheduled session, you are welcome to reschedule a new time slot on Calendly whenever you are ready.",
+      contact: "If you have any questions regarding your appointment, please contact: rahulbaliastrology@gmail.com"
     },
     paymentDetailsTitle: "Voluntary Contributions & Support",
     upiLabel: "UPI:",
@@ -232,22 +230,13 @@ const BookReadingClientPage: FC = () => {
             {t.whatToExpect.intro}
           </p>
 
-          <div className="space-y-4 pt-2">
+          <div className="pt-2">
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-base font-medium font-headline text-on-surface">
-                {t.whatToExpect.shortTitle}
+                {t.whatToExpect.sessionTitle}
               </h3>
               <p className="text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.whatToExpect.shortDesc}
-              </p>
-            </div>
-
-            <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
-              <h3 className="text-base font-medium font-headline text-on-surface">
-                {t.whatToExpect.fullTitle}
-              </h3>
-              <p className="text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.whatToExpect.fullDesc}
+                {t.whatToExpect.sessionDesc}
               </p>
             </div>
           </div>
@@ -422,10 +411,10 @@ const BookReadingClientPage: FC = () => {
 
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-sm font-medium font-headline text-on-surface">
-                Reimbursement Charge
+                Courtesy & Rescheduling
               </h3>
               <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.policy.feeCharge}
+                {t.policy.courtesyNotice}
               </p>
             </div>
 

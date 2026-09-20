@@ -16,7 +16,7 @@ const TRANSLATIONS = {
       {
         id: "booking-process",
         title: "Book a Session",
-        description: "Book your 30-minute online consultation easily. Choose a date and time that suits you."
+        description: "Book your 1-hour online consultation easily. Choose a date and time that suits you."
       },
       {
         id: "required-details",
