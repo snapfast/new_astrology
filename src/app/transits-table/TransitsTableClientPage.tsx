@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import ExploreTools from '@/components/ExploreTools';
+import KundliChart from '@/components/KundliChart';
 import { generateAstrologyData, PLANET_NAMES } from '@/lib/astrology';
 import { getPlanetTransits } from '@/lib/transits';
 
@@ -23,7 +24,9 @@ const TRANSLATIONS = {
     state: "State",
     combust: "Combust",
     retrograde: "Retrograde",
-    direct: "Direct"
+    direct: "Direct",
+    laganChartTitle: "Lagan Rashi (D1) Chart",
+    laganChartDesc: "Lagna Rashi chart for current selected date & time in New Delhi"
   }
 };
 
@@ -209,6 +212,19 @@ const TransitsTableClientPage = () => {
             </table>
           </div>
         </div>
+
+        {/* Lagan Rashi (D1) Chart */}
+        {chartData?.d1 && (
+          <div className="bg-white border border-outline rounded-3xl p-6 shadow-sm space-y-4 max-w-2xl mx-auto">
+            <div className="text-center space-y-1">
+              <h2 className="text-xl font-heading font-semibold text-on-surface">{t.laganChartTitle}</h2>
+              <p className="text-sm text-on-surface/70 font-body">{t.laganChartDesc}</p>
+            </div>
+            <div className="pt-2">
+              <KundliChart data={chartData.d1} />
+            </div>
+          </div>
+        )}
 
       </section>
 
