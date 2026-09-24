@@ -9,7 +9,25 @@ export interface PanchPakshiDayData {
   activities: PanchPakshiActivity[];
 }
 
-export const NAKSHATRA_BIRD_MAPPING: Record<string, { Shukla: string, Krishna: string }> = {
+export interface BirdAttributes {
+  planet: string;
+  element: string;
+  direction: string;
+  friendlyBirds: string[];
+  enemyBirds: string[];
+  description: string;
+}
+
+export interface ActivityGuidance {
+  title: string;
+  hindiTitle: string;
+  summary: string;
+  recommended: string[];
+  avoid: string[];
+  badgeColor: string;
+}
+
+export const NAKSHATRA_BIRD_MAPPING: Record<string, { Shukla: string; Krishna: string }> = {
   "Ashwini": { "Shukla": "Vulture", "Krishna": "Peacock" },
   "Bharani": { "Shukla": "Vulture", "Krishna": "Peacock" },
   "Krittika": { "Shukla": "Vulture", "Krishna": "Peacock" },
@@ -47,6 +65,134 @@ export const BIRD_TRANSLATIONS: Record<string, string> = {
   "Crow": "कौआ",
   "Rooster": "मुर्गा",
   "Peacock": "मोर"
+};
+
+export const BIRD_DETAILS: Record<string, BirdAttributes> = {
+  "Vulture": {
+    planet: "Sun (सूर्य)",
+    element: "Fire (Agni / अग्नि)",
+    direction: "East (पूर्व)",
+    friendlyBirds: ["Owl", "Peacock"],
+    enemyBirds: ["Crow", "Rooster"],
+    description: "Symbolizes sharp vision, authority, determination, and strategic dominance."
+  },
+  "Owl": {
+    planet: "Moon (चंद्र)",
+    element: "Water (Jal / जल)",
+    direction: "North (उत्तर)",
+    friendlyBirds: ["Vulture", "Rooster"],
+    enemyBirds: ["Crow", "Peacock"],
+    description: "Symbolizes deep intuition, sharp nocturnal intellect, wisdom, and analytical focus."
+  },
+  "Crow": {
+    planet: "Mars (मंगल)",
+    element: "Earth (Prithvi / पृथ्वी)",
+    direction: "South (दक्षिण)",
+    friendlyBirds: ["Peacock", "Rooster"],
+    enemyBirds: ["Vulture", "Owl"],
+    description: "Symbolizes practical ingenuity, high adaptability, persistence, and alertness."
+  },
+  "Rooster": {
+    planet: "Jupiter (गुरु)",
+    element: "Ether (Akash / आकाश)",
+    direction: "Center / North-East (ईशान)",
+    friendlyBirds: ["Owl", "Crow"],
+    enemyBirds: ["Vulture", "Peacock"],
+    description: "Symbolizes punctual discipline, vibrant energy, leadership, and optimism."
+  },
+  "Peacock": {
+    planet: "Saturn (शनि)",
+    element: "Air (Vayu / वायु)",
+    direction: "West (पश्चिम)",
+    friendlyBirds: ["Vulture", "Crow"],
+    enemyBirds: ["Owl", "Rooster"],
+    description: "Symbolizes grace, magnetic influence, artistic finesse, and regal stature."
+  }
+};
+
+export const ACTIVITY_GUIDANCE: Record<string, ActivityGuidance> = {
+  "Ruling": {
+    title: "Ruling State (राज)",
+    hindiTitle: "शासन / राज कार्य",
+    summary: "Peak power phase. Ideal for high-impact decisions, leadership, and critical milestones.",
+    recommended: [
+      "Launching new business ventures & projects",
+      "Signing major legal contracts & agreements",
+      "High-stakes negotiations & government meetings",
+      "Appearing for interviews or court hearings"
+    ],
+    avoid: [
+      "Procrastination or passive work",
+      "Surrendering leadership initiative to others"
+    ],
+    badgeColor: "bg-success/20 text-success border-success/30"
+  },
+  "Eating": {
+    title: "Eating State (भोजन)",
+    hindiTitle: "भोजन / संवर्धन कार्य",
+    summary: "Growth and nourishment phase. Great for steady progress, financial planning, and learning.",
+    recommended: [
+      "Skill acquisition, studies & deep learning",
+      "Financial investments & budgeting",
+      "Team bonding & relationship building",
+      "Strategic planning & creative drafting"
+    ],
+    avoid: [
+      "Aggressive confrontations or disputes",
+      "Impulsive financial gambles"
+    ],
+    badgeColor: "bg-info/20 text-info border-info/30"
+  },
+  "Walking": {
+    title: "Walking State (गमन)",
+    hindiTitle: "गमन / निरंतर कार्य",
+    summary: "Moderate activity phase. Favorable for movement, travel, routine execution, and networking.",
+    recommended: [
+      "Business travel & client field visits",
+      "Routine operational & administrative tasks",
+      "Networking & general communications",
+      "Physical exercise & movement"
+    ],
+    avoid: [
+      "Finalizing multi-year binding contracts",
+      "Making permanent high-risk commitments"
+    ],
+    badgeColor: "bg-warning/20 text-warning border-warning/30"
+  },
+  "Sleeping": {
+    title: "Sleeping State (शयन)",
+    hindiTitle: "शयन / विश्राम",
+    summary: "Inactive resting phase. Best utilized for re-energizing, internal review, and quiet reflection.",
+    recommended: [
+      "Rest, relaxation & physical recovery",
+      "Meditation & spiritual practice",
+      "Behind-the-scenes research & audit",
+      "Quiet solitude & light planning"
+    ],
+    avoid: [
+      "Public speaking or major launches",
+      "Initiating competitive confrontations",
+      "Signing critical business documents"
+    ],
+    badgeColor: "bg-on-surface/10 text-on-surface border-on-surface/20"
+  },
+  "Dying": {
+    title: "Dying State (मरण)",
+    hindiTitle: "मरण / निष्क्रिय काल",
+    summary: "Inauspicious passive phase. Avoid critical commitments or risky activities.",
+    recommended: [
+      "Solitary routine work & maintenance",
+      "Meditation & spiritual surrendering",
+      "Taking a planned mental break"
+    ],
+    avoid: [
+      "Starting any new venture or project",
+      "High-value financial transactions",
+      "Long-distance travel or medical procedures",
+      "Heated debates or resolving conflicts"
+    ],
+    badgeColor: "bg-error/20 text-error border-error/30"
+  }
 };
 
 export const MOCK_PANCH_PAKSHI_DATA: Record<string, PanchPakshiDayData> = {
