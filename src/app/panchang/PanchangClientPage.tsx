@@ -9,6 +9,7 @@ import { getFestivalsForDate, Festival } from '@/lib/festivals';
 import JsonLd from '@/components/JsonLd';
 import { useLanguage } from '@/context/LanguageContext';
 import ExploreTools from '@/components/ExploreTools';
+import DeepamIcon from '@/components/DeepamIcon';
 
 
 const TRANSLATIONS = {
@@ -429,8 +430,8 @@ const PanchangPage = () => {
             <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.timingsTitle}</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-lg">sunny</span>
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center shrink-0">
+                  <DeepamIcon width={20} height={20} />
                 </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
