@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import BookConsultationModal from './BookConsultationModal';
+import dynamic from 'next/dynamic';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
+
+const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), { ssr: false });
 
 const TRANSLATIONS = {
   desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
