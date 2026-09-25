@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import LearnMoreModal from './LearnMoreModal';
-import BookConsultationModal from './BookConsultationModal';
+import dynamic from 'next/dynamic';
 import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
+
+const LearnMoreModal = dynamic(() => import('./LearnMoreModal'), { ssr: false });
+const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), { ssr: false });
 
 const TRANSLATIONS = {
   en: {

@@ -193,7 +193,6 @@ const ChartGeneration = ({ className = "", initialValues, isUpdate = false, onCl
 
     // dob is YYYY-MM-DD, tob is HH:mm
     const [year, month, day] = dob.split('-');
-    const dobString = `${day}-${month}-${year}`; // For history display (DD-MM-YYYY)
     const tobString = tob;
 
     // Save to history (stored as DD-MM-YYYY format)
