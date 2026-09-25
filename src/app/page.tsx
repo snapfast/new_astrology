@@ -11,8 +11,8 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology Consultations | Bali Astrology",
-  description: "Consult with Rahul Bali for Vedic Astrology. Get Janam Kundli readings, varga charts, Panch Pakshi & Biorhythm.",
+  title: "Online Vedic Astrology Consultations | Bali Astrology",
+  description: "Consult with Pandit Rahul Bali for Vedic Astrology. Get accurate Janam Kundli readings, varga charts, Panch Pakshi & Biorhythm guidance.",
   keywords: [
     "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
     "Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
