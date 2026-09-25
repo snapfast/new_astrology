@@ -8,30 +8,30 @@ interface ExpertConsultationsProps {
 
 const TRANSLATIONS = {
   en: {
-    prep: "Step-by-Step Guide",
-    title: "How it Works",
-    desc: "A simple process to get clear astrological guidance and remedies for your life.",
-    bookNow: "Book Your Session Now",
+    prep: "Vedic Astrology Consultation Process",
+    title: "Book Your Vedic Astrology Consultation",
+    desc: "A simple process to book a Vedic astrology consultation with Pandit Rahul Bali Ji for clear guidance and practical remedies.",
+    bookNow: "Book Your Consultation Now",
     guidelines: [
       {
         id: "booking-process",
-        title: "Book a Session",
-        description: "Book your 1-hour online consultation easily. Choose a date and time that suits you."
+        title: "Book a Consultation Session",
+        description: "Book your 1-hour online Vedic astrology consultation easily. Choose a date and time that suits you."
       },
       {
         id: "required-details",
         title: "Provide Birth Details",
-        description: "To read your Kundli accurately, we need your exact date, time, and place of birth when you book."
+        description: "To read your Janam Kundli accurately, provide your exact date, time, and place of birth when you book your consultation."
       },
       {
         id: "prepare-questions",
         title: "Prepare Your Questions",
-        description: "Note down specific questions about your career, marriage, health, or personal life that you want to ask during the call."
+        description: "Note down specific questions about career, marriage, health, or life decisions for your Vedic astrology consultation."
       },
       {
         id: "open-mindset",
-        title: "Get Clear Guidance",
-        description: "Join the call with an open mind. You will receive clear answers and practical remedies for your problems."
+        title: "Get Clear Guidance & Practical Remedies",
+        description: "Join the call with Pandit Rahul Bali Ji. Receive clear guidance and practical remedies tailored to your horoscopes."
       }
     ]
   }};

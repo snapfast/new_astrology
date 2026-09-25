@@ -11,12 +11,12 @@ const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), {
 
 const TRANSLATIONS = {
   en: {
-    subtitle: 'SACRED VEDIC ASTROLOGY · JYOTISH SHASTRA',
+    subtitle: 'SACRED VEDIC ASTROLOGY CONSULTATION · CLEAR GUIDANCE & PRACTICAL REMEDIES',
     title: 'Pandit Rahul Bali Ji',
     bookBtn: 'Book a Consultation',
     learnBtn: 'Learn More',
     charts: 'Charts',
-    rating: 'Rating'
+    rating: '5 Star Google Rating'
   }};
 
 const Hero = () => {
@@ -47,8 +47,10 @@ const Hero = () => {
           <span className="text-lg md:text-2xl text-accent font-hindi mb-3">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
-          <h1 className="sr-only">Pandit Rahul Bali Ji - Vedic Astrology</h1>
-          <span className="font-medium text-accent font-label text-[10px] tracking-[0.3em] uppercase">
+          <h1 className="text-3xl md:text-5xl font-headline text-on-surface font-normal mb-3 tracking-tight">
+            Pandit Rahul Bali Ji
+          </h1>
+          <span className="font-medium text-accent font-label text-[10px] md:text-xs tracking-[0.25em] uppercase max-w-xl text-center">
             {t.subtitle}
           </span>
         </div>
@@ -89,7 +91,7 @@ const Hero = () => {
           <div className="flex flex-col items-center flex-1">
             <StarRating className="mb-1" starClassName="text-[14px] md:text-[16px]" />
             <span className="text-xl md:text-2xl font-headline text-accent tabular-nums mb-1">5.0</span>
-            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Google Rating</span>
+            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.15em] font-label text-center">5 Star Google Rating</span>
           </div>
 
           <div className="w-px h-8 bg-outline/20 shrink-0"></div>

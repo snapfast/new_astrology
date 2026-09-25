@@ -11,13 +11,12 @@ import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: "Vedic Astrology Consultations | Bali Astrology",
-  description: "Consult with Rahul Bali for Vedic Astrology. Get Janam Kundli readings, varga charts, Panch Pakshi & Biorhythm.",
+  title: "Vedic Astrology Consultation | Pandit Rahul Bali Ji | 5 Star Google Rating",
+  description: "Book a Vedic Astrology consultation with Pandit Rahul Bali Ji. 5 star Google rating service offering clear guidance and practical remedies.",
   keywords: [
-    "bali", "astro", "astrology", "india", "haryana", "miracle", "dharma", "remedy", "happiness",
-    "Bali Astrology", "Vedic Astrologer", "Astrologer", "Janam Kundli",
-    "all 17 varga charts", "divisional charts in hindi", "D9 Navamsha", "D10 Dashamsha",
-    "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm tracker"
+    "vedic astrology", "consultation", "rahul bali ji", "pandit rahul bali ji", "google rating",
+    "5 star google rating", "clear guidance", "practical remedies", "book consultation", "star star star star star",
+    "bali", "astro", "astrology", "Janam Kundli", "D9 Navamsha", "Panch Pakshi"
   ],
   alternates: {
     canonical: "https://baliastrology.com",
@@ -43,7 +42,7 @@ export default function Home() {
       "https://www.linkedin.com/in/rahulbaliastrology/",
       "https://www.threads.net/@rahulbaliastro"
     ],
-    "description": "Vedic Astrology guidance by Pandit Rahul Bali Ji. Specialist in Janam Kundli, career, and relationship consultations.",
+    "description": "Book a Vedic Astrology consultation with Pandit Rahul Bali Ji. 5 star Google rating offering clear guidance and practical remedies.",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",

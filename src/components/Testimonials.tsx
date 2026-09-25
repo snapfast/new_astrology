@@ -6,9 +6,9 @@ import StarRating from './StarRating';
 
 const TRANSLATIONS = {
   en: {
-    subtitle: "Reviews",
-    title: "Testimonials",
-    rating: "5/5 RATING",
+    subtitle: "Client Reviews",
+    title: "5 Star Google Rating & Testimonials",
+    rating: "5 STAR GOOGLE RATING",
     viewOnGoogle: "View on Google",
     prev: "Previous review",
     next: "Next review",
