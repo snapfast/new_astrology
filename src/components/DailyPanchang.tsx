@@ -3,6 +3,7 @@
 import { useMemo, memo } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
+import DeepamIcon from './DeepamIcon';
 
 interface DailyPanchangProps {
   className?: string;
@@ -49,8 +50,8 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               <h2 className="text-2xl md:text-4xl font-normal font-headline text-on-surface mb-6 leading-tight">{t.title}</h2>
               <div className="space-y-5 mb-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-9 h-9 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                    <span className="material-symbols-outlined text-lg" aria-hidden="true">sunny</span>
+                  <div className="w-9 h-9 bg-accent/10 rounded-full flex items-center justify-center shrink-0">
+                    <DeepamIcon width={22} height={22} />
                   </div>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>

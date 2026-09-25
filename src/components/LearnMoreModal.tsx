@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 import BaseModal from './BaseModal';
 import LotusSwastika from './LotusSwastika';
+import DeepamIcon from './DeepamIcon';
 
 const TRANSLATIONS = {
   en: {
@@ -47,10 +48,12 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
       <div className="p-4 md:p-5">
         {/* Header */}
         <div className="flex justify-between items-center mb-3 md:mb-4 border-b border-outline/10 pb-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
+            <DeepamIcon width={24} height={24} />
             <LotusSwastika className="w-5 h-5 md:w-6 md:h-6 text-[#C62828] drop-shadow-sm" aria-hidden="true" />
             <h2 id="learn-more-title" className="text-xl md:text-2xl font-medium text-on-surface font-headline tracking-tight">{t.title}</h2>
             <LotusSwastika className="w-5 h-5 md:w-6 md:h-6 text-[#C62828] drop-shadow-sm" aria-hidden="true" />
+            <DeepamIcon width={24} height={24} />
           </div>
           <button
             onClick={() => {
