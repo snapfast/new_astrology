@@ -19,6 +19,7 @@ const TRANSLATIONS = {
   followUs: 'Follow Us',
   company: 'Company',
   aboutUs: 'About Us',
+  blog: 'Blog',
   rights: 'Bali Astrology Services © 2025. All rights reserved.',
   privacy: 'Privacy',
   terms: 'Terms',

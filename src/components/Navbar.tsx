@@ -18,6 +18,7 @@ const TRANSLATIONS = {
     biorhythm: 'Biorhythm',
     tools: 'Tools',
     about: 'About',
+    blog: 'Blog',
     reviews: 'Reviews',
     donate: 'Donate',
     bookNow: 'Book Now',

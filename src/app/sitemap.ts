@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     '',
     '/about',
+    '/blog',
     '/reviews',
     '/horoscope',
     '/kp-horary',
