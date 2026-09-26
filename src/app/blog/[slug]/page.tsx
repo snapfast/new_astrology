@@ -1,13 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import BlogArticleClientPage from './BlogArticleClientPage';
-import JsonLd from '@/components/JsonLd';
-import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/blog';
 
-interface ArticlePageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+interface BlogArticlePageProps {
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -17,7 +14,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
@@ -28,40 +25,24 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   }
 
   return {
-    title: `${post.title} | Bali Astrology`,
+    title: `${post.title}`,
     description: post.excerpt,
-    keywords: [...post.tags, 'Bali Astrology', 'Vedic Astrology', 'Horoscope'],
-    alternates: {
-      canonical: `https://baliastrology.com/blog/${post.slug}`,
-    },
     openGraph: {
       title: `${post.title} | Bali Astrology`,
       description: post.excerpt,
-      url: `https://baliastrology.com/blog/${post.slug}`,
-      siteName: 'Bali Astrology',
       type: 'article',
       publishedTime: post.publishedAt,
-      authors: [post.author.name],
+      authors: [post.author],
       tags: post.tags,
-      images: [
-        {
-          url: '/og-image.png',
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
     },
     twitter: {
-      card: 'summary_large_image',
       title: `${post.title} | Bali Astrology`,
       description: post.excerpt,
-      images: ['/og-image.png'],
     },
   };
 }
 
-export default async function BlogArticlePage({ params }: ArticlePageProps) {
+export default async function BlogArticlePage({ params }: BlogArticlePageProps) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
@@ -69,39 +50,16 @@ export default async function BlogArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(slug, 3);
+  const allPosts = getAllPosts();
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug && p.tags.some((tag) => post.tags.includes(tag)))
+    .slice(0, 2);
 
-  const blogPostingSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.publishedAt,
-    author: {
-      '@type': 'Person',
-      name: post.author.name,
-      jobTitle: post.author.role,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Bali Astrology',
-      url: 'https://baliastrology.com',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://baliastrology.com/og-image.png',
-      },
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://baliastrology.com/blog/${post.slug}`,
-    },
-    keywords: post.tags.join(', '),
-  };
+  // If no tag-matching posts, fall back to recent posts
+  const finalRelatedPosts =
+    relatedPosts.length > 0
+      ? relatedPosts
+      : allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
-  return (
-    <>
-      <JsonLd data={blogPostingSchema} />
-      <BlogArticleClientPage post={post} relatedPosts={relatedPosts} />
-    </>
-  );
+  return <BlogArticleClientPage post={post} relatedPosts={finalRelatedPosts} />;
 }

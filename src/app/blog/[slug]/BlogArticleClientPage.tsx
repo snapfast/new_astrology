@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import PageHeader from '@/components/PageHeader';
+import JsonLd from '@/components/JsonLd';
 import { BlogPost } from '@/lib/blog';
 
 interface BlogArticleClientPageProps {
@@ -9,159 +11,140 @@ interface BlogArticleClientPageProps {
 }
 
 export default function BlogArticleClientPage({ post, relatedPosts }: BlogArticleClientPageProps) {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
+  const jsonLdData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Bali Astrology',
+      url: 'https://baliastrology.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://baliastrology.com/blog/${post.slug}`,
+    },
+    keywords: post.tags.join(', '),
   };
 
   return (
-    <div className="min-h-screen bg-surface pt-20 pb-16 font-body">
-      <div className="max-w-4xl mx-auto px-4 md:px-8">
-        {/* Back Link */}
-        <div className="mb-8">
+    <div className="min-h-screen bg-surface text-on-surface pb-16">
+      <JsonLd data={jsonLdData} />
+
+      <PageHeader title={post.title} subtitle={post.excerpt} />
+
+      <div className="max-w-4xl mx-auto px-4 md:px-8 mt-8">
+        {/* Back Link & Article Meta Bar */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-outline/20">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-on-surface/70 hover:text-accent transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:underline"
           >
-            <span className="material-symbols-outlined text-base">arrow_back</span>
-            <span>Back to Articles</span>
+            <span className="material-symbols-outlined !text-base">arrow_back</span>
+            Back to All Articles
           </Link>
+
+          <div className="flex flex-wrap items-center gap-3 text-xs text-on-surface/70">
+            <span className="flex items-center gap-1">
+              <span className="material-symbols-outlined !text-base text-accent">person</span>
+              {post.author}
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1">
+              <span className="material-symbols-outlined !text-base">calendar_today</span>
+              {post.publishedAt}
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1">
+              <span className="material-symbols-outlined !text-base">schedule</span>
+              {post.readTime}
+            </span>
+          </div>
         </div>
 
-        {/* Article Header */}
-        <header className="mb-10 pb-8 border-b border-outline/20">
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
+        {/* Tags */}
+        {post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-medium px-3 py-1 rounded-full bg-surface-container-high text-on-surface/80"
+                className="text-xs font-medium bg-surface-bright text-on-surface/80 px-3 py-1 rounded-full border border-outline/20"
               >
                 #{tag}
               </span>
             ))}
           </div>
+        )}
 
-          {/* Title */}
-          <h1 className="text-2xl md:text-4xl font-bold text-on-surface mb-4 leading-tight">
-            {post.title}
-          </h1>
-
-          {/* Excerpt */}
-          <p className="text-base md:text-lg text-on-surface/75 leading-relaxed mb-6 font-normal">
-            {post.excerpt}
-          </p>
-
-          {/* Metadata */}
-          <div className="flex flex-wrap items-center justify-between gap-4 text-xs md:text-sm text-on-surface/70">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-accent">
-                {post.author.name.charAt(0)}
-              </div>
-              <div>
-                <div className="font-semibold text-on-surface">{post.author.name}</div>
-                <div className="text-[11px] text-on-surface/60">{post.author.role}</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 text-xs text-on-surface/60">
-              <div className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-sm">calendar_today</span>
-                <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-sm">schedule</span>
-                <span>{post.readTime}</span>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Article Body */}
-        <article className="prose prose-slate max-w-none text-on-surface space-y-8 leading-relaxed">
-          {post.sections.map((section, idx) => (
-            <div key={idx} className="space-y-4">
-              {section.heading && (
-                <h2 className="text-xl md:text-2xl font-bold text-on-surface mt-8 mb-4">
-                  {section.heading}
-                </h2>
-              )}
-
-              {section.paragraphs.map((para, pIdx) => (
-                <p key={pIdx} className="text-on-surface/85 text-base md:text-lg leading-relaxed">
-                  {para}
-                </p>
-              ))}
-
-              {section.bulletPoints && section.bulletPoints.length > 0 && (
-                <ul className="list-disc pl-6 space-y-2 text-on-surface/85 text-base md:text-lg my-4">
-                  {section.bulletPoints.map((bp, bpIdx) => (
-                    <li key={bpIdx}>{bp}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
+        {/* Article Body Content */}
+        <article className="bg-surface-bright rounded-2xl p-6 md:p-10 border border-outline/20 shadow-sm mb-12">
+          <div
+            className="prose max-w-none text-on-surface leading-relaxed font-body
+              [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-on-surface [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:border-b [&_h2]:border-outline/10 [&_h2]:pb-2
+              [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-on-surface [&_h3]:mt-6 [&_h3]:mb-3
+              [&_p]:mb-4 [&_p]:text-on-surface/90 [&_p]:leading-7
+              [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-1.5
+              [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1.5
+              [&_li]:text-on-surface/90
+              [&_strong]:font-semibold [&_strong]:text-on-surface
+              [&_blockquote]:border-l-4 [&_blockquote]:border-accent [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6 [&_blockquote]:text-on-surface/80
+              [&_a]:text-accent [&_a]:underline hover:[&_a]:opacity-80
+              [&_table]:w-full [&_table]:my-6 [&_table]:border-collapse
+              [&_th]:bg-surface [&_th]:p-3 [&_th]:text-left [&_th]:font-semibold [&_th]:border [&_th]:border-outline/20
+              [&_td]:p-3 [&_td]:border [&_td]:border-outline/20"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
         </article>
 
-        {/* Consultation CTA Banner */}
-        <div className="mt-12 p-6 md:p-8 rounded-2xl bg-surface-container-lowest border border-outline/20 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="text-lg md:text-xl font-bold text-on-surface mb-2">
-              Ready for Personal Guidance?
-            </h3>
-            <p className="text-sm text-on-surface/75">
-              Get detailed birth chart insights tailored to your career, relationship, and timing questions.
-            </p>
+        {/* Author Bio Box */}
+        <div className="bg-surface-bright rounded-2xl p-6 border border-outline/20 shadow-sm mb-12 flex flex-col sm:flex-row items-center sm:items-start gap-4">
+          <div className="w-16 h-16 rounded-full bg-surface-container-high border border-outline/30 flex items-center justify-center shrink-0">
+            <span className="material-symbols-outlined text-accent !text-3xl">psychology</span>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <Link
-              href="/book-astrology-reading-online"
-              className="bg-primary text-white px-5 py-2.5 rounded-full font-medium text-xs tracking-wider uppercase shadow-sm hover:opacity-95 transition-opacity"
-            >
-              Book Reading
-            </Link>
-            <Link
-              href="/free-horoscope"
-              className="bg-surface-container-high text-on-surface px-5 py-2.5 rounded-full font-medium text-xs tracking-wider uppercase hover:bg-surface-container-highest transition-colors"
-            >
-              Free Kundli
-            </Link>
+          <div>
+            <h3 className="text-base font-bold text-on-surface mb-1 text-center sm:text-left">
+              About {post.author}
+            </h3>
+            <p className="text-xs text-on-surface/70 leading-relaxed text-center sm:text-left">
+              Practicing Vedic Astrologer trained in classical Brahmin wisdom, offering authentic insights, chart rectifications, and astrological guidance.
+            </p>
           </div>
         </div>
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <div className="mt-16 pt-12 border-t border-outline/20">
-            <h2 className="text-xl font-bold text-on-surface mb-6">Related Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedPosts.map((related) => (
-                <div
-                  key={related.slug}
-                  className="bg-surface-container-lowest rounded-xl p-5 border border-outline/15 flex flex-col justify-between hover:border-outline/30 transition-all"
+          <div>
+            <h3 className="text-xl font-bold text-on-surface mb-6 flex items-center gap-2">
+              <span className="material-symbols-outlined text-accent">auto_awesome</span>
+              Related Articles
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {relatedPosts.map((rel) => (
+                <Link
+                  key={rel.slug}
+                  href={`/blog/${rel.slug}`}
+                  className="bg-surface-bright rounded-xl p-5 border border-outline/20 hover:shadow-md transition-all group block"
                 >
-                  <div>
-                    <div className="text-[11px] text-on-surface/60 mb-2">
-                      {formatDate(related.publishedAt)}
-                    </div>
-                    <h3 className="text-base font-bold text-on-surface hover:text-accent transition-colors mb-2 line-clamp-2">
-                      <Link href={`/blog/${related.slug}`}>{related.title}</Link>
-                    </h3>
-                    <p className="text-xs text-on-surface/70 line-clamp-3 mb-4">
-                      {related.excerpt}
-                    </p>
-                  </div>
-                  <Link
-                    href={`/blog/${related.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-accent"
-                  >
-                    <span>Read Article</span>
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </Link>
-                </div>
+                  <h4 className="font-bold text-on-surface group-hover:text-accent transition-colors line-clamp-2 mb-2 text-sm">
+                    {rel.title}
+                  </h4>
+                  <p className="text-xs text-on-surface/60 line-clamp-2 mb-4 leading-relaxed">
+                    {rel.excerpt}
+                  </p>
+                  <span className="text-xs font-medium text-accent flex items-center gap-1">
+                    Read article
+                    <span className="material-symbols-outlined !text-sm group-hover:translate-x-1 transition-transform">
+                      arrow_forward
+                    </span>
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
