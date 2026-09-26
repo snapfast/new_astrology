@@ -18,6 +18,7 @@ const TRANSLATIONS = {
     biorhythm: 'Biorhythm',
     tools: 'Tools',
     about: 'About',
+    blog: 'Blog',
     reviews: 'Reviews',
     donate: 'Donate',
     bookNow: 'Book Now',
@@ -81,6 +82,7 @@ const Navbar = () => {
     { name: t.reviews, href: '/reviews' },
     { name: t.donate, href: '/donate' },
     { name: t.about, href: '/about' },
+    { name: t.blog, href: '/blog' },
     {
       name: t.tools,
       subLinks: [
