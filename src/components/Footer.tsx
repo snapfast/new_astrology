@@ -64,6 +64,7 @@ const Footer = () => {
           <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.company}</h6>
           <ul className="space-y-5 text-sm">
             <li><Link prefetch={true} className="text-on-surface font-normal" href="/about">{t.aboutUs}</Link></li>
+            <li><Link prefetch={true} className="text-on-surface font-normal" href="/blog">Blog</Link></li>
             <li><Link prefetch={true} className="text-on-surface font-normal" href="/faq">{t.faq}</Link></li>
             <li><a onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_company_feedback' })} className="text-on-surface font-normal" href="https://forms.gle/i2qXvXi84FvpH26N6" target="_blank" rel="noopener noreferrer">{t.feedback}</a></li>
           </ul>
