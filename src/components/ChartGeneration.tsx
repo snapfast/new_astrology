@@ -10,8 +10,8 @@ import { type StoredChartData } from '@/lib/types';
 
 const TRANSLATIONS = {
   en: {
-    title: "Generate your Horoscope",
-    desc: "Enter your details to unlock a precise map of the stars at the moment of your birth.",
+    title: "Generate Your Free Vedic Astrology Horoscope",
+    desc: "Enter birth details for your Vedic astrology horoscope chart, Janam Kundli, clear guidance, and planetary positions.",
     labelName: "Full Name",
     labelDob: "Date of Birth",
     labelTob: "Time of Birth",
