@@ -1,8 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import JsonLd from '@/components/JsonLd';
+import ExploreTools from '@/components/ExploreTools';
 import { BlogPost } from '@/lib/blog';
 
 interface BlogArticleClientPageProps {
@@ -35,12 +38,13 @@ export default function BlogArticleClientPage({ post, relatedPosts }: BlogArticl
   };
 
   return (
-    <div className="min-h-screen bg-surface text-on-surface pb-16">
+    <main className="min-h-screen bg-surface text-on-surface">
       <JsonLd data={jsonLdData} />
+      <Navbar />
 
       <PageHeader title={post.title} subtitle={post.excerpt} />
 
-      <div className="max-w-4xl mx-auto px-4 md:px-8 mt-8">
+      <div className="max-w-4xl mx-auto px-4 md:px-8 mt-8 pb-16">
         {/* Back Link & Article Meta Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-outline/20">
           <Link
@@ -150,6 +154,10 @@ export default function BlogArticleClientPage({ post, relatedPosts }: BlogArticl
           </div>
         )}
       </div>
-    </div>
+
+      <ExploreTools currentPath={`/blog/${post.slug}`} className="max-w-7xl mx-auto mb-12 px-4 md:px-8" />
+
+      <Footer />
+    </main>
   );
 }

@@ -2,7 +2,10 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
+import ExploreTools from '@/components/ExploreTools';
 import { BlogPost } from '@/lib/blog';
 
 interface BlogClientPageProps {
@@ -30,13 +33,15 @@ export default function BlogClientPage({ initialPosts, allTags }: BlogClientPage
   }, [initialPosts, searchQuery, selectedTag]);
 
   return (
-    <div className="min-h-screen bg-surface text-on-surface pb-16">
+    <main className="min-h-screen bg-surface text-on-surface">
+      <Navbar />
+
       <PageHeader
         title="Vedic Astrology Blog"
         subtitle="Insights, planetary transits, Panchang wisdom, and spiritual guidance by Pandit Rahul Bali Ji"
       />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8 pb-16">
         {/* Search & Tag Filter Controls */}
         <div className="bg-surface-bright rounded-2xl p-6 border border-outline/20 shadow-sm mb-10 flex flex-col gap-6">
           <div className="relative w-full">
@@ -202,6 +207,10 @@ export default function BlogClientPage({ initialPosts, allTags }: BlogClientPage
           </div>
         )}
       </div>
-    </div>
+
+      <ExploreTools currentPath="/blog" className="max-w-7xl mx-auto mb-12 px-4 md:px-8" />
+
+      <Footer />
+    </main>
   );
 }
