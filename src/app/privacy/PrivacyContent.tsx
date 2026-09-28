@@ -23,7 +23,7 @@ const TRANSLATIONS = {
     para3: "Your data is strictly processed to deliver precise, personalized astrological insights:",
     list2: [
       "To calculate planetary degrees, divisional charts (D1, D3, D9, D10, D7, D60), Vimshottari Dasha, Panchang, and Panch Pakshi bird activity.",
-      "To schedule and coordinate live 1-on-1 consultations (securely via Calendly).",
+      "To schedule and coordinate live personal consultations (securely via Calendly).",
       "To improve our website performance, layout stability, and user experience."
     ],
     heading4: "4. Confidentiality & Security",

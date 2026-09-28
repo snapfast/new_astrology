@@ -15,7 +15,7 @@ test('Reviews page CTA section is visible and functional', async ({ page }) => {
   await expect(ctaHeading).toBeVisible();
 
   // Verify Book Session button triggers the booking modal event/visibility
-  const bookBtn = page.getByRole('button', { name: /Book 1-on-1/i }).first();
+  const bookBtn = page.getByRole('button', { name: /Book Personal/i }).first();
   await expect(bookBtn).toBeVisible();
 
   // Take a full-page screenshot of the reviews CTA
@@ -44,7 +44,7 @@ test('Biorhythm page Explore More section is visible and contains correct cards'
   await expect(pakshiCard).toBeVisible();
   await expect(pakshiCard).toHaveAttribute('href', '/panch-pakshi');
 
-  const bookCard = page.getByRole('button', { name: /Book 1-on-1/i }).first();
+  const bookCard = page.getByRole('button', { name: /Book Personal/i }).first();
   await expect(bookCard).toBeVisible();
 
   // Take a full-page screenshot of the biorhythm tools section
