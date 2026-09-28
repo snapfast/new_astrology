@@ -10,96 +10,96 @@ import { sendGAEvent } from '@next/third-parties/google';
 const TRANSLATIONS = {
   en: {
     title: "Book Astrology Reading Online",
-    subtitle: "Personalised Guidance",
+    subtitle: "Online Astrology Consultation",
     description: (
       <div className="font-body">
-        Comprehensive Vedic Astrology (Jyotish) consultations, birth chart analysis, and practical life remedies.
+        Structured Vedic Astrology (Jyotish) consultations, birth chart analysis, and practical life remedies for domestic and international clients.
       </div>
     ),
     whatToExpect: {
-      tag: "Consultation Formats",
+      tag: "Consultation Structure",
       title: "What to Expect",
-      intro: "Consultations are conducted as 1-hour direct consultation sessions tailored to your situation:",
+      intro: "Consultations are conducted as 1-hour direct live sessions structured around your specific requirements:",
       sessionTitle: "1 Hour Consultation",
-      sessionDesc: "Ideal for birth chart examination, pressing life questions, follow-up consultations, horary (Praśna), day-selection (Muhurta), or compatibility analysis.",
-      partsTitle: "Three Core Parts of a Consultation",
-      partsDesc: "Consultations largely involve three parts, tailored according to your specific needs:",
+      sessionDesc: "Designed for birth chart examination, pressing questions, horary analysis (Praśna), auspicious timing (Muhurta), or compatibility assessment.",
+      partsTitle: "Three Core Stages of a Session",
+      partsDesc: "Each session covers three primary analytical areas:",
       parts: [
         {
           num: "1",
           title: "Birth Chart Rectification",
-          desc: "Verification and precise tuning of birth timing details."
+          desc: "Verification and precise alignment of birth time details."
         },
         {
           num: "2",
           title: "Assessment of Karmas & Remedies",
-          desc: "In-depth examination of karmic influences, their effects, root causes, and practical mantric or spiritual remedies."
+          desc: "Evaluation of planetary influences, root causes, and practical mantric or spiritual remedies."
         },
         {
           num: "3",
-          title: "Current & Near-Future Predictions",
-          desc: "Detailed assessment of present and upcoming planetary periods, alongside clear answers to your specific questions."
+          title: "Current & Upcoming Predictions",
+          desc: "Analysis of present and future planetary periods (Daśā) with clear answers to specific questions."
         }
       ],
-      knowledgeNote: "No prior knowledge of astrology is necessary to have a consultation. Should you have prior astrological knowledge, Pandit Rahul Bali will offer to video-record his chart screen and mouse movements during the session for you."
+      knowledgeNote: "No prior knowledge of astrology is required. For clients with an astrological background, screen-recording of chart calculations can be provided upon request."
     },
     technicalMethod: {
       tag: "Analytical Approach",
       title: "Technical Calculations & Methodology",
-      pointsIntro: "Pandit Rahul Bali prepares for each consultation by thoroughly examining the following points:",
+      pointsIntro: "Consultations are prepared through systematic examination of fundamental Vedic parameters:",
       points: [
-        "Panchanga (including Nakṣatras)",
+        "Panchanga (including Nakṣatras and Tithis)",
         "Kāraka & Aprakasha / Upagrahas",
-        "Rāśi, Bhāva & Ārūḍha (several)",
-        "Varnada & Varga (necessary divisional charts)",
-        "Bala (several strengths) & Daśā (several timing systems)"
+        "Rāśi, Bhāva & Ārūḍha (divisional placements)",
+        "Varnada & Varga (divisional charts)",
+        "Bala (planetary strength) & Daśā (timing systems)"
       ],
       details: [
-        "Calculations strictly use Chitra Pakṣa Ayanamsha.",
-        "Draws and calculates charts using the software Jagannath Hora.",
-        "Does not rely on the Kṛṣṇamūrti Paddhati (KP) system nor on the Bhava Chalit Chakra.",
-        "For brevity and focus, results of all technical principles may not be explicitly mentioned unless directly relevant to your questions."
+        "Calculations strictly adhere to Chitra Pakṣa Ayanamsha.",
+        "Charts are computed using standard astronomical software (Jagannath Hora).",
+        "Analysis follows traditional Parashari principles, excluding KP and Bhava Chalit methods.",
+        "Technical findings serve as the analytical foundation and are summarized clearly during the call."
       ]
     },
     howToBook: {
       tag: "Process & Timing",
       title: "How to Schedule Your Reading",
       steps: [
-        "Send payment of ₹701/- to UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)",
-        "Email the payment screenshot to rahulbaliastrology@gmail.com",
-        "Book an appropriate time slot at least 6 days in advance on Calendly using the Schedule button below",
-        "Provide your precise birth details and primary questions during scheduling"
+        { label: "Payment", desc: "Remit booking charge of ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)." },
+        { label: "Confirmation", desc: "Email payment screenshot to rahulbaliastrology@gmail.com." },
+        { label: "Scheduling", desc: "Select a suitable time slot on Calendly (supports automatic global time zone conversion)." },
+        { label: "Details", desc: "Provide birth details (date, time, location) and primary questions during booking." }
       ],
       prepSteps: [
-        "Keep a notebook and pen ready to write down key dates, planetary remedies, and personal insights",
-        "List your primary concerns and questions in advance to ensure all pressing topics are covered",
-        "Choose a quiet, distraction-free space with a clear connection for your call",
-        "Arrive on time so that you receive the full allocated duration for your appointment"
+        { label: "Questions", desc: "Note down key questions or focus areas in advance." },
+        { label: "Environment", desc: "Choose a quiet space with a stable phone or internet connection." },
+        { label: "Notes", desc: "Keep note-taking materials ready for remedies and timing insights." },
+        { label: "Punctuality", desc: "Join on time to receive full allocated session duration." }
       ]
     },
     conductMedium: {
       tag: "Channels & Notes",
-      title: "How the Reading is Conducted",
-      desc: "Readings can be conducted through:",
+      title: "Consultation Medium",
+      desc: "Sessions are available worldwide via:",
       options: [
-        "Phone Call (we will reach out using the contact details provided during scheduling)",
-        "Zoom (www.zoom.us) or Google Meet"
+        "Direct Phone Call (for clients in India)",
+        "HD Video Call via Zoom or Google Meet (for international clients)"
       ],
-      recordingPolicy: "All readings whether over Phone, Zoom, or Google Meet are not recorded by default. You are welcome to take notes and write down predictions and remedies. (Video recording of chart screen & mouse movements is offered for clients with prior astrological knowledge)."
+      recordingPolicy: "Sessions are conducted live and are not recorded by default. Clients are welcome to take personal notes during the reading."
     },
     policy: {
       tag: "Guidelines & Policies",
-      title: "Rescheduling & Courtesy Guidelines",
-      reminders: "As a courtesy, to help you remember scheduled appointments, email reminders are sent in advance of your appointment time.",
-      notice: "24-Hour Notice: If your schedule changes and you cannot keep your appointment, please let us know with at least 24-hour notice so we may reschedule you and accommodate waiting clients.",
-      courtesyNotice: "Courtesy Rescheduling: Notifying us at least 24 hours in advance allows us to offer the open time slot to other seeking clients.",
-      doubleMissed: "Missed Appointments: If you miss your scheduled session, you are welcome to reschedule a new time slot on Calendly whenever you are ready.",
-      contact: "If you have any questions regarding your appointment, please contact: rahulbaliastrology@gmail.com"
+      title: "Scheduling & Rescheduling Policy",
+      reminders: "Automated email confirmations and calendar reminders are sent upon scheduling.",
+      notice: "24-Hour Notice: Please provide at least 24 hours advance notice for any rescheduling request.",
+      courtesyNotice: "Rescheduling: Timely notice permits open slots to be offered to waiting clients.",
+      doubleMissed: "Missed Sessions: If a session is missed, a new time slot can be selected on Calendly.",
+      contact: "For booking inquiries, email: rahulbaliastrology@gmail.com"
     },
     paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
-    upiLabel: "UPI:",
+    upiLabel: "UPI (India):",
     upiId: "rahul.bali@ybl",
-    paypalLabel: "PayPal (for international clients):",
+    paypalLabel: "PayPal (International):",
     paypalEmail: "rahulbaliastrology@gmail.com",
     scheduleBtnText: "Schedule Reading on Calendly",
     copied: "Copied!",
@@ -169,17 +169,17 @@ const BookReadingClientPage: FC = () => {
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center space-y-6">
           <div className="space-y-3">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Personalised Consultation
+              Professional Consultation
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
               Personalised Birth Chart Reading
             </h2>
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs md:text-sm font-body text-on-surface/80">
-              <span className="whitespace-nowrap">In-depth guidance</span>
+              <span className="whitespace-nowrap">In-depth birth chart analysis</span>
               <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="whitespace-nowrap">Detailed chart analysis</span>
+              <span className="whitespace-nowrap">Global appointment scheduling</span>
               <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="text-center">Practical spiritual remedies based on authentic Vedic Astrology principles</span>
+              <span className="text-center">Practical remedies based on authentic Vedic principles</span>
             </div>
             <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
               <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
@@ -199,14 +199,14 @@ const BookReadingClientPage: FC = () => {
               {t.scheduleBtnText}
             </ScheduleButton>
             <p className="text-xs font-body text-on-surface/60 mt-3">
-              Generates instant calendar confirmation
+              Instant calendar confirmation with automatic time zone adjustment
             </p>
           </div>
         </section>
 
         {/* How to Schedule & Prepare */}
-        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-          <div className="space-y-0.5">
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
               {t.howToBook.tag}
             </span>
@@ -215,32 +215,34 @@ const BookReadingClientPage: FC = () => {
             </h2>
           </div>
 
-          <ol className="space-y-2.5">
+          <ol className="space-y-3">
             {t.howToBook.steps.map((step, idx) => (
-              <li key={idx} className="flex items-start gap-3">
-                <span className="w-6 h-6 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-xs text-accent font-medium shrink-0 mt-0.5">
+              <li key={idx} className="bg-surface-bright rounded-2xl p-4 border border-outline/10 flex items-start gap-3.5">
+                <span className="w-6 h-6 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
                   {idx + 1}
                 </span>
-                <span className="text-sm md:text-base font-body text-on-surface/90 leading-snug">
-                  {step}
-                </span>
+                <div className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed">
+                  <span className="text-secondary font-semibold mr-1.5">{step.label}:</span>
+                  {step.desc}
+                </div>
               </li>
             ))}
           </ol>
 
-          <div className="pt-4 border-t border-outline/10 space-y-2.5">
+          <div className="pt-4 border-t border-outline/10 space-y-4">
             <h3 className="text-lg font-medium font-headline text-on-surface">
               Preparing for Your Session
             </h3>
-            <ol className="space-y-2.5">
+            <ol className="space-y-3">
               {t.howToBook.prepSteps.map((step, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-xs text-accent font-medium shrink-0 mt-0.5">
+                <li key={idx} className="bg-surface-bright rounded-2xl p-4 border border-outline/10 flex items-start gap-3.5">
+                  <span className="w-6 h-6 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
-                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-snug">
-                    {step}
-                  </span>
+                  <div className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed">
+                    <span className="text-secondary font-semibold mr-1.5">{step.label}:</span>
+                    {step.desc}
+                  </div>
                 </li>
               ))}
             </ol>
@@ -262,7 +264,7 @@ const BookReadingClientPage: FC = () => {
             {t.whatToExpect.intro}
           </p>
 
-          <div className="pt-2">
+          <div className="pt-1">
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-base font-medium font-headline text-on-surface">
                 {t.whatToExpect.sessionTitle}
@@ -281,13 +283,13 @@ const BookReadingClientPage: FC = () => {
               {t.whatToExpect.partsDesc}
             </p>
 
-            <ol className="space-y-4">
+            <ol className="space-y-3">
               {t.whatToExpect.parts.map((part) => (
-                <li key={part.num} className="flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
+                <li key={part.num} className="flex items-start gap-4 p-4 bg-surface-bright rounded-2xl border border-outline/10">
+                  <span className="w-7 h-7 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
                     {part.num}
                   </span>
-                  <div className="space-y-0.5 pt-0.5">
+                  <div className="space-y-0.5">
                     <h4 className="text-sm md:text-base font-medium font-headline text-on-surface">
                       {part.title}
                     </h4>
@@ -391,7 +393,7 @@ const BookReadingClientPage: FC = () => {
           <div className="space-y-3 pt-2">
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-sm font-medium font-headline text-on-surface">
-                Cancellation & Rescheduling
+                Notice Period
               </h3>
               <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
                 {t.policy.notice}
@@ -400,7 +402,7 @@ const BookReadingClientPage: FC = () => {
 
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-sm font-medium font-headline text-on-surface">
-                Courtesy & Rescheduling
+                Courtesy Rescheduling
               </h3>
               <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
                 {t.policy.courtesyNotice}
@@ -409,7 +411,7 @@ const BookReadingClientPage: FC = () => {
 
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-sm font-medium font-headline text-on-surface">
-                Missed Appointments
+                Missed Sessions
               </h3>
               <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
                 {t.policy.doubleMissed}
@@ -435,7 +437,7 @@ const BookReadingClientPage: FC = () => {
 
           <div className="space-y-4">
             <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-              Booking charge is ₹701/- per session. You can complete your payment via UPI or PayPal using the details below:
+              Booking charge is ₹701/- per session. You can complete payment via UPI (India) or PayPal (International) using the details below:
             </p>
             <CopyableField
               value={t.upiId}
@@ -454,10 +456,10 @@ const BookReadingClientPage: FC = () => {
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 text-center">
           <div className="space-y-2">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Ready to Begin
+              Appointment Scheduling
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              Schedule Your Session
+              Schedule Your Reading
             </h2>
             <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
               Use the Schedule button below to reserve your appointment on Calendly.
@@ -475,7 +477,7 @@ const BookReadingClientPage: FC = () => {
               {t.scheduleBtnText}
             </ScheduleButton>
             <p className="text-xs font-body text-on-surface/60 mt-3">
-              Generates instant calendar confirmation
+              Instant calendar confirmation with automatic time zone adjustment
             </p>
           </div>
         </section>
