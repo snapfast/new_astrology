@@ -10,130 +10,130 @@ import { sendGAEvent } from '@next/third-parties/google';
 const TRANSLATIONS = {
   en: {
     title: "Book Astrology Reading Online",
-    subtitle: "Personalised Guidance",
+    subtitle: "Professional Vedic Astrology Consultations",
     description: (
       <div className="font-body">
-        Comprehensive Vedic Astrology (Jyotish) consultations, birth chart analysis, and practical life remedies.
+        Authoritative Vedic Astrology (Jyotish) consultations, birth chart analysis, and practical remedies tailored for clients across India and international time zones worldwide.
       </div>
     ),
     whatToExpect: {
-      tag: "Consultation Formats",
-      title: "What to Expect",
-      intro: "Consultations are conducted as 1-hour direct consultation sessions tailored to your situation:",
+      tag: "Consultation Structure",
+      title: "Consultation Framework & Scope",
+      intro: "Consultations are structured as 1-hour direct live consultation sessions, customized to address specific client requirements across personal, professional, and spiritual dimensions:",
       sessionTitle: "1 Hour Consultation",
-      sessionDesc: "Ideal for birth chart examination, pressing life questions, follow-up consultations, horary (Praśna), day-selection (Muhurta), or compatibility analysis.",
-      partsTitle: "Three Core Parts of a Consultation",
-      partsDesc: "Consultations largely involve three parts, tailored according to your specific needs:",
+      sessionDesc: "Designed for comprehensive birth chart evaluation, specific life queries, follow-up assessments, Horary astrology (Praśna), auspicious timing selection (Muhurta), or relationship compatibility analysis.",
+      partsTitle: "Three Core Phases of the Consultation",
+      partsDesc: "Each session follows a structured technical workflow tailored to individual requirements:",
       parts: [
         {
           num: "1",
-          title: "Birth Chart Rectification",
-          desc: "Verification and precise tuning of birth timing details."
+          title: "Birth Chart Verification & Rectification",
+          desc: "Systematic validation and precision tuning of birth timing data before deep analysis."
         },
         {
           num: "2",
-          title: "Assessment of Karmas & Remedies",
-          desc: "In-depth examination of karmic influences, their effects, root causes, and practical mantric or spiritual remedies."
+          title: "Assessment of Karmic Patterns & Planetary Remedies",
+          desc: "In-depth diagnostic examination of karmic influences, root planetary causes, and practical mantric or Vedic remedies."
         },
         {
           num: "3",
-          title: "Current & Near-Future Predictions",
-          desc: "Detailed assessment of present and upcoming planetary periods, alongside clear answers to your specific questions."
+          title: "Current Period Analysis & Strategic Outlook",
+          desc: "Detailed evaluation of active and upcoming planetary periods (Dasha & Gochar), providing actionable guidance and answers to specific inquiries."
         }
       ],
-      knowledgeNote: "No prior knowledge of astrology is necessary to have a consultation. Should you have prior astrological knowledge, Pandit Rahul Bali will offer to video-record his chart screen and mouse movements during the session for you."
+      knowledgeNote: "Prior technical knowledge of astrology is not required. For clients possessing background knowledge in astrology, Pandit Rahul Bali can provide a screen-recorded video capturing chart calculations and cursor movements during the session upon request."
     },
     technicalMethod: {
-      tag: "Analytical Approach",
-      title: "Technical Calculations & Methodology",
-      pointsIntro: "Pandit Rahul Bali prepares for each consultation by thoroughly examining the following points:",
+      tag: "Analytical Methodology",
+      title: "Technical Calculation Standards & Principles",
+      pointsIntro: "Each consultation is prepared utilizing rigorous classical calculation principles:",
       points: [
-        "Panchanga (including Nakṣatras)",
-        "Kāraka & Aprakasha / Upagrahas",
-        "Rāśi, Bhāva & Ārūḍha (several)",
-        "Varnada & Varga (necessary divisional charts)",
-        "Bala (several strengths) & Daśā (several timing systems)"
+        "Panchanga analysis (including Nakṣatra, Tithi, Yoga, and Karana)",
+        "Kāraka, Aprakasha & Upagraha evaluations",
+        "Rāśi, Bhāva & Ārūḍha Pada calculations across relevant houses",
+        "Varnada & Varga divisional charts assessment (D1 through D60 as required)",
+        "Shadbala, Bhava Bala & multi-tier Daśā timing systems"
       ],
       details: [
-        "Calculations strictly use Chitra Pakṣa Ayanamsha.",
-        "Draws and calculates charts using the software Jagannath Hora.",
-        "Does not rely on the Kṛṣṇamūrti Paddhati (KP) system nor on the Bhava Chalit Chakra.",
-        "For brevity and focus, results of all technical principles may not be explicitly mentioned unless directly relevant to your questions."
+        "Calculations strictly adhere to the Chitra Pakṣa (Lahiri) Ayanamsha standard.",
+        "Precision astronomical calculations are generated via Jagannath Hora software.",
+        "Calculations exclude the Kṛṣṇamūrti Paddhati (KP) system and the Bhava Chalit Chakra, remaining true to classical Parashari principles.",
+        "To maintain direct focus on key objectives, technical calculation details are summarized efficiently during discussions unless explicitly requested."
       ]
     },
     howToBook: {
-      tag: "Process & Timing",
-      title: "How to Schedule Your Reading",
+      tag: "Scheduling Procedure",
+      title: "Step-by-Step Consultation Booking",
       steps: [
         (
           <>
-            Send payment of <span className="text-secondary font-semibold">₹401/-</span> to UPI (<span className="text-secondary font-semibold">rahul.bali@ybl</span>) or PayPal (<span className="text-secondary font-semibold">rahulbaliastrology@gmail.com</span>)
+            Remit the standard booking charge of <span className="text-secondary font-semibold">₹401/-</span> via UPI (<span className="text-secondary font-semibold">rahul.bali@ybl</span>) for domestic India transfers or via PayPal (<span className="text-secondary font-semibold">rahulbaliastrology@gmail.com</span>) for international clients.
           </>
         ),
         (
           <>
-            Email the payment screenshot to <span className="text-secondary font-semibold">rahulbaliastrology@gmail.com</span>
+            Transmit the payment confirmation receipt or screenshot to <span className="text-secondary font-semibold">rahulbaliastrology@gmail.com</span>.
           </>
         ),
         (
           <>
-            Book an appropriate time slot <span className="text-secondary font-semibold">at least 6 days in advance on Calendly</span> using the Schedule button below
+            Select an appropriate appointment time slot <span className="text-secondary font-semibold">at least 6 days in advance on Calendly</span> via the schedule button.
           </>
         ),
         (
           <>
-            Provide your <span className="text-secondary font-semibold">precise birth details and primary questions</span> during scheduling
+            Submit precise birth parameters (<span className="text-secondary font-semibold">Date, Exact Time, and City/Country of Birth</span>) along with key consultation topics during scheduling.
           </>
         )
       ],
       prepSteps: [
         (
           <>
-            Keep a <span className="text-secondary font-semibold">notebook and pen ready</span> to write down key dates, planetary remedies, and personal insights
+            Have a <span className="text-secondary font-semibold">notepad and pen accessible</span> to record key dates, planetary periods, and remedial protocols.
           </>
         ),
         (
           <>
-            <span className="text-secondary font-semibold">List your primary concerns and questions in advance</span> to ensure all pressing topics are covered
+            <span className="text-secondary font-semibold">Prepare a prioritized list of specific questions</span> to maximize the efficiency of your session.
           </>
         ),
         (
           <>
-            Choose a <span className="text-secondary font-semibold">quiet, distraction-free space</span> with a clear connection for your call
+            Ensure a <span className="text-secondary font-semibold">quiet, private environment</span> with a stable internet or cellular connection.
           </>
         ),
         (
           <>
-            <span className="text-secondary font-semibold">Arrive on time</span> so that you receive the full allocated duration for your appointment
+            <span className="text-secondary font-semibold">Join promptly at the scheduled time</span> to utilize the full allotted consultation duration.
           </>
         )
       ]
     },
     conductMedium: {
-      tag: "Channels & Notes",
-      title: "How the Reading is Conducted",
-      desc: "Readings can be conducted through:",
+      tag: "Global Communications",
+      title: "Consultation Channels & Recording Protocols",
+      desc: "Sessions are accessible worldwide and conducted through the following primary channels:",
       options: [
-        "Phone Call (we will reach out using the contact details provided during scheduling)",
-        "Zoom (www.zoom.us) or Google Meet"
+        "Direct Telecommunication (Outbound calls for domestic and eligible international direct lines)",
+        "HD Video Conferencing via Zoom (www.zoom.us) or Google Meet for seamless global connectivity across all time zones"
       ],
-      recordingPolicy: "All readings whether over Phone, Zoom, or Google Meet are not recorded by default. You are welcome to take notes and write down predictions and remedies. (Video recording of chart screen & mouse movements is offered for clients with prior astrological knowledge)."
+      recordingPolicy: "Standard consultations across Telecommunication, Zoom, and Google Meet are not audio-recorded by default to maintain privacy. Clients are encouraged to record notes during the session. (Screen video recording of software chart movements is provided for clients with technical astrological background)."
     },
     policy: {
-      tag: "Guidelines & Policies",
-      title: "Rescheduling & Courtesy Guidelines",
-      reminders: "As a courtesy, to help you remember scheduled appointments, email reminders are sent in advance of your appointment time.",
-      notice: "24-Hour Notice: If your schedule changes and you cannot keep your appointment, please let us know with at least 24-hour notice so we may reschedule you and accommodate waiting clients.",
-      courtesyNotice: "Courtesy Rescheduling: Notifying us at least 24 hours in advance allows us to offer the open time slot to other seeking clients.",
-      doubleMissed: "Missed Appointments: If you miss your scheduled session, you are welcome to reschedule a new time slot on Calendly whenever you are ready.",
-      contact: "If you have any questions regarding your appointment, please contact: rahulbaliastrology@gmail.com"
+      tag: "Service Policies",
+      title: "Scheduling, Rescheduling & Advisory Policies",
+      reminders: "Automated calendar notifications and email confirmation reminders are dispatched prior to each scheduled appointment.",
+      notice: "24-Hour Rescheduling Notice: Should a schedule conflict arise, please notify us at least 24 hours prior to your slot to enable rescheduling and accommodate other awaiting clients.",
+      courtesyNotice: "Schedule Management: Timely advance notice ensures optimal scheduling efficiency across domestic and international time zones.",
+      doubleMissed: "Missed Appointments: In the event of a missed session, clients may select a new available time slot on Calendly at their convenience.",
+      contact: "For inquiries regarding consultation schedules or administrative support, contact: rahulbaliastrology@gmail.com"
     },
-    paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
-    upiLabel: "UPI:",
+    paymentDetailsTitle: "Booking Charge Payment Details (₹401/-)",
+    upiLabel: "UPI Transfer (Domestic India):",
     upiId: "rahul.bali@ybl",
-    paypalLabel: "PayPal (for international clients):",
+    paypalLabel: "PayPal Transfer (International / Global Clients):",
     paypalEmail: "rahulbaliastrology@gmail.com",
-    scheduleBtnText: "Schedule Reading on Calendly",
+    scheduleBtnText: "Schedule Consultation on Calendly",
     copied: "Copied!",
     calendlyUrl: "https://calendly.com/rahulbaliastrology/kundli/"
   }
@@ -201,21 +201,21 @@ const BookReadingClientPage: FC = () => {
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center space-y-6">
           <div className="space-y-3">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Personalised Consultation
+              Professional Consultation
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              Personalised Birth Chart Reading
+              Personalised Vedic Astrology Consultation
             </h2>
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs md:text-sm font-body text-on-surface/80">
-              <span className="whitespace-nowrap">In-depth guidance</span>
+              <span className="whitespace-nowrap">Global & Domestic Time Zones</span>
               <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="whitespace-nowrap">Detailed chart analysis</span>
+              <span className="whitespace-nowrap">In-Depth Chart Analysis</span>
               <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="text-center">Practical spiritual remedies based on authentic Vedic Astrology principles</span>
+              <span className="text-center">Authentic Vedic Remedies Based on Classical Parashari Jyotish</span>
             </div>
             <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
               <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
-                Booking Charge: ₹701/-
+                Booking Charge: ₹401/-
               </span>
             </div>
           </div>
@@ -231,7 +231,7 @@ const BookReadingClientPage: FC = () => {
               {t.scheduleBtnText}
             </ScheduleButton>
             <p className="text-xs font-body text-on-surface/60 mt-3">
-              Generates instant calendar confirmation
+              Instant calendar scheduling across all global time zones
             </p>
           </div>
         </section>
@@ -262,7 +262,7 @@ const BookReadingClientPage: FC = () => {
 
           <div className="pt-6 border-t border-outline/10 space-y-4">
             <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface">
-              Preparing for Your Session
+              Session Preparation Protocol
             </h3>
             <ol className="space-y-3">
               {t.howToBook.prepSteps.map((step, idx) => (
@@ -423,7 +423,7 @@ const BookReadingClientPage: FC = () => {
           <div className="space-y-3 pt-2">
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-sm font-medium font-headline text-on-surface">
-                Cancellation & Rescheduling
+                Rescheduling & Cancellation
               </h3>
               <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
                 {t.policy.notice}
@@ -432,7 +432,7 @@ const BookReadingClientPage: FC = () => {
 
             <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
               <h3 className="text-sm font-medium font-headline text-on-surface">
-                Courtesy & Rescheduling
+                Schedule Optimization
               </h3>
               <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
                 {t.policy.courtesyNotice}
@@ -458,7 +458,7 @@ const BookReadingClientPage: FC = () => {
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
           <div className="space-y-1">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Direct Transfer
+              Direct Payment Channels
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
               {t.paymentDetailsTitle}
@@ -467,7 +467,7 @@ const BookReadingClientPage: FC = () => {
 
           <div className="space-y-4">
             <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-              Booking charge is ₹701/- per session. You can complete your payment via UPI or PayPal using the details below:
+              The booking charge is ₹401/- per session. Please remit payment using the appropriate channel below prior to confirming your slot on Calendly:
             </p>
             <CopyableField
               value={t.upiId}
@@ -486,13 +486,13 @@ const BookReadingClientPage: FC = () => {
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 text-center">
           <div className="space-y-2">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Ready to Begin
+              Reservation
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              Schedule Your Session
+              Schedule Your Consultation
             </h2>
             <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-              Use the Schedule button below to reserve your appointment on Calendly.
+              Select your preferred date and time on Calendly to reserve your appointment.
             </p>
           </div>
 
@@ -507,7 +507,7 @@ const BookReadingClientPage: FC = () => {
               {t.scheduleBtnText}
             </ScheduleButton>
             <p className="text-xs font-body text-on-surface/60 mt-3">
-              Generates instant calendar confirmation
+              Instant calendar scheduling across all global time zones
             </p>
           </div>
         </section>
