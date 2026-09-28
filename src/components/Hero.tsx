@@ -50,7 +50,7 @@ const Hero = () => {
           <h1 className="text-3xl md:text-5xl font-headline text-on-surface font-normal mb-3 tracking-tight">
             Pandit Rahul Bali Ji
           </h1>
-          <span className="font-semibold text-on-surface/90 font-label text-[10px] md:text-xs tracking-[0.25em] uppercase max-w-xl text-center">
+          <span className="font-semibold text-accent font-label text-[10px] md:text-xs tracking-[0.25em] uppercase max-w-xl text-center">
             {t.subtitle}
           </span>
         </div>
