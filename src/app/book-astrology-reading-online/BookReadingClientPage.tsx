@@ -174,9 +174,11 @@ const BookReadingClientPage: FC = () => {
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
               Personalised Birth Chart Reading
             </h2>
-            <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-              In-depth guidance, detailed chart analysis, and practical spiritual remedies based on authentic Vedic Astrology principles.
-            </p>
+            <div className="flex flex-col items-center gap-1 text-xs md:text-sm font-body text-on-surface/80 max-w-lg mx-auto">
+              <p>• In-depth guidance</p>
+              <p>• Detailed chart analysis</p>
+              <p>• Practical spiritual remedies based on authentic Vedic Astrology principles</p>
+            </div>
             <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
               <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
                 Booking Charge: ₹401/-
