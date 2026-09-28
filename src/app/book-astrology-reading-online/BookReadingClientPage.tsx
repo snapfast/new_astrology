@@ -65,16 +65,48 @@ const TRANSLATIONS = {
       tag: "Process & Timing",
       title: "How to Schedule Your Reading",
       steps: [
-        "Send payment of ₹701/- to UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)",
-        "Email the payment screenshot to rahulbaliastrology@gmail.com",
-        "Book an appropriate time slot at least 6 days in advance on Calendly using the Schedule button below",
-        "Provide your precise birth details and primary questions during scheduling"
+        (
+          <>
+            Send payment of <span className="text-secondary font-semibold">₹401/-</span> to UPI (<span className="text-secondary font-semibold">rahul.bali@ybl</span>) or PayPal (<span className="text-secondary font-semibold">rahulbaliastrology@gmail.com</span>)
+          </>
+        ),
+        (
+          <>
+            Email the payment screenshot to <span className="text-secondary font-semibold">rahulbaliastrology@gmail.com</span>
+          </>
+        ),
+        (
+          <>
+            Book an appropriate time slot <span className="text-secondary font-semibold">at least 6 days in advance on Calendly</span> using the Schedule button below
+          </>
+        ),
+        (
+          <>
+            Provide your <span className="text-secondary font-semibold">precise birth details and primary questions</span> during scheduling
+          </>
+        )
       ],
       prepSteps: [
-        "Keep a notebook and pen ready to write down key dates, planetary remedies, and personal insights",
-        "List your primary concerns and questions in advance to ensure all pressing topics are covered",
-        "Choose a quiet, distraction-free space with a clear connection for your call",
-        "Arrive on time so that you receive the full allocated duration for your appointment"
+        (
+          <>
+            Keep a <span className="text-secondary font-semibold">notebook and pen ready</span> to write down key dates, planetary remedies, and personal insights
+          </>
+        ),
+        (
+          <>
+            <span className="text-secondary font-semibold">List your primary concerns and questions in advance</span> to ensure all pressing topics are covered
+          </>
+        ),
+        (
+          <>
+            Choose a <span className="text-secondary font-semibold">quiet, distraction-free space</span> with a clear connection for your call
+          </>
+        ),
+        (
+          <>
+            <span className="text-secondary font-semibold">Arrive on time</span> so that you receive the full allocated duration for your appointment
+          </>
+        )
       ]
     },
     conductMedium: {
@@ -203,8 +235,8 @@ const BookReadingClientPage: FC = () => {
         </section>
 
         {/* How to Schedule & Prepare */}
-        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-          <div className="space-y-0.5">
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
               {t.howToBook.tag}
             </span>
@@ -213,30 +245,30 @@ const BookReadingClientPage: FC = () => {
             </h2>
           </div>
 
-          <ol className="space-y-2.5">
+          <ol className="space-y-3">
             {t.howToBook.steps.map((step, idx) => (
-              <li key={idx} className="flex items-start gap-3">
-                <span className="w-6 h-6 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-xs text-accent font-medium shrink-0 mt-0.5">
+              <li key={idx} className="flex items-start gap-3.5 p-3.5 md:p-4 bg-surface-bright rounded-2xl border border-outline/15 hover:border-secondary/20 transition-all">
+                <span className="w-7 h-7 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center font-headline text-xs text-secondary font-bold shrink-0 mt-0.5">
                   {idx + 1}
                 </span>
-                <span className="text-sm md:text-base font-body text-on-surface/90 leading-snug">
+                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-0.5">
                   {step}
                 </span>
               </li>
             ))}
           </ol>
 
-          <div className="pt-4 border-t border-outline/10 space-y-2.5">
-            <h3 className="text-lg font-medium font-headline text-on-surface">
+          <div className="pt-6 border-t border-outline/10 space-y-4">
+            <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface">
               Preparing for Your Session
             </h3>
-            <ol className="space-y-2.5">
+            <ol className="space-y-3">
               {t.howToBook.prepSteps.map((step, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-xs text-accent font-medium shrink-0 mt-0.5">
+                <li key={idx} className="flex items-start gap-3.5 p-3.5 md:p-4 bg-surface-bright rounded-2xl border border-outline/15 hover:border-secondary/20 transition-all">
+                  <span className="w-7 h-7 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center font-headline text-xs text-secondary font-bold shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
-                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-snug">
+                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-0.5">
                     {step}
                   </span>
                 </li>
