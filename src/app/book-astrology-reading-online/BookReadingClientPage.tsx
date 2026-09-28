@@ -200,6 +200,49 @@ const BookReadingClientPage: FC = () => {
           </div>
         </section>
 
+        {/* How to Schedule & Prepare */}
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
+            <span className="text-xs font-medium text-accent font-label tracking-wider block">
+              {t.howToBook.tag}
+            </span>
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              {t.howToBook.title}
+            </h2>
+          </div>
+
+          <ol className="space-y-4">
+            {t.howToBook.steps.map((step, idx) => (
+              <li key={idx} className="flex items-start gap-4">
+                <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
+                  {idx + 1}
+                </span>
+                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          <div className="pt-6 border-t border-outline/10 space-y-4">
+            <h3 className="text-lg font-medium font-headline text-on-surface">
+              Preparing for Your Session
+            </h3>
+            <ol className="space-y-4">
+              {t.howToBook.prepSteps.map((step, idx) => (
+                <li key={idx} className="flex items-start gap-4">
+                  <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
+                    {step}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         {/* What to Expect Section */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
           <div className="space-y-1">
@@ -292,49 +335,6 @@ const BookReadingClientPage: FC = () => {
                 • {dt}
               </p>
             ))}
-          </div>
-        </section>
-
-        {/* How to Schedule & Prepare */}
-        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.howToBook.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.howToBook.title}
-            </h2>
-          </div>
-
-          <ol className="space-y-4">
-            {t.howToBook.steps.map((step, idx) => (
-              <li key={idx} className="flex items-start gap-4">
-                <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
-                  {idx + 1}
-                </span>
-                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
-                  {step}
-                </span>
-              </li>
-            ))}
-          </ol>
-
-          <div className="pt-6 border-t border-outline/10 space-y-4">
-            <h3 className="text-lg font-medium font-headline text-on-surface">
-              Preparing for Your Session
-            </h3>
-            <ol className="space-y-4">
-              {t.howToBook.prepSteps.map((step, idx) => (
-                <li key={idx} className="flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-sm text-accent font-medium shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-1">
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ol>
           </div>
         </section>
 
