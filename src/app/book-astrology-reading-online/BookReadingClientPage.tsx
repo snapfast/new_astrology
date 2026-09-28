@@ -73,25 +73,6 @@ const TRANSLATIONS = {
         "Keep a pen and notebook ready for remedies."
       ]
     },
-    conductMedium: {
-      tag: "Consultation Mode",
-      title: "How the Reading is Conducted",
-      desc: "Consultations take place live via:",
-      options: [
-        "Direct Phone Call (for clients within India)",
-        "HD Video Call via Zoom or Google Meet (for international clients)"
-      ],
-      recordingPolicy: "Sessions are live personal conversations and are not recorded by default. You are welcome to take notes during our call."
-    },
-    policy: {
-      tag: "Rescheduling & Guidelines",
-      title: "Rescheduling Policy",
-      reminders: "You will receive an instant email confirmation and calendar reminder as soon as you book on Calendly.",
-      notice: "24-Hour Notice: If you need to change your slot, please let me know at least 24 hours in advance.",
-      courtesyNotice: "Rescheduling: Timely notice allows me to offer the open slot to someone on the waiting list.",
-      doubleMissed: "Missed Sessions: If you happen to miss your session, you can pick a new available slot on Calendly.",
-      contact: "For booking queries, email: rahulbaliastrology@gmail.com"
-    },
     paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
     upiLabel: "UPI (India):",
     upiId: "rahul.bali@ybl",
@@ -285,86 +266,6 @@ const BookReadingClientPage: FC = () => {
               </p>
             ))}
           </div>
-        </section>
-
-        {/* How Reading is Conducted */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.conductMedium.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.conductMedium.title}
-            </h2>
-          </div>
-
-          <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            {t.conductMedium.desc}
-          </p>
-
-          <ul className="space-y-2">
-            {t.conductMedium.options.map((opt, idx) => (
-              <li key={idx} className="flex items-center gap-3 text-sm md:text-base font-body text-on-surface/90">
-                <span className="material-symbols-outlined text-accent text-base shrink-0">
-                  videocam
-                </span>
-                <span>{opt}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed pt-2 border-t border-outline/10">
-            {t.conductMedium.recordingPolicy}
-          </p>
-        </section>
-
-        {/* Policy & Guidelines */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.policy.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.policy.title}
-            </h2>
-          </div>
-
-          <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            {t.policy.reminders}
-          </p>
-
-          <div className="space-y-3 pt-2">
-            <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
-              <h3 className="text-sm font-medium font-headline text-on-surface">
-                Notice Period
-              </h3>
-              <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.policy.notice}
-              </p>
-            </div>
-
-            <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
-              <h3 className="text-sm font-medium font-headline text-on-surface">
-                Courtesy Rescheduling
-              </h3>
-              <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.policy.courtesyNotice}
-              </p>
-            </div>
-
-            <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
-              <h3 className="text-sm font-medium font-headline text-on-surface">
-                Missed Sessions
-              </h3>
-              <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.policy.doubleMissed}
-              </p>
-            </div>
-          </div>
-
-          <p className="text-xs md:text-sm font-body text-accent font-medium pt-2">
-            {t.policy.contact}
-          </p>
         </section>
 
         {/* Payment Details Card */}
