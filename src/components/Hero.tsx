@@ -44,7 +44,7 @@ const Hero = () => {
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center py-20 md:py-32 mt-20 md:mt-12">
         <div className="flex flex-col items-center mb-6">
-          <span className="text-lg md:text-2xl text-accent font-hindi mb-3 font-semibold">
+          <span className="text-lg md:text-2xl text-accent font-hindi mb-3">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
           <h1 className="text-3xl md:text-5xl font-headline text-on-surface font-normal mb-3 tracking-tight">
