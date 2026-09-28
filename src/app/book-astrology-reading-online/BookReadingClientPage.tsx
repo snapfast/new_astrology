@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, useState } from 'react';
-import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
@@ -17,12 +16,6 @@ const TRANSLATIONS = {
         Comprehensive Vedic Astrology (Jyotish) consultations, birth chart analysis, and practical life remedies.
       </div>
     ),
-    aboutPractice: {
-      tag: "Professional Practice",
-      title: "About the Practice",
-      desc1: "Practising as a professional astrologer since 2004, Pandit Rahul Bali sees clients on a daily basis.",
-      desc2: "Services involve the ascertainment and correction of life problems based on the principles of Vedic Astrology (Jyotish). Consultations utilise precise birth details to provide insightful advice and remedial measures tailored to your life situation."
-    },
     whatToExpect: {
       tag: "Consultation Formats",
       title: "What to Expect",
@@ -72,10 +65,10 @@ const TRANSLATIONS = {
       tag: "Process & Timing",
       title: "How to Schedule Your Reading",
       steps: [
-        "Select your preferred date and time slot using the Schedule button below",
-        "Provide your precise birth details and key questions during scheduling",
-        "Receive instant calendar confirmation with session joining details",
-        "Support our work with a voluntary contribution on our Donate page and leave a review"
+        "Send payment of ₹401/- to UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)",
+        "Email the payment screenshot to rahulbaliastrology@gmail.com",
+        "Book an appropriate time slot at least 6 days in advance on Calendly using the Schedule button below",
+        "Provide your precise birth details and primary questions during scheduling"
       ],
       prepSteps: [
         "Keep a notebook and pen ready to write down key dates, planetary remedies, and personal insights",
@@ -103,7 +96,7 @@ const TRANSLATIONS = {
       doubleMissed: "Missed Appointments: If you miss your scheduled session, you are welcome to reschedule a new time slot on Calendly whenever you are ready.",
       contact: "If you have any questions regarding your appointment, please contact: rahulbaliastrology@gmail.com"
     },
-    paymentDetailsTitle: "Voluntary Contributions & Support",
+    paymentDetailsTitle: "Booking Charge Payment (₹401/-)",
     upiLabel: "UPI:",
     upiId: "rahul.bali@ybl",
     paypalLabel: "PayPal (for international clients):",
@@ -173,8 +166,8 @@ const BookReadingClientPage: FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 md:space-y-10">
 
         {/* Overview Card */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center">
-          <div className="space-y-4">
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center space-y-6">
+          <div className="space-y-3">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
               Personalised Consultation
             </span>
@@ -184,35 +177,27 @@ const BookReadingClientPage: FC = () => {
             <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
               In-depth guidance, detailed chart analysis, and practical spiritual remedies based on authentic Vedic Astrology principles.
             </p>
-            <p className="text-xs md:text-sm text-on-surface/70 font-body pt-1">
-              All consultations operate on a voluntary contribution basis.{' '}
-              <Link
-                href="/donate"
-                className="text-primary hover:underline font-medium inline-flex items-center gap-0.5"
-                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_link' })}
-              >
-                View Donate page <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </Link>
+            <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
+              <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
+                Booking Charge: ₹401/-
+              </span>
+            </div>
+          </div>
+
+          <div className="pt-2 flex flex-col items-center">
+            <ScheduleButton
+              href={t.calendlyUrl}
+              onClick={() => {
+                sendGAEvent({ event: 'action_click', action_name: 'calendly_reading_page_top_click' });
+              }}
+              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-full font-medium font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs md:text-sm tracking-wider"
+            >
+              {t.scheduleBtnText}
+            </ScheduleButton>
+            <p className="text-xs font-body text-on-surface/60 mt-3">
+              Generates instant calendar confirmation
             </p>
           </div>
-        </section>
-
-        {/* About the Practice */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.aboutPractice.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.aboutPractice.title}
-            </h2>
-          </div>
-          <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            {t.aboutPractice.desc1}
-          </p>
-          <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            {t.aboutPractice.desc2}
-          </p>
         </section>
 
         {/* What to Expect Section */}
@@ -433,7 +418,7 @@ const BookReadingClientPage: FC = () => {
           </p>
         </section>
 
-        {/* Payment / Voluntary Support Details Card */}
+        {/* Payment Details Card */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
           <div className="space-y-1">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
@@ -446,7 +431,7 @@ const BookReadingClientPage: FC = () => {
 
           <div className="space-y-4">
             <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-              We offer guidance on a voluntary donation basis. You can choose to contribute before or after your consultation session.
+              Booking charge is ₹401/- per session. You can complete your payment via UPI or PayPal using the details below:
             </p>
             <CopyableField
               value={t.upiId}
@@ -458,16 +443,6 @@ const BookReadingClientPage: FC = () => {
               label={t.paypalLabel}
               copiedLabel={t.copied}
             />
-            <div className="pt-2">
-              <Link
-                href="/donate"
-                className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 text-on-surface text-xs md:text-sm font-medium font-label tracking-wider transition-all"
-                onClick={() => sendGAEvent({ event: 'action_click', action_name: 'reading_page_donate_button' })}
-              >
-                <span>Go to Donate Page (QR & Options)</span>
-                <span className="material-symbols-outlined text-sm">open_in_new</span>
-              </Link>
-            </div>
           </div>
         </section>
 
