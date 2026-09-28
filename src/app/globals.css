@@ -102,7 +102,7 @@
   }
 
   .btn-secondary {
-    @apply border border-accent bg-transparent text-accent rounded-full transition-all active:scale-95 hover:bg-accent hover:text-on-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
+    @apply border border-primary bg-transparent text-primary rounded-full transition-all active:scale-95 hover:bg-primary hover:text-on-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
 
   /* Hide default calendar icon for date/time inputs as we use custom material icons */
@@ -210,22 +210,7 @@
 .text-secondary\/45,
 .text-secondary\/40,
 .text-secondary\/30,
-.text-secondary\/20,
-.text-primary,
-.text-primary\/95,
-.text-primary\/90,
-.text-primary\/85,
-.text-primary\/80,
-.text-primary\/75,
-.text-primary\/70,
-.text-primary\/65,
-.text-primary\/60,
-.text-primary\/55,
-.text-primary\/50,
-.text-primary\/45,
-.text-primary\/40,
-.text-primary\/30,
-.text-primary\/20 {
+.text-secondary\/20 {
   color: #000000 !important;
 }
 
