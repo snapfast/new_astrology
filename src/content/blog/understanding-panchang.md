@@ -2,7 +2,7 @@
 title: "Understanding Panchang: The Five Pillars of Vedic Timekeeping"
 publishedAt: "2025-02-15"
 author: "Pandit Rahul Bali Ji"
-tags: ["Panchang", "Vedic Astrology", "Muhurta"]
+tags: ["Panchang"]
 excerpt: "Learn how the five limbs of time—Tithi, Vara, Nakshatra, Yoga, and Karana—guide daily auspicious activities and spiritual alignment."
 ---
 

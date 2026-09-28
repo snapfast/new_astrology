@@ -2,7 +2,7 @@
 title: "KP Astrology Demystified: The Power of Sub-Lords in Predictions"
 publishedAt: "2025-02-18"
 author: "Pandit Rahul Bali Ji"
-tags: ["KP Astrology", "Horary", "Predictions"]
+tags: ["KP Astrology"]
 excerpt: "Discover how Krishnamurti Padhdhati (KP System) uses Precise Sub-Lords and Placidus House Cusps to deliver pinpoint astrological accuracy."
 ---
 

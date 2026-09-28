@@ -2,7 +2,7 @@
 title: "Navigating Planetary Transits: Planetary Hours (Hora) & Gochar"
 publishedAt: "2025-02-20"
 author: "Pandit Rahul Bali Ji"
-tags: ["Transits", "Gochar", "Hora", "Planetary Hours"]
+tags: ["Transits"]
 excerpt: "Learn how real-time planetary transits and hourly Hora vibrations influence daily decision-making, energy levels, and spiritual practice."
 ---
 
