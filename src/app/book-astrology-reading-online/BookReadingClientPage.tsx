@@ -174,10 +174,12 @@ const BookReadingClientPage: FC = () => {
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
               Personalised Birth Chart Reading
             </h2>
-            <div className="flex flex-col items-center gap-1 text-xs md:text-sm font-body text-on-surface/80 max-w-lg mx-auto">
-              <p>• In-depth guidance</p>
-              <p>• Detailed chart analysis</p>
-              <p>• Practical spiritual remedies based on authentic Vedic Astrology principles</p>
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs md:text-sm font-body text-on-surface/80">
+              <span className="whitespace-nowrap">In-depth guidance</span>
+              <span className="hidden sm:inline text-on-surface/40">•</span>
+              <span className="whitespace-nowrap">Detailed chart analysis</span>
+              <span className="hidden sm:inline text-on-surface/40">•</span>
+              <span className="text-center">Practical spiritual remedies based on authentic Vedic Astrology principles</span>
             </div>
             <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
               <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
