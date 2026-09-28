@@ -64,16 +64,16 @@ const TRANSLATIONS = {
       tag: "Process & Timing",
       title: "How to Schedule Your Reading",
       steps: [
-        { label: "Payment", desc: "Transfer the booking charge of ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)." },
-        { label: "Confirmation", desc: "Email your payment confirmation or screenshot to rahulbaliastrology@gmail.com." },
-        { label: "Scheduling", desc: "Select a convenient time slot on Calendly (it automatically adjusts to your local time zone)." },
-        { label: "Details", desc: "Provide your birth details (date, exact time, location) and main questions while booking." }
+        { label: "Payment", desc: "Pay ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)." },
+        { label: "Confirmation", desc: "Email payment screenshot to rahulbaliastrology@gmail.com." },
+        { label: "Scheduling", desc: "Pick a convenient slot on Calendly." },
+        { label: "Details", desc: "Enter birth details (date, exact time, location) and key questions." }
       ],
       prepSteps: [
-        { label: "Questions", desc: "Note down your main questions or focus areas before the session." },
-        { label: "Environment", desc: "Ensure you are in a quiet room with a stable phone or internet connection." },
-        { label: "Notes", desc: "Keep a pen and notebook ready for remedies and timing insights." },
-        { label: "Punctuality", desc: "Please join on time so we can make full use of our scheduled time." }
+        { label: "Questions", desc: "Note main focus areas in advance." },
+        { label: "Environment", desc: "Ensure a quiet room and stable connection." },
+        { label: "Notes", desc: "Keep a pen and notebook ready for remedies." },
+        { label: "Punctuality", desc: "Join on time for your scheduled slot." }
       ]
     },
     conductMedium: {
@@ -204,7 +204,7 @@ const BookReadingClientPage: FC = () => {
         </section>
 
         {/* How to Schedule & Prepare */}
-        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
           <div className="space-y-1">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
               {t.howToBook.tag}
@@ -214,13 +214,13 @@ const BookReadingClientPage: FC = () => {
             </h2>
           </div>
 
-          <ol className="space-y-3">
+          <ol className="space-y-2">
             {t.howToBook.steps.map((step, idx) => (
-              <li key={idx} className="bg-surface-bright rounded-2xl p-4 border border-outline/10 flex items-start gap-3.5">
-                <span className="w-6 h-6 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
+              <li key={idx} className="bg-surface-bright rounded-xl p-2.5 sm:p-3 border border-outline/10 flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-[11px] text-secondary font-semibold shrink-0 mt-0.5">
                   {idx + 1}
                 </span>
-                <div className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed">
+                <div className="text-xs sm:text-sm font-body text-on-surface/90 leading-snug">
                   <span className="text-secondary font-semibold mr-1.5">{step.label}:</span>
                   {step.desc}
                 </div>
@@ -228,17 +228,17 @@ const BookReadingClientPage: FC = () => {
             ))}
           </ol>
 
-          <div className="pt-4 border-t border-outline/10 space-y-4">
-            <h3 className="text-lg font-medium font-headline text-on-surface">
+          <div className="pt-3 border-t border-outline/10 space-y-3">
+            <h3 className="text-base font-medium font-headline text-on-surface">
               Preparing for Your Session
             </h3>
-            <ol className="space-y-3">
+            <ol className="space-y-2">
               {t.howToBook.prepSteps.map((step, idx) => (
-                <li key={idx} className="bg-surface-bright rounded-2xl p-4 border border-outline/10 flex items-start gap-3.5">
-                  <span className="w-6 h-6 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
+                <li key={idx} className="bg-surface-bright rounded-xl p-2.5 sm:p-3 border border-outline/10 flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-[11px] text-secondary font-semibold shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
-                  <div className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed">
+                  <div className="text-xs sm:text-sm font-body text-on-surface/90 leading-snug">
                     <span className="text-secondary font-semibold mr-1.5">{step.label}:</span>
                     {step.desc}
                   </div>
