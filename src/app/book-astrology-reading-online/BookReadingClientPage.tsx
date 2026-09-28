@@ -13,88 +13,87 @@ const TRANSLATIONS = {
     subtitle: "Online Astrology Consultation",
     description: (
       <div className="font-body">
-        Structured Vedic Astrology (Jyotish) consultations, birth chart analysis, and practical life remedies for domestic and international clients.
+        Personal birth chart consultations based on authentic Parashari Vedic Astrology (Jyotish). Gain clear insights into your horoscope, timing of key events, and practical traditional remedies.
       </div>
     ),
     whatToExpect: {
-      tag: "Consultation Structure",
-      title: "What to Expect",
-      intro: "Consultations are conducted as 1-hour direct live sessions structured around your specific requirements:",
+      tag: "Session Overview",
+      title: "What to Expect in Your Reading",
+      intro: "Each session is a 1-hour direct live consultation dedicated entirely to your birth chart and specific life questions:",
       sessionTitle: "1 Hour Consultation",
-      sessionDesc: "Designed for birth chart examination, pressing questions, horary analysis (Praśna), auspicious timing (Muhurta), or compatibility assessment.",
-      partsTitle: "Three Core Stages of a Session",
-      partsDesc: "Each session covers three primary analytical areas:",
+      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching.",
+      partsTitle: "Three Main Parts of the Session",
+      partsDesc: "During our conversation, we cover three primary areas:",
       parts: [
         {
           num: "1",
-          title: "Birth Chart Rectification",
-          desc: "Verification and precise alignment of birth time details."
+          title: "Birth Time Verification",
+          desc: "Checking and confirming your birth details so all calculations are exact."
         },
         {
           num: "2",
-          title: "Assessment of Karmas & Remedies",
-          desc: "Evaluation of planetary influences, root causes, and practical mantric or spiritual remedies."
+          title: "Planetary Analysis & Remedies",
+          desc: "Evaluating planetary influences, root causes, and practical mantric or traditional remedies."
         },
         {
           num: "3",
-          title: "Current & Upcoming Predictions",
-          desc: "Analysis of present and future planetary periods (Daśā) with clear answers to specific questions."
+          title: "Active Period & Future Guidance",
+          desc: "Examining your current Dasha and transits (Gochar) to answer your specific questions clearly."
         }
       ],
-      knowledgeNote: "No prior knowledge of astrology is required. For clients with an astrological background, screen-recording of chart calculations can be provided upon request."
+      knowledgeNote: "No prior background in astrology is required. If you study astrology yourself, chart screen-sharing can also be arranged during our call upon request."
     },
     technicalMethod: {
-      tag: "Analytical Approach",
-      title: "Technical Calculations & Methodology",
-      pointsIntro: "Consultations are prepared through systematic examination of fundamental Vedic parameters:",
+      tag: "Methodology",
+      title: "Calculations & Astrological Approach",
+      pointsIntro: "Readings are prepared using classical Parashari principles calculated on standard astronomical software (Jagannath Hora):",
       points: [
-        "Panchanga (including Nakṣatras and Tithis)",
-        "Kāraka & Aprakasha / Upagrahas",
-        "Rāśi, Bhāva & Ārūḍha (divisional placements)",
-        "Varnada & Varga (divisional charts)",
-        "Bala (planetary strength) & Daśā (timing systems)"
+        "Panchanga analysis (Rashi, Tithi, Nakshatra, and Nakshatra Lords)",
+        "Functional Karakas, Upagrahas, and planetary aspects",
+        "Rashi chart (D1), Navamsha (D9), and key divisional charts (Vargas)",
+        "Planetary strength (Bala) and active Vimshottari Dasha periods",
+        "Chitra Paksha (Lahiri) Ayanamsha for precise planetary positions"
       ],
       details: [
-        "Calculations strictly adhere to Chitra Pakṣa Ayanamsha.",
-        "Charts are computed using standard astronomical software (Jagannath Hora).",
-        "Analysis follows traditional Parashari principles, excluding KP and Bhava Chalit methods.",
-        "Technical findings serve as the analytical foundation and are summarized clearly during the call."
+        "All calculations strictly follow classical Parashari Jyotish principles.",
+        "Analysis excludes KP and Bhava Chalit methods to maintain focus on classical Vedic astrology.",
+        "Technical chart details serve as our working foundation and are explained in plain, simple terms during the call."
       ]
     },
     howToBook: {
       tag: "Process & Timing",
       title: "How to Schedule Your Reading",
       steps: [
-        { label: "Payment", desc: "Remit booking charge of ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)." },
-        { label: "Confirmation", desc: "Email payment screenshot to rahulbaliastrology@gmail.com." },
-        { label: "Scheduling", desc: "Select a suitable time slot on Calendly (supports automatic global time zone conversion)." },
-        { label: "Details", desc: "Provide birth details (date, time, location) and primary questions during booking." }
+        { label: "Payment", desc: "Transfer the booking charge of ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)." },
+        { label: "Confirmation", desc: "Email your payment confirmation or screenshot to rahulbaliastrology@gmail.com." },
+        { label: "Scheduling", desc: "Select a convenient time slot on Calendly (it automatically adjusts to your local time zone)." },
+        { label: "Details", desc: "Provide your birth details (date, exact time, location) and main questions while booking." }
       ],
       prepSteps: [
-        { label: "Questions", desc: "Note down key questions or focus areas in advance." },
-        { label: "Environment", desc: "Choose a quiet space with a stable phone or internet connection." },
-        { label: "Notes", desc: "Keep note-taking materials ready for remedies and timing insights." },
-        { label: "Punctuality", desc: "Join on time to receive full allocated session duration." }
+        { label: "Questions", desc: "Note down your main questions or focus areas before the session." },
+        { label: "Environment", desc: "Ensure you are in a quiet room with a stable phone or internet connection." },
+        { label: "Notes", desc: "Keep a pen and notebook ready for remedies and timing insights." },
+        { label: "Punctuality", desc: "Please join on time so we can make full use of our scheduled time." }
       ]
     },
     conductMedium: {
-      tag: "Channels & Notes",
-      title: "Consultation Medium",
-      desc: "Sessions are available worldwide via:",
+      tag: "Consultation Mode",
+      title: "How the Reading is Conducted",
+      desc: "Consultations take place live via:",
       options: [
-        "Direct Phone Call (for clients in India)",
+        "Direct Phone Call (for clients within India)",
         "HD Video Call via Zoom or Google Meet (for international clients)"
       ],
-      recordingPolicy: "Sessions are conducted live and are not recorded by default. Clients are welcome to take personal notes during the reading."
+      recordingPolicy: "Sessions are live personal conversations and are not recorded by default. You are welcome to take notes during our call."
     },
     policy: {
-      tag: "Guidelines & Policies",
-      title: "Scheduling & Rescheduling Policy",
-      reminders: "Automated email confirmations and calendar reminders are sent upon scheduling.",
-      notice: "24-Hour Notice: Please provide at least 24 hours advance notice for any rescheduling request.",
-      courtesyNotice: "Rescheduling: Timely notice permits open slots to be offered to waiting clients.",
-      doubleMissed: "Missed Sessions: If a session is missed, a new time slot can be selected on Calendly.",
-      contact: "For booking inquiries, email: rahulbaliastrology@gmail.com"
+      tag: "Rescheduling & Guidelines",
+      title: "Rescheduling Policy",
+      reminders: "You will receive an instant email confirmation and calendar reminder as soon as you book on Calendly.",
+      notice: "24-Hour Notice: If you need to change your slot, please let me know at least 24 hours in advance.",
+      courtesyNotice: "Rescheduling: Timely notice allows me to offer the open slot to someone on the waiting list.",
+      doubleMissed: "Missed Sessions: If you happen to miss your session, you can pick a new available slot on Calendly.",
+      contact: "For booking queries, email: rahulbaliastrology@gmail.com"
     },
     paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
     upiLabel: "UPI (India):",
@@ -169,7 +168,7 @@ const BookReadingClientPage: FC = () => {
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center space-y-6">
           <div className="space-y-3">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Professional Consultation
+              Online Consultation
             </span>
             <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
               Personalised Birth Chart Reading
@@ -177,9 +176,9 @@ const BookReadingClientPage: FC = () => {
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs md:text-sm font-body text-on-surface/80">
               <span className="whitespace-nowrap">In-depth birth chart analysis</span>
               <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="whitespace-nowrap">Global appointment scheduling</span>
+              <span className="whitespace-nowrap">Easy online slot booking</span>
               <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="text-center">Practical remedies based on authentic Vedic principles</span>
+              <span className="text-center">Practical remedies based on Vedic Shastra</span>
             </div>
             <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
               <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
