@@ -93,13 +93,6 @@ const Hero = () => {
             <span className="text-xl md:text-2xl font-headline text-on-surface font-bold tabular-nums mb-1">5.0</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.15em] font-label text-center">5 Star Google Rating</span>
           </div>
-
-          <div className="w-px h-8 bg-outline/20 shrink-0"></div>
-
-          <div className="flex flex-col items-center flex-1">
-            <span className="text-xl md:text-2xl font-headline text-on-surface font-bold tabular-nums mb-1">10+</span>
-            <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Countries Reach</span>
-          </div>
         </div>
       </div>
 
