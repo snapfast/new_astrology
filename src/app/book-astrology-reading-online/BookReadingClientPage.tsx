@@ -19,8 +19,8 @@ const TRANSLATIONS = {
     whatToExpect: {
       tag: "Consultation Formats",
       title: "What to Expect",
-      intro: "Consultations are conducted as 1-hour 1-on-1 sessions tailored to your situation:",
-      sessionTitle: "1-Hour 1-on-1 Consultation",
+      intro: "Consultations are conducted as 1-hour direct consultation sessions tailored to your situation:",
+      sessionTitle: "1 Hour Consultation",
       sessionDesc: "Ideal for birth chart examination, pressing life questions, follow-up consultations, horary (Praśna), day-selection (Muhurta), or compatibility analysis.",
       partsTitle: "Three Core Parts of a Consultation",
       partsDesc: "Consultations largely involve three parts, tailored according to your specific needs:",
@@ -65,7 +65,7 @@ const TRANSLATIONS = {
       tag: "Process & Timing",
       title: "How to Schedule Your Reading",
       steps: [
-        "Send payment of ₹401/- to UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)",
+        "Send payment of ₹701/- to UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)",
         "Email the payment screenshot to rahulbaliastrology@gmail.com",
         "Book an appropriate time slot at least 6 days in advance on Calendly using the Schedule button below",
         "Provide your precise birth details and primary questions during scheduling"
@@ -96,7 +96,7 @@ const TRANSLATIONS = {
       doubleMissed: "Missed Appointments: If you miss your scheduled session, you are welcome to reschedule a new time slot on Calendly whenever you are ready.",
       contact: "If you have any questions regarding your appointment, please contact: rahulbaliastrology@gmail.com"
     },
-    paymentDetailsTitle: "Booking Charge Payment (₹401/-)",
+    paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
     upiLabel: "UPI:",
     upiId: "rahul.bali@ybl",
     paypalLabel: "PayPal (for international clients):",
@@ -179,7 +179,7 @@ const BookReadingClientPage: FC = () => {
             </p>
             <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
               <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
-                Booking Charge: ₹401/-
+                Booking Charge: ₹701/-
               </span>
             </div>
           </div>
@@ -431,7 +431,7 @@ const BookReadingClientPage: FC = () => {
 
           <div className="space-y-4">
             <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-              Booking charge is ₹401/- per session. You can complete your payment via UPI or PayPal using the details below:
+              Booking charge is ₹701/- per session. You can complete your payment via UPI or PayPal using the details below:
             </p>
             <CopyableField
               value={t.upiId}

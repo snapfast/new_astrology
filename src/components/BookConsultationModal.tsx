@@ -29,7 +29,7 @@ const TRANSLATIONS = {
     meetTitle: "Google Meet Session",
     durationBadge: "1 Hour",
     videoBadge: "Video is optional",
-    meetDesc: "1-on-1 session for deep chart analysis and remedies.",
+    meetDesc: "Personal session for deep chart analysis and remedies.",
     meetBtn: "Schedule Now",
     optionalDonationBtn: "Donate",
     closeModal: "Close modal",

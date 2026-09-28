@@ -89,7 +89,7 @@ const ALL_CARDS = [
     id: 'booking',
     isButton: true,
     icon: 'chat_bubble',
-    title: 'Book 1-on-1 Session',
+    title: 'Book Personal Session',
     desc: 'Get solutions for career, relationships, remedies & spiritual path.',
     action: 'Connect Now',
     gaAction: 'explore_booking',
