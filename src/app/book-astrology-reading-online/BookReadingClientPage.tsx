@@ -69,7 +69,6 @@ const TRANSLATIONS = {
         "Pay ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com).",
         "Email payment screenshot to rahulbaliastrology@gmail.com.",
         "Pick a convenient slot on Calendly.",
-        "Note main focus areas in advance.",
         "Ensure a quiet room and stable connection.",
         "Keep a pen and notebook ready for remedies."
       ]
