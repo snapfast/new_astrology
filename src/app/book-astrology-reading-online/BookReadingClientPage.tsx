@@ -9,11 +9,15 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 const TRANSLATIONS = {
   en: {
-    title: "Book Astrology Reading Online",
-    subtitle: "Online Astrology Consultation",
+    title: "Personalised Birth Chart Reading",
+    subtitle: "Online Consultation",
     description: (
-      <div className="font-body">
-        Personal birth chart consultations based on authentic Parashari Vedic Astrology (Jyotish). Gain clear insights into your horoscope, timing of key events, and practical traditional remedies.
+      <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm md:text-base font-body text-on-surface">
+        <span className="whitespace-nowrap">In-depth birth chart analysis</span>
+        <span className="hidden sm:inline text-on-surface/40">•</span>
+        <span className="whitespace-nowrap">Easy online slot booking</span>
+        <span className="hidden sm:inline text-on-surface/40">•</span>
+        <span className="text-center">Practical remedies based on Vedic Shastra</span>
       </div>
     ),
     whatToExpect: {
@@ -160,34 +164,14 @@ const BookReadingClientPage: FC = () => {
         title={t.title}
         subtitle={t.subtitle}
         description={t.description}
-      />
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 md:space-y-10">
-
-        {/* Overview Card */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between relative transition-all text-center space-y-6">
-          <div className="space-y-3">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Online Consultation
+      >
+        <div className="flex flex-col items-center gap-4 mt-2">
+          <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
+            <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
+              Booking Charge: ₹701/-
             </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              Personalised Birth Chart Reading
-            </h2>
-            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs md:text-sm font-body text-on-surface/80">
-              <span className="whitespace-nowrap">In-depth birth chart analysis</span>
-              <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="whitespace-nowrap">Easy online slot booking</span>
-              <span className="hidden sm:inline text-on-surface/40">•</span>
-              <span className="text-center">Practical remedies based on Vedic Shastra</span>
-            </div>
-            <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
-              <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
-                Booking Charge: ₹701/-
-              </span>
-            </div>
           </div>
-
-          <div className="pt-2 flex flex-col items-center">
+          <div className="flex flex-col items-center">
             <ScheduleButton
               href={t.calendlyUrl}
               onClick={() => {
@@ -201,7 +185,10 @@ const BookReadingClientPage: FC = () => {
               Instant calendar confirmation with automatic time zone adjustment
             </p>
           </div>
-        </section>
+        </div>
+      </PageHeader>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 md:space-y-10">
 
         {/* How to Schedule & Prepare */}
         <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
