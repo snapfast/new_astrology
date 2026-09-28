@@ -237,8 +237,8 @@ const BookReadingClientPage: FC = () => {
         </section>
 
         {/* How to Schedule & Prepare */}
-        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-          <div className="space-y-1">
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
+          <div className="space-y-0.5">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
               {t.howToBook.tag}
             </span>
@@ -247,13 +247,13 @@ const BookReadingClientPage: FC = () => {
             </h2>
           </div>
 
-          <ol className="space-y-3">
+          <ol className="space-y-2.5">
             {t.howToBook.steps.map((step, idx) => (
-              <li key={idx} className="flex items-start gap-3.5 p-3.5 md:p-4 bg-surface-bright rounded-2xl border border-outline/15 hover:border-secondary/20 transition-all">
-                <span className="w-7 h-7 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center font-headline text-xs text-secondary font-bold shrink-0 mt-0.5">
+              <li key={idx} className="flex items-start gap-3">
+                <span className="w-6 h-6 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-xs text-accent font-medium shrink-0 mt-0.5">
                   {idx + 1}
                 </span>
-                <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-0.5">
+                <span className="text-sm md:text-base font-body text-on-surface/90 leading-snug">
                   {step}
                 </span>
               </li>
@@ -264,13 +264,13 @@ const BookReadingClientPage: FC = () => {
             <h3 className="text-lg md:text-xl font-medium font-headline text-on-surface">
               Session Preparation Protocol
             </h3>
-            <ol className="space-y-3">
+            <ol className="space-y-2.5">
               {t.howToBook.prepSteps.map((step, idx) => (
-                <li key={idx} className="flex items-start gap-3.5 p-3.5 md:p-4 bg-surface-bright rounded-2xl border border-outline/15 hover:border-secondary/20 transition-all">
-                  <span className="w-7 h-7 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center font-headline text-xs text-secondary font-bold shrink-0 mt-0.5">
+                <li key={idx} className="flex items-start gap-3">
+                  <span className="w-6 h-6 rounded-full bg-surface-bright border border-outline/20 flex items-center justify-center font-headline text-xs text-accent font-medium shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
-                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed pt-0.5">
+                  <span className="text-sm md:text-base font-body text-on-surface/90 leading-snug">
                     {step}
                   </span>
                 </li>
