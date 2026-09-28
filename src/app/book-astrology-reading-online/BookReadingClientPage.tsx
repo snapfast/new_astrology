@@ -65,19 +65,13 @@ const TRANSLATIONS = {
       ]
     },
     howToBook: {
-      tag: "Process & Timing",
-      title: "How to Schedule Your Reading",
-      steps: [
-        { label: "Payment", desc: "Pay ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com)." },
-        { label: "Confirmation", desc: "Email payment screenshot to rahulbaliastrology@gmail.com." },
-        { label: "Scheduling", desc: "Pick a convenient slot on Calendly." },
-        { label: "Details", desc: "Enter birth details (date, exact time, location) and key questions." }
-      ],
-      prepSteps: [
-        { label: "Questions", desc: "Note main focus areas in advance." },
-        { label: "Environment", desc: "Ensure a quiet room and stable connection." },
-        { label: "Notes", desc: "Keep a pen and notebook ready for remedies." },
-        { label: "Punctuality", desc: "Join on time for your scheduled slot." }
+      items: [
+        "Pay ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com).",
+        "Email payment screenshot to rahulbaliastrology@gmail.com.",
+        "Pick a convenient slot on Calendly.",
+        "Note main focus areas in advance.",
+        "Ensure a quiet room and stable connection.",
+        "Keep a pen and notebook ready for remedies."
       ]
     },
     conductMedium: {
@@ -191,48 +185,12 @@ const BookReadingClientPage: FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 md:space-y-10">
 
         {/* How to Schedule & Prepare */}
-        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.howToBook.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.howToBook.title}
-            </h2>
-          </div>
-
-          <ol className="space-y-2">
-            {t.howToBook.steps.map((step, idx) => (
-              <li key={idx} className="bg-surface-bright rounded-xl p-2.5 sm:p-3 border border-outline/10 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-[11px] text-secondary font-semibold shrink-0 mt-0.5">
-                  {idx + 1}
-                </span>
-                <div className="text-xs sm:text-sm font-body text-on-surface/90 leading-snug">
-                  <span className="text-secondary font-semibold mr-1.5">{step.label}:</span>
-                  {step.desc}
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="pt-3 border-t border-outline/10 space-y-3">
-            <h3 className="text-base font-medium font-headline text-on-surface">
-              Preparing for Your Session
-            </h3>
-            <ol className="space-y-2">
-              {t.howToBook.prepSteps.map((step, idx) => (
-                <li key={idx} className="bg-surface-bright rounded-xl p-2.5 sm:p-3 border border-outline/10 flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-[11px] text-secondary font-semibold shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <div className="text-xs sm:text-sm font-body text-on-surface/90 leading-snug">
-                    <span className="text-secondary font-semibold mr-1.5">{step.label}:</span>
-                    {step.desc}
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+        <section id="how-to-book" className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-2">
+          {t.howToBook.items.map((item, idx) => (
+            <p key={idx} className="text-sm md:text-base font-body text-on-surface/90 leading-relaxed">
+              {item}
+            </p>
+          ))}
         </section>
 
         {/* What to Expect Section */}
