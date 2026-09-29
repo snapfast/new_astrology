@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('Homepage title matches GA reports target', async ({ page }) => {
   await page.goto('/');
-  await expect(page).toHaveTitle('Vedic Astrology Consultations | Bali Astrology');
+  await expect(page).toHaveTitle('Vedic Astrology Consultation | Pandit Rahul Bali Ji | 5 Star Google Rating');
 });
 
 test('Reviews page CTA section is visible and functional', async ({ page }) => {
