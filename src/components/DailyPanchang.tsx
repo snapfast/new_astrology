@@ -18,7 +18,7 @@ const TRANSLATIONS = {
     yoga: "Yoga",
     karana: "Karana",
     vara: "Vara",
-    abhijit: "Auspicious Muhurta",
+    abhijit: "Abhijit Muhurta",
     rahu: "Rahu Kaal",
     endsAt: "Ends at"
   }
