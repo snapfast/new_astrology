@@ -34,7 +34,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
     const istTime = new Date(now.getTime() + istOffset);
 
     const dob = istTime.toISOString().split('T')[0];
-    const tob = istTime.toISOString().split('T')[1].substring(0, 5);
+    const tob = "12:00";
 
     // Default to New Delhi coordinates
     const data = generateAstrologyData(dob, tob, "28.6139", "77.2090");
@@ -80,15 +80,15 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
             <div className="lg:w-1/2 w-full grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.tithi}</p>
-                {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd }]).map((item, idx) => (
+                {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd, paksha: panchang.paksha, pakshaSanskrit: panchang.pakshaSanskrit }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
                     <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
-                      {`${panchang.paksha} ${item.name}`}
+                      {`${item.paksha || panchang.paksha} ${item.name}`}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{panchang.pakshaSanskrit} {item.sanskrit}</p>
+                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.pakshaSanskrit || panchang.pakshaSanskrit} {item.sanskrit}</p>
                   </div>
                 ))}
               </div>
