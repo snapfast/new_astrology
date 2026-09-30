@@ -430,45 +430,35 @@ const PanchangPage = () => {
             <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.timingsTitle}</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center shrink-0">
-                  <DeepamIcon width={20} height={20} />
-                </div>
+                <DeepamIcon width={20} height={20} className="shrink-0" />
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-lg">wb_twilight</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-error/10 rounded-full flex items-center justify-center text-error shrink-0">
-                  <span className="material-symbols-outlined text-lg">block</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-error shrink-0">block</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-on-surface shrink-0">
-                  <span className="material-symbols-outlined text-lg">schedule</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-on-surface shrink-0">schedule</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.gulika}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.gulikaKaal}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-on-surface shrink-0">
-                  <span className="material-symbols-outlined text-lg">history</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-on-surface shrink-0">history</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.yamaganda}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.yamagandaKaal}</p>
@@ -484,36 +474,28 @@ const PanchangPage = () => {
             <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.celestialTitle}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-lg">wb_sunny</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_sunny</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunrise}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunrise}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-lg">wb_twilight</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunset}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunset}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-lg">nights_stay</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-accent shrink-0">nights_stay</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonrise}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonrise}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent shrink-0">
-                  <span className="material-symbols-outlined text-lg">bedtime</span>
-                </div>
+                <span className="material-symbols-outlined text-lg text-accent shrink-0">bedtime</span>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonset}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonset}</p>
