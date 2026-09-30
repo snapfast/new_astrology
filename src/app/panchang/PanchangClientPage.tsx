@@ -355,6 +355,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.pakshaSanskrit || panchang.pakshaSanskrit} {item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -368,6 +369,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -381,6 +383,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -394,6 +397,7 @@ const PanchangPage = () => {
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
                     </p>
+                    <p className="text-xs text-on-surface/80 font-hindi">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -401,6 +405,7 @@ const PanchangPage = () => {
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.vara}</p>
                 <div className="border-l-2 border-accent/20 pl-2 space-y-0.5">
                   <p className="text-lg font-headline text-on-surface font-semibold">{panchang.vara}</p>
+                  <p className="text-xs text-on-surface/80 font-hindi">{panchang.varaSanskrit}</p>
                 </div>
               </div>
             </div>
@@ -409,18 +414,22 @@ const PanchangPage = () => {
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunSign}</p>
                 <p className="text-sm font-headline text-on-surface font-semibold">{panchang.sunSign}</p>
+                <p className="text-xs text-on-surface/80 font-hindi">{panchang.sunSignSanskrit}</p>
               </div>
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonSign}</p>
                 <p className="text-sm font-headline text-on-surface font-semibold">{panchang.moonSign}</p>
+                <p className="text-xs text-on-surface/80 font-hindi">{panchang.moonSignSanskrit}</p>
               </div>
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.ritu}</p>
                 <p className="text-sm font-headline text-on-surface font-semibold">{panchang.ritu}</p>
+                <p className="text-xs text-on-surface/80 font-hindi">{panchang.rituSanskrit}</p>
               </div>
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.ayana}</p>
                 <p className="text-sm font-headline text-on-surface font-semibold">{panchang.ayana}</p>
+                <p className="text-xs text-on-surface/80 font-hindi">{panchang.ayanaSanskrit}</p>
               </div>
             </div>
           </div>
@@ -529,10 +538,12 @@ const PanchangPage = () => {
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.month}</p>
                 <p className="text-base font-headline text-on-surface font-semibold">{panchang.lunarMonth}</p>
+                <p className="text-xs text-on-surface/80 font-hindi">{panchang.lunarMonthSanskrit}</p>
               </div>
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.samvatsara}</p>
                 <p className="text-base font-headline text-on-surface font-semibold">{panchang.samvatsara}</p>
+                <p className="text-xs text-on-surface/80 font-hindi">{panchang.samvatsaraSanskrit}</p>
               </div>
               <div className="space-y-0.5">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.vikram}</p>
