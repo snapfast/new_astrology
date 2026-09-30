@@ -349,6 +349,8 @@ export interface PanchangElementOccur {
     name: string;
     sanskrit: string;
     end: string | null;
+    paksha?: string;
+    pakshaSanskrit?: string;
 }
 
 export interface PanchangData {
@@ -2089,65 +2091,81 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (actualMs === endMs) break;
     }
 
-    const finalTithisList: PanchangElementOccur[] = tithiTransitions.length > 0
-        ? tithiTransitions.map(t => ({
+    const finalTithisList: PanchangElementOccur[] = [];
+    for (const t of tithiTransitions) {
+        const itemPaksha = t.idx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
+        finalTithisList.push({
             name: TITHIS[t.idx].name,
             sanskrit: TITHIS[t.idx].sanskrit,
+            paksha: itemPaksha.name,
+            pakshaSanskrit: itemPaksha.sanskrit,
             end: formatISTTime(t.time, true, sunriseDate)
-          }))
-        : [{
-            name: TITHIS[sunriseTithiIdx].name,
-            sanskrit: TITHIS[sunriseTithiIdx].sanskrit,
-            end: null
-          }];
+        });
+    }
+    const finalTithiPaksha = prevTithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
+    finalTithisList.push({
+        name: TITHIS[prevTithiIdx].name,
+        sanskrit: TITHIS[prevTithiIdx].sanskrit,
+        paksha: finalTithiPaksha.name,
+        pakshaSanskrit: finalTithiPaksha.sanskrit,
+        end: null
+    });
 
-    const finalNakshatrasList: PanchangElementOccur[] = nakTransitions.length > 0
-        ? nakTransitions.map(t => ({
+    const finalNakshatrasList: PanchangElementOccur[] = [];
+    for (const t of nakTransitions) {
+        finalNakshatrasList.push({
             name: NAKSHATRA_NAMES[t.idx].name,
             sanskrit: NAKSHATRA_NAMES[t.idx].sanskrit,
             end: formatISTTime(t.time, true, sunriseDate)
-          }))
-        : [{
-            name: NAKSHATRA_NAMES[sunriseNakIdx].name,
-            sanskrit: NAKSHATRA_NAMES[sunriseNakIdx].sanskrit,
-            end: null
-          }];
+        });
+    }
+    finalNakshatrasList.push({
+        name: NAKSHATRA_NAMES[prevNakIdx].name,
+        sanskrit: NAKSHATRA_NAMES[prevNakIdx].sanskrit,
+        end: null
+    });
 
-    const finalYogasList: PanchangElementOccur[] = yogaTransitions.length > 0
-        ? yogaTransitions.map(t => ({
+    const finalYogasList: PanchangElementOccur[] = [];
+    for (const t of yogaTransitions) {
+        finalYogasList.push({
             name: YOGAS[t.idx].name,
             sanskrit: YOGAS[t.idx].sanskrit,
             end: formatISTTime(t.time, true, sunriseDate)
-          }))
-        : [{
-            name: YOGAS[sunriseYogaIdx].name,
-            sanskrit: YOGAS[sunriseYogaIdx].sanskrit,
-            end: null
-          }];
+        });
+    }
+    finalYogasList.push({
+        name: YOGAS[prevYogaIdx].name,
+        sanskrit: YOGAS[prevYogaIdx].sanskrit,
+        end: null
+    });
 
-    const finalKaranasList: PanchangElementOccur[] = karanaTransitions.length > 0
-        ? karanaTransitions.map(t => ({
+    const finalKaranasList: PanchangElementOccur[] = [];
+    for (const t of karanaTransitions) {
+        finalKaranasList.push({
             name: getKaranaItem(t.idx).name,
             sanskrit: getKaranaItem(t.idx).sanskrit,
             end: formatISTTime(t.time, true, sunriseDate)
-          }))
-        : [{
-            name: getKaranaItem(sunriseKaranaIdxTotal).name,
-            sanskrit: getKaranaItem(sunriseKaranaIdxTotal).sanskrit,
-            end: null
-          }];
+        });
+    }
+    finalKaranasList.push({
+        name: getKaranaItem(prevKaranaIdxTotal).name,
+        sanskrit: getKaranaItem(prevKaranaIdxTotal).sanskrit,
+        end: null
+    });
 
-    const finalMoonsignsList: PanchangElementOccur[] = moonSignTransitions.length > 0
-        ? moonSignTransitions.map(t => ({
+    const finalMoonsignsList: PanchangElementOccur[] = [];
+    for (const t of moonSignTransitions) {
+        finalMoonsignsList.push({
             name: RASI_FULL_NAMES[t.idx].name,
             sanskrit: RASI_FULL_NAMES[t.idx].sanskrit,
             end: formatISTTime(t.time, true, sunriseDate)
-          }))
-        : [{
-            name: RASI_FULL_NAMES[sunriseMoonSignIdx].name,
-            sanskrit: RASI_FULL_NAMES[sunriseMoonSignIdx].sanskrit,
-            end: null
-          }];
+        });
+    }
+    finalMoonsignsList.push({
+        name: RASI_FULL_NAMES[prevMoonSignIdx].name,
+        sanskrit: RASI_FULL_NAMES[prevMoonSignIdx].sanskrit,
+        end: null
+    });
 
     let lunarMonthName = "Chaitra";
     let lunarMonthSanskritName = "चैत्र";

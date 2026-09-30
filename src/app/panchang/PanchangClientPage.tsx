@@ -347,10 +347,10 @@ const PanchangPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
               <div className="space-y-2">
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.tithi}</p>
-                {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd }]).map((item, idx) => (
+                {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd, paksha: panchang.paksha, pakshaSanskrit: panchang.pakshaSanskrit }]).map((item, idx) => (
                   <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
                     <p className="text-lg font-headline text-on-surface font-semibold">
-                      {`${panchang.paksha} ${item.name}`}
+                      {`${item.paksha || panchang.paksha} ${item.name}`}
                     </p>
                     <p className="text-xs text-accent font-medium tabular-nums">
                       {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
