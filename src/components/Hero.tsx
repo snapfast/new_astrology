@@ -28,17 +28,74 @@ const Hero = () => {
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
       <div className="concentric-circles">
+        {/* Inner Orbit: Mars (Red) */}
         <div className="circle-dashed w-[400px] h-[400px] animate-spin-20s">
-          {/* Red dot on the inner circle at 9 o'clock */}
-          <div className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-3 h-3 bg-[#FF0000] rounded-full border-4 border-background"></div>
+          <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center" title="Mars">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_6px_rgba(255,50,0,0.7)]">
+              <defs>
+                <radialGradient id="marsGrad" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stopColor="#FF6B4A" />
+                  <stop offset="50%" stopColor="#E63917" />
+                  <stop offset="85%" stopColor="#991B00" />
+                  <stop offset="100%" stopColor="#4A0000" />
+                </radialGradient>
+              </defs>
+              <circle cx="10" cy="10" r="8" fill="url(#marsGrad)" />
+            </svg>
+          </div>
         </div>
-        <div className="circle-dashed w-[600px] h-[600px] animate-spin-30s">
-          {/* Black dot on the middle circle at 6 o'clock */}
-          <div className="absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-3 h-3 bg-[#000000] rounded-full border-4 border-background"></div>
+
+        {/* Middle Orbit: Jupiter (Yellow Gas Giant) */}
+        <div className="circle-dashed w-[600px] h-[600px] animate-spin-35s">
+          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 flex items-center justify-center" title="Jupiter">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_8px_rgba(255,200,0,0.6)]">
+              <defs>
+                <radialGradient id="jupGrad" cx="30%" cy="30%" r="70%">
+                  <stop offset="0%" stopColor="#FFF1A8" />
+                  <stop offset="40%" stopColor="#FFC900" />
+                  <stop offset="75%" stopColor="#D97706" />
+                  <stop offset="100%" stopColor="#78350F" />
+                </radialGradient>
+                <clipPath id="jupClip">
+                  <circle cx="13" cy="13" r="11" />
+                </clipPath>
+              </defs>
+              <circle cx="13" cy="13" r="11" fill="url(#jupGrad)" />
+              <g clipPath="url(#jupClip)" opacity="0.35">
+                <rect x="0" y="6" width="26" height="2" fill="#78350F" />
+                <rect x="0" y="10" width="26" height="3" fill="#FFFFFF" />
+                <rect x="0" y="15" width="26" height="2" fill="#92400E" />
+                <ellipse cx="18" cy="17" rx="3" ry="1.5" fill="#DC2626" opacity="0.8" />
+              </g>
+            </svg>
+          </div>
         </div>
-        <div className="circle-dashed w-[800px] h-[800px] animate-spin-45s">
-          {/* Golden/accent dot on the outer circle at 3 o'clock */}
-          <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-accent rounded-full border-4 border-background"></div>
+
+        {/* Outer Orbit: Saturn (Black/Dark Ringed Planet) */}
+        <div className="circle-dashed w-[800px] h-[800px] animate-spin-60s">
+          <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 flex items-center justify-center" title="Saturn">
+            <svg width="42" height="26" viewBox="0 0 42 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_8px_rgba(0,0,0,0.5)]">
+              <defs>
+                <radialGradient id="saturnBody" cx="30%" cy="30%" r="70%">
+                  <stop offset="0%" stopColor="#4B5563" />
+                  <stop offset="50%" stopColor="#1F2937" />
+                  <stop offset="85%" stopColor="#111827" />
+                  <stop offset="100%" stopColor="#030712" />
+                </radialGradient>
+                <linearGradient id="saturnRing" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#EAB308" stopOpacity="0.8" />
+                  <stop offset="30%" stopColor="#CA8A04" stopOpacity="0.9" />
+                  <stop offset="50%" stopColor="#475569" stopOpacity="0.4" />
+                  <stop offset="70%" stopColor="#A16207" stopOpacity="0.85" />
+                  <stop offset="100%" stopColor="#CA8A04" stopOpacity="0.7" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="21" cy="13" rx="19" ry="6.5" fill="none" stroke="url(#saturnRing)" strokeWidth="3" transform="rotate(-12 21 13)" opacity="0.85" />
+              <ellipse cx="21" cy="13" rx="15" ry="5" fill="none" stroke="#D97706" strokeWidth="1" transform="rotate(-12 21 13)" opacity="0.5" />
+              <circle cx="21" cy="13" r="8" fill="url(#saturnBody)" stroke="#374151" strokeWidth="0.5" />
+              <path d="M 3.2 16.8 A 19 6.5 0 0 0 38.8 9.2" fill="none" stroke="url(#saturnRing)" strokeWidth="3" transform="rotate(-12 21 13)" opacity="0.95" />
+            </svg>
+          </div>
         </div>
       </div>
 
