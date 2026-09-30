@@ -31,7 +31,7 @@ const Hero = () => {
         {/* Inner Orbit: Mars (Red) */}
         <div className="circle-dashed w-[400px] h-[400px] animate-spin-20s">
           <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center" title="Mars">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_6px_rgba(255,50,0,0.7)]">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_4px_rgba(255,50,0,0.6)]">
               <defs>
                 <radialGradient id="marsGrad" cx="35%" cy="35%" r="65%">
                   <stop offset="0%" stopColor="#FF6B4A" />
@@ -40,7 +40,7 @@ const Hero = () => {
                   <stop offset="100%" stopColor="#4A0000" />
                 </radialGradient>
               </defs>
-              <circle cx="10" cy="10" r="8" fill="url(#marsGrad)" />
+              <circle cx="6" cy="6" r="5" fill="url(#marsGrad)" />
             </svg>
           </div>
         </div>
@@ -48,7 +48,7 @@ const Hero = () => {
         {/* Middle Orbit: Jupiter (Yellow Gas Giant) */}
         <div className="circle-dashed w-[600px] h-[600px] animate-spin-35s">
           <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 flex items-center justify-center" title="Jupiter">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_8px_rgba(255,200,0,0.6)]">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_5px_rgba(255,200,0,0.5)]">
               <defs>
                 <radialGradient id="jupGrad" cx="30%" cy="30%" r="70%">
                   <stop offset="0%" stopColor="#FFF1A8" />
@@ -57,15 +57,15 @@ const Hero = () => {
                   <stop offset="100%" stopColor="#78350F" />
                 </radialGradient>
                 <clipPath id="jupClip">
-                  <circle cx="13" cy="13" r="11" />
+                  <circle cx="8" cy="8" r="6" />
                 </clipPath>
               </defs>
-              <circle cx="13" cy="13" r="11" fill="url(#jupGrad)" />
+              <circle cx="8" cy="8" r="6" fill="url(#jupGrad)" />
               <g clipPath="url(#jupClip)" opacity="0.35">
-                <rect x="0" y="6" width="26" height="2" fill="#78350F" />
-                <rect x="0" y="10" width="26" height="3" fill="#FFFFFF" />
-                <rect x="0" y="15" width="26" height="2" fill="#92400E" />
-                <ellipse cx="18" cy="17" rx="3" ry="1.5" fill="#DC2626" opacity="0.8" />
+                <rect x="0" y="4" width="16" height="1.5" fill="#78350F" />
+                <rect x="0" y="6.5" width="16" height="2" fill="#FFFFFF" />
+                <rect x="0" y="9.5" width="16" height="1.5" fill="#92400E" />
+                <ellipse cx="11" cy="10.5" rx="2" ry="1" fill="#DC2626" opacity="0.8" />
               </g>
             </svg>
           </div>
@@ -74,7 +74,7 @@ const Hero = () => {
         {/* Outer Orbit: Saturn (Black/Dark Ringed Planet) */}
         <div className="circle-dashed w-[800px] h-[800px] animate-spin-60s">
           <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 flex items-center justify-center" title="Saturn">
-            <svg width="42" height="26" viewBox="0 0 42 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_8px_rgba(0,0,0,0.5)]">
+            <svg width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_5px_rgba(0,0,0,0.4)]">
               <defs>
                 <radialGradient id="saturnBody" cx="30%" cy="30%" r="70%">
                   <stop offset="0%" stopColor="#4B5563" />
@@ -90,10 +90,10 @@ const Hero = () => {
                   <stop offset="100%" stopColor="#CA8A04" stopOpacity="0.7" />
                 </linearGradient>
               </defs>
-              <ellipse cx="21" cy="13" rx="19" ry="6.5" fill="none" stroke="url(#saturnRing)" strokeWidth="3" transform="rotate(-12 21 13)" opacity="0.85" />
-              <ellipse cx="21" cy="13" rx="15" ry="5" fill="none" stroke="#D97706" strokeWidth="1" transform="rotate(-12 21 13)" opacity="0.5" />
-              <circle cx="21" cy="13" r="8" fill="url(#saturnBody)" stroke="#374151" strokeWidth="0.5" />
-              <path d="M 3.2 16.8 A 19 6.5 0 0 0 38.8 9.2" fill="none" stroke="url(#saturnRing)" strokeWidth="3" transform="rotate(-12 21 13)" opacity="0.95" />
+              <ellipse cx="13" cy="8" rx="12" ry="4" fill="none" stroke="url(#saturnRing)" strokeWidth="1.8" transform="rotate(-12 13 8)" opacity="0.85" />
+              <ellipse cx="13" cy="8" rx="9.5" ry="3.1" fill="none" stroke="#D97706" strokeWidth="0.8" transform="rotate(-12 13 8)" opacity="0.5" />
+              <circle cx="13" cy="8" r="5" fill="url(#saturnBody)" stroke="#374151" strokeWidth="0.5" />
+              <path d="M 1.8 10.4 A 12 4 0 0 0 24.2 5.6" fill="none" stroke="url(#saturnRing)" strokeWidth="1.8" transform="rotate(-12 13 8)" opacity="0.95" />
             </svg>
           </div>
         </div>
