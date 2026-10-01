@@ -37,11 +37,11 @@ const Hero = () => {
       <div className="concentric-circles">
         {/* Central Sun */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
-          <svg viewBox="0 0 500 500" className="w-[200px] h-[200px] md:w-[260px] md:h-[260px] opacity-60 animate-pulse" style={{ animationDuration: '4s' }}>
+          <svg viewBox="0 0 500 500" className="w-[300px] h-[300px] md:w-[390px] md:h-[390px] opacity-70 animate-pulse" style={{ animationDuration: '4s' }}>
             <defs>
               <filter id="sunGlow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="30" result="blur1" />
-                <feGaussianBlur stdDeviation="10" result="blur2" />
+                <feGaussianBlur stdDeviation="45" result="blur1" />
+                <feGaussianBlur stdDeviation="15" result="blur2" />
                 <feMerge>
                   <feMergeNode in="blur1" />
                   <feMergeNode in="blur2" />
@@ -49,8 +49,9 @@ const Hero = () => {
                 </feMerge>
               </filter>
               <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#ff9900" />
-                <stop offset="50%" stopColor="#ffcc00" />
+                <stop offset="0%" stopColor="#ff4500" />
+                <stop offset="35%" stopColor="#ff6600" />
+                <stop offset="65%" stopColor="#ffaa00" />
                 <stop offset="100%" stopColor="#ffcc00" stopOpacity="0" />
               </radialGradient>
             </defs>
