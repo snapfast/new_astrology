@@ -182,14 +182,14 @@ const Navbar = () => {
           <Link
             prefetch={true}
             href="/reviews"
-            className="md:hidden text-on-surface px-3 py-2 rounded-full font-medium text-[11px] tracking-[0.05em] uppercase hover:bg-black/5 active:bg-black/10 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="md:hidden text-on-surface px-3 py-2 rounded-full font-medium text-[11px] tracking-[0.05em] hover:bg-black/5 active:bg-black/10 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             {t.reviews}
           </Link>
 
           <button
             onClick={handleBookNow}
-            className="bg-primary text-white px-4 md:px-8 py-2.5 rounded-full font-medium text-[11px] md:text-sm tracking-[0.1em] uppercase shadow-sm active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="btn-primary px-4 md:px-8 py-2.5 text-[11px] md:text-sm tracking-[0.1em]"
           >
             {t.bookNow}
           </button>
@@ -280,7 +280,7 @@ const Navbar = () => {
         >
           <button
             onClick={handleBookNow}
-            className="w-full bg-primary text-white py-3.5 rounded-full font-medium text-xs tracking-[0.1em] uppercase text-center shadow-lg active:scale-[0.98] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="btn-primary w-full py-3.5 text-xs tracking-[0.1em] text-center shadow-lg"
           >
             {t.bookConsultation}
           </button>

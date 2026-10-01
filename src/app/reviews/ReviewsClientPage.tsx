@@ -72,7 +72,7 @@ export default function ReviewsClientPage() {
               href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
               target="_blank"
               rel="noopener noreferrer"
-              className={`btn-secondary inline-flex items-center justify-center gap-3 px-10 py-4 font-medium text-[10px] md:text-xs uppercase w-full md:w-auto font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+              className={`btn-secondary inline-flex items-center justify-center gap-3 px-10 py-4 font-medium text-[10px] md:text-xs w-full md:w-auto font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
             >
               <GoogleIcon />
               {t.googleReviews}
@@ -82,7 +82,7 @@ export default function ReviewsClientPage() {
               href="https://g.page/r/CXBUAJqKmqoBEB0/review"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs uppercase w-full md:w-auto font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+              className={`inline-flex items-center justify-center gap-3 bg-on-surface text-surface px-10 py-4 rounded-full font-medium text-[10px] md:text-xs w-full md:w-auto font-label ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
             >
               {t.writeReview}
               <span className="material-symbols-outlined text-base">open_in_new</span>
@@ -147,7 +147,7 @@ export default function ReviewsClientPage() {
                   sendGAEvent({ event: 'action_click', action_name: 'reviews_page_book_now' });
                   window.dispatchEvent(new CustomEvent('openBookingModal'));
                 }}
-                className={`px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                className={`px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
               >
                 {lang === 'en' ? 'Book Personal Session' : 'परामर्श सत्र बुक करें'}
               </button>

@@ -142,7 +142,7 @@ export default function BlogClientPage({ initialPosts, allTags }: BlogClientPage
                 setSearchQuery('');
                 setSelectedTag(null);
               }}
-              className="bg-primary text-white px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider hover:opacity-90 transition-opacity"
+              className="btn-primary px-6 py-2.5 text-xs font-medium tracking-wider"
             >
               Clear Search
             </button>
