@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Akshar } from "next/font/google";
+import { Akshar, Quicksand } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
@@ -10,6 +10,13 @@ import "./globals.css";
 const akshar = Akshar({
   subsets: ["latin", "devanagari"],
   variable: "--font-akshar",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  variable: "--font-quicksand",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
@@ -87,10 +94,13 @@ export default async function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         {/* Speed Optimizations: Preconnect & DNS Prefetch to establish early connections */}
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://use.typekit.net" />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="stylesheet" href="https://use.typekit.net/pks4rhn.css" nonce={nonce} />
 
         <link
           rel="preload"
@@ -107,7 +117,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${akshar.variable} ${quicksand.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <LanguageProvider>
           <JsonLd

@@ -35,7 +35,9 @@ export default {
         "headline": ["var(--font-primary)", "var(--font-secondary)", "sans-serif"],
         "body": ["var(--font-primary)", "var(--font-secondary)", "sans-serif"],
         "label": ["var(--font-primary)", "var(--font-secondary)", "sans-serif"],
-        "hindi": ["var(--font-akshar)", "serif"]
+        "hindi": ["var(--font-akshar)", "serif"],
+        "quicksand": ["var(--font-quicksand)", "sans-serif"],
+        "halcom": ["var(--font-quicksand)", "sans-serif"]
       }
     },
   },
