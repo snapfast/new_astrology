@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Akshar } from "next/font/google";
+import { Akshar, Sen } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
@@ -10,6 +10,13 @@ import "./globals.css";
 const akshar = Akshar({
   subsets: ["latin", "devanagari"],
   variable: "--font-akshar",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const sen = Sen({
+  subsets: ["latin"],
+  variable: "--font-sen",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
@@ -107,7 +114,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${akshar.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
+        className={`${akshar.variable} ${sen.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <LanguageProvider>
           <JsonLd

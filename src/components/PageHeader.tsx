@@ -28,7 +28,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
           </span>
         )}
 
-        <h1 className="font-normal font-headline text-on-surface mb-3 tracking-tight leading-tight transition-all text-3xl md:text-5xl">
+        <h1 className={`font-normal ${title === 'Pandit Rahul Bali Ji' ? 'font-sen' : 'font-headline'} text-on-surface mb-3 tracking-tight leading-tight transition-all text-3xl md:text-5xl`}>
           {title}
         </h1>
 

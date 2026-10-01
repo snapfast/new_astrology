@@ -35,7 +35,8 @@ export default {
         "headline": ["var(--font-primary)", "var(--font-secondary)", "sans-serif"],
         "body": ["var(--font-primary)", "var(--font-secondary)", "sans-serif"],
         "label": ["var(--font-primary)", "var(--font-secondary)", "sans-serif"],
-        "hindi": ["var(--font-akshar)", "serif"]
+        "hindi": ["var(--font-akshar)", "serif"],
+        "sen": ["var(--font-sen)", "sans-serif"]
       }
     },
   },

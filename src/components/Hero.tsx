@@ -111,7 +111,7 @@ const Hero = () => {
           <span className="text-lg md:text-2xl text-accent font-hindi mb-3">
             ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
           </span>
-          <h1 className={`text-2xl md:text-4xl ${cormorant.className} font-bold text-on-surface mb-3 tracking-wide`}>
+          <h1 className="text-3xl md:text-5xl font-sen text-on-surface font-normal mb-3 tracking-tight">
             Pandit Rahul Bali Ji
           </h1>
           <span className="font-semibold text-accent font-label text-[10px] md:text-xs tracking-[0.25em] uppercase max-w-xl text-center">
