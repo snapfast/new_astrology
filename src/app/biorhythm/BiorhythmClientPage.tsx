@@ -240,7 +240,7 @@ const BiorhythmContent = () => {
                     event
                   </span>
                 </div>
-                <div className="hidden sm:block sm:w-40 shrink-0">
+                <div className="hidden sm:block sm:min-w-[10rem] shrink-0">
                   <p className="text-[10px] font-label text-accent uppercase mb-0.5 tracking-widest">
                     {t.analysisDate}
                   </p>

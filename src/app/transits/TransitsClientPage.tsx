@@ -227,7 +227,7 @@ const TransitsClientPage = () => {
                   setSelectedPlanet(e.target.value);
                   sendGAEvent({ event: 'action_click', action_name: 'transits_filter_planet', planet: e.target.value });
                 }}
-                className="w-full sm:w-48 pl-4 pr-10 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                className="w-full sm:min-w-[12rem] sm:w-auto pl-4 pr-10 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 aria-label={t.filterPlanet}
               >
                 <option value="all">{t.allPlanets}</option>
@@ -247,7 +247,7 @@ const TransitsClientPage = () => {
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-full sm:w-48 px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                className="w-full sm:min-w-[12rem] sm:w-auto px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label="Select Date"
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
@@ -269,7 +269,7 @@ const TransitsClientPage = () => {
                 type="time"
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
-                className="w-full sm:w-36 px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
+                className="w-full sm:min-w-[9rem] sm:w-auto px-4 py-2 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-on-surface outline-none transition-all appearance-none"
                 aria-label="Select Time"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl">schedule</span>

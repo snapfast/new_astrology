@@ -138,13 +138,13 @@ const Navbar = () => {
                   >
                     {link.name}
                   </button>
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-outline/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="absolute top-full left-0 mt-2 min-w-[13rem] w-auto max-w-xs bg-white rounded-xl shadow-lg border border-outline/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
                       {link.subLinks.map(subLink => (
                         <Link prefetch={true}
                           key={subLink.href}
                           href={subLink.href}
-                          className={`block px-4 py-2 text-sm hover:bg-surface-container-high active:bg-surface-container-high/80 active:scale-[0.98] transition-all ${
+                          className={`block px-4 py-2 text-sm hover:bg-surface-container-high active:bg-surface-container-high/80 active:scale-[0.98] transition-all whitespace-nowrap ${
                             pathname === subLink.href ? 'text-accent font-semibold' : 'text-on-surface'
                           }`}
                         >
