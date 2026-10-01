@@ -292,7 +292,7 @@ const PanchangPage = () => {
                 type="date"
                 value={selectedDate.toISOString().split('T')[0]}
                 onChange={handleDateChange}
-                className="w-full md:w-48 px-4 py-2.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
+                className="w-full md:min-w-[12rem] md:w-auto px-4 py-2.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10"
                 aria-label={t.selectDate}
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">
@@ -310,7 +310,7 @@ const PanchangPage = () => {
               </div>
               <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl z-20">calendar_month</span>
             </div>
-            <div className="hidden sm:block sm:w-60 shrink-0">
+            <div className="hidden sm:block sm:min-w-[15rem] shrink-0">
               <p className="text-xs font-label text-accent uppercase mb-0.5 tracking-widest">{t.selectedDate}</p>
               <p className="text-sm font-body tabular-nums text-on-surface whitespace-nowrap">
                 {DATE_FORMATTER.format(selectedDate)}

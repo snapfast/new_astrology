@@ -75,7 +75,7 @@ const TransitsPerAscendantClientPage = () => {
                 setSelectedDate(e.target.value);
                 sendGAEvent({ event: 'action_click', action_name: 'transits_ascendant_date_change', date: e.target.value });
               }}
-              className="w-full sm:w-56 px-4 py-2.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10 cursor-pointer"
+              className="w-full sm:min-w-[14rem] sm:w-auto px-4 py-2.5 rounded-xl bg-white border border-outline/20 focus:ring-2 focus:ring-accent focus:border-accent font-body text-sm text-transparent outline-none transition-all appearance-none relative z-10 cursor-pointer"
               aria-label="Select Date"
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-body z-20">

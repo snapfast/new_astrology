@@ -60,7 +60,7 @@ export default function PanchPakshiClientPage() {
                 id="panch-pakshi-nakshatra"
                 value={selectedNakshatra}
                 onChange={(e) => setSelectedNakshatra(e.target.value)}
-                className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-sm font-medium"
+                className="w-full sm:min-w-[12rem] sm:w-auto px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-sm font-medium"
               >
                 {NAKSHATRA_NAMES.map(n => (
                   <option key={n.name} value={n.name}>{lang === 'en' ? n.name : n.sanskrit}</option>
@@ -76,7 +76,7 @@ export default function PanchPakshiClientPage() {
                 id="panch-pakshi-paksha"
                 value={selectedPaksha}
                 onChange={(e) => setSelectedPaksha(e.target.value as "Shukla" | "Krishna")}
-                className="w-full sm:w-48 px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-sm font-medium"
+                className="w-full sm:min-w-[12rem] sm:w-auto px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-sm font-medium"
               >
                 {pakshaOptions.map(p => (
                   <option key={p.value} value={p.value}>{p.label}</option>
@@ -94,7 +94,7 @@ export default function PanchPakshiClientPage() {
                   id="panch-pakshi-date"
                   value={dateStr}
                   onChange={(e) => setDateStr(e.target.value)}
-                  className="w-full sm:w-40 px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-shadow pr-12 text-sm text-transparent font-medium tabular-nums relative z-10"
+                  className="w-full sm:min-w-[10rem] sm:w-auto px-4 py-2 bg-white border border-outline/20 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-shadow pr-12 text-sm text-transparent font-medium tabular-nums relative z-10"
                   aria-label={datePlaceholder}
                 />
                 <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface text-sm font-medium z-20">
