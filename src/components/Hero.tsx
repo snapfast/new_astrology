@@ -120,7 +120,7 @@ const Hero = () => {
               onClick={() => {
                 sendGAEvent({ event: 'action_click', action_name: 'hero_book_consultation' });
               }}
-              className="flex items-center justify-center gap-2 px-10 py-4 bg-primary text-white rounded-full font-medium uppercase font-label active:scale-95 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[10px] md:text-xs tracking-[0.1em]"
+              className="btn-primary flex items-center justify-center gap-2 px-10 py-4 text-center text-[10px] md:text-xs tracking-[0.1em]"
             >
               {t.bookBtn}
             </Link>
@@ -129,7 +129,7 @@ const Hero = () => {
                 sendGAEvent({ event: 'action_click', action_name: 'hero_learn_more' });
                 setIsModalOpen(true);
               }}
-              className="btn-secondary px-10 py-4 font-medium uppercase font-label text-[10px] md:text-xs tracking-[0.1em]"
+              className="btn-secondary px-10 py-4 text-[10px] md:text-xs tracking-[0.1em]"
             >
               {t.learnBtn}
             </button>

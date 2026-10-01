@@ -466,7 +466,7 @@ const KPHoraryGeneration = ({ className = "", initialValues, isUpdate = false, o
               {!isUpdate && (
                 <div className="md:col-span-2 pt-2 md:pt-3">
                   <button
-                    className="w-full py-3 md:py-3.5 bg-primary text-white rounded-full font-medium text-[11px] md:text-xs uppercase font-label flex items-center justify-center disabled:cursor-not-allowed active:scale-[0.98] transition-transform tracking-wider"
+                    className="btn-primary w-full py-3 md:py-3.5 text-[11px] md:text-xs flex items-center justify-center disabled:cursor-not-allowed tracking-wider"
                     type="submit"
                     disabled={isSubmitting}
                     aria-busy={isSubmitting}

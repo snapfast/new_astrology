@@ -180,7 +180,7 @@ const HoraClientPage = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handleToday}
-              className={`px-5 py-2 rounded-full bg-accent text-white hover:bg-accent/95 transition-all text-xs font-label uppercase tracking-wider`}
+              className={`px-5 py-2 rounded-full bg-accent text-white hover:bg-accent/95 transition-all text-xs font-label tracking-wider`}
             >
               {t.today}
             </button>

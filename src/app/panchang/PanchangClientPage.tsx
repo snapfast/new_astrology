@@ -272,7 +272,7 @@ const PanchangPage = () => {
             </button>
             <button
               onClick={handleToday}
-              className="px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] md:text-xs font-label uppercase tracking-widest"
+              className="px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] md:text-xs font-label tracking-widest"
             >
               {t.today}
             </button>
@@ -548,7 +548,7 @@ const PanchangPage = () => {
               </div>
               <button
                 onClick={handleCopyText}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white rounded-full text-xs uppercase font-label tracking-wider hover:bg-accent/90 active:scale-[0.98] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white rounded-full text-xs font-label tracking-wider hover:bg-accent/90 active:scale-[0.98] transition-all"
               >
                 <span className="material-symbols-outlined text-sm">{copied ? "done" : "content_copy"}</span>
                 {copied ? t.copied : t.copyBtn}
@@ -624,7 +624,7 @@ const PanchangPage = () => {
               <div className="flex flex-wrap items-center gap-2 bg-surface p-1 rounded-full border border-outline/20">
                 <button
                   onClick={() => setFestivalFilter('all')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-label tracking-wider transition-all duration-200 ${
                     festivalFilter === 'all'
                       ? 'bg-accent text-white shadow-sm'
                       : 'text-on-surface/70 hover:text-on-surface'
@@ -634,7 +634,7 @@ const PanchangPage = () => {
                 </button>
                 <button
                   onClick={() => setFestivalFilter('major')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-label tracking-wider transition-all duration-200 ${
                     festivalFilter === 'major'
                       ? 'bg-accent text-white shadow-sm'
                       : 'text-on-surface/70 hover:text-on-surface'
@@ -644,7 +644,7 @@ const PanchangPage = () => {
                 </button>
                 <button
                   onClick={() => setFestivalFilter('vrat')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider transition-all duration-200 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-label tracking-wider transition-all duration-200 ${
                     festivalFilter === 'vrat'
                       ? 'bg-accent text-white shadow-sm'
                       : 'text-on-surface/70 hover:text-on-surface'
@@ -771,13 +771,13 @@ const PanchangPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/free-horoscope"
-                className="px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label tracking-[0.1em]"
+                className="px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs font-label tracking-[0.1em]"
               >
                 Generate Free Kundli
               </a>
               <a
                 href="/about"
-                className="px-8 py-4 bg-primary text-white rounded-full font-medium text-[10px] md:text-xs uppercase font-label tracking-[0.1em]"
+                className="btn-primary px-8 py-4 text-[10px] md:text-xs tracking-[0.1em]"
               >
                 Book Consultation
               </a>
