@@ -188,7 +188,7 @@ const HoroscopeContent = () => {
 
           <button
             onClick={goToCompact}
-            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title="Switch to High-Density Compact Dashboard"
           >
             <span
@@ -202,7 +202,7 @@ const HoroscopeContent = () => {
 
           <button
             onClick={handleShare}
-            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title={t.shareReport}
             aria-label={t.shareReport}
           >

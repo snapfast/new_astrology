@@ -94,7 +94,7 @@ const Testimonials = () => {
                 href="https://maps.app.goo.gl/siGBPsmRpAU6mbYJ7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 font-medium text-[10px] uppercase font-label self-start tracking-[0.1em]"
+                className="btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 font-medium text-[10px] font-label self-start tracking-[0.1em]"
               >
                 <GoogleIcon />
                 {t.viewOnGoogle}

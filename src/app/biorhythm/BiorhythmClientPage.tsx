@@ -197,7 +197,7 @@ const BiorhythmContent = () => {
 
                 <button
                   onClick={resetToday}
-                  className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label uppercase ${lang === 'en' ? 'tracking-wider' : ''}`}
+                  className={`px-6 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors text-[10px] font-label ${lang === 'en' ? 'tracking-wider' : ''}`}
                 >
                   {t.today}
                 </button>

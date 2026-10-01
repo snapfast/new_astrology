@@ -201,7 +201,7 @@ const HoroscopeContent = () => {
           {showCopied && (
             <div
               aria-live="polite"
-              className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label uppercase ${lang === "en" ? "tracking-widest" : ""}`}
+              className={`absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs px-3 py-1.5 rounded-lg shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300 z-50 whitespace-nowrap font-medium font-label ${lang === "en" ? "tracking-widest" : ""}`}
             >
               {t.linkCopied}
             </div>
@@ -209,7 +209,7 @@ const HoroscopeContent = () => {
 
           <Link
             href="/free-horoscope"
-            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title="Go back to Horoscope Form"
           >
             <span
@@ -223,7 +223,7 @@ const HoroscopeContent = () => {
 
           <button
             onClick={goToCompact}
-            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title="Switch to High-Density Compact Dashboard"
           >
             <span
@@ -237,7 +237,7 @@ const HoroscopeContent = () => {
 
           <button
             onClick={handleShare}
-            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs uppercase font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
+            className={`btn-secondary h-8 px-3 text-[10px] md:text-xs font-label flex items-center justify-center gap-1.5 ${lang === "en" ? "tracking-widest" : ""}`}
             title={t.shareReport}
             aria-label={t.shareReport}
           >
@@ -796,7 +796,7 @@ const HoroscopeContent = () => {
             </p>
             <button
               onClick={handleBookNow}
-              className="inline-block bg-primary text-white px-12 py-5 rounded-full font-medium text-xs md:text-sm uppercase font-label tracking-[0.1em]"
+              className="btn-primary inline-block px-12 py-5 text-xs md:text-sm tracking-[0.1em]"
             >
               {t.ctaBtn}
             </button>

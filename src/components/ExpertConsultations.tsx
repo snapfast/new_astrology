@@ -70,7 +70,7 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
             onClick={() => {
               window.dispatchEvent(new CustomEvent('openBookingModal'));
             }}
-            className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-full font-medium uppercase font-label transition-all active:scale-95 hover:bg-primary/90 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
+            className="btn-primary inline-flex items-center justify-center px-10 py-5 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
           >
             {t.bookNow}
           </button>

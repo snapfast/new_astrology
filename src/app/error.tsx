@@ -40,13 +40,13 @@ export default function Error({
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
           <button
             onClick={() => reset()}
-            className="inline-flex items-center justify-center px-8 py-3 bg-primary text-white rounded-full font-medium text-sm tracking-widest uppercase transition-all hover:bg-primary/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 shadow-lg"
+            className="inline-flex items-center justify-center px-8 py-3 bg-primary text-white rounded-full font-medium text-sm tracking-widest transition-all hover:bg-primary/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 shadow-lg"
           >
             {t.tryAgain}
           </button>
           <Link prefetch={true}
             href="/"
-            className="btn-secondary inline-flex items-center justify-center px-8 py-3 font-medium text-sm tracking-widest uppercase shadow-sm"
+            className="btn-secondary inline-flex items-center justify-center px-8 py-3 font-medium text-sm tracking-widest shadow-sm"
           >
             {t.backToHome}
           </Link>
