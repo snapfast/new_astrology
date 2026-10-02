@@ -3,15 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { Cormorant_Garamond } from 'next/font/google';
 import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  display: 'swap',
-});
 
 const LearnMoreModal = dynamic(() => import('./LearnMoreModal'), { ssr: false });
 const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), { ssr: false });
@@ -35,30 +28,6 @@ const Hero = () => {
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Concentric Circles Background */}
       <div className="concentric-circles">
-        {/* Central Sun */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
-          <svg viewBox="0 0 500 500" className="w-[300px] h-[300px] md:w-[390px] md:h-[390px] opacity-70 animate-pulse" style={{ animationDuration: '4s' }}>
-            <defs>
-              <filter id="sunGlow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="45" result="blur1" />
-                <feGaussianBlur stdDeviation="15" result="blur2" />
-                <feMerge>
-                  <feMergeNode in="blur1" />
-                  <feMergeNode in="blur2" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#ff4500" />
-                <stop offset="35%" stopColor="#ff6600" />
-                <stop offset="65%" stopColor="#ffaa00" />
-                <stop offset="100%" stopColor="#ffcc00" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <circle cx="250" cy="250" r="80" fill="url(#sunGrad)" filter="url(#sunGlow)" />
-          </svg>
-        </div>
-
         {/* Inner Orbit: Mars (Red) */}
         <div className="circle-dashed w-[400px] h-[400px] animate-spin-20s">
           <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center" title="Mars">
