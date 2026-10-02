@@ -27,17 +27,17 @@ const Logo: React.FC<LogoProps> = ({ className = "" }) => {
             </feMerge>
           </filter>
           <radialGradient id="logoSunGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="20%" stopColor="#fff3b0" />
-            <stop offset="45%" stopColor="#ff8800" />
-            <stop offset="75%" stopColor="#ff3300" />
-            <stop offset="100%" stopColor="#cc0000" stopOpacity="0" />
+            <stop offset="0%" stopColor="#FF5900" />
+            <stop offset="35%" stopColor="#ff4500" />
+            <stop offset="70%" stopColor="#d32f2f" />
+            <stop offset="90%" stopColor="#b71c1c" />
+            <stop offset="100%" stopColor="#900C3F" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="logoOuterGlare" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffbb00" stopOpacity="0.9" />
-            <stop offset="50%" stopColor="#ff5500" stopOpacity="0.5" />
-            <stop offset="85%" stopColor="#ff2200" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#ff0000" stopOpacity="0" />
+            <stop offset="0%" stopColor="#FF5900" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="#ff3300" stopOpacity="0.5" />
+            <stop offset="85%" stopColor="#d32f2f" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#900C3F" stopOpacity="0" />
           </radialGradient>
         </defs>
         {/* Wide Outer Glare Aura */}
