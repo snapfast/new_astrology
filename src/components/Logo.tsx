@@ -12,10 +12,10 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ className = "" }) => {
   return (
-    <div className={`flex flex-row items-center gap-2 leading-none ${className}`}>
+    <div className={`relative z-0 flex flex-row items-center leading-none ${className}`}>
       <svg
         viewBox="0 0 500 500"
-        className="w-12 h-12 md:w-14 md:h-14 shrink-0"
+        className="absolute -left-8 top-1/2 -translate-y-1/2 w-36 h-36 md:w-[168px] md:h-[168px] shrink-0 z-0 pointer-events-none"
         aria-hidden="true"
       >
         <defs>
@@ -43,7 +43,7 @@ const Logo: React.FC<LogoProps> = ({ className = "" }) => {
           />
         </g>
       </svg>
-      <div className={`flex flex-row items-baseline gap-2 ${qasrina.className}`}>
+      <div className={`relative z-10 flex flex-row items-baseline gap-2 ${qasrina.className}`}>
         <span className="text-2xl md:text-3xl font-bold tracking-wider text-accent whitespace-nowrap">
           Bali
         </span>
