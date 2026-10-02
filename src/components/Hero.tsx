@@ -53,7 +53,7 @@ const Hero = () => {
         </div>
 
         {/* Middle Orbit: Jupiter (Yellow Gas Giant) */}
-        <div className="circle-dashed w-[600px] h-[600px] animate-spin-35s">
+        <div className="circle-dashed w-[600px] h-[600px] animate-spin-126s">
           <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 flex items-center justify-center" title="Jupiter">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_5px_rgba(255,200,0,0.5)]">
               <defs>
@@ -79,7 +79,7 @@ const Hero = () => {
         </div>
 
         {/* Outer Orbit: Saturn (Black/Dark Ringed Planet) */}
-        <div className="circle-dashed w-[800px] h-[800px] animate-spin-60s">
+        <div className="circle-dashed w-[800px] h-[800px] animate-spin-313s">
           <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 flex items-center justify-center" title="Saturn">
             <svg width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_5px_rgba(0,0,0,0.4)]">
               <defs>

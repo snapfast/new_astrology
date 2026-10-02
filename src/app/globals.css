@@ -68,6 +68,14 @@
     animation: spin 60s linear infinite;
   }
 
+  .animate-spin-126s {
+    animation: spin 126.17s linear infinite;
+  }
+
+  .animate-spin-313s {
+    animation: spin 313.40s linear infinite;
+  }
+
   @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
