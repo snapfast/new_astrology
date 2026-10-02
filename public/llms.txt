@@ -1,0 +1,34 @@
+# Bali Astrology
+
+> Authentic Vedic & KP Astrology insights, calculations, and online consultations by Pandit Rahul Bali Ji.
+
+## Summary
+
+Bali Astrology provides free, precise Vedic (Parashari) and Krishnamurti Paddhati (KP) astrological tools, planetary transit tracking, daily Panchang calculations, and online birth chart readings. Maintained by Pandit Rahul Bali Ji, a practicing Vedic astrologer combining traditional Brahmin wisdom with modern analytical rigor.
+
+## Core Pages
+
+- [Home](https://baliastrology.com/): Overview of Vedic & KP Astrology services, daily Panchang highlights, and featured tools.
+- [About Pandit Rahul Bali Ji](https://baliastrology.com/about): Background, lineage, education, and astrological philosophy of Pandit Rahul Bali Ji.
+- [Book Online Consultation](https://baliastrology.com/book-astrology-reading-online): Schedule a 1-hour live direct birth chart reading (₹701/- booking charge via UPI/PayPal).
+- [Client Reviews](https://baliastrology.com/reviews): Authentic experiences and feedback from clients.
+- [Frequently Asked Questions](https://baliastrology.com/faq): Answers to common questions regarding horoscope generation, KP astrology, and consultations.
+
+## Free Astrological Tools
+
+- [Free Kundli & Birth Chart](https://baliastrology.com/free-horoscope): Complete Vedic birth chart generation including Lagna chart, Navamsha (D9), Vimshottari Dasha, planetary positions, and house details.
+- [KP Prashna / Horary Astrology](https://baliastrology.com/kp-horary): KP Horary analysis using a horary number (1-249) for specific timing and query predictions.
+- [Daily Panchang](https://baliastrology.com/panchang): Real-time daily Vedic calendar including Tithi, Vara, Nakshatra, Yoga, Karana, Rahu Kalam, and Abhijit Muhurta.
+- [Planetary Hours (Hora)](https://baliastrology.com/hora): Planetary Hora calculations throughout the day for selecting auspicious timing.
+- [Planetary Transits (Gochar)](https://baliastrology.com/transits): Interactive tracker for live and future planetary transits across signs and Nakshatras.
+- [Transits Table](https://baliastrology.com/transits-table): Compact real-time summary table of current planetary positions, lords, and motion states.
+- [Panch Pakshi](https://baliastrology.com/panch-pakshi): South Indian Pancha Pakshi Shastra calculations for daily activity states based on birth Nakshatra.
+- [Biorhythm Calculator](https://baliastrology.com/biorhythm): Physical, emotional, and intellectual cycles based on birth date.
+- [Birth Time Rectification (BTR)](https://baliastrology.com/btr): Tool assisting in refining precise birth timing using astrological indicators.
+
+## Blog & Articles
+
+- [Blog Index](https://baliastrology.com/blog): Articles on Vedic astrology, KP system, planetary movements, and remedies.
+- [Navigating Planetary Transits](https://baliastrology.com/blog/navigating-planetary-transits): Detailed guide on understanding planetary transits (Gochar) and their impact.
+- [KP Astrology Demystified](https://baliastrology.com/blog/kp-astrology-demystified): Fundamentals of Krishnamurti Paddhati, sub-lords, and precise event timing.
+- [Understanding Panchang](https://baliastrology.com/blog/understanding-panchang): Explanation of the five limbs of Panchang and how to choose auspicious Muhurtas.
