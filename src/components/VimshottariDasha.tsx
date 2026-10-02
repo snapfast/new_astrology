@@ -111,14 +111,21 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const rafIdRef = useRef<number | null>(null);
 
   const checkScrollLimits = () => {
-    if (containerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      setCanScrollLeft(scrollLeft > 1);
-      // Use 2px tolerance for float subpixel rendering
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
     }
+    rafIdRef.current = requestAnimationFrame(() => {
+      rafIdRef.current = null;
+      if (containerRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+        setCanScrollLeft(scrollLeft > 1);
+        // Use 2px tolerance for float subpixel rendering
+        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+      }
+    });
   };
 
   const scrollContainer = (direction: 'left' | 'right') => {
@@ -135,14 +142,14 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      container.addEventListener('scroll', checkScrollLimits);
+      container.addEventListener('scroll', checkScrollLimits, { passive: true });
 
       checkScrollLimits();
 
       const observer = new MutationObserver(checkScrollLimits);
       observer.observe(container, { childList: true, subtree: true });
 
-      window.addEventListener('resize', checkScrollLimits);
+      window.addEventListener('resize', checkScrollLimits, { passive: true });
 
       const timeoutId = setTimeout(checkScrollLimits, 300);
 
@@ -151,6 +158,9 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
         observer.disconnect();
         window.removeEventListener('resize', checkScrollLimits);
         clearTimeout(timeoutId);
+        if (rafIdRef.current !== null) {
+          cancelAnimationFrame(rafIdRef.current);
+        }
       };
     }
   }, [selectedMd, selectedAd, selectedPd, selectedSd]);
@@ -169,9 +179,14 @@ const VimshottariDasha = memo(function VimshottariDasha({ mahadashas, lang = 'en
       return;
     }
     if (containerRef.current) {
-      containerRef.current.scrollTo({
-        left: containerRef.current.scrollWidth,
-        behavior: 'smooth'
+      const container = containerRef.current;
+      requestAnimationFrame(() => {
+        if (container) {
+          container.scrollTo({
+            left: container.scrollWidth,
+            behavior: 'smooth'
+          });
+        }
       });
     }
   }, [selectedMd, selectedAd, selectedPd, selectedSd]);
