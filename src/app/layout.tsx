@@ -3,6 +3,7 @@ import { Akshar, Sen } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
+import FontAwesomeLoader from "@/components/FontAwesomeLoader";
 import { headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
@@ -99,19 +100,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-        <link
-          rel="preload"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css"
-          as="style"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css"
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-          nonce={nonce}
-        />
+        <FontAwesomeLoader nonce={nonce} />
       </head>
       <body
         className={`${akshar.variable} ${sen.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
