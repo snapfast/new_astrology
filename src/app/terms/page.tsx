@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import TermsContent from './TermsContent';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
     "Terms of Service", "astrological disclaimers", "Bali Astrology terms",
     "consultation guidelines", "refund and payment terms"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/terms",
-  },
+  alternates: getAlternates("/terms"),
   openGraph: {
     title: "Terms of Service | Bali Astrology",
     description: "Read our Terms of Service. Learn about astrological disclaimers, birth inputs, and voluntary contributions.",

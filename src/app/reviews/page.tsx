@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import ReviewsClientPage from './ReviewsClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Reviews",
@@ -11,9 +11,7 @@ export const metadata: Metadata = {
     "Rahul Bali reviews", "trusted astrologer reviews",
     "client testimonials", "accurate astrology predictions", "astrologer Google rating"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/reviews",
-  },
+  alternates: getAlternates("/reviews"),
   openGraph: {
     title: "Reviews | Bali Astrology",
     description: "Client reviews and experiences with Bali Astrology",

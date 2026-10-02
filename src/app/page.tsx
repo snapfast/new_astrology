@@ -9,6 +9,7 @@ import DailyPanchang from '@/components/DailyPanchang';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import { REVIEWS } from '@/lib/reviews';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Vedic Astrology Consultation | Pandit Rahul Bali Ji | 5 Star Google Rating",
@@ -18,9 +19,7 @@ export const metadata: Metadata = {
     "5 star google rating", "clear guidance", "practical remedies", "book consultation", "star star star star star",
     "bali", "astro", "astrology", "Janam Kundli", "D9 Navamsha", "Panch Pakshi"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com",
-  },
+  alternates: getAlternates("/"),
 };
 
 export default function Home() {

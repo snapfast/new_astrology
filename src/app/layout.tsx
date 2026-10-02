@@ -6,6 +6,7 @@ import BackToTop from "@/components/BackToTop";
 import FontAwesomeLoader from "@/components/FontAwesomeLoader";
 import { headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { getAlternates } from "@/lib/seo";
 import "./globals.css";
 
 const akshar = Akshar({
@@ -37,12 +38,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Pandit Rahul Bali" }],
   creator: "Pandit Rahul Bali",
   publisher: "Bali Astrology",
-  alternates: {
-    canonical: "https://baliastrology.com",
-    languages: {
-      "en-US": "https://baliastrology.com",
-    },
-  },
+  alternates: getAlternates(""),
   formatDetection: {
     email: false,
     address: false,

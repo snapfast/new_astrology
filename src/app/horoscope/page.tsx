@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import HoroscopeClientPage from './HoroscopeClientPage';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Vedic Horoscope",
@@ -9,9 +10,7 @@ export const metadata: Metadata = {
     "Free Vedic Horoscope", "Online Birth Chart", "Accurate Kundli Online", "Janam Kundali",
     "divisional charts", "Vimshottari Dasha", "Pandit Bali astrology"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/horoscope",
-  },
+  alternates: getAlternates("/horoscope"),
   openGraph: {
     title: "Vedic Horoscope | Bali Astrology",
     description: "Generate your free Vedic astrology birth chart (Kundli). Get planetary positions, divisional charts, and Vimshottari Dasha.",

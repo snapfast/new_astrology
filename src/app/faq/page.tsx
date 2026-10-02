@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import FAQContent from './FAQContent';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -11,9 +12,7 @@ export const metadata: Metadata = {
     "Panch Pakshi system", "Panch Pakshi calculator", "Biorhythm system", "Biorhythm cycles",
     "D9 Navamsha usage", "D10 Dashamsha career", "Astrology questions", "Rahul Bali FAQ"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/faq",
-  },
+  alternates: getAlternates("/faq"),
   openGraph: {
     title: "FAQ | Bali Astrology",
     description: "Explore frequently asked questions about Vedic Astrology, Divisional Varga charts, Panch Pakshi, and Biorhythm.",

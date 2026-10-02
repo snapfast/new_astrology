@@ -6,6 +6,7 @@ import AboutClient from '@/components/AboutClient';
 import PageHeader from '@/components/PageHeader';
 import JsonLd from '@/components/JsonLd';
 import ExploreTools from '@/components/ExploreTools';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "About",
@@ -15,9 +16,7 @@ export const metadata: Metadata = {
     "About Rahul Bali", "Vedic Astrologer",
     "Jyotish Shastra practitioner", "astrology life remedies", "Bali Astrology bio"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/about",
-  },
+  alternates: getAlternates("/about"),
   openGraph: {
     title: "About | Bali Astrology",
     description: "Discover the journey of Pandit Rahul Bali Ji, offering serene insights, traditional Vedic wisdom, and practical life remedies.",
