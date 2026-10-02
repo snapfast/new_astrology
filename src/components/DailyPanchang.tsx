@@ -84,7 +84,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.pakshaSanskrit || panchang.pakshaSanskrit} {item.sanskrit}</p>
+                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium whitespace-nowrap">{item.pakshaSanskrit || panchang.pakshaSanskrit} {item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -99,7 +99,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.sanskrit}</p>
+                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium whitespace-nowrap">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -114,7 +114,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.sanskrit}</p>
+                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium whitespace-nowrap">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -129,7 +129,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <p className="text-xs text-accent font-medium tabular-nums whitespace-nowrap">
                       {item.end ? `${t.endsAt}: ${item.end}` : `${t.endsAt}: --:--`}
                     </p>
-                    <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{item.sanskrit}</p>
+                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium whitespace-nowrap">{item.sanskrit}</p>
                   </div>
                 ))}
               </div>
@@ -138,7 +138,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                 <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.vara}</p>
                 <div className="space-y-0.5 border-l border-accent/10 pl-2">
                   <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">{panchang.vara}</p>
-                  <p className="text-xs text-on-surface/80 font-hindi whitespace-nowrap">{panchang.varaSanskrit}</p>
+                  <p className="text-sm md:text-base text-on-surface font-hindi font-medium whitespace-nowrap">{panchang.varaSanskrit}</p>
                 </div>
               </div>
             </div>
