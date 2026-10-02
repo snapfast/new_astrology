@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import TransitsClientPage from './TransitsClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Planetary Transits (Gochar)',
@@ -12,9 +12,7 @@ export const metadata: Metadata = {
     "Gochara online", "planet movements", "Pandit Rahul Bali transits",
     "Rashi transit details", "Nakshatra transit", "all 9 planets gochar"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/transits",
-  },
+  alternates: getAlternates("/transits"),
   openGraph: {
     title: 'Planetary Transits (Gochar) | Bali Astrology',
     description: 'Track the movements of all nine Vedic planets across signs and nakshatras.',

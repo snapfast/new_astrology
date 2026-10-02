@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import HoraClientPage from './HoraClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Planetary Hours (Hora)",
@@ -11,9 +11,7 @@ export const metadata: Metadata = {
     "Planetary Hours", "Hora Calculator", "Vedic Hora", "Hora Lord Today", "Brihat Parasara Hora Shastra",
     "Auspicious Hours", "Vedic Muhurta", "Planet Hours", "Astro Hours", "Auspicious Timings"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/hora",
-  },
+  alternates: getAlternates("/hora"),
   openGraph: {
     title: "Planetary Hours (Hora) | Bali Astrology",
     description: "Calculate Vedic planetary hours (Hora) based on Brihat Parasara Hora Shastra. Find the active Hora lord.",

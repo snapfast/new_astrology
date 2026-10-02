@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import CompactHoroscopeClientPage from './CompactHoroscopeClientPage';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Compact Kundli Dashboard",
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
     "Compact Kundli Dashboard", "High-Density Birth Chart", "Vedic chart dashboard",
     "divisional charts view", "planetary positions single screen", "professional astrologer dashboard"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/horoscope/compact",
-  },
+  alternates: getAlternates("/horoscope/compact"),
   openGraph: {
     title: "Compact Kundli Dashboard | Bali Astrology",
     description: "A compact dashboard for your Vedic birth chart (Kundli). View charts, planetary positions, and dasha details.",

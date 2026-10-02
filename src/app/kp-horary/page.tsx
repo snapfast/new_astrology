@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import KPHoraryClientPage from './KPHoraryClientPage';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "KP Prashna Kundli",
@@ -9,9 +10,7 @@ export const metadata: Metadata = {
     "KP Prashna Kundli", "KP Horary", "Krishnamurti Paddhati", "Horary Astrology",
     "Prashna Chart", "Bali astrology"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/kp-horary",
-  },
+  alternates: getAlternates("/kp-horary"),
   openGraph: {
     title: "KP Prashna Kundli | Bali Astrology",
     description: "Cast a KP Prashna chart online using a Horary number from 1 to 249.",

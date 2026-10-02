@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import TransitsPerAscendantClientPage from './TransitsPerAscendantClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Transits per Ascendant',
@@ -11,9 +11,7 @@ export const metadata: Metadata = {
     "Transits per Ascendant", "Gochar per Lagna", "Rotated Transit Kundli", "12 Ascendants Gochar",
     "Lagna 15 degrees transits", "Vedic Astrology Transits"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/transits-per-ascendant",
-  },
+  alternates: getAlternates("/transits-per-ascendant"),
   openGraph: {
     title: 'Transits per Ascendant | Bali Astrology',
     description: 'View daily transit Kundli charts rotated for each of the 12 Ascendants (Lagnas) calculated when the Ascendant reaches 15 degrees.',

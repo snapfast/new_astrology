@@ -6,6 +6,7 @@ import PageHeader from '@/components/PageHeader';
 import ChartGeneration from '@/components/ChartGeneration';
 import JsonLd from '@/components/JsonLd';
 import ExploreTools from '@/components/ExploreTools';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Free Kundli",
@@ -16,9 +17,7 @@ export const metadata: Metadata = {
     "Free Astrology Report", "Kundali Matching", "Laguna Chart", "Navamsha Chart",
     "Vedic Astrology Online", "Accurate Kundli", "Pandit Rahul Bali", "Astrology Chart"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/free-horoscope",
-  },
+  alternates: getAlternates("/free-horoscope"),
   openGraph: {
     title: "Free Kundli | Bali Astrology",
     description: "Generate your Free Kundli online. Get Janam Kundali, Vedic horoscope charts, and planetary positions.",

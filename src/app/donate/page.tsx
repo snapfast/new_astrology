@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import DonateClientPage from './DonateClientPage';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Donate",
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
     "Donate Bali Astrology", "support free astrology tools", "voluntary contributions",
     "astrology platform donation", "UPI donation", "PayPal astrology support"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/donate",
-  },
+  alternates: getAlternates("/donate"),
   openGraph: {
     title: "Donate | Bali Astrology",
     description: "Support Pandit Rahul Bali Ji's work in Vedic Astrology. Your contributions help maintain this platform and provide free astrological tools to everyone.",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import PrivacyContent from './PrivacyContent';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
     "Privacy Policy", "Bali Astrology privacy", "birth data security",
     "confidential astrology consultation", "user data privacy"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/privacy",
-  },
+  alternates: getAlternates("/privacy"),
   openGraph: {
     title: "Privacy Policy | Bali Astrology",
     description: "Read our Privacy Policy. Learn how your information is processed securely.",

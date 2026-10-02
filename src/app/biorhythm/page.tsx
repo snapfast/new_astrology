@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import BiorhythmClientPage from './BiorhythmClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Biorhythm',
@@ -12,9 +12,7 @@ export const metadata: Metadata = {
     "biorhythm chart online", "personal energy peaks", "Pandit Rahul Bali tools",
     "Panch Pakshi", "all 17 varga charts", "body biorhythms", "energy flow"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/biorhythm",
-  },
+  alternates: getAlternates("/biorhythm"),
   openGraph: {
     title: 'Biorhythm | Bali Astrology',
     description: 'Track your physical, emotional, and intellectual Biorhythm cycles based on your birth date.',

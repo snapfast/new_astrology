@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import TransitsTableClientPage from './TransitsTableClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Current Planetary Transits Table',
@@ -11,9 +11,7 @@ export const metadata: Metadata = {
     "Planetary Transits Table", "Current Planetary Positions", "Gochar Table", "Vedic Astrology Transits",
     "live planets", "current rashi", "nakshatra position"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/transits-table",
-  },
+  alternates: getAlternates("/transits-table"),
   openGraph: {
     title: 'Current Planetary Transits Table | Bali Astrology',
     description: 'View the current astrological positions and status of all Vedic planets in a table view.',

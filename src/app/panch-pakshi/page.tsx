@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import PanchPakshiClientPage from './PanchPakshiClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Panch Pakshi',
@@ -13,9 +13,7 @@ export const metadata: Metadata = {
     "Ruling Bird", "Janam Nakshatra", "Panch Pakshi Activity Table", "Pandit Rahul Bali", "Aprakshya Planets",
     "all 17 varga charts", "Biorhythm tracker", "Vedic system of five birds", "Pancha Pakshi"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/panch-pakshi",
-  },
+  alternates: getAlternates("/panch-pakshi"),
   openGraph: {
     title: 'Panch Pakshi | Bali Astrology',
     description: 'Calculate your Panch Pakshi bird based on your birth Nakshatra. Understand its five astrological activity states for precise daily guidance and timing.',

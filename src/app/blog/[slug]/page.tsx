@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import BlogArticleClientPage from './BlogArticleClientPage';
+import { getAlternates } from '@/lib/seo';
 
 interface BlogArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
   return {
     title: `${post.title}`,
     description: post.excerpt,
+    alternates: getAlternates(`/blog/${slug}`),
     openGraph: {
       title: `${post.title} | Bali Astrology`,
       description: post.excerpt,

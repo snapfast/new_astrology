@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import PanchangClientPage from './PanchangClientPage';
+import { getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Daily Panchang",
@@ -9,9 +10,7 @@ export const metadata: Metadata = {
     "Daily Panchang", "Today Panchang", "Vedic Panchang", "Tithi Today", "Nakshatra Today",
     "Rahu Kaal Today", "Abhijit Muhurta", "Vedic Calendar", "Hindu Calendar", "Auspicious Timings"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/panchang",
-  },
+  alternates: getAlternates("/panchang"),
   openGraph: {
     title: "Daily Panchang | Bali Astrology",
     description: "Get the Daily Panchang for today. View Vedic timing for Tithi, Nakshatra, Yoga, Karana, and Rahu Kaal.",

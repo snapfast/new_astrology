@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 import BookReadingClientPage from './BookReadingClientPage';
 
 export const metadata: Metadata = {
@@ -10,9 +10,7 @@ export const metadata: Metadata = {
     "book astrology reading", "online astrology consultation", "vedic astrology reading",
     "birth chart analysis", "kundli reading", "personalized horoscope", "bali astrology"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/book-astrology-reading-online",
-  },
+  alternates: getAlternates("/book-astrology-reading-online"),
   openGraph: {
     title: "Booking | Bali Astrology",
     description: "Get clear, personalized astrological readings based on your birth chart with focused insights on career, relationships, finances, or full chart analysis.",

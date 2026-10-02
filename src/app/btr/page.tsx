@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import BtrClientPage from './BtrClientPage';
 import JsonLd from '@/components/JsonLd';
-import { generateWebPageSchema } from '@/lib/seo';
+import { generateWebPageSchema, getAlternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: "Birth Time Rectification (BTR)",
@@ -11,9 +11,7 @@ export const metadata: Metadata = {
     "Birth Time Rectification", "BTR Tool", "Vedic Astrology BTR", "Rectify Birth Time",
     "Divisional Charts BTR", "Bali astrology"
   ],
-  alternates: {
-    canonical: "https://baliastrology.com/btr",
-  },
+  alternates: getAlternates("/btr"),
   openGraph: {
     title: "Birth Time Rectification (BTR) | Bali Astrology",
     description: "Birth Time Rectification (BTR) tool to determine and adjust your birth time using Vedic Astrology techniques.",
