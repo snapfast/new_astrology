@@ -1,9 +1,10 @@
 export const SOCIAL_PROFILES = {
-  threads: "https://www.threads.net/@rahulbaliastro",
-  instagram: "https://www.instagram.com/rahulbaliastro",
+  x: "https://x.com/baliastrology",
+  threads: "https://www.threads.net/@baliastrology",
+  instagram: "https://www.instagram.com/baliastrology",
   facebook: "https://www.facebook.com/people/Rahul-Bali-Astrology/61584860245800/",
   youtube: "https://www.youtube.com/@RahulBaliAstrology",
   linkedin: "https://www.linkedin.com/in/rahulbaliastrology/",
-  tumblr: "https://rahulbaliastrology.tumblr.com/",
-  reddit: "https://www.reddit.com/r/RahulBaliAstrology/"
+  tumblr: "https://baliastrology.tumblr.com/",
+  reddit: "https://www.reddit.com/r/baliastrology/"
 };

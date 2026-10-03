@@ -51,10 +51,11 @@ export default function AboutPage() {
       "url": "https://baliastrology.com/about",
       "image": "https://baliastrology.com/og-image.png",
       "sameAs": [
-        "https://www.instagram.com/RahulBaliAstro",
+        "https://x.com/baliastrology",
+        "https://www.instagram.com/baliastrology",
         "https://www.youtube.com/@RahulBaliAstrology",
         "https://www.linkedin.com/in/rahulbaliastrology/",
-        "https://www.threads.net/@rahulbaliastro"
+        "https://www.threads.net/@baliastrology"
       ],
       "jobTitle": "Vedic Astrologer",
       "worksFor": {

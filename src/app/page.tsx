@@ -36,10 +36,11 @@ export default function Home() {
       "email": "rahulbaliastrology@gmail.com"
     },
     "sameAs": [
-      "https://www.instagram.com/RahulBaliAstro",
+      "https://x.com/baliastrology",
+      "https://www.instagram.com/baliastrology",
       "https://www.youtube.com/@RahulBaliAstrology",
       "https://www.linkedin.com/in/rahulbaliastrology/",
-      "https://www.threads.net/@rahulbaliastro"
+      "https://www.threads.net/@baliastrology"
     ],
     "description": "Book a Vedic Astrology consultation with Pandit Rahul Bali Ji. 5 star Google rating offering clear guidance and practical remedies.",
     "aggregateRating": {
