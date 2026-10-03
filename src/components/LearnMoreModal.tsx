@@ -19,7 +19,7 @@ const TRANSLATIONS = {
     ],
     socialTitle: 'Spiritual Insights',
     socialDesc: 'Follow daily astrological guidance, sacred mantras, and remedial chants shared regularly on social media.',
-    socialBtn: 'Follow on Threads',
+    socialBtn: 'Follow on X',
     socialHighlights: [
       'Daily Astrological Guidance & Tips',
       'Sacred Mantras & Remedial Chants',
@@ -142,10 +142,10 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </ul>
 
             <a
-              href="https://www.threads.net/@rahulbaliastro"
+              href="https://x.com/rahulbaliastro"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_threads_redirect' })}
+              onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_x_redirect' })}
               className="btn-primary flex items-center justify-center gap-2 w-full py-2.5 text-xs md:text-sm tracking-wide mt-2"
             >
               <span>{t.socialBtn}</span>

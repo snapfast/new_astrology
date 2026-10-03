@@ -1,4 +1,5 @@
 export const SOCIAL_PROFILES = {
+  x: "https://x.com/rahulbaliastro",
   threads: "https://www.threads.net/@rahulbaliastro",
   instagram: "https://www.instagram.com/rahulbaliastro",
   facebook: "https://www.facebook.com/people/Rahul-Bali-Astrology/61584860245800/",
