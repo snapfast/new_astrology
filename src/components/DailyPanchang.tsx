@@ -4,6 +4,7 @@ import { useMemo, memo } from 'react';
 import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 import DeepamIcon from './DeepamIcon';
+import RahuIcon from './RahuIcon';
 
 interface DailyPanchangProps {
   className?: string;
@@ -57,7 +58,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined text-lg text-error shrink-0" aria-hidden="true">block</span>
+                  <RahuIcon width={22} height={22} className="shrink-0" />
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
