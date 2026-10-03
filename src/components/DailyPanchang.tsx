@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { generateAstrologyData } from '@/lib/astrology';
 import DeepamIcon from './DeepamIcon';
 import RahuIcon from './RahuIcon';
+import BrahmaMuhurtaIcon from './BrahmaMuhurtaIcon';
 
 interface DailyPanchangProps {
   className?: string;
@@ -20,6 +21,7 @@ const TRANSLATIONS = {
     karana: "Karana",
     vara: "Vara",
     abhijit: "Abhijit Muhurta",
+    brahma: "Brahma Muhurta",
     rahu: "Rahu Kaal",
     endsAt: "Ends at"
   }
@@ -59,6 +61,14 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                 </div>
                 <div className="flex items-center gap-4">
                   <RahuIcon width={22} height={22} className="shrink-0" />
+                  <BrahmaMuhurtaIcon width={22} height={22} className="shrink-0" />
+                  <div>
+                    <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="material-symbols-outlined text-lg text-error shrink-0" aria-hidden="true">block</span>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
