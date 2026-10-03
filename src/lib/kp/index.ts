@@ -3,8 +3,8 @@ import { calculatePlacidusCusps, getPlacidusHouse } from './placidus';
 import { KP_HORARY_SUBS } from './horary';
 import { getKpKhullarAyanamsa } from './ayanamsa';
 import {
-    DivisionalChartData,
-    PlanetData,
+    type DivisionalChartData,
+    type PlanetData,
     getTrueEclipticLongitude,
     getTrueMoonEclipticLongitude,
     getMeanRahu,

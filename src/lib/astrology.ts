@@ -1,6 +1,14 @@
 import * as Ast from 'astronomy-engine';
 import { isPlanetCombustAt } from './transits';
 
+function isSameISTDate(d1: Date, d2: Date): boolean {
+    const ist1 = new Date(d1.getTime() + (5.5 * 60 * 60 * 1000));
+    const ist2 = new Date(d2.getTime() + (5.5 * 60 * 60 * 1000));
+    return ist1.getUTCFullYear() === ist2.getUTCFullYear() &&
+           ist1.getUTCMonth() === ist2.getUTCMonth() &&
+           ist1.getUTCDate() === ist2.getUTCDate();
+}
+
 export const KP_HORARY_SUBS = [
   0,
   0.7777777777777778,
@@ -2041,7 +2049,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (tithiIdx !== prevTithiIdx) {
             const threshold = Math.max(prevTithiIdx, tithiIdx) * 12;
             const tDate = interpolate(prevMs, actualMs, threshold, prevDiff, d);
-            if (tDate <= nextSunriseDate) {
+            if (tDate <= nextSunriseDate && isSameISTDate(tDate, sunriseDate)) {
                 tithiTransitions.push({ idx: prevTithiIdx, time: tDate });
             }
         }
@@ -2049,7 +2057,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (karanaIdxTotal !== prevKaranaIdxTotal) {
             const threshold = Math.max(prevKaranaIdxTotal, karanaIdxTotal) * 6;
             const tDate = interpolate(prevMs, actualMs, threshold, prevDiff, d);
-            if (tDate <= nextSunriseDate) {
+            if (tDate <= nextSunriseDate && isSameISTDate(tDate, sunriseDate)) {
                 karanaTransitions.push({ idx: prevKaranaIdxTotal, time: tDate });
             }
         }
@@ -2057,7 +2065,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (nakIdx !== prevNakIdx) {
             const threshold = Math.max(prevNakIdx, nakIdx) * NAKSHATRA_WIDTH;
             const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealMoon, sidMoon);
-            if (tDate <= nextSunriseDate) {
+            if (tDate <= nextSunriseDate && isSameISTDate(tDate, sunriseDate)) {
                 nakTransitions.push({ idx: prevNakIdx, time: tDate });
             }
         }
@@ -2065,7 +2073,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (yogaIdx !== prevYogaIdx) {
             const threshold = Math.max(prevYogaIdx, yogaIdx) * NAKSHATRA_WIDTH;
             const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealYoga, sidYoga);
-            if (tDate <= nextSunriseDate) {
+            if (tDate <= nextSunriseDate && isSameISTDate(tDate, sunriseDate)) {
                 yogaTransitions.push({ idx: prevYogaIdx, time: tDate });
             }
         }
@@ -2073,7 +2081,7 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (moonSignIdx !== prevMoonSignIdx) {
             const threshold = Math.max(prevMoonSignIdx, moonSignIdx) * 30;
             const tDate = interpolate(prevMs, actualMs, threshold, prevSiderealMoon, sidMoon);
-            if (tDate <= nextSunriseDate) {
+            if (tDate <= nextSunriseDate && isSameISTDate(tDate, sunriseDate)) {
                 moonSignTransitions.push({ idx: prevMoonSignIdx, time: tDate });
             }
         }
@@ -2091,6 +2099,12 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         if (actualMs === endMs) break;
     }
 
+    const lastActiveTithiIdx = tithiTransitions.length > 0 ? (tithiTransitions[tithiTransitions.length - 1].idx + 1) % 30 : sunriseTithiIdx;
+    const lastActiveNakIdx = nakTransitions.length > 0 ? (nakTransitions[nakTransitions.length - 1].idx + 1) % 27 : sunriseNakIdx;
+    const lastActiveYogaIdx = yogaTransitions.length > 0 ? (yogaTransitions[yogaTransitions.length - 1].idx + 1) % 27 : sunriseYogaIdx;
+    const lastActiveKaranaIdxTotal = karanaTransitions.length > 0 ? karanaTransitions[karanaTransitions.length - 1].idx + 1 : sunriseKaranaIdxTotal;
+    const lastActiveMoonSignIdx = moonSignTransitions.length > 0 ? (moonSignTransitions[moonSignTransitions.length - 1].idx + 1) % 12 : sunriseMoonSignIdx;
+
     const finalTithisList: PanchangElementOccur[] = [];
     for (const t of tithiTransitions) {
         const itemPaksha = t.idx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
@@ -2102,10 +2116,10 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
             end: formatISTTime(t.time, true, sunriseDate)
         });
     }
-    const finalTithiPaksha = prevTithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
+    const finalTithiPaksha = lastActiveTithiIdx < 15 ? { name: "Shukla", sanskrit: "शुक्ल" } : { name: "Krishna", sanskrit: "कृष्ण" };
     finalTithisList.push({
-        name: TITHIS[prevTithiIdx].name,
-        sanskrit: TITHIS[prevTithiIdx].sanskrit,
+        name: TITHIS[lastActiveTithiIdx].name,
+        sanskrit: TITHIS[lastActiveTithiIdx].sanskrit,
         paksha: finalTithiPaksha.name,
         pakshaSanskrit: finalTithiPaksha.sanskrit,
         end: null
@@ -2120,8 +2134,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         });
     }
     finalNakshatrasList.push({
-        name: NAKSHATRA_NAMES[prevNakIdx].name,
-        sanskrit: NAKSHATRA_NAMES[prevNakIdx].sanskrit,
+        name: NAKSHATRA_NAMES[lastActiveNakIdx].name,
+        sanskrit: NAKSHATRA_NAMES[lastActiveNakIdx].sanskrit,
         end: null
     });
 
@@ -2134,8 +2148,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         });
     }
     finalYogasList.push({
-        name: YOGAS[prevYogaIdx].name,
-        sanskrit: YOGAS[prevYogaIdx].sanskrit,
+        name: YOGAS[lastActiveYogaIdx].name,
+        sanskrit: YOGAS[lastActiveYogaIdx].sanskrit,
         end: null
     });
 
@@ -2148,8 +2162,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         });
     }
     finalKaranasList.push({
-        name: getKaranaItem(prevKaranaIdxTotal).name,
-        sanskrit: getKaranaItem(prevKaranaIdxTotal).sanskrit,
+        name: getKaranaItem(lastActiveKaranaIdxTotal).name,
+        sanskrit: getKaranaItem(lastActiveKaranaIdxTotal).sanskrit,
         end: null
     });
 
@@ -2162,8 +2176,8 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
         });
     }
     finalMoonsignsList.push({
-        name: RASI_FULL_NAMES[prevMoonSignIdx].name,
-        sanskrit: RASI_FULL_NAMES[prevMoonSignIdx].sanskrit,
+        name: RASI_FULL_NAMES[lastActiveMoonSignIdx].name,
+        sanskrit: RASI_FULL_NAMES[lastActiveMoonSignIdx].sanskrit,
         end: null
     });
 

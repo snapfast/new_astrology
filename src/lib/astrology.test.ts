@@ -336,6 +336,51 @@ test('calculatePanchang multiple elements transition verification (July 10, 2026
   assert.ok(panchang.formattedText.includes("Purnimanta Month: Ashadha"), 'Should list Purnimanta Month');
 });
 
+test('calculatePanchang transition dates restricted strictly to current Gregorian calendar date', () => {
+  const dob = "2026-07-10";
+  const tob = "12:00";
+  const lat = "28.6139";
+  const lon = "77.2090";
+
+  const data = generateAstrologyData(dob, tob, lat, lon);
+  const panchang = data.panchang;
+
+  // Check all transition list items for tithisList
+  for (const item of panchang.tithisList || []) {
+    if (item.end !== null) {
+      assert.ok(!item.end.includes(','), `Transition time '${item.end}' should not have next-date suffix (must be on current Gregorian date)`);
+    }
+  }
+
+  // Check all transition list items for nakshatrasList
+  for (const item of panchang.nakshatrasList || []) {
+    if (item.end !== null) {
+      assert.ok(!item.end.includes(','), `Transition time '${item.end}' should not have next-date suffix (must be on current Gregorian date)`);
+    }
+  }
+
+  // Check all transition list items for yogasList
+  for (const item of panchang.yogasList || []) {
+    if (item.end !== null) {
+      assert.ok(!item.end.includes(','), `Transition time '${item.end}' should not have next-date suffix (must be on current Gregorian date)`);
+    }
+  }
+
+  // Check all transition list items for karanasList
+  for (const item of panchang.karanasList || []) {
+    if (item.end !== null) {
+      assert.ok(!item.end.includes(','), `Transition time '${item.end}' should not have next-date suffix (must be on current Gregorian date)`);
+    }
+  }
+
+  // Check all transition list items for moonsignsList
+  for (const item of panchang.moonsignsList || []) {
+    if (item.end !== null) {
+      assert.ok(!item.end.includes(','), `Transition time '${item.end}' should not have next-date suffix (must be on current Gregorian date)`);
+    }
+  }
+});
+
 test('getPlanetTransits structure and values (Sun & Moon & Saturn)', () => {
     const refDate = new Date('2024-03-15T12:00:00Z');
 
