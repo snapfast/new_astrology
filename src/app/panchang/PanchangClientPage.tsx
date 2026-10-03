@@ -11,22 +11,23 @@ import { useLanguage } from '@/context/LanguageContext';
 import ExploreTools from '@/components/ExploreTools';
 import DeepamIcon from '@/components/DeepamIcon';
 
+interface TimelineItem {
+  time: string;
+  type: 'sunrise' | 'sunset' | 'tithi' | 'nakshatra' | 'yoga' | 'karana' | 'moonsign';
+  title: string;
+  titleSanskrit?: string;
+  badge: string;
+  description: string;
+}
 
 const TRANSLATIONS = {
   en: {
     heroTitle: "Daily Panchang",
     heroSubtitle: "Vedic Timekeeping",
-    heroDesc: "View Vedic Panchang details for New Delhi, India.",
-    elementsTitle: "Panchang Elements",
-    timingsTitle: "Muhurtas & Kaal",
+    heroDesc: "Chronological schedule of Panchang changes and daily timings (Sunrise to Sunrise) for New Delhi, India.",
+    timingsTitle: "Key Muhurtas & Kaal",
     celestialTitle: "Sun & Moon Timings",
     extraTitle: "Current Period Details",
-    tithi: "Tithi",
-    nakshatra: "Nakshatra",
-    yoga: "Yoga",
-    karana: "Karana",
-    vara: "Vara",
-    paksha: "Paksha",
     sunSign: "Sun Sign",
     moonSign: "Moon Sign",
     ritu: "Ritu (Season)",
@@ -44,16 +45,11 @@ const TRANSLATIONS = {
     shaka: "Shaka Samvat",
     month: "Lunar Month",
     samvatsara: "Samvatsara",
-    endsAt: "Ends at",
-    fullDay: "Full Day",
     prevDay: "Previous Day",
     nextDay: "Next Day",
     today: "Today",
     selectDate: "Select Date",
     selectedDate: "Selected Date",
-    shareableTitle: "Shareable Daily Panchang",
-    copyBtn: "Copy Text",
-    copied: "Copied!",
     prevMonth: "Previous Month",
     nextMonth: "Next Month",
     festivalsTitle: "Hindu Festivals & Fasting",
@@ -63,26 +59,15 @@ const TRANSLATIONS = {
     filterMajor: "Major Festivals",
     filterVrat: "Vrat & Fasting",
     noFestivalsMsg: "No major festivals or mandatory fasts recorded for this selected timeframe.",
+    timelineTitle: "Timeline of Panchang Changes",
     monthNames: [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ],
-    eduTitle: "Understanding Panchang",
-    eduPara1: "The Panchang is a traditional Vedic calendar that serves as an essential guide for daily life in Indian culture. Derived from the Sanskrit words 'Pancha' (five) and 'Anga' (limbs), it consists of five key astronomical elements: Tithi, Vara, Nakshatra, Yoga, and Karana.",
-    tithiTitle: "1. Tithi",
-    tithiDesc: "The lunar day based on the angular distance between the Sun and the Moon. It is crucial for determining festivals and rituals.",
-    varaTitle: "2. Vara",
-    varaDesc: "The solar day of the week. Each day is ruled by a specific planet, influencing the energy of the activities performed.",
-    nakshatraTitle: "3. Nakshatra",
-    nakshatraDesc: "The lunar mansion where the Moon is positioned. Nakshatras define the psychological and emotional temperament of the time.",
-    yogaTitle: "4. Yoga",
-    yogaDesc: "A specific relationship between the Sun and Moon positions that indicates the general prevailing energy or 'joining'.",
-    karanaTitle: "5. Karana",
-    karanaDesc: "Half of a Tithi. Each Tithi consists of two Karanas. It represents the active energy and is significant for worldly tasks and determining the outcome of actions.",
-    eduPara2: "Beyond these five limbs, the Panchang also provides information on Auspicious Timings (Muhurtas) like Abhijit Muhurta, which is ideal for starting new ventures, and Inauspicious Periods like Rahu Kaal, during which significant new actions are traditionally avoided.",
     ctaTitle: "Plan Your Day with Expert Guidance",
     ctaDesc: "While the daily Panchang provides general guidance, a Personalized Muhurta based on your individual birth chart (Kundli) ensures the highest level of success for your specific endeavors."
-  }};
+  }
+};
 
 const PanchangPage = () => {
   const { lang } = useLanguage();
@@ -107,43 +92,10 @@ const PanchangPage = () => {
   const [currentYear, setCurrentYear] = useState<number>(() => selectedDate.getUTCFullYear());
   const [festivalFilter, setFestivalFilter] = useState<'all' | 'major' | 'vrat'>('all');
 
-  const [copied, setCopied] = useState(false);
-
   useEffect(() => {
     setCurrentMonth(selectedDate.getUTCMonth());
     setCurrentYear(selectedDate.getUTCFullYear());
   }, [selectedDate]);
-
-  // Precalculate festivals list for current month
-  const monthlyFestivalsList = useMemo(() => {
-    const list: Array<{ dateKey: string; day: number; month: number; year: number; festival: Festival }> = [];
-    const totalDays = new Date(Date.UTC(currentYear, currentMonth + 1, 0)).getUTCDate();
-
-    for (let d = 1; d <= totalDays; d++) {
-      const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-      const data = generateAstrologyData(dateKey, "12:00", "28.6139", "77.2090");
-      const fList = getFestivalsForDate(dateKey, data.panchang);
-
-      for (const f of fList) {
-        list.push({
-          dateKey,
-          day: d,
-          month: currentMonth,
-          year: currentYear,
-          festival: f
-        });
-      }
-    }
-    return list;
-  }, [currentMonth, currentYear]);
-
-  const handleCopyText = () => {
-    if (panchang.formattedText) {
-      navigator.clipboard.writeText(panchang.formattedText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   const handlePrevDay = () => {
     setSelectedDate(prev => {
@@ -163,7 +115,6 @@ const PanchangPage = () => {
 
   const handleToday = () => {
     const now = new Date();
-    // Normalize to IST then to UTC midnight to ensure consistency with the date picker
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istTime = new Date(now.getTime() + istOffset);
     const utcMidnight = new Date(Date.UTC(istTime.getUTCFullYear(), istTime.getUTCMonth(), istTime.getUTCDate()));
@@ -172,8 +123,6 @@ const PanchangPage = () => {
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
-      // When picking from <input type="date">, it returns YYYY-MM-DD
-      // new Date("YYYY-MM-DD") creates a UTC midnight date.
       setSelectedDate(new Date(e.target.value));
     }
   };
@@ -209,8 +158,6 @@ const PanchangPage = () => {
   const panchang = useMemo(() => {
     const dob = selectedDate.toISOString().split('T')[0];
     const tob = "12:00";
-
-    // Default to New Delhi coordinates
     const data = generateAstrologyData(dob, tob, "28.6139", "77.2090");
     return data.panchang;
   }, [selectedDate]);
@@ -220,6 +167,146 @@ const PanchangPage = () => {
     return getFestivalsForDate(dateKey, panchang);
   }, [selectedDate, panchang]);
 
+  const timelineEvents = useMemo(() => {
+    const p = panchang;
+    const events: TimelineItem[] = [];
+
+    // 1. Sunrise (Start of Panchang Day)
+    events.push({
+      time: p.sunrise,
+      type: 'sunrise',
+      title: `Sunrise — ${p.vara}`,
+      titleSanskrit: p.varaSanskrit,
+      badge: 'Day Start',
+      description: `Day starts with ${p.paksha} ${p.tithi} Tithi & ${p.nakshatra} Nakshatra.`
+    });
+
+    // 2. Tithi Changes
+    if (p.tithisList && p.tithisList.length > 0) {
+      p.tithisList.forEach((item, idx) => {
+        if (item.end) {
+          const nextItem = p.tithisList?.[idx + 1];
+          const nextTitle = nextItem ? `${nextItem.paksha || p.paksha} ${nextItem.name}` : p.tithi;
+          const nextSanskrit = nextItem ? `${nextItem.pakshaSanskrit || p.pakshaSanskrit} ${nextItem.sanskrit}` : p.tithiSanskrit;
+          events.push({
+            time: item.end,
+            type: 'tithi',
+            title: `Tithi Change: ${item.paksha || p.paksha} ${item.name} Ends`,
+            titleSanskrit: `${item.pakshaSanskrit || p.pakshaSanskrit} ${item.sanskrit}`,
+            badge: 'Tithi',
+            description: `Transitions to ${nextTitle} (${nextSanskrit})`
+          });
+        }
+      });
+    }
+
+    // 3. Nakshatra Changes
+    if (p.nakshatrasList && p.nakshatrasList.length > 0) {
+      p.nakshatrasList.forEach((item, idx) => {
+        if (item.end) {
+          const nextItem = p.nakshatrasList?.[idx + 1];
+          const nextTitle = nextItem ? nextItem.name : p.nakshatra;
+          const nextSanskrit = nextItem ? nextItem.sanskrit : p.nakshatraSanskrit;
+          events.push({
+            time: item.end,
+            type: 'nakshatra',
+            title: `Nakshatra Change: ${item.name} Ends`,
+            titleSanskrit: item.sanskrit,
+            badge: 'Nakshatra',
+            description: `Moon enters ${nextTitle} (${nextSanskrit})`
+          });
+        }
+      });
+    }
+
+    // 4. Yoga Changes
+    if (p.yogasList && p.yogasList.length > 0) {
+      p.yogasList.forEach((item, idx) => {
+        if (item.end) {
+          const nextItem = p.yogasList?.[idx + 1];
+          const nextTitle = nextItem ? nextItem.name : p.yoga;
+          const nextSanskrit = nextItem ? nextItem.sanskrit : p.yogaSanskrit;
+          events.push({
+            time: item.end,
+            type: 'yoga',
+            title: `Yoga Change: ${item.name} Ends`,
+            titleSanskrit: item.sanskrit,
+            badge: 'Yoga',
+            description: `Transitions to ${nextTitle} (${nextSanskrit})`
+          });
+        }
+      });
+    }
+
+    // 5. Karana Changes
+    if (p.karanasList && p.karanasList.length > 0) {
+      p.karanasList.forEach((item, idx) => {
+        if (item.end) {
+          const nextItem = p.karanasList?.[idx + 1];
+          const nextTitle = nextItem ? nextItem.name : p.karana;
+          const nextSanskrit = nextItem ? nextItem.sanskrit : p.karanaSanskrit;
+          events.push({
+            time: item.end,
+            type: 'karana',
+            title: `Karana Change: ${item.name} Ends`,
+            titleSanskrit: item.sanskrit,
+            badge: 'Karana',
+            description: `Transitions to ${nextTitle} (${nextSanskrit})`
+          });
+        }
+      });
+    }
+
+    // 6. Sunset
+    events.push({
+      time: p.sunset,
+      type: 'sunset',
+      title: 'Sunset',
+      badge: 'Night Start',
+      description: `Evening transition into ${p.lunarMonth} (${p.lunarMonthSanskrit}) month.`
+    });
+
+    const parseTimeToMinutes = (tStr: string): number => {
+      const isNextDay = tStr.includes(',');
+      const clean = tStr.split(',')[0].trim();
+      const [time, period] = clean.split(' ');
+      if (!time || !period) return 0;
+      const [rawH, m] = time.split(':').map(Number);
+      let h = rawH;
+      if (period.toUpperCase() === 'PM' && h < 12) h += 12;
+      if (period.toUpperCase() === 'AM' && h === 12) h = 0;
+      let totalMins = h * 60 + m;
+      if (isNextDay) totalMins += 24 * 60;
+      return totalMins;
+    };
+
+    events.sort((a, b) => parseTimeToMinutes(a.time) - parseTimeToMinutes(b.time));
+
+    return events;
+  }, [panchang]);
+
+  // Precalculate festivals list for current month
+  const monthlyFestivalsList = useMemo(() => {
+    const list: Array<{ dateKey: string; day: number; month: number; year: number; festival: Festival }> = [];
+    const totalDays = new Date(Date.UTC(currentYear, currentMonth + 1, 0)).getUTCDate();
+
+    for (let d = 1; d <= totalDays; d++) {
+      const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const data = generateAstrologyData(dateKey, "12:00", "28.6139", "77.2090");
+      const fList = getFestivalsForDate(dateKey, data.panchang);
+
+      for (const f of fList) {
+        list.push({
+          dateKey,
+          day: d,
+          month: currentMonth,
+          year: currentYear,
+          festival: f
+        });
+      }
+    }
+    return list;
+  }, [currentMonth, currentYear]);
 
   const filteredMonthlyFestivals = useMemo(() => {
     if (festivalFilter === 'major') {
@@ -235,7 +322,7 @@ const PanchangPage = () => {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Daily Panchang - Today's Vedic Tithi, Nakshatra & Muhurta",
-    "description": `Detailed Vedic Panchang for today. Tithi: ${panchang.tithi}, Nakshatra: ${panchang.nakshatra}, Yoga: ${panchang.yoga}, Rahu Kaal: ${panchang.rahuKaal}.`,
+    "description": `Detailed Vedic Panchang timeline for today. Tithi: ${panchang.tithi}, Nakshatra: ${panchang.nakshatra}, Yoga: ${panchang.yoga}, Rahu Kaal: ${panchang.rahuKaal}.`,
     "author": {
       "@type": "Person",
       "name": "Pandit Rahul Bali"
@@ -257,7 +344,6 @@ const PanchangPage = () => {
         description={t.heroDesc}
       />
 
-      {/* Panchang Details */}
       <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 md:space-y-12">
         {/* Date Sequencer & Calendar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-outline/20 rounded-2xl p-5 shadow-sm">
@@ -319,252 +405,208 @@ const PanchangPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Panchang Card */}
-          <div className="lg:col-span-2 bg-white border border-outline/20 rounded-2xl p-5 md:p-6 shadow-sm">
-            {selectedDateFestivals.length > 0 && (
-              <div className="mb-5 p-3.5 rounded-2xl bg-accent/10 border border-accent/30 space-y-1.5">
-                <div className="flex items-center gap-2 text-accent font-bold font-label uppercase text-xs tracking-wider">
-                  <span className="material-symbols-outlined text-lg">festival</span>
-                  <span>{t.festivalsTodayTitle}</span>
-                </div>
-                <div className="flex flex-wrap gap-2 pt-0.5">
-                  {selectedDateFestivals.map((fest) => (
-                    <div key={fest.id} className="bg-white border border-accent/30 px-3 py-1 rounded-xl shadow-xs">
-                      <p className="text-sm font-headline text-on-surface font-bold">
-                        {fest.nameEn}
-                      </p>
-                      <p className="text-xs text-on-surface/70 font-body">
-                        {fest.descriptionEn}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.elementsTitle}</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-              <div className="space-y-2">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.tithi}</p>
-                {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd, paksha: panchang.paksha, pakshaSanskrit: panchang.pakshaSanskrit }]).map((item, idx) => (
-                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
-                    <p className="text-lg font-headline text-on-surface font-semibold">
-                      {`${item.paksha || panchang.paksha} ${item.name}`}
-                    </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
-                    </p>
-                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium">{item.pakshaSanskrit || panchang.pakshaSanskrit} {item.sanskrit}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.nakshatra}</p>
-                {(panchang.nakshatrasList || [{ name: panchang.nakshatra, sanskrit: panchang.nakshatraSanskrit, end: panchang.nakshatraEnd }]).map((item, idx) => (
-                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
-                    <p className="text-lg font-headline text-on-surface font-semibold">
-                      {item.name}
-                    </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
-                    </p>
-                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium">{item.sanskrit}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.yoga}</p>
-                {(panchang.yogasList || [{ name: panchang.yoga, sanskrit: panchang.yogaSanskrit, end: panchang.yogaEnd }]).map((item, idx) => (
-                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
-                    <p className="text-lg font-headline text-on-surface font-semibold">
-                      {item.name}
-                    </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
-                    </p>
-                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium">{item.sanskrit}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.karana}</p>
-                {(panchang.karanasList || [{ name: panchang.karana, sanskrit: panchang.karanaSanskrit, end: panchang.karanaEnd }]).map((item, idx) => (
-                  <div key={idx} className="border-l-2 border-accent/20 pl-2 space-y-0.5">
-                    <p className="text-lg font-headline text-on-surface font-semibold">
-                      {item.name}
-                    </p>
-                    <p className="text-xs text-accent font-medium tabular-nums">
-                      {item.end ? `${t.endsAt}: ${item.end}` : t.fullDay}
-                    </p>
-                    <p className="text-sm md:text-base text-on-surface font-hindi font-medium">{item.sanskrit}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.vara}</p>
-                <div className="border-l-2 border-accent/20 pl-2 space-y-0.5">
-                  <p className="text-lg font-headline text-on-surface font-semibold">{panchang.vara}</p>
-                  <p className="text-sm md:text-base text-on-surface font-hindi font-medium">{panchang.varaSanskrit}</p>
-                </div>
-              </div>
+        {/* Festivals Banner for Selected Date */}
+        {selectedDateFestivals.length > 0 && (
+          <div className="p-4 md:p-6 rounded-2xl bg-accent/10 border border-accent/30 space-y-2">
+            <div className="flex items-center gap-2 text-accent font-bold font-label uppercase text-xs tracking-wider">
+              <span className="material-symbols-outlined text-xl">festival</span>
+              <span>{t.festivalsTodayTitle}</span>
             </div>
-
-            <div className="mt-6 pt-5 border-t border-outline/20 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunSign}</p>
-                <p className="text-sm font-headline text-on-surface font-semibold">{panchang.sunSign}</p>
-                <p className="text-sm text-on-surface font-hindi font-medium">{panchang.sunSignSanskrit}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonSign}</p>
-                <p className="text-sm font-headline text-on-surface font-semibold">{panchang.moonSign}</p>
-                <p className="text-sm text-on-surface font-hindi font-medium">{panchang.moonSignSanskrit}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.ritu}</p>
-                <p className="text-sm font-headline text-on-surface font-semibold">{panchang.ritu}</p>
-                <p className="text-sm text-on-surface font-hindi font-medium">{panchang.rituSanskrit}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.ayana}</p>
-                <p className="text-sm font-headline text-on-surface font-semibold">{panchang.ayana}</p>
-                <p className="text-sm text-on-surface font-hindi font-medium">{panchang.ayanaSanskrit}</p>
-              </div>
+            <div className="flex flex-wrap gap-3 pt-1">
+              {selectedDateFestivals.map((fest) => (
+                <div key={fest.id} className="bg-white border border-accent/30 px-4 py-2 rounded-xl shadow-xs">
+                  <p className="text-base font-headline text-on-surface font-bold">
+                    {fest.nameEn}
+                  </p>
+                  <p className="text-xs text-on-surface/70 font-body">
+                    {fest.descriptionEn}
+                  </p>
+                </div>
+              ))}
             </div>
-          </div>
-
-          {/* Timings Card */}
-          <div className="bg-white border border-outline/20 rounded-2xl p-5 md:p-6 shadow-sm h-full">
-            <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.timingsTitle}</h2>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <DeepamIcon width={20} height={20} className="shrink-0" />
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-error shrink-0">block</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-on-surface shrink-0">schedule</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.gulika}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface">{panchang.gulikaKaal}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-on-surface shrink-0">history</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.yamaganda}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface">{panchang.yamagandaKaal}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-           {/* Celestial Timings Card */}
-           <div className="bg-white border border-outline/20 rounded-2xl p-5 md:p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.celestialTitle}</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_sunny</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunrise}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunrise}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunset}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunset}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">nights_stay</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonrise}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonrise}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">bedtime</span>
-                <div>
-                  <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonset}</p>
-                  <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonset}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Current Period Details Card */}
-          <div className="bg-white border border-outline/20 rounded-2xl p-5 md:p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.extraTitle}</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.month}</p>
-                <p className="text-base font-headline text-on-surface font-semibold">{panchang.lunarMonth}</p>
-                <p className="text-sm text-on-surface font-hindi font-medium">{panchang.lunarMonthSanskrit}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.samvatsara}</p>
-                <p className="text-base font-headline text-on-surface font-semibold">{panchang.samvatsara}</p>
-                <p className="text-sm text-on-surface font-hindi font-medium">{panchang.samvatsaraSanskrit}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.vikram}</p>
-                <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.vikramSamvat}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.shaka}</p>
-                <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.shakaSamvat}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Shareable Plain-Text Card */}
-        {panchang.formattedText && (
-          <div className="bg-white border border-outline/20 rounded-3xl p-5 md:p-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-outline/20 pb-4">
-              <div>
-                <h2 className="text-xl font-bold text-accent uppercase tracking-[0.2em] font-label">{t.shareableTitle}</h2>
-              </div>
-              <button
-                onClick={handleCopyText}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white rounded-full text-xs font-label tracking-wider hover:bg-accent/90 active:scale-[0.98] transition-all"
-              >
-                <span className="material-symbols-outlined text-sm">{copied ? "done" : "content_copy"}</span>
-                {copied ? t.copied : t.copyBtn}
-              </button>
-            </div>
-            <pre className="bg-surface p-6 rounded-2xl font-mono text-sm text-on-surface whitespace-pre-wrap leading-relaxed select-all border border-outline/20">
-              {panchang.formattedText}
-            </pre>
           </div>
         )}
+
+        {/* Main Grid: Left Timeline + Right Key Timings */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          {/* Main Timeline of Changes (2 Columns) */}
+          <div className="lg:col-span-2 bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-outline/10 pb-4">
+              <h2 className="text-lg font-bold text-accent uppercase tracking-widest font-label flex items-center gap-2">
+                <span className="material-symbols-outlined text-xl">schedule</span>
+                <span>{t.timelineTitle}</span>
+              </h2>
+              <span className="text-xs font-body text-on-surface/60">
+                Sunrise to Sunrise
+              </span>
+            </div>
+
+            <div className="relative border-l-2 border-accent/20 pl-6 ml-3 space-y-6 pt-2">
+              {timelineEvents.map((evt, idx) => (
+                <div key={idx} className="relative group">
+                  <div className={`absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full border-2 ${
+                    evt.type === 'sunrise' || evt.type === 'sunset'
+                      ? 'bg-accent border-white ring-2 ring-accent/30'
+                      : 'bg-white border-accent'
+                  }`} />
+
+                  <div className="bg-surface/30 border border-outline/20 rounded-2xl p-4 md:p-5 shadow-2xs hover:border-accent/40 transition-colors">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                      <span className="text-sm md:text-base font-bold text-accent font-body tabular-nums">
+                        {evt.time}
+                      </span>
+                      <span className="text-[10px] font-label font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-white text-on-surface/80 border border-outline/10 shadow-2xs">
+                        {evt.badge}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-baseline gap-2">
+                      <h3 className="text-base md:text-lg font-bold font-headline text-on-surface">
+                        {evt.title}
+                      </h3>
+                      {evt.titleSanskrit && (
+                        <span className="text-sm md:text-base text-on-surface font-hindi font-medium">
+                          {evt.titleSanskrit}
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="text-xs md:text-sm text-on-surface/70 font-body mt-1 leading-relaxed">
+                      {evt.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Key Timings & Period Details (1 Column) */}
+          <div className="space-y-6">
+
+            {/* Key Timings Card */}
+            <div className="bg-white border border-outline/20 rounded-3xl p-6 shadow-sm space-y-5">
+              <h2 className="text-base font-bold text-accent uppercase tracking-widest font-label border-b border-outline/10 pb-3 flex items-center gap-2">
+                <span className="material-symbols-outlined text-lg">schedule</span>
+                <span>{t.timingsTitle}</span>
+              </h2>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <DeepamIcon width={22} height={22} className="shrink-0" />
+                  <div>
+                    <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.abhijitMuhurta}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-xl text-accent shrink-0">wb_twilight</span>
+                  <div>
+                    <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.brahmaMuhurta}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-xl text-error shrink-0">block</span>
+                  <div>
+                    <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.rahuKaal}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-xl text-on-surface/70 shrink-0">schedule</span>
+                  <div>
+                    <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.gulika}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.gulikaKaal}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-xl text-on-surface/70 shrink-0">history</span>
+                  <div>
+                    <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.yamaganda}</p>
+                    <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.yamagandaKaal}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sun & Moon Celestial Timings */}
+            <div className="bg-white border border-outline/20 rounded-3xl p-6 shadow-sm space-y-4">
+              <h2 className="text-base font-bold text-accent uppercase tracking-widest font-label border-b border-outline/10 pb-3 flex items-center gap-2">
+                <span className="material-symbols-outlined text-lg">wb_sunny</span>
+                <span>{t.celestialTitle}</span>
+              </h2>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.sunrise}</p>
+                  <p className="text-sm font-body tabular-nums text-on-surface font-semibold">{panchang.sunrise}</p>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.sunset}</p>
+                  <p className="text-sm font-body tabular-nums text-on-surface font-semibold">{panchang.sunset}</p>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.moonrise}</p>
+                  <p className="text-sm font-body tabular-nums text-on-surface font-semibold">{panchang.moonrise}</p>
+                </div>
+                <div>
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.moonset}</p>
+                  <p className="text-sm font-body tabular-nums text-on-surface font-semibold">{panchang.moonset}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Period Details */}
+            <div className="bg-white border border-outline/20 rounded-3xl p-6 shadow-sm space-y-4">
+              <h2 className="text-base font-bold text-accent uppercase tracking-widest font-label border-b border-outline/10 pb-3 flex items-center gap-2">
+                <span className="material-symbols-outlined text-lg">calendar_month</span>
+                <span>{t.extraTitle}</span>
+              </h2>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-0.5">
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.month}</p>
+                  <p className="text-sm font-headline text-on-surface font-semibold">{panchang.lunarMonth}</p>
+                  <p className="text-xs text-on-surface font-hindi font-medium">{panchang.lunarMonthSanskrit}</p>
+                </div>
+                <div className="space-y-0.5">
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.samvatsara}</p>
+                  <p className="text-sm font-headline text-on-surface font-semibold">{panchang.samvatsara}</p>
+                  <p className="text-xs text-on-surface font-hindi font-medium">{panchang.samvatsaraSanskrit}</p>
+                </div>
+                <div className="space-y-0.5">
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.sunSign}</p>
+                  <p className="text-sm font-headline text-on-surface font-semibold">{panchang.sunSign}</p>
+                  <p className="text-xs text-on-surface font-hindi font-medium">{panchang.sunSignSanskrit}</p>
+                </div>
+                <div className="space-y-0.5">
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.moonSign}</p>
+                  <p className="text-sm font-headline text-on-surface font-semibold">{panchang.moonSign}</p>
+                  <p className="text-xs text-on-surface font-hindi font-medium">{panchang.moonSignSanskrit}</p>
+                </div>
+                <div className="space-y-0.5">
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.vikram}</p>
+                  <p className="text-sm font-body tabular-nums text-on-surface font-semibold">{panchang.vikramSamvat}</p>
+                </div>
+                <div className="space-y-0.5">
+                  <p className="font-bold text-on-surface/60 uppercase font-label text-[9px] tracking-widest">{t.shaka}</p>
+                  <p className="text-sm font-body tabular-nums text-on-surface font-semibold">{panchang.shakaSamvat}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </section>
 
       {/* Dedicated Hindu Festivals & Fasting Section */}
-      <section className="py-4 md:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
+      <section className="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
         <div className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm">
-          {/* Header Actions */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-outline/20">
             <div>
               <h2 className="text-2xl font-bold text-accent uppercase tracking-wider font-label flex items-center gap-2">
@@ -577,11 +619,10 @@ const PanchangPage = () => {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              {/* Month/Year Nav */}
               <div className="flex items-center gap-2 bg-surface p-1 rounded-full border border-outline/20">
                 <button
                   onClick={handlePrevMonth}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   title={t.prevMonth}
                   aria-label={t.prevMonth}
                 >
@@ -612,7 +653,7 @@ const PanchangPage = () => {
 
                 <button
                   onClick={handleNextMonth}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-accent hover:bg-accent/10 transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   title={t.nextMonth}
                   aria-label={t.nextMonth}
                 >
@@ -620,13 +661,12 @@ const PanchangPage = () => {
                 </button>
               </div>
 
-              {/* Filter Tabs */}
               <div className="flex flex-wrap items-center gap-2 bg-surface p-1 rounded-full border border-outline/20">
                 <button
                   onClick={() => setFestivalFilter('all')}
                   className={`px-4 py-1.5 rounded-full text-xs font-label tracking-wider transition-all duration-200 ${
                     festivalFilter === 'all'
-                      ? 'bg-accent text-white shadow-sm'
+                      ? 'bg-accent text-white shadow-xs'
                       : 'text-on-surface/70 hover:text-on-surface'
                   }`}
                 >
@@ -636,7 +676,7 @@ const PanchangPage = () => {
                   onClick={() => setFestivalFilter('major')}
                   className={`px-4 py-1.5 rounded-full text-xs font-label tracking-wider transition-all duration-200 ${
                     festivalFilter === 'major'
-                      ? 'bg-accent text-white shadow-sm'
+                      ? 'bg-accent text-white shadow-xs'
                       : 'text-on-surface/70 hover:text-on-surface'
                   }`}
                 >
@@ -646,7 +686,7 @@ const PanchangPage = () => {
                   onClick={() => setFestivalFilter('vrat')}
                   className={`px-4 py-1.5 rounded-full text-xs font-label tracking-wider transition-all duration-200 ${
                     festivalFilter === 'vrat'
-                      ? 'bg-accent text-white shadow-sm'
+                      ? 'bg-accent text-white shadow-xs'
                       : 'text-on-surface/70 hover:text-on-surface'
                   }`}
                 >
@@ -656,7 +696,6 @@ const PanchangPage = () => {
             </div>
           </div>
 
-          {/* Festival Cards List */}
           <div className="mt-8">
             {filteredMonthlyFestivals.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -668,7 +707,7 @@ const PanchangPage = () => {
                       setSelectedDate(targetDate);
                       window.scrollTo({ top: 300, behavior: 'smooth' });
                     }}
-                    className="p-5 rounded-3xl bg-surface/50 border border-outline/40 hover:border-accent/60 hover:bg-white transition-all text-left group flex flex-col justify-between space-y-3 shadow-xs hover:shadow-md"
+                    className="p-5 rounded-3xl bg-surface/50 border border-outline/40 hover:border-accent/60 hover:bg-white transition-all text-left group flex flex-col justify-between space-y-3 shadow-2xs hover:shadow-md"
                   >
                     <div className="flex items-start justify-between gap-3 w-full">
                       <div>
@@ -717,45 +756,6 @@ const PanchangPage = () => {
                 <p className="text-sm font-body text-on-surface/60">{t.noFestivalsMsg}</p>
               </div>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* Educational Content Section */}
-      <section className="py-8 md:py-16 bg-white border-y border-outline/20">
-        <div className="max-w-4xl mx-auto px-8">
-          <h2 className="text-3xl md:text-4xl font-normal mb-8 font-headline text-on-surface text-center">{t.eduTitle}</h2>
-          <div className="prose prose-sm md:prose-base max-w-none text-on-surface font-body leading-relaxed space-y-8">
-            <p>
-              {t.eduPara1}
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 not-prose">
-              <div className="bg-white p-6 rounded-2xl border border-outline/20 shadow-sm">
-                <h3 className="text-lg font-headline text-on-surface mb-2">{t.tithiTitle}</h3>
-                <p className="text-sm">{t.tithiDesc}</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20 shadow-sm">
-                <h3 className="text-lg font-headline text-on-surface mb-2">{t.varaTitle}</h3>
-                <p className="text-sm">{t.varaDesc}</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20 shadow-sm">
-                <h3 className="text-lg font-headline text-on-surface mb-2">{t.nakshatraTitle}</h3>
-                <p className="text-sm">{t.nakshatraDesc}</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20 shadow-sm">
-                <h3 className="text-lg font-headline text-on-surface mb-2">{t.yogaTitle}</h3>
-                <p className="text-sm">{t.yogaDesc}</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-outline/20 shadow-sm">
-                <h3 className="text-lg font-headline text-on-surface mb-2">{t.karanaTitle}</h3>
-                <p className="text-sm">{t.karanaDesc}</p>
-              </div>
-            </div>
-
-            <p>
-              {t.eduPara2}
-            </p>
           </div>
         </div>
       </section>
