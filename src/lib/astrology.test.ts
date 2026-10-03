@@ -336,6 +336,30 @@ test('calculatePanchang multiple elements transition verification (July 10, 2026
   assert.ok(panchang.formattedText.includes("Purnimanta Month: Ashadha"), 'Should list Purnimanta Month');
 });
 
+test('calculatePanchang formatted times use 12-hour AM/PM format across all muhurta timings', () => {
+  const dob = "2026-07-10";
+  const tob = "12:00";
+  const lat = "28.6139";
+  const lon = "77.2090";
+
+  const data = generateAstrologyData(dob, tob, lat, lon);
+  const p = data.panchang;
+
+  const timeAmPmRegex = /^\d{2}:\d{2}\s(AM|PM)$/;
+  const rangeAmPmRegex = /^\d{2}:\d{2}\s(AM|PM)\s-\s\d{2}:\d{2}\s(AM|PM)$/;
+
+  assert.ok(timeAmPmRegex.test(p.sunrise), `sunrise '${p.sunrise}' should be in 'HH:MM AM/PM' format`);
+  assert.ok(timeAmPmRegex.test(p.sunset), `sunset '${p.sunset}' should be in 'HH:MM AM/PM' format`);
+  assert.ok(timeAmPmRegex.test(p.moonrise), `moonrise '${p.moonrise}' should be in 'HH:MM AM/PM' format`);
+  assert.ok(timeAmPmRegex.test(p.moonset), `moonset '${p.moonset}' should be in 'HH:MM AM/PM' format`);
+
+  assert.ok(rangeAmPmRegex.test(p.rahuKaal), `rahuKaal '${p.rahuKaal}' should be in 'HH:MM AM/PM - HH:MM AM/PM' format`);
+  assert.ok(rangeAmPmRegex.test(p.gulikaKaal), `gulikaKaal '${p.gulikaKaal}' should be in 'HH:MM AM/PM - HH:MM AM/PM' format`);
+  assert.ok(rangeAmPmRegex.test(p.yamagandaKaal), `yamagandaKaal '${p.yamagandaKaal}' should be in 'HH:MM AM/PM - HH:MM AM/PM' format`);
+  assert.ok(rangeAmPmRegex.test(p.abhijitMuhurta), `abhijitMuhurta '${p.abhijitMuhurta}' should be in 'HH:MM AM/PM - HH:MM AM/PM' format`);
+  assert.ok(rangeAmPmRegex.test(p.brahmaMuhurta), `brahmaMuhurta '${p.brahmaMuhurta}' should be in 'HH:MM AM/PM - HH:MM AM/PM' format`);
+});
+
 test('calculatePanchang transition dates restricted strictly to current Gregorian calendar date', () => {
   const dob = "2026-07-10";
   const tob = "12:00";

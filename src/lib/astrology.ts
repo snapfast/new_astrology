@@ -1828,9 +1828,14 @@ export function getVedicVara(time: Ast.AstroTime, lat: number, lon: number): { n
 
 function formatTime(date: Date | null): string {
     if (!date) return "--:--";
-    const istDate = new Date(date.getTime() + (5.5 * 60 * 60 * 1000));
-    return istDate.getUTCHours().toString().padStart(2, '0') + ":" +
-           istDate.getUTCMinutes().toString().padStart(2, '0');
+    const istTime = new Date(date.getTime() + (5.5 * 60 * 60 * 1000));
+    let hours = istTime.getUTCHours();
+    const minutes = istTime.getUTCMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const minutesStr = minutes.toString().padStart(2, '0');
+    return `${hours.toString().padStart(2, '0')}:${minutesStr} ${ampm}`;
 }
 
 function getRitu(sunLong: number): { name: string, sanskrit: string } {
