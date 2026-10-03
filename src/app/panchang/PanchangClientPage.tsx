@@ -10,6 +10,7 @@ import JsonLd from '@/components/JsonLd';
 import { useLanguage } from '@/context/LanguageContext';
 import ExploreTools from '@/components/ExploreTools';
 import DeepamIcon from '@/components/DeepamIcon';
+import BrahmaMuhurtaIcon from '@/components/BrahmaMuhurtaIcon';
 
 
 const TRANSLATIONS = {
@@ -446,7 +447,7 @@ const PanchangPage = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
+                <BrahmaMuhurtaIcon width={20} height={20} className="shrink-0" />
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
