@@ -797,7 +797,7 @@ const PanchangPage = () => {
                 Generate Free Kundli
               </a>
               <a
-                href="/about"
+                href="/book-astrology-reading-online"
                 className="btn-primary px-8 py-4 text-[10px] md:text-xs tracking-[0.1em]"
               >
                 Book Consultation
