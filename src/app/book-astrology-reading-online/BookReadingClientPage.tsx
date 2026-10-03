@@ -66,7 +66,7 @@ const TRANSLATIONS = {
     },
     howToBook: {
       items: [
-        "Email payment screenshot to rahulbaliastrology@gmail.com.",
+        <span key="payment-item">Email payment screenshot to rahulbaliastrology@gmail.com (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">pay here</a>).</span>,
         "Pick a convenient slot on Calendly.",
         "Ensure a quiet room and stable connection.",
         "Keep a pen and notebook ready for remedies."
@@ -268,7 +268,7 @@ const BookReadingClientPage: FC = () => {
         </section>
 
         {/* Payment Details Card */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+        <section id="payment-details" className="scroll-mt-24 bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
           <div className="space-y-1">
             <span className="text-xs font-medium text-accent font-label tracking-wider block">
               Direct Transfer
