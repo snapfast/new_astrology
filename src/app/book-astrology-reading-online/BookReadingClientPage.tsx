@@ -66,11 +66,11 @@ const TRANSLATIONS = {
     },
     howToBook: {
       items: [
-        "Pay ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com).",
-        "Email payment screenshot to rahulbaliastrology@gmail.com.",
-        "Pick a convenient slot on Calendly.",
-        "Ensure a quiet room and stable connection.",
-        "Keep a pen and notebook ready for remedies."
+        "Kindly complete the booking charge of ₹701/- via UPI (rahul.bali@ybl) or PayPal (rahulbaliastrology@gmail.com).",
+        "Please share the payment confirmation screenshot via email to rahulbaliastrology@gmail.com.",
+        "Select a convenient time slot for your reading on Calendly.",
+        "Kindly ensure you are in a quiet environment with a stable internet connection for the call.",
+        "Please keep a notepad and pen handy to note down insights and remedies during our discussion."
       ]
     },
     paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
