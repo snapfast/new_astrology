@@ -13,7 +13,7 @@ const TRANSLATIONS = {
     subtitle: "Contributions",
     description: (
       <div className="font-body">
-        If you found our service valuable, we would be deeply grateful for any donation to support our mission, suggested amount <span className="font-hindi">₹701, ₹1100, ₹1200, ₹2100, ₹7100</span>, etc.
+        If you found our service valuable, we would be deeply grateful for any donation to support our mission.
       </div>
     ),
     upiTitle: "Scan to Donate (UPI)",
