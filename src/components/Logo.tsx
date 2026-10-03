@@ -15,7 +15,7 @@ const Logo: React.FC<LogoProps> = ({ className = "" }) => {
     <div className={`flex flex-row items-center gap-2 leading-none ${className}`}>
       <svg
         viewBox="0 0 500 500"
-        className="w-24 h-24 md:w-28 md:h-28 shrink-0"
+        className="w-12 h-12 md:w-14 md:h-14 shrink-0"
         aria-hidden="true"
       >
         <defs>
