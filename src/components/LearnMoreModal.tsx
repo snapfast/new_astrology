@@ -142,7 +142,7 @@ const LearnMoreModal: FC<LearnMoreModalProps> = ({ isOpen, onClose }) => {
             </ul>
 
             <a
-              href="https://x.com/rahulbaliastro"
+              href="https://x.com/baliastrology"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent({ event: 'action_click', action_name: 'modal_x_redirect' })}
