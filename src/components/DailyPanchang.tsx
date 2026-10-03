@@ -53,22 +53,27 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               <h2 className="text-2xl md:text-4xl font-normal font-headline text-on-surface mb-6 leading-tight">{t.title}</h2>
               <div className="space-y-5 mb-8">
                 <div className="flex items-center gap-4">
-                  <DeepamIcon width={22} height={22} className="shrink-0" />
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    <DeepamIcon width={22} height={22} className="shrink-0" />
+                  </div>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <RahuIcon width={22} height={22} className="shrink-0" />
-                  <BrahmaMuhurtaIcon width={22} height={22} className="shrink-0" />
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    <BrahmaMuhurtaIcon width={22} height={22} className="shrink-0" />
+                  </div>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined text-lg text-error shrink-0" aria-hidden="true">block</span>
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    <RahuIcon width={22} height={22} className="shrink-0" />
+                  </div>
                   <div>
                     <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>

@@ -311,7 +311,7 @@ const PanchangPage = () => {
                   return dateStr;
                 })()}
               </div>
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface pointer-events-none text-xl z-20">calendar_month</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent pointer-events-none text-xl z-20">calendar_month</span>
             </div>
             <div className="hidden sm:block sm:min-w-[15rem] shrink-0">
               <p className="text-xs font-label text-accent uppercase mb-0.5 tracking-widest">{t.selectedDate}</p>
@@ -442,35 +442,45 @@ const PanchangPage = () => {
             <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.timingsTitle}</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <DeepamIcon width={20} height={20} className="shrink-0" />
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <DeepamIcon width={20} height={20} className="shrink-0" />
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <BrahmaMuhurtaIcon width={20} height={20} className="shrink-0" />
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <BrahmaMuhurtaIcon width={20} height={20} className="shrink-0" />
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <RahuIcon width={20} height={20} className="shrink-0" />
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <RahuIcon width={20} height={20} className="shrink-0" />
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-on-surface shrink-0">schedule</span>
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-lg text-accent shrink-0">schedule</span>
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.gulika}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.gulikaKaal}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <YamagandaIcon width={20} height={20} className="shrink-0" />
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <YamagandaIcon width={20} height={20} className="shrink-0" />
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.yamaganda}</p>
                   <p className="text-base font-body tabular-nums text-on-surface">{panchang.yamagandaKaal}</p>
@@ -486,28 +496,36 @@ const PanchangPage = () => {
             <h2 className="text-lg font-bold text-accent uppercase tracking-[0.15em] font-label mb-4">{t.celestialTitle}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_sunny</span>
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_sunny</span>
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunrise}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunrise}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-lg text-accent shrink-0">wb_twilight</span>
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.sunset}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.sunset}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">nights_stay</span>
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-lg text-accent shrink-0">nights_stay</span>
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonrise}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonrise}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-lg text-accent shrink-0">bedtime</span>
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-lg text-accent shrink-0">bedtime</span>
+                </div>
                 <div>
                   <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.moonset}</p>
                   <p className="text-base font-body tabular-nums text-on-surface font-semibold">{panchang.moonset}</p>
