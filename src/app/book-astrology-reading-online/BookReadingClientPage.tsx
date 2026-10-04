@@ -69,7 +69,7 @@ const TRANSLATIONS = {
         <span key="payment-item">Email payment screenshot to rahulbaliastrology@gmail.com (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">pay here</a>).</span>,
         "Pick a convenient slot and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
         "Ensure a quiet room and stable connection.",
-        "Keep a pen and notebook ready for remedies."
+        "Keep a pen and notebook ready."
       ]
     },
     paymentDetailsTitle: "Recommended Dakshina (Cost): US$ 21 ₹701",
