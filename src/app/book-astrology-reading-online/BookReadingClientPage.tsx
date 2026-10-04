@@ -22,8 +22,8 @@ const TRANSLATIONS = {
     ),
     whatToExpect: {
       tag: "Session Overview",
-      title: "What to Expect in Your Reading",
-      intro: "Each session is a 1-hour direct live consultation dedicated entirely to your birth chart and specific life questions:",
+      title: "About Your Future",
+      intro: "Each 1-hour session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details.",
       sessionTitle: "1 Hour Consultation",
       sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching. Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.",
       partsTitle: "Three Main Parts of the Session",
@@ -31,18 +31,18 @@ const TRANSLATIONS = {
       parts: [
         {
           num: "1",
-          title: "Birth Time Verification",
-          desc: "Checking and confirming your birth details so all calculations are exact."
+          title: "Present & Past Verification",
+          desc: "Touching upon your past and present life events to verify your birth details so all calculations are exact."
         },
         {
           num: "2",
-          title: "Planetary Analysis & Remedies",
-          desc: "Evaluating planetary influences, root causes, and practical mantric or traditional remedies."
+          title: "In-Depth Study of Your Future",
+          desc: "Strongly focused on studying your future—analyzing upcoming Vimshottari Dasha periods, planetary transits (Gochar), career, relationships, and major life timing."
         },
         {
           num: "3",
-          title: "Active Period & Future Guidance",
-          desc: "Examining your current Dasha and transits (Gochar) to answer your specific questions clearly."
+          title: "Planetary Analysis & Practical Remedies",
+          desc: "Evaluating planetary influences and root causes, providing practical mantric or traditional Vedic remedies to guide your future path."
         }
       ],
       knowledgeNote: "No prior background in astrology is required. If you study astrology yourself, chart screen-sharing can also be arranged during our call upon request."
@@ -179,7 +179,7 @@ const BookReadingClientPage: FC = () => {
           </h2>
 
           <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            Each 1-hour session is a direct live consultation dedicated entirely to your birth chart and specific life questions (career, personal, horary/Prashna, Muhurta, or Kundli matching). Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.
+            Each 1-hour session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details (covering career, personal, horary/Prashna, Muhurta, or Kundli matching). Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.
           </p>
 
           <div className="space-y-3 pt-2">
