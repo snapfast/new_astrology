@@ -25,7 +25,7 @@ const TRANSLATIONS = {
       title: "What to Expect in Your Reading",
       intro: "Each session is a 1-hour direct live consultation dedicated entirely to your birth chart and specific life questions:",
       sessionTitle: "1 Hour Consultation",
-      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching.",
+      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching. Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.",
       partsTitle: "Three Main Parts of the Session",
       partsDesc: "During our conversation, we cover three primary areas:",
       parts: [
@@ -67,12 +67,12 @@ const TRANSLATIONS = {
     howToBook: {
       items: [
         <span key="payment-item">Email payment screenshot to rahulbaliastrology@gmail.com (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">pay here</a>).</span>,
-        "Pick a convenient slot on Calendly.",
+        "Pick a convenient slot and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
         "Ensure a quiet room and stable connection.",
         "Keep a pen and notebook ready for remedies."
       ]
     },
-    paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
+    paymentDetailsTitle: "Recommended Dakshina (Cost): US$ 21 ₹701",
     upiLabel: "UPI (India):",
     upiId: "rahul.bali@ybl",
     paypalLabel: "PayPal (International):",
@@ -105,7 +105,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
       <div className="relative group">
         <button
           onClick={handleCopy}
-          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-outline/20 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
         >
           <span className="text-sm md:text-base font-body text-on-surface font-medium mr-2">
             {value}
@@ -139,9 +139,9 @@ const BookReadingClientPage: FC = () => {
         description={t.description}
       >
         <div className="flex flex-col items-center gap-4 mt-2">
-          <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
+          <div className="inline-block bg-white px-4 py-2 rounded-full border border-outline/20 shadow-sm">
             <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
-              Booking Charge: ₹701/-
+              Recommended Dakshina (Cost): US$ 21 ₹701
             </span>
           </div>
           <div className="flex flex-col items-center">
@@ -174,48 +174,25 @@ const BookReadingClientPage: FC = () => {
 
         {/* What to Expect Section */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.whatToExpect.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.whatToExpect.title}
-            </h2>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+            {t.whatToExpect.title}
+          </h2>
 
           <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            {t.whatToExpect.intro}
+            Each 1-hour session is a direct live consultation dedicated entirely to your birth chart and specific life questions (career, personal, horary/Prashna, Muhurta, or Kundli matching). Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.
           </p>
 
-          <div className="pt-1">
-            <div className="p-4 bg-surface-bright rounded-2xl border border-outline/10 space-y-1">
-              <h3 className="text-base font-medium font-headline text-on-surface">
-                {t.whatToExpect.sessionTitle}
-              </h3>
-              <p className="text-sm font-body text-on-surface/80 leading-relaxed">
-                {t.whatToExpect.sessionDesc}
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-4 pt-4 border-t border-outline/10">
-            <h3 className="text-lg font-medium font-headline text-on-surface">
-              {t.whatToExpect.partsTitle}
-            </h3>
-            <p className="text-sm font-body text-on-surface/80 leading-relaxed">
-              {t.whatToExpect.partsDesc}
-            </p>
-
+          <div className="space-y-3 pt-2">
             <ol className="space-y-3">
               {t.whatToExpect.parts.map((part) => (
-                <li key={part.num} className="flex items-start gap-4 p-4 bg-surface-bright rounded-2xl border border-outline/10">
-                  <span className="w-7 h-7 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
+                <li key={part.num} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-outline/20">
+                  <span className="w-7 h-7 rounded-full bg-white border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
                     {part.num}
                   </span>
                   <div className="space-y-0.5">
-                    <h4 className="text-sm md:text-base font-medium font-headline text-on-surface">
+                    <span className="text-sm md:text-base font-medium font-headline text-on-surface block">
                       {part.title}
-                    </h4>
+                    </span>
                     <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
                       {part.desc}
                     </p>
@@ -225,26 +202,19 @@ const BookReadingClientPage: FC = () => {
             </ol>
           </div>
 
-          <div className="pt-4 border-t border-outline/10">
-            <p className="text-xs md:text-sm font-body text-on-surface/80 italic leading-relaxed bg-surface-bright p-4 rounded-2xl border border-outline/10">
-              &ldquo;{t.whatToExpect.knowledgeNote}&rdquo;
-            </p>
-          </div>
+          <p className="text-xs md:text-sm font-body text-on-surface/80 italic leading-relaxed bg-white p-4 rounded-2xl border border-outline/20">
+            &ldquo;{t.whatToExpect.knowledgeNote}&rdquo;
+          </p>
         </section>
 
         {/* Technical Calculations & Methodology */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              {t.technicalMethod.tag}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.technicalMethod.title}
-            </h2>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+            {t.technicalMethod.title}
+          </h2>
 
           <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            {t.technicalMethod.pointsIntro}
+            Readings follow classical Parashari Jyotish principles calculated using Chitra Paksha (Lahiri) Ayanamsha on standard astronomical software (Jagannath Hora):
           </p>
 
           <ul className="space-y-2">
@@ -257,31 +227,15 @@ const BookReadingClientPage: FC = () => {
               </li>
             ))}
           </ul>
-
-          <div className="space-y-2 pt-4 border-t border-outline/10">
-            {t.technicalMethod.details.map((dt, idx) => (
-              <p key={idx} className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-                • {dt}
-              </p>
-            ))}
-          </div>
         </section>
 
         {/* Payment Details Card */}
         <section id="payment-details" className="scroll-mt-24 bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Direct Transfer
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              {t.paymentDetailsTitle}
-            </h2>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+            {t.paymentDetailsTitle}
+          </h2>
 
           <div className="space-y-4">
-            <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-              Booking charge is ₹701/- per session. You can complete payment via UPI (India) or PayPal (International) using the details below:
-            </p>
             <CopyableField
               value={t.upiId}
               label={t.upiLabel}
@@ -296,18 +250,10 @@ const BookReadingClientPage: FC = () => {
         </section>
 
         {/* Schedule Call-to-Action Card at end of page */}
-        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 text-center">
-          <div className="space-y-2">
-            <span className="text-xs font-medium text-accent font-label tracking-wider block">
-              Appointment Scheduling
-            </span>
-            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-              Schedule Your Reading
-            </h2>
-            <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-              Use the Schedule button below to reserve your appointment on Calendly.
-            </p>
-          </div>
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+            Schedule Your Reading
+          </h2>
 
           <div className="pt-2 flex flex-col items-center">
             <ScheduleButton

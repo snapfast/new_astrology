@@ -2,12 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
-
-const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), { ssr: false });
 
 const TRANSLATIONS = {
   en: {
@@ -32,7 +29,6 @@ const TRANSLATIONS = {
 
 const Navbar = () => {
   const t = TRANSLATIONS.en;
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -295,10 +291,6 @@ const Navbar = () => {
     </div>
     )}
 
-    <BookConsultationModal
-      isOpen={isBookingModalOpen}
-      onClose={() => setIsBookingModalOpen(false)}
-    />
   </>
   );
 };

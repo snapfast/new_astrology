@@ -1,12 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import Logo from './Logo';
 import { sendGAEvent } from '@next/third-parties/google';
-
-const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), { ssr: false });
 
 const TRANSLATIONS = {
   desc: 'Guided by the stars, grounded in ancient wisdom. Professional Vedic astrology services for spiritual clarity and alignment.',
@@ -29,7 +25,6 @@ const TRANSLATIONS = {
 
 const Footer = () => {
   const t = TRANSLATIONS;
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
     <footer className="w-full pt-16 pb-12 bg-background border-t border-outline/20 font-body print:hidden">
@@ -79,10 +74,6 @@ const Footer = () => {
         </div>
       </div>
 
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-      />
     </footer>
   );
 };
