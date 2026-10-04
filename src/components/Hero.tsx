@@ -14,7 +14,6 @@ const cormorant = Cormorant_Garamond({
 });
 
 const LearnMoreModal = dynamic(() => import('./LearnMoreModal'), { ssr: false });
-const BookConsultationModal = dynamic(() => import('./BookConsultationModal'), { ssr: false });
 
 const TRANSLATIONS = {
   en: {
@@ -29,7 +28,6 @@ const TRANSLATIONS = {
 const Hero = () => {
   const t = TRANSLATIONS.en;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-background">
@@ -163,11 +161,6 @@ const Hero = () => {
       <LearnMoreModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      />
-
-      <BookConsultationModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
       />
     </section>
   );

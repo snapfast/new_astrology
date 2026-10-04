@@ -105,7 +105,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
       <div className="relative group">
         <button
           onClick={handleCopy}
-          className="w-full flex items-center justify-between px-4 py-3 bg-surface-bright border border-outline/20 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-outline/20 rounded-xl hover:border-primary/30 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 active:scale-[0.98]"
         >
           <span className="text-sm md:text-base font-body text-on-surface font-medium mr-2">
             {value}
@@ -139,7 +139,7 @@ const BookReadingClientPage: FC = () => {
         description={t.description}
       >
         <div className="flex flex-col items-center gap-4 mt-2">
-          <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
+          <div className="inline-block bg-white px-4 py-2 rounded-full border border-outline/20 shadow-sm">
             <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
               Recommended Dakshina (Cost): US$ 21 / ₹701/-
             </span>
@@ -185,8 +185,8 @@ const BookReadingClientPage: FC = () => {
           <div className="space-y-3 pt-2">
             <ol className="space-y-3">
               {t.whatToExpect.parts.map((part) => (
-                <li key={part.num} className="flex items-start gap-4 p-4 bg-surface-bright rounded-2xl border border-outline/10">
-                  <span className="w-7 h-7 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
+                <li key={part.num} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-outline/20">
+                  <span className="w-7 h-7 rounded-full bg-white border border-outline/20 flex items-center justify-center font-headline text-xs text-secondary font-semibold shrink-0 mt-0.5">
                     {part.num}
                   </span>
                   <div className="space-y-0.5">
@@ -202,7 +202,7 @@ const BookReadingClientPage: FC = () => {
             </ol>
           </div>
 
-          <p className="text-xs md:text-sm font-body text-on-surface/80 italic leading-relaxed bg-surface-bright p-4 rounded-2xl border border-outline/10">
+          <p className="text-xs md:text-sm font-body text-on-surface/80 italic leading-relaxed bg-white p-4 rounded-2xl border border-outline/20">
             &ldquo;{t.whatToExpect.knowledgeNote}&rdquo;
           </p>
         </section>
