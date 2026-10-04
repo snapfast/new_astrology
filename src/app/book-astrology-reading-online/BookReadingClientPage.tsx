@@ -72,7 +72,7 @@ const TRANSLATIONS = {
         "Keep a pen and notebook ready for remedies."
       ]
     },
-    paymentDetailsTitle: "Recommended Dakshina (Cost): US$ 21 / ₹701/-",
+    paymentDetailsTitle: "Recommended Dakshina (Cost): US$ 21 ₹701",
     upiLabel: "UPI (India):",
     upiId: "rahul.bali@ybl",
     paypalLabel: "PayPal (International):",
@@ -141,7 +141,7 @@ const BookReadingClientPage: FC = () => {
         <div className="flex flex-col items-center gap-4 mt-2">
           <div className="inline-block bg-white px-4 py-2 rounded-full border border-outline/20 shadow-sm">
             <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
-              Recommended Dakshina (Cost): US$ 21 / ₹701/-
+              Recommended Dakshina (Cost): US$ 21 ₹701
             </span>
           </div>
           <div className="flex flex-col items-center">
