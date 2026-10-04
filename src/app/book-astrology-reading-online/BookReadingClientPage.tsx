@@ -25,7 +25,7 @@ const TRANSLATIONS = {
       title: "What to Expect in Your Reading",
       intro: "Each session is a 1-hour direct live consultation dedicated entirely to your birth chart and specific life questions:",
       sessionTitle: "1 Hour Consultation",
-      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching.",
+      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching. Available modes when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.",
       partsTitle: "Three Main Parts of the Session",
       partsDesc: "During our conversation, we cover three primary areas:",
       parts: [
@@ -67,12 +67,12 @@ const TRANSLATIONS = {
     howToBook: {
       items: [
         <span key="payment-item">Email payment screenshot to rahulbaliastrology@gmail.com (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">pay here</a>).</span>,
-        "Pick a convenient slot on Calendly.",
+        "Pick a convenient slot and consultation format (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
         "Ensure a quiet room and stable connection.",
         "Keep a pen and notebook ready for remedies."
       ]
     },
-    paymentDetailsTitle: "Booking Charge Payment (₹701/-)",
+    paymentDetailsTitle: "Recommended Dakshina (Cost): US$ 21 / ₹701/-",
     upiLabel: "UPI (India):",
     upiId: "rahul.bali@ybl",
     paypalLabel: "PayPal (International):",
@@ -141,7 +141,7 @@ const BookReadingClientPage: FC = () => {
         <div className="flex flex-col items-center gap-4 mt-2">
           <div className="inline-block bg-surface-bright px-4 py-2 rounded-full border border-outline/20">
             <span className="text-sm md:text-base font-semibold font-headline text-on-surface">
-              Booking Charge: ₹701/-
+              Recommended Dakshina (Cost): US$ 21 / ₹701/-
             </span>
           </div>
           <div className="flex flex-col items-center">
@@ -280,7 +280,7 @@ const BookReadingClientPage: FC = () => {
 
           <div className="space-y-4">
             <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
-              Booking charge is ₹701/- per session. You can complete payment via UPI (India) or PayPal (International) using the details below:
+              Recommended Dakshina (Cost) is US$ 21 / ₹701/- per session. You can complete payment via UPI (India) or PayPal (International) using the details below:
             </p>
             <CopyableField
               value={t.upiId}
