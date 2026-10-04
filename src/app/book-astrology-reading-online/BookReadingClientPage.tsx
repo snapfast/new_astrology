@@ -25,7 +25,7 @@ const TRANSLATIONS = {
       title: "What to Expect in Your Reading",
       intro: "Each session is a 1-hour direct live consultation dedicated entirely to your birth chart and specific life questions:",
       sessionTitle: "1 Hour Consultation",
-      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching. Available modes when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.",
+      sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching. Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.",
       partsTitle: "Three Main Parts of the Session",
       partsDesc: "During our conversation, we cover three primary areas:",
       parts: [
@@ -67,7 +67,7 @@ const TRANSLATIONS = {
     howToBook: {
       items: [
         <span key="payment-item">Email payment screenshot to rahulbaliastrology@gmail.com (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">pay here</a>).</span>,
-        "Pick a convenient slot and consultation format (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
+        "Pick a convenient slot and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
         "Ensure a quiet room and stable connection.",
         "Keep a pen and notebook ready for remedies."
       ]
