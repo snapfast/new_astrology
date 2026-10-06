@@ -14,4 +14,18 @@ test('Reviews page map and note verification', async ({ page }) => {
   // Verify Archival Note (English)
   await expect(page.getByText('Please check our Google profile above for the latest reviews.', { exact: false })).toBeVisible();
 
+  // Verify Threads post embeds
+  const threadsEmbed1 = page.locator('#ig-tp-Dd2CG6YE1Qm');
+  await expect(threadsEmbed1).toBeAttached();
+
+
+});
+
+
+test('About page Threads post embed verification', async ({ page }) => {
+  await page.goto('/about');
+  await page.waitForLoadState('networkidle');
+
+  const threadsEmbed = page.locator('#ig-tp-Dd2CG6YE1Qm');
+  await expect(threadsEmbed).toBeAttached();
 });
