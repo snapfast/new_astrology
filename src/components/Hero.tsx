@@ -3,15 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { Cormorant_Garamond } from 'next/font/google';
 import StarRating from './StarRating';
 import { sendGAEvent } from '@next/third-parties/google';
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  display: 'swap',
-});
 
 const LearnMoreModal = dynamic(() => import('./LearnMoreModal'), { ssr: false });
 
