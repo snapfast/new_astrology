@@ -90,7 +90,18 @@ export default function ReviewsClientPage() {
           </div>
       </PageHeader>
 
-      <div className="pt-16 pb-16">
+      <section className="max-w-7xl mx-auto px-8 pt-12 pb-6">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3507.5973617160266!2d77.0661377!3d28.4615515!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1911f4ce53e1%3A0x1aa9a8a9a005470!2sRahul%20Bali%20Astrology!5e0!3m2!1sen!2sin!4v1781586655704!5m2!1sen!2sin"
+          className="w-full h-[450px] rounded-3xl border border-outline shadow-sm"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Bali Astrology on Google Maps"
+        />
+      </section>
+
+      <div className="pt-6 pb-16">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {REVIEWS.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-3xl border border-outline flex flex-col shadow-sm">
@@ -117,18 +128,6 @@ export default function ReviewsClientPage() {
           {t.latestReviewsNote}
         </p>
       </div>
-
-
-            <section className="max-w-7xl mx-auto px-8 pb-16">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3507.5973617160266!2d77.0661377!3d28.4615515!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1911f4ce53e1%3A0x1aa9a8a9a005470!2sRahul%20Bali%20Astrology!5e0!3m2!1sen!2sin!4v1781586655704!5m2!1sen!2sin"
-          className="w-full h-[450px] rounded-3xl border border-outline shadow-sm"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Bali Astrology on Google Maps"
-        />
-      </section>
 
       {/* CTA Section to Reduce Bounce Rate */}
       <section className="py-16 bg-surface-bright relative overflow-hidden border-t border-outline/20">
