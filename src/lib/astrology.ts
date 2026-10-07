@@ -2241,8 +2241,13 @@ function calculatePanchang(time: Ast.AstroTime, lat: number, lon: number): Panch
     } as PanchangData;
 
     const findNextTransitionTime = (transitions: Array<{ idx: number, time: Date }>) => {
-        const next = transitions.find(t => t.time > time.date);
-        return next ? formatISTTime(next.time) : "--:--";
+        const targetMs = time.date.getTime();
+        for (let i = 0; i < transitions.length; i++) {
+            if (transitions[i].time.getTime() > targetMs) {
+                return formatISTTime(transitions[i].time);
+            }
+        }
+        return "--:--";
     };
 
     Object.defineProperty(result, 'tithiEnd', { get: () => findNextTransitionTime(tithiTransitions), enumerable: true });
