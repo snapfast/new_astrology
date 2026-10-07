@@ -22,6 +22,9 @@ test('About page Threads post embed verification', async ({ page }) => {
   await page.goto('/about');
   await page.waitForLoadState('networkidle');
 
-  const threadsEmbed = page.locator('#ig-tp-Dd2CG6YE1Qm');
-  await expect(threadsEmbed).toBeAttached();
+  const threadsEmbed1 = page.locator('blockquote[data-text-post-permalink*="Dd2CG6YE1Qm"], iframe[src*="Dd2CG6YE1Qm"]');
+  await expect(threadsEmbed1.first()).toBeAttached();
+
+  const threadsEmbed2 = page.locator('blockquote[data-text-post-permalink*="DbnbWEbDw6u"], iframe[src*="DbnbWEbDw6u"]');
+  await expect(threadsEmbed2.first()).toBeAttached();
 });
