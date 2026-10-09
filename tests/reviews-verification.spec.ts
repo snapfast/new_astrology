@@ -28,3 +28,11 @@ test('About page Threads post embed verification', async ({ page }) => {
   const threadsEmbed2 = page.locator('blockquote[data-text-post-permalink*="DbnbWEbDw6u"], iframe[src*="DbnbWEbDw6u"]');
   await expect(threadsEmbed2.first()).toBeAttached();
 });
+
+test('About page Instagram reel embed verification', async ({ page }) => {
+  await page.goto('/about');
+  await page.waitForLoadState('networkidle');
+
+  const instagramEmbed = page.locator('blockquote[data-instgrm-permalink*="DUvQh7vidZS"], iframe[src*="DUvQh7vidZS"]');
+  await expect(instagramEmbed.first()).toBeAttached();
+});
