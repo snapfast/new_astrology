@@ -36,25 +36,6 @@ export default function AboutClient() {
           ॥ ॐ नमो भगवते वासुदेवाय नमः ॥
         </div>
       </div>
-
-      {/* Specialized Services List Card */}
-      <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-8">
-        <div className="text-center">
-          <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
-            Specialized Services
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 text-center">
-          {SPECIALIZED_SERVICES.map((service) => (
-            <p
-              key={service.id}
-              className="text-sm md:text-base font-medium text-on-surface/90 py-1"
-            >
-              {service.title}
-            </p>
-          ))}
-        </div>
-      </div>
       {/* Featured on Instagram */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-6 flex flex-col items-center">
         <div className="text-center">
@@ -150,8 +131,6 @@ export default function AboutClient() {
         </div>
         <Script src="https://www.instagram.com/embed.js" strategy="afterInteractive" />
       </div>
-
-
 
       {/* Featured on Threads */}
       <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-8 md:p-12 space-y-6 flex flex-col items-center">
@@ -394,6 +373,25 @@ export default function AboutClient() {
               </svg>
             </a>
           </div>
+        </div>
+      </div>
+
+      {/* Specialized Services List Card */}
+      <div className="bg-white border border-outline/20 shadow-sm rounded-3xl p-6 md:p-8 space-y-4">
+        <div className="text-center">
+          <h2 className="text-xs md:text-sm font-medium uppercase text-accent font-label tracking-[0.25em]">
+            Specialized Services
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1.5 md:gap-2 text-center">
+          {SPECIALIZED_SERVICES.map((service) => (
+            <p
+              key={service.id}
+              className="text-sm md:text-base font-medium text-on-surface/90 py-0.5"
+            >
+              {service.title}
+            </p>
+          ))}
         </div>
       </div>
 
