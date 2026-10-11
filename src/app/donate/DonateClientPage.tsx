@@ -86,9 +86,9 @@ const DonateClientPage: FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="space-y-16 md:space-y-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 justify-items-center">
             {/* UPI Section */}
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
+            <div className="flex flex-col items-center text-center space-y-8">
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.upiTitle}</h4>
               </div>
@@ -112,7 +112,7 @@ const DonateClientPage: FC = () => {
             </div>
 
             {/* PayPal Section */}
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
+            <div className="flex flex-col items-center text-center space-y-8">
               <div className="space-y-3">
                 <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.paypalTitle}</h4>
               </div>
@@ -135,7 +135,7 @@ const DonateClientPage: FC = () => {
             </div>
           </div>
 
-          <div className="pt-12 border-t border-outline/20 text-center lg:text-left">
+          <div className="pt-12 border-t border-outline/20 text-center">
             <a
               href="mailto:rahulbaliastrology@gmail.com"
               className="inline-flex items-center gap-4 text-on-surface/70 hover:text-primary transition-colors font-body text-base md:text-lg group"
