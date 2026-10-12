@@ -16,6 +16,7 @@ Bali Astrology provides free, precise Vedic (Parashari) and Krishnamurti Paddhat
 
 ## Free Astrological Tools
 
+- [Numerology](https://baliastrology.com/numerology): Discover your Mulank, Bhagyank, and Namank with Chaldean and Pythagorean analysis.
 - [Free Kundli & Birth Chart](https://baliastrology.com/free-horoscope): Complete Vedic birth chart generation including Lagna chart, Navamsha (D9), Vimshottari Dasha, planetary positions, and house details.
 - [KP Prashna / Horary Astrology](https://baliastrology.com/kp-horary): KP Horary analysis using a horary number (1-249) for specific timing and query predictions.
 - [Daily Panchang](https://baliastrology.com/panchang): Real-time daily Vedic calendar including Tithi, Vara, Nakshatra, Yoga, Karana, Rahu Kalam, and Abhijit Muhurta.

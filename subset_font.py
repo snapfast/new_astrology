@@ -19,7 +19,7 @@ def find_required_icons():
         "content_copy", "dashboard", "desktop_windows", "done", "edit", "edit_note", "event",
         "explore", "favorite", "festival", "fitness_center", "flight", "folder_open",
         "format_list_numbered", "grid_view", "help_center", "history", "hourglass_empty", "info",
-        "insights", "lightbulb", "local_fire_department", "mail", "menu", "menu_book", "nights_stay",
+        "insights", "lightbulb", "local_fire_department", "mail", "menu", "looks_one", "sort_by_alpha", "calculate", "menu_book", "nights_stay",
         "open_in_new", "palette", "person", "psychology", "schedule", "school", "search",
         "search_off", "self_improvement", "sentiment_satisfied", "share", "star", "sunny",
         "sync_alt", "table_chart", "task_alt", "view_quilt", "visibility", "warning",

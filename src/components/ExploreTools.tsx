@@ -85,6 +85,17 @@ const ALL_CARDS = [
     gaAction: 'explore_transits_ascendant',
     paths: ['/transits-per-ascendant']
   },
+
+  {
+    id: 'numerology',
+    href: '/numerology',
+    icon: 'looks_one',
+    title: 'Numerology',
+    desc: 'Discover your Mulank, Bhagyank, and Namank with detailed numerological analysis.',
+    action: 'Calculate Now',
+    gaAction: 'explore_numerology',
+    paths: ['/numerology']
+  },
   {
     id: 'booking',
     isButton: true,
