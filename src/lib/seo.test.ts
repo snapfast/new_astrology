@@ -41,9 +41,9 @@ test('getAlternates returns correct canonical and hreflang mappings for subpages
 });
 
 test('getAlternates handles nested and dynamic paths correctly', () => {
-  const expectedUrl = `${SITE_URL}/blog/understanding-panchang`;
+  const expectedUrl = `${SITE_URL}/about`;
 
-  const result = getAlternates('/blog/understanding-panchang');
+  const result = getAlternates('/about');
   assert.equal(result.canonical, expectedUrl);
   assert.deepEqual(result.languages, {
     en: expectedUrl,

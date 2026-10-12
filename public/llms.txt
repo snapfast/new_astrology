@@ -26,9 +26,4 @@ Bali Astrology provides free, precise Vedic (Parashari) and Krishnamurti Paddhat
 - [Biorhythm Calculator](https://baliastrology.com/biorhythm): Physical, emotional, and intellectual cycles based on birth date.
 - [Birth Time Rectification (BTR)](https://baliastrology.com/btr): Tool assisting in refining precise birth timing using astrological indicators.
 
-## Blog & Articles
 
-- [Blog Index](https://baliastrology.com/blog): Articles on Vedic astrology, KP system, planetary movements, and remedies.
-- [Navigating Planetary Transits](https://baliastrology.com/blog/navigating-planetary-transits): Detailed guide on understanding planetary transits (Gochar) and their impact.
-- [KP Astrology Demystified](https://baliastrology.com/blog/kp-astrology-demystified): Fundamentals of Krishnamurti Paddhati, sub-lords, and precise event timing.
-- [Understanding Panchang](https://baliastrology.com/blog/understanding-panchang): Explanation of the five limbs of Panchang and how to choose auspicious Muhurtas.
