@@ -78,7 +78,6 @@ const Navbar = () => {
     { name: t.reviews, href: '/reviews' },
     { name: t.donate, href: '/donate' },
     { name: t.about, href: '/about' },
-    { name: 'Blog', href: '/blog' },
     {
       name: t.tools,
       subLinks: [
