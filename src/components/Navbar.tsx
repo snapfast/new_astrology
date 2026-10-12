@@ -90,6 +90,7 @@ const Navbar = () => {
         { name: 'KP Prashna', href: '/kp-horary' },
         { name: 'Panch Pakshi', href: '/panch-pakshi' },
         { name: 'Biorhythm', href: '/biorhythm' },
+        { name: 'Numerology', href: '/numerology' },
         { name: 'Birth Time Rectification (BTR)', href: '/btr' },
         { name: 'FAQ', href: '/faq' }
       ]
