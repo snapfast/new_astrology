@@ -39,14 +39,29 @@ def find_required_icons():
 
     return sorted(list(icons))
 
+import urllib.request
+
+def download_full_font(font_path):
+    """
+    Downloads the full Material Symbols Outlined TTF from Google Fonts if not present locally.
+    """
+    if not os.path.exists(font_path):
+        print(f"Downloading full Material Symbols Outlined TTF to {font_path}...")
+        url = "https://github.com/google/material-design-icons/raw/master/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.ttf"
+        urllib.request.urlretrieve(url, font_path)
+        print("Download complete.")
+
 def subset_font():
     """
     Subsets material-symbols-outlined.woff2 by retaining only the GSUB ligatures
     and character unicodes for required icons, drastically reducing font download size.
     """
+    full_font_path = "full-material.ttf"
+    download_full_font(full_font_path)
+
     icons_list = find_required_icons()
     font_path = "src/fonts/material-symbols-outlined.woff2"
-    font = TTFont(font_path)
+    font = TTFont(full_font_path)
 
     cmap = font.getBestCmap()
     char_map = {}

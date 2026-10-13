@@ -49,3 +49,4 @@ next-env.d.ts
 
 # playwright test screenshots
 /panchang-screenshots/
+full-material.ttf
