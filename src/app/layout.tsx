@@ -3,6 +3,7 @@ import { Akshar, Sen } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import JsonLd from "@/components/JsonLd";
 import BackToTop from "@/components/BackToTop";
+import SmoothScrolling from "@/components/SmoothScrolling";
 import { headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { getAlternates } from "@/lib/seo";
@@ -100,6 +101,7 @@ export default async function RootLayout({
         className={`${akshar.variable} ${sen.variable} bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed antialiased`}
       >
         <LanguageProvider>
+          <SmoothScrolling>
           <JsonLd
             nonce={nonce}
             data={{
@@ -125,6 +127,7 @@ export default async function RootLayout({
           />
           {children}
           <BackToTop />
+          </SmoothScrolling>
         </LanguageProvider>
       </body>
       {process.env.NODE_ENV === 'production' && <GoogleAnalytics gaId="G-CXNZQJTRVS" nonce={nonce} />}
