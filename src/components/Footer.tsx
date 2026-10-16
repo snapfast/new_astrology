@@ -82,6 +82,8 @@ const Footer = () => {
         </div>
       </div>
 
+      <audio src="/background-audio.mp3" autoPlay loop className="hidden" />
+
     </footer>
   );
 };
