@@ -36,15 +36,6 @@ const Footer = () => {
           <p className="text-on-surface text-sm leading-relaxed mb-10 max-w-xs font-normal">
             {t.desc}
           </p>
-          <div className="mt-6 max-w-[200px] aspect-video rounded-xl overflow-hidden shadow-sm">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/eNmjWjpxUOM?autoplay=1&mute=1"
-              title="Bali Astrology Video"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
         </div>
         <div>
           <h6 className="text-on-surface mb-8 font-semibold uppercase font-label text-[10px] tracking-widest">{t.services}</h6>
