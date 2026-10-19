@@ -105,7 +105,7 @@ const Hero = () => {
           <h1 className="text-3xl md:text-5xl font-sen text-on-surface font-normal mb-3 tracking-tight">
             Pandit Rahul Bali Ji
           </h1>
-          <span className="font-semibold text-accent font-label text-[10px] md:text-xs tracking-[0.25em] uppercase max-w-xl text-center">
+          <span className="font-normal text-accent font-label text-[10px] md:text-xs tracking-[0.25em] uppercase max-w-xl text-center">
             {t.subtitle}
           </span>
         </div>
@@ -137,7 +137,7 @@ const Hero = () => {
         {/* Trust Signals */}
         <div className="flex flex-row items-center justify-center gap-4 md:gap-12 max-w-2xl mx-auto pt-8 border-t border-outline/30">
           <div className="flex flex-col items-center flex-1">
-            <span className="text-xl md:text-2xl font-headline text-on-surface font-bold tabular-nums mb-1">200+</span>
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">200+</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.2em] font-label text-center">Consultations</span>
           </div>
 
@@ -145,7 +145,7 @@ const Hero = () => {
 
           <div className="flex flex-col items-center flex-1">
             <StarRating className="mb-1" starClassName="text-[14px] md:text-[16px]" />
-            <span className="text-xl md:text-2xl font-headline text-on-surface font-bold tabular-nums mb-1">5.0</span>
+            <span className="text-xl md:text-2xl font-headline text-on-surface tabular-nums mb-1">5.0</span>
             <span className="text-[8px] md:text-[10px] font-medium text-on-surface uppercase tracking-[0.15em] font-label text-center">5 Star Google Rating</span>
           </div>
         </div>
