@@ -57,7 +57,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <DeepamIcon width={22} height={22} className="shrink-0" />
                   </div>
                   <div>
-                    <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
+                    <p className="text-on-surface uppercase font-label text-[9px] tracking-widest">{t.abhijit}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.abhijitMuhurta}</p>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <BrahmaMuhurtaIcon width={22} height={22} className="shrink-0" />
                   </div>
                   <div>
-                    <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
+                    <p className="text-on-surface uppercase font-label text-[9px] tracking-widest">{t.brahma}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.brahmaMuhurta}</p>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
                     <RahuIcon width={22} height={22} className="shrink-0" />
                   </div>
                   <div>
-                    <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
+                    <p className="text-on-surface uppercase font-label text-[9px] tracking-widest">{t.rahu}</p>
                     <p className="text-base font-body tabular-nums text-on-surface">{panchang.rahuKaal}</p>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
 
             <div className="lg:w-1/2 w-full grid grid-cols-2 md:grid-cols-3 gap-8">
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.tithi}</p>
+                <p className="text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.tithi}</p>
                 {(panchang.tithisList || [{ name: panchang.tithi, sanskrit: panchang.tithiSanskrit, end: panchang.tithiEnd, paksha: panchang.paksha, pakshaSanskrit: panchang.pakshaSanskrit }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
                     <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
@@ -106,7 +106,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.nakshatra}</p>
+                <p className="text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.nakshatra}</p>
                 {(panchang.nakshatrasList || [{ name: panchang.nakshatra, sanskrit: panchang.nakshatraSanskrit, end: panchang.nakshatraEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
                     <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
@@ -121,7 +121,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.yoga}</p>
+                <p className="text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.yoga}</p>
                 {(panchang.yogasList || [{ name: panchang.yoga, sanskrit: panchang.yogaSanskrit, end: panchang.yogaEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
                     <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
@@ -136,7 +136,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.karana}</p>
+                <p className="text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.karana}</p>
                 {(panchang.karanasList || [{ name: panchang.karana, sanskrit: panchang.karanaSanskrit, end: panchang.karanaEnd }]).map((item, idx) => (
                   <div key={idx} className="space-y-0.5 border-l border-accent/10 pl-2">
                     <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">
@@ -151,7 +151,7 @@ const DailyPanchangComponent = ({ className = "" }: DailyPanchangProps) => {
               </div>
 
               <div className="space-y-3 hover:bg-on-surface/[0.02] p-2 -m-2 rounded-xl transition-colors duration-300">
-                <p className="font-bold text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.vara}</p>
+                <p className="text-on-surface uppercase font-label text-[9px] tracking-widest whitespace-nowrap">{t.vara}</p>
                 <div className="space-y-0.5 border-l border-accent/10 pl-2">
                   <p className="text-sm md:text-base font-headline text-on-surface whitespace-nowrap">{panchang.vara}</p>
                   <p className="text-sm md:text-base text-on-surface font-hindi font-medium whitespace-nowrap">{panchang.varaSanskrit}</p>

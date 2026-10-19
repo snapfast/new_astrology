@@ -102,7 +102,7 @@ const Testimonials = () => {
               </a>
 
               <div className="flex flex-col gap-1.5">
-                <span className="font-semibold text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5.0 GOOGLE RATING</span>
+                <span className="font-normal text-[11px] tracking-[0.15em] text-on-surface uppercase font-label">5.0 GOOGLE RATING</span>
                 <StarRating starClassName="text-base" />
               </div>
 
@@ -139,7 +139,7 @@ const Testimonials = () => {
                         &quot;{item.review}&quot;
                       </p>
                       <div className="flex items-center gap-4 mt-auto">
-                        <div className="w-12 h-12 rounded-full bg-white border border-outline/20 flex items-center justify-center text-accent font-semibold text-lg">
+                        <div className="w-12 h-12 rounded-full bg-white border border-outline/20 flex items-center justify-center text-accent font-normal text-lg">
                           {item.name[0]}
                         </div>
                         <div>
