@@ -43,7 +43,7 @@ const CopyableField: FC<{ value: string; label: string; copiedLabel: string }> =
   };
 
   return (
-    <div className="flex flex-col gap-1.5 w-full max-w-[320px]">
+    <div className="flex flex-col gap-1.5 w-full max-w-[480px]">
       <span className="text-on-surface/70 font-label uppercase text-[9px] tracking-widest">
         {label}
       </span>
@@ -84,23 +84,24 @@ const DonateClientPage: FC = () => {
         description={t.description}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="space-y-16 md:space-y-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 justify-items-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+        <div className="space-y-10 md:space-y-12">
+          {/* Single Column Layout */}
+          <div className="flex flex-col items-center gap-10 md:gap-12 w-full">
             {/* UPI Section */}
-            <div className="flex flex-col items-center text-center space-y-8">
-              <div className="space-y-3">
-                <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.upiTitle}</h4>
-              </div>
-              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-3xl md:rounded-3xl p-6 md:p-10 shadow-sm border border-outline/20 overflow-hidden flex items-center justify-center">
+            <div className="flex flex-col items-center text-center space-y-4 w-full">
+              <h2 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">
+                {t.upiTitle}
+              </h2>
+              <div className="relative w-full max-w-[480px] aspect-square bg-white rounded-3xl p-3 shadow-sm border border-outline/20 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/donate-qr.png"
                     alt="UPI QR Code"
                     fill
-                    className="object-contain p-6 scale-125"
+                    className="object-contain"
                     priority
-                    sizes="(max-width: 768px) 400px, 560px"
+                    sizes="(max-width: 640px) 100vw, 480px"
                   />
                 </div>
               </div>
@@ -112,18 +113,18 @@ const DonateClientPage: FC = () => {
             </div>
 
             {/* PayPal Section */}
-            <div className="flex flex-col items-center text-center space-y-8">
-              <div className="space-y-3">
-                <h4 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">{t.paypalTitle}</h4>
-              </div>
-              <div className="relative w-full aspect-square max-w-[400px] md:max-w-[560px] bg-white rounded-3xl md:rounded-3xl p-10 md:p-16 shadow-sm border border-outline/20 overflow-hidden flex items-center justify-center">
+            <div className="flex flex-col items-center text-center space-y-4 w-full">
+              <h2 className="font-medium text-on-surface font-headline text-2xl md:text-3xl">
+                {t.paypalTitle}
+              </h2>
+              <div className="relative w-full max-w-[480px] aspect-square bg-white rounded-3xl p-6 shadow-sm border border-outline/20 overflow-hidden flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
                     src="/paypal-logo.svg"
                     alt="PayPal"
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 400px, 560px"
+                    sizes="(max-width: 640px) 100vw, 480px"
                   />
                 </div>
               </div>
@@ -135,20 +136,20 @@ const DonateClientPage: FC = () => {
             </div>
           </div>
 
-          <div className="pt-12 border-t border-outline/20 text-center">
+          <div className="pt-8 border-t border-outline/20 text-center">
             <a
               href="mailto:rahulbaliastrology@gmail.com"
-              className="inline-flex items-center gap-4 text-on-surface/70 hover:text-primary transition-colors font-body text-base md:text-lg group"
+              className="inline-flex items-center gap-3 text-on-surface/70 hover:text-primary transition-colors font-body text-base md:text-lg group"
             >
-              <div className="w-12 h-12 rounded-full bg-surface-bright flex items-center justify-center border border-outline/20 group-hover:border-primary/20 transition-colors">
-                <span className="material-symbols-outlined text-xl">mail</span>
+              <div className="w-10 h-10 rounded-full bg-surface-bright flex items-center justify-center border border-outline/20 group-hover:border-primary/20 transition-colors">
+                <span className="material-symbols-outlined text-lg">mail</span>
               </div>
               <span>{t.emailTitle}: <span className="text-on-surface font-medium">rahulbaliastrology@gmail.com</span></span>
             </a>
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-outline/20 text-center">
+        <div className="mt-10 pt-6 border-t border-outline/20 text-center">
           <p className="text-on-surface/70 font-label uppercase text-[10px] md:text-xs tracking-[0.3em]">
             {t.motto}
           </p>
