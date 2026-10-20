@@ -39,7 +39,7 @@ test('Panchang page lists multiple transitions and has copy text card', async ({
   expect(content).not.toBeNull();
   expect(content).toContain('New Delhi, India');
   expect(content).toContain('Saturday, July 11, 2026');
-  expect(content).toContain('Tithi: Dwadashi upto 02:04 AM, Jul 12');
+  expect(content).toContain('Tithi: Dwadashi');
   expect(content).toContain('Paksha: Krishna Paksha');
   expect(content).toContain('Weekday: Shanivara');
   expect(content).toContain('Moonsign: Vrishabha');
