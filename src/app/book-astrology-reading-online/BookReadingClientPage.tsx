@@ -174,9 +174,14 @@ const BookReadingClientPage: FC = () => {
 
         {/* What to Expect Section */}
         <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-          <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
-            {t.whatToExpect.title}
-          </h2>
+          <div className="space-y-1">
+            <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+              {t.whatToExpect.title}
+            </h2>
+            <h3 className="text-lg md:text-xl font-medium font-headline text-secondary">
+              {t.whatToExpect.sessionTitle}
+            </h3>
+          </div>
 
           <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
             Each 1-hour session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details (covering career, personal, horary/Prashna, Muhurta, or Kundli matching). Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.
