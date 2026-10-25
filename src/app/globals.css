@@ -44,20 +44,9 @@
     background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,245,210,0.4) 30%, rgba(2,6,23,0.8) 70%, #020617 100%);
   }
 
-  .concentric-circles {
-    @apply absolute inset-0 flex items-center justify-center pointer-events-none;
-  }
-
-  .circle-dashed {
-    @apply absolute rounded-full border border-dashed border-black/10;
-  }
 
   .animate-slow-spin {
     animation: spin 60s linear infinite;
-  }
-
-  .animate-spin-20s {
-    animation: spin 20s linear infinite;
   }
 
   .animate-spin-35s {
@@ -66,14 +55,6 @@
 
   .animate-spin-60s {
     animation: spin 60s linear infinite;
-  }
-
-  .animate-spin-126s {
-    animation: spin 126.17s linear infinite;
-  }
-
-  .animate-spin-313s {
-    animation: spin 313.40s linear infinite;
   }
 
   @keyframes spin {
