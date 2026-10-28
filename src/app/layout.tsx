@@ -38,6 +38,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Pandit Rahul Bali" }],
   creator: "Pandit Rahul Bali",
   publisher: "Bali Astrology",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+  },
   alternates: getAlternates(""),
   formatDetection: {
     email: false,
