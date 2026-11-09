@@ -66,10 +66,10 @@ const TRANSLATIONS = {
     },
     howToBook: {
       items: [
-        "Pick a convenient date, time slot, and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
-        <span key="payment-item">Complete the recommended Dakshina (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">view payment details</a>) and email the confirmation screenshot to rahulbaliastrology@gmail.com prior to your session.</span>,
-        "Ensure a quiet room and stable connection.",
-        "Keep a pen and notebook ready."
+        "Select your preferred date, time slot, and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
+        <span key="payment-item">Complete the recommended Dakshina (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">view payment details below</a>) via UPI or PayPal.</span>,
+        "Email your payment confirmation screenshot or transaction reference to rahulbaliastrology@gmail.com (or mention it directly in the Calendly booking form) prior to our scheduled session.",
+        "Ensure a quiet room, stable internet connection, and keep a notebook and pen ready."
       ]
     },
     paymentDetailsTitle: "Recommended Dakshina (Cost): US$ 44 ₹1499",
@@ -176,7 +176,7 @@ const BookReadingClientPage: FC = () => {
               {t.scheduleBtnText}
             </ScheduleButton>
             <p className="text-xs font-body text-on-surface/60 mt-3">
-              Instant calendar confirmation with automatic time zone adjustment
+              Instant calendar confirmation with automatic time zone adjustment worldwide
             </p>
           </div>
         </div>
@@ -312,7 +312,7 @@ const BookReadingClientPage: FC = () => {
               {t.scheduleBtnText}
             </ScheduleButton>
             <p className="text-xs font-body text-on-surface/60 mt-3">
-              Instant calendar confirmation with automatic time zone adjustment
+              Instant calendar confirmation with automatic time zone adjustment worldwide
             </p>
           </div>
         </section>
