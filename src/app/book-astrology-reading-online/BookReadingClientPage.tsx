@@ -66,8 +66,8 @@ const TRANSLATIONS = {
     },
     howToBook: {
       items: [
-        <span key="payment-item">Email payment screenshot to rahulbaliastrology@gmail.com (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">pay here</a>).</span>,
-        "Pick a convenient slot and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
+        "Pick a convenient date, time slot, and consultation type (Google Meet, Phone Call, or Recorded Audio) on Calendly.",
+        <span key="payment-item">Complete the recommended Dakshina (<a href="#payment-details" className="text-primary underline hover:opacity-80 transition-opacity font-medium">view payment details</a>) and email the confirmation screenshot to rahulbaliastrology@gmail.com prior to your session.</span>,
         "Ensure a quiet room and stable connection.",
         "Keep a pen and notebook ready."
       ]
@@ -79,7 +79,28 @@ const TRANSLATIONS = {
     paypalEmail: "rahulbaliastrology@gmail.com",
     scheduleBtnText: "Schedule Reading on Calendly",
     copied: "Copied!",
-    calendlyUrl: "https://calendly.com/rahulbaliastrology/kundli/"
+    calendlyUrl: "https://calendly.com/rahulbaliastrology/kundli/",
+    faq: {
+      title: "Frequently Asked Questions",
+      items: [
+        {
+          q: "What if I do not have my exact birth time?",
+          a: "If your birth time is approximate, Pandit Rahul Bali Ji begins the call by verifying key past milestones to validate the chart. For specific or pressing questions, horary analysis (Prashna Jyotish) can also be cast during the session."
+        },
+        {
+          q: "Is my consultation private and confidential?",
+          a: "Yes, completely. Every consultation is conducted in strict privacy and sacred confidence. Your birth chart details and personal conversations are never disclosed or shared."
+        },
+        {
+          q: "Can I ask about specific life areas or family members?",
+          a: "Yes. The 30-minute session is tailored to your pressing questions—covering career, marriage, relationships, business, or spiritual direction—accompanied by practical remedies based on Vedic Shastra."
+        },
+        {
+          q: "How will I receive the meeting link or recording?",
+          a: "Upon scheduling on Calendly, you will receive an instant calendar invite with the Google Meet link (or phone details). If you select Recorded Audio, a comprehensive personal audio reading will be delivered directly to your email address."
+        }
+      ]
+    }
   }
 };
 
@@ -251,6 +272,26 @@ const BookReadingClientPage: FC = () => {
               label={t.paypalLabel}
               copiedLabel={t.copied}
             />
+          </div>
+        </section>
+
+        {/* Frequently Asked Questions */}
+        <section className="bg-white border border-outline/20 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          <h2 className="text-2xl md:text-3xl font-normal font-headline text-on-surface">
+            {t.faq.title}
+          </h2>
+
+          <div className="space-y-4">
+            {t.faq.items.map((item, idx) => (
+              <div key={idx} className="p-4 md:p-5 rounded-2xl border border-outline/20 bg-surface-container-lowest space-y-1.5">
+                <h3 className="text-sm md:text-base font-medium font-headline text-on-surface">
+                  {item.q}
+                </h3>
+                <p className="text-xs md:text-sm font-body text-on-surface/80 leading-relaxed">
+                  {item.a}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
