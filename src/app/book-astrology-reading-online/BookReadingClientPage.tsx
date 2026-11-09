@@ -23,8 +23,8 @@ const TRANSLATIONS = {
     whatToExpect: {
       tag: "Session Overview",
       title: "About Your Future",
-      intro: "Each 1-hour session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details.",
-      sessionTitle: "1 Hour Consultation",
+      intro: "Each 30-minute session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details.",
+      sessionTitle: "30 Minutes Consultation",
       sessionDesc: "Suitable for detailed birth chart analysis, pressing career or personal questions, horary analysis (Prashna), auspicious timing (Muhurta), or Kundli matching. Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.",
       partsTitle: "Three Main Parts of the Session",
       partsDesc: "During our conversation, we cover three primary areas:",
@@ -184,7 +184,7 @@ const BookReadingClientPage: FC = () => {
           </div>
 
           <p className="text-sm md:text-base font-body text-on-surface/80 leading-relaxed">
-            Each 1-hour session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details (covering career, personal, horary/Prashna, Muhurta, or Kundli matching). Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.
+            Each 30-minute session is a direct live consultation strongly dedicated to studying your future while briefly touching upon your present and past to verify your birth chart details (covering career, personal, horary/Prashna, Muhurta, or Kundli matching). Available consultation types when booking on Calendly: Google Meet, Phone Call, or Recorded Audio sent to your email address.
           </p>
 
           <div className="space-y-3 pt-2">
