@@ -91,6 +91,7 @@ const Navbar = () => {
         { name: 'Biorhythm', href: '/biorhythm' },
         { name: 'Numerology', href: '/numerology' },
         { name: 'Birth Time Rectification (BTR)', href: '/btr' },
+        { name: 'Navagraha Stotram', href: '/navagraha-stotram' },
         { name: 'FAQ', href: '/faq' }
       ]
     },

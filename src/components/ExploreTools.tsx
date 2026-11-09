@@ -116,6 +116,16 @@ const ALL_CARDS = [
     gaAction: 'explore_kp_prashna',
     paths: ['/kp-horary', '/kp-horoscope']
   },
+  {
+    id: 'navagraha-stotram',
+    href: '/navagraha-stotram',
+    icon: 'menu_book',
+    title: 'Navagraha Stotram',
+    desc: 'Vedic hymn of Sage Veda Vyasa to harmonize and propitiate the nine planets.',
+    action: 'Chant Stotram',
+    gaAction: 'explore_navagraha_stotram',
+    paths: ['/navagraha-stotram']
+  },
 ].map(card => ({
   ...card,
   lowerPaths: card.paths.map(p => p.toLowerCase())

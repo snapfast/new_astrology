@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/numerology',
     '/panch-pakshi',
     '/btr',
+    '/navagraha-stotram',
     '/faq',
     '/privacy',
     '/terms',

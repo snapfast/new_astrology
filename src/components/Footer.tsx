@@ -42,6 +42,7 @@ const Footer = () => {
           <ul className="space-y-5 text-sm">
             <li><Link prefetch={true} href="/panchang" className="text-accent font-medium text-left">{t.dailyPanchang}</Link></li>
             <li><Link prefetch={true} href="/hora" className="text-on-surface font-normal text-left">{t.hora}</Link></li>
+            <li><Link prefetch={true} href="/navagraha-stotram" className="text-on-surface font-normal text-left">Navagraha Stotram</Link></li>
             <li><Link prefetch={true} href="/free-horoscope" className="text-on-surface font-normal text-left">{t.freeKundli}</Link></li>
             <li><Link prefetch={true} href="/book-astrology-reading-online" className="text-on-surface font-normal text-left">Book a Reading</Link></li>
             <li><Link prefetch={true} href="/book-astrology-reading-online" onClick={() => sendGAEvent({ event: 'action_click', action_name: 'footer_service_consultation' })} className="text-on-surface font-normal text-left">{t.consultation}</Link></li>
