@@ -26,5 +26,6 @@ Bali Astrology provides free, precise Vedic (Parashari) and Krishnamurti Paddhat
 - [Panch Pakshi](https://baliastrology.com/panch-pakshi): South Indian Pancha Pakshi Shastra calculations for daily activity states based on birth Nakshatra.
 - [Biorhythm Calculator](https://baliastrology.com/biorhythm): Physical, emotional, and intellectual cycles based on birth date.
 - [Birth Time Rectification (BTR)](https://baliastrology.com/btr): Tool assisting in refining precise birth timing using astrological indicators.
+- [Navagraha Stotram](https://baliastrology.com/navagraha-stotram): Traditional hymn of Sage Veda Vyasa to the nine planetary deities with Sanskrit shlokas, English translation, and astrological benefits.
 
 
