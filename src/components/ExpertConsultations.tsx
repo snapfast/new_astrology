@@ -1,6 +1,8 @@
 'use client';
 
 import { memo } from 'react';
+import Link from 'next/link';
+import { sendGAEvent } from '@next/third-parties/google';
 
 interface ExpertConsultationsProps {
   showTitle?: boolean;
@@ -66,14 +68,16 @@ const ExpertConsultationsComponent = ({ showTitle = true }: ExpertConsultationsP
 
         {/* Call to Action */}
         <div className="mt-20 text-center">
-          <button
+          <Link
+            prefetch={true}
+            href="/book-astrology-reading-online"
             onClick={() => {
-              window.dispatchEvent(new CustomEvent('openBookingModal'));
+              sendGAEvent({ event: 'action_click', action_name: 'expert_consultations_book_now' });
             }}
             className="btn-primary inline-flex items-center justify-center px-10 py-5 shadow-lg shadow-primary/10 text-xs tracking-[0.2em]"
           >
             {t.bookNow}
-          </button>
+          </Link>
         </div>
       </div>
     </section>

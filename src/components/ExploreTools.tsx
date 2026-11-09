@@ -98,13 +98,13 @@ const ALL_CARDS = [
   },
   {
     id: 'booking',
-    isButton: true,
+    href: '/book-astrology-reading-online',
     icon: 'chat_bubble',
     title: 'Book Personal Session',
     desc: 'Get solutions for career, relationships, remedies & spiritual path.',
     action: 'Connect Now',
     gaAction: 'explore_booking',
-    paths: []
+    paths: ['/book-astrology-reading-online']
   },
   {
     id: 'kp-prashna',
@@ -147,14 +147,14 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
       }
       if (matchesPath) continue;
 
-      if (card.isButton) {
+      if (card.id === 'booking') {
         bookingCard = card;
       } else {
         nonBookingCards.push(card);
       }
     }
 
-    const result = [];
+    const result: typeof ALL_CARDS = [];
     if (bookingCard) {
       result.push(bookingCard);
     }
@@ -171,11 +171,6 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
     sendGAEvent({ event: 'action_click', action_name: gaAction });
   };
 
-  const handleBookingClick = () => {
-    sendGAEvent({ event: 'action_click', action_name: 'explore_booking_click' });
-    window.dispatchEvent(new CustomEvent('openBookingModal'));
-  };
-
   const sectionTitle = "Explore More Vedic Astrology Tools";
   const sectionDesc = "Align your lifestyle and cosmic energies further. Try our precise astronomical tools and personalized services.";
 
@@ -190,56 +185,29 @@ const ExploreTools: React.FC<ExploreToolsProps> = ({ currentPath = '', className
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-          {filteredCards.map((card) => {
-            if (card.isButton) {
-              return (
-                <button
-                  key={card.id}
-                  onClick={handleBookingClick}
-                  className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow text-left group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
-                >
-                  <div>
-                    <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">
-                      {card.icon}
-                    </span>
-                    <h4 className="text-sm font-headline text-on-surface mb-1">
-                      {card.title}
-                    </h4>
-                    <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
-                      {card.desc}
-                    </p>
-                  </div>
-                  <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    {card.action} &rarr;
-                  </span>
-                </button>
-              );
-            }
-
-            return (
-              <Link prefetch={true}
-                key={card.id}
-                href={card.href || ''}
-                onClick={() => handleCardClick(card.gaAction)}
-                className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
-              >
-                <div>
-                  <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">
-                    {card.icon}
-                  </span>
-                  <h4 className="text-sm font-headline text-on-surface mb-1">
-                    {card.title}
-                  </h4>
-                  <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
-                    {card.desc}
-                  </p>
-                </div>
-                <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  {card.action} &rarr;
+          {filteredCards.map((card) => (
+            <Link prefetch={true}
+              key={card.id}
+              href={card.href || ''}
+              onClick={() => handleCardClick(card.gaAction)}
+              className="bg-white border border-outline/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 active:scale-95 duration-200"
+            >
+              <div>
+                <span className="material-symbols-outlined text-accent text-3xl mb-3 block" aria-hidden="true">
+                  {card.icon}
                 </span>
-              </Link>
-            );
-          })}
+                <h4 className="text-sm font-headline text-on-surface mb-1">
+                  {card.title}
+                </h4>
+                <p className="text-[11px] text-on-surface/70 leading-relaxed font-body">
+                  {card.desc}
+                </p>
+              </div>
+              <span className="text-[10px] uppercase font-label font-bold text-accent tracking-widest mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                {card.action} &rarr;
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

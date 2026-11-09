@@ -186,14 +186,6 @@ const HoroscopeContent = () => {
     }
   };
 
-  const handleBookNow = () => {
-    sendGAEvent({
-      event: "action_click",
-      action_name: "horoscope_page_book_now",
-    });
-    window.dispatchEvent(new CustomEvent("openBookingModal"));
-  };
-
   return (
     <>
       <PageHeader title={t.pageTitle}>
@@ -794,12 +786,19 @@ const HoroscopeContent = () => {
             <p className="text-sm md:text-base text-on-surface font-body mb-10 max-w-2xl mx-auto leading-relaxed">
               {t.ctaDesc}
             </p>
-            <button
-              onClick={handleBookNow}
+            <Link
+              prefetch={true}
+              href="/book-astrology-reading-online"
+              onClick={() => {
+                sendGAEvent({
+                  event: "action_click",
+                  action_name: "horoscope_page_book_now",
+                });
+              }}
               className="btn-primary inline-block px-12 py-5 text-xs md:text-sm tracking-[0.1em]"
             >
               {t.ctaBtn}
-            </button>
+            </Link>
           </div>
           {/* Subtle Decorative Element */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[radial-gradient(circle,rgba(255,174,66,0.05)_0%,transparent_70%)] rounded-full -z-0"></div>

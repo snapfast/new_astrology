@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
@@ -142,15 +143,16 @@ export default function ReviewsClientPage() {
                 : "संतुष्ट ग्राहकों में शामिल हों। गहन वैदिक परामर्श के साथ अपने करियर, रिश्तों, धन और कल्याण पर स्पष्टता प्राप्त करें।"}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
+              <Link
+                prefetch={true}
+                href="/book-astrology-reading-online"
                 onClick={() => {
                   sendGAEvent({ event: 'action_click', action_name: 'reviews_page_book_now' });
-                  window.dispatchEvent(new CustomEvent('openBookingModal'));
                 }}
-                className={`px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
+                className={`inline-flex items-center justify-center px-8 py-4 bg-accent text-white rounded-full font-medium text-[10px] md:text-xs font-label shadow-lg hover:shadow-xl active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${lang === 'en' ? 'tracking-[0.1em]' : ''}`}
               >
                 {lang === 'en' ? 'Book Personal Session' : 'परामर्श सत्र बुक करें'}
-              </button>
+              </Link>
             </div>
           </div>
         </div>
